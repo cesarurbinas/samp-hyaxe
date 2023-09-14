@@ -34583,11 +34583,11 @@ DeleteIlegalInv(playerid)
 		ResetPlayerWeaponsEx(playerid); // LFMFAOO HAHAHA!
 	}
 
-	//PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
-	//PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
-	//PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
-	//PLAYER_MISC[playerid][MISC_CRACK] = 0;
-	//SavePlayerMisc(playerid);
+	PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
+	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
+	PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
+	PLAYER_MISC[playerid][MISC_CRACK] = 0;
+	SavePlayerMisc(playerid);
 	return 1;
 }
 
