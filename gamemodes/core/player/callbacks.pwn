@@ -3354,7 +3354,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][3])
 		{
-			HideCrew(playerid);
 			ShowDialog(playerid, DIALOG_PLAYER_GPS);
 			return 1;
 		}
@@ -3752,8 +3751,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     {
     	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 		{
-			UseItemSlot(playerid);
-			return 1;
+			if ( !IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]) )
+			{
+				UseItemSlot(playerid);
+				return 1;
+			}
 		}
 
 		CheckBurdelShop(playerid);
@@ -4092,14 +4094,15 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 		{
-			if (GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_SMOKE_CIGGY &&  PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ] == 54)
+			if (PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ] == 38)
 			{
 				if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_JOINT]) > 2)
 				{
+					printf("%d wddsfdffsdfsdfsdaw", PLAYER_TEMP[playerid][py_JOINT_USES]);
 					PLAYER_TEMP[playerid][py_JOINT_USES] ++;
 					GivePlayerHealthEx(playerid, 3.0);
 
-					if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
+					if (PLAYER_TEMP[playerid][py_JOINT_USES] >= 10)
 					{
 						PLAYER_TEMP[playerid][py_JOINT_USES] = 0;
 						SubtractItem(playerid, 38);
@@ -5505,6 +5508,7 @@ public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
+	//SendClientMessage(playerid, -1, "OnPlayerWeaponShot");
 	if (WEAPON_INFO[weaponid][weapon_info_AMMO]) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] --;
 	
 	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] <= 0) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] = 0;
@@ -5817,6 +5821,17 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 		}
 	}
 
+	if (GetPlayerInterior(playerid) != 0)
+	{
+		OnPlayerWeaponShot(
+			playerid,
+			bulletData[PR_weaponId],
+			bulletData[PR_hitType],
+			bulletData[PR_hitId],
+			bulletData[PR_hitPos][0], bulletData[PR_hitPos][1], bulletData[PR_hitPos][2]
+		);	
+	}
+
     return 1;
 }
 
@@ -6068,7 +6083,7 @@ public ContinuePlayerIntro(playerid, step)
 		{
 			ClearPlayerChatBox(playerid);
 
-			CHARACTER_INFO[playerid][ch_CASH] = 30000;
+			CHARACTER_INFO[playerid][ch_CASH] = 15000;
 			#if defined DM_MODE
             	CHARACTER_INFO[playerid][ch_CASH] = 200000;
 			#endif
@@ -6087,6 +6102,7 @@ public ContinuePlayerIntro(playerid, step)
 			PLAYER_MISC[playerid][MISC_CONFIG_HUD] = true;
 			PLAYER_MISC[playerid][MISC_CONFIG_FP] = false;
 			PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] = false;
+			PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = true;
 
 			SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 			PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();

@@ -20,7 +20,7 @@ TypeToWeapon(type)
 		case 18: return 2;
 		case 19: return 1;
 		case 20: return 22;
-		case 21: return 22;
+		case 21: return 23;
 		case 22: return 24;
 		case 23: return 25;
 		case 24: return 26;
@@ -51,6 +51,7 @@ WeaponToType(weapon)
 		case 17: return 17;
 		case 2: return 18;
 		case 1: return 19;
+		case 23: return 21;
 		case 22: return 20;
 		case 24: return 22;
 		case 25: return 23;

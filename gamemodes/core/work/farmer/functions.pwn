@@ -61,7 +61,6 @@ StartPlanting(playerid, type)
 		ShowPlayerMessage(playerid, str_text, 4);
 		return 1;
 	}
-
 	if (GetPlayerPlantedPlants(playerid) > 25) return ShowPlayerMessage(playerid, "~r~Tienes muchas plantas, recógelas para seguir", 4);
 
 	for(new i = 0; i != MAX_PLANTS; i ++)
@@ -76,12 +75,11 @@ StartPlanting(playerid, type)
 			return 1;
 		}
 	}
-
 	switch(seed_info[type][seed_info_PLANT_TYPE])
 	{
 		case PLANT_TYPE_MEDICINE:
 		{
-			if (PlayerAlreadyHasItem(playerid, 6))
+			if (!PlayerAlreadyHasItem(playerid, 6))
 			{
 				ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
 				return 1;
@@ -90,7 +88,7 @@ StartPlanting(playerid, type)
 		}
 		case PLANT_TYPE_CANNABIS:
 		{
-			if (PlayerAlreadyHasItem(playerid, 7))
+			if (!PlayerAlreadyHasItem(playerid, 7))
 			{
 				ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
 				return 1;
@@ -99,7 +97,7 @@ StartPlanting(playerid, type)
 		}
 		case PLANT_TYPE_CRACK:
 		{
-			if (PlayerAlreadyHasItem(playerid, 8))
+			if (!PlayerAlreadyHasItem(playerid, 8))
 			{
 				ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
 				return 1;

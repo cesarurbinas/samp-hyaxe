@@ -105,6 +105,18 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 		return 0;
 	}
 
+	new
+		Float:distance,
+		Float:x1, Float:y1, Float:z1,
+		Float:x2, Float:y2, Float:z2
+	;
+
+	GetPlayerPos(playerid, x1, y1, z1);
+	GetPlayerPos(damagedid, x2, y2, z2);
+
+	distance = VectorSize(x1 - x2, y1 - y2, z1 - z2);
+	if (distace <= 1.0) weaponid = 0;
+
 	if (weaponid <= WEAPON_SNIPER)
 	{
 		amount = g_rgiWeaponsDamage[weaponid][bodypart - 3];

@@ -1266,12 +1266,15 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 					if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK)
 					{
+						new ammo = PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot];
+						if (ammo <= 0) ammo = 1;
+
 						if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 						{
 							GivePlayerWeaponEx(
 								playerid,
 								TypeToWeapon(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]),
-								PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot],
+								ammo,
 								true
 							);
 						}
@@ -1280,7 +1283,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 							GivePlayerWeaponEx(
 								playerid,
 								TypeToWeapon(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]),
-								PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot],
+								ammo,
 								true
 							);
 						}

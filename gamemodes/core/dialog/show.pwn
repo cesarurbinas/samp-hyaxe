@@ -459,8 +459,6 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_PLAYER_GPS:
 		{
-			HideInventory(playerid);
-			ShowInventory(playerid);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"GPS",  "Lugares guardados\nPropiedades\nVehículos\nOtros\nTrabajos", "Selecc.", "Cerrar");
 			return 1;
 		}

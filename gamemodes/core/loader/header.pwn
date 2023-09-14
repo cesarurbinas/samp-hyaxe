@@ -400,9 +400,9 @@ SanAndreas()
 	CreateDynamic3DTextLabel("{f5e30a}Triade di San Andreas\n"COL_WHITE"Equipamiento", 0xF0F0F000, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF0F0F000, 882.789611, 1896.002319, -93.898712, 20.0, .testlos = true, .worldid = 0, .interiorid = 29);
 	CreateDynamic3DTextLabel("{FFFFFF}The Family Connor\n"COL_WHITE"Equipamiento", 0xF0F0F000, 419.4871, -1001.7376, 92.8918, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel("{E55B5B}Diviso Per Tutti\n"COL_WHITE"Equipamiento", 0xF0F0F000, 1141.0912, -2064.0176, 69.0259, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{E55B5B}Guns N' Roses\n"COL_WHITE"Equipamiento", 0xF0F0F000, 1141.0912, -2064.0176, 69.0259, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF0F0F000, 1298.5734, -799.0347, 84.1406, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel("{FFFFFF}The Family Sindacco\n"COL_WHITE"Equipamiento", 0xF0F0F000, 1298.5734, -799.0347, 84.1406, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	//CreateDynamic3DTextLabel("{FFFFFF}The Family Sindacco\n"COL_WHITE"Equipamiento", 0xF0F0F000, 1298.5734, -799.0347, 84.1406, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF0F0F000, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF0F0F000, 727.9929, -1276.1163, 13.6484, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
@@ -426,7 +426,7 @@ SanAndreas()
 	CreateDynamic3DTextLabel(""COL_RED"Vender pescados\n"COL_WHITE"Venga aquí para vender sus peces", 0xF0F0F0FF, 2157.049560, -92.550987, 2.798943, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	// Minero
-	CreateDynamic3DTextLabel(""COL_RED"Puesto para mineros\n"COL_WHITE"1 producto disponible", 0xF0F0F0FF, 509.910125, -708.205383, 19.242210, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Puesto para mineros\n"COL_WHITE"9 producto disponible", 0xF0F0F0FF, 509.910125, -708.205383, 19.242210, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	
 	//heliport
 	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 1\n"COL_WHITE"Acércate para usar", 0xF0F0F000, 1876.87915, -2286.58911, 1.16550 + 15, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);

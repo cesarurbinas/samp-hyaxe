@@ -4195,13 +4195,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
-				if (5000 > CHARACTER_INFO[playerid][ch_CASH])
+				if (100000 > CHARACTER_INFO[playerid][ch_CASH])
 				{
 				    ShowPlayerMessage(playerid, "~r~Necesitas 100.000$ para crear la banda.", 3);
 					return 1;
 				}
 
-				GivePlayerCash(playerid, -5000);
+				GivePlayerCash(playerid, -100000);
 				CREW_INFO[index][crew_VALID] = true;
 				format(CREW_INFO[index][crew_NAME], 32, "%s", PLAYER_TEMP[playerid][py_CREATE_CREW_NAME]);
 				format(CREW_INFO[index][crew_DESCRIPTION], 32, "Banda de Hyaxe");
@@ -6663,7 +6663,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 1..8:
 					{
-						new price = listitem * 1500; 
+						new price = listitem * 500; 
 						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
@@ -6923,6 +6923,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
 						AddPlayerItem(playerid, 32);
 						ShowPlayerNotification(playerid, "Has comprado una cámara.", 4);
+						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
+						return 1;
+					}
+					case ELECTRONIC_PHONE:
+					{
+						if (!inv_GetFreeSlot(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+
+						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						AddPlayerItem(playerid, 34);
+						ShowPlayerNotification(playerid, "Has comprado un celular.", 4);
 						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
 						return 1;
 					}

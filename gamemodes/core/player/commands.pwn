@@ -1055,7 +1055,7 @@ CMD:mecanico(playerid, params[])
 	return 1;
 }*/
 
-CMD:plantar(playerid, params[])
+/*CMD:plantar(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
@@ -1090,7 +1090,7 @@ CMD:plantar(playerid, params[])
 
 	ShowDialog(playerid, DIALOG_PLANT_PLANTS);
 	return 1;
-}
+}*/
 
 CMD:no(playerid, params[])
 {
@@ -1421,7 +1421,7 @@ CMD:hablar(playerid, params[])
 	return 1;
 }
 
-CMD:clickslot(playerid, params[])
+/*CMD:clickslot(playerid, params[])
 {
 	new slot;
 	if (sscanf(params, "d", slot)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /clickslot <slot>");
@@ -1441,7 +1441,7 @@ CMD:equipitem(playerid, params[])
 
 	EquipItemByType(playerid, type);
 	return 1;
-}
+}*/
 
 CMD:mafia(playerid, params[])
 {

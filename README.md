@@ -139,27 +139,54 @@ Listado de cosas para hacer
 ✅ Arreglar barras de sed y hambre
 
 # Changelog
-* Arreglos en la apariencia del inventario
-* El comando /repairveh fue arreglado
-* Mas de 40 items nuevos
-* El sistema de items y inventario fue reescrito totalmente
-* Arreglos en el aspecto del login
-* Ahora hay tiendas en los burdeles
-* Las tiendas de comida fueron reescritas
-* Cambios en la apariencia del preview dialog
-* Los nombres de los accesorios ahora son mas cortos
-* Ahora puedes moverte por el inventario usando el numpad
-	- 4 para ir atras
-	- 6 para ir hacia adelante
-* Las barras de sed y hambre fueron arregladas
-* Los botones del inventario fueron arreglados
-* Ahora puedes llevar comida en el inventario
-* Ahora puedes seleccionar de que forma quieres que se ordene el inventario desde /config
-* Ahora se puede compartir la llave de las propiedades
-* Ahora las menciones en el canal de dudas funcionan solo con poner @, ya no hace falta poner los dos puntos al final
-* El sistema de bidones de gasolina fue reescrito, ahora cada bidon solo tiene un uso, y subira 20 de gasolina al vehiculo
-* Se arreglaron los caracteres espanoles en las notificaciones
-* Nuevo velocimetro
-	- Ahora este marca el estado de las puertas y las luces
-* Ahora las disputas de graffiti inician cada hora a los 45 minutos, el primer aviso sale a las xx:30
-* Ahora automaticamente todos los sabados a las 5:45 hay una disputa de mercado
+**Hyaxe 2.0 - Stable version**
+```
+Inicio: 09/05/2021
+Actual: 25/05/2021
+Diferencia: 16 dias
+```
+
+* Correcciones en la apariencia del inventario.
+* Se corrigió el comando /repairveh
+* Más de 40 items nuevos
+* El sistema de items/inventario se reescribieron por completo.
+* Correcciones en la apariencia del inicio de sesión.
+* Ahora hay tiendas en burdeles
+* Las tiendas de alimentos fueron reescritas
+* Cambios en la apariencia del diálogo de vista previa.
+* Los nombres de los accesorios ahora son más cortos
+* Ahora puede moverse por el inventario usando el teclado numérico
+	- 4 para volver
+	- 6 para seguir adelante
+* Se arreglaron las barras de sed y hambre
+* Se arreglaron los botones de inventario
+* Ahora puedes llevar comida en el inventario.
+* Ahora puede seleccionar cómo desea que se ordene el inventario desde /config
+* Ahora puedes compartir las llaves de propiedad
+* Ahora las menciones en el canal de dudas funcionan solo con poner @, ya no es necesario poner los dos puntos al final
+* El sistema de bidones de gasolina fue reescrito, ahora cada bidon tiene un solo uso y agregará 20 gasolina al vehículo.
+* Se corrigieron los caracteres españoles en las notificaciones.
+* Nuevo velocímetro
+	- Ahora esto marca el estado de las puertas y luces.
+* Ahora las disputas de graffiti comienzan cada hora a los 45 minutos, el primer aviso sale a las xx:30
+* Ahora automáticamente todos los sábados a las 5:45 hay una disputa de mercado
+* Ahora para comprar munición deben tener el arma en la mano
+* Se ha eliminado /clickslot
+* Se ha liminado /equipitem
+* El precio para crear una banda ahora es el correcto
+* Correcciones en notificaciones
+* Se corrigió el error que hacía imposible presionar la tecla "Y" mientras se tenía un arma en la mano
+* Se corrigió un error en el menú de los bares
+* Se corrigió un error en el equipamiento de Guns N 'Roses
+* El celular se ha agregado en la tienda de electrónica
+* Se eliminó el comando /plantar
+* Se solucionó el error que no permitía plantar semillas
+* Se corrigió el error de porro infinita
+* Se corrigió un error de munición infinita en interiores
+* Se corrigió el error de arma al tener 0 munición
+* Se ha arreglado el puesto de minero
+* Se corrigió el precio de los potenciadores
+
+* Se ha arreglado el equipamiento de The Family Sindacco
+* Se ha arreglado el bug que al golpear con la culata de un arma sacaba la vida como si fuera un disparo
+* Se ha arreglado el bug que al agarrar un tazer en LSPD te daba un botiquin
