@@ -31273,7 +31273,7 @@ alias:cagar("defecar")
 
 CMD:parar(playerid, params[])
 {
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED || IsPlayerInAnyVehicle(playerid) || PLAYER_TEMP[playerid][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 	ClearAnimations(playerid);
 
