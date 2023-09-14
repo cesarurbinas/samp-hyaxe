@@ -515,13 +515,13 @@ UpdateVehicleMaterialObject(vehicleid, slot)
 	return 1;
 }*/
 
-UpdateVehicleAttachedObject(vehicleid, slot, material = false)
+UpdateVehicleAttachedObject(vehicleid, slot, material = true)
 {
 	if(VEHICLE_OBJECTS[vehicleid][slot][vobject_ATTACHED])
 	{
 		if(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] == INVALID_STREAMER_ID)
 		{
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = 	CreateDynamicObject(VEHICLE_OBJECTS[vehicleid][slot][vobject_MODELID], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = CreateDynamicObject(VEHICLE_OBJECTS[vehicleid][slot][vobject_MODELID], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 		}
 		
 		if(material)

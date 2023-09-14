@@ -88,6 +88,7 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 					}
 					
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED] = true;
+					UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT])
 					
 					/*switch(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_TYPE])
 					{
