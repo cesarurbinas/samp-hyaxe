@@ -821,7 +821,7 @@ CMD:tirar(playerid, params[])
 		{
 			CreateDropItem(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], x, y, z - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), PLAYER_TEMP[playerid][py_NAME], ammount);
 			
-			SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot, ammount);
+			SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], ammount);
 			ResetItemBody(playerid);
 			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]--;
 		}
@@ -867,7 +867,7 @@ CMD:guardar(playerid, params[])
 				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Item guardado", 2000, 5);
 				ResetItemBody(playerid);
 
-				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot, ammount);
+				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], ammount);
 
 				new already_exists = ItemAlreadyInVehicle(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
