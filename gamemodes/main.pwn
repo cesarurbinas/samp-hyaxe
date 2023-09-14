@@ -13238,6 +13238,8 @@ ShowDialog(playerid, dialogid)
 						total_products ++;
 					}
 				}
+				db_free_result(Result);
+
 				if (total_products == 0) return ShowPlayerMessage(playerid, "~r~No hay productos disponibles", 4);
 				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comidas", dialog, "Comprar", "Atrás");
 			}
@@ -21479,6 +21481,64 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 			}
+		}
+		case DIALOG_CLUB_BUY_FOOD:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
+				SendClientMessageEx(playerid, -1, "%d", PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]);
+
+				new
+					DBResult:Result,
+					DB_Query[128],
+					club = PLAYER_TEMP[playerid][py_CLUB_INDEX]
+				;
+
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]);
+				Result = db_query(Database, DB_Query);
+
+				if (db_num_rows(Result))
+				{
+					for(new i; i < db_num_rows(Result); i++ )
+					{
+						new 
+							name[32],
+							price,
+							extra
+						;
+
+						price = db_get_field_assoc_int(Result, "PRICE");
+						extra = db_get_field_assoc_int(Result, "EXTRA");
+						db_get_field_assoc(Result, "NAME", name, 32);
+
+						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						
+						new str_text[128];
+						format(str_text, 128, "Conumiendo %s...", name);
+						ShowPlayerNotification(playerid, str_text, 3);
+
+						format(DB_Query, sizeof(DB_Query), "\
+							UPDATE `CLUB_INFO` SET\
+								`BALANCE` = BALANCE + '%d' \
+							WHERE `ID` = '%d';\
+						", price, club);
+						db_free_result(db_query(Database, DB_Query));
+
+						Add_Hungry_Thirst(playerid, floatround(extra), 0.0);
+
+						SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
+						ShowPlayerNotification(playerid, "Consumiendo...", 3);
+
+						ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
+						ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
+
+						GivePlayerCash(playerid, -price, false);
+					}
+				}
+				db_free_result(Result);
+			}
+			else ShowDialog(playerid, DIALOG_CLUB);
 		}
 	}
 	return 0;
