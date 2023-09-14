@@ -8557,7 +8557,7 @@ public OnPlayerText(playerid, text[])
 		if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
 		{
 			if (text[1] == '!') format(str_text, sizeof str_text, "[TCC] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-			else format(str_text, sizeof str_text, "[TCC] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], text[1]);
+			else format(str_text, sizeof str_text, "[TCC] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], text[1]);
 
 			SendMafiaMessage(0xff9b00FF, str_text);
 			return 0;
