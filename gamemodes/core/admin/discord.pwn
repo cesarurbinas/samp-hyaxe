@@ -2,7 +2,7 @@
 #if defined FINAL_BUILD
 DCC_IsUserModerator(DCC_User:user)
 {
-	new DCC_Guild:guild = DCC_FindGuildById("586980198910656521");
+	new DCC_Guild:guild = DCC_FindGuildById("681246964490174483");
 	
 	new role_count;
 	DCC_GetGuildMemberRoleCount(guild, user, role_count);
