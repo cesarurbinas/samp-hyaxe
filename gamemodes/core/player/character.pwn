@@ -1,3 +1,9 @@
+enum
+{
+	SEX_MALE,
+	SEX_FEMALE
+};
+
 enum Character_Enum
 {
 	ch_SKIN,

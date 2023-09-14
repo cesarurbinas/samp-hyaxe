@@ -1,3 +1,5 @@
+new ADMIN_LEVEL_AC_IMMUNITY = 2; // Moderador en adelante
+
 CMD:jailoff(playerid, params[])
 {
 	new dbid, minutes, reason[65];
