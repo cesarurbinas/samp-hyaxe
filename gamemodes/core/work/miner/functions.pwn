@@ -128,7 +128,7 @@ DropPlayerRock(playerid, place_id)
 {
 	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
 	{
-		if (IsPlayerInRangeOfPoint(playerid, 3.0, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z]))
+		if (IsPlayerInRangeOfPoint(playerid, 4.0, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z]))
 		{
 			if (ROCK_PROCESSOR[i][rp_FUEL] <= 0.0 || ROCK_PROCESSOR[i][rp_HEALTH] <= 0.0) return 0;
 			
