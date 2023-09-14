@@ -362,57 +362,6 @@ IsWeaponType(type)
 	return false;
 }
 
-WeaponToType(type)
-{
-	new weapon;
-	switch(type)
-	{
-		case 5: weapon = 12;//bat
-		case 3: weapon = 13;//porra
-		case 4: weapon = 14;//knife
-		case 6: weapon = 15;//pala
-		case 7: weapon = 16;//pool
-		case 17: weapon = 17;
-		case 2: weapon = 18;//golf
-		case 1: weapon = 19;//punio
-		case 22: weapon = 22;
-		case 23: weapon = 23;
-		case 24: weapon = 24;
-		case 25: weapon = 25;
-		case 26: weapon = 26;
-		case 28: weapon = 28;
-		case 29: weapon = 29;
-		case 30: weapon = 30;
-		case 31: weapon = 31;
-		case 32: weapon = 32;
-		case 33: weapon = 33;
-		case 41: weapon = 41;
-		case 43: weapon = 43;
-		case 46: weapon = 46;
-	}
-	return weapon;
-}
-
-GrabWeapon(playerid, type, ammount)
-{
-	new 
-		weapon_id = TypeToWeapon(type), 
-		weapon_slot = WEAPON_INFO[weapon_id][weapon_info_SLOT],
-		str_text[128]
-	;
-
-	if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
-	{
-		format(str_text, sizeof(str_text), "Para agarrar esta arma tienes que deshacerte de tu %s para tener espacio.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] ][weapon_info_NAME]);
-		ShowPlayerNotification(playerid, str_text, 4);
-		return 0;
-	}
-
-	RegisterNewPlayerWeapon(playerid, weapon_slot);
-	GivePlayerWeaponEx(playerid, weapon_id, ammount);
-	return 1;
-}
-
 IsFullInventory(playerid)
 {
 	new free_slot = inv_GetFreeSlot(playerid);
