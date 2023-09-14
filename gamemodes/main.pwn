@@ -2513,6 +2513,32 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
+enum Doubt_Enum
+{
+	d_QUESTION[144],
+	d_RESPONSE[144]
+};
+
+new DOUBT_RESPONSES[][Doubt_Enum] = // EE = EnterExits
+{
+	{"como veo el nuevo de alguien", "use /guia id"},
+	{"como pico", "con alt, si no te anda usa /minero"},
+	{"como soy policia", "postulandote en foro.hyaxe.com si es que estan abiertas"},
+	{"cual es el foro", "foro.hyaxe.com"},
+	{"donde compro armas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
+	{"donde compro las armas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
+	{"donde compro drogas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
+	{"donde compro una arma", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
+	{"a que nivel puedo usar armas", "a nivel 2"},
+	{"estoy bug necesito un staff", "/reportar tu id"},
+	{"quien es el dueño del sv", "atom alias yahir_kozer"},
+	{"como acepto muerte", "con la c"},
+	{"como guardo un arma en mi maletero", "/guardar arma usa /armas para ver el slot"},
+	{"cual es el mejor trabajo", "averigua ic"},
+	{"como veo el inventario", "presiona la tecla N"},
+	{"como contacto a un staff", "/reportar tu id"}
+};
+
 enum enum_JAIL_POSITIONS
 {
 	jail_INT,
@@ -8275,7 +8301,6 @@ CMD:duda(playerid, params[])
 		return 1;
 	}
 
-
 	if (!ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
 	{
 		if (gettime() < PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] + MIN_TIME_BETWEEN_DOUBT)
@@ -12720,7 +12745,7 @@ ShowDialog(playerid, dialogid)
 					Primera persona\t%s\n\
 					Sexo\t%s\n\
 					Recargar mapeos\t\n\
-					Damage informer\t\n\
+					Damage informer\t%s\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
@@ -13138,11 +13163,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
 				Log("obj", pass_str);
 
-				/*ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Apoyar a Hyaxe", ""COL_WHITE"\
-					Si deseas apoyar a Hyaxe puedes hacerlo vía paypal enviado la suma\n\
-					que quieras al siguiente correo: "COL_RED"500wapos@gmail.com"COL_WHITE", si envías una\n\
-					cantidad superior a 3 U$D te daremos 1 mes de VIP y 15 Hycoins,\n\
-					solo debes ingresar el nombre de tu cuenta en la nota.", "Aceptar", "");*/
+				SetDamageInformer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
+
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Chat de voz", ""COL_WHITE"\
+					Hemos removidos el chat de voz ya que nadie lo usaba, pero tranquilo\n\
+					vamos a abrir un Hyaxe #2 con chat de voz y whitelist (mejor rol)\n\
+					con las mismas cuestas que el día de apertura, ingresa a nuestro\n\
+					discord para estar al tanto (/discord).", "Aceptar", "");
 			}
 			else // Error
 			{
@@ -20708,6 +20735,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]) PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = false;
 						else PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = true;
 
+						SetDamageInformer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
 						SavePlayerMisc(playerid);
 						ShowDialog(playerid, dialogid);
 					}
@@ -37414,6 +37442,24 @@ CheckNameFilterViolation(const str_text[])
 	return false;
 }
 
+CALLBACK: BotDoubtResponse(playerid, response[])
+{
+	new str[364];
+	format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"Jugador %s_%s (%d): (( @%d %s ))", names[random(sizeof(names))], surnames[random(sizeof(surnames))], minrand(0, 1000), playerid, response);
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL] && !PLAYER_TEMP[playerid][py_NEW_USER])
+			{
+				SendResponsiveMessage(i, COLOR_DARK_GREEN, str, 125);
+			}
+		}
+	}
+	return 1;
+}
+
 SendMessageToDoubtChannel(playerid, message[])
 {
 	new str[364];
@@ -37443,6 +37489,14 @@ SendMessageToDoubtChannel(playerid, message[])
 				if (BOTS[playerid][b_ACTIVE] && ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) continue;
 				SendResponsiveMessage(i, COLOR_DARK_GREEN, str, 125);
 			}
+		}
+	}
+
+	for(new i = 0; i != sizeof(DOUBT_RESPONSES); i++ )
+	{
+		if (strfind(message, DOUBT_RESPONSES[i][d_QUESTION], true) == -1)
+		{
+			SetTimerEx("BotDoubtResponse", 1000, false, "is[264]", playerid, DOUBT_RESPONSES[i][d_RESPONSE]);
 		}
 	}
 	return 1;
