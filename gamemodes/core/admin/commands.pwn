@@ -14,7 +14,7 @@ CMD:comandosadmin(playerid, params[])
 
     new CmdArray:command_arr = PC_GetCommandArray();
     new len = PC_GetArraySize(command_arr);
-    new dialog[1250], line[50];
+    new dialog[1024], line[50];
     for(new i = 0; i != len; i++)
     {
         new cmdname[31], flags;
@@ -1626,10 +1626,10 @@ CMD:pnot(playerid, params[])
     if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /pnot <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
 
-	new dialog[2675];
+	new dialog[128 * 10];
 
 	new DBResult:Result, DB_Query[140];
-	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_NOTIFICATIONS` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 40;", ACCOUNT_INFO[to_player][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_NOTIFICATIONS` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 10;", ACCOUNT_INFO[to_player][ac_ID]);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No hay notificaciones.");
@@ -1639,11 +1639,11 @@ CMD:pnot(playerid, params[])
 		{
 			new 
 				line_str[125],
-				message[264],
+				message[128],
 				date;
 
 			date = db_get_field_assoc_int(Result, "DATE");
-			db_get_field_assoc(Result, "MESSAGE", message, 264);
+			db_get_field_assoc(Result, "MESSAGE", message, 128);
 
 			format(line_str, sizeof line_str, ""COL_WHITE"%s\t%s\n", message, ReturnTimelapse(date, gettime()));
 			strcat(dialog, line_str);

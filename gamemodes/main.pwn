@@ -1942,7 +1942,7 @@ new ATM_BANK[][atm_bank_info] =
 	{2942, 1092.4537, -1803.6158, 13.2584, 0.0000, 0.0000, -176.1998}
 };
 
-#define MAX_BANK_TRANSACTIONS_DIALOG 20
+#define MAX_BANK_TRANSACTIONS_DIALOG 5
 enum
 {
 	BANK_TRANSACTION_WITHDRAW,
@@ -8330,7 +8330,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_BANK_TRANSACTIONS:
 		{
-			new dialog[2675];
+			new dialog[128 * 5];
 			format(dialog, sizeof dialog, ""COL_WHITE"Fecha\t"COL_WHITE"Concepto\t"COL_WHITE"Importe\n");
 
 			new DBResult:Result, transactions, DB_Query[140];
@@ -8532,11 +8532,11 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_PHONE_BOOK_SEND_MESSAGE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Escribe el mensaje que quieres enviar\nCaracteres: 1-64.", "Selecc.", "Atrás");
 		case DIALOG_PHONE_SENT_MESSAGES:
 		{
-			new dialog[1600];
+			new dialog[128 * 5];
 			format(dialog, sizeof dialog, ""COL_WHITE"Fecha\t"COL_WHITE"Destinario\t"COL_WHITE"Mensaje\n");
 
 			new DBResult:Result, DB_Query[140], messages;
-			format(DB_Query, sizeof DB_Query, "SELECT * FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' ORDER BY `DATE` DESC LIMIT 30;", PLAYER_PHONE[playerid][player_phone_NUMBER]);
+			format(DB_Query, sizeof DB_Query, "SELECT * FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' ORDER BY `DATE` DESC LIMIT 5;", PLAYER_PHONE[playerid][player_phone_NUMBER]);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No hay mensajes.");
@@ -8567,11 +8567,11 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_PHONE_RECEIVED_MESSAGES:
 		{
-			new dialog[1600];
+			new dialog[128 * 5];
 			format(dialog, sizeof dialog, ""COL_WHITE"Fecha\t"COL_WHITE"Remitente\t"COL_WHITE"Mensaje\n");
 
 			new DBResult:Result, DB_Query[140], messages;
-			format(DB_Query, sizeof DB_Query, "SELECT * FROM `PHONE_MESSAGES` WHERE `TO` = '%d' ORDER BY `DATE` DESC LIMIT 30;", PLAYER_PHONE[playerid][player_phone_NUMBER]);
+			format(DB_Query, sizeof DB_Query, "SELECT * FROM `PHONE_MESSAGES` WHERE `TO` = '%d' ORDER BY `DATE` DESC LIMIT 5;", PLAYER_PHONE[playerid][player_phone_NUMBER]);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No hay mensajes.");
@@ -10439,18 +10439,6 @@ ShowDialog(playerid, dialogid)
 			, "Salir", "");
 			return 1;
 		}
-		case DIALOG_HELP_WORKS:
-		{
-			new dialog[45 * sizeof work_info], line_str[45];
-			for(new i = 1; i != sizeof work_info; i ++)
-			{
-				format(line_str, sizeof line_str, ""COL_WHITE"- %c%s\n", toupper(work_info[i][work_info_NAME][0]), work_info[i][work_info_NAME][1]);
-				strcat(dialog, line_str);
-			}
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_WHITE"Trabajos", dialog, "Selecc.", "Cerrar");
-			return 1;
-		}
 		case DIALOG_HELP_SU:
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Ayuda - VIP",
@@ -10877,10 +10865,10 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_USER_NOTIFICATIONS:
 		{
-			new dialog[2700];
+			new dialog[128 * 10];
 
 			new DBResult:Result, DB_Query[140];
-			format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_NOTIFICATIONS` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 40;", ACCOUNT_INFO[playerid][ac_ID]);
+			format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_NOTIFICATIONS` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 10;", ACCOUNT_INFO[playerid][ac_ID]);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No tienes notificaciones.");
@@ -10890,11 +10878,11 @@ ShowDialog(playerid, dialogid)
 				{
 					new 
 						line_str[125],
-						message[264],
+						message[128],
 						date;
 
 					date = db_get_field_assoc_int(Result, "DATE");
-					db_get_field_assoc(Result, "MESSAGE", message, 264);
+					db_get_field_assoc(Result, "MESSAGE", message, 128);
 
 					format(line_str, sizeof line_str, ""COL_WHITE"%s\t%s\n", message, ReturnTimelapse(date, gettime()));
 					strcat(dialog, line_str);
@@ -12078,7 +12066,7 @@ ShowDialog(playerid, dialogid)
     	{
     		for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
-    		new dialog[1024],
+    		new dialog[40 * 20],
     			total_fighters
     		;
 
@@ -16857,211 +16845,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
 					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
 				}
-			}
-			return 1;
-		}
-		case DIALOG_HELP_WORKS:
-		{
-			if (response)
-			{
-				new caption[45], dialog[1800], work = listitem + 1;
-				format(caption, sizeof caption, "Trabajo - %c%s", toupper(work_info[work][work_info_NAME][0]), work_info[work][work_info_NAME][1]);
-
-				new header[350];
-				if (work_info[work][work_info_TYPE] != WORK_TYPE_FAMILY)
-				{
-					if (work_info[work][work_info_EXTRA_PAY] > 0 && work_info[work][work_info_EXTRA_PAY_EXP] > 0) // con paga extra
-					{
-						if (!work_info[work][work_info_EXTRA_PAY_LIMIT]) // sin limite
-						{
-							format(header, sizeof header,
-
-								"\
-									Trabajo: %s\n\
-									Tipo: %s\n\
-									Nivel necesario: %d\n\
-									Paga extra: por cada %s trabajos realizados recibes %s$ extra.\n\
-									Puedes localizar donde adquirir este trabajo desde el GPS.\n\
-								",
-									work_info[work][work_info_NAME],
-									(work_info[work][work_info_TYPE] == WORK_TYPE_NORMAL) ? ("normal") : ("complementario"),
-									work_info[work][work_info_LEVEL],
-									number_format_thousand(work_info[work][work_info_EXTRA_PAY_EXP]),
-									number_format_thousand(work_info[work][work_info_EXTRA_PAY])
-							);
-						}
-						else // con limite
-						{
-							format(header, sizeof header,
-
-								"\
-									Trabajo: %s\n\
-									Tipo: %s\n\
-									Nivel necesario: %d\n\
-									Paga extra: por cada %s trabajos realizados recibes %s$ extra con un límite de %s$.\n\
-									Puedes localizar donde adquirir este trabajo desde el GPS.\n\
-								",
-									work_info[work][work_info_NAME],
-									(work_info[work][work_info_TYPE] == WORK_TYPE_NORMAL) ? ("normal") : ("complementario"),
-									work_info[work][work_info_LEVEL],
-									number_format_thousand(work_info[work][work_info_EXTRA_PAY_EXP]),
-									number_format_thousand(work_info[work][work_info_EXTRA_PAY]),
-									number_format_thousand(work_info[work][work_info_EXTRA_PAY_LIMIT])
-							);
-						}
-					}
-					else
-					{
-						format(header, sizeof header,
-
-							"\
-								Trabajo: %s\n\
-								Tipo: %s\n\
-								Nivel necesario: %d\n\
-								Puedes localizar donde adquirir este trabajo desde el GPS.\n\
-							",
-								work_info[work][work_info_NAME],
-								(work_info[work][work_info_TYPE] == WORK_TYPE_NORMAL) ? ("normal") : ("complementario"),
-								work_info[work][work_info_LEVEL]
-						);
-					}
-				}
-
-				switch(work)
-				{
-					case WORK_TRUCK:
-					{
-						format(dialog, sizeof dialog,
-
-							"\
-							%s\
-							\n\
-							Súbete a cualquier camión de la empresa y ve a cargarlo en cualquier punto de carga.\n\
-							Según tu experiencia en el trabajo podrás transportar diferentes productos de más valor.\n\
-							\n\
-							",
-								header
-						);
-					}
-					case WORK_MECHANIC:
-					{
-						format(dialog, sizeof dialog,
-
-							"\
-							%s\
-							\n\
-							Para empezar a trabajar ve al taller para empezar a trabajar o dejar de trabajar.\n\
-							Con este trabajo podrás reparar los vehículos dañados en el taller o ir a arreglarlos por San Andreas.\n\
-							Las personas que hayan llamado al mecánico aparecerán marcados en el mapa.\n\
-							Si tienes un GPS puedes utilizar /mapa para ver las personas que necesitan un mecánico.\n\
-							Para reparar o tunear un vehículo usa /vmenu tras elegir una opción se le ofrecerá al dueño del vehículo\n\
-							en caso de ser un vehículo personal, si no se le ofrecerá al conductor o el último conductor del vehículo.\n\
-							\n\
-							Puedes utilizar los vehículos de tu trabajo o tu vehículo personal.\n\
-							Para cualquier reparación o modificación necesitarás piezas que puedes comprar en el taller.\n\
-							Para reparar o modificar un vehículo utiliza cerca del vehículo el comando /vmenu.\n\
-							\n\
-							Si el vehículo no está en el mecánico y se puede remolcar tendrás que remolcarlo hasta el mecánico\n\
-							para repararlo, se usa el comando /remolcar.\n\
-							\n\
-							En el taller también podrás pintar los vehículos.\n\
-							Para tunearlos o remover componentes tendrás que haber realizado al menos 100 reparaciones en vehículos ajenos.\n\
-							\n\
-							",
-								header
-						);
-					}
-					case WORK_HARVESTER:
-					{
-						format(dialog, sizeof dialog,
-
-							"\
-							%s\
-							\n\
-							Súbete a una cosechadora y empieza a cosechar.\n\
-							\n\
-							",
-								header
-						);
-					}
-					case WORK_TRASH:
-					{
-						format(dialog, sizeof dialog,
-
-							"\
-							%s\
-							\n\
-							Para este trabajo se necesitan 2 personas, uno que conduzca el camión y otro que recoja la basura.\n\
-							Para empezar a trabajar sube a alguien a un camión y selecciona la ruta que queréis realizar.\n\
-							\n\
-							Dependiendo de tu experiencia recogerás más rápido la basura.\n\
-							\n\
-							",
-								header
-						);
-					}
-					case WORK_FARMER:
-					{
-						format(dialog, sizeof dialog,
-
-							"\
-							%s\
-							\n\
-							Necesitarás semillas para poder plantar que puedes comprar en la granja.\n\
-							Dependiendo de tu experiencia tu velocidad plantando irá aumentando.\n\
-							\n\
-							Para plantar ve a la zona asignada con una bandera, y presione NUM 6.\n\
-							Después de que la planta crezca tienes 5 minutos para recogerla si no la planta se secará y se destruirá.\n\
-							Cuando termines de plantar espera a que la planta termine de crecer, para recogerla.\n\
-							Una vez recogida puedes vender el producto adquirido o usarlo para consumo propio.\n\
-							\n\
-							Cuida tus plantas, la gente puede destuirlas si le disparan.\n\
-							\n\
-							",
-								header
-						);
-					}
-					case WORK_POLICE:
-					{
-						format(dialog, sizeof dialog,
-
-							"\
-							%s\
-							\n\
-							Los policías en servicio aparecerán de color azul.\n\
-							Utiliza /policias para ver la lista de policías, los rangos altos podrán desde aquí\n\
-							bajar, subir el rango de los policías, también pueden expulsarlos del cuerpo.\n\
-							\n\
-							Para asignar un BYC una persona utiliza el comando /abyc.\n\
-							Usa /byc para ver los BYC de todos o de una persona, también para eliminarlos.\n\
-							Utiliza /esposar para esposar o desesposar a alguien que tenga nivel de búsqueda.\n\
-							Utiliza /revisar para ver las pertenencias del jugador esposado, utiliza /requisar para requisar las pertenencias ilegales.\n\
-							Utiliza /arrestar en tu vehículo personal para detener a alguien que esté esposado.\n\
-							En el AREA 51 encontrarás la base militar (En desarrollo)\n\
-							Utiliza /multar para hacer una multa y utiliza /ref para pedir refuerzos.\n\
-							Utiliza /callsing para asignar callsing al vehículo policial.\n\
-							Usa ! para hablar IC.\n\
-							Usa !! para hablar OCC.\n\
-							Para utiliza el megáfono utiliza /m dentro de un vehículo policial.\n\
-							Para entregar a alguien tiene que estar arrestado en un vehículo policial\n\
-							y llevarlo a cualquiera de las 3 comisarías de San Andreas al parking y utilizar /entregar.\n\
-							\n\
-							Usa /control para añadir objetos como barreras etc.\n\
-							\n\
-							Para ponerte de servicio ve a cualquier comisaría y busca el vestuario.\n\
-							Los policías pueden equiparse en la comisaría.\n\
-							Para utilizar la radio debes estar de servicio, puedes seleccionar la frecuencia con /frecuencias, uso: !texto.\n\
-							Puedes abrir cualquier puerta de la comisaría pulsando la tecla F cerca de la puerta.\n\
-							Los policías recibirán la paga en el payday, su paga dependerá de su rango.\n\
-							Los cargos se ponen con /cargo1, /cargo2, etc. Usa /cargo0 para sacar los cargos.\n\
-							\n\
-							",
-								header
-						);
-					}
-				}
-
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Salir", "");
 			}
 			return 1;
 		}
@@ -28784,7 +28567,7 @@ ShowPlayerInventory(playerid, pid)
 	new caption[48];
 	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
 
-	new dialog[1800], line_str[128];
+	new dialog[364], line_str[128];
 
 	format(line_str, sizeof line_str, ""COL_WHITE"Dinero: "COL_GREEN"%s$"COL_WHITE"\n", number_format_thousand(CHARACTER_INFO[pid][ch_CASH]));
 	strcat(dialog, line_str);
@@ -29673,7 +29456,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 {
-	if(IsPlayerPaused(playerid) || PLAYER_TEMP[playerid][py_GODMODE]) return 0;
+	if(IsPlayerPaused(playerid)) return 0;
 
 	//printf("damage %d %d", playerid, weapon);
 
@@ -29700,7 +29483,7 @@ public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 			if (IsPlayerInRangeOfPoint(issuerid, 30.0, -17.344648, 99.261329, 1100.822021))
 			{
 				SetPlayerPosEx(issuerid, 950.341247, -987.135864, 38.743835, 322.0, 0, 0);
-				ShowPlayerMessage(issuerid, "~r~Solo los boxeadores pueden pegar", 4);
+				ShowPlayerMessage(issuerid, "~r~Solos los boxeadores pueden pegar", 4);
 			}
 		}
 	}
@@ -30039,7 +29822,7 @@ CALLBACK: StopShitting(playerid)
 CMD:no(playerid, params[])
 {
 	if(IsPlayerJumping(playerid)) return 1;
-
+	
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	ClearAnimations(playerid);
 
