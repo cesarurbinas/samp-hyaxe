@@ -193,10 +193,9 @@
 #include "core/furniture/list.pwn"
 
 // Items
-#include "core/item/data.pwn"
-#include "utils/item/create.pwn"
-#include "utils/item/info.pwn"
-#include "utils/item/grab.pwn"
+#include "core/item/header.pwn"
+#include "core/item/functions.pwn"
+#include "core/item/callbacks.pwn"
 
 // Audio
 #include "core/audio/handlers.pwn"
