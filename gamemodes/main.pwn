@@ -15237,10 +15237,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new title[100 + 1];
 				title = SpaceFix(inputtext);
-				new str[180]; format(str, sizeof str, "http://wifson-studios.rf.gd/mp3.php?limit=10&song_title=%s", title);
+				new str[180]; format(str, sizeof str, "http://127.0.0.1:12345/search?query=%s", title);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
-				//HTTP(playerid, HTTP_GET, str, "", "OnPlayerSongFound");
+				HTTP(playerid, HTTP_GET, str, "", "OnPlayerSongFound");
 			}
 			return 1;
 		}
@@ -15249,51 +15249,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				new url[128];
-				format(url, 128, "http://www.convertmp3.io/fetch/?video=http://www.youtube.com/watch?v=%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][videoID]);
-				if (PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY])
-				{
-
-					for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-					{
-						if (IsPlayerConnected(i))
-						{
-							if ( (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY || CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY) && CHARACTER_INFO[i][ch_INTERIOR_EXTRA] == CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA])
-							{
-								PlayAudioStreamForPlayer(i, url);
-								SendClientMessageEx(i, COLOR_WHITE, ""COL_WHITE"Reproduciendo "COL_RED"'%s' "COL_WHITE"usa {CCFF00}/stop "COL_WHITE"para parar la música.", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][yt_title]);
-							}
-						}
-					}
-					PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
-					SetPlayerChatBubble(playerid, "\n\n\n\n* Poné música en su propiedad.\n\n\n", 0xffcb90FF, 20.0, 5000);
-				}
-				else if (PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE])
-				{
-
-					for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-					{
-						if (IsPlayerConnected(i))
-						{
-							if (IsPlayerInAnyVehicle(i))
-							{
-								if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
-								{
-									PlayAudioStreamForPlayer(i, url);
-									SendClientMessageEx(i, COLOR_WHITE, ""COL_WHITE"Reproduciendo "COL_RED"'%s' "COL_WHITE"usa {CCFF00}/stop "COL_WHITE"para parar la música.", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][yt_title]);
-								}
-							}
-						}
-					}
-					PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = false;
-					if (PLAYER_VEHICLES[ GetPlayerVehicleID(playerid) ][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-					else SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-				}
-				else
-				{
-					PlayAudioStreamForPlayer(playerid, url);
-					SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Reproduciendo "COL_RED"'%s' "COL_WHITE"usa {CCFF00}/stop "COL_WHITE"para parar la música.", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][yt_title]);
-					SetPlayerChatBubble(playerid, "\n\n\n\n* Escucha música en sus auriculares.\n\n\n", 0xffcb90FF, 20.0, 5000);
-				}
+				format(url, 128, "http://127.0.0.1:12345/download/%d", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][videoID]);
+				HTTP(playerid, 128, url, "", "OnSongDownloadResponse");
 			}
 			return 1;
 		}
@@ -21333,46 +21290,83 @@ CALLBACK: OnPlayerSongFound(index, response_code, data[])
 
 	if (response_code == 200)
 	{
-		if (data[0] == '|' && data[1] == '[')
+		new videodata[11][4][86];
+		if(sscanf(data, "p<,>a<dds[86]>[11]", videodata));
+
+		new dialog[150 * sizeof(videodata)], line[150];
+		format(dialog, sizeof(dialog), "Nombre\tDuración\n")
+		for(new i = 0; i != sizeof(videodata); i++)
 		{
-			new start_song_pos = -1, end_song_pos = -1, delimiter_pos_info = -1, counter, tmp[yt_result];
-			for(new i = 0; i != sizeof RESULT_YOUTUBE; i ++) RESULT_YOUTUBE[i] = tmp;
-
-			start_song_pos = strfind(data, "|[");
-			while(start_song_pos != -1)
-			{
-				start_song_pos = strfind(data, "|[");
-				if (start_song_pos == -1) break;
-				delimiter_pos_info = strfind(data, "||");
-				strmid(RESULT_YOUTUBE[counter][videoID], data, start_song_pos + 2, delimiter_pos_info, 11 + 1);
-
-				end_song_pos = strfind(data, "]|");
-				strmid(RESULT_YOUTUBE[counter][yt_title], data, delimiter_pos_info + 2, end_song_pos, 100 + 1);
-				strdel(data, 0, end_song_pos + 2);
-				counter ++;
-			}
-
-			if (counter == 0) return ShowPlayerMessage(index, "~r~No se encontró resultados.", 3);
-
-			new dialog_title[50], dialog[120 * MAX_RESULTS], dialog_counter;
-
-			for(new i = 0; i != counter; i ++)
-			{
-				if (isnull(RESULT_YOUTUBE[i][yt_title])) continue;
-				format(PLAYER_DIALOG_MP3_RESULT[index][dialog_counter][videoID], 11 + 1, "%s", RESULT_YOUTUBE[i][videoID]);
-				format(PLAYER_DIALOG_MP3_RESULT[index][dialog_counter][yt_title], 100 + 1, "%s", RESULT_YOUTUBE[i][yt_title]);
-				format(dialog, sizeof dialog, "%s"COL_WHITE"%d. %s\n", dialog, dialog_counter + 1, RESULT_YOUTUBE[i][yt_title]);
-				dialog_counter ++;
-			}
-			format(dialog_title, sizeof dialog_title, ""COL_WHITE"Se han encontado '%d' resultados", dialog_counter);
-			ShowPlayerDialog(index, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_LIST, dialog_title, dialog, "Reproducir", "Salir");
-			PLAYER_TEMP[index][py_DIALOG_RESPONDED] = false;
+			format(PLAYER_DIALOG_MP3_RESULT[index][i][videoID], sizeof(dialog), "%d\n", videodata[i][1]);
+			dialog_counter ++;
 		}
-		else ShowPlayerMessage(index, "~r~El resultado obtenido no puede ser comprendido.", 3);
+
+		ShowPlayerDialog(index, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_LIST, "Resultados", dialog, "Reproducir", "Salir");
+		PLAYER_TEMP[index][py_DIALOG_RESPONDED] = false;
 	}
 	else ShowPlayerMessage(index, "~r~La búsqueda falló, inténtelo de nuevo más tarde.", 3);
 
 	PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP] = false;
+	return 1;
+}
+
+CALLBACK: OnSongDownloadResponse(playerid, response_code, data[])
+{
+	if(response_code != 200)
+	{
+		switch(response_code)
+		{
+			case 403: return SendClientMessage(playerid, COLOR_WHITE, "No pudimos reproducir esta canción...");
+			case 429: return SendClientMessage(playerid, COLOR_WHITE, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.");
+			default: return 0;
+		}
+	}
+
+	new url[128];
+	format(url, sizeof(url), "http://127.0.0.1:12345%s", data); // /pipe/%d
+
+	if (PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY])
+	{
+		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+		{
+			if (IsPlayerConnected(i))
+			{
+				if ( (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY || CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY) && CHARACTER_INFO[i][ch_INTERIOR_EXTRA] == CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA])
+				{
+					PlayAudioStreamForPlayer(i, url);
+					SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
+				}
+			}
+		}
+		PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
+		SetPlayerChatBubble(playerid, "\n\n\n\n* Poné música en su propiedad.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	}
+	else if (PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE])
+	{
+		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+		{
+			if (IsPlayerConnected(i))
+			{
+				if (IsPlayerInAnyVehicle(i))
+				{
+					if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
+					{
+						PlayAudioStreamForPlayer(i, url);
+						SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
+					}
+				}
+			}
+		}
+		PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = false;
+		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	}
+	else
+	{
+		PlayAudioStreamForPlayer(playerid, url);
+		SendClientMessage(playerid, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
+		SetPlayerChatBubble(playerid, "\n\n\n\n* Escucha música en sus auriculares.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	}
+
 	return 1;
 }
 
@@ -28838,7 +28832,7 @@ SpaceFix(text[])
 	new str[100 + 1]; format(str, sizeof str, "%s", text);
     for(new i = 0; i < strlen(str); i++)
 	{
-		if (str[i] == ' ') str[i] = '+';
+		if (str[i] == ' ') str[i] = '%20';
 	}
 	return str;
 }

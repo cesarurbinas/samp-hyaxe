@@ -64,7 +64,7 @@ CMD:unjailoff(playerid, params[])
 	if(sscanf(params, "d", dbid)) return SendClientMessage(playerid, COLOR_WHITE, "USO: /unjailoff (dbid)");
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
-	new DBResult:Result, query[85];
+	new DBResult:Result, query[175];
 	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result)) 
