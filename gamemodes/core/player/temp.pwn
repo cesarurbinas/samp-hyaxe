@@ -31,7 +31,7 @@ enum Temp_Enum
 	py_GAME_STATE,
 	py_NAME[24],
 	py_IP[16],
-	py_SERIAL[50],
+	py_SERIAL[51],
 	py_SKIN,
 	bool:py_USER_EXIT, // Esta registrado?
 	bool:py_USER_LOGGED, // 1 = ha cargado todos los datos del user

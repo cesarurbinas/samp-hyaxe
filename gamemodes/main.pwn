@@ -3177,11 +3177,11 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
 	for(new i = 0; i != MAX_OBJECTS_PER_ROUTE; i ++) TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
 
+	PLAYER_TEMP[playerid][py_SERIAL] = EOS;
+
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
 	GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 	gpci(playerid, PLAYER_TEMP[playerid][py_SERIAL], 50);
-
-	printf("%s", PLAYER_TEMP[playerid][py_SERIAL]);
 
 	#if defined VOICE_CHAT
 		if (sv_get_version(playerid) == SV_VERSION)
@@ -6104,6 +6104,7 @@ public OnPlayerRequestClass(playerid, classid)
 				format(ACCOUNT_INFO[playerid][ac_IP], 16, "%s", PLAYER_TEMP[playerid][py_IP]);
 				PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = true;
 			}
+			
 			if(strcmp(PLAYER_TEMP[playerid][py_SERIAL], ACCOUNT_INFO[playerid][ac_SERIAL], false))
 			{
 				format(ACCOUNT_INFO[playerid][ac_SERIAL], 50, "%s", PLAYER_TEMP[playerid][py_SERIAL]);
