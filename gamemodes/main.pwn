@@ -25280,6 +25280,7 @@ CheckRobActor(playerid)
 						    GetPointZone(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X], ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y], city, zone);
 						    format(message, sizeof message, "~r~%s~w~ esta robando un negocio (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
 						    SendPoliceNotification(message, 6);
+						    PLAYER_TEMP[playerid][py_POLICE_REASON] = "Robo";
 
 							a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
 							return 0;
