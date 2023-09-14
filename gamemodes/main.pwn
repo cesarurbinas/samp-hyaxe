@@ -8876,7 +8876,7 @@ CMD:resetsans(playerid, params[])
 
 CMD:runtime(playerid, params[])
 {
-	SendClientMessageEx(playerid, COLOR_WHITE, "El servidor se ha iniciado: %s" ReturnTimelapse(ServerInitTime, gettime()));
+	SendClientMessageEx(playerid, COLOR_WHITE, "El servidor se ha iniciado: %s", ReturnTimelapse(ServerInitTime, gettime()));
 	return 1;
 }
 
@@ -10194,27 +10194,6 @@ CMD:echar(playerid, params[])
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/echar "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~El jugador no esta conectado.", 3);
 	if (playerid == params[0]) return ShowPlayerMessage(playerid, "~r~No puedes expulsar a ti mismo.", 3);
-
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY)
-	{
-		if ( CHARACTER_INFO[params[0]][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY && CHARACTER_INFO[params[0]][ch_INTERIOR_EXTRA] == CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA])
-		{
-			new index = GetPropertyIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
-			if (index == -1) return SendClientMessage(playerid, COLOR_WHITE, "BUG: CMD /ECHAR, Tome captura y contacte con administrador.");
-
-			CHARACTER_INFO[params[0]][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-			CHARACTER_INFO[params[0]][ch_INTERIOR_EXTRA] = 0;
-			PLAYER_TEMP[params[0]][py_PROPERTY_INDEX] = -1;
-			SetPlayerPosEx(params[0], PROPERTY_INFO[ index ][property_EXT_X], PROPERTY_INFO[ index ][property_EXT_Y], PROPERTY_INFO[ index ][property_EXT_Z], PROPERTY_INFO[ index ][property_EXT_ANGLE], PROPERTY_INFO[ index ][property_EXT_INTERIOR], 0, false /*PROPERTY_INFO[ index ][property_EXT_FREEZE]*/, false);
-			StopAudioStreamForPlayer(params[0]);
-			FreezePlayer(params[0]);
-
-			SendClientMessageEx(params[0], COLOR_WHITE, "{bad2d8}%s "COL_WHITE"te ha echado de su propiedad.", PLAYER_TEMP[playerid][py_RP_NAME]);
-			SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has echado a {bad2d8}%s "COL_WHITE"de tu propiedad.", PLAYER_TEMP[params[0]][py_RP_NAME]);
-		}
-		else ShowPlayerMessage(playerid, "~r~Este jugador no está en tu propiedad.", 3);
-		return 1;
-	}
 
 	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
@@ -14018,7 +13997,7 @@ ShowDialog(playerid, dialogid)
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			radio_station,
-    			(PLAYER_TEMP[playerid][py_GPS_MAP] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
+    			(PLAYER_TEMP[playerid][py_GPS_MAP] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado")
     		);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Cambiar", "Cerrar");
@@ -22922,100 +22901,100 @@ RegisterNewPlayer(playerid)
 
 SaveUserData(playerid)
 {
-  if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
+	if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
-  new DB_Query[1800];
-  format(DB_Query, sizeof(DB_Query), "\
-    UPDATE `CUENTA` SET \
-	 `IP` = '%q',\
-	 `NAME` = '%q',\
-	 `EMAIL` = '%q',\
-	 `SALT` = '%q',\
-	 `PASS` = '%q',\
-	 `LAST_CONNECTION` = CURRENT_TIMESTAMP,\
-	 `TIME-PLAYING` = '%d',\
-	 `LEVEL` = '%d',\
-	 `REP` = '%d',\
-	 `STATE` = '%d',\
-	 `DOUBT_CHANNEL` = '%d',\
-	 `TIME_FOR_REP` = '%d',\
-	 `ADMIN_LEVEL` = '%d',\
-	 `PAYDAY_REP` = '%d' \
-    WHERE `ID` = '%d';\
-    \
-    UPDATE `PERSONAJE` SET \
-	 `SKIN` = '%d',\
-	 `CASH` = '%d',\
-	 `POS_X` = '%f',\
-	 `POS_Y` = '%f',\
-	 `POS_Z` = '%f',\
-	 `ANGLE` = '%f',\
-	 `STATE` = '%d',\
-	 `INTERIOR` = '%d',\
-	 `LOCAL_INTERIOR` = '%d',\
-	 `FIGHT_STYLE` = '%d',\
-	 `HEALTH` = '%f',\
-	 `ARMOUR` = '%f',\
-	 `SEX` = '%d',\
-	 `HUNGRY` = '%f',\
-	 `THIRST` = '%f',\
-	 `BLACK_MARKET_LEVEL` = '%d',\
-	 `POLICE_JAIL_TIME` = '%d',\
-	 `POLICE_JAIL_ID` = '%d' \
-    WHERE `ID_USER` = '%d';\
-    \
-    UPDATE `BANK_ACCOUNTS` SET\
-	 `BALANCE` = '%d' \
-    WHERE `ID_ACCOUNT` = '%d';\
-    \
-    UPDATE `PHONE` SET\
-	 `PHONE_NUMBER` = '%d',\
-	 `PHONE_STATE` = '%d',\
-	 `VISIBLE_NUMBER` = '%d' \
-    WHERE `ID_USER` = '%d';\
-    \
-    UPDATE `PLAYER_OBJECT` SET\
-	 `GPS` = '%d',\
-	 `MP3` = '%d',\
-	 `PHONE_RESOLVER` = '%d' \
-    WHERE `ID_USER` = '%d';\
-  ",
-    ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], ACCOUNT_INFO[playerid][ac_STATE], ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL], ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL], ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID],
-    CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_CASH], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_STATE], CHARACTER_INFO[playerid][ch_INTERIOR], CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA], CHARACTER_INFO[playerid][ch_FIGHT_STYLE], CHARACTER_INFO[playerid][ch_HEALTH], CHARACTER_INFO[playerid][ch_ARMOUR],  CHARACTER_INFO[playerid][ch_SEX], CHARACTER_INFO[playerid][ch_HUNGRY], CHARACTER_INFO[playerid][ch_THIRST], CHARACTER_INFO[playerid][ch_BLACK_MARKET_LEVEL], CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME], CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID], ACCOUNT_INFO[playerid][ac_ID],
-    BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
-    PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_STATE], PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER], ACCOUNT_INFO[playerid][ac_ID],
-    PLAYER_OBJECT[playerid][po_GPS], PLAYER_OBJECT[playerid][po_MP3], PLAYER_OBJECT[playerid][po_PHONE_RESOLVER], ACCOUNT_INFO[playerid][ac_ID]
-  );
-  db_query(Database, DB_Query);
+	new DB_Query[1800];
+	format(DB_Query, sizeof(DB_Query), "\
+		UPDATE `CUENTA` SET \
+		`IP` = '%q',\
+		`NAME` = '%q',\
+		`EMAIL` = '%q',\
+		`SALT` = '%q',\
+		`PASS` = '%q',\
+		`LAST_CONNECTION` = CURRENT_TIMESTAMP,\
+		`TIME-PLAYING` = '%d',\
+		`LEVEL` = '%d',\
+		`REP` = '%d',\
+		`STATE` = '%d',\
+		`DOUBT_CHANNEL` = '%d',\
+		`TIME_FOR_REP` = '%d',\
+		`ADMIN_LEVEL` = '%d',\
+		`PAYDAY_REP` = '%d' \
+		WHERE `ID` = '%d';\
+		\
+		UPDATE `PERSONAJE` SET \
+		`SKIN` = '%d',\
+		`CASH` = '%d',\
+		`POS_X` = '%f',\
+		`POS_Y` = '%f',\
+		`POS_Z` = '%f',\
+		`ANGLE` = '%f',\
+		`STATE` = '%d',\
+		`INTERIOR` = '%d',\
+		`LOCAL_INTERIOR` = '%d',\
+		`FIGHT_STYLE` = '%d',\
+		`HEALTH` = '%f',\
+		`ARMOUR` = '%f',\
+		`SEX` = '%d',\
+		`HUNGRY` = '%f',\
+		`THIRST` = '%f',\
+		`BLACK_MARKET_LEVEL` = '%d',\
+		`POLICE_JAIL_TIME` = '%d',\
+		`POLICE_JAIL_ID` = '%d' \
+		WHERE `ID_USER` = '%d';\
+		\
+		UPDATE `BANK_ACCOUNTS` SET\
+		`BALANCE` = '%d' \
+		WHERE `ID_ACCOUNT` = '%d';\
+		\
+		UPDATE `PHONE` SET\
+		`PHONE_NUMBER` = '%d',\
+		`PHONE_STATE` = '%d',\
+		`VISIBLE_NUMBER` = '%d' \
+		WHERE `ID_USER` = '%d';\
+		\
+		UPDATE `PLAYER_OBJECT` SET\
+		`GPS` = '%d',\
+		`MP3` = '%d',\
+		`PHONE_RESOLVER` = '%d' \
+		WHERE `ID_USER` = '%d';\
+		",
+		ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], ACCOUNT_INFO[playerid][ac_STATE], ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL], ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL], ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID],
+		CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_CASH], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_STATE], CHARACTER_INFO[playerid][ch_INTERIOR], CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA], CHARACTER_INFO[playerid][ch_FIGHT_STYLE], CHARACTER_INFO[playerid][ch_HEALTH], CHARACTER_INFO[playerid][ch_ARMOUR],  CHARACTER_INFO[playerid][ch_SEX], CHARACTER_INFO[playerid][ch_HUNGRY], CHARACTER_INFO[playerid][ch_THIRST], CHARACTER_INFO[playerid][ch_BLACK_MARKET_LEVEL], CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME], CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID], ACCOUNT_INFO[playerid][ac_ID],
+		BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
+		PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_STATE], PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER], ACCOUNT_INFO[playerid][ac_ID],
+		PLAYER_OBJECT[playerid][po_GPS], PLAYER_OBJECT[playerid][po_MP3], PLAYER_OBJECT[playerid][po_PHONE_RESOLVER], ACCOUNT_INFO[playerid][ac_ID]
+		);
+	db_query(Database, DB_Query);
 
-  if (BANK_ACCOUNT[playerid][bank_account_ID] != 0)
-  {
-    new DBResult:Result;
-    format(DB_Query, sizeof DB_Query,
+	if (BANK_ACCOUNT[playerid][bank_account_ID] != 0)
+	{
+		new DBResult:Result;
+		format(DB_Query, sizeof DB_Query,
 
-	 "DELETE FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' AND `ID_TRANSACTION` NOT IN (SELECT `ID_TRANSACTION` FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' ORDER BY `DATE` DESC LIMIT %d);",
+			"DELETE FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' AND `ID_TRANSACTION` NOT IN (SELECT `ID_TRANSACTION` FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' ORDER BY `DATE` DESC LIMIT %d);",
 
-	 BANK_ACCOUNT[playerid][bank_account_ID], BANK_ACCOUNT[playerid][bank_account_ID], MAX_BANK_TRANSACTIONS_DIALOG
-    );
-    Result = db_query(Database, DB_Query);
-    db_free_result(Result);
-  }
+			BANK_ACCOUNT[playerid][bank_account_ID], BANK_ACCOUNT[playerid][bank_account_ID], MAX_BANK_TRANSACTIONS_DIALOG
+			);
+		Result = db_query(Database, DB_Query);
+		db_free_result(Result);
+	}
 
-  if (PLAYER_PHONE[playerid][player_phone_VALID])
-  {
-    new DBResult:Result;
-    format(DB_Query, sizeof DB_Query,
+	if (PLAYER_PHONE[playerid][player_phone_VALID])
+	{
+		new DBResult:Result;
+		format(DB_Query, sizeof DB_Query,
 
-	 "DELETE FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' ORDER BY `DATE` DESC LIMIT 10);\
-	  DELETE FROM `PHONE_MESSAGES` WHERE `TO` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `TO` = '%d' ORDER BY `DATE` DESC LIMIT 10);",
+			"DELETE FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' ORDER BY `DATE` DESC LIMIT 10);\
+			DELETE FROM `PHONE_MESSAGES` WHERE `TO` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `TO` = '%d' ORDER BY `DATE` DESC LIMIT 10);",
 
-	 PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER],
-	 PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER]
-    );
-    Result = db_query(Database, DB_Query);
-    db_free_result(Result);
-  }
-  return 1;
+			PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER],
+			PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER]
+			);
+		Result = db_query(Database, DB_Query);
+		db_free_result(Result);
+	}
+	return 1;
 }
 
 SendClientMessageEx(playerid, color, const form[], {Float, _}: ...)
