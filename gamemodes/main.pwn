@@ -22123,7 +22123,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				PLAYER_TEMP[playerid][py_PRODUCT_TYPE] = listitem;
-				ShowDialog(playerid, DIALOG_PRODUCT_EXTRA)
+				ShowDialog(playerid, DIALOG_PRODUCT_EXTRA);
 			}
 			else ShowDialog(playerid, DIALOG_CLUB_PRICE);
 		}
