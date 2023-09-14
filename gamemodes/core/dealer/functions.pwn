@@ -104,7 +104,7 @@ Menu:DEALER_MENU(playerid, response, listitem)
 				SetTimerEx("TerminateDealingScene", 4000, false, "ii", playerid, DEALER_INFO[dealer][dl_ACTOR]);
     		}
 
-    		case 0:
+    		case 1:
     		{
     			if (!PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
     			if (CHARACTER_INFO[playerid][ch_CASH] < DEALER_INFO[dealer][dl_PRICE_FOR_ASS]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
