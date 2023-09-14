@@ -5667,6 +5667,11 @@ Menu:CLUB_MENU(playerid, response, listitem)
 
 				CheckClubOptions(playerid);
 			}
+			case 6:
+			{
+				ShowPlayerMessage(playerid, "~r~No disponible", 4);
+				CheckClubOptions(playerid);	
+			}
     	}
     }
     return 1; 
@@ -13406,6 +13411,14 @@ ShowDialog(playerid, dialogid)
 				if (total_products == 0) return ShowPlayerMessage(playerid, "~r~No hay productos disponibles", 4);
 				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Bebidas", dialog, "Comprar", "Atrás");
 			}
+		}
+		case DIALOG_CLUB_NAME:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre", ""COL_WHITE"Ingrese un nombre para su negocio (max. 32).", "Cambiar", "Atrás");
+		}
+		case DIALOG_CLUB_WELCOME:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar bienvenida", ""COL_WHITE"Ingrese un mensaje para la bienvenida (max. 64).", "Cambiar", "Atrás");
 		}
 		default: return 0;
 	}
@@ -21760,6 +21773,82 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(Result);
 			}
 			else ShowDialog(playerid, DIALOG_CLUB);
+		}
+		case DIALOG_CLUB_NAME:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+				{
+					new club = PLAYER_TEMP[playerid][py_CLUB_INDEX];
+					
+					if (strlen(inputtext) >= 32)
+					{
+						ShowPlayerMessage(playerid, "~r~Como máximo puedes introducir 32 caracteres.", 3);
+						ShowDialog(playerid, dialogid);
+						return 1;
+					}
+
+					if (sscanf(inputtext, "s[32]", CLUBS_INFO[club][club_NAME]))
+					{
+						ShowPlayerMessage(playerid, "~r~Tienes que introducir algo.", 3);
+						ShowDialog(playerid, dialogid);
+						return 1;
+					}
+
+					new DB_Query[128];
+	    			format(DB_Query, sizeof(DB_Query), "\
+						UPDATE `CLUB_INFO` SET\
+							`NAME` = '%q' \
+						WHERE `ID` = '%d';\
+					", CLUBS_INFO[club][club_NAME], club);
+					db_free_result(db_query(Database, DB_Query));
+
+					new str_text[164];
+					format(str_text, 164, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), PLAYER_TEMP[playerid][py_NAME]);
+					UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
+
+					CheckClubOptions(playerid);
+				}
+			}
+			else CheckClubOptions(playerid);
+		}
+		case DIALOG_CLUB_WELCOME:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+				{
+					new club = PLAYER_TEMP[playerid][py_CLUB_INDEX];
+					
+					if (strlen(inputtext) >= 64)
+					{
+						ShowPlayerMessage(playerid, "~r~Como máximo puedes introducir 64 caracteres.", 3);
+						ShowDialog(playerid, dialogid);
+						return 1;
+					}
+
+					if (sscanf(inputtext, "s[64]", CLUBS_INFO[club][club_WELCOME]))
+					{
+						ShowPlayerMessage(playerid, "~r~Tienes que introducir algo.", 3);
+						ShowDialog(playerid, dialogid);
+						return 1;
+					}
+
+					new DB_Query[128];
+	    			format(DB_Query, sizeof(DB_Query), "\
+						UPDATE `CLUB_INFO` SET\
+							`WELCOME` = '%q' \
+						WHERE `ID` = '%d';\
+					", CLUBS_INFO[club][club_WELCOME], club);
+					db_free_result(db_query(Database, DB_Query));
+
+					ShowPlayerMessage(playerid, "Has cambiado el mensaje de bienvenida.", 3);
+
+					CheckClubOptions(playerid);
+				}
+			}
+			else CheckClubOptions(playerid);
 		}
 	}
 	return 0;
