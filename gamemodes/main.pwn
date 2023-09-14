@@ -29676,6 +29676,20 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7)
 	return 1;
 }
 
+ac_GivePlayerWeapon(playerid, weapon_id, ammo, color = 0x00F7F7F7)
+{
+	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
+	else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;
+
+	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_VALID] = true;
+	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
+	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_COLOR] = color;
+
+	GivePlayerWeapon(playerid, weapon_id, ammo);
+    SavePlayerWeaponsData(playerid);
+	return 1;
+}
+
 ResetPlayerWeaponsEx(playerid)
 {
 	new tmp_PLAYER_WEAPONS[enum_PLAYER_WEAPONS];
