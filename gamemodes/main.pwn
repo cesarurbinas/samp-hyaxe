@@ -27638,6 +27638,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					}
 				}
 			}
+
+			CheckStellPoint(playerid);
 		}
 	}
 

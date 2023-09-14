@@ -54,3 +54,31 @@ CreateStalls()
 	}
 	return 1;
 }
+
+CheckStellPoint(playerid)
+{
+	for (new i; i < sizeof(STALL_INFO); i++)
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.1, STALL_INFO[i][st_X], STALL_INFO[i][st_Y], STALL_INFO[i][st_Z]))
+		{
+			if (CHARACTER_INFO[playerid][ch_CASH] <= STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE])
+				return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+			
+			GivePlayerCash(playerid, STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE], false);
+
+			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
+			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
+
+			Add_Hungry_Thirst(
+				playerid,
+				STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_HUNGRY],
+				STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_THIRST]
+			);
+
+			GivePlayerReputation(playerid);
+			break;
+		}
+	}
+
+	return 1;
+}
