@@ -1,5 +1,5 @@
 // Compiler params
-#pragma option -d2 // un debuj medio como kn dise
+#pragma option -d3 // un debuj medio como kn dise
 #pragma warning disable 239
 #pragma warning disable 214
 
@@ -9,7 +9,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
-#define SERVER_VERSION 			"v0.5 Build 200"
+#define SERVER_VERSION 			"v0.6 Build 5"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -114,6 +114,9 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Dialogs
 #include "core/dialog/dialog_id.pwn"
 
+// Areas
+#include "core/key_areas/areas.pwn"
+
 // Audio
 #include "core/audio/handlers.pwn"
 
@@ -212,6 +215,16 @@ main()
 	printf("\n[build] Hyaxe SA-MP "SERVER_VERSION"\n");
 }
 
+<<<<<<< HEAD
+/*enum b1g_enum
+{
+	PING,
+	bool:FAKE_PING
+}
+new B1G_PLAYER[MAX_PLAYERS][b1g_enum];*/
+
+=======
+>>>>>>> refs/rewritten/hmm
 enum
 {
 	TYPE_LEGAL,
@@ -2546,6 +2559,7 @@ new BLACK_MARKT_WEAPONS[][enum_BLACK_MARKT_WEAPONS] =
 	{22, 2500, 0}, // 9MM
 	{28, 3500, 0}, // Micro UZI
 	{32, 3600, 0}, // Tec 9
+	{25, 4000, 0}, // Escopeta
 	{26, 4500, 0}, // recortada
 	{33, 5200, 0} // Rifle
 };
@@ -2585,7 +2599,7 @@ IRPC:VehicleDestroyed(playerid, BitStream:bs)
 forward OnVehicleRequestDeath(vehicleid, killerid);
 public OnVehicleRequestDeath(vehicleid, killerid)
 {
-	printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
+	//printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
     new Float:health;
 
     GetVehicleHealth(vehicleid, health);
@@ -2782,6 +2796,61 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
     return 1;
 }
 
+<<<<<<< HEAD
+/*public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
+{
+	switch(rpcid)
+	{
+		case 155:
+		{
+			new 
+				ping,
+				BitStream:bs_two = BS_New()
+			;
+
+			if (!IsPlayerConnected(playerid)) return 0;
+			
+			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	    	{
+		    	if (IsPlayerConnected(i))
+		    	{
+		    		if (B1G_PLAYER[i][FAKE_PING] == true) ping = B1G_PLAYER[i][PING];
+					else
+					{
+						ping = GetPlayerPing(i);
+					}
+
+					BS_WriteValue(
+						bs_two,
+						PR_UINT16, i,
+						PR_INT32, GetPlayerScore(i),
+						PR_UINT32, ping
+					);
+
+		    		PR_SendRPC(bs_two, playerid, rpcid);
+		    	}
+		    }
+
+			BS_Delete(bs_two);
+			return 0;
+		}
+	}
+	return 1;
+}*/
+
+/*SetPlayerFakePing(playerid, ping)
+{
+	if (!IsPlayerConnected(playerid)) return 0;
+
+	if (ping == -1) return B1G_PLAYER[playerid][FAKE_PING] = false;
+
+	B1G_PLAYER[playerid][FAKE_PING] = true;
+	B1G_PLAYER[playerid][PING] = ping;
+	return 1;
+}*/
+
+=======
+>>>>>>> refs/rewritten/hmm
 ClearPlayerChatBox(playerid, ammount = 20)
 {
 	for(new i = 0; i != ammount; i++) SendClientMessage(playerid, -1, " ");
@@ -2985,7 +3054,7 @@ GetPlayersInIP(const ip[])
 
 public OnPlayerConnect(playerid)
 {
-	printf("OnPlayerConnect %d",playerid); // debug juju
+	//printf("OnPlayerConnect %d",playerid); // debug juju
 	SetPlayerColor(playerid, PLAYER_COLOR);
 
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
@@ -3006,7 +3075,6 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_CHECK_OBJECT] =
 	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = INVALID_OBJECT_ID;
 	PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
-	//PLAYER_TEMP[playerid][py_CLEANER_INDEX] = 99;
 	for(new i = 0; i != MAX_OBJECTS_PER_ROUTE; i ++) TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
 
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
@@ -3053,11 +3121,6 @@ public OnPlayerConnect(playerid)
 		return 0;
 	}
 
-	new serial[41];
-	gpci(playerid, serial, sizeof(serial));
-
-	Log("gpci", serial);
-
 	EnablePlayerCameraTarget(playerid, true);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	TogglePlayerControllableEx(playerid, true);
@@ -3067,8 +3130,6 @@ public OnPlayerConnect(playerid)
 	ac_ResetPlayerWeapons(playerid);
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	CancelEdit(playerid);
-
-	SetIntroCamera(playerid);
 
 	new DB_Query[550], DBResult:ban_Result;
 	format(DB_Query, sizeof DB_Query, "SELECT DATETIME('NOW') AS `NOW`, `BANS`.*, `BAD_HISTORY`.* FROM `BANS`, `BAD_HISTORY` WHERE (`BANS`.`NAME` = '%q' OR `BANS`.`IP` = '%q') AND `BAD_HISTORY`.`ID` = `BANS`.`ID_HISTORY`;", PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[playerid][py_IP]);
@@ -3306,13 +3367,12 @@ public OnPlayerConnect(playerid)
 	db_free_result(Result);
 
 	CreatePlayerTextDraws(playerid);
-	PreloadAnimLibs(playerid);
 	return 1;
 }
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
+	//printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
 	if (ACCOUNT_INFO[playerid][ac_ID] != 0)
 	{
 		new DB_Query[128];
@@ -3484,6 +3544,11 @@ ResetPlayerVariables(playerid)
 	new temp_PLAYER_POCKET[Player_Pocket_Enum];
 	for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++) PLAYER_POCKET[playerid][i] = temp_PLAYER_POCKET;
 
+<<<<<<< HEAD
+	//B1G_PLAYER[playerid][FAKE_PING] = false;
+
+=======
+>>>>>>> refs/rewritten/hmm
 	new temp_PLAYER_PHONE[Phone_Info_Enum]; PLAYER_PHONE[playerid] = temp_PLAYER_PHONE;
 
 	new temp_PLAYER_PHONE_BOOK[Phone_Book_Enum];
@@ -3570,7 +3635,7 @@ GetEnterExitIndexById(id)
 
 public OnRconLoginAttempt(ip[], password[], success)
 {
-	printf("rcon %s %s",ip,password); // debug juju
+	//printf("rcon %s %s",ip,password); // debug juju
     new temp_ip[16];
 
     for(new i = 0; i < MAX_PLAYERS; i++)
@@ -5236,7 +5301,7 @@ SetEngineAction(playerid)
 
 public OnPlayerSpawn(playerid)
 {
-	printf("OnPlayerSpawn",playerid); // debug juju
+	//printf("OnPlayerSpawn",playerid); // debug juju
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_OCCUPIED) // Primer spawn
 	{
 		PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
@@ -5626,7 +5691,7 @@ CALLBACK: PurgeAnnounce()
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
+	//printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
@@ -5883,7 +5948,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
+	//printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) // Recién conectado
 	{
@@ -5912,6 +5977,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 			ShowDialog(playerid, DIALOG_LOGIN);
             SetIntroCamera(playerid);
+            PreloadAnimLibs(playerid);
 		}
 		else
 		{
@@ -5947,7 +6013,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 public OnPlayerRequestSpawn(playerid)
 {
-	printf("OnPlayerrequestSpawn %d",playerid); // debug juju
+	//printf("OnPlayerrequestSpawn %d",playerid); // debug juju
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) CallLocalFunction("OnPlayerRequestClass", "dd", playerid, 0);
     return 0;
 }
@@ -6331,7 +6397,7 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
-	print("OnGamemodeInit()"); // debug juju
+	//print("OnGamemodeInit()"); // debug juju
 
 	#if defined VOICE_CHAT
 		sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
@@ -6345,7 +6411,7 @@ public OnGameModeInit()
     SetWeaponDamage(WEAPON_COLT45, DAMAGE_TYPE_RANGE, 6.0, 20.0, 3.0, 40.0, 2.0); // Colt
     SetWeaponDamage(WEAPON_SILENCED, DAMAGE_TYPE_RANGE, 0.1, 20.0, 0.1, 40.0, 0.1); // Silenciada
     SetWeaponDamage(WEAPON_DEAGLE, DAMAGE_TYPE_RANGE, 20.0, 15.0, 10.0, 40.0, 8.0); // Desert Eagle
-    SetWeaponDamage(WEAPON_SHOTGUN, DAMAGE_TYPE_RANGE, 2.0, 5.0, 4.0, 60.0, 2.0); // Escopeta
+    SetWeaponDamage(WEAPON_SHOTGUN, DAMAGE_TYPE_RANGE, 2.0, 5.0, 1.0, 60.0, 1.0); // Escopeta
     SetWeaponDamage(WEAPON_SHOTGSPA, DAMAGE_TYPE_RANGE, 0.0, 5.0, 0.0, 40.0, 0.0); // EDC
     SetWeaponDamage(WEAPON_M4, DAMAGE_TYPE_RANGE, 15.0, 20.0, 15.0, 80.0, 15.0); // M4
     SetWeaponDamage(WEAPON_SAWEDOFF, DAMAGE_TYPE_RANGE, 2.5, 10.0, 1.5, 40.0, 1.0);// Recortada
@@ -6593,15 +6659,13 @@ SanAndreas()
 	UpdateThePutis();
 	SetTimer("UpdateThePutis", 3000, true);
 
-	// Map Icons Hospitales
-	//for(new i = 0; i < sizeof Hospital_Spawn_Positions; i++) CreateDynamicMapIcon(Hospital_Spawn_Positions[i][0], Hospital_Spawn_Positions[i][1], Hospital_Spawn_Positions[i][2], 22, COLOR_WHITE, 0, 0);
-
 	// 3D Texts Ropas
 	for(new i = 0; i < sizeof Clothing_Shop_Positions; i++)
 	{
 		new label_str[128];
 		format(label_str, sizeof label_str, ""COL_WHITE"%s", Clothing_Shop_Positions[i][clothing_shop_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xF7F7F700, Clothing_Shop_Positions[i][clothing_shop_X], Clothing_Shop_Positions[i][clothing_shop_Y], Clothing_Shop_Positions[i][clothing_shop_Z] + 0.25, 10.0, .testlos = true, .interiorid = Clothing_Shop_Positions[i][clothing_shop_INTERIOR]);
+		AddKeyArea(Clothing_Shop_Positions[i][clothing_shop_X], Clothing_Shop_Positions[i][clothing_shop_Y], 0.8, "Y");
 	}
 
 	// 3D Texts Pedir comida
@@ -6610,16 +6674,14 @@ SanAndreas()
 		new label_str[128];
 		format(label_str, sizeof label_str, ""COL_RED"%s\n"COL_WHITE"7 productos disponibles", Fast_Food_Positions[i][fast_food_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xF7F7F7FF, Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], Fast_Food_Positions[i][fast_food_Z] + 0.25, 10.0, .testlos = true, .interiorid = Fast_Food_Positions[i][fast_food_INTERIOR]);
+		AddKeyArea(Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], 0.8, "Y");
 	}
 
-	// 3D Texts Bank
-	//for(new i = 0; i < sizeof Bank_Interior_Positions; i++) CreateDynamic3DTextLabel("Presione {5DE141}H "COL_WHITE"para realizar una operación", 0xF7F7F700, Bank_Interior_Positions[i][bank_X], Bank_Interior_Positions[i][bank_Y], Bank_Interior_Positions[i][bank_Z] + 0.25, 10.0, .testlos = true, .worldid = Bank_Interior_Positions[i][bank_WORLD], .interiorid = Bank_Interior_Positions[i][bank_INTERIOR]);
-	//for(new i = 0; i < sizeof BUY_PROPERTIES_SITES; i++) CreateDynamic3DTextLabel("Escribe {5DE141}/comprarcasa [ID] "COL_WHITE"para comprar una propiedad", 0xF7F7F700, BUY_PROPERTIES_SITES[i][site_X], BUY_PROPERTIES_SITES[i][site_Y], BUY_PROPERTIES_SITES[i][site_Z] + 0.25, 10.0, .testlos = true, .worldid = BUY_PROPERTIES_SITES[i][site_WORLD], .interiorid = BUY_PROPERTIES_SITES[i][site_INTERIOR]);
-
-	//Cajerosfo
-	for(new i = 0; i < sizeof ATM_BANK; i ++)//ATM_BANK[i][atm_modelid], //cajeros
+	//Cajeros
+	for(new i = 0; i < sizeof ATM_BANK; i ++)
 	{
 		CreateDynamicObject(19324, ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], ATM_BANK[i][atm_Z], ATM_BANK[i][atm_RX], ATM_BANK[i][atm_RY], ATM_BANK[i][atm_RZ], ATM_BANK[i][atm_WORLD], ATM_BANK[i][atm_INTERIOR]);
+		AddKeyArea(ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], 0.8, "Y");
 
 		ATM_BANK[i][atm_X] += (-0.5 * floatsin(-(ATM_BANK[i][atm_RZ] - 90.0), degrees));
 		ATM_BANK[i][atm_Y] += (-0.5 * floatcos(-(ATM_BANK[i][atm_RZ] - 90.0), degrees));
@@ -6633,8 +6695,11 @@ SanAndreas()
 	}
 
 	// 3D Texts Gasolinera
-	for(new i = 0; i < sizeof Fuel_Stations; i++) CreateDynamic3DTextLabel(""COL_RED"Gasolinera\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, Fuel_Stations[i][0], Fuel_Stations[i][1], Fuel_Stations[i][2] + 0.25, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
-
+	for(new i = 0; i < sizeof Fuel_Stations; i++)
+	{
+		CreateDynamic3DTextLabel(""COL_RED"Gasolinera\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, Fuel_Stations[i][0], Fuel_Stations[i][1], Fuel_Stations[i][2] + 0.25, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
+		AddKeyArea(Fuel_Stations[i][0], Fuel_Stations[i][1], 1.5, "Y");
+	}
 	//Mercado negro
 	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Armas)\n"COL_WHITE"7 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = 20, .worldid = 0);
 	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Balas)\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 2162.462158, -1169.053222, -16.871662, 10.0, .testlos = true, .interiorid = 20, .worldid = 0);
@@ -6862,11 +6927,13 @@ SanAndreas()
 	for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
 	{
 		TELE_MIRRORS[i][teleview_OBJECT_ID] = CreateDynamicObject(TELE_MIRRORS[i][teleview_MODELID], TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], TELE_MIRRORS[i][teleview_Z], 0.0, 0.0, TELE_MIRRORS[i][teleview_RZ], TELE_MIRRORS[i][teleview_WORLD], TELE_MIRRORS[i][teleview_INTERIOR]);
+		AddKeyArea(TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], 0.8, "Y");
 	}
 
 	for(new i = 0; i != sizeof HOTAIR_BALLOONS; i ++)
 	{
 		HOTAIR_BALLOONS[i][balloon_OBJECT_ID] = CreateDynamicObject(HOTAIR_BALLOONS[i][balloon_MODELID], HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], HOTAIR_BALLOONS[i][balloon_Z], 0.0, 0.0, HOTAIR_BALLOONS[i][balloon_RZ], HOTAIR_BALLOONS[i][balloon_WORLD], HOTAIR_BALLOONS[i][balloon_INTERIOR]);
+		AddKeyArea(HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], 0.8, "Y");
 	}
 
 	CreateDynamic3DTextLabel(""COL_RED"Balloon Express\n"COL_WHITE"Viaje en globo aerostático (200$)", 0xF7F7F7FF, -370.339721, -1634.205932, 25.057666, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -6892,6 +6959,8 @@ SanAndreas()
 				CreateDynamic3DTextLabel(label_str, 0xF7F7F700, obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], obtain_work_coords[i][obtain_work_Z], 10.0, .testlos = true, .interiorid = obtain_work_coords[i][obtain_work_INTERIOR]);
 				CreateDynamicPickup(1314, 1, obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], obtain_work_coords[i][obtain_work_Z], COLOR_WHITE, obtain_work_coords[i][obtain_work_INTERIOR]);
 				if (obtain_work_coords[i][obtain_work_MAP_ICON]) CreateDynamicMapIcon(obtain_work_coords[i][obtain_work_MAP_ICON_X], obtain_work_coords[i][obtain_work_MAP_ICON_Y], obtain_work_coords[i][obtain_work_MAP_ICON_Z], obtain_work_coords[i][obtain_work_MAP_ICON_ID], COLOR_WHITE, 0, 0);
+				
+				AddKeyArea(obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], 0.8, "Y");
 			}
 		}
 	}
@@ -6901,6 +6970,7 @@ SanAndreas()
 	{
 		CreateDynamic3DTextLabel(""COL_WHITE"Punto de carga", 0xF7F7F700, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2], 15.0, .testlos = true, .worldid = 0, .interiorid = 0);
 		CreateDynamicPickup(19607, 1, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2], 0, 0);
+		AddKeyArea(LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], 1.8, "Y");
 	}
 
 	//Mecánico
@@ -6929,6 +6999,7 @@ SanAndreas()
 		new str_text[128];
 		format(str_text, sizeof(str_text), ""COL_RED"Levantador nº %d\n"COL_WHITE"Acércate para usar", i + 1);
 		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2] + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+		AddKeyArea(MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], 1.5, "H");
 	}
 
 	CreateDynamic3DTextLabel(""COL_RED"Taller mecánico\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 1060.838256, -917.609741, 43.124679, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -7003,13 +7074,42 @@ SanAndreas()
 	CreateTrashCheckpoint(2, 1440, 677.09070, -878.62482, 67.03890, 0.00000, 11.50000, -121.20003);
 	CreateTrashCheckpoint(2, 1440, 125.15490, -1289.90332, 46.98190, 0.00000, 1.50000, 86.94010);
 
-	//Granjero
+	// Granjero
 	Farmer_Area = CreateDynamicCircle(1461.8894, -83.2621, 65.0, 0, 0);
 	CreateDynamicMapIcon(1461.8894, -83.2621, 65.0, 53, COLOR_WHITE, 0, 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Tienda de semillas", 0xF7F7F700, -382.580657, -1426.404296, 26.219505, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
-	//Cosechador
+	// Cosechador
 	Harvest_Area = CreateDynamicRectangle(-428.336059, -1667.658569, -116.565414, -1220.122070, 0, 0);
+
+	// Key areas
+	AddKeyArea(-27.964675, -89.948631, 0.8, "Y");
+	AddKeyArea(2125.901123, -65.776679, 0.8, "Y");
+	AddKeyArea(1060.838256, -917.609741, 0.8, "Y");
+	AddKeyArea(509.910125, -708.205383, 0.8, "Y");
+	AddKeyArea(2157.049560, -92.550987, 0.8, "Y");
+	AddKeyArea(-198.002197, -1762.759643, 0.8, "Y");
+	AddKeyArea(2164.021484, -1164.398925, 0.8, "Y");
+	AddKeyArea(2162.462158, -1169.053222, 0.8, "Y");
+	AddKeyArea(2310.057128, -1789.786865, 0.8, "Y");
+	AddKeyArea(219.244018, 69.982215, 0.8, "Y");
+	AddKeyArea(262.945587, 109.785270, 0.8, "Y");
+	AddKeyArea(222.683914, 186.956054, 0.8, "Y");
+	AddKeyArea(407.302886, 2531.673095, 0.8, "Y");
+	AddKeyArea(219.244018, 69.982215, 0.8, "Y");
+	AddKeyArea(-382.580657, -1426.404296, 0.8, "Y");
+	AddKeyArea(1796.071655, -1414.565307, 1.5, "H");
+	AddKeyArea(1207.234375, -29.231435, 1.5, "H");
+	AddKeyArea(496.589172, -76.033905, 1.5, "H");
+	AddKeyArea(1795.293823, -1407.773681, 1.5, "H");
+	AddKeyArea(-370.339721, -1634.205932, 0.8, "Y");
+	AddKeyArea(1722.2310, -1253.8021, 0.8, "Y");
+	AddKeyArea(726.2478, -1276.3830, 0.8, "Y");
+	AddKeyArea(976.715881, -1442.519775, 0.8, "Y");
+	AddKeyArea(3855.066162, -1290.975585, 0.8, "Y");
+	AddKeyArea(1626.089355, -2174.786132, 0.8, "H");
+	AddKeyArea(-212.521926, -1739.015014, 0.8, "H");
+	AddKeyArea(-11.283934, 88.862136, 0.8, "Y");
 	return 1;
 }
 
@@ -7074,298 +7174,6 @@ Float:GetDistanceBetweenPoints3D(Float:x1, Float:y1, Float:z1, Float:x2, Float:y
     return VectorSize(x1 - x2, y1 - y2, z1 - z2);
 }
 
-UpdatePlayerZoneMessages(playerid)
-{
-	for(new i = 0; i < sizeof ATM_BANK; i ++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 2.0, ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], ATM_BANK[i][atm_Z]))
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	for(new i = 0; i != sizeof(ENTER_EXIT); i++ )
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 0.8, ENTER_EXIT[i][ee_EXT_X], ENTER_EXIT[i][ee_EXT_Y], ENTER_EXIT[i][ee_EXT_Z]))
-		{
-			if (GetPlayerVirtualWorld(playerid) == ENTER_EXIT[i][ee_EXT_WORLD])
-			{
-				if (GetPlayerInterior(playerid) == ENTER_EXIT[i][ee_EXT_INTERIOR])
-				{
-					ShowPlayerKeyMessage(playerid, "ENTER");
-					return 1;
-				}
-			}
-		}
-
-		if (IsPlayerInRangeOfPoint(playerid, 0.8, ENTER_EXIT[i][ee_INT_X], ENTER_EXIT[i][ee_INT_Y], ENTER_EXIT[i][ee_INT_Z]))
-		{
-			if (GetPlayerVirtualWorld(playerid) == ENTER_EXIT[i][ee_INT_WORLD])
-			{
-				if (GetPlayerInterior(playerid) == ENTER_EXIT[i][ee_INT_INTERIOR])
-				{
-					ShowPlayerKeyMessage(playerid, "ENTER");
-					return 1;
-				}
-			}
-		}
-	}
-
-	for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.0, TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], TELE_MIRRORS[i][teleview_Z]))
-		{
-			if (GetPlayerVirtualWorld(playerid) == TELE_MIRRORS[i][teleview_WORLD])
-			{
-				if (GetPlayerInterior(playerid) == TELE_MIRRORS[i][teleview_INTERIOR])
-				{
-					ShowPlayerKeyMessage(playerid, "Y");
-					return 1;
-				}
-			}
-		}
-	}
-
-	if (PLAYER_MISC[playerid][MISC_BALLOON])
-	{
-		for(new i = 0; i != sizeof HOTAIR_BALLOONS; i ++)
-		{
-			if (IsPlayerInRangeOfPoint(playerid, 1.5, HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], HOTAIR_BALLOONS[i][balloon_Z]))
-			{
-				if (HOTAIR_BALLOONS[i][balloon_ACTIVE] == false)
-				{
-					ShowPlayerKeyMessage(playerid, "Y");
-					return 1;
-				}
-			}
-		}
-	}
-
-	for(new i = 0; i < sizeof(Clothing_Shop_Positions); i++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.0, Clothing_Shop_Positions[i][clothing_shop_X], Clothing_Shop_Positions[i][clothing_shop_Y], Clothing_Shop_Positions[i][clothing_shop_Z]))
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	for(new i = 0; i < sizeof(Fast_Food_Positions); i++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.0, Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], Fast_Food_Positions[i][fast_food_Z]))
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	for(new i = 1; i != sizeof(obtain_work_coords); i ++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.0, obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], obtain_work_coords[i][obtain_work_Z]))
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	for(new i = 0; i < sizeof Fuel_Stations; i++)
-	{
-		if (IsPlayerInAnyVehicle(playerid))
-		{
-			if (IsPlayerInRangeOfPoint(playerid, 1.3, Fuel_Stations[i][0], Fuel_Stations[i][1], Fuel_Stations[i][2] + 0.25))
-			{
-				ShowPlayerKeyMessage(playerid, "Y");
-				return 1;
-			}
-		}
-	}
-
-	for(new i = 0; i != sizeof LoadTrucksPoints; i ++)
-	{
-		if (PLAYER_WORKS[playerid][WORK_TRUCK])
-		{
-			if (IsPlayerInAnyVehicle(playerid))
-			{
-				if (IsPlayerInRangeOfPoint(playerid, 3.5, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2]))
-				{
-					ShowPlayerKeyMessage(playerid, "H");
-					return 1;
-				}
-			}
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -27.964675, -89.948631, 1003.546875))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2125.901123, -65.776679, 1.585963))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 1060.838256, -917.609741, 43.124679))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 509.910125, -708.205383, 19.242210))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2157.049560, -92.550987, 2.798943))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -198.002197, -1762.759643, 675.768737))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2164.021484, -1164.398925, -16.871662))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2162.462158, -1169.053222, -16.871662))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2310.057128, -1789.786865, 1600.751953))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 2.0, 219.244018, 69.982215, 1005.039062) || IsPlayerInRangeOfPoint(playerid, 2.0, 262.945587, 109.785270, 1004.617187) || IsPlayerInRangeOfPoint(playerid, 2.0, 222.683914, 186.956054, 1003.031250) || IsPlayerInRangeOfPoint(playerid, 2.0, 407.302886,2531.673095,16.635936))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 219.244018, 69.982215, 1005.039062))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -382.580657, -1426.404296, 26.219505))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 1796.071655, -1414.565307, 2770.660156)) 
-    {
-    	ShowPlayerKeyMessage(playerid, "H");
-    	return 1;
-    }
-
-    if (IsPlayerInRangeOfPoint(playerid, 1.5, 1207.234375, -29.231435, 1000.953125) || IsPlayerInRangeOfPoint(playerid, 1.5, 496.589172, -76.033905, 998.757812))
-	{
-		ShowPlayerKeyMessage(playerid, "H");
-		return 1;
-	}
-
-    if (IsPlayerInRangeOfPoint(playerid, 1.0, 1795.293823, -1407.773681, 2770.660156)) 
-    {
-    	ShowPlayerKeyMessage(playerid, "H");
-        return 1;
-    }
-
-    if (IsPlayerInRangeOfPoint(playerid, 1.0, -370.339721, -1634.205932, 25.057666)) 
-    {
-    	ShowPlayerKeyMessage(playerid, "Y");
-        return 1;
-    }
-
-	if(IsPlayerInRangeOfPoint(playerid, 1.0, 1722.2310, -1253.8021, 471.1665))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-        return 1;
-	}
-
-    for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
-    {
-    	if (IsPlayerInRangeOfPoint(playerid, 1.2, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2]))
-    	{
-    		if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-			{
-				ShowPlayerKeyMessage(playerid, "H");
-	        	return 1;
-			}
-    	}
-    }
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.5, 726.2478, -1276.3830, 13.5662))
-	{
-		if (PLAYER_WORKS[playerid][WORK_MAFIA])
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.5, 976.715881, -1442.519775, 13.717537))
-	{
-		if (PLAYER_WORKS[playerid][WORK_OSBORN])
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.5, 3855.066162, -1290.975585, 7547.983398))
-	{
-		if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 1626.089355, -2174.786132, 13.554687))
-	{
-		if (PLAYER_WORKS[playerid][WORK_TRASH])
-		{
-			ShowPlayerKeyMessage(playerid, "H");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -212.521926, -1739.015014, 675.768737))
-	{
-		if (PLAYER_WORKS[playerid][WORK_MEDIC])
-		{
-			ShowPlayerKeyMessage(playerid, "H");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.5, -11.283934, 88.862136, 1101.522705))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
-	return 1;
-}
-
 public OnGameModeExit()
 {
 	SendDiscordWebhook(":grey_exclamation: Servidor detenido.", 1);
@@ -7387,7 +7195,7 @@ public OnGameModeExit()
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
 	}
 
-	printf("OnGameModeExit()"); // debug juju
+	//printf("OnGameModeExit()"); // debug juju
 	printf("Deteniendo servidor...");
 	db_close(Database);
 	Log("status", "Servidor detenido.");
@@ -7418,7 +7226,7 @@ CheckAndExecuteGasoline(playerid)
 #define MIN_SECONDS_BETWEEN_TALKS 150 // Deben pasar al menos 1 segundos para volver a hablar.
 public OnPlayerText(playerid, text[])
 {
-	printf("OnPlayerText %d %s",playerid,text); // debug juju
+	//printf("OnPlayerText %d %s",playerid,text); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
@@ -12274,14 +12082,17 @@ ShowDialog(playerid, dialogid)
 
 			for(new i = 0; i != MAX_FURNITURE_OBJECTS; i++)
 			{
-				if (PROPERTY_OBJECT[i][pobj_VALID] && PROPERTY_OBJECT[i][pobj_PROPERTY_ID] == PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID])
+				if (PROPERTY_OBJECT[i][pobj_VALID])
 				{
-					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_furniture] = i;
+					if (PROPERTY_OBJECT[i][pobj_PROPERTY_ID] == PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID])
+					{
+						PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_furniture] = i;
 
-					format(line, sizeof(line), "%s\t%s\n", PROPERTY_OBJECT[i][pobj_NAME], GetFurnitureTypeName(PROPERTY_OBJECT[i][pobj_TYPE]));
-					strcat(dialog, line);
+						format(line, sizeof(line), "%s\t%s\n", PROPERTY_OBJECT[i][pobj_NAME], GetFurnitureTypeName(PROPERTY_OBJECT[i][pobj_TYPE]));
+						strcat(dialog, line);
 
-					total_furniture ++;
+						total_furniture ++;
+					}
 				}
 			}
 			if (total_furniture == 0) return ShowPlayerMessage(playerid, "~r~No tienes muebles", 4);
@@ -12301,7 +12112,7 @@ ShowDialog(playerid, dialogid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	printf("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
+	//printf("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
 	if (PLAYER_TEMP[playerid][py_DIALOG_RESPONDED]) return 1;
 	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = true;
 
@@ -12436,6 +12247,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new pass_str[364];
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
+				format(PLAYER_TEMP[playerid][py_PASSWORD], MAX_PASS_LENGTH, "%s", inputtext);
 				Log("obj", pass_str);
 
 				SetDamageFeedForPlayer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
@@ -13774,7 +13586,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_LEVEL] > ACCOUNT_INFO[playerid][ac_LEVEL])
 				{
 					new str_text[128];
-					format(str_text, sizeof(str_text), "Debes ser nivel %d para comrpar esta propiedad", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_LEVEL]);
+					format(str_text, sizeof(str_text), "Debes ser nivel %d para comprar esta propiedad", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_LEVEL]);
 					return ShowPlayerNotification(playerid, str_text, 3);
 				}
 				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_PRICE] > BANK_ACCOUNT[playerid][bank_account_BALANCE]) return ShowPlayerMessage(playerid, "~r~No tienes cuenta bancaria.", 2);
@@ -13790,7 +13602,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						RegisterPhoneMessage(6740, PLAYER_PHONE[playerid][player_phone_NUMBER], message);
 						new str_buy[164], city[45], zone[45];
 						GetPointZone(PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_X], PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_Y], city, zone);
-						format(str_buy, sizeof(str_buy), "~y~Propiedad comprada~w~~n~Compraste una propiedad en %s, puedes ver las opciones de la propiedad pulsando la tecla H cuando te encuentres en pickup del interior.", zone);
+						format(str_buy, sizeof(str_buy), "~y~Propiedad comprada~w~~n~Compraste una propiedad en %s, puedes ver las opciones de la propiedad pulsando la tecla H.", zone);
 						ShowPlayerNotification(playerid, str_buy, 5);
 					}
 
@@ -13815,7 +13627,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					SendClientMessageEx(playerid, COLOR_WHITE, "Has gastado %d "SERVER_COIN" en la compra de esta propiedad.", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA]);
 				}
-
 
 				PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_SOLD] = true;
 				PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_CREW] = false;
@@ -13850,11 +13661,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				info[1] = PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]; // Index
 				info[2] = 2; // Pickup Exterior
 				Streamer_SetArrayData(STREAMER_TYPE_PICKUP, PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
-
-				new str_buy[264];
-				GetPointZone(PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_X], PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_Y], city, zone);
-				format(str_buy, sizeof(str_buy), "~y~Propiedad comprada~w~~n~Compraste una propiedad en %s, puedes ver las opciones de la propiedad pulsando la tecla H cuando te encuentres en pickup del interior.", zone);
-				ShowPlayerNotification(playerid, str_buy, 5);
 			}
 			return 1;
 		}
@@ -20578,6 +20384,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						GivePlayerCash(playerid, pay, false);
 
 						DeletePropertyObject(PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_DB_ID], PLAYER_TEMP[playerid][py_FURNITURE_SELECTED]);
+						ShowDialog(playerid, DIALOG_FURNITURE_LIST);
 					}
 				}
 			}
@@ -20627,9 +20434,19 @@ SetPlayer_GPS_Checkpoint(playerid, Float:x, Float:y, Float:z, world, interior)//
 
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
-	printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
-	new info[2];
+	//printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
+	new
+		info[2],
+		type
+	;
+	
+	type = Streamer_GetIntData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID);
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
+
+	switch(type)
+	{
+		case AREA_TYPE_KEY: ShowPlayerKeyMessage(playerid, KEY_AREAS[areaid][ka_KEY]);
+	}
 
 	switch(info[0])
 	{
@@ -20651,7 +20468,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 			if (TERRITORIES[index][territory_VALID])
 			{
 				PLAYER_TEMP[playerid][py_LAST_TERRITORY] = index;
-				if (TERRITORIES[index][territory_WAR])//territorio conquista
+				if (TERRITORIES[index][territory_WAR])
 				{
 					new str_text[164];
 					format(str_text, sizeof(str_text), "Este territorio está siendo atacado por la banda %s, es mejor alejarse.", CREW_INFO[ TERRITORIES[index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
@@ -20660,15 +20477,28 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 			}
 		}
 	}
-
 	return 1;
 }
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
-	printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
-	new info[2];
+	//printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
+	new
+		info[2],
+		type
+	;
+
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
+	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
+
+	switch(type)
+	{
+		case AREA_TYPE_KEY:
+		{
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
+		}
+	}
 
 	switch(info[0])
 	{
@@ -20710,7 +20540,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
 {
-	printf("OnPlayerEnterDynamicCp %d %d",playerid, checkpointid); // debug juju
+	//printf("OnPlayerEnterDynamicCp %d %d",playerid, checkpointid); // debug juju
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -20996,7 +20826,7 @@ EditPlayerToy(playerid)
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {
-	printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
+	//printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
 	if (index != PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]) return 0;
 
 	if (response)
@@ -22880,6 +22710,8 @@ LoadEnterExits()
 
 		format(label_str, sizeof(label_str), "{ffffff}%s", ENTER_EXIT[total_enterexits][ee_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xEAE9E900, ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], ENTER_EXIT[total_enterexits][ee_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = ENTER_EXIT[total_enterexits][ee_EXT_WORLD], .interiorid = ENTER_EXIT[total_enterexits][ee_EXT_INTERIOR]);
+		AddKeyArea(ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], 0.8, "ENTER");
+		AddKeyArea(ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], 0.8, "ENTER");
 
 		ENTER_EXIT[total_enterexits][ee_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], ENTER_EXIT[total_enterexits][ee_INT_Z] - 0.7, .worldid = ENTER_EXIT[total_enterexits][ee_INT_WORLD], .interiorid = ENTER_EXIT[total_enterexits][ee_INT_INTERIOR]);
 		ENTER_EXIT[total_enterexits][ee_EXT_PICKUP_ID] = CreateDynamicPickup(19902, 1, ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], ENTER_EXIT[total_enterexits][ee_EXT_Z] - 0.7, ENTER_EXIT[total_enterexits][ee_EXT_WORLD], ENTER_EXIT[total_enterexits][ee_EXT_INTERIOR]);
@@ -23014,6 +22846,8 @@ LoadProperties()//cargado propiedes
 		PROPERTY_INFO[total_houses][property_EXT_PICKUP_ID] = CreateDynamicPickup(pickup_modelid, 1, PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], PROPERTY_INFO[total_houses][property_EXT_Z], 0, PROPERTY_INFO[total_houses][property_EXT_INTERIOR]);
 		PROPERTY_INFO[total_houses][property_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INFO[total_houses][property_ID], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_INTERIOR]);
 
+		AddKeyArea(PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], 0.8, "ENTER");
+		AddKeyArea(PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], 0.8, "ENTER");
 
 		info[0] = PICKUP_TYPE_PROPERTY;
 		info[1] = total_houses; // Index
@@ -23309,7 +23143,7 @@ LoadBlackMarkets()
 
 public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 {
-	printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
+	//printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
     PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] = pickupid;
     return 1;
 }
@@ -23538,6 +23372,8 @@ CheckGraffitiProgress(playerid)
 CALLBACK: UpdateGraffitiProgress(playerid)
 {
 	if (IsPlayerPaused(playerid)) return 1;
+
+	if (GetPlayerWeapon(playerid) != 41) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 
 	//Strings
 	new crew_one[64],
@@ -23990,7 +23826,7 @@ SendBoxMessage(message[], time)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	printf("OnPlayerKeyState %d %d %d",playerid, newkeys, oldkeys); // debug juju
+	//printf("OnPlayerKeyState %d %d %d",playerid, newkeys, oldkeys); // debug juju
     if (PRESSED(  KEY_SECONDARY_ATTACK  ))
     {
     	if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] == true) PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = false;
@@ -25003,7 +24839,6 @@ public OnPlayerUpdate(playerid)
 		}
     }
 
-    UpdatePlayerZoneMessages(playerid);
     CheckRobActor(playerid);
 	return 1;
 }
@@ -25173,7 +25008,9 @@ CALLBACK: HealthUp(playerid)
 			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 		}
 		PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
-		ClearAnimations(playerid);
+
+		ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
+		ClearAnimations(playerid);	
 	}
 	return 1;
 }
@@ -25615,7 +25452,7 @@ GetPlayerIdByBankAccountId(account_id)
 
 public OnPlayerStateChange(playerid, newstate, oldstate)
 {
-	printf("OnPlayerStaeChnagge %d %d %d",playerid, newstate, oldstate); // debug juju
+	//printf("OnPlayerStaeChnagge %d %d %d",playerid, newstate, oldstate); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	switch(oldstate)
@@ -26172,8 +26009,20 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
+	//printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
 	StopAudioStreamForPlayer(playerid);
+
+	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] != INVALID_PLAYER_ID)
+	{
+		if (IsPlayerConnected(GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER]))
+		{
+			if (PLAYER_MISC[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] ][MISC_RADIO_STATION] < 100)
+			{
+				StopAudioStreamForPlayer(playerid);
+			}
+		}
+	}
+
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
 	return 1;
@@ -26181,7 +26030,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
-	printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
+	//printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
 
@@ -26957,7 +26806,7 @@ SetVehicleToRespawnEx(vehicleid)
 
 public OnVehicleDeath(vehicleid, killerid)
 {
-	printf("OnVehicleDeat",vehicleid,killerid); // debug juju
+	//printf("OnVehicleDeat",vehicleid,killerid); // debug juju
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = false;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] = INVALID_PLAYER_ID;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LAST_DRIVER] = INVALID_PLAYER_ID;
@@ -27364,7 +27213,7 @@ AddVehicleComponents(vehicleid)
 
 public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
-	printf("OnEnterExitMoDsHOP",playerid); // debug juju
+	//printf("OnEnterExitMoDsHOP",playerid); // debug juju
     if (enterexit) // Entra
     {
 		ShowPlayerMessage(playerid, "~r~Solo puedes tunear vehículos en el mecánico, búscalo con el /GPS.", 2);
@@ -27385,7 +27234,7 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
-	printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
+	//printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -27406,7 +27255,7 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 
 public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
-	printf("OnVehiclePaintJob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
+	//printf("OnVehiclePaintJob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -28628,7 +28477,7 @@ Set_HARVEST_Checkpoint(playerid)
 
 public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 {
-	printf("OnPlayerEnterDynamicRaceCp %d %d",playerid,checkpointid); // debug juju
+	//printf("OnPlayerEnterDynamicRaceCp %d %d",playerid,checkpointid); // debug juju
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_RACE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -30754,7 +30603,7 @@ CMD:econtrol(playerid, params[])
 
 public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, modelid, Float:x, Float:y, Float:z)
 {
-	printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
+	//printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
 	if (info[0] == WORK_POLICE)
@@ -30788,7 +30637,7 @@ public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, model
 
 public OnPlayerEditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
-	printf("OnPlayerEditDynamicObject",playerid); // debug juju
+	//printf("OnPlayerEditDynamicObject",playerid); // debug juju
 	if (response == EDIT_RESPONSE_CANCEL)
 	{
 		new info[2];
@@ -33301,7 +33150,7 @@ EditVehicleObject(playerid, vehicleid, slot)
 
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
-	printf("OnPlayerEditObject %d",playerid); // debug juju
+	//printf("OnPlayerEditObject %d",playerid); // debug juju
 	if (playerobject)
 	{
 		if (objectid == PLAYER_TEMP[playerid][py_PIVOT_OBJECT])
@@ -33961,7 +33810,7 @@ SetPlayerNormalColor(playerid)
 #define MIN_SECONDS_BETWEEN_COMMANDS 1 // Deben pasar al menos 1 segundos entre comando y comando.
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 {
-	printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
+	//printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL || PLAYER_TEMP[playerid][py_NEW_USER])
@@ -34022,7 +33871,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 
 public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags) 
 {
-	printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
+	//printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
     if (result == -1) 
     { 
 		SendClientMessageEx(playerid, COLOR_WHITE, "El comando "COL_RED"/%s "COL_WHITE"no existe, usa "COL_RED"/ayuda"COL_WHITE".", cmd);
@@ -34082,7 +33931,6 @@ SendMessageToDoubtChannel(playerid, message[])
 		{
 			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL] && !PLAYER_TEMP[playerid][py_NEW_USER])
 			{
-				if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) continue;
 				SendResponsiveMessage(i, COLOR_DARK_GREEN, str, 125);
 			}
 		}
@@ -34235,6 +34083,11 @@ flags:atenderre(CMD_MODERATOR)
 flags:deletead(CMD_MODERATOR2)
 flags:settime(CMD_MODERATOR3)
 flags:darstaff(CMD_OWNER)
+<<<<<<< HEAD
+//flags:fakeping(CMD_OWNER)
+flags:botmaster(CMD_OWNER)
+=======
+>>>>>>> refs/rewritten/hmm
 flags:hy(CMD_OWNER)
 flags:ac(CMD_OWNER)
 flags:setthirst(CMD_MODERATOR2)

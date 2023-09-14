@@ -1,15 +1,54 @@
 import json
 import requests
+import random
+import string
+import threading
+import sqlite3
+from sqlite3 import Error
 from discord_webhooks import DiscordWebhooks
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, g
+
+db_path = '../scriptfiles/DATABASE/server.db'
+
+def sql_connection():
+    try:
+        con = sqlite3.connect(db_path)
+        return con
+
+    except Error:
+        pass
+        
+
+class hyDatabase(threading.Thread):
+    def __init__(self):
+        super(hyDatabase, self).__init__()
+
+    def run(self):
+        self.connection = sql_connection()
+        print("[DATABASE] DB Connected")
+        return self.connection
+
+    def execute(self, content):
+        sql_cursor = self.connection.cursor()
+        sql_cursor.execute(content)
+        return sql_cursor.fetchall()        
+
 
 app = Flask(__name__)
+database = hyDatabase().start()
 
 def IsValidKey(key):
     if key == 'I88B7B7F7Es6bKkNS9SB77svJA':
         return True
 
     return False
+
+
+def get_random_string(length):
+    letters = string.ascii_letters + string.digits
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    return result_str
+
 
 def SendWebhookMessage(message, msg_type):
     if msg_type == 1:
@@ -45,6 +84,16 @@ def SendWebhookMessage(message, msg_type):
     print(f'[{msg_type}] {message}')
 
 
+@app.route('/gift/<key>/')
+def gift(key):
+    if IsValidKey(key):
+        gift_code = get_random_string(8)
+        database.execute(f"INSERT INTO `GIFTS_CODES` (`CODE`, `TYPE`, `EXTRA`, `USED`) VALUES ('{gift_code}', '0', '10', '0');")
+        return gift_code
+
+    return 'yas'
+
+
 @app.route('/webhook')
 def webhook():
 	message = request.args.get('content', default = '*', type = str)
@@ -64,9 +113,34 @@ def webhook():
 		
 	return 'yas'
 
+
 @app.route('/proxycheck/<ip>')
 def proxy_check(ip):
-    address_info = requests.get(f"http://ip-api.com/json/{ip}?fields=proxy,hosting").json()
+    address_info = requests.get(f"http://ip-api.com/json/{ip}?fields=proxy,hosting,countryCode").json()
+    whitelist = [
+        'AD',
+        'AR',
+        'BO',
+        'CL',
+        'CO',
+        'CR',
+        'DO',
+        'EC',
+        'ES',
+        'GT',
+        'HT',
+        'MA',
+        'MX',
+        'PE',
+        'PR',
+        'PY',
+        'SV',
+        'UY',
+        'VE'
+    ]
+
+    if not address_info.get('countryCode') in whitelist:
+        return 'Y'
 
     if address_info.get('hosting') == True:
         return 'Y'

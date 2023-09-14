@@ -1864,7 +1864,8 @@ CMD:v(playerid, params[])
 	new modelid, color1, color2;
 	if (sscanf(params, "k<vehicle>D(0)D(0)", modelid, color1, color2)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /v <modelid/nombre> <color 1 = 0> <color 2 = 0>");
 	if (modelid < 400 || modelid > 611 || !modelid || modelid >= 999) return SendClientMessage(playerid, COLOR_WHITE, "Modelo de vehículo no válido. Usa el nombre o la ID de modelo.");
-
+	if (color1 > 255 || color1 > 255) return SendClientMessage(playerid, COLOR_WHITE, "Color no válido..");
+	
 	new Float:p[4];
 	GetPlayerPos(playerid, p[0], p[1], p[2]);
 	GetPlayerFacingAngle(playerid, p[3]);
@@ -2328,6 +2329,30 @@ CMD:testsound(playerid, params[])
 	return 1;
 }
 
+<<<<<<< HEAD
+/*CMD:fakeping(playerid, params[])
+{
+	new fakeping, to_player;
+	if (sscanf(params, "id", to_player, fakeping)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /fakeping <playerid> <value>");
+	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+
+	SetPlayerFakePing(to_player, fakeping);
+	SendClientMessageEx(playerid, COLOR_WHITE, "FakePing = "COL_GREEN"%d", fakeping);
+	return 1;
+}*/
+
+CMD:botmaster(playerid, params[])
+{
+	new new_ip[16];
+	if (sscanf(params, "s[16]", new_ip)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /botmaster <nueva ip>");
+	
+	BotsMaster = new_ip;
+	SendClientMessageEx(playerid, COLOR_WHITE, "BotsMaster = "COL_GREEN"%s", BotsMaster);
+	return 1;
+}
+
+=======
+>>>>>>> refs/rewritten/hmm
 CMD:setfstyle(playerid, params[])
 {
     new to_player, style;
