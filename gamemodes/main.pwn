@@ -25084,7 +25084,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					{
 						if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
 						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-						if (i == 3) break;
+						if (i > 2) continue;
 
 						if (IsPlayerInRangeOfPoint(playerid, 20.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
 						{
@@ -25103,7 +25103,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					{
 						if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
 						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-						if (i < 3) break;
+						if (i < 3) continue;
 						
 						if (IsPlayerInRangeOfPoint(playerid, 20.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
 						{
@@ -36949,7 +36949,6 @@ flags:setpd(CMD_COFUNDER);
 flags:moderador(CMD_MODERATOR);
 flags:pnot(CMD_MODERATOR);
 flags:addcode(CMD_COFUNDER);
-//flags:pgeo(CMD_SUPER_MODERATOR);
 flags:supermoderador(CMD_SUPER_MODERATOR);
 flags:operador(CMD_GAME_OPERATOR);
 flags:administrador(CMD_ADMIN);
