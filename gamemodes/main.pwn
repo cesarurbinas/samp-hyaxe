@@ -8559,7 +8559,7 @@ public OnPlayerText(playerid, text[])
 			if (text[1] == '!') format(str_text, sizeof str_text, "[TCC] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
 			else format(str_text, sizeof str_text, "[TCC] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], text[1]);
 
-			SendMafiaMessage(0xff9b00FF, str_text);
+			SendEnemyMafiaMessage(0xff9b00FF, str_text);
 			return 0;
 		}
 
@@ -33389,6 +33389,21 @@ SendMafiaMessage(color, const message[])
 		if (IsPlayerConnected(i))
 		{
 			if (PLAYER_WORKS[i][WORK_MAFIA])
+			{
+				SendResponsiveMessage(i, color, message, 154);
+			}
+		}
+	}
+	return 1;
+}
+
+SendEnemyMafiaMessage(color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_WORKS[i][ENEMY_WORK_MAFIA])
 			{
 				SendResponsiveMessage(i, color, message, 154);
 			}
