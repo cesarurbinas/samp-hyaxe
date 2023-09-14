@@ -202,3 +202,17 @@ public FCNPC_OnTakeDamage(npcid, issuerid, Float:amount, weaponid, bodypart)
 	}
 	return 1;
 }
+
+public FCNPC_OnGiveDamage(npcid, damagedid, Float:amount, weaponid, bodypart)
+{
+	if (npcid != INVALID_PLAYER_ID && weaponid < 50 && weaponid != WEAPON_FLAMETHROWER)
+	{
+		return 0;
+	}
+
+	if (amount <= 0.9) amount = 1.0;
+
+	OnPlayerDamage(damagedid, npcid, floatround(amount), weaponid, bodypart);
+	Damage_Send(damagedid, npcid, amount, weaponid);
+	return 0;
+}

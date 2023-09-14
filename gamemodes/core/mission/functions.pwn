@@ -153,9 +153,14 @@ CheckMissionPlace(playerid)
                             {
                                 if (players_in_mission <= 1)
                                 {
+                                    PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
+                                    CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+
                                     SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 100.0);
                                     FCNPC_GiveHealth(SWEET_DEALERS[i][sd_ID], 100.0);
                                     
+                                    FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
+
                                     FCNPC_Spawn(
                                         SWEET_DEALERS[i][sd_ID],
                                         DEALER_SKIN[ random(sizeof(DEALER_SKIN))],
@@ -175,10 +180,13 @@ CheckMissionPlace(playerid)
 
                                     FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
                                     FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
+                                    FCNPC_UseInfiniteAmmo(SWEET_DEALERS[i][sd_ID], true);
 
                                     FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 0);
 
                                     FCNPC_SetInvulnerable(SWEET_DEALERS[i][sd_ID], false);
+
+                                    FCNPC_AimAtPlayer(SWEET_DEALERS[i][sd_ID], playerid, true, 1000);
                                 }
 
                                 SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
