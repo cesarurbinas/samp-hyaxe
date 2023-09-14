@@ -25692,6 +25692,34 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     	}
 	}
 
+	if (PRESSED( KEY_ANALOG_UP  ))
+    {
+    	if (IsPlayerInAnyVehicle(playerid)) return 0;
+    	inv_AccommodateItems(playerid, false);
+		ClickInventorySlot(playerid, 6, true);
+	}
+
+	if (PRESSED( KEY_ANALOG_DOWN  ))
+    {
+    	if (IsPlayerInAnyVehicle(playerid)) return 0;
+    	inv_AccommodateItems(playerid, false);
+		ClickInventorySlot(playerid, 5, true);
+	}
+
+	if (PRESSED( KEY_ANALOG_LEFT  ))
+    {
+    	if (IsPlayerInAnyVehicle(playerid)) return 0;
+    	inv_AccommodateItems(playerid, false);
+		ClickInventorySlot(playerid, 10, true);
+	}
+
+	if (PRESSED( KEY_ANALOG_RIGHT  ))
+    {
+    	if (IsPlayerInAnyVehicle(playerid)) return 0;
+    	inv_AccommodateItems(playerid, false);
+		ClickInventorySlot(playerid, 2, true);
+	}
+
 	if (PRESSED(KEY_FIRE))
 	{
 		if (GetPlayerWeapon(playerid) == 41)
