@@ -747,7 +747,7 @@ CMD:reportmute(playerid, params[])
 	SavePlayerMisc(to_player);
 
 	new str[145];
-	format(str, 145, "[ADMIN] %s (%d) le bloqueó los reportes a %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
+	format(str, 145, "[ADMIN] %s (%d) le bloqueó los reportes a %s (%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player);
 	SendMessageToAdmins(COLOR_ANTICHEAT, str);
 	SendDiscordWebhook(str, 1);
 	return 1;
