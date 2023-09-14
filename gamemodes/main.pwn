@@ -29,7 +29,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"v0.8 Build 33"
+#define SERVER_VERSION 			"v0.8 Build 34"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -6847,11 +6847,18 @@ public OnPlayerDeath(playerid, killerid, reason)
 		GetPlayerPos(playerid, x, y, z);
 		SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 
-		new p_interior = GetPlayerInterior(playerid);
+		new p_interior = GetPlayerInterior(killerid);
 
 		if (p_interior == 25 || p_interior == 26 || p_interior == 27)
 		{
-			NeuroJail(playerid, 30, "DM (Minero)");
+			NeuroJail(killerid, 30, "DM (Minero)");
+			return 1;
+		}
+
+		if (reason == 49)
+		{
+			NeuroJail(killerid, 30, "VK");
+			return 1;
 		}
 	}
 
@@ -13977,7 +13984,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new 
-				dialog[200 * 6],
+				dialog[2064],
 				line[150],
 				total_furniture
 			;
