@@ -5702,7 +5702,7 @@ Menu:CLUB_MENU(playerid, response, listitem)
 				GivePlayerCash(playerid, CLUBS_INFO[club][club_BALANCE], false);
 
 				new str_text[32];
-				format(str_text, 32, "~g~+%s$", CLUBS_INFO[club][club_BALANCE]);
+				format(str_text, 32, "~g~+%d$", CLUBS_INFO[club][club_BALANCE]);
      			GameTextForPlayer(playerid, str_text, 5000, 1);
 
 				new DB_Query[128];
@@ -5748,7 +5748,7 @@ CheckClubOptions(playerid)
 				AddPlayerMenuItem(playerid, "Modificar productos");
 				AddPlayerMenuItem(playerid, sprintf("Puerta (%s)", (CLUBS_INFO[club][club_STATE] ? "Abierta" : "Cerrada")));
 				AddPlayerMenuItem(playerid, "Echar a todos");
-				AddPlayerMenuItem(playerid, "Retirar fondos");
+				AddPlayerMenuItem(playerid, "Retirar fondos", sprintf("Fondos: %d$", CLUBS_INFO[club][club_BALANCE]));
 				AddPlayerMenuItem(playerid, "Cambiar radio");
 				AddPlayerMenuItem(playerid, "Precio de entrada");
 				AddPlayerMenuItem(playerid, "Personalizar");
@@ -13432,42 +13432,36 @@ ShowDialog(playerid, dialogid)
 
 				new
 					dialog[40 * MAX_CLUB_PRODUCTS],
-					DBResult:Result,
-					DB_Query[128],
 					club = PLAYER_TEMP[playerid][py_CLUB_INDEX],
-					total_products
+					listitem
 				;
 
 				format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
 
-				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '1' LIMIT %d;", MAX_CLUB_PRODUCTS, CLUBS_INFO[club][club_ID]);
+				new DBResult:Result, DB_Query[164];
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '1' LIMIT %d;", CLUBS_INFO[club][club_ID], MAX_CLUB_PRODUCTS);
 				Result = db_query(Database, DB_Query);
 
-				if (db_num_rows(Result))
+				printf("%d", db_num_rows(Result));
+				for(new i; i < db_num_rows(Result); i++ )
 				{
-					for(new i; i < db_num_rows(Result); i++ )
-					{
-						new 
-							name[32],
-							line[64],
-							price,
-							id
-						;
+					new name[32], price;
 
-						id = db_get_field_assoc_int(Result, "ID");
-						price = db_get_field_assoc_int(Result, "PRICE");
-						db_get_field_assoc(Result, "NAME", name, 32);
+					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = db_get_field_assoc_int(Result, "ID");	
+					db_get_field_assoc(Result, "NAME", name, 32);
+					printf("%s", name);
+					price = db_get_field_assoc_int(Result, "PRICE");
 
-						PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_products] = id;
+					new line_str[64];
+					format(line_str, sizeof(line_str), "%s\t"COL_GREEN"%d$\n", name, price);
 
-						format(line, sizeof(line), "%s\t"COL_GREEN"%d$\n", name, price);
-						strcat(dialog, line);
-						total_products ++;
-					}
+					strcat(dialog, line_str);
+					listitem ++;
+					db_next_row(Result);
 				}
 				db_free_result(Result);
 
-				if (total_products == 0) return ShowPlayerMessage(playerid, "~r~No hay productos disponibles", 4);
+				if (listitem == 0) return ShowPlayerMessage(playerid, "~r~No hay productos disponibles", 4);
 				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comidas", dialog, "Comprar", "Atrás");
 			}
 		}
@@ -13487,7 +13481,7 @@ ShowDialog(playerid, dialogid)
 
 				format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
 
-				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '0' LIMIT %d;", MAX_CLUB_PRODUCTS, CLUBS_INFO[club][club_ID]);
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '0' LIMIT %d;", CLUBS_INFO[club][club_ID], MAX_CLUB_PRODUCTS);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -13510,6 +13504,7 @@ ShowDialog(playerid, dialogid)
 						format(line, sizeof(line), "%s\t"COL_GREEN"%d$\n", name, price);
 						strcat(dialog, line);
 						total_products ++;
+						db_next_row(Result);
 					}
 				}
 				db_free_result(Result);
@@ -13580,7 +13575,7 @@ ShowDialog(playerid, dialogid)
 
 				format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
 
-				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' LIMIT %d;", MAX_CLUB_PRODUCTS, CLUBS_INFO[club][club_ID]);
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' LIMIT %d;", CLUBS_INFO[club][club_ID], MAX_CLUB_PRODUCTS);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -13603,6 +13598,7 @@ ShowDialog(playerid, dialogid)
 						format(line, sizeof(line), "%s\t"COL_GREEN"%d$\n", name, price);
 						strcat(dialog, line);
 						total_products ++;
+						db_next_row(Result);
 					}
 				}
 				db_free_result(Result);
@@ -21901,6 +21897,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
 
 						GivePlayerCash(playerid, -price, false);
+						db_next_row(Result);
 					}
 				}
 				db_free_result(Result);
@@ -21959,6 +21956,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
 
 						GivePlayerCash(playerid, -price, false);
+						db_next_row(Result);
 					}
 				}
 				db_free_result(Result);
@@ -22254,7 +22252,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PLAYER_TEMP[playerid][py_PRODUCT_EXTRA] = inputtext[0];
 
 				AddClubProduct(
-					PLAYER_TEMP[playerid][py_CLUB_INDEX],
+					CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_ID],
 					PLAYER_TEMP[playerid][py_PRODUCT_NAME],
 					PLAYER_TEMP[playerid][py_PRODUCT_TYPE],
 					PLAYER_TEMP[playerid][py_PRODUCT_EXTRA],
