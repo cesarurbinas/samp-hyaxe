@@ -64,7 +64,7 @@
 
 // Anti-Cheat
 #define NO_SUSPICION_LOGS
-
+ 
 #include <streamer>
 #include <ColAndreas>
 #include <YSF>
