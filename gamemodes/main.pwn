@@ -26,7 +26,7 @@
 #include <ColAndreas>
 #include <YSF>
 
-#define SERVER_VERSION 			"v0.6 Build 10"
+#define SERVER_VERSION 			"v0.7 Build 1"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -27136,14 +27136,35 @@ CheckWorkSite(playerid)
 							servicio en la sala de atrás.", "Cerrar", "");
 						return 1;
 					}
-					/*case WORK_CLEANER:
+					case WORK_BOX:
 					{
-						ShowPlayerDialog(playerid, 1, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de barredor", ""COL_WHITE"
-							Bienvenido al trabajo.\n\n
-							Súbete a un barredor y ve al punto que te marque, luego\n
-							vuelve aquí a recibir la paga.", "Cerrar", "");
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de boxeador", ""COL_WHITE"\
+							Bienvenido al ring.\n\n\
+							Entra al ring y pelea hasta que alguien\n\
+							apueste por ti, si matas a alguien con\n\
+							apuestas te llevas su dinero.", "Cerrar", "");
 						return 1;
-					}*/
+					}
+					case WORK_SOCCER:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de futbolista", ""COL_WHITE"\
+							Bienvenido a la cancha.\n\n\
+							Teclas:\n\
+							* Agarrar pelota: Click Izq.\n\
+							* Patear en globo: ALT\n\
+							* Patear derecho: Click Der.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_WOODCUTTER:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de leñador", ""COL_WHITE"\
+							Bienvenido al aserradero.\n\n\
+							Ponte en servicio y agarra tu carrito\n\
+							para ir a buscar arboles (ALT + CLICK)\n\
+							Cuando llenes tu carrito con troncos\n\
+							vuelves para procesarlos.", "Cerrar", "");
+						return 1;
+					}
 				}
 			}
 		}
