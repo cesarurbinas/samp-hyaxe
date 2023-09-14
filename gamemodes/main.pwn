@@ -33130,6 +33130,25 @@ UpdateVehicleAttachedObject(vehicleid, slot, material = false)
 	{
 		if (VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] == INVALID_STREAMER_ID)
 		{
+			new Float:v_size[3];
+			GetVehicleModelInfo(GLOBAL_VEHICLES[ vehicleid ][gb_vehicle_MODELID], VEHICLE_MODEL_INFO_SIZE, v_size[0], v_size[1], v_size[2]);
+
+			if	(
+					(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0] >= v_size[0] || -v_size[0] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0]) || 
+					(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1] >= v_size[1] || -v_size[1] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1]) ||
+					(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2] >= v_size[2] || -v_size[2] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2])
+				)
+			{
+				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0] = 0.0;
+				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1] = 0.0;
+				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2] = 0.0;
+				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][0] = 0.0;
+				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][1] = 0.0;
+				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][2] = 0.0;
+				UpdateVehicleAttachedObject(vehicleid, slot);
+				return 0;
+			}
+
 			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = 	CreateDynamicObject
 																	(
 																		VEHICLE_OBJECTS[vehicleid][slot][vobject_MODELID],
@@ -33232,7 +33251,6 @@ EditVehicleObject(playerid, vehicleid, slot)
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
 	//printf("OnPlayerEditObject %d",playerid); // debug juju
-	if(fX > 20.0 || fX < -20.0 || fY > 20.0 || fY < -20.0 || fZ > 20.0 || fZ < -20.0) return 0;
 
 	if (playerobject)
 	{
@@ -33278,7 +33296,7 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 							(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][2] >= v_size[2] || -v_size[2] >= VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][2])
 						)
 					{
-						ShowPlayerMessage(playerid, "~r~La posición del objeto está demasiado lejos del vehículo.", 4);
+						ShowPlayerNotification(playerid, "~r~La posición del objeto está demasiado lejos del vehículo.", 4);
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][0] = PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][0];
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][1] = PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][1];
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][2] = PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][2];
