@@ -59,7 +59,6 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 					ShowPlayerMessage(playerid, "Has cancelado la edición.", 3);
 					ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
 				}
-
 				case EDIT_RESPONSE_FINAL:
 				{
 					if (PLAYER_TEMP[playerid][py_PIVOT_OBJECT] != INVALID_OBJECT_ID)
@@ -90,7 +89,7 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 					
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED] = true;
 					
-					switch(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_TYPE])
+					/*switch(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_TYPE])
 					{
 						case VOBJECT_TYPE_OBJECT:
 						{
@@ -117,7 +116,7 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 						}
 						case VOBJECT_TYPE_COUNTRY_FLAG: TextureCountryFlag(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], 1, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][0]);
 						case VOBJECT_TYPE_COUNTRY_PANEL: TextureCountryFlag(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], 0, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][0]);
-					}
+					}*/
 
 					ShowPlayerMessage(playerid, "Objeto actualizado.", 4);
 					ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
@@ -130,26 +129,6 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][0] = fRotX;
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][1] = fRotY;
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][2] = fRotZ;
-					
-					new Float:v_size[3];
-					GetVehicleModelInfo(GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_MODELID], VEHICLE_MODEL_INFO_SIZE, v_size[0], v_size[1], v_size[2]);
-
-					if	(
-							(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][0] >= v_size[0] || -v_size[0] >= VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][0]) || 
-							(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][1] >= v_size[1] || -v_size[1] >= VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][1]) ||
-							(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][2] >= v_size[2] || -v_size[2] >= VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][2])
-						)
-					{
-						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][0] = 0.0;
-						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][1] = 0.0;
-						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][2] = 0.0;
-						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_ROT][0] = 0.0;
-						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_ROT][1] = 0.0;
-						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_ROT][2] = 0.0;
-						//ShowPlayerNotification(playerid, "No alejes mucho el objeto.", 0);
-						ShowPlayerMessage(playerid, "~r~No alejes mucho el objeto.", 3);
-						return 0;
-					}
 
 					UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 				}
