@@ -106,3 +106,55 @@ PlayerBloodParticle(playerid)
 	}
 	return 1;
 }
+
+ActorBloodParticle(actorid)
+{
+	new Float:x, Float:y, Float:z;
+	GetDynamicActorPos(actorid, x, y, z);
+
+	for(new i = 0, j = 5; i <= j; i++)
+	{
+		new
+			blood_particle,
+			Float:blood_x = x,
+			Float:blood_y = y,
+			rand = random(9)
+		;
+
+		switch(rand)
+		{
+			case 0: blood_x += -0.3;
+			case 1: blood_x += -0.2;
+			case 2: blood_x += -0.1;
+			case 3: blood_x += 0.3;
+			case 4: blood_x += 0.2;
+			case 5: blood_x += 0.1;
+			case 6: blood_x += 0.4;
+			case 7: blood_x += 0.5;
+			case 8: blood_x += -0.4;
+			case 9: blood_x += -0.5;
+			default: blood_x = 0.0;
+		}
+
+		rand = random(9);
+
+		switch(rand)
+		{
+			case 0: blood_y += -0.3;
+			case 1: blood_y += -0.2;
+			case 2: blood_y += -0.1;
+			case 3: blood_y += 0.3;
+			case 4: blood_y += 0.2;
+			case 5: blood_y += 0.1;
+			case 6: blood_y += 0.4;
+			case 7: blood_y += 0.5;
+			case 8: blood_y += -0.4;
+			case 9: blood_y += -0.5;
+			default: blood_y = 0.0;
+		}
+
+		blood_particle = CreateDynamicObject(19836, blood_x, blood_y, z - 1.0, 0.0, 0.0, 0.0, GetDynamicActorVirtualWorld(actorid));
+		SetTimerEx("DestroyParticleObject", minrand(5000, 12000), false, "i", blood_particle);
+	}
+	return 1;
+}

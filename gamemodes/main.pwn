@@ -27959,9 +27959,26 @@ public CloseBarrier(i)
 
 public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Float:amount, weaponid, bodypart)
 {
-	new Float:health;
-	GetDynamicActorHealth(actorid, health);
+	if (!IsDynamicActorInvulnerable(actorid))
+	{
+		new
+			Float:actual_health,
+			Float:new_health
+		;
+		GetDynamicActorHealth(actorid, actual_health);
 
+		new_health = (amount - actual_health);
+		if (new_health <= 0.0)
+		{
+			new_health = 0.0;
+
+			ActorBloodParticle(actorid);
+			SetActorRespawnTime(ActorTarget, 60000);
+		}
+		
+		SetDynamicActorHealth(actorid, health);
+	}
+	
 	SendClientMessageEx(playerid, -1, "playerid: %d, actorid: %d, amount: %f, weaponid: %d, bodypart: %d, health: %f", playerid, actorid, amount, weaponid, bodypart, health);
 	return 1;
 }
