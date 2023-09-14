@@ -50,7 +50,7 @@ CreateStalls()
 		);
 
 		// Key area
-		AddKeyArea(x, y, 1.1, KEY_TYPE_ALT);
+		AddKeyArea(x, y, 1.3, KEY_TYPE_ALT);
 	}
 	return 1;
 }
@@ -59,7 +59,7 @@ CheckStellPoint(playerid)
 {
 	for (new i; i < sizeof(STALL_INFO); i++)
 	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.1, STALL_INFO[i][st_X], STALL_INFO[i][st_Y], STALL_INFO[i][st_Z]))
+		if (IsPlayerInRangeOfPoint(playerid, 1.5, STALL_INFO[i][st_X], STALL_INFO[i][st_Y], STALL_INFO[i][st_Z]))
 		{
 			if (CHARACTER_INFO[playerid][ch_CASH] <= STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE])
 				return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
