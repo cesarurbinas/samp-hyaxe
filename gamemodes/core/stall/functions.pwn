@@ -86,7 +86,7 @@ CheckStallPoint(playerid)
 				STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_THIRST]
 			);
 
-			GivePlayerReputation(playerid);
+			if (random(10) == 3) GivePlayerReputation(playerid);
 			break;
 		}
 	}
