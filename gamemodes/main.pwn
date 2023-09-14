@@ -22114,7 +22114,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				PLAYER_TEMP[playerid][py_PRODUCT_PRICE] = inputtext[0];
-				ShowDialog(playerid, DIALOG_PRODUCT_TYPE)
+				ShowDialog(playerid, DIALOG_PRODUCT_TYPE);
 			}
 			else ShowDialog(playerid, DIALOG_PRODUCT_NAME);
 		}
