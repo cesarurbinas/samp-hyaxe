@@ -2661,7 +2661,7 @@ CMD:admac(playerid, params[])
 	if (sscanf(params, "d", level)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /admac <nivel>");
 	ADMIN_LEVEL_AC_IMMUNITY = level;
 
-	SendClientMessageEx(playerid, COLOR_WHITE, "Administradores de nivel %d o mayor no seran detectados por el Anticheat.", ADMIN_LEVEL_AC_IMMUNITY);
+	SendClientMessageEx(playerid, COLOR_WHITE, "Staff de nivel %d o mayor no seran detectados por el anti-cheat.", ADMIN_LEVEL_AC_IMMUNITY);
 	return 1;
 }
 

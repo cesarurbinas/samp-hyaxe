@@ -2778,14 +2778,14 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Fly");
 						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 						
-						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Fly");
+						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Fly (1)");
 
 						KickEx(playerid, 500);
 						PLAYER_MISC[playerid][MISC_BANEOS] ++;
 						SavePlayerMisc(playerid);
 
 						new str[145];
-						format(str, 145, "[ADMIN] %s (%d) fue baneado: Fly.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+						format(str, 145, "[ADMIN] %s (%d) fue baneado: Fly (1).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 						SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
 						new webhook[145];
@@ -2802,14 +2802,14 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Fly");
 						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 						
-						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Fly");
+						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Fly (2)");
 
 						KickEx(playerid, 500);
 						PLAYER_MISC[playerid][MISC_BANEOS] ++;
 						SavePlayerMisc(playerid);
 
 						new str[145];
-						format(str, 145, "[ADMIN] %s (%d) fue baneado: Fly.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+						format(str, 145, "[ADMIN] %s (%d) fue baneado: Fly (2).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 						SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
 						new webhook[145];
@@ -2866,7 +2866,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 							format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (%f, %f)", PLAYER_TEMP[playerid][py_NAME], playerid, depth, playerdepth);
 						    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
 						    SendDiscordWebhook(str_text, 1);
-						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
+						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (3)");
 							KickEx(playerid, 500);
 							return 0;
 						}
@@ -2882,13 +2882,55 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		    		weapon_ammo
 		    	;
 
-		    	if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != onFootData[PR_weaponId])
-		    		OnPlayerCheatDetected(playerid, CHEAT_WEAPON, weapon_slot);
+		    	if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY])
+				{
+			    	if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != onFootData[PR_weaponId])
+			    		return OnPlayerCheatDetected(playerid, CHEAT_WEAPON, weapon_slot);
 
-		    	GetPlayerWeaponData(playerid, weapon_slot, weapon_id, weapon_ammo);
-		    	if (weapon_ammo > (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO] + 100))
-		    		OnPlayerCheatDetected(playerid, CHEAT_AMMO, weapon_slot);
+			    	if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_VALID] == false)
+			    		return OnPlayerCheatDetected(playerid, CHEAT_WEAPON, weapon_slot);
+			    }
+
+			    if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY])
+			    {
+			    	new server_ammo = PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO] + 150;
+			    	GetPlayerWeaponData(playerid, weapon_slot, weapon_id, weapon_ammo);
+			    	if (weapon_ammo != PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO])
+			    	{
+				    	if (weapon_ammo > server_ammo || weapon_ammo < -1)
+				    	{
+				    		new string[128];
+							format(string, sizeof(string), "[ANTI-CHEAT] Aviso sobre %s (%d): Ammo (client: %d, server: %d, check: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, weapon_ammo, PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO], server_ammo);
+							SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+							SendDiscordWebhook(string, 1);
+				    		OnPlayerCheatDetected(playerid, CHEAT_AMMO, weapon_ammo);
+				    	}
+				    }
+				}
+		    	//SendClientMessageEx(playerid, -1, "id: %d, ammo: %d, wammo: %d, slot: %d, pid: %d", weapon_id, weapon_ammo, PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO], weapon_slot, onFootData[PR_weaponId]);
 		    }
+
+		    if (onFootData[PR_specialAction] == SPECIAL_ACTION_USEJETPACK)
+			{
+				new dialog[250];
+				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Jetpack");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+				
+				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Jetpack");
+
+				KickEx(playerid, 500);
+				PLAYER_MISC[playerid][MISC_BANEOS] ++;
+				SavePlayerMisc(playerid);
+
+				new str[145];
+				format(str, 145, "[ADMIN] %s (%d) fue baneado: Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+				new webhook[145];
+				format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+				SendDiscordWebhook(webhook, 1);
+				return 0;
+			}
 		}
 
 	    /*Slapper*/
@@ -4362,8 +4404,8 @@ Menu:MECHANICTUNING(playerid, response, listitem)
        	
        	else if (listitem == 3)
         {
-        	//ShowPlayerMessage(playerid, "~r~Esto no esta disponible", 4);
-        	ShowObjTuning(playerid);
+        	ShowPlayerMessage(playerid, "~r~Esto no esta disponible", 4);
+        	//ShowObjTuning(playerid);
         }
 
        	else if (listitem == 4)
@@ -7838,6 +7880,10 @@ CMD:duda(playerid, params[])
 		new str[145];
 		format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): Spam (%s)", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
     	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+    	new webhook[145];
+		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		SendDiscordWebhook(webhook, 1);
 		return 1;
 	}
 
@@ -7899,6 +7945,10 @@ CMD:anuncio(playerid, params[])
 		new str[145];
 		format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): Spam (%s)", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
     	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+    	new webhook[145];
+		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		SendDiscordWebhook(webhook, 1);
 		return 1;
 	}
 
@@ -30012,14 +30062,14 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 	PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] ++;
 
-	if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 5)
+	/*if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 5)
 	{
 		format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): Max AC Adv (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
 		
-		SendClientMessage(playerid, COLOR_ANTICHEAT, "[ANTI-CHEAT] Fuiste expulsado - Razón: Sobrepasar cantidad máxima de advertencias del anti-cheat.");
+		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por sobrepasar cantidad máxima de advertencias del anti-cheat.");
 		KickEx(playerid, 500);
-	}
+	}*/
 
 	return 1;
 }
@@ -30075,6 +30125,9 @@ LoadPlayerWeaponsData(playerid)
 
 RemovePlayerSlotWeapon(playerid, slot, bool:db_delete = false)
 {
+	PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY] = gettime() + 3;
+
 	if (db_delete)
 	{
 		new DB_Query[140];
@@ -30090,7 +30143,6 @@ RemovePlayerSlotWeapon(playerid, slot, bool:db_delete = false)
 	PLAYER_WEAPONS[playerid][slot][player_weapon_ID] = 0;
 	PLAYER_WEAPONS[playerid][slot][player_weapon_AMMO] = 0;
 
-	//SetWeaponsForPlayer(playerid);
 	SetPlayerArmedWeapon(playerid, current_weapon);
 	SavePlayerWeaponsData(playerid);
 	return 1;
