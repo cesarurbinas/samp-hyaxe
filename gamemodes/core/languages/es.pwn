@@ -1,7 +1,7 @@
 // Server
 #define SERVER_HOSTNAME "Hyaxe | Roleplay con chat de voz"
 #define SERVER_LANGUAGE "Español - Spanish"
-#define SERVER_MODE "[#1] RPG/Roleplay"
+#define SERVER_MODE "[#1] Roleplay"
 
 // Item names
 #define NAME_MEDICINE "Medicamento"
