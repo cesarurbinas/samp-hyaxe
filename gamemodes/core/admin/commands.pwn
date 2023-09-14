@@ -1933,7 +1933,7 @@ CMD:plog(playerid, params[])
 	return 1;
 }
 
-CMD:vehboot(playerid, params[])
+CMD:takeboot(playerid, params[])
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
@@ -1941,11 +1941,29 @@ CMD:vehboot(playerid, params[])
 	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No estás cerca de un vehículo", 3);
 
 	PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] = vehicleid;
-	ShowDialog(playerid, DIALOG_VEHICLE_BOOT);
-	SendCmdLogToAdmins(playerid, "vehboot", params);
+	ResetItemBody(playerid);
+	ShowInventory(playerid, 3);
+
+	SendCmdLogToAdmins(playerid, "takeboot", params);
 	return 1;
 }
-flags:vehboot(CMD_MODERATOR3)
+flags:takeboot(CMD_MODERATOR3)
+
+CMD:putboot(playerid, params[])
+{
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
+
+	new vehicleid = GetPlayerCameraTargetVehicle(playerid);
+	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No estás cerca de un vehículo", 3);
+
+	PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] = vehicleid;
+	ResetItemBody(playerid);
+	ShowInventory(playerid, 3);
+	
+	SendCmdLogToAdmins(playerid, "putboot", params);
+	return 1;
+}
+flags:putboot(CMD_MODERATOR3)
 
 CMD:jailtime(playerid, params[])
 {
