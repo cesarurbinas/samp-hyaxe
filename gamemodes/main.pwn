@@ -264,7 +264,7 @@
 
 // Anticheat
 #include "core/anticheat/functions.pwn"
-//#include "core/anticheat/callbacks.pwn"
+#include "core/anticheat/callbacks.pwn"
 #include "core/anticheat/main.pwn"
 
 // Soccer

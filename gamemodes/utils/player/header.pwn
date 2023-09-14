@@ -21,7 +21,7 @@ new QUIT_KEYWORDS[][16] =
 	"9q"
 };
 
-new INVALID_WORDS[][] =
+new INVALID_WORDS[][64] =
 {
 	"zoor",
 	"zo0r",

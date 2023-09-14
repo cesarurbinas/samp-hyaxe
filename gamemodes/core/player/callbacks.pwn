@@ -5925,27 +5925,6 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 	return 1;
 }
 
-OnCheatDetected(playerid, ip_address[], type, code)
-{
-	#pragma unused ip_address, type
-
-	if (IsPlayerNPC(playerid)) return 1;
-	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
-
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
-	{
-		if (code == 47)
-		{
-			// Weapon crasher
-			Kick(playerid);
-			return 1;
-		}
-
-		Anticheat_Kick(playerid, CHEATS_NAMES[code]);
-	}
-	return 1;
-}
-
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 {
 	if (IsPlayerNPC(playerid)) return 1;
