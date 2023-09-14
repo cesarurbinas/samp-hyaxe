@@ -25107,7 +25107,7 @@ public OnPlayerUpdate(playerid)
 	{
 		if (current_gettime > PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY])
 		{
-			if (floatabs(dis) > 80.0 && CHARACTER_INFO[playerid][ch_POS][2] > -97.0)
+			if (floatabs(dis) > 50.0 && CHARACTER_INFO[playerid][ch_POS][2] > -97.0)
 			{
 				if (player_state != PLAYER_STATE_PASSENGER)
 				{
