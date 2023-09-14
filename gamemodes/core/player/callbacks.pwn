@@ -5558,49 +5558,49 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		}
 	}
 
-	new string[200];
-	if (weaponid != 38 && weaponid > 18 && weaponid < 34 && hittype == 1)
+	if (weaponid != 38 && weaponid > 18 && weaponid < 34 && hittype == BULLET_HIT_TYPE_PLAYER)
 	{
-		if (weaponid != 29 && weaponid != 30 && weaponid != 31)
+		new 
+			Float:vectors[6],
+			Float:aim_distance,
+			weapon_name[128]
+		;
+		
+		GetPlayerPos(hitid, vectors[0], vectors[1], vectors[2]);
+		aim_distance = GetPlayerDistanceFromPoint(playerid, vectors[0], vectors[1], vectors[2]);
+		GetWeaponName(weaponid, weapon_name, sizeof(weapon_name));
+
+		if (GetPlayerTargetPlayer(playerid) == INVALID_PLAYER_ID && aim_distance > 1 && aim_distance < 31 && PLAYER_TEMP[playerid][py_AIM_DATA] == 1)
 		{
-			new Float:cood[6], Float:DistantaAim, armaaim[128];
-			GetPlayerPos(hitid, cood[0], cood[1], cood[2]);
-			DistantaAim = GetPlayerDistanceFromPoint(playerid, cood[0], cood[1], cood[2]);
-			GetWeaponName(weaponid, armaaim, sizeof(armaaim));
-
-			if (GetPlayerTargetPlayer(playerid) == INVALID_PLAYER_ID && DistantaAim > 1 && DistantaAim < 31 && PLAYER_TEMP[playerid][py_AIM_DATA] == 1)
+			PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT] ++;
+			if (PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT] >= 10)
 			{
-				PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT] ++;
-				if (PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT] >= 10)
-				{
-					PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT] = 0;
-					PLAYER_TEMP[playerid][py_AIMBOT_COUNT] ++;
-					format(string, sizeof(string), "[ANTI-CHEAT] %s (%d): posible uso de Silent Aim con: %s (Distancia: %i mts)", ACCOUNT_INFO[playerid][ac_NAME], playerid, armaaim, floatround(DistantaAim));
-					SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
-					SendDiscordWebhook(string, 1);
-				}
-				return 1;
+				PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT] = 0;
+				PLAYER_TEMP[playerid][py_AIMBOT_COUNT] ++;
+
+				new str_text[144];
+				format(str_text, sizeof(str_text), "[ANTI-CHEAT] %s (%d): posible uso de Silent Aim con: %s (Distancia: %i mts)", ACCOUNT_INFO[playerid][ac_NAME], playerid, weapon_name, floatround(aim_distance));
+				SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
+				SendDiscordWebhook(str_text, 1);
 			}
+			return 1;
+		}
 
-			GetPlayerLastShotVectors(playerid, cood[0],cood[1],cood[2], cood[3],cood[4],cood[5]);
+		GetPlayerLastShotVectors(playerid, vectors[0], vectors[1], vectors[2], vectors[3], vectors[4], vectors[5]);
 
-			if (!IsPlayerInRangeOfPoint(hitid, 3.0, cood[3],cood[4],cood[5]))
+		if (!IsPlayerInRangeOfPoint(hitid, 3.0, vectors[3], vectors[4], vectors[5]))
+		{
+			PLAYER_TEMP[playerid][py_PRO_AIM_COUNT] ++;
+			if (PLAYER_TEMP[playerid][py_PRO_AIM_COUNT] >= 5)
 			{
-				PLAYER_TEMP[playerid][py_PRO_AIM_COUNT] ++;
-				if (PLAYER_TEMP[playerid][py_PRO_AIM_COUNT] >= 5)
-				{
-					PLAYER_TEMP[playerid][py_PRO_AIM_COUNT] = 0;
-					PLAYER_TEMP[playerid][py_AIMBOT_COUNT] ++;
-					format(string, sizeof(string), "[ANTI-CHEAT] %s (%d): posible uso de ProAim con: %s (Distancia: %i mts)", ACCOUNT_INFO[playerid][ac_NAME], playerid, armaaim, floatround(DistantaAim));
-					SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
-					SendDiscordWebhook(string, 1);
-				}
+				PLAYER_TEMP[playerid][py_PRO_AIM_COUNT] = 0;
+				PLAYER_TEMP[playerid][py_AIMBOT_COUNT] ++;
+
+				new str_text[144];
+				format(str_text, sizeof(str_text), "[ANTI-CHEAT] %s (%d): posible uso de Pro Aim con: %s (Distancia: %i mts)", ACCOUNT_INFO[playerid][ac_NAME], playerid, weapon_name, floatround(aim_distance));
+				SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
+				SendDiscordWebhook(str_text, 1);
 			}
-
-			/*if (PLAYER_TEMP[playerid][py_AIMBOT_COUNT] >= 3)
-			{
-				aimbot kick
-			}*/
 		}
 	}
 
