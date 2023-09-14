@@ -4618,6 +4618,12 @@ EnterSite(playerid)
                     FreezePlayer(playerid);
 
                     StopAudioStreamForPlayer(playerid);
+
+                    if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_CLUB)
+					{
+						StopAudioStreamForPlayer(playerid);
+						PlayAudioStreamForPlayer(playerid, "http://somafm.com/tags.pls");			
+					}
                 }
                 else
                 {
