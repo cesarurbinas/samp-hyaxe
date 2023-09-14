@@ -26890,7 +26890,17 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			ShowDialog(playerid, DIALOG_ELECTRONIC_SHOP);
 	}
 
-	if (PRESSED( KEY_WALK ))
+	if (PRESSED( KEY_YES | KEY_WALK ))
+    {
+		CheckAndOpenBoot(playerid, 1);
+		return 1;
+	}
+	if (PRESSED( KEY_NO | KEY_WALK ))
+    {
+		CheckAndOpenBoot(playerid, 0);
+		return 1;
+	}
+	else if (PRESSED( KEY_WALK ))
 	{
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
 		{
@@ -33426,8 +33436,8 @@ CheckAndOpenBoot(playerid, type)
 
 		switch(type)
 		{
-			case 0: ShowInventory(playerid, 3);
-			case 1: ShowInventory(playerid, 4);
+			case 0: ShowInventory(playerid, 3); // Sacar
+			case 1: ShowInventory(playerid, 4); // Meter
 		}
 	}
 	return 1;
