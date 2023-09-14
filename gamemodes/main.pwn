@@ -31270,7 +31270,7 @@ CMD:cagar(playerid, params[])
 	return 1;
 }
 alias:cagar("defecar")
-    
+
 CMD:parar(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
