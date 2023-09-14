@@ -8,7 +8,6 @@
 #include <crashdetect>
 #include <streamer>
 #include <sscanf2>
-#include <profiler>
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
@@ -22,6 +21,7 @@
 #include <hy_actor>
 #include <hy_selection>
 #include <sampvoice>
+#include <profiler>
 
 // Lang
 #include <../../gamemodes/core/languages/es.pwn>
@@ -7118,6 +7118,27 @@ CMD:closeserver(playerid, params[])
 	return 1;
 }
 
+CMD:profilerstart(playerid, params[])
+{
+	Profiler_Start();
+	SendClientMessage(playerid, COLOR_WHITE, "Profiler iniciado");
+	return 1;
+}
+
+CMD:profilerstop(playerid, params[])
+{
+	Profiler_Stop();
+	SendClientMessage(playerid, COLOR_WHITE, "Profiler detenido");
+	return 1;
+}
+
+CMD:profilerdump(playerid, params[])
+{
+	Profiler_Dump();
+	SendClientMessage(playerid, COLOR_WHITE, "Profiler dump");
+	return 1;
+}
+
 CALLBACK: GiveAutoGift()
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -8089,6 +8110,9 @@ UpdatePlayerZoneMessages(playerid)
 			return 1;
 		}
 	}
+
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
 	return 1;
 }
 
@@ -8564,7 +8588,7 @@ CMD:discord(playerid, params[])
 	return 1;
 }
 
-CMD:resetsans(playerid, params[])
+/*CMD:resetsans(playerid, params[])
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -8575,7 +8599,7 @@ CMD:resetsans(playerid, params[])
 		PLAYER_MISC[i][MISC_JAILS] = 0;
 	}
 	return 1;
-}
+}*/
 
 CMD:runtime(playerid, params[])
 {
@@ -15252,7 +15276,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new str_buy[164];
 				GetPointZone(PROPERTY_INFO[PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED]][property_EXT_X], PROPERTY_INFO[PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED]][property_EXT_Y], city, zone);
-				format(str_buy, sizeof(str_buy), "~y~Propiedad comprada~w~~n~Compraste una propiedad en %s, puedes ver las opciones de la propiedad pulsando la tecla H cuando te encuentres en pickup del interior.", zone);
+				format(str_buy, sizeof(str_buy), "~y~Propiedad comprada!~w~~n~Compraste una propiedad en %s, puedes ver las opciones de la propiedad pulsando la tecla H cuando te encuentres en pickup del interior.", zone);
 				ShowPlayerNotification(playerid, str_buy, 2);
 
 				ShowPlayerNotification(seller, "Vendiste tu propiedad, el dinero se depositó en tu cuenta bancaria.", 3);				
@@ -25239,74 +25263,76 @@ CheckRobActor(playerid)
 {
 	if (GetPlayerInterior(playerid) > 0)
 	{
-		if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_CLUB) return 0;
-		new ActorTarget = GetPlayerCameraTargetActor(playerid);
-		new maxprogress = minrand(5, 20);
-		if (ActorTarget != INVALID_ACTOR_ID)
+		if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CLUB)
 		{
-			new keys, updown, leftright;
-			new randompay = minrand(30, 300);
-
-			GetPlayerKeys(playerid, keys, updown, leftright);
-
-			if (!PLAYER_WORKS[playerid][WORK_POLICE])
+			new ActorTarget = GetPlayerCameraTargetActor(playerid);
+			new maxprogress = minrand(5, 20);
+			if (ActorTarget != INVALID_ACTOR_ID)
 			{
-				if (!a_TMP[ActorTarget][a_IN_ROB] && GetPlayerWeapon(playerid) >= 22 && GetPlayerWeapon(playerid) <= 33 && keys & KEY_HANDBRAKE)
+				new keys, updown, leftright;
+				new randompay = minrand(30, 300);
+
+				GetPlayerKeys(playerid, keys, updown, leftright);
+
+				if (!PLAYER_WORKS[playerid][WORK_POLICE])
 				{
-					if ((gettime() - a_TMP[ActorTarget][a_LAST_ROB]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Este negocio ya fue robado recientemente", 3);
+					if (!a_TMP[ActorTarget][a_IN_ROB] && GetPlayerWeapon(playerid) >= 22 && GetPlayerWeapon(playerid) <= 33 && keys & KEY_HANDBRAKE)
 					{
-						if ((gettime() - a_TMP[ActorTarget][a_IN_ROB_PROGRESS]) < 2) return 0;
-						
-						new str_text[128];
-						if (PLAYER_TEMP[playerid][py_ROB_PROGRESS] > maxprogress)
+						if ((gettime() - a_TMP[ActorTarget][a_LAST_ROB]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Este negocio ya fue robado recientemente", 3);
 						{
-							SetActorChatBubble(ActorTarget, "{E6E6E6}¡Ya le he dado todo!", 0xE6E6E600, 5.0, 3000);
-							SetActorRespawnTime(ActorTarget, 15000);
-							ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
-							ShowPlayerNotification(playerid, "La policía viene en camino, es mejor que corras.", 3);
-							PLAYER_TEMP[playerid][py_ROB_PROGRESS] = 0;
-							a_TMP[ActorTarget][a_LAST_ROB] = gettime();
-							PLAYER_TEMP[playerid][py_INITIAL_ROB] = false;
-							return 1;
-						}
-
-						if (PLAYER_TEMP[playerid][py_INITIAL_ROB] == false)
-						{
-							PLAYER_TEMP[playerid][py_INITIAL_ROB] = true;
-							ShowPlayerNotification(playerid, "Apuntale al vendedor hasta que te de todo el dinero de la caja.", 4);
-							SetActorChatBubble(ActorTarget, "{E6E6E6}¡No me lastime por favor!\n¡Le daré el dinero!", 0xE6E6E600, 5.0, 3000);
-							ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
-							SetPlayerPoliceSearchLevel(playerid, 1);
-
-							new
-								city[45],
-								zone[45],
-								message[145]
-							;
-
-						    GetPointZone(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X], ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y], city, zone);
-						    format(message, sizeof message, "~r~%s~w~ esta robando un negocio (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
-						    format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Robo");
-						    SendPoliceNotification(message, 6);
-
-							a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
-							return 0;
-						}
+							if ((gettime() - a_TMP[ActorTarget][a_IN_ROB_PROGRESS]) < 2) return 0;
 							
-						GivePlayerCash(playerid, randompay);
-						format(str_text, sizeof(str_text), "~g~+%d$", randompay);
-						GameTextForPlayer(playerid, str_text, 4000, 1);
-						PLAYER_TEMP[playerid][py_ROB_PROGRESS] ++;
+							new str_text[128];
+							if (PLAYER_TEMP[playerid][py_ROB_PROGRESS] > maxprogress)
+							{
+								SetActorChatBubble(ActorTarget, "{E6E6E6}¡Ya le he dado todo!", 0xE6E6E600, 5.0, 3000);
+								SetActorRespawnTime(ActorTarget, 15000);
+								ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
+								ShowPlayerNotification(playerid, "La policía viene en camino, es mejor que corras.", 3);
+								PLAYER_TEMP[playerid][py_ROB_PROGRESS] = 0;
+								a_TMP[ActorTarget][a_LAST_ROB] = gettime();
+								PLAYER_TEMP[playerid][py_INITIAL_ROB] = false;
+								return 1;
+							}
 
-						ApplyActorAnimation(ActorTarget, "INT_SHOP", "shop_cashier", 4.1, 1, 0, 0, 1, 0);
-						a_TMP[ActorTarget][a_IN_ROB] = true;
+							if (PLAYER_TEMP[playerid][py_INITIAL_ROB] == false)
+							{
+								PLAYER_TEMP[playerid][py_INITIAL_ROB] = true;
+								ShowPlayerNotification(playerid, "Apuntale al vendedor hasta que te de todo el dinero de la caja.", 4);
+								SetActorChatBubble(ActorTarget, "{E6E6E6}¡No me lastime por favor!\n¡Le daré el dinero!", 0xE6E6E600, 5.0, 3000);
+								ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
+								SetPlayerPoliceSearchLevel(playerid, 1);
 
-						format(str_text, sizeof(str_text), "{E6E6E6}* Le da a %s {85DA74}%d$", PLAYER_TEMP[playerid][py_NAME], randompay);
-						SetActorChatBubble(ActorTarget, str_text, 0xE6E6E600, 5.0, 3000);
+								new
+									city[45],
+									zone[45],
+									message[145]
+								;
+
+							    GetPointZone(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X], ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y], city, zone);
+							    format(message, sizeof message, "~r~%s~w~ esta robando un negocio (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+							    format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Robo");
+							    SendPoliceNotification(message, 6);
+
+								a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
+								return 0;
+							}
+								
+							GivePlayerCash(playerid, randompay);
+							format(str_text, sizeof(str_text), "~g~+%d$", randompay);
+							GameTextForPlayer(playerid, str_text, 4000, 1);
+							PLAYER_TEMP[playerid][py_ROB_PROGRESS] ++;
+
+							ApplyActorAnimation(ActorTarget, "INT_SHOP", "shop_cashier", 4.1, 1, 0, 0, 1, 0);
+							a_TMP[ActorTarget][a_IN_ROB] = true;
+
+							format(str_text, sizeof(str_text), "{E6E6E6}* Le da a %s {85DA74}%d$", PLAYER_TEMP[playerid][py_NAME], randompay);
+							SetActorChatBubble(ActorTarget, str_text, 0xE6E6E600, 5.0, 3000);
 
 
-						a_TMP[ActorTarget][a_IN_ROB] = false;
-						a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
+							a_TMP[ActorTarget][a_IN_ROB] = false;
+							a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
+						}
 					}
 				}
 			}
@@ -25445,7 +25471,8 @@ public OnPlayerUpdate(playerid)
 				ud,
 				lr,
 				Float:angle,
-				Float:pos[3];
+				Float:pos[3]
+			;
 
 		    GetPlayerKeys(playerid, Keys, ud, lr);
 
@@ -36481,7 +36508,7 @@ UpdateVehicleObject(vehicleid, slot)
 ShowPlayerKeyMessage(playerid, const key[])
 {
 	new str_text[64];
-	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][42]);
+	//KillTimer(PLAYER_TEMP[playerid][py_TIMERS][42]);
 
 	format(str_text, sizeof(str_text), "Pulsa %s", key);
 
@@ -36489,7 +36516,7 @@ ShowPlayerKeyMessage(playerid, const key[])
 	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
 	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
-	PLAYER_TEMP[playerid][py_TIMERS][42] = SetTimerEx("HidePlayerKeyMessage", 1000, false, "i", playerid);
+	//PLAYER_TEMP[playerid][py_TIMERS][42] = SetTimerEx("HidePlayerKeyMessage", 1000, false, "i", playerid);
 	PLAYER_TEMP[playerid][py_KEY] = true;
 	return 1;
 }
@@ -37011,6 +37038,9 @@ flags:initmarket(CMD_COFUNDER);
 flags:dropitem(CMD_COFUNDER);
 flags:gmx(CMD_COFUNDER);
 flags:closeserver(CMD_COFUNDER);
+flags:profilerstart(CMD_COFUNDER);
+flags:profilerstop(CMD_COFUNDER);
+flags:profilerdump(CMD_COFUNDER);
 flags:pmaletero(CMD_ADMIN);
 flags:stopall(CMD_COFUNDER);
 flags:purga(CMD_COFUNDER);
@@ -37095,7 +37125,7 @@ flags:exproperty(CMD_ADMIN);
 flags:gotoproperty(CMD_ADMIN);
 flags:setpass(CMD_ADMIN);
 flags:setip(CMD_ADMIN);
-flags:resetsans(CMD_COFUNDER);
+//flags:resetsans(CMD_COFUNDER);
 flags:accsaveall(CMD_ADMIN);
 flags:delete(CMD_COFUNDER);
 flags:rproperty(CMD_COFUNDER);
