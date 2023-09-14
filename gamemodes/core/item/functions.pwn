@@ -68,8 +68,9 @@ CreateDropItem(type, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, wo
 		
 		switch(type)
 		{
-			case 57: z += 0.3;
-			case 64: z += 0.4;
+			case 41: z+= 0.3;
+			case 48: z += 0.7;
+			case 33: z += 0.2;
 		}
 
 		MoveDynamicObject(DROP_ITEMS[index][itm_ID], x, y, z, 12.0, rx, ry, rz);

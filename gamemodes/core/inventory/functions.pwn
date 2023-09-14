@@ -145,14 +145,15 @@ inv_AccommodatePropertyItems(playerid, property_id)
 				Float:rot[4]
 			;
 
-			format(str_text, sizeof(str_text), "%d", extra);
-
 			if (ITEM_INFO[type][item_SINGLE_SLOT])
 				format(str_text, sizeof(str_text), "");
+
+			format(str_text, sizeof(str_text), "%d", extra);
 
 			switch(type)
 			{
 				case 9, 10, 11, 39: format(str_text, sizeof(str_text), "Balas");
+				case 34: format(str_text, sizeof(str_text), "Cel");
 				case 40: format(str_text, sizeof(str_text), "Geo");
 			}
 
@@ -210,14 +211,15 @@ inv_AccommodateVehicleItems(playerid, vehicle_id)
 				Float:rot[4]
 			;
 
-			format(str_text, sizeof(str_text), "%d", extra);
-
 			if (ITEM_INFO[type][item_SINGLE_SLOT])
 				format(str_text, sizeof(str_text), "");
+
+			format(str_text, sizeof(str_text), "%d", extra);
 
 			switch(type)
 			{
 				case 9, 10, 11, 39: format(str_text, sizeof(str_text), "Balas");
+				case 34: format(str_text, sizeof(str_text), "Cel");
 				case 40: format(str_text, sizeof(str_text), "Geo");
 			}
 
@@ -242,7 +244,6 @@ inv_AccommodateVehicleItems(playerid, vehicle_id)
 	return 1;
 }
 
-// THIS NEED FIX ////////
 inv_AccommodateItems(playerid, bool:is_visual = true)
 {
 	PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0;
@@ -276,14 +277,15 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 				Float:rot[4]
 			;
 
-			format(str_text, sizeof(str_text), "%d", extra);
-
 			if (ITEM_INFO[type][item_SINGLE_SLOT])
 				format(str_text, sizeof(str_text), "");
+
+			format(str_text, sizeof(str_text), "%d", extra);
 
 			switch(type)
 			{
 				case 9, 10, 11, 39: format(str_text, sizeof(str_text), "Balas");
+				case 34: format(str_text, sizeof(str_text), "Cel");
 				case 40: format(str_text, sizeof(str_text), "Geo");
 			}
 
