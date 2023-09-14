@@ -4628,7 +4628,6 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 	#endif
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
-	if (IsPlayerPaused(playerid)) return Anticheat_Ban(playerid, "AFK Ghost #2");
 
 	switch(oldstate)
 	{
