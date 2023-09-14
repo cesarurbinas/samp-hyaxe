@@ -31504,7 +31504,7 @@ CMD:requisar(playerid, params[])
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar depie.", 3);
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
 
-	RequisarilegalInv(params[0]);
+	DeleteIlegalInv(params[0], true);
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Requisa las pertenecias ilegales de alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	ShowPlayerMessage(playerid, "Has requisado a este jugador", 3);
@@ -34549,25 +34549,7 @@ SetPlayerSkillLevels(playerid)
 	return 1;
 }
 
-RequisarilegalInv(playerid)
-{
-	if (!PLAYER_WORKS[playerid][WORK_POLICE])
-	{
-	    new DB_Query[90];
-	    format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-	    db_free_result(db_query(Database, DB_Query));
-	    ResetPlayerWeaponsEx(playerid);
-	}
-
-	PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 
-	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 
-	PLAYER_MISC[playerid][MISC_CANNABIS] = 
-	PLAYER_MISC[playerid][MISC_CRACK] = 0;
-	SavePlayerMisc(playerid);
-	return 1;
-}
-
-DeleteIlegalInv(playerid)
+DeleteIlegalInv(playerid, bool:drugs = false)
 {
 	if(!PLAYER_WORKS[playerid][WORK_POLICE])
 	{
@@ -34577,11 +34559,15 @@ DeleteIlegalInv(playerid)
 		ResetPlayerWeaponsEx(playerid); // LMFAOO HAHAHA!
 	}
 
-	/*PLAYER_MISC[playerid][MISC_SEED_CANNABIS] =
-	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 
-	PLAYER_MISC[playerid][MISC_CANNABIS] = 
-	PLAYER_MISC[playerid][MISC_CRACK] = 0; */
-	SavePlayerMisc(playerid);
+	if(drugs)
+	{
+		PLAYER_MISC[playerid][MISC_SEED_CANNABIS] =
+		PLAYER_MISC[playerid][MISC_SEED_CRACK] = 
+		PLAYER_MISC[playerid][MISC_CANNABIS] = 
+		PLAYER_MISC[playerid][MISC_CRACK] = 0;
+		SavePlayerMisc(playerid);
+	}
+
 	return 1;
 }
 
