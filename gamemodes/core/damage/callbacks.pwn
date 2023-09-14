@@ -115,7 +115,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 	GetPlayerPos(damagedid, x2, y2, z2);
 
 	distance = VectorSize(x1 - x2, y1 - y2, z1 - z2);
-	if (distace <= 1.0) weaponid = 0;
+	if (distance <= 1.0) weaponid = 0;
 
 	if (weaponid <= WEAPON_SNIPER)
 	{
