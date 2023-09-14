@@ -141,8 +141,35 @@ Menu:OBJTUNINGMENU(playerid, response, listitem)
 
 				ShowDialog(playerid, DIALOG_BUY_VOBJECT);
 			}
-
 			case 2:
+			{
+				new slot = GetVehicleFreeObjectSlot(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID]);
+				if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener más objetos.", 4);
+					ShowObjTuning(playerid);
+					return 1;
+				}
+				if (slot == -1)
+				{
+					ShowPlayerMessage(playerid, "~r~No hay más espacio para objetos en este vehículo.", 3);
+					ShowObjTuning(playerid);
+					return 1;
+				}
+
+				if (2000 > CHARACTER_INFO[playerid][ch_CASH])
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+					ShowObjTuning(playerid);
+					return 1;
+				}
+
+				PLAYER_TEMP[playerid][py_COUNTRY_TYPE] = 1;
+				ShowDialog(playerid, DIALOG_VOBJECT_COUNTRY);
+			}
+            case 3:
 			{
 				new slot = GetVehicleFreeObjectSlot(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID]);
 				if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
@@ -189,35 +216,6 @@ Menu:OBJTUNINGMENU(playerid, response, listitem)
 				ShowPlayerMessage(playerid, "El objeto de texto fue añadido.", 2);
 				PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;
 				ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
-			}
-
-			case 3:
-			{
-				new slot = GetVehicleFreeObjectSlot(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID]);
-				if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
-				{
-					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener más objetos.", 4);
-					ShowObjTuning(playerid);
-					return 1;
-				}
-				if (slot == -1)
-				{
-					ShowPlayerMessage(playerid, "~r~No hay más espacio para objetos en este vehículo.", 3);
-					ShowObjTuning(playerid);
-					return 1;
-				}
-
-				if (2000 > CHARACTER_INFO[playerid][ch_CASH])
-				{
-					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-					ShowObjTuning(playerid);
-					return 1;
-				}
-
-				PLAYER_TEMP[playerid][py_COUNTRY_TYPE] = 1;
-				ShowDialog(playerid, DIALOG_VOBJECT_COUNTRY);
 			}
 		}
 	}
