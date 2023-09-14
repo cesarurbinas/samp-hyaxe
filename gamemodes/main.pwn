@@ -31819,7 +31819,6 @@ EndPlayerJob(playerid, changeskin = true)
 
 			if(IsValidDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]))
 				DestroyDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]);
-
 			LogCarts[playerid][cart_VALID] = false;
 		}
 	}

@@ -34,6 +34,8 @@ public OnGameModeInit()
 				Trees[i][tree_LABEL] = CreateDynamic3DTextLabel(label, 0xFFFFFF00, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z] + 0.5, 10.0, .testlos = 0);
 			}
 		}
+
+		Streamer_SetIntData(STREAMER_TYPE_OBJECT, Trees[i][tree_OBJECT], E_STREAMER_EXTRA_ID, i);
 	}
 
 	#if defined WOOD_OnGameModeInit
@@ -135,10 +137,23 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				if(PLAYER_TEMP[playerid][py_CUTTING] == -1)
 				{
-					for(new i = 0; i != sizeof(Trees); ++i)
+					new object = GetPlayerCameraTargetObject(playerid);
+					printf("%d", object);
+					if(object != INVALID_OBJECT_ID)
 					{
-						if(Trees[i][tree_CHOPPED] || Trees[i][tree_CHOPPING]) continue;
-						if(!IsPlayerInRangeOfPoint(playerid, 4.0, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z])) continue;
+						new index = Streamer_GetItemStreamerID(playerid, STREAMER_TYPE_OBJECT, object);
+						printf("%d", index);
+						new treeid = Streamer_GetIntData(STREAMER_TYPE_OBJECT, index, E_STREAMER_EXTRA_ID);
+						printf("%d", treeid);
+						if(Trees[treeid][tree_CHOPPED] || Trees[treeid][tree_CHOPPING]) return 1;
+
+						new Float:x, Float:y, Float:z;
+						GetDynamicObjectPos(index, x, y, z);
+						CA_FindZ_For2DCoord(x, y, z);
+
+						printf("%f, %f, %f", x, y, z);
+						if(!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return 1;
+
 						new colors[5] = {0xe73939FF, 0x6ed854FF, 0xe3e145FF, 0x20aee7FF};
 						new color = minrand(0, sizeof(colors));
 
@@ -157,15 +172,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][46]);
-						PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", 10000, false, "dd", playerid, i);
+						PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", 10000, false, "dd", playerid, treeid);
 						PLAYER_TEMP[playerid][py_TIMERS][46] = SetTimerEx("UpdateTreeCutting", 100, true, "d", playerid);
 						ApplyAnimation(playerid, "CHAINSAW", "null", 0.0, 0, 0, 0, 0, 0, 0); // Preload
 						ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 4.1, true, true, true, true, 0, true);
 
-						PLAYER_TEMP[playerid][py_CUTTING] = i;
+						PLAYER_TEMP[playerid][py_CUTTING] = treeid;
 
-						Trees[i][tree_CHOPPING] = true;
-						break;
+						Trees[treeid][tree_CHOPPING] = true;
 					}
 				}
 			}
@@ -202,7 +216,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					SetTimerEx("DestroyLogs", 5000, false, "d", object);
 
 					GivePlayerCash(playerid, 150 * LogCarts[playerid][cart_AMOUNT]);
-					ShowPlayerNotification(playerid, sprintf("Soltaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 150 * LogCarts[playerid][cart_AMOUNT]), 3);
+					ShowPlayerNotification(playerid, sprintf("Procesaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 150 * LogCarts[playerid][cart_AMOUNT]), 3);
 					LogCarts[playerid][cart_AMOUNT] = 0;
 				}
 			}
@@ -271,18 +285,20 @@ public FinishTreeCutting(playerid, treeid)
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
 	ClearAnimations(playerid);
 
-	PLAYER_TEMP[playerid][py_CUTTING] = -1;
-
 	if(!IsPlayerInRangeOfPoint(playerid, 5.0, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z]))
 	{
+		Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPING] = false;
 		PLAYER_TEMP[playerid][py_CUTTING] = -1;
 		return ShowPlayerNotification(playerid, "Te alejaste mucho del árbol y no lo pudiste cortar.", 3);
 	}
 	if(PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] < 50)
 	{
+		Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPING] = false;
 		PLAYER_TEMP[playerid][py_CUTTING] = -1;
 		return ShowPlayerNotification(playerid, "No pusiste suficiente empeño en cortar el árbol.", 3);
 	}
+
+	PLAYER_TEMP[playerid][py_CUTTING] = -1;
 
 	PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] = 0;
 	PLAYER_SKILLS[playerid][WORK_WOODCUTTER]++;
