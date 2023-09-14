@@ -8030,6 +8030,15 @@ UpdatePlayerZoneMessages(playerid)
 		}
 	}
 
+	if (IsPlayerInRangeOfPoint(playerid, 1.0, -212.521926, -1739.015014, 675.768737))
+	{
+		if (PLAYER_WORKS[playerid][WORK_MEDIC])
+		{
+			ShowPlayerKeyMessage(playerid, "H");
+			return 1;
+		}
+	}
+
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
 	return 1;
@@ -25178,7 +25187,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		CheckCraneSiteRequest(playerid);
 		ShellingThings(playerid);
 		CheckTrashJobSite(playerid);
-		CheckAndReload(playerid);
+		//CheckAndReload(playerid);
 
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
     	{
@@ -28027,10 +28036,20 @@ CheckWorkSite(playerid)
 					{
 						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de pescador", ""COL_WHITE"\
 							Ante todo, bienvenido a las aguas camarada.\n\n\
-							Aqui nos encargamos de administrar los pescados\n\
+							Aquí nos encargamos de administrar los pescados\n\
 							mas frescos de todo San Andreas. Súbete a un barco\n\
 							y dirígete a una boya, pero recuerda que necesitas\n\
 							una caña de pescar.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_MEDIC:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de medico", ""COL_WHITE"\
+							Bienvenido al equipo de paramédicos.\n\n\
+							Sube a una ambulancia y ve a salvar gente herida\n\
+							usando los botiquines que hay atrás de la ambula-\n\
+							ncia, para sacarlos presiona la tecla Y. Ponte de\n\
+							servicio en la sala de atrás.", "Cerrar", "");
 						return 1;
 					}
 					/*case WORK_CLEANER:
@@ -28726,6 +28745,46 @@ SetMechanicPlayerMarkers(playerid)
 					SetPlayerMarkerForPlayer(playerid, i, 0xf4c242FF);
 				}
 			}
+		}
+	}
+	return 1;
+}
+
+SetMedicPlayerMarkers(playerid)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_WANT_MEDIC])
+			{
+				SetPlayerMarkerForPlayer(playerid, i, COLOR_GREEN);
+			}
+		}
+	}
+	return 1;
+}
+
+SendAlertToMedics(playerid)
+{
+	new
+		Float:pos[3],
+		str_text[128]
+	;
+
+	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (i == playerid) continue;
+			if (!PLAYER_WORKS[i][WORK_MEDIC]) continue;
+			if (PLAYER_TEMP[i][py_WORKING_IN] != WORK_MEDIC) continue;
+
+			SetPlayerMarkerForPlayer(i, playerid, COLOR_GREEN);
+			format(str_text, sizeof(str_text), "~g~%s~w~ esta solicitando ayuda (%.2f Km).", PLAYER_TEMP[playerid][py_NAME], (GetPlayerDistanceFromPoint(i, pos[0], pos[1], pos[2]) * 0.01));
+			ShowPlayerNotification(i, str_text, 4);
 		}
 	}
 	return 1;
@@ -34520,6 +34579,14 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 
 			//for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
 		}
+		case WORK_MEDIC:
+		{
+			if (CHARACTER_INFO[playerid][ch_SEX] == SEX_MALE) SetPlayerSkin(playerid, minrand(274, 276));
+			else SetPlayerSkin(playerid, 308);
+
+			SetMedicPlayerMarkers(playerid);
+			ShowPlayerMessage(playerid, "Ve hasta los puntos marcados en el mapa.", 3);
+		}
 	}
 
 	PLAYER_TEMP[playerid][py_WORKING_IN] = work;
@@ -34622,6 +34689,12 @@ EndPlayerJob(playerid, changeskin = true)
 				PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 				SetPlayerToys(playerid);
 			}
+			SetNormalPlayerMarkers(playerid);
+		}
+		case WORK_MEDIC:
+		{
+			SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
+			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 			SetNormalPlayerMarkers(playerid);
 		}
 	}

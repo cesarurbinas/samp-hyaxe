@@ -262,6 +262,6 @@ enum Temp_Enum
 	py_EDITING_OBJ,
 	bool:py_IN_TELE,
 	py_POLICE_REASON[32],
-	bool:py_VOICE_TEST
+	bool:py_WANT_MEDIC,
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
