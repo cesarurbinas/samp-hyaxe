@@ -5738,6 +5738,43 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
     return 1;
 }
 
+public OnPlayerSuspectedForAimbot(playerid, hitid, weaponid, warnings)
+{
+	new
+		str_text[144],
+		weapon_name[64]
+	;
+	GetWeaponName(weaponid, weapon_name, sizeof(weapon_name));
+	
+	if (warnings & WARNING_OUT_OF_RANGE_SHOT)
+	{
+		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Aviso sobre %s (%d): Range Aimbot (%s)", PLAYER_TEMP[playerid][py_NAME], playerid, weapon_name);
+		SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
+		SendDiscordWebhook(str_text, 1);
+	}
+
+	if (warnings & WARNING_PROAIM_TELEPORT)
+	{
+		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Aviso sobre %s (%d): Pro Aimbot (%s)", PLAYER_TEMP[playerid][py_NAME], playerid, weapon_name);
+		SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
+		SendDiscordWebhook(str_text, 1);
+	}
+	if (warnings & WARNING_RANDOM_AIM)
+	{
+		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Aviso sobre %s (%d): Aimbot (%s)", PLAYER_TEMP[playerid][py_NAME], playerid, weapon_name);
+		SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
+		SendDiscordWebhook(str_text, 1);
+	}
+
+	if (warnings & WARNING_CONTINOUS_SHOTS)
+	{
+		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Aviso sobre %s (%d): 10 disparos acertados (weaponId: %d, hitId: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, weaponid, hitid);
+		SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
+		SendDiscordWebhook(str_text, 1);
+	}
+	return 0;
+}
+
 IPacket:AIM_SYNC(playerid, BitStream:bs)
 {
     new aimData[PR_AimSync];
@@ -5795,10 +5832,10 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 
 				if (ray && ray != WATER_OBJECT)
 				{
-					new string[144];
-					format(string, sizeof(string), "[ANTI-CHEAT] Aviso sobre %s (%d): WallShot (object: %d, weaponId: %d, hitId: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, ray, bulletData[PR_weaponId], bulletData[PR_hitId]);
-					SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
-					SendDiscordWebhook(string, 1);
+					new str_text[144];
+					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Aviso sobre %s (%d): WallShot (object: %d, weaponId: %d, hitId: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, ray, bulletData[PR_weaponId], bulletData[PR_hitId]);
+					SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
+					SendDiscordWebhook(str_text, 1);
 
 					PLAYER_TEMP[playerid][py_WALLSHOT_ALERTS] ++;
 					if (PLAYER_TEMP[playerid][py_WALLSHOT_ALERTS] >= 3)
