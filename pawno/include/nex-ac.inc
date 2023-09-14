@@ -4287,85 +4287,88 @@ public OnPlayerUpdate(playerid)
 			if(ac_sa != PLAYER_STATE_SPECTATING && (ac_w = GetPlayerWeapon(playerid)) != -1)
 		#endif
 		{
-			ac_gpp = GetPlayerPing(playerid);
-			new ac_a = GetPlayerAmmo(playerid), ac_s = ac_wSlot[ac_w];
-			if(ACInfo[playerid][acSetWeapon][ac_s] > 0)
+			if (ac_w < 47)
 			{
-				if(ACInfo[playerid][acSetWeapon][ac_s] == ac_w)
+				ac_gpp = GetPlayerPing(playerid);
+				new ac_a = GetPlayerAmmo(playerid), ac_s = ac_wSlot[ac_w]; // error aca
+				if(ACInfo[playerid][acSetWeapon][ac_s] > 0)
 				{
-					ACInfo[playerid][acSetWeapon][ac_s] = -1;
-					ACInfo[playerid][acWeapon][ac_s] = ac_w;
-				}
-				#if defined GetPlayerSyncWeapon
-					else if(ac_gtc - ACInfo[playerid][acGtcSetWeapon][ac_s] > ac_gpp)
-				#else
-					else if(!(PLAYER_STATE_DRIVER <= ac_sa <= PLAYER_STATE_PASSENGER) &&
-					ac_gtc - ACInfo[playerid][acGtcSetWeapon][ac_s] > ac_gpp)
-				#endif
-				{
-					#if defined FreezeSyncPacket
-						if(!ACInfo[playerid][acACAllow][33] || ACInfo[playerid][acUnFrozen])
-						{
+					if(ACInfo[playerid][acSetWeapon][ac_s] == ac_w)
+					{
+						ACInfo[playerid][acSetWeapon][ac_s] = -1;
+						ACInfo[playerid][acWeapon][ac_s] = ac_w;
+					}
+					#if defined GetPlayerSyncWeapon
+						else if(ac_gtc - ACInfo[playerid][acGtcSetWeapon][ac_s] > ac_gpp)
+					#else
+						else if(!(PLAYER_STATE_DRIVER <= ac_sa <= PLAYER_STATE_PASSENGER) &&
+						ac_gtc - ACInfo[playerid][acGtcSetWeapon][ac_s] > ac_gpp)
 					#endif
-						if(ACInfo[playerid][acACAllow][52] && ACInfo[playerid][acNOPAllow][0])
+					{
+						#if defined FreezeSyncPacket
+							if(!ACInfo[playerid][acACAllow][33] || ACInfo[playerid][acUnFrozen])
+							{
+						#endif
+							if(ACInfo[playerid][acACAllow][52] && ACInfo[playerid][acNOPAllow][0])
+							{
+								if(++ACInfo[playerid][acNOPCount][0] > AC_MAX_NOP_WARNINGS)
+								{
+									#if defined DEBUG
+										printf(DEBUG_CODE_5, playerid, "GivePlayerWeapon");
+										printf("[ANTICHEAT] AC weapon: %d, weaponid: %d", ACInfo[playerid][acSetWeapon][ac_s], ac_w);
+									#endif
+									#if defined OnCheatDetected
+										ac_KickWithCode(playerid, "", 0, 52, 1);
+										if(ACInfo[playerid][acKicked] > 0) return 0;
+										ACInfo[playerid][acSetWeapon][ac_s] = -1;
+									#else
+										return ac_KickWithCode(playerid, "", 0, 52, 1);
+									#endif
+								}
+								#if defined OnNOPWarning
+									else OnNOPWarning(playerid, 1, ACInfo[playerid][acNOPCount][0]);
+								#endif
+							}
+							else if(++ACInfo[playerid][acNOPCount][0] > AC_MAX_NOP_WARNINGS) ACInfo[playerid][acSetWeapon][ac_s] = -1;
+						#if defined FreezeSyncPacket
+							}
+						#endif
+					}
+				}
+				if(ACInfo[playerid][acGiveAmmo][ac_s] != -65535)
+				{
+					if(ACInfo[playerid][acGiveAmmo][ac_s] == ac_a ||
+					ACInfo[playerid][acGiveAmmo][ac_s] > ac_a && !(ac_a < 0 <= ACInfo[playerid][acGiveAmmo][ac_s]) &&
+					ac_gtc - ACInfo[playerid][acGtcGiveAmmo][ac_s] > ac_gpp)
+					{
+						ACInfo[playerid][acGiveAmmo][ac_s] = -65535;
+						ACInfo[playerid][acAmmo][ac_s] = ac_a;
+					}
+					else if(ac_gtc - ACInfo[playerid][acGtcGiveAmmo][ac_s] > ac_gpp)
+					{
+						if(ACInfo[playerid][acACAllow][52] && ACInfo[playerid][acNOPAllow][1])
 						{
-							if(++ACInfo[playerid][acNOPCount][0] > AC_MAX_NOP_WARNINGS)
+							if(++ACInfo[playerid][acNOPCount][1] > AC_MAX_NOP_WARNINGS)
 							{
 								#if defined DEBUG
-									printf(DEBUG_CODE_5, playerid, "GivePlayerWeapon");
-									printf("[ANTICHEAT] AC weapon: %d, weaponid: %d", ACInfo[playerid][acSetWeapon][ac_s], ac_w);
+									printf(DEBUG_CODE_5, playerid, "SetPlayerAmmo");
+									printf("[ANTICHEAT] AC ammo: %d, ammo: %d, weaponid: %d",
+									ACInfo[playerid][acGiveAmmo][ac_s], ac_a, ac_w);
 								#endif
 								#if defined OnCheatDetected
-									ac_KickWithCode(playerid, "", 0, 52, 1);
+									ac_KickWithCode(playerid, "", 0, 52, 2);
 									if(ACInfo[playerid][acKicked] > 0) return 0;
-									ACInfo[playerid][acSetWeapon][ac_s] = -1;
+									ACInfo[playerid][acGiveAmmo][ac_s] = -65535;
 								#else
-									return ac_KickWithCode(playerid, "", 0, 52, 1);
+									return ac_KickWithCode(playerid, "", 0, 52, 2);
 								#endif
 							}
 							#if defined OnNOPWarning
-								else OnNOPWarning(playerid, 1, ACInfo[playerid][acNOPCount][0]);
+								else OnNOPWarning(playerid, 2, ACInfo[playerid][acNOPCount][1]);
 							#endif
 						}
-						else if(++ACInfo[playerid][acNOPCount][0] > AC_MAX_NOP_WARNINGS) ACInfo[playerid][acSetWeapon][ac_s] = -1;
-					#if defined FreezeSyncPacket
-						}
-					#endif
-				}
-			}
-			if(ACInfo[playerid][acGiveAmmo][ac_s] != -65535)
-			{
-				if(ACInfo[playerid][acGiveAmmo][ac_s] == ac_a ||
-				ACInfo[playerid][acGiveAmmo][ac_s] > ac_a && !(ac_a < 0 <= ACInfo[playerid][acGiveAmmo][ac_s]) &&
-				ac_gtc - ACInfo[playerid][acGtcGiveAmmo][ac_s] > ac_gpp)
-				{
-					ACInfo[playerid][acGiveAmmo][ac_s] = -65535;
-					ACInfo[playerid][acAmmo][ac_s] = ac_a;
-				}
-				else if(ac_gtc - ACInfo[playerid][acGtcGiveAmmo][ac_s] > ac_gpp)
-				{
-					if(ACInfo[playerid][acACAllow][52] && ACInfo[playerid][acNOPAllow][1])
-					{
-						if(++ACInfo[playerid][acNOPCount][1] > AC_MAX_NOP_WARNINGS)
-						{
-							#if defined DEBUG
-								printf(DEBUG_CODE_5, playerid, "SetPlayerAmmo");
-								printf("[ANTICHEAT] AC ammo: %d, ammo: %d, weaponid: %d",
-								ACInfo[playerid][acGiveAmmo][ac_s], ac_a, ac_w);
-							#endif
-							#if defined OnCheatDetected
-								ac_KickWithCode(playerid, "", 0, 52, 2);
-								if(ACInfo[playerid][acKicked] > 0) return 0;
-								ACInfo[playerid][acGiveAmmo][ac_s] = -65535;
-							#else
-								return ac_KickWithCode(playerid, "", 0, 52, 2);
-							#endif
-						}
-						#if defined OnNOPWarning
-							else OnNOPWarning(playerid, 2, ACInfo[playerid][acNOPCount][1]);
-						#endif
+						else if(++ACInfo[playerid][acNOPCount][1] > AC_MAX_NOP_WARNINGS) ACInfo[playerid][acGiveAmmo][ac_s] = -65535;
 					}
-					else if(++ACInfo[playerid][acNOPCount][1] > AC_MAX_NOP_WARNINGS) ACInfo[playerid][acGiveAmmo][ac_s] = -65535;
 				}
 			}
 			#if AC_USE_AMMUNATIONS || AC_USE_TUNING_GARAGES

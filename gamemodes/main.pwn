@@ -38197,7 +38197,7 @@ SendMessageToDoubtChannel(playerid, const message[])
 
 	PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
 
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] != 0)
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
 	{
 		strreplace(str, "<", "{A8A8A8}");
 		strreplace(str, ">", "{FFFFFF}");
