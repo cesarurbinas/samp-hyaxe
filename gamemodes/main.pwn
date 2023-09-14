@@ -8547,7 +8547,11 @@ CMD:anuncio(playerid, params[])
 		return 1;
 	}
 
-	if (CheckFilterViolation(params)) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu anuncio tiene palabras inapropiadas.");
+	if(ACCOUNT_DATA[playerid][ac_ADMIN] <= 1)
+	{
+		if(CheckFilterViolation(params))
+			return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu anuncio tiene palabras inapropiadas.");
+	}
 
 	if (StringContainsIP(params))
 	{
@@ -8629,19 +8633,20 @@ CMD:desbug(playerid, params[])
 	;
 
 	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-	if (interior != 0) SetPlayerPos(playerid, pos[0], pos[1], pos[2] + 0.5);
+	// if(interior != 0) SetPlayerPos(playerid, pos[0], pos[1], pos[2] + 0.5);
 
-	if (IsPlayerInRangeOfPoint(playerid, 50.0, -198.002197, -1762.759643, 675.768737))
-	{
-		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL ||CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 1;
+	if(CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_NORMAL) return 1;
+
+	if(IsPlayerInRangeOfPoint(playerid, 50.0, -198.002197, -1762.759643, 675.768737))
 		SetPlayerPosEx(playerid, 1172.832763, -1323.269531, 15.400051, 270.0, 0, 0);
-	}
 
-	if (interior == 25 || interior == 26 || interior == 27)
+	switch(interior)
 	{
-		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL ||CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 1;
-		SetPlayerPosEx(playerid, 509.152374, -723.324951, 19.869243, 340.0, 0, 0);
-		SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
+		case 25..27:
+		{
+			SetPlayerPosEx(playerid, 509.152374, -723.324951, 19.869243, 340.0, 0, 0);
+			SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
+		}
 	}
 	return 1;
 }
@@ -8655,44 +8660,9 @@ CMD:pos(playerid, params[])
 	return 1;
 }
 
-CMD:randomposts(playerid, params[])
-{
-	new Float:pos[3];
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-	SetPlayerPos(playerid, ( pos[0] + ( random( 30 ) - 3 ) ), ( pos[1] + ( random( 30 ) - 3 ) ), pos[2]);
-	return 1;
-}
-
-CMD:masflot(playerid, params[])
-{
-	new Float:x, Float:y, Float:z;
-	GetPlayerPos(playerid,x, y,z);
-	SetPlayerPos(playerid,x,y,z+3);
-	GameTextForPlayer(playerid, "Coordernadas subidas un 3", 3000, 5);
-	return 1;
-}
-
-CMD:masflot2(playerid, params[])
-{
-	new Float:x, Float:y, Float:z;
-	GetPlayerPos(playerid,x, y,z);
-	SetPlayerPos(playerid,x,y,z+10);
-	GameTextForPlayer(playerid, "Coordernadas subidas un 10", 3000, 5);
-	return 1;
-}
-
-CMD:masflot3(playerid, params[])
-{
-	new Float:x, Float:y, Float:z;
-	GetPlayerPos(playerid,x, y,z);
-	SetPlayerPos(playerid,x,y,z+50);
-	GameTextForPlayer(playerid, "Coordernadas subidas un 50", 3000, 5);
-	return 1;
-}
-
 CMD:b(playerid, params[])
 {
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /b "COL_WHITE"[TEXTO]");
+	if(isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /b "COL_WHITE"[TEXTO]");
 
     new str_text[190];
     format(str_text, sizeof(str_text), "[ID: %d] %s: (( %s ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME], params);
@@ -32900,11 +32870,10 @@ CMD:unjail(playerid, params[])
 CMD:ip(playerid, params[])
 {
 	new to_player;
-	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ip <player_id>");
+	if (sscanf(params, "r", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ip <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
 	SendCmdLogToAdmins(playerid, "ip", params);
-	if (!strcmp(PLAYER_TEMP[to_player][py_IP], "170.83.220.2")) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No puedes hacer eso con este usuario.");
 	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Yahir_Kozel")) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No puedes hacer eso con este usuario.");
 
 	SendClientMessageEx(playerid, COLOR_RED, "%s (%d):"COL_WHITE" %s", ACCOUNT_INFO[to_player][ac_NAME], to_player, ACCOUNT_INFO[to_player][ac_IP]);
@@ -36016,8 +35985,9 @@ CMD:ejercito(playerid, params[])
 CMD:ls(playerid, params[])
 {
     new to_player;
-    if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sendls <player_id>");
+    if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ls <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL) return SendClientMessage(playerid, COLOR_WHITE, "No puedes usar esto con jugadores en la cárcel.");
 
 	CHARACTER_INFO[to_player][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 	CHARACTER_INFO[to_player][ch_INTERIOR_EXTRA] = 0;
@@ -36036,19 +36006,21 @@ CMD:lsdb(playerid, params[])
 	if (sscanf(params, "d", to_account)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /lsdb <DB-ID>");
 
 	new DBResult:Result, DB_Query[360];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT CUENTA.`ID`, CUENTA.`NAME`, CUENTA.`CONNECTED`, CUENTA.`PLAYERID`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID`;", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
 	{
-		new id, get_name[24], connected, player_id;
+		new id, get_name[24], connected, player_id, jailtime;
 
 		id = db_get_field_assoc_int(Result, "ID");
 		db_get_field_assoc(Result, "NAME", get_name, 24);
 		connected = db_get_field_assoc_int(Result, "CONNECTED");
-		player_id = db_get_field_assoc_int(Result, "PLAYERID");
+		player_id = db_get_field_assoc_int(Result, "PLAYERID")
+		jailtime = db_get_field_assoc_int(Result, "POLICE_JAIL_TIME");
 
-		if (connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado utilice /sendls, su player_id: %d.", get_name, id, player_id);
+		if(jailtime > 0) return SendClientMessage(playerid, COLOR_WHITE, "Este jugador esta en prisión, no puedes enviarlo a otra posición.");
+		if(connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado utilice /ls, su player_id: %d.", get_name, id, player_id);
 		else
 		{
 			format(DB_Query, sizeof DB_Query, "UPDATE `PERSONAJE` SET `POS_X` = '1555.400390', `POS_Y` = '-1675.611694', `POS_Z` = 16.195312, `ANGLE` = '0.0', `STATE` = '%d', `INTERIOR` = '0', `LOCAL_INTERIOR` = '0', `POLICE_JAIL_TIME` = '0' WHERE `ID_USER` = '%d';", ROLEPLAY_STATE_NORMAL, to_account);
