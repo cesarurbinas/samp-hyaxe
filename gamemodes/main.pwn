@@ -7267,10 +7267,7 @@ GetRockColorType(rock_type)
 
 PayPlayerMiner(playerid)
 {
-	new 
-		pay = 50,
-		str_text[64]
-	;
+	new pay = 50;
 
 	switch(PLAYER_TEMP[playerid][py_ACTUAL_ROCK])
 	{
@@ -7295,7 +7292,6 @@ PayPlayerMiner(playerid)
 	PLAYER_SKILLS[playerid][WORK_MINER] ++;
 	SavePlayerSkills(playerid);
 
-	GameTextForPlayer(playerid, str_text, 5000, 1);
 	GivePlayerReputation(playerid);
 	return 1;
 }
