@@ -27810,7 +27810,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckClubMenu(playerid);
         CheckRegister(playerid);
         CheckDealerSite(playerid);
-        
+
         #if defined HALLOWEEN_MODE
        		CheckPumpkinWitch(playerid);
 		#endif
@@ -35513,6 +35513,8 @@ public UnjailPlayer(playerid)
 
 	ShowPlayerMessage(playerid, "~g~Cumpliste tu condena.", 3);
 	SetPlayerPoliceSearchLevel(playerid, 0);
+
+	SetPlayerHealthEx(playerid, 100.0);
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);

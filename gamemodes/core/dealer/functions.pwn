@@ -36,7 +36,7 @@ CheckDealerSite(playerid)
 			DEALER_INFO[i][dl_PRODUCT_TYPE] = random(3);
 			DEALER_INFO[i][dl_PRODUCT_COUNT] = minrand(5, 15);
 			DEALER_INFO[i][dl_PRICE] = ( DEALER_INFO[i][dl_PRODUCT_COUNT] * 80 ) + minrand(5, 100);
-			DEALER_INFO[i][dl_PRICE_FOR_ASS] = minrand(1000, 2300);
+			DEALER_INFO[i][dl_PRICE_FOR_ASS] = minrand(1000, 2500);
 
 			ShowPlayerMenu(playerid, DEALER_MENU, "Dealer");
 
@@ -58,4 +58,48 @@ CheckDealerSite(playerid)
 		}
 	}
 	return 1;
+}
+
+forward TerminateDealingScene(playerid, actorid);
+public TerminateDealingScene(playerid, actorid)
+{
+	ApplyDynamicActorAnimation(actorid, "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
+	ClearPl
+	return 1;
+}
+
+Menu:DEALER_MENU(playerid, response, listitem)
+{
+	new dealer = PLAYER_TEMP[playerid][py_DEALER];
+    if (response == MENU_RESPONSE_SELECT)
+    {
+    	switch(listitem)
+    	{
+    		case 0:
+    		{
+    			if (CHARACTER_INFO[playerid][ch_CASH] < DEALER_INFO[dealer][dl_PRICE]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+    			GivePlayerCash(playerid, -DEALER_INFO[dealer][dl_PRICE], false);
+
+    			switch(DEALER_INFO[i][dl_PRODUCT_TYPE])
+				{
+					case 1: PLAYER_MISC[playerid][MISC_CANNABIS] += DEALER_INFO[i][dl_PRODUCT_COUNT];
+					dafault: PLAYER_MISC[playerid][MISC_CANNABIS] += DEALER_INFO[i][dl_PRODUCT_COUNT];
+				}
+
+				SavePlayerMisc(playerid);
+    		}
+
+    		case 0:
+    		{
+    			if (!PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
+    			if (CHARACTER_INFO[playerid][ch_CASH] < DEALER_INFO[dealer][dl_PRICE_FOR_ASS]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+    			GivePlayerCash(playerid, -DEALER_INFO[dealer][dl_PRICE_FOR_ASS], false);
+
+    			DEALER_INFO[dealer][dl_PRICE] = GetPlayerMafia(playerid);
+
+    			ShowPlayerNotification(playerid, "Ahora este ~r~dealer~w~ trabaja para tu mafia.", 4);
+    		}
+    	}
+    }
+    return 1;
 }
