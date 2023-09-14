@@ -1034,6 +1034,13 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 			GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
 			UpdateVehicleParams(vehicleid);
 			ShowPlayerMessage(playerid, "~r~Motor dañado.", 2);
+
+			if (random(100) == 25)
+			{
+				GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] = 20.0;
+				SetVehicleHealthEx(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH]);
+				UpdateVehicleParams(vehicleid);
+			}
 		}
 	}
 
