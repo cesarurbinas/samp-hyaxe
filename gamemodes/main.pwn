@@ -1,5 +1,5 @@
 // Compiler params
-#pragma option -d2 // un debuj medio como kn dise
+#pragma option -d3 // un debuj medio como kn dise
 #pragma warning disable 239
 #pragma warning disable 214
 
@@ -9,7 +9,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
-#define SERVER_VERSION 			"v0.6 Build 0"
+#define SERVER_VERSION 			"v0.6 Build 5"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -2595,7 +2595,7 @@ IRPC:VehicleDestroyed(playerid, BitStream:bs)
 forward OnVehicleRequestDeath(vehicleid, killerid);
 public OnVehicleRequestDeath(vehicleid, killerid)
 {
-	printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
+	//printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
     new Float:health;
 
     GetVehicleHealth(vehicleid, health);
@@ -3050,7 +3050,7 @@ GetPlayersInIP(const ip[])
 
 public OnPlayerConnect(playerid)
 {
-	printf("OnPlayerConnect %d",playerid); // debug juju
+	//printf("OnPlayerConnect %d",playerid); // debug juju
 	SetPlayerColor(playerid, PLAYER_COLOR);
 
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
@@ -3377,7 +3377,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
+	//printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
 	if (ACCOUNT_INFO[playerid][ac_ID] != 0)
 	{
 		new DB_Query[128];
@@ -3640,7 +3640,7 @@ GetEnterExitIndexById(id)
 
 public OnRconLoginAttempt(ip[], password[], success)
 {
-	printf("rcon %s %s",ip,password); // debug juju
+	//printf("rcon %s %s",ip,password); // debug juju
     new temp_ip[16];
 
     for(new i = 0; i < MAX_PLAYERS; i++)
@@ -5306,7 +5306,7 @@ SetEngineAction(playerid)
 
 public OnPlayerSpawn(playerid)
 {
-	printf("OnPlayerSpawn",playerid); // debug juju
+	//printf("OnPlayerSpawn",playerid); // debug juju
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_OCCUPIED) // Primer spawn
 	{
 		PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
@@ -5696,7 +5696,7 @@ CALLBACK: PurgeAnnounce()
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
+	//printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
@@ -5953,7 +5953,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
+	//printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) // Recién conectado
 	{
@@ -6017,7 +6017,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 public OnPlayerRequestSpawn(playerid)
 {
-	printf("OnPlayerrequestSpawn %d",playerid); // debug juju
+	//printf("OnPlayerrequestSpawn %d",playerid); // debug juju
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) CallLocalFunction("OnPlayerRequestClass", "dd", playerid, 0);
     return 0;
 }
@@ -6401,7 +6401,7 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
-	print("OnGamemodeInit()"); // debug juju
+	//print("OnGamemodeInit()"); // debug juju
 
 	#if defined VOICE_CHAT
 		sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
@@ -7457,7 +7457,7 @@ public OnGameModeExit()
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
 	}
 
-	printf("OnGameModeExit()"); // debug juju
+	//printf("OnGameModeExit()"); // debug juju
 	printf("Deteniendo servidor...");
 	db_close(Database);
 	Log("status", "Servidor detenido.");
@@ -7488,7 +7488,7 @@ CheckAndExecuteGasoline(playerid)
 #define MIN_SECONDS_BETWEEN_TALKS 150 // Deben pasar al menos 1 segundos para volver a hablar.
 public OnPlayerText(playerid, text[])
 {
-	printf("OnPlayerText %d %s",playerid,text); // debug juju
+	//printf("OnPlayerText %d %s",playerid,text); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
@@ -12371,7 +12371,7 @@ ShowDialog(playerid, dialogid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	printf("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
+	//printf("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
 	if (PLAYER_TEMP[playerid][py_DIALOG_RESPONDED]) return 1;
 	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = true;
 
@@ -20697,7 +20697,7 @@ SetPlayer_GPS_Checkpoint(playerid, Float:x, Float:y, Float:z, world, interior)//
 
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
-	printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
+	//printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
 
@@ -20736,7 +20736,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
-	printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
+	//printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
 
@@ -20780,7 +20780,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
 {
-	printf("OnPlayerEnterDynamicCp %d %d",playerid, checkpointid); // debug juju
+	//printf("OnPlayerEnterDynamicCp %d %d",playerid, checkpointid); // debug juju
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -21066,7 +21066,7 @@ EditPlayerToy(playerid)
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {
-	printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
+	//printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
 	if (index != PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]) return 0;
 
 	if (response)
@@ -23379,7 +23379,7 @@ LoadBlackMarkets()
 
 public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 {
-	printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
+	//printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
     PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] = pickupid;
     return 1;
 }
@@ -24060,7 +24060,7 @@ SendBoxMessage(message[], time)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	printf("OnPlayerKeyState %d %d %d",playerid, newkeys, oldkeys); // debug juju
+	//printf("OnPlayerKeyState %d %d %d",playerid, newkeys, oldkeys); // debug juju
     if (PRESSED(  KEY_SECONDARY_ATTACK  ))
     {
     	if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] == true) PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = false;
@@ -25685,7 +25685,7 @@ GetPlayerIdByBankAccountId(account_id)
 
 public OnPlayerStateChange(playerid, newstate, oldstate)
 {
-	printf("OnPlayerStaeChnagge %d %d %d",playerid, newstate, oldstate); // debug juju
+	//printf("OnPlayerStaeChnagge %d %d %d",playerid, newstate, oldstate); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	switch(oldstate)
@@ -26242,8 +26242,20 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
+	//printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
 	StopAudioStreamForPlayer(playerid);
+
+	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] != INVALID_PLAYER_ID)
+	{
+		if (IsPlayerConnected(GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER]))
+		{
+			if (PLAYER_MISC[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] ][MISC_RADIO_STATION] < 100)
+			{
+				StopAudioStreamForPlayer(playerid);
+			}
+		}
+	}
+
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
 	return 1;
@@ -26251,7 +26263,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
-	printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
+	//printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
 
@@ -27027,7 +27039,7 @@ SetVehicleToRespawnEx(vehicleid)
 
 public OnVehicleDeath(vehicleid, killerid)
 {
-	printf("OnVehicleDeat",vehicleid,killerid); // debug juju
+	//printf("OnVehicleDeat",vehicleid,killerid); // debug juju
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = false;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] = INVALID_PLAYER_ID;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LAST_DRIVER] = INVALID_PLAYER_ID;
@@ -27434,7 +27446,7 @@ AddVehicleComponents(vehicleid)
 
 public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
-	printf("OnEnterExitMoDsHOP",playerid); // debug juju
+	//printf("OnEnterExitMoDsHOP",playerid); // debug juju
     if (enterexit) // Entra
     {
 		ShowPlayerMessage(playerid, "~r~Solo puedes tunear vehículos en el mecánico, búscalo con el /GPS.", 2);
@@ -27455,7 +27467,7 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
-	printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
+	//printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -27476,7 +27488,7 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 
 public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
-	printf("OnVehiclePaintJob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
+	//printf("OnVehiclePaintJob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -28698,7 +28710,7 @@ Set_HARVEST_Checkpoint(playerid)
 
 public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 {
-	printf("OnPlayerEnterDynamicRaceCp %d %d",playerid,checkpointid); // debug juju
+	//printf("OnPlayerEnterDynamicRaceCp %d %d",playerid,checkpointid); // debug juju
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_RACE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -30824,7 +30836,7 @@ CMD:econtrol(playerid, params[])
 
 public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, modelid, Float:x, Float:y, Float:z)
 {
-	printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
+	//printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
 	if (info[0] == WORK_POLICE)
@@ -30858,7 +30870,7 @@ public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, model
 
 public OnPlayerEditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
-	printf("OnPlayerEditDynamicObject",playerid); // debug juju
+	//printf("OnPlayerEditDynamicObject",playerid); // debug juju
 	if (response == EDIT_RESPONSE_CANCEL)
 	{
 		new info[2];
@@ -33371,7 +33383,7 @@ EditVehicleObject(playerid, vehicleid, slot)
 
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
-	printf("OnPlayerEditObject %d",playerid); // debug juju
+	//printf("OnPlayerEditObject %d",playerid); // debug juju
 	if (playerobject)
 	{
 		if (objectid == PLAYER_TEMP[playerid][py_PIVOT_OBJECT])
@@ -34031,7 +34043,7 @@ SetPlayerNormalColor(playerid)
 #define MIN_SECONDS_BETWEEN_COMMANDS 1 // Deben pasar al menos 1 segundos entre comando y comando.
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 {
-	printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
+	//printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL || PLAYER_TEMP[playerid][py_NEW_USER])
@@ -34092,7 +34104,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 
 public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags) 
 {
-	printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
+	//printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
     if (result == -1) 
     { 
 		SendClientMessageEx(playerid, COLOR_WHITE, "El comando "COL_RED"/%s "COL_WHITE"no existe, usa "COL_RED"/ayuda"COL_WHITE".", cmd);

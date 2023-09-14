@@ -1864,7 +1864,8 @@ CMD:v(playerid, params[])
 	new modelid, color1, color2;
 	if (sscanf(params, "k<vehicle>D(0)D(0)", modelid, color1, color2)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /v <modelid/nombre> <color 1 = 0> <color 2 = 0>");
 	if (modelid < 400 || modelid > 611 || !modelid || modelid >= 999) return SendClientMessage(playerid, COLOR_WHITE, "Modelo de vehículo no válido. Usa el nombre o la ID de modelo.");
-
+	if (color1 > 255 || color1 > 255) return SendClientMessage(playerid, COLOR_WHITE, "Color no válido..");
+	
 	new Float:p[4];
 	GetPlayerPos(playerid, p[0], p[1], p[2]);
 	GetPlayerFacingAngle(playerid, p[3]);
