@@ -585,9 +585,9 @@ RefreshItemList(playerid)
 				target_player = GetPlayerCameraTargetPlayer(playerid),
 				Float:pos[4],
 				str_text[128],
-				Float:size_items = 330.000000;
+				Float:size_items = 335.000000;
 				
-			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
+			format(str_text, sizeof(str_text), "%d/12", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
 
 			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
