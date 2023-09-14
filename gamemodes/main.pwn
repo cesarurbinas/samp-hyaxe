@@ -22967,6 +22967,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_MISC[playerid][MISC_DRIVE] != 0) return ShowPlayerMessage(playerid, "~r~Ya tienes una licencia de conducir.", 3);
 						if (1000 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+					
+						PLAYER_MISC[playerid][MISC_DRIVE] = 1;
+
+						ShowPlayerNotification(playerid, "Felicidades, ahora tienes licencia de conducir.", 6);
+
+						GivePlayerCash(playerid, -1000);
+						SavePlayerMisc(playerid);
 					}
 				}
 			}
