@@ -4081,45 +4081,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			return 1;
 		}
-		case DIALOG_TRICKS_WEAPON:
-		{
-			if (response)
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-
-				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
-
-
-				if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA] ][player_weapon_VALID])
-				{
-					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					SendClientMessageEx(playerid, COLOR_WHITE, "Para comprar esta arma tienes que deshacerte de tu '%s' (%d) para tener espacio.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA] ][player_weapon_ID] ][weapon_info_NAME], PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA]);
-					return 1;
-				}
-
-				TransferPlayerWeapon(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA], playerid);
-
-				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-
-				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			}
-			else
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return 1;
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return 1;
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return 1;
-
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
-			}
-			return 1;
-		}
 		case DIALOG_VEHICLE_BOOT:
 		{
 			if (response)

@@ -1685,19 +1685,6 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Venta", dialog, "Si", "No");
 			return 1;
 		}
-		case DIALOG_TRICKS_WEAPON:
-		{
-			new dialog[180];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Arma\nNombre: %s\nMunición: %s\nPrecio: %s$\n\n¿Quieres comprárselo?",
-									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
-									WEAPON_INFO[ PLAYER_WEAPONS[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA] ][player_weapon_ID] ][weapon_info_NAME],
-									number_format_thousand(PLAYER_WEAPONS[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA] ][player_weapon_AMMO]),
-									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
-								);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Ventas", dialog, "Aceptar", "Cancelar");
-			return 1;
-		}
 		case DIALOG_VEHICLE_BOOT:
 		{
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
