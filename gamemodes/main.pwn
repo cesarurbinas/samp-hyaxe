@@ -8547,7 +8547,7 @@ CMD:anuncio(playerid, params[])
 		return 1;
 	}
 
-	if(ACCOUNT_DATA[playerid][ac_ADMIN] <= 1)
+	if(ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] <= 1)
 	{
 		if(CheckFilterViolation(params))
 			return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu anuncio tiene palabras inapropiadas.");
@@ -36016,7 +36016,7 @@ CMD:lsdb(playerid, params[])
 		id = db_get_field_assoc_int(Result, "ID");
 		db_get_field_assoc(Result, "NAME", get_name, 24);
 		connected = db_get_field_assoc_int(Result, "CONNECTED");
-		player_id = db_get_field_assoc_int(Result, "PLAYERID")
+		player_id = db_get_field_assoc_int(Result, "PLAYERID");
 		jailtime = db_get_field_assoc_int(Result, "POLICE_JAIL_TIME");
 
 		if(jailtime > 0) return SendClientMessage(playerid, COLOR_WHITE, "Este jugador esta en prisión, no puedes enviarlo a otra posición.");
