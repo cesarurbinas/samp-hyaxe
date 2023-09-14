@@ -2813,3 +2813,23 @@ CMD:destroypveh(playerid, params[])
 	return 1;
 }
 flags:destroypveh(CMD_MODERATOR4)
+
+CMD:setbankcash(playerid, params[])
+{
+	new to_player, amount;
+	if(sscanf(params, "rd", to_player, amount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setbankcash [player] [amount]");
+	if(!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
+	if(0 > amount || amount > 2147483647) return SendClientMessage(playerid, COLOR_WHITE, "La cantidad no puede ser menor a 0 ni mayor a 2,147,483,647.");
+	if(BANK_ACCOUNT[to_player][bank_account_BALANCE] == amount) return SendClientMessage(playerid, COLOR_WHITE, "El jugador ya tiene esa cantidad de dinero en el banco.");
+
+	if(amount > BANK_ACCOUNT[to_player][bank_account_BALANCE]) RegisterBankAccountTransaction(BANK_ACCOUNT[to_player][bank_account_ID], 0, amount);
+	else RegisterBankAccountTransaction(BANK_ACCOUNT[to_player][bank_account_ID], 1, amount);
+	BANK_ACCOUNT[to_player][bank_account_BALANCE] = amount;
+
+	ShowPlayerNotification(to_player, sprintf("Un administrador establecio tu dinero en el banco a ~r~$%d~w~.", amount), 5);
+	SendClientMessage(playerid, COLOR_WHITE, sprintf("Estableciste el dinero en el banco de "COL_RED"%s"COL_WHITE" a "COL_RED"%d"COL_WHITE".", ACCOUNT_INFO[to_player][ac_NAME], amount));
+
+	SaveUserData(to_player);
+	return 1;
+}
+flags:setbankcash(CMD_ADMIN)
