@@ -4716,7 +4716,7 @@ public GetAmbulanceItem(playerid, vehicleid)
 		GetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], doors[2], doors[3]);
 		SetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], 0, 0);
 	}
-	return 1;
+	return 1; 
 }
 
 CheckAmbulance(playerid)
