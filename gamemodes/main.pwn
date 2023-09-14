@@ -34104,6 +34104,7 @@ AddPlayerPoliceHistory(playerid, const by[], const reason[])
 }
 
 flags:ayudante(CMD_HELPER)
+flags:comandosadmin(CMD_HELPER)
 flags:ufo(CMD_OPERATOR)
 flags:staff(CMD_HELPER)
 flags:setveh(CMD_MODERATOR)

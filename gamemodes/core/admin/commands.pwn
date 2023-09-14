@@ -1,5 +1,35 @@
 new ADMIN_LEVEL_AC_IMMUNITY = 2; // Moderador en adelante
 
+CMD:comandosadmin(playerid, params[])
+{
+    new level;
+    if(sscanf(params, "d", level))
+    {
+        level = ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL];
+        SendClientMessage(playerid, COLOR_WHITE, "Para ver comandos de otro nivel, usa /comandosadmin (nivel).");
+    }
+    else if(level >= sizeof(ADMIN_LEVELS)) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de un rango que no existe.");
+    else if(level > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de un rango mayor al tuyo.");
+
+    new CmdArray:command_arr = PC_GetCommandArray();
+    new len = PC_GetArraySize(command_arr);
+    new dialog[1250], line[50];
+    for(new i = 0; i != len; i++)
+    {
+        new cmdname[31], flags;
+        PC_GetCommandName(command_arr, i, cmdname);
+        flags = PC_GetFlags(cmdname);
+        if(!flags) continue;
+        if(flags != level) continue;
+        format(line, sizeof(line), "{FFFFFF}/%s (Nivel %d)\n", cmdname, flags);
+        strcat(dialog, line);
+    }
+
+    ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Comandos administrativos", dialog, "Aceptar", "");
+    SendCmdLogToAdmins(playerid, "comandosadmin", params);
+    return 1;
+}
+
 CMD:jailoff(playerid, params[])
 {
 	new dbid, minutes, reason[65];
