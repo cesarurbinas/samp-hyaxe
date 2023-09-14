@@ -885,7 +885,372 @@ ReLockPlayerVehicles(playerid, bool:remove = false)
 		total_vehicles ++;
 		db_next_row(Result);
 	}
-	
+
 	db_free_result(Result);
+	return 1;
+}
+
+SetPlayerColorEx(playerid, color)
+{
+	PLAYER_TEMP[playerid][py_PLAYER_COLOR] = color;
+	return SetPlayerColor(playerid, color);
+}
+
+InviteToSAPD(playerid, to_player)
+{
+	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
+	if (to_player == playerid) return 1;
+
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
+	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es policía.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
+
+	new player_jobs = CountPlayerJobs(to_player);
+	if (ACCOUNT_INFO[to_player][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+
+	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
+
+	PLAYER_WORKS[to_player][WORK_POLICE] = true;
+	PLAYER_SKILLS[to_player][WORK_POLICE] = 1;
+	SavePlayerWorks(to_player);
+	SavePlayerSkills(to_player);
+
+	new DBResult:Result_pnumber, phone_number;
+	Result_pnumber = db_query(Database, "SELECT ABS(RANDOM() % 10000000) AS `NUM` WHERE `NUM` NOT IN (SELECT `EXTRA` FROM `PLAYER_MISC` WHERE `ID` = '14') LIMIT 1;");
+	if (db_num_rows(Result_pnumber)) phone_number = db_get_field_int(Result_pnumber, 0);
+	db_free_result(Result_pnumber);
+	PLAYER_MISC[to_player][MISC_PLACA_PD] = phone_number;
+	SavePlayerMisc(to_player);
+
+	SendClientMessageEx(playerid, COLOR_WHITE, "%s ahora es policía.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	ShowPlayerMessage(to_player, "~y~Ahora eres policía.", 3);
+	return 1;
+}
+
+InviteToLCN(playerid, to_player)
+{
+	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
+	if (to_player == playerid) return 1;
+
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
+
+	new player_jobs = CountPlayerJobs(to_player);
+	if (ACCOUNT_INFO[to_player][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+
+	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
+
+	PLAYER_WORKS[to_player][WORK_MAFIA] = true;
+	PLAYER_SKILLS[to_player][WORK_MAFIA] = 1;
+	SavePlayerWorks(to_player);
+	SavePlayerSkills(to_player);
+
+	SendClientMessageEx(playerid, 0xa912e2FF, "[FSB] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
+	return 1;
+}
+
+InviteToTCC(playerid, to_player)
+{
+	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
+	if (to_player == playerid) return 1;
+
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
+
+	new player_jobs = CountPlayerJobs(to_player);
+	if (ACCOUNT_INFO[to_player][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+
+	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
+
+	PLAYER_WORKS[to_player][WORK_ENEMY_MAFIA] = true;
+	PLAYER_SKILLS[to_player][WORK_ENEMY_MAFIA] = 1;
+	SavePlayerWorks(to_player);
+	SavePlayerSkills(to_player);
+
+	SendClientMessageEx(playerid, 0xa912e2FF, "[FSB] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso enemigo.", 3);
+	return 1;
+}
+
+InviteToFO(playerid, to_player)
+{
+	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
+	if (to_player == playerid) return 1;
+
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
+
+	new player_jobs = CountPlayerJobs(to_player);
+	if (ACCOUNT_INFO[to_player][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+
+	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
+
+	PLAYER_WORKS[to_player][WORK_OSBORN] = true;
+	PLAYER_SKILLS[to_player][WORK_OSBORN] = 1;
+	SavePlayerWorks(to_player);
+	SavePlayerSkills(to_player);
+
+	SendClientMessageEx(playerid, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
+	return 1;
+}
+
+InviteToFC(playerid, to_player)
+{
+	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
+	if (to_player == playerid) return 1;
+
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
+
+	new player_jobs = CountPlayerJobs(to_player);
+	if (ACCOUNT_INFO[to_player][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+
+	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
+
+	PLAYER_WORKS[to_player][WORK_CONNOR] = true;
+	PLAYER_SKILLS[to_player][WORK_CONNOR] = 1;
+	SavePlayerWorks(to_player);
+	SavePlayerSkills(to_player);
+
+	SendClientMessageEx(playerid, 0xc33d3dFF, "[TFC] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
+	return 1;
+}
+
+InviteToDS(playerid, to_player)
+{
+	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
+	if (to_player == playerid) return 1;
+
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
+
+	new player_jobs = CountPlayerJobs(to_player);
+	if (ACCOUNT_INFO[to_player][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+
+	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
+
+	PLAYER_WORKS[to_player][WORK_DIVISO] = true;
+	PLAYER_SKILLS[to_player][WORK_DIVISO] = 1;
+	SavePlayerWorks(to_player);
+	SavePlayerSkills(to_player);
+
+	SendClientMessageEx(playerid, 0xa9ee70FF, "[DPT] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
+	return 1;
+}
+
+CountPlayerJobs(playerid)
+{
+	new count;
+	for(new i = 1; i != sizeof(work_info); i ++)
+	{
+		if (PLAYER_WORKS[playerid][i]) count ++;
+	}
+	return count;
+}
+
+getPlayerWorks(playerid)
+{
+	new works[27 * sizeof(work_info)], count;
+	for(new i = 1; i != sizeof(work_info); i ++)
+	{
+		if (PLAYER_WORKS[playerid][i])
+		{
+			if (count > 0) strcat(works, ", ");
+			strcat(works, work_info[i][work_info_NAME]);
+
+			count ++;
+		}
+	}
+
+	if (!count) works = "ninguno";
+	return works;
+}
+
+SetPlayerSkillLevels(playerid)
+{
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_SAWNOFF_SHOTGUN, 0);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_PISTOL, 0);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_PISTOL_SILENCED, 0);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_DESERT_EAGLE, 999);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_SHOTGUN, 999);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_SPAS12_SHOTGUN, 0);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_SAWNOFF_SHOTGUN, 0);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_MICRO_UZI, 0);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_MP5, 999);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_AK47, 999);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_M4, 999);
+	SetPlayerSkillLevel(playerid, WEAPONSKILL_SNIPERRIFLE, 999);
+	return 1;
+}
+
+forward HealthDown(playerid);
+public HealthDown(playerid)
+{
+	#if DEBUG_MODE == 1
+		printf("HealthDown"); // debug juju
+	#endif
+
+	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK) return 1;
+
+	GivePlayerHealthEx(playerid, -1.0);
+
+	if (GetPlayerDistanceFromPoint(playerid, PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2]) > 0.10) ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][16]);
+	PLAYER_TEMP[playerid][py_TIMERS][16] = SetTimerEx("HealthDown", 8000, false, "i", playerid);
+	return 1;
+}
+
+forward StandUpBotikin(medic, playerid);
+public StandUpBotikin(medic, playerid)
+{
+	#if DEBUG_MODE == 1
+		printf("StandUpBotikin"); // debug juju
+	#endif
+
+	PLAYER_MISC[medic][MISC_BOTIKIN] --;
+	ResetItemBody(medic);
+	SavePlayerMisc(medic);
+	ShowPlayerMessage(medic, "~g~Has curado a esta persona.", 3);
+
+	CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+	ResetItemBody(playerid);
+
+	if (ACCOUNT_INFO[playerid][ac_SU]) SetPlayerHealthEx(playerid, 100.0);
+	else SetPlayerHealthEx(playerid, 25.0);
+
+	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
+	ClearAnimations(playerid);
+
+	if (PLAYER_WORKS[medic][WORK_MEDIC] && PLAYER_TEMP[medic][py_WORKING_IN] == WORK_MEDIC)
+	{
+		if (PLAYER_TEMP[playerid][py_WANT_MEDIC])
+		{
+			new pay = (1000 + PLAYER_SKILLS[medic][WORK_MEDIC]);
+
+			if (ACCOUNT_INFO[medic][ac_SU]) pay += minrand(200, 500);
+
+			GivePlayerCash(medic, pay);
+
+			PLAYER_SKILLS[medic][WORK_MEDIC] += 5;
+			SavePlayerSkills(medic);
+			GivePlayerReputation(medic);
+		}
+		else ShowPlayerNotification(playerid, "Este jugador no ha pedido un medico entonces no has ganado nada.", 4);
+	}
+
+	DisablePlayerMedicMark(playerid);
 	return 1;
 }
