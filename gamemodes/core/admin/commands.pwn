@@ -1590,6 +1590,7 @@ CMD:pnot(playerid, params[])
 	new to_player;
     if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /pnot <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
 
 	new dialog[128 * 10];
 
@@ -1620,6 +1621,45 @@ CMD:pnot(playerid, params[])
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_RED"Notificaciones", dialog, "Cerrar", "");
 	SendCmdLogToAdmins(playerid, "pnot", params);
+	return 1;
+}
+
+CMD:plog(playerid, params[])
+{
+	new to_player;
+    if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /plog <player_id>");
+    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+
+	new dialog[64 * 10];
+
+	new DBResult:Result, DB_Query[140];
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `ADDRESS_LOG` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 10;", ACCOUNT_INFO[to_player][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No hay registros.");
+	else
+	{
+		for(new i; i < db_num_rows(Result); i++ )
+		{
+			new 
+				line_str[125],
+				message[128],
+				date;
+
+			date = db_get_field_assoc_int(Result, "DATE");
+			db_get_field_assoc(Result, "CONTENT", message, 128);
+
+			format(line_str, sizeof line_str, ""COL_WHITE"%s\t%s\n", message, ReturnTimelapse(date, gettime()));
+			strcat(dialog, line_str);
+
+			db_next_row(Result);
+		}
+		db_free_result(Result);
+	}
+
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", dialog, "Cerrar", "");
+	SendCmdLogToAdmins(playerid, "plog", params);
 	return 1;
 }
 

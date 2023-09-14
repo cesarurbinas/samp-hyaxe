@@ -6047,9 +6047,28 @@ public OnPlayerRequestClass(playerid, classid)
 
 			if (strcmp(PLAYER_TEMP[playerid][py_IP], ACCOUNT_INFO[playerid][ac_IP], false)) // La IP actual no es la misma IP de la última conexión
 			{
-				new ip_change[264];
-				format(ip_change, sizeof(ip_change), "%s: %s > %s", PLAYER_TEMP[playerid][py_NAME], ACCOUNT_INFO[playerid][ac_IP], PLAYER_TEMP[playerid][py_IP]);
-				Log("address", ip_change);
+				new ip_change[40];
+				format(ip_change, sizeof(ip_change), "%s > %s", ACCOUNT_INFO[playerid][ac_IP], PLAYER_TEMP[playerid][py_IP]);
+
+				new DB_Query[160];
+				format
+				(
+					DB_Query, sizeof DB_Query,
+					"\
+						INSERT INTO `ADDRESS_LOG`\
+						(\
+							`ID_USER`, `CONTENT`, 'DATE'\
+						)\
+						VALUES\
+						(\
+							'%d', '%q', '%d'\
+						);\
+					",
+					ACCOUNT_INFO[playerid][ac_ID],
+					ip_change,
+					gettime()
+				);
+				db_free_result(db_query(Database, DB_Query));
 
 				ShowPlayerMessage(playerid, "~r~Tu dirección IP ha cambiado desde tu última conexión.", 5);
 				format(ACCOUNT_INFO[playerid][ac_IP], 16, "%s", PLAYER_TEMP[playerid][py_IP]);
@@ -11816,6 +11835,7 @@ ShowDialog(playerid, dialogid)
 					Sexo\t%s\n\
 					Recargar mapeos\t\n\
 					Damage informer\t%s\n\
+					Ver registros de IP\t\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
@@ -19450,6 +19470,37 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						SavePlayerMisc(playerid);
 						ShowDialog(playerid, dialogid);
+					}
+					case 9:
+					{
+						new dialog[64 * 10];
+
+						new DBResult:Result, DB_Query[140];
+						format(DB_Query, sizeof DB_Query, "SELECT * FROM `ADDRESS_LOG` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 10;", ACCOUNT_INFO[playerid][ac_ID]);
+						Result = db_query(Database, DB_Query);
+
+						if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No hay registros.");
+						else
+						{
+							for(new i; i < db_num_rows(Result); i++ )
+							{
+								new 
+									line_str[125],
+									message[128],
+									date;
+
+								date = db_get_field_assoc_int(Result, "DATE");
+								db_get_field_assoc(Result, "CONTENT", message, 128);
+
+								format(line_str, sizeof line_str, ""COL_WHITE"%s\t%s\n", message, ReturnTimelapse(date, gettime()));
+								strcat(dialog, line_str);
+
+								db_next_row(Result);
+							}
+							db_free_result(Result);
+						}
+
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", dialog, "Cerrar", "");
 					}
 				}
 			}
@@ -33850,6 +33901,7 @@ flags:giftvip(CMD_OPERATOR)
 flags:setpd(CMD_OPERATOR)
 flags:moderador(CMD_MODERATOR)
 flags:pnot(CMD_MODERATOR)
+flags:plog(CMD_MODERATOR)
 flags:addcode(CMD_OPERATOR)
 flags:muteard(CMD_HELPER)
 flags:desmuteard(CMD_HELPER)
