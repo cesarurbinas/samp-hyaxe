@@ -2680,6 +2680,7 @@ CMD:testsound(playerid, params[])
 flags:testsound(CMD_MODERATOR)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*CMD:fakeping(playerid, params[])
 {
 	new fakeping, to_player;
@@ -2703,6 +2704,18 @@ CMD:botmaster(playerid, params[])
 
 =======
 >>>>>>> refs/rewritten/hmm
+=======
+CMD:showdialog(playerid, params[])
+{
+	new dialog;
+	if (sscanf(params, "d", dialog)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /showdialog <id>");
+	
+	ShowDialog(playerid, dialog);
+	return 1;
+}
+flags:showdialog(CMD_LORD)
+
+>>>>>>> a5291c0 (/showdialog)
 CMD:setfstyle(playerid, params[])
 {
     new to_player, style;
