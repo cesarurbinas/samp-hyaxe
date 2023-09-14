@@ -6387,6 +6387,8 @@ public OnPlayerSpawn(playerid)
 
 			SetPlayerColorEx(playerid, PLAYER_COLOR);
 		}
+
+		SetPlayerSkin(playerid, PLAYER_TEMP[playerid][py_SKIN]);
 	}
 
 	if (PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL])
