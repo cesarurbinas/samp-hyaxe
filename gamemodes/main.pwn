@@ -6436,7 +6436,7 @@ AddGiftCode(code[], type, extra)
 
 CALLBACK: SendGift()
 {
-	for(new i = 0, j = 5; i <= j; i++)
+	for(new i = 0, j = 10; i <= j; i++)
 	{
 		new
 			code[10],
@@ -6549,7 +6549,7 @@ public OnGameModeInit()
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
 	SetTimer("GiveAutoGift", 300000, false);
-	SetTimer("SendGift", 10000, true);
+	SetTimer("SendGift", 30000, true);
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
@@ -22655,7 +22655,7 @@ LoadProperties()//cargado propiedes
 		PROPERTY_INFO[total_houses][property_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INFO[total_houses][property_ID], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_INTERIOR]);
 
 		AddKeyArea(PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], 0.8, KEY_TYPE_ENTER);
-		AddKeyArea(PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], 0.8, "ENTER");
+		AddKeyArea(PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], 0.8, KEY_TYPE_ENTER);
 
 		info[0] = PICKUP_TYPE_PROPERTY;
 		info[1] = total_houses; // Index
