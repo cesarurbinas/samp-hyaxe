@@ -1432,12 +1432,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		            if (!IsPlayerInAnyVehicle(playerid))
 		            {
-						new str_text[144];
-						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Anti-L", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
-					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Anti-L");
-						KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+						Anticheat_Ban(playerid, "Anti-L");
 						return 0;
 		            }
 		        }
