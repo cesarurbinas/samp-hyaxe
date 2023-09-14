@@ -6730,18 +6730,18 @@ InitGraffiti(graff_id)
 
 CALLBACK: InitRandomGangEvent()
 {	
-	new event = minrand(0, 10);
+	new event = minrand(0, 6);
 	switch(event)
 	{
-		case 0, 1, 2, 3, 4, 5, 6, 8, 9:
-		{
-			new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
-			InitGraffiti(graff_id);
-		}
-		case 7:
+		case 3:
 		{
 			new market_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
 			InitBlackMarket(market_id);
+		}
+		default:
+		{
+			new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
+			InitGraffiti(graff_id);
 		}
 	}
 	return 1;
