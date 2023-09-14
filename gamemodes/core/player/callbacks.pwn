@@ -6264,3 +6264,21 @@ public OnClientCheckResponse(playerid, actionid, memaddr, retndata)
     }
     return 1;
 }
+
+CMD:alerttest(playerid, params[])
+{
+	ShowActionForPlayer(playerid, ActionTest, "¿Estás seguro de darle todos tus Hycoins Motumbo_Fiumba (ID: 422)?", .action_time = 10000);
+	return 1;
+}
+
+Action:ActionInfernus(playerid, response)
+{
+	if (response == ACTION_RESPONSE_YES)
+	{
+		ShowPlayerNotification(playerid, "Alert response: Si", 4);
+	}
+	else
+	{
+		ShowPlayerNotification(playerid, "Alert response: No", 4);
+	}
+}

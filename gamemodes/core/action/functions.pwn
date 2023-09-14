@@ -22,7 +22,7 @@ stock Internal_ShowActionForPlayer(playerid, tda_callback[], tda_description[], 
 	PlayerTextDrawSetProportional(playerid, g_PlayerActionsTD[playerid][0], 1);
 	PlayerTextDrawSetShadow(playerid, g_PlayerActionsTD[playerid][0], 1);
 	PlayerTextDrawUseBox(playerid, g_PlayerActionsTD[playerid][0], 1);
-	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][0], 168430280);
+	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][0], 0x1C1C1CFF);
 	PlayerTextDrawTextSize(playerid, g_PlayerActionsTD[playerid][0], 396.000000, 0.000000);
 	PlayerTextDrawShow(playerid, g_PlayerActionsTD[playerid][0]);
 
@@ -45,7 +45,7 @@ stock Internal_ShowActionForPlayer(playerid, tda_callback[], tda_description[], 
 	PlayerTextDrawSetShadow(playerid, g_PlayerActionsTD[playerid][2], 1);
 	PlayerTextDrawShow(playerid, g_PlayerActionsTD[playerid][2]);
 
-	g_PlayerActionsTD[playerid][3] = CreatePlayerTextDraw(playerid, 258.699981, 222.100006, tda_description);
+	g_PlayerActionsTD[playerid][3] = CreatePlayerTextDraw(playerid, 258.699981, 222.100006, TextToSpanish(tda_description));
 	PlayerTextDrawBackgroundColor(playerid, g_PlayerActionsTD[playerid][3], 0);
 	PlayerTextDrawFont(playerid, g_PlayerActionsTD[playerid][3], 1);
 	PlayerTextDrawLetterSize(playerid, g_PlayerActionsTD[playerid][3], 0.165999, 0.960000);
@@ -58,7 +58,7 @@ stock Internal_ShowActionForPlayer(playerid, tda_callback[], tda_description[], 
 	PlayerTextDrawTextSize(playerid, g_PlayerActionsTD[playerid][3], 387.000000, 0.000000);
 	PlayerTextDrawShow(playerid, g_PlayerActionsTD[playerid][3]);
 
-	g_PlayerActionsTD[playerid][4] = CreatePlayerTextDraw(playerid, 287.000000, 251.000000, "Y");
+	g_PlayerActionsTD[playerid][4] = CreatePlayerTextDraw(playerid, 287.000000, 251.000000, "Y (Si)");
 	PlayerTextDrawAlignment(playerid, g_PlayerActionsTD[playerid][4], 2);
 	PlayerTextDrawBackgroundColor(playerid, g_PlayerActionsTD[playerid][4], 0);
 	PlayerTextDrawFont(playerid, g_PlayerActionsTD[playerid][4], 1);
@@ -68,11 +68,11 @@ stock Internal_ShowActionForPlayer(playerid, tda_callback[], tda_description[], 
 	PlayerTextDrawSetProportional(playerid, g_PlayerActionsTD[playerid][4], 1);
 	PlayerTextDrawSetShadow(playerid, g_PlayerActionsTD[playerid][4], 1);
 	PlayerTextDrawUseBox(playerid, g_PlayerActionsTD[playerid][4], 1);
-	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][4], 434182655);
+	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][4], 0x63AD5DFF);
 	PlayerTextDrawTextSize(playerid, g_PlayerActionsTD[playerid][4], 307.399902, 40.000000);
 	PlayerTextDrawShow(playerid, g_PlayerActionsTD[playerid][4]);
 
-	g_PlayerActionsTD[playerid][5] = CreatePlayerTextDraw(playerid, 352.899993, 251.000000, "N");
+	g_PlayerActionsTD[playerid][5] = CreatePlayerTextDraw(playerid, 352.899993, 251.000000, "N (No)");
 	PlayerTextDrawAlignment(playerid, g_PlayerActionsTD[playerid][5], 2);
 	PlayerTextDrawBackgroundColor(playerid, g_PlayerActionsTD[playerid][5], 0);
 	PlayerTextDrawFont(playerid, g_PlayerActionsTD[playerid][5], 1);
@@ -82,7 +82,7 @@ stock Internal_ShowActionForPlayer(playerid, tda_callback[], tda_description[], 
 	PlayerTextDrawSetProportional(playerid, g_PlayerActionsTD[playerid][5], 1);
 	PlayerTextDrawSetShadow(playerid, g_PlayerActionsTD[playerid][5], 1);
 	PlayerTextDrawUseBox(playerid, g_PlayerActionsTD[playerid][5], 1);
-	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][5], -11842561);
+	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][5], 0xD36969FF);
 	PlayerTextDrawTextSize(playerid, g_PlayerActionsTD[playerid][5], 374.000000, 40.000000);
 	PlayerTextDrawShow(playerid, g_PlayerActionsTD[playerid][5]);
 
@@ -95,7 +95,7 @@ stock Internal_ShowActionForPlayer(playerid, tda_callback[], tda_description[], 
 	PlayerTextDrawSetProportional(playerid, g_PlayerActionsTD[playerid][6], 1);
 	PlayerTextDrawSetShadow(playerid, g_PlayerActionsTD[playerid][6], 1);
 	PlayerTextDrawUseBox(playerid, g_PlayerActionsTD[playerid][6], 1);
-	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][6], -7929601);
+	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][6], COLOR_RED);
 	PlayerTextDrawTextSize(playerid, g_PlayerActionsTD[playerid][6], 395.400024, 0.000000);
 	PlayerTextDrawShow(playerid, g_PlayerActionsTD[playerid][6]);
 
