@@ -8732,6 +8732,8 @@ public OnPlayerText(playerid, text[])
 		{
 			ResetPlayerWeaponsEx(playerid);
 			SavePlayerWeaponsData(playerid);
+
+			if (CHARACTER_INFO[playerid][ch_CASH] >= 5000) GivePlayerCash(playerid, -5000, false);;
 		}
 	}
 	return 0;
