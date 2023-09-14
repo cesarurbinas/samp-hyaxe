@@ -1,8 +1,6 @@
 /*
  *      Hyaxe - San Andreas Multiplayer
- * 		Creditos:
- *			Programador inicial: Atom
- *			Otros: Heix, Vinter
+ * 		Créditos: Atom
 */
 
 #pragma option -(+
@@ -30,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.7 Build 5"
+#define SERVER_VERSION 			"v0.7 Build 15"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -904,7 +902,7 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2117.8344, -104.6239, -0.3203, -139.0010, 1, 7, 0},
 	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2124.2175, -100.6259, -0.3203, -139.0010, 1, 7, 0},
 
-	// La cosa nostra
+	// Family SaintBlood'S
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 487, -1036.8830, -929.7128, 140.5439, 87.0861, 0, 3, 0}, //Maverick
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 593, -1017.1211, -1032.6289, 129.7097, 92.7841, 0, 3, 0}, //Dodo-finca
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 593, -1019.7943, -999.2515, 129.7708, 95.2589, 0, 3, 0}, //Dodo-finca
@@ -1573,13 +1571,13 @@ enum Truck_Content_Info
 new Truck_Contents[][Truck_Content_Info] = //recos camionero
 {
 	{0, T_REC_0, 900, 1071.016235, -934.561523, 42.539730},
-	{25, T_REC_1, 1000, -185.473693, -280.008880, 1.603357},
-	{50, T_REC_2, 1250, 667.775512, -458.185913, 16.335937},
-	{70, T_REC_3, 1450, 645.397155, -522.815002, 16.335937},
-	{100, T_REC_4, 1600, 1355.020385, 243.499816, 19.566932},
-	{150, T_REC_5, 1800, 2337.287109, -53.487117, 26.484375},
-	{200, T_REC_6, 2000, 2327.318115, -21.905473, 26.484375},
-	{300, T_REC_7, 2800, 2338.490966, 60.734577, 26.484375}
+	{25, T_REC_1, 950, -185.473693, -280.008880, 1.603357},
+	{50, T_REC_2, 1150, 667.775512, -458.185913, 16.335937},
+	{70, T_REC_3, 1250, 645.397155, -522.815002, 16.335937},
+	{100, T_REC_4, 1300, 1355.020385, 243.499816, 19.566932},
+	{150, T_REC_5, 1400, 2337.287109, -53.487117, 26.484375},
+	{200, T_REC_6, 1800, 2327.318115, -21.905473, 26.484375},
+	{300, T_REC_7, 2000, 2338.490966, 60.734577, 26.484375}
 };
 
 /* Basurero */
@@ -1666,7 +1664,38 @@ static const INVALID_WORDS[][] =
 	".xyz",
 	".ml",
 	".tk",
-	"samptab"
+	"samptab",
+	"heix",
+	"aver no",
+	"aber no",
+	"- mong",
+	"aver sido",
+	"aber sido",
+	"blade",
+	"yarmak",
+	"scythekill",
+	"exterminio total",
+	"BOTNET",
+	"botnet",
+	"betazone",
+	"imgui",
+	"adri1",
+	"superroleplay",
+	"sampvoice",
+	"daniel mor",
+	"github",
+	"b0tnet",
+	"botn3t",
+	"b o t n e t",
+	"botonet",
+	"bot n3t",
+	"b0t net",
+	"b0t n3t",
+	"pawncode",
+	"pawnes",
+	"hispawno",
+	"world champion pawno scripta",
+	"bigmommymilkers"
 };
 
 static const INVALID_NAMES[][100] =
@@ -1688,7 +1717,18 @@ static const INVALID_NAMES[][100] =
 	"Vagina",
 	"Pompas",
 	"Polainas",
-	"Pingote"
+	"Pingote",
+	"Yarmak",
+	"BetaZone",
+	"Pearce",
+	"Kanox",
+	"Pingo",
+	"Heix",
+	"Avant",
+	"Morgan_Skulls",
+	"Imgui",
+	"ImGui",
+	"Sampvoice"
 };
 
 enum
@@ -1814,6 +1854,7 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Club de la pelea", INTERIOR_NO_INFO, -1, false, 0, 16, -14.497008, 100.967079, 1101.521118, 180.0, -1, false, 0, 0, 950.341247, -987.135864, 38.743835, 322.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Osborn", INTERIOR_NO_INFO, -1, true, 0, 29, 887.343566, 1918.198364, -88.974365, 93.182411, -1, false, 0, 0, 3025.392333, -2004.350708, 3.214900, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Estadio", INTERIOR_NO_INFO, -1, true, 1336, 0, 2684.587890, -1733.565185, 424.386718, 180.0, -1, false, 0, 0, 2781.461181, -1813.566162, 11.843750, 211.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Moriarty Luxury Bar", INTERIOR_NO_INFO, -1, true, 0, 64, 2627.9360, 490.5309, 2621.2078, 173.315292, -1, false, 0, 0, 2851.3330, -1532.3297, 11.0991, 271.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
@@ -2809,23 +2850,12 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		            if (!IsPlayerInAnyVehicle(playerid))
 		            {
-						new dialog[250];
-						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Anti-L");
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
-						
-						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Anti-L");
-
+						new str_text[144];
+						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Anti-L", PLAYER_TEMP[playerid][py_NAME], playerid);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendDiscordWebhook(str_text, 1);
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Anti-L");
 						KickEx(playerid, 500);
-						PLAYER_MISC[playerid][MISC_BANEOS] ++;
-						SavePlayerMisc(playerid);
-
-						new str[145];
-						format(str, 145, "[ADMIN] %s (%d) fue baneado: Anti-L.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-						SendMessageToAdmins(COLOR_ANTICHEAT, str);
-
-						new webhook[145];
-						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-						SendDiscordWebhook(webhook, 1);
 						return 0;
 		            }
 		        }
@@ -2909,11 +2939,11 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				PLAYER_MISC[playerid][MISC_BANEOS] ++;
 				SavePlayerMisc(playerid);
 
-				new str[145];
+				new str[144];
 				format(str, 145, "[ADMIN] %s (%d) fue baneado: Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-				new webhook[145];
+				new webhook[144];
 				format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 				SendDiscordWebhook(webhook, 1);
 				return 0;
@@ -3292,10 +3322,10 @@ public OnPlayerConnect(playerid)
 	{
 		GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 
-		new str_text[144];
+		/*new str_text[144];
 		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el máximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
 	    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-	    SendDiscordWebhook(str_text, 1);
+	    SendDiscordWebhook(str_text, 1);*/
 	    
 	    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el máximo de conexiones");
 	    KickEx(playerid, 500);
@@ -3304,10 +3334,10 @@ public OnPlayerConnect(playerid)
 
 	if (IsFakeClient(playerid))
 	{
-		new str_text[144];
+		/*new str_text[144];
 		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Cliente inválido", PLAYER_TEMP[playerid][py_NAME], playerid);
 	    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-	    SendDiscordWebhook(str_text, 1);
+	    SendDiscordWebhook(str_text, 1);*/
 	    
 	    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inválido");
 	    KickEx(playerid, 500);
@@ -5287,7 +5317,7 @@ CheckClubBar(playerid)
 	{
 		if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_CLUB)
 		{
-			if (IsPlayerInRangeOfPoint(playerid, 1.5, 1207.234375, -29.231435, 1000.953125) || IsPlayerInRangeOfPoint(playerid, 1.5, 496.589172, -76.033905, 998.757812))
+			if (IsPlayerInRangeOfPoint(playerid, 1.5, 1207.234375, -29.231435, 1000.953125) || IsPlayerInRangeOfPoint(playerid, 1.5, 496.589172, -76.033905, 998.757812) || IsPlayerInRangeOfPoint(playerid, 1.5, 2620.2986, 479.9061, 2621.2000))
 			{
 				if (GetPlayerSpecialAction(playerid) != SPECIAL_ACTION_DRINK_WINE)
 				{
@@ -6290,14 +6320,14 @@ PayPlayerMiner(playerid)
 		case 1: pay = 76;
 		case 2: pay = 95;
 		case 3: pay = 100;
-		case 4: pay = 200;
-		case 5: pay = 550;
-		case 6: pay = 350;
-		case 7: pay = 400;
-		case 8: pay = 650;
-		case 9: pay = 300;
-		case 10: pay = 380;
-		case 11: pay = 630;	
+		case 4: pay = 120;
+		case 5: pay = 450;
+		case 6: pay = 250;
+		case 7: pay = 300;
+		case 8: pay = 550;
+		case 9: pay = 180;
+		case 10: pay = 320;
+		case 11: pay = 400;	
 	}
 
 	if (ACCOUNT_INFO[playerid][ac_SU]) pay += minrand(200, 500);
@@ -6461,7 +6491,7 @@ CALLBACK: CancelGraffiti()
 	{
 		if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
 		{
-			new str_text[145];
+			new str_text[144];
 
 			GRAFFITIS_OBJ[i][g_ACTIVATED] = false;
 			SetTimer("FirstGraffitiAnnounce", 1500000, false);
@@ -6560,7 +6590,7 @@ CALLBACK: InitRandomGraffiti()
 
 	format(str_text, sizeof(str_text), "   ~w~Graffiti en %s", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
 
-	new str[145];
+	new str[144];
 	format(str, 145, "[GRAFFITI] Graffiti en %s.", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
     SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
@@ -6703,6 +6733,7 @@ public OnGameModeInit()
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
 	SetTimer("GiveAutoGift", 300000, false);
+<<<<<<< HEAD
 	//SetTimer("SendGift", 60000, true);
 <<<<<<< HEAD
 =======
@@ -6713,6 +6744,9 @@ public OnGameModeInit()
 =======
 >>>>>>> 5643c50 (Arreglar cagada de atom)
 >>>>>>> refs/rewritten/master-45
+=======
+	//SetTimer("SendGift", 120000, true);
+>>>>>>> 882d7df (Horas del /est estaban bugeadas)
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
@@ -7436,8 +7470,8 @@ SanAndreas()
 	CreateDynamic3DTextLabel(""COL_WHITE"Punto de control", 0xF7F7F700, -212.521926, -1739.015014, 675.768737, 20.0, .testlos = true, .worldid = 2, .interiorid = 3);
 
 	//base mafia
-	CreateDynamic3DTextLabel("{ca3535}La cosa nostra\n"COL_WHITE"Equipamiento", 0xF7F7F700, 726.2478, -1276.3830, 13.5662, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel("{ca3535}La cosa nostra\n"COL_WHITE"Equipamiento", 0xF7F7F700, -1387.1334, 492.8735, 2.1851, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{a912e2}Family SaintBlood'S\n"COL_WHITE"Equipamiento", 0xF7F7F700, 726.2478, -1276.3830, 13.5662, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{a912e2}Family SaintBlood'S\n"COL_WHITE"Equipamiento", 0xF7F7F700, -1387.1334, 492.8735, 2.1851, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel("{33D1FF}Moriarty Family Business\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 882.789611, 1896.002319, -93.898712, 20.0, .testlos = true, .worldid = 0, .interiorid = 29);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -7687,7 +7721,7 @@ public OnPlayerText(playerid, text[])
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
 	if (text[0] == '#' && ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] != 0 && PLAYER_TEMP[playerid][py_ADMIN_SERVICE])
 	{
-		new string[145];
+		new string[144];
 	    format(string, sizeof(string), "[C-A]"COL_WHITE" %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, text[1]);
 		SendMessageToAdmins(0x80E266FF, string);
 		return 0;
@@ -7742,7 +7776,7 @@ public OnPlayerText(playerid, text[])
 		new city[45], zone[45];
 		GetPlayerZones(playerid, city, zone);
 
-		new message[145];
+		new message[144];
 		format(message, sizeof message, "{4286f4}[Central policía] "COL_WHITE"Reporte "COL_WHITE"[%s (%d), gps: %s, %s]: "COL_WHITE"%s", PLAYER_TEMP[playerid][py_POLICE_CALL_NAME_STR], playerid, city, zone, text);
 		SendPoliceRadioMessage(-1, COLOR_WHITE, message);
 
@@ -7760,11 +7794,11 @@ public OnPlayerText(playerid, text[])
 		PLAYER_MISC[playerid][MISC_BANEOS] ++;
 		SavePlayerMisc(playerid);
 
-		new str[145];
+		new str[144];
 		format(str, 145, "[ADMIN] %s (%d) fue baneado permanentemente: Superar los 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-		new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		new webhook[144]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);	
 	}
 
@@ -7783,10 +7817,10 @@ public OnPlayerText(playerid, text[])
 
 		if (PLAYER_WORKS[playerid][WORK_MAFIA])
 		{
-			if (text[1] == '!') format(str_text, sizeof str_text, "[LCN] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-			else format(str_text, sizeof str_text, "[LCN] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], text[1]);
+			if (text[1] == '!') format(str_text, sizeof str_text, "[FSB] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
+			else format(str_text, sizeof str_text, "[FSB] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], text[1]);
 
-			SendMafiaMessage(0xca3535FF, str_text);
+			SendMafiaMessage(0xa912e2FF, str_text);
 			return 0;
 		}
 
@@ -7879,11 +7913,11 @@ CMD:duda(playerid, params[])
 	{
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu duda tiene direcciones IP.");
 			
-		new str[145];
+		new str[144];
 		format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): Spam (%s)", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
     	SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-    	new webhook[145];
+    	new webhook[144];
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 		return 1;
@@ -7944,11 +7978,11 @@ CMD:anuncio(playerid, params[])
 	{
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu anuncio tiene direcciones IP.");
 			
-		new str[145];
+		new str[144];
 		format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): Spam (%s)", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
     	SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-    	new webhook[145];
+    	new webhook[144];
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 		return 1;
@@ -8154,8 +8188,8 @@ CMD:ayuda(playerid, params[])
 CMD:creditos(playerid, params[])
 {
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Colaboradores", ""COL_WHITE"Hyaxe es posible gracias a:\n\
-		Heix, Blade, Muphy, Vinter, Atom, Kitis\n\
-		Arkerooz, Yarmak, Mitt, Alper.", "Cerrar", "");
+		Muphy, Atom, Kitis, Arkerooz\n\
+		Mitt, Alper.", "Cerrar", "");
 	return 1;
 }
 
@@ -8394,6 +8428,30 @@ CheckAtmPlayerAndExecute(playerid)
     ShowBankMenu(playerid);
     return 1;
 }
+
+/* MACROS */
+/*CMD:macro(playerid, params[])
+{
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
+
+	new option_0[32], option_1[32], option_2[32], option_3[32];
+	if (sscanf(params, "s[32]s[32]s[32]s[32]", option_0, option_1, option_2, option_3)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender hycoins <id> <cantidad> <precio>");
+
+	if (!strcmp(option, "hycoins", true))
+	{
+		if (PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] <= 0 || PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta", 3);
+		if (PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] > ACCOUNT_INFO[playerid][ac_SD]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad", 3);
+
+		new str_text[128];
+		format(str_text, sizeof(str_text), "Le has ofrecido una venta a %s, espera para ver si la acepta.", PLAYER_TEMP[to_playerid][py_RP_NAME]);
+		ShowPlayerNotification(playerid, str_text, 4);
+		ShowDialog(to_playerid, DIALOG_TRICKS_SU);
+		return 1;
+	}
+	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender hycoins <id> <cantidad> <precio>");
+	return 1;
+}*/
+/* MACROS */
 
 CMD:vender(playerid, params[])
 {
@@ -8637,14 +8695,14 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_PLAYER_TOY_EDIT_NAME:
 		{
-			new dialog[145];
+			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre actual: \"%s\"\nIndica el nuevo nombre:", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_TOY_CONFIRMDELETE:
 		{
-			new dialog[145];
+			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"¿Estás seguro que quieres borrar el accesorio %s?", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar accesorio", dialog, "Si", "No");
 			return 1;
@@ -8671,7 +8729,7 @@ ShowDialog(playerid, dialogid)
 			new caption[48];
 			format(caption, sizeof caption, ""COL_WHITE"Accesorio '%s'", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
 
-			new dialog[145];
+			new dialog[144];
 			format(dialog, sizeof(dialog), "¿Quieres cambiar la parte del cuerpo donde se coloca este accesorio?\nActualmente está colocado en: %s", Toys_Bones[ PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_BONE] - 1 ]);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, caption, dialog, "Sí", "No");
@@ -9424,7 +9482,7 @@ ShowDialog(playerid, dialogid)
 				number_format_thousand(VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_MODELID] - 400][vehicle_info_PRICE] / 100)
 			);
 
-			new str[145];
+			new str[144];
 			if (SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_LEVEL] > ACCOUNT_INFO[playerid][ac_LEVEL])
 			{
 				format(str, sizeof str, "{dc0606}Necesitas ser al menos nivel %d para poder comprar este vehículo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_LEVEL]);
@@ -9796,7 +9854,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_MECHANIC_TUNING_PRICE:
 		{
-			new caption[60], dialog[145];
+			new caption[60], dialog[144];
 			format(caption, sizeof caption, "Tunear %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
 			format(dialog, sizeof dialog, "Indica el precio para tunear el vehículo.\nRango de precio: 0$ - %s$", number_format_thousand((PLAYER_TEMP[playerid][py_TUNING_SELECTED_PIECES] * 50) + 2000));
@@ -9995,7 +10053,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_SEED_BUY:
 		{
-			new dialog[145];
+			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"Ingresa la cantidad de semillas de %s que desea comprar.\nCada una vale "COL_GREEN"%d$"COL_WHITE".", seed_info[ PLAYER_TEMP[playerid][py_SELECTED_BUY_SEED_ID] ][seed_info_NAME], seed_info[ PLAYER_TEMP[playerid][py_SELECTED_BUY_SEED_ID] ][seed_info_PRICE]);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Semillas ", dialog, "Selecc.", "Atrás");
@@ -10407,7 +10465,7 @@ ShowDialog(playerid, dialogid)
 
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"La cosa nostra", dialog, "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Family SaintBlood'S", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_MAFIA_MODIFY:
@@ -10717,7 +10775,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_POLICE_AMMO:
 		{
-			new dialog[145];
+			new dialog[144];
 			format(dialog, sizeof dialog, "Arma: %s\nMunición: %s\n\nEl precio por bala es de 2$\n¿Cuánto munición quiere comprar?", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO]));
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Comprar munición", dialog, "Selecc.", "Cerrar");
@@ -11389,7 +11447,7 @@ ShowDialog(playerid, dialogid)
 			{
 				if (PLAYER_SKILLS[playerid][WORK_MAFIA] >= 7)
 				{
-					strcat(dialog, "Invitar a LCN\n");
+					strcat(dialog, "Invitar a FSB\n");
 					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 7;
 					listitem ++;
 				}
@@ -11662,7 +11720,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_CREW_RANK_MODIFY_NAME:
 		{
-			new dialog[145];
+			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"Indica el nuevo nombre del rango %s (max 32 caracteres).", CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar rango", dialog, "Cambiar", "Atrás");
 			return 1;
@@ -11989,7 +12047,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_VOBJECT_OBJECTS:
 		{
-			new caption[45], dialog[145 * (MAX_SU_VOBJECTS + 2)], line_str[145];
+			new caption[45], dialog[145 * (MAX_SU_VOBJECTS + 2)], line_str[144];
 			format(caption, sizeof caption,  ""COL_RED"%s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
 			format(dialog, sizeof dialog, ""COL_WHITE"Objeto\t"COL_WHITE"Colocado\n");
@@ -12037,7 +12095,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_VOBJECT_OBJECT_CNAME:
 		{
-			new dialog[145];
+			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre actual: \"%s\"\nIndica el nuevo nombre:", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, "Selecc.", "Atrás");
 			return 1;
@@ -12063,7 +12121,7 @@ ShowDialog(playerid, dialogid)
 			new caption[64];
 			format(caption, sizeof caption, ""COL_RED"Color (%d) de '%s'", PLAYER_TEMP[playerid][py_TUNING_EDIT_COLOR_SLOT], VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
 
-			new dialog[145];
+			new dialog[144];
 			format(dialog, sizeof dialog,
 
 					"\
@@ -12089,7 +12147,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_VOBJECT_OBJECT_CDELETE:
 		{
-			new dialog[145];
+			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"¿Estás seguro que quieres eliminar el objeto %s?", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar Objeto", dialog, "Si", "No");
 			return 1;
@@ -12323,12 +12381,12 @@ ShowDialog(playerid, dialogid)
     	{
     		new 
     			str_text[164],
-    			payment = (PLAYER_MISC[playerid][MISC_FISH] * 300),
+    			payment = (PLAYER_MISC[playerid][MISC_FISH] * 200),
     			vip_payment = 0;
 
     		if (ACCOUNT_INFO[playerid][ac_SU])
 			{
-				vip_payment = (PLAYER_MISC[playerid][MISC_FISH] * 150);				
+				vip_payment = (PLAYER_MISC[playerid][MISC_FISH] * 100);				
 			}
 
     		format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender sus %d peces?\n\n\
@@ -13097,7 +13155,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_WITHDRAW, inputtext[0]);
 
-				new message[145];
+				new message[144];
 				format(message, sizeof message, "Has retirado ~g~%s$", number_format_thousand(inputtext[0]));
 				ShowPlayerNotification(playerid, message, 3);
 
@@ -13148,7 +13206,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_DEPOSIT, inputtext[0]);
 
-				new message[145];
+				new message[144];
 				format(message, sizeof message, "Has depositado ~g~%s$", number_format_thousand(inputtext[0]));
 				ShowPlayerNotification(playerid, message, 3);
 
@@ -16990,7 +17048,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_MAFIA);
 				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0xca3535FF, "[LCN] "COL_WHITE" El nuevo rango de %s es: %s.", name, MAFIA_RANKS[listitem]);
+				SendClientMessageEx(playerid, 0xa912e2FF, "[FSB] "COL_WHITE" El nuevo rango de %s es: %s.", name, MAFIA_RANKS[listitem]);
 
 				if (listitem == 0)
 				{
@@ -17006,9 +17064,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_MAFIA) EndPlayerJob(player_id);
 						PLAYER_WORKS[player_id][WORK_MAFIA] = false;
-						SendClientMessageEx(player_id, 0xca3535FF, "[LCN] "COL_WHITE" El %s %s te ha expulsado de La cosa nostra.", MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+						SendClientMessageEx(player_id, 0xa912e2FF, "[FSB] "COL_WHITE" El %s %s te ha expulsado de Family SaintBlood'S.", MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME]);
 					}
-					else SendClientMessageEx(player_id, 0xca3535FF, "[LCN] "COL_WHITE" El %s %s ha modificado tu rango a %s.", MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME], MAFIA_RANKS[listitem]);
+					else SendClientMessageEx(player_id, 0xa912e2FF, "[FSB] "COL_WHITE" El %s %s ha modificado tu rango a %s.", MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME], MAFIA_RANKS[listitem]);
 				}
 			}
 			else ShowDialog(playerid, DIALOG_MAFIA_LIST);
@@ -17720,7 +17778,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowPlayerMessage(playerid, "~g~Tu reporte fue enviado a los administradores en línea.", 3);
 
-				new str[145]; format(str, 145, "[REPORTE]"COL_WHITE" %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME], PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], reason);
+				new str[144]; format(str, 145, "[REPORTE]"COL_WHITE" %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME], PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], reason);
 				SendMessageToAdmins(COLOR_ORANGE, str);
 			}
 			else ShowDialog(playerid, DIALOG_RANGE_USER);
@@ -18109,7 +18167,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(db_query(Database, DB_Query));
 
 				new 
-					message[145],
+					message[144],
 					label_str[264],
 					city[45],
 					zone[45],
@@ -18177,7 +18235,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(db_query(Database, DB_Query));
 
 				new 
-					message[145],
+					message[144],
 					saved_noti[264];
 
 				format(saved_noti, sizeof saved_noti, "%s cambió la descripción de la banda.", PLAYER_TEMP[playerid][py_RP_NAME]);
@@ -18302,7 +18360,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 
-				new message[145];
+				new message[144];
 				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) ha echado a %s de la banda.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], name);
 				SendMessageToCrewMembers(PLAYER_CREW[playerid][player_crew_ID], COLOR_WHITE, message);
 
@@ -18398,7 +18456,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				);
 				db_free_result(db_query(Database, DB_Query));
 
-				new message[145];
+				new message[144];
 				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s se ha unido a la banda con el rango %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME]);
 				SendMessageToCrewMembers(PLAYER_CREW[playerid][player_crew_ID], COLOR_WHITE, message);
 			}
@@ -18489,7 +18547,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowCrew(playerid);
 				format(CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_NAME], 32, "%s", rank_name);
 
-				new DB_Query[145];
+				new DB_Query[144];
 				format(DB_Query, sizeof DB_Query, "UPDATE `CREW_RANKS` SET `RANK_NAME` = '%q' WHERE `ID` = '%d';", CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_ID]);
 				db_free_result(db_query(Database, DB_Query));
 			}
@@ -18620,7 +18678,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowCrew(playerid);
 
-				new message[145];
+				new message[144];
 				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) cambió tu rango al rango '%s'.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_NEW_RANK] ][crew_rank_NAME]);
 				
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -18705,7 +18763,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede borrar la banda cuando está en combate.", 3);
 
-				new message[145];
+				new message[144];
 				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) ha eliminado la banda.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME]);
 
 				new saved_noti[264];
@@ -18819,7 +18877,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 
-				new message[145];
+				new message[144];
 				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) ha abandonado la banda.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME]);
 				SendMessageToCrewMembers(PLAYER_CREW[playerid][player_crew_ID], COLOR_WHITE, message);
 
@@ -18930,7 +18988,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_CREW` SET `RANK` = '%d' WHERE `ID_USER` = '%d';", PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem], PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
 				db_free_result(db_query(Database, DB_Query));
 
-				new message[145];
+				new message[144];
 				if (connected)
 				{
 					PLAYER_CREW[player_id][player_crew_RANK] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
@@ -18985,7 +19043,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(DB_Query, sizeof(DB_Query), "DELETE FROM `PROPERTY_OWNER` WHERE `ID_PROPERTY` = '%d';", PROPERTY_INFO[ index ][property_ID]);
 				db_free_result(db_query(Database, DB_Query));
 
-				new message[145];
+				new message[144];
 				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) ha añadido una nueva propiedad en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_NAME]);
 				SendMessageToCrewMembers(PLAYER_CREW[playerid][player_crew_ID], COLOR_WHITE, message);
 			}
@@ -19047,7 +19105,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 
-				new message[145];
+				new message[144];
 				format(message, sizeof message, "%s ha abandonado un territorio en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_NAME]);
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{
@@ -20147,12 +20205,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new 
 					str_text[32],
-					payment = (PLAYER_MISC[playerid][MISC_FISH] * 300),
+					payment = (PLAYER_MISC[playerid][MISC_FISH] * 200),
 					vip_payment = 0;
 
 	    		if (ACCOUNT_INFO[playerid][ac_SU])
 				{
-					vip_payment = (PLAYER_MISC[playerid][MISC_FISH] * 150);				
+					vip_payment = (PLAYER_MISC[playerid][MISC_FISH] * 100);				
 				}
 
 				payment = (payment + vip_payment);
@@ -21522,7 +21580,7 @@ SendClientMessageEx(playerid, color, const form[], {Float, _}: ...)
     #pragma unused form
 
     static
-	   tmp[145]
+	   tmp[144]
     ;
     new
 	   t1 = playerid,
@@ -21617,7 +21675,7 @@ ProxDetector(playerid, Float:radi, string[], col1, col2, col3, col4, col5, div =
 
 SendResponsiveMessage(playerid, color, const string[], div = 0)
 {
-	new line1_str[145], line2_str[145], bool:line2_used;
+	new line1_str[144], line2_str[144], bool:line2_used;
 
 	if (div)
 	{
@@ -22298,7 +22356,7 @@ CheckBlockedWeapon(playerid, weapon_ip)
 
 	    	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
 
-	    	new str[145];
+	    	new str[144];
 	    	format(str, 145, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	    	SendMessageToAdmins(COLOR_ANTICHEAT, str);
 	    	SendDiscordWebhook(str, 1);
@@ -23584,7 +23642,7 @@ CheckMarketProgress(playerid)
 				SendGraffitiNotification(str_text);
 				SendDiscordWebhook(str_text, 3);
 
-				new str[145]; format(str, 145, "[MERCADO] %s ha ganado el mercado en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], BLACK_MARKET_OBJ[i][bm_ZONE_NAME]);
+				new str[144]; format(str, 145, "[MERCADO] %s ha ganado el mercado en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], BLACK_MARKET_OBJ[i][bm_ZONE_NAME]);
     			SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
     			format(str_text, sizeof(str_text), "\n"COL_WHITE"Dominado por: {%06x}%s",  CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
@@ -23688,7 +23746,7 @@ CheckGraffitiProgress(playerid)
 				SendGraffitiNotification(str_text);
 				SendDiscordWebhook(str_text, 2);
 
-				new str[145]; format(str, 145, "[GRAFFITI] %s ha ganado el graffiti en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], GRAFFITIS_OBJ[i][g_ZONE_NAME]);
+				new str[144]; format(str, 145, "[GRAFFITI] %s ha ganado el graffiti en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], GRAFFITIS_OBJ[i][g_ZONE_NAME]);
     			SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
 				SetDynamicObjectMaterialText(GRAFFITIS_OBJ[i][g_ID], 0, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], OBJECT_MATERIAL_SIZE_512x64, GRAFFITIS_OBJ[i][g_FONT], 60, 0, CrewColorGraffiti_ARGB, 0x00000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
@@ -24854,7 +24912,7 @@ CheckRobActor(playerid)
 								new
 									city[45],
 									zone[45],
-									message[145]
+									message[144]
 								;
 
 							    GetPointZone(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X], ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y], city, zone);
@@ -29157,7 +29215,7 @@ ShowPlayerInventory(playerid, pid)
 		{
 			if (!PLAYER_WEAPONS[playerid][i][player_weapon_VALID]) continue;
 
-			format(line_str, sizeof line_str, ""COL_WHITE"%s | Slot "COL_RED"%d\n", WEAPON_INFO[ PLAYER_WEAPONS[playerid][i][player_weapon_ID] ][weapon_info_NAME], i);
+			format(line_str, sizeof line_str, ""COL_WHITE"%s | Slot "COL_RED"%d"COL_WHITE"\n", WEAPON_INFO[ PLAYER_WEAPONS[playerid][i][player_weapon_ID] ][weapon_info_NAME], i);
 			strcat(dialog, line_str);
 		}
 	}
@@ -29261,11 +29319,11 @@ ShowPlayerSkills(playerid, pid)
 	return 1;
 }
 
-ConvertTime_SecondsToHoursFloat(sec, &Float:hours)
+/*ConvertTime_SecondsToHoursFloat(sec, &Float:hours)
 {
 	hours = floatdiv(float(sec), 3600);
 	return 1;
-}
+}*/
 
 CreatePlayerTrashRouteObjects(playerid, route)
 {
@@ -29812,6 +29870,8 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7, bool:equip = f
 		GivePlayerWeapon(playerid, weapon_id, ammo);
 		SetPlayerArmedWeapon(playerid, weapon_id);
 	}
+
+	SavePlayerWeaponsData(playerid);
 	return 1;
 }
 
@@ -29865,11 +29925,11 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				PLAYER_MISC[playerid][MISC_BANEOS] ++;
 				SavePlayerMisc(playerid);
 
-				new str[145];
+				new str[144];
 				format(str, 145, "[ADMIN] %s (%d) fue baneado: Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-				new webhook[145];
+				new webhook[144];
 				format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 				SendDiscordWebhook(webhook, 1);
 			}
@@ -29919,7 +29979,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			{
 				PLAYER_TEMP[playerid][py_AIMBOT_COUNT] = 0;
 
-				new str_text[145];
+				new str_text[144];
 		    	format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Aimbot (proaim count: %d, silentaim count: %d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[playerid][py_PRO_AIM_COUNT], PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT]);
 		    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 				SendDiscordWebhook(str_text, 1);
@@ -30066,7 +30126,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
-	new ac_message[145];
+	new ac_message[144];
 	format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d): Cheats (#%03d).", PLAYER_TEMP[playerid][py_NAME], playerid, code);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
 	SendDiscordWebhook(ac_message, 1);
@@ -30085,7 +30145,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 	if (gettime() < PLAYER_TEMP[playerid][py_LAST_CHEAT_DETECTED_TIME] + 5) return 1;
 
-	new ac_message[145], player_state = GetPlayerState(playerid);
+	new ac_message[144], player_state = GetPlayerState(playerid);
 
 	if (ac_Info[cheat][ac_Kick])
 	{
@@ -30329,7 +30389,7 @@ PlayerPayday(playerid)
 
 	if (PLAYER_WORKS[playerid][WORK_OSBORN])
 	{
-		new work_payment = (2000 * PLAYER_SKILLS[playerid][WORK_OSBORN]);
+		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_OSBORN]);
 
 		money += work_payment;
 
@@ -30875,7 +30935,7 @@ CMD:ref(playerid, params[])
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
 
-	new message[145];
+	new message[144];
 	format(message, sizeof message, "~b~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
 	SendPoliceNotification(message, 4);
 
@@ -30908,7 +30968,7 @@ CALLBACK: DisableRefMark(playerid)
 
     new city[45], zone[45];
     GetPlayerZones(playerid, city, zone);
-    new message[145];
+    new message[144];
     format(message, sizeof message, "~b~%s~w~ se perdió (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
     SendPoliceNotification(message, 6);
     SetPlayerColorEx(playerid, PLAYER_COLOR);
@@ -31576,12 +31636,12 @@ ShowPlayerStats(playerid, pid)
 	if (!IsPlayerConnected(pid)) return 0;
 	if (ACCOUNT_INFO[pid][ac_ID] == 0) return 0;
 
-
 	ACCOUNT_INFO[pid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[pid][py_TIME_PLAYING];
 	PLAYER_TEMP[pid][py_TIME_PLAYING] = gettime();
 
-	new Float:hours;
-	ConvertTime_SecondsToHoursFloat(ACCOUNT_INFO[pid][ac_TIME_PLAYING], hours);
+	new hours[32];
+	format(hours, sizeof(hours), "%s", ReturnTimelapse(ACCOUNT_INFO[pid][ac_TIME_PLAYING], gettime()));
+	strreplace(hours, "hace ", "");
 
 	new next_rep[24], neccessary_rep = ACCOUNT_INFO[pid][ac_LEVEL] * REP_MULTIPLIER;
 	if (ACCOUNT_INFO[pid][ac_REP] < neccessary_rep)
@@ -31601,7 +31661,7 @@ ShowPlayerStats(playerid, pid)
 		"\
 		"COL_WHITE"  ID de cuenta: "COL_RED"%d\n\
 		"COL_WHITE"  Fecha de registro: "COL_RED"%s\n\
-		"COL_WHITE"  Tiempo jugando: "COL_GREEN"%.1f horas\n\
+		"COL_WHITE"  Tiempo jugando: "COL_GREEN"%s\n\
 		"COL_WHITE"  Nivel: "COL_YELLOW"%d\n\
 		"COL_WHITE"  Reputación: "COL_ORANGE"%d/%d\n\
 		"COL_WHITE"  Siguiente reputación: "COL_ORANGE"%s\n\
@@ -31726,7 +31786,7 @@ CMD:reportar(playerid, params[])
 
 	ShowPlayerMessage(playerid, "~g~Tu reporte fue enviado a los administradores en línea.", 3);
 
-	new str[145];
+	new str[144];
 	format(str, 145, "[REPORTE]"COL_WHITE" %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[params[0]][py_NAME], params[0], reason);
 	SendMessageToAdmins(COLOR_ORANGE, str);
 	Log("reports", str);
@@ -31864,8 +31924,8 @@ SendMessageToAdmins(color, const message[], level = 0)
 SendCmdLogToAdmins(playerid, const cmdtext[], const params[])
 {
 	new
-		message[145],
-		str_text[145];
+		message[144],
+		str_text[144];
 
 	if (isnull(params)) format(message, sizeof message, "%s (%d) uso el comando /%s", ACCOUNT_INFO[playerid][ac_NAME], playerid, cmdtext);
 	else format(message, sizeof message, "%s (%d) uso el comando /%s %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, cmdtext, params);
@@ -32414,7 +32474,7 @@ InviteToLCN(playerid, to_player)
 	SavePlayerWorks(to_player);
 	SavePlayerSkills(to_player);
 
-	SendClientMessageEx(playerid, 0xca3535FF, "[LCN] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	SendClientMessageEx(playerid, 0xa912e2FF, "[FSB] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
 	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
 	return 1;
 }
@@ -32455,7 +32515,7 @@ InviteToTCC(playerid, to_player)
 	SavePlayerWorks(to_player);
 	SavePlayerSkills(to_player);
 
-	SendClientMessageEx(playerid, 0xca3535FF, "[LCN] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	SendClientMessageEx(playerid, 0xa912e2FF, "[FSB] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
 	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso enemigo.", 3);
 	return 1;
 }
@@ -32786,7 +32846,7 @@ StartTerritoryAttack(crew_index, territory_index, time)
 	TERRITORIES[territory_index][territory_LAST_ATTACK] = gettime();
 	UpdateGangZoneColor(territory_index);
 
-	new message[145];
+	new message[144];
 
 	KillTimer(TERRITORIES[territory_index][territory_TIMER]);
 	TERRITORIES[territory_index][territory_TIMER] = SetTimerEx("UpdateTerritoryAttack", 1000, true, "i", territory_index);
@@ -32831,7 +32891,7 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 		hy_HexToRGBA(CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_COLOR], r, g, b, a);
 		TERRITORIES[territory_index][territory_COLOR] = hy_RGBAToHex(r, g, b, 135);
 
-		new message[145];
+		new message[144];
 		format(message, sizeof message, "%s ha conquistado un nuevo territorio.", CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
 
 		new DBResult:rows, query[200];
@@ -32895,7 +32955,7 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 	}
 
 
-	new message[145], progress[128];
+	new message[144], progress[128];
 	format(progress, sizeof progress, "~r~%s", TimeConvert(TERRITORIES[territory_index][territory_WAR_TIME_LEFT] - gettime()));
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -33346,7 +33406,7 @@ CMD:vip(playerid, params[])
 
 CheckPlayerSuperUser(playerid)
 {
-	new DBResult:Result, DB_Query[145], bool:expired;
+	new DBResult:Result, DB_Query[144], bool:expired;
 	format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `CUENTA` WHERE `ID` = '%d' AND DATETIME('NOW') >= `SU_EXPIRE_DATE`;", ACCOUNT_INFO[playerid][ac_ID]);
 	Result = db_query(Database, DB_Query);
 

@@ -266,7 +266,7 @@ static bool:ac_ACAllow[] =
 	false,	//24 Anti-Parkour mod
 	true,	//25 Anti-Quick turn
 	true,	//26 Anti-Rapid fire
-	true,	//27 Anti-FakeSpawn
+	false,	//27 Anti-FakeSpawn
 	true,	//28 Anti-FakeKill
 	false,	//29 Anti-Pro Aim
 	false,	//30 Anti-CJ run

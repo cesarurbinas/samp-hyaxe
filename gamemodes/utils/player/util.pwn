@@ -2,11 +2,7 @@ new NAME_WHITELIST[][24] =
 {
 	"Yahir_Kozel",
 	"Atom_Palomita",
-	"Pepe_Garcia",
-	"Eusebio_Capone",
-	"Yarmak_Pingote",
-	"Oleksandr_Volkov",
-	"Pearce_Campbell"
+	"Pepe_Garcia"
 };
 
 new g_iPlayerLastUpdate[MAX_PLAYERS];

@@ -54,17 +54,21 @@ new const POLICE_RANKS[][] =
 MAFIA_RANKS[][] =
 {
 	"Civil",
-	/* 0 */ "Associato",
-	/* 1 */ "Soldato",
-	/* 2 */ "Avvocato",
-	/* 3 */ "Caporegime",
-	/* 4 */ "Casetto",
-	/* 5 */ "Numerale",
-	/* 6 */ "Sottocapo",
-	/* 7 */ "Consigliere",
-	/* 8 */ "Don",
-	/* 9 */ "Capo di tutti capo",
-	/* 10 */ "Ricardo."
+	"Nuevo recluta",
+	"Soldado",
+	"Seguridad II",
+	"Seguridad I",
+	"Jefe Seguridad",
+	"Sicarios",
+	"Armeros",
+	"Jefe De Armeros",
+	"Traficantes",
+	"Jefe De traficantes",
+	"Jefe De Negociantes",
+	"Jefe De tropas",
+	"Mano derecha",
+	"Segundo Jefe",
+	"Jefe General"
 },
 
 // enemy mafia
