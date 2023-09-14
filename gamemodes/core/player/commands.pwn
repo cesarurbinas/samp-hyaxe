@@ -1717,3 +1717,87 @@ CMD:minero(playerid)
 	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guardar arma "COL_WHITE"[slot]");
 	return 1;
 }*/
+
+#define MIN_SECONDS_BETWEEN_COMMANDS 1 // Deben pasar al menos 1 segundos entre comando y comando.
+public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
+{
+	#if DEBUG_MODE == 1
+		printf("OnPlayerCommandReceived %d %s %s",playerid,cmd,params); // debug juju
+	#endif
+
+	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
+	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);
+
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < 8)
+	{
+		if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL || PLAYER_TEMP[playerid][py_NEW_USER])
+		{
+			ShowPlayerMessage(playerid, "~r~Ahora no puedes usar comandos.", 3);
+			return 0;
+		}
+	}
+
+	if (PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW]) return ShowPlayerMessage(playerid, "Pulsa ~y~ESC~w~ para cerrar el menú.", 4);
+
+	new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_ANTIFLOOD_COMMANDS]);
+	if (interval < MIN_SECONDS_BETWEEN_COMMANDS)
+	{
+		if (ac_Info[CHEAT_COMMAND_SPAMMER][ac_Enabled])
+		{
+			if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_COMMAND_SPAMMER][p_ac_info_IMMUNITY])
+			{
+				if (interval < 50)
+				{
+					if (!ac_Info[CHEAT_COMMAND_SPAMMER][ac_Interval]) OnPlayerCheatDetected(playerid, CHEAT_COMMAND_SPAMMER, float(interval));
+					else
+					{
+						if (gettime() - PLAYER_AC_INFO[playerid][CHEAT_COMMAND_SPAMMER][p_ac_info_LAST_DETECTION] > ac_Info[CHEAT_COMMAND_SPAMMER][ac_Interval]) PLAYER_AC_INFO[playerid][CHEAT_COMMAND_SPAMMER][p_ac_info_DETECTIONS] = 0;
+						else PLAYER_AC_INFO[playerid][CHEAT_COMMAND_SPAMMER][p_ac_info_DETECTIONS] ++;
+
+						PLAYER_AC_INFO[playerid][CHEAT_COMMAND_SPAMMER][p_ac_info_LAST_DETECTION] = gettime();
+						if (PLAYER_AC_INFO[playerid][CHEAT_COMMAND_SPAMMER][p_ac_info_DETECTIONS] >= ac_Info[CHEAT_COMMAND_SPAMMER][ac_Detections]) OnPlayerCheatDetected(playerid, CHEAT_COMMAND_SPAMMER, float(interval));
+					}
+				}
+			}
+		}
+		SendClientMessage(playerid, COLOR_WHITE, "¡Tranquilo, quemarás el teclado!");
+		return 0;
+	}
+
+	if (flags)
+	{
+		if (flags > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+		{
+			SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No tienes permisos suficientes.");
+			return 0;
+		}
+
+		if (!PLAYER_TEMP[playerid][py_ADMIN_SERVICE])
+		{
+		    ShowPlayerMessage(playerid, "~r~Debes estar de servicio como admin, usa /duty.", 3);
+			return 0;
+		}
+	}
+
+	PLAYER_TEMP[playerid][py_ANTIFLOOD_COMMANDS] = GetTickCount();
+
+	#if CMD_LOGGIN
+		printf("[CMD] %s (%d): /%s %s", ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_ID], cmd, params);
+	#endif
+	return 1;
+}
+
+public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags) 
+{
+	#if DEBUG_MODE == 1
+		printf("OnPlayerCommandPerformed %d %s %s",playerid,params,result); // debug juju
+	#endif
+
+	printf("%s (%d): /%s %s", PLAYER_TEMP[playerid][py_NAME], playerid, cmd, params);
+    if (result == -1) 
+    { 
+		SendClientMessageEx(playerid, COLOR_WHITE, "El comando "COL_RED"/%s "COL_WHITE"no existe, usa "COL_RED"/ayuda"COL_WHITE".", cmd);
+        return 0; 
+    }
+    return 1; 
+}

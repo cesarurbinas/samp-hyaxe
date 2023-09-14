@@ -34,3 +34,28 @@ public DisableRefMark(playerid)
     }
     return 1;
 }
+
+forward UpdateWantedLevelMark();
+public UpdateWantedLevelMark()
+{
+    #if DEBUG_MODE == 1
+        printf("UpdateWantedLevelMark"); // debug juju
+    #endif
+
+    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+    {
+        if (IsPlayerConnected(i))
+        {
+            if (PLAYER_MISC[i][MISC_SEARCH_LEVEL] > 0)
+            {
+                SendPoliceMark(i, 0xCB2828FF);
+            }
+
+            if (PLAYER_TEMP[i][py_CUFFED] == true)
+            {
+                SendPoliceMark(i, 0x2DAA24FF);
+            }
+        }
+    }
+    return 1;
+}

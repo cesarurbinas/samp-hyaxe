@@ -61,3 +61,15 @@ enum
 	OBJECT_TYPE_NONE,
 	OBJECT_TYPE_PLANT
 };
+
+GetPlayerPlantedPlants(playerid)
+{
+	new plants;
+
+	for(new i = 0; i != MAX_PLANTS; i ++)
+	{
+		if (!PLANTS[i][plant_VALID]) continue;
+		if (PLANTS[i][plant_PLANTED_BY_ACCOUNT_ID] == ACCOUNT_INFO[playerid][ac_ID]) plants ++;
+	}
+	return plants;
+}

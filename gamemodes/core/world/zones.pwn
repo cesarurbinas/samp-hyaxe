@@ -436,3 +436,8 @@ GetPointZone(Float:f_Pos_X, Float:f_Pos_Y, city[], zone[])
 
 	return 1;
 }
+
+new Float:Hospital_Spawn_Positions[][] =
+{
+	{1172.832763, -1323.269531, 15.400051, 270.0}
+};

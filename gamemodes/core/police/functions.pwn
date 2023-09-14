@@ -121,3 +121,64 @@ SendPoliceRadioMessage(radio, color, const message[])
 	}
 	return 1;
 }
+
+SetPlayerRangePoliceSearchLevel(playerid, level, Float:range, const reason[])
+{
+	if (PLAYER_WORKS[playerid][WORK_POLICE]) return 0;
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				if (PLAYER_WORKS[i][WORK_POLICE])
+				{
+					if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
+					{
+						new Float:x, Float:y, Float:z;
+						GetPlayerPos(playerid, x, y, z);
+						if (GetPlayerDistanceFromPoint(playerid, x, y, z) <= range)
+						{
+							SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + level);
+							
+							format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "%s", reason);
+							ShowPlayerMessage(playerid, sprintf("~b~Has cometido un crimen: %s", reason), 5);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+SetPlayerPoliceSearchLevel(playerid, level, bool:message = true)
+{
+	if (!level)
+	{
+		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
+		SendPoliceMark(playerid, PLAYER_COLOR);
+		PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] = level;
+		SetPlayerWantedLevel(playerid, 0);
+		SavePlayerMisc(playerid);
+
+		format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Ninguna");
+		return 1;
+	}
+
+	level = (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + level);
+	if (level > 6) level = 6;
+
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
+	PLAYER_TEMP[playerid][py_TIMERS][43] = SetTimerEx("DisablePlayerPoliceSearchLevel", 300000 * level, false, "i", playerid);
+
+	PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] = level;
+	SetPlayerWantedLevel(playerid, level);
+	SendPoliceMark(playerid, 0xCB2828FF);
+
+    SavePlayerMisc(playerid);
+    if (message) ShowPlayerNotification(playerid, "Sera mejor que corras, la policía te esta buscando", 3);
+    return 1;
+}

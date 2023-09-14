@@ -1643,3 +1643,142 @@ PutPlayerInVehicleEx(playerid, vehicleid, seat)
 	PLAYER_TEMP[playerid][py_VEHICLEID] = vehicleid;
 	return PutPlayerInVehicle(playerid, vehicleid, seat);
 }
+
+GetPlayersInIP(const ip[])
+{
+	new 
+		temp_ip[16],
+		count = 0
+	;
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+		    GetPlayerIp(i, temp_ip, 16);
+		    if (!strcmp(temp_ip, ip)) count ++;
+		}
+	}
+	return count;
+}
+
+KickEx(playerid, time = 0)
+{
+	if (GetPlayerState(playerid) == PLAYER_STATE_SPECTATING) return 0;
+	PLAYER_TEMP[playerid][py_KICKED] = true;
+	
+	if (!time) Kick(playerid);
+	else
+	{
+		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][0]);
+		PLAYER_TEMP[playerid][py_TIMERS][0] = SetTimerEx("KickPlayer", time, false, "i", playerid);
+	}
+	return 1;
+}
+
+forward KickPlayer(playerid);
+public KickPlayer(playerid)
+{
+	#if DEBUG_MODE == 1
+		printf("KickPlayer"); // debug juju
+	#endif
+
+	return Kick(playerid);
+}
+
+SetPlayerPosEx(playerid, Float:x, Float:y, Float:z, Float:angle, interior, world, freeze = 0, addoffset = 0)
+{
+	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_UNOCCUPIED_VEHICLE_TP][p_ac_info_IMMUNITY] = gettime() + 5;
+
+	if (addoffset)
+	{
+		x += (1.5 * floatsin(-angle, degrees));
+		y += (1.5 * floatcos(-angle, degrees));
+	}
+
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 0)
+	{
+		CHARACTER_INFO[playerid][ch_POS][0] = x;
+		CHARACTER_INFO[playerid][ch_POS][1] = y;
+		CHARACTER_INFO[playerid][ch_POS][2] = z;
+		CHARACTER_INFO[playerid][ch_ANGLE] = angle;
+		CHARACTER_INFO[playerid][ch_INTERIOR] = interior;
+		PLAYER_MISC[playerid][MISC_LAST_WORLD] = world;
+	}
+
+	SetPlayerPos(playerid, x, y, z);
+	SetPlayerFacingAngle(playerid, angle);
+	SetPlayerInterior(playerid, interior);
+	SetPlayerVirtualWorld(playerid, world);
+	SetCameraBehindPlayer(playerid);
+
+	if (freeze)
+	{
+		Streamer_UpdateEx(playerid, x, y, z, world, interior, -1, -1, 1);
+		TogglePlayerControllableEx(playerid, false);
+		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
+		PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
+		ShowPlayerMessage(playerid, "~r~CARGANDO...~w~~n~Espere por favor", 2);
+	}
+
+	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
+	{
+		SetFirstPerson(playerid, true);
+	}
+	return 1;
+}
+
+GetNearestHospitalForPlayer(playerid)
+{
+	new Float:distance = 99999.0,
+	   Float:tmp_distance,
+	   closest = -1;
+
+    for(new i = 0; i < sizeof Hospital_Spawn_Positions; i++)
+    {
+	   tmp_distance = GetPlayerDistanceFromPoint(playerid, Hospital_Spawn_Positions[i][0], Hospital_Spawn_Positions[i][1], Hospital_Spawn_Positions[i][2]);
+	   if (tmp_distance < distance)
+	   {
+		  distance = tmp_distance;
+		  closest = i;
+	   }
+    }
+	return closest;
+}
+
+GetHospitalSpawnPosition(hospital, &Float:x, &Float:y, &Float:z, &Float:angle, &interior, &local_interior, &rp_state)
+{
+	x = Hospital_Spawn_Positions[hospital][0];
+	y = Hospital_Spawn_Positions[hospital][1];
+	z = Hospital_Spawn_Positions[hospital][2];
+	angle = Hospital_Spawn_Positions[hospital][3];
+	interior = 0;
+	local_interior = 0;
+	rp_state = ROLEPLAY_STATE_NORMAL;
+	return 1;
+}
+
+UpdateHospitalSizeTextdrawLife(playerid)
+{
+	new str_text[64];
+	format(str_text, sizeof(str_text), "Recuperandote ~r~%d %", PLAYER_TEMP[playerid][py_HOSPITAL_LIFE]);
+	ShowPlayerMessage(playerid, str_text, 2);
+	return 1;
+}
+
+TogglePlayerSpectatingEx(playerid, bool:spectate)
+{
+	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_SPECTATE][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_TEMP[playerid][py_PLAYER_SPECTATE] = spectate;
+	return TogglePlayerSpectating(playerid, spectate);
+}
+
+ClearPlayerChatBox(playerid, ammount = 20)
+{
+	for(new i = 0; i != ammount; i++) SendClientMessage(playerid, -1, " ");
+	return 1;
+}
