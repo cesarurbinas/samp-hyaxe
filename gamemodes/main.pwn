@@ -3260,18 +3260,21 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
 	            if (PLAYER_TEMP[playerid][py_SURFING_VEHICLE] != onFootData[PR_surfingVehicleId])
 	            {
-		            if (ValidSurfingVehicle(modelid))
-		            {
-			            new Float:speed = GetPlayerSpeed(playerid);
-						if (speed > 20.0)
-						{
-			         		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = onFootData[PR_surfingVehicleId];
-			         		
-			         		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
-							PLAYER_TEMP[playerid][py_TIMERS][31] = SetTimerEx("IsValidVehicleAbuse", 10000, false, "ii", playerid, PLAYER_TEMP[playerid][py_SURFING_VEHICLE]);
-			         	}
-			         	else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
-			        }
+	            	if (GetPlayerSurfingVehicleID(playerid) != INVALID_VEHICLE_ID)
+	            	{
+			            if (ValidSurfingVehicle(modelid))
+			            {
+				            new Float:speed = GetPlayerSpeed(playerid);
+							if (speed > 20.0)
+							{
+				         		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = onFootData[PR_surfingVehicleId];
+				         		
+				         		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
+								PLAYER_TEMP[playerid][py_TIMERS][31] = SetTimerEx("IsValidVehicleAbuse", 10000, false, "ii", playerid, PLAYER_TEMP[playerid][py_SURFING_VEHICLE]);
+				         	}
+				         	else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
+				        }
+				    }
 			    }
 			}
         }
@@ -23897,9 +23900,9 @@ public StoreBuyRecv(index, response_code, const data[])
 					case 5:
 					{
 						new
-							Float:x, Float:y, Float:z, Float:angle
+							Float:x, Float:y, Float:z, Float:angle,
 							modelid = STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA],
-							vehicle_type = GetVehicleType( GetVehicleModel(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]) )
+							vehicle_type = GetVehicleType(STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA])
 						;
 
 						switch(vehicle_type)
