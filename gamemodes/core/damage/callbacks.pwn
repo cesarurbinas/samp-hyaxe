@@ -166,8 +166,26 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 	   return 1;
 	}
 
+	if (!PLAYER_WORKS[playerid][WORK_POLICE])
+	{
+		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][44]);
+		PLAYER_TEMP[playerid][py_TIMERS][44] = SetTimerEx("DisableCombatMode", 60000, false, "i", playerid);
+		
+		if (!PLAYER_TEMP[playerid][py_COMBAT_MODE]) ShowPlayerNotification(playerid, "Has entrado en modo de combate.");
+		PLAYER_TEMP[playerid][py_COMBAT_MODE] = true;
+	}
+
 	if (IsPlayerConnected(issuerid))
 	{
+		if (!PLAYER_WORKS[issuerid][WORK_POLICE])
+		{
+			KillTimer(PLAYER_TEMP[issuerid][py_TIMERS][44]);
+			PLAYER_TEMP[issuerid][py_TIMERS][44] = SetTimerEx("DisableCombatMode", 60000, false, "i", issuerid);
+			
+			if (!PLAYER_TEMP[issuerid][py_COMBAT_MODE]) ShowPlayerNotification(issuerid, "Has entrado en modo de combate.");
+			PLAYER_TEMP[issuerid][py_COMBAT_MODE] = true;
+		}
+
 		new p_interior = GetPlayerInterior(issuerid);
 
 		if (p_interior == 25 || p_interior == 26 || p_interior == 27)

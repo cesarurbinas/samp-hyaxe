@@ -1734,7 +1734,10 @@ static const INVALID_NAMES[][100] =
 	"Diablo",
 	"Pito_Corto",
 	"Empanada",
-	"Hamburguesa"
+	"Hamburguesa",
+	"Willyrex",
+	"Telapone",
+	"Tedoma"
 };
 
 enum
@@ -3620,16 +3623,22 @@ public OnPlayerDisconnect(playerid, reason)
   		ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
   		if (PLAYER_TEMP[playerid][py_USER_EXIT])
   		{
-			if(CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL)
+			if (CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL)
 				CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] -= gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME];
 
-			if(PLAYER_MISC[playerid][MISC_SEARCH_LEVEL])
+			if (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL])
 			{
 				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
     			CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 600 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL];
 				CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] =
 				PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] = 0;
 				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
+			}
+
+			if (PLAYER_TEMP[playerid][py_COMBAT_MODE])
+			{
+				ResetPlayerWeaponsEx(playerid);
+				SavePlayerWeaponsData(playerid);
 			}
 
 			if (PLAYER_TEMP[playerid][py_BOXING])
@@ -31023,6 +31032,14 @@ CALLBACK: DisableRefMark(playerid)
     return 1;
 }
 
+CALLBACK: DisableCombatMode(playerid)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][44]);
+	ShowPlayerNotification(playerid, "Has salido del modo de combate.");
+	PLAYER_TEMP[playerid][py_COMBAT_MODE] = false;
+	return 1;
+}
+
 CMD:control(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
@@ -33053,7 +33070,7 @@ CountCrewPlayersInTerritory(crew_index, territory_index)
 				{
 					if (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_NORMAL && PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
 					{
-						if (!IsPlayerPaused(playerid))
+						if (!IsPlayerPaused(i))
 						{
 							if (IsPlayerInDynamicArea(i, TERRITORIES[territory_index][territory_AREA]))
 							{
