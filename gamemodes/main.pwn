@@ -2555,7 +2555,6 @@ new
 	DIALOG_FOOD_CLUCKIN_String[800],
 	DIALOG_FOOD_BURGER_String[800],
 	DIALOG_247_LIST_String[34 + 55 * sizeof Supermarket_Product_List],
-	DIALOG_ANIMS_String[1000],
 	DIALOG_PLAYER_GPS_SITE_0_String[90 * (sizeof(Hospital_Spawn_Positions) + 1)],
 	DIALOG_PLAYER_GPS_SITE_7_String[90 * (sizeof(SELL_VEHICLES_SHOPS_SPAWN) + 1)],
 	DIALOG_CREATE_CREW_COLOR_String[4200];
@@ -6629,45 +6628,6 @@ FormatDialogStrings()
 		format(Dialog_Lines_String, sizeof(Dialog_Lines_String), "{%06x}%s\n", CrewColors[i] >>> 8, CrewNameColors[i]);
 		strcat(DIALOG_CREATE_CREW_COLOR_String, Dialog_Lines_String);
 	}
-
-	//Animaciones
-	format(DIALOG_ANIMS_String, sizeof DIALOG_ANIMS_String, "");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/rendirse\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/blowjob\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/rodar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/borracho\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/bomba\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/apuntar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/reir\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/amenazar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/paja\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/herido\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/cruzarbrazos\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/recostarse\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/cubrirse\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/vomitar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/comer\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/despedir\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/nalgada\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/agonizar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/besar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/crack\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/mear\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/sentarse\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/fucku\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/llamar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/taichi\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/beber\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/boxear\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/saludar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/llorar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/dormir\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/rapear\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/astrip\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/bailar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/alentar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/hablar\n");
-	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/asiento\n");
 	return 1;
 }
 
@@ -9745,7 +9705,6 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar arma", dialog, "Eliminar", "Atrás");
 			return 1;
 		}
-		case DIALOG_ANIMS: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Animaciones", DIALOG_ANIMS_String, "Selecc.", "Cerrar");
 		case DIALOG_TRICKS_FOOD:
 		{
 			new dialog[150];
@@ -15978,52 +15937,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				RemovePlayerSlotWeapon(playerid, PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT], true);
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_WEAPONS);
-			return 1;
-		}
-		case DIALOG_ANIMS:
-		{
-			if (response)
-			{
-				switch(listitem)
-				{
-				  	case 0: SetPlayerSpecialAction(playerid,SPECIAL_ACTION_HANDSUP);//rendirse
-				  	case 1: ApplyAnimation(playerid, "BLOWJOBZ", "BJ_COUCH_LOOP_W", 4.0, 1, 1, 1, 0, 0);//blowjob
-				 	case 2: ApplyAnimation(playerid,"PED","BIKE_fallR",4.0,0,1,1,1,0);//rodar
-				  	case 3: ApplyAnimation(playerid,"PED", "WALK_DRUNK",4.0,1,1,1,1,500);//borracho
-				  	case 4: ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0,0);//bomba
-				  	case 5: ApplyAnimation( playerid,"ped", "ARRESTgun", 4.0, 0, 1, 1, 1,500);//apuntar
-				  	case 6: ApplyAnimation(playerid, "RAPPING", "Laugh_01", 4.0, 0, 0, 0, 0,0);//reir
-				  	case 7: ApplyAnimation(playerid, "SHOP", "ROB_Loop_Threat", 4.0, 0, 0, 0, 1,500);//amenazar
-				  	case 8: ApplyAnimation(playerid, "PAULNMAC", "wank_loop", 4.0, 1, 0, 0, 1, 0);//paja
-				  	case 9: ApplyAnimation(playerid, "SWEET", "LaFin_Sweet", 4.0, 0, 1, 1, 1, 0);//herido
-				  	case 10: ApplyAnimation(playerid, "COP_AMBIENT", "Coplook_loop", 4.0, 1, 1, 1, 0, 4000);//cruzarbrazos
-				  	case 11: ApplyAnimation(playerid,"SUNBATHE", "Lay_Bac_in", 4.0, 0, 0, 0, 1, 0);//recostarse
-				  	case 12: ApplyAnimation(playerid, "ped", "cower", 4.0, 1, 0, 0, 0, 0);//crubrirse
-				  	case 13: ApplyAnimation(playerid, "FOOD", "EAT_Vomit_P", 3.0, 0, 0, 0, 0, 0);//vomitar
-				  	case 14: ApplyAnimation(playerid, "FOOD", "EAT_Burger", 3.00, 0, 0, 0, 0, 0);//comer
-				  	case 15: ApplyAnimation(playerid, "KISSING", "BD_GF_Wave", 3.0, 0, 0, 0, 0, 0);//despedir
-				  	case 16: ApplyAnimation(playerid, "SWEET", "sweet_ass_slap", 4.0, 0, 0, 0, 0, 0);//nalgada
-				  	case 17: ApplyAnimation(playerid, "WUZI", "CS_Dead_Guy", 4.0, 0, 0, 0, 1, 0);//agonizar
-				  	case 18: ApplyAnimation(playerid, "KISSING", "Playa_Kiss_02", 4.0, 0, 0, 0, 0, 0);//besar
-				  	case 19: ApplyAnimation(playerid, "CRACK", "crckdeth2", 4.0, 0, 0, 0, 1, 0);//crack
-				  	case 20: SetPlayerSpecialAction(playerid, 68);//mear
-				  	case 21: ApplyAnimation(playerid, "SUNBATHE", "ParkSit_M_in", 4.000000, 0, 1, 1, 1, 0);//sentarse
-				  	case 22: ApplyAnimation( playerid,"ped", "fucku", 4.0, 0, 1, 1, 1, 1 );//fucku
-				  	case 23: ApplyAnimation(playerid, "ped", "phone_in", 4.000000, 0, 0, 0, 1, 4000);//llamar
-				  	case 24: ApplyAnimation(playerid, "PARK", "Tai_Chi_Loop",  4.1,7,5,1,1,1);//taichi
-				  	case 25: ApplyAnimation(playerid, "BAR", "dnk_stndM_loop", 4.0, 0, 1, 1, 0, 4000);//beber
-				  	case 26: ApplyAnimation(playerid, "GYMNASIUM", "gym_shadowbox",  4.1,7,5,1,1,1);//boxear
-				  	case 27: ApplyAnimation(playerid,"GANGS","hndshkfa_swt",4.1,0,0,0,0,0);//saludar
-				  	case 28: ApplyAnimation(playerid,"GRAVEYARD","mrnF_loop",4.1,0,0,0,0,0);//llorar
-				  	case 29: ApplyAnimation( playerid,"ped", "fucku", 4.0, 0, 1, 1, 1, 1 );//fucku antes era dormir
-				  	case 30: ApplyAnimation(playerid,"RAPPING","RAP_B_Loop",4.0,1,0,0,0,8000);//rapear
-				  	case 31: ApplyAnimation(playerid,"STRIP","strip_A",4.1,7,5,1,1,1);//strip
-				  	case 32: ApplyAnimation(playerid,"DANCING","DAN_Down_A",4.1,7,5,1,1,1);//bailar
-				  	case 33: ApplyAnimation(playerid,"ON_LOOKERS","shout_02",4.1,7,5,1,1,1);//alentar
-				  	case 34: ApplyAnimation(playerid,"PED","IDLE_chat",4.1,7,5,1,1,1);//hablar
-					case 35: ApplyAnimation(playerid, "ped", "SEAT_down", 4.000000, 0, 1, 1, 1, 0);//asiento
-				}
-			}
 			return 1;
 		}
 		case DIALOG_TRICKS_FOOD:
@@ -30140,15 +30053,6 @@ CMD:cagar(playerid, params[])
 	return 1;
 }
 alias:cagar("defecar")
-
-//Animaciones
-CMD:animaciones(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	ShowDialog(playerid, DIALOG_ANIMS);
-	return 1;
-}
-alias:animaciones("anims", "acciones")
 
 CMD:parar(playerid, params[])
 {
