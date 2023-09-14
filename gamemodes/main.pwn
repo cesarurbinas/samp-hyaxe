@@ -13780,6 +13780,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
+				
 				if (inputtext[0] <= 0)
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
@@ -13787,6 +13788,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
+
 				if (inputtext[0] > BANK_ACCOUNT[playerid][bank_account_BALANCE])
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
@@ -13794,6 +13796,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
+
 				if (PLAYER_TEMP[playerid][py_PLAYER_IN_ATM])
 				{
 					if (inputtext[0] > 50000)
