@@ -5082,8 +5082,8 @@ Menu:MECHANICTUNING(playerid, response, listitem)
        	
        	else if (listitem == 3)
         {
-        	ShowPlayerMessage(playerid, "~r~Esto no esta disponible", 4);
-        	//ShowObjTuning(playerid);
+        	//ShowPlayerMessage(playerid, "~r~Esto no esta disponible", 4);
+        	ShowObjTuning(playerid);
         }
 
        	else if (listitem == 4)
