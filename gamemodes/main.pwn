@@ -31687,7 +31687,15 @@ OpenMafiaDoor(playerid)
 			if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
 			if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
 
-			if (IsPlayerInRangeOfPoint(playerid, 33.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+			new Float:range = 10.0;
+			switch (MAFIA_DOORS[i][mafia_door_MODELID])
+			{
+				case 19861: range = 3.0;
+				case 974: range = 3.0;
+				case 1495: range = 2.0
+			}
+
+			if (IsPlayerInRangeOfPoint(playerid, range, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
 			{
 				KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
 				MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
