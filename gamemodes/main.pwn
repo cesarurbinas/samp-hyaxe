@@ -49,6 +49,8 @@
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
 
+#define NO_SUSPICION_LOGS
+
 #include <streamer>
 #include <ColAndreas>
 #include <YSF>
