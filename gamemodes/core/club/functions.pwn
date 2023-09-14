@@ -70,6 +70,8 @@ LoadClubs()
 			);
 			AddKeyArea(CLUBS_INTERIORS[ CLUBS_INFO[i][club_INTERIOR] ][interior_BUY_X], CLUBS_INTERIORS[ CLUBS_INFO[i][club_INTERIOR] ][interior_BUY_Y], 0.8, KEY_TYPE_Y);
 
+			CreateDynamicMapIcon(CLUBS_INFO[i][club_X], CLUBS_INFO[i][club_Y], CLUBS_INFO[i][club_Z], 48, COLOR_WHITE, 0, 0);
+
 			new info[3];
 			info[0] = PICKUP_TYPE_CLUB;
 			info[1] = i; // Index
@@ -171,6 +173,8 @@ CreateClub(const name[], const welcome[], Float:x, Float:y, Float:z, Float:angle
 		.interiorid = CLUBS_INTERIORS[ CLUBS_INFO[index][club_INTERIOR] ][interior_ID]
 	);
 	AddKeyArea(CLUBS_INTERIORS[ CLUBS_INFO[index][club_INTERIOR] ][interior_BUY_X], CLUBS_INTERIORS[ CLUBS_INFO[index][club_INTERIOR] ][interior_BUY_Y], 0.8, KEY_TYPE_Y);
+
+	CreateDynamicMapIcon(CLUBS_INFO[index][club_X], CLUBS_INFO[index][club_Y], CLUBS_INFO[index][club_Z], 48, COLOR_WHITE, 0, 0);
 
 	info[0] = PICKUP_TYPE_CLUB;
 	info[1] = index; // Index

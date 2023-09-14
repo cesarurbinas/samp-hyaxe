@@ -1,3 +1,5 @@
+#pragma option -d3
+
 #include <a_samp>
 #include <ColAndreas>
 #include <crashdetect>
@@ -6836,7 +6838,7 @@ public OnFilterScriptInit()
     tmpobjid = CreateDynamicObject(987, 2812.348632, -1608.271972, 11.291102, -0.100008, -178.199996, -23.900075, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(8674, 2790.275878, -1594.884521, 13.534873, 0.000000, -0.599996, 90.099960, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(987, 2769.188964, -1600.549926, 12.465839, -3.000000, 178.200027, -179.300155, object_world, object_int, -1, 300.00, 300.00); 
-    tmpobjid = CreateDynamicObject(987, 2778.360351, -1600.440429, 12.420105, -3.000000, 177.900009, -179.200134, object_world, object_int, -1, 300.00, 300.00); 
+    tmpobjid = CreateDynamicObject(987, 2778.360351, -1600.440429, 12.420105, -3.000000, 177.900009, -179.200134, object_world, object_int, -1, 300.00, 300.00);
     
     //globo
     CreateDynamicObject(16337, -372.6110, -1634.1915, 24.2311, 0.0000, 0.0000, -178.2001); //des_cranecontrol

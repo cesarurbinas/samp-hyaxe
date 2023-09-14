@@ -1,5 +1,5 @@
 /*
- *  sscanf 2.10.0
+ *  sscanf 2.8.3
  *  Created by Y_Less, updated by Emmet_.
  *
  *  Version: MPL 1.1
@@ -17,7 +17,7 @@
  *  The Original Code is the sscanf 2.0 SA:MP plugin.
  *
  *  The Initial Developer of the Original Code is Alex "Y_Less" Cole.
- *  Portions created by the Initial Developer are Copyright (C) 2020
+ *  Portions created by the Initial Developer are Copyright (C) 2010
  *  the Initial Developer. All Rights Reserved.
  *
  *  Contributor(s):
@@ -45,8 +45,8 @@
 	#error sscanf (possibly the PAWN version) already defined.
 #endif
 
-native SSCANF__(const file[], const line, const data[], const format[], {Float,_}:...);
-native UNFORMAT__(const file[], const line, const data[], const format[], {Float,_}:...) = SSCANF__;
+native sscanf(const data[], const format[], {Float,_}:...);
+native unformat(const data[], const format[], {Float,_}:...) = sscanf;
 native SSCANF_Init(players, invalid, len);
 native SSCANF_Join(playerid, const name[], npc);
 native SSCANF_Leave(playerid);
@@ -54,31 +54,13 @@ native SSCANF_IsConnected(playerid);
 
 native SSCANF_Option(const name[], value);
 
-#if !defined __PawnBuild && !defined SSCANF_NO_NICE_FEATURES
-	#error sscanf likes the community compiler.  Use `#define SSCANF_NO_NICE_FEATURES` to ignore this.
-#endif
-
-#if defined __PawnBuild
-	#define sscanf( SSCANF__(__file,__line,
-	#define unformat( SSCANF__(__file,__line,
-#else
-	#define sscanf( SSCANF__(SSCANF_UNK_,-1,
-	#define unformat( SSCANF__(SSCANF_FOM_,-1,
-#endif
-
 stock const
-	SSCANF_UNK_[] = "sscanf",   // Append "unknown file" in the plugin when line number < 0.
-	SSCANF_FOM_[] = "unformat", // Append "unknown file" in the plugin when line number < 0.
-	SSCANF_EXT_[] = "extract",  // Append "unknown file" in the plugin when line number < 0.
 	SSCANF_QUIET[] = "SSCANF_QUIET",
 	OLD_DEFAULT_NAME[] = "OLD_DEFAULT_NAME",
 	MATCH_NAME_PARTIAL[] = "MATCH_NAME_PARTIAL",
 	CELLMIN_ON_MATCHES[] = "CELLMIN_ON_MATCHES",
 	OLD_DEFAULT_KUSTOM[] = "OLD_DEFAULT_KUSTOM",
-	OLD_DEFAULT_CUSTOM[] = "OLD_DEFAULT_CUSTOM",
-	SSCANF_COLOUR_FORMS[] = "SSCANF_COLOUR_FORMS",
-	SSCANF_ALPHA[] = "SSCANF_ALPHA",
-	SSCANF_ARGB[] = "SSCANF_ARGB";
+	OLD_DEFAULT_CUSTOM[] = "OLD_DEFAULT_CUSTOM";
 
 static stock
 	bool:SSCANF_gInit = false,
@@ -153,25 +135,6 @@ static stock
 		}
 	#endif
 #else
-	static stock SSCANF_RunInit()
-	{
-		new
-			name[MAX_PLAYER_NAME + 1];
-
-		SSCANF_Init(GetMaxPlayers(), INVALID_PLAYER_ID, MAX_PLAYER_NAME);
-		SSCANF_gInit = true;
-
-		// Check if there are any players that aren't initialized.
-		for (new i = 0; i < MAX_PLAYERS; i ++)
-		{
-			if (IsPlayerConnected(i) && !SSCANF_IsConnected(i))
-			{
-				GetPlayerName(i, name, sizeof(name));
-				SSCANF_Join(i, name, IsPlayerNPC(i));
-			}
-		}
-	}
-
 	/*
 	  OnFilterScriptInit
 
@@ -182,10 +145,22 @@ static stock
 
 	public OnFilterScriptInit()
 	{
-		if (!SSCANF_gInit)
+	    new
+     		name[MAX_PLAYER_NAME + 1];
+
+		SSCANF_Init(GetMaxPlayers(), INVALID_PLAYER_ID, MAX_PLAYER_NAME);
+		SSCANF_gInit = true;
+
+		// Check if there are any players that aren't initialized.
+		for (new i = 0; i < MAX_PLAYERS; i ++)
 		{
-			SSCANF_RunInit();
+		    if (IsPlayerConnected(i) && !SSCANF_IsConnected(i))
+		    {
+		        GetPlayerName(i, name, sizeof(name));
+		        SSCANF_Join(i, name, IsPlayerNPC(i));
+		    }
 		}
+
 		#if defined SSCANF_OnFilterScriptInit
 			SSCANF_OnFilterScriptInit();
 		#endif
@@ -214,7 +189,21 @@ static stock
 	{
 		if (!SSCANF_gInit)
 		{
-			SSCANF_RunInit();
+		    new
+		        name[MAX_PLAYER_NAME + 1];
+
+			SSCANF_Init(GetMaxPlayers(), INVALID_PLAYER_ID, MAX_PLAYER_NAME);
+			SSCANF_gInit = true;
+
+			// Check if there are any players that aren't initialized.
+			for (new i = 0; i < MAX_PLAYERS; i ++)
+			{
+			    if (IsPlayerConnected(i) && !SSCANF_IsConnected(i))
+			    {
+			        GetPlayerName(i, name, sizeof(name));
+			        SSCANF_Join(i, name, IsPlayerNPC(i));
+			    }
+			}
 		}
 		#if defined SSCANF_OnGameModeInit
 			SSCANF_OnGameModeInit();
@@ -230,32 +219,6 @@ static stock
 	#define OnGameModeInit SSCANF_OnGameModeInit
 	#if defined SSCANF_OnGameModeInit
 		forward SSCANF_OnGameModeInit();
-	#endif
-
-	/*
-	  OnCachedInit
-
-	  Called when the script starts if it is YSI cached mode.
-	*/
-
-	forward OnCachedInit();
-	public OnCachedInit()
-	{
-		SSCANF_RunInit();
-		#if defined SSCANF_OnCachedInit
-			SSCANF_OnCachedInit();
-		#endif
-		return 1;
-	}
-
-	#if defined _ALS_OnCachedInit
-		#undef OnCachedInit
-	#else
-		#define _ALS_OnCachedInit
-	#endif
-	#define OnCachedInit SSCANF_OnCachedInit
-	#if defined SSCANF_OnCachedInit
-		forward SSCANF_OnCachedInit();
 	#endif
 
 	/*
@@ -319,23 +282,17 @@ static stock
 #define SSCANF_Join
 #define SSCANF_Leave
 
-#if defined __PawnBuild
-	#define extract%0->%1; EXTRN%1;UNFORMAT__(__file,__line,_:EXTRV:EXTRX:%0,""#,%1,,);
-#else
-	#define extract%0->%1; EXTRN%1;UNFORMAT__(SSCANF_EXT_,-1,_:EXTRV:EXTRX:%0,""#,%1,,);
-#endif
+#define extract%0->%1; EXTRN%1;unformat(_:EXTRZ:EXTRV:EXTRX:%0,#,%1,,);
+#define unformat(_:EXTRZ:EXTRV:EXTRX:%0,#,%1);%2else if (unformat(_:EXTRV:EXTRX:%0,#,%1))
 
-#define UNFORMAT__(%7,%8,_:EXTRV:EXTRX:%0,""#,%1);%2else if (UNFORMAT__(%7,%8,_:EXTRV:EXTRX:%0,""#,%1))
-
-#define EXTRV:EXTRX:%0<%3>%4#,%9new%1,%2) EXTRZ:EXTRY:%0%4#P<%3>,|||%1|||%2)
-#define EXTRZ:EXTRY:%0#P<,> EXTRY:%0"P<,>"#
+#define EXTRV:EXTRX:%0<%3>%4#,%9new%1,%2) EXTRY:%0%4#P<%3>,|||%1|||%2)
 #define EXTRX:%0#,%9new%1,%2) EXTRY:%0#,|||%1|||%2)
 #define EXTRY: EXTR8:EXTR9:EXTR0:EXTR1:EXTR2:EXTR3:EXTR4:
 
 #define EXTR8:EXTR9:EXTR0:EXTR1:EXTR2:EXTR3:EXTR4:%0#%1,%2|||%6:%3=%9|||%4) %6_EXTRO:%0#%1,%2|||%3=%9|||%4)
 #define EXTR9:EXTR0:EXTR1:EXTR2:EXTR3:EXTR4:%0#%1,%2|||%3=%9|||%4) __EXTRO:%0#%1,%2|||%3=%9|||%4)
 #define EXTR0:EXTR1:EXTR2:EXTR3:EXTR4:%0#%1,%2|||%6:%3[%7]|||%4) %6_EXTRW:%0#%1,%2|||%3[%7]|||%4)
-#define EXTR1:EXTR2:EXTR3:EXTR4:%0#%1,%2|||%3[%7]|||%4) __EXTRW:%0#%1,%2|||%3[%7]|||%4)
+#define EXTR1:EXTR2:EXTR3:EXTR4:%0#%1,%2|||%3[%7]|||%4) __EXTRW:%0#%1,%2|||%3|||%4)
 #define EXTR2:EXTR3:EXTR4:%0#%1,%2|||%6:%3|||%4) %6_EXTRN:%0#%1,%2|||%3|||%4)
 #define EXTR3:EXTR4:%0#%1,,%2||||||%4) %0#%1,%2)
 #define EXTR4:%0#%1,%2|||%3|||%4) __EXTRN:%0#%1,%2|||%3|||%4)
@@ -344,7 +301,7 @@ static stock
 #define __EXTRO:%0#%1,%2|||%3=%9|||%4,%5) EXTRY:%0#%1I"("#%9")"#,%2,%3|||%4|||%5)
 #define Float_EXTRO:%0#%1,%2|||%3=%9|||%4,%5) EXTRY:%0#%1F"("#%9")"#,%2,%3|||%4|||%5)
 #define player_EXTRO:%0#%1,%2|||%3=%9|||%4,%5) EXTRY:%0#%1U"("#%9")"#,%2,%3|||%4|||%5)
-#define string_EXTRO:%0#%1,%2|||%3[%7]=%9|||%4,%5) EXTRY:%0#%1S"("#%9")[*]",%2,(%7),%3|||%4|||%5)
+#define string_EXTRO:%0#%1,%2|||%3[%7]=%9|||%4,%5) EXTRY:%0#%1S"("#%9")"#[%7],%2,%3|||%4|||%5)
 
 // Normal specifiers (the double underscore is to work for "_:".
 #define __EXTRN:%0#%1,%2|||%3|||%4,%5) EXTRY:%0#%1i,%2,%3|||%4|||%5)
@@ -353,10 +310,10 @@ static stock
 //#define string_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1s[%7],%2,%3|||%4|||%5)
 
 // Array versions of normal specifiers.
-#define __EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<i>[*],%2,(%7),%3|||%4|||%5)
-#define Float_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<f>[*],%2,(%7),%3|||%4|||%5)
-#define player_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<u>[*],%2,(%7),%3|||%4|||%5)
-#define string_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1s[*],%2,(%7),%3|||%4|||%5)
+#define __EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<i>[%7],%2,%3|||%4|||%5)
+#define Float_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<f>[%7],%2,%3|||%4|||%5)
+#define player_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<u>[%7],%2,%3|||%4|||%5)
+#define string_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1s[%7],%2,%3|||%4|||%5)
 
 // Get rid of excess leading space which causes warnings.
 #define EXTRN%0new%1; new%1;
@@ -365,27 +322,22 @@ static stock
     #define string:
 #endif
 
-#define player:%0;UNFORMAT__(%1) %0;UNFORMAT__(%1)
+#define player:%0;unformat(%1) %0;unformat(%1)
 
-#define hex:%0;UNFORMAT__(%1) %0;UNFORMAT__(%1)
+#define hex:%0;unformat(%1) %0;unformat(%1)
 #define hex_EXTRO:%0#%1,%2|||%3=%9|||%4,%5) EXTRY:%0#%1H"("#%9")"#,%2,%3|||%4|||%5)
 #define hex_EXTRN:%0#%1,%2|||%3|||%4,%5) EXTRY:%0#%1h,%2,%3|||%4|||%5)
-#define hex_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<h>[*],%2,(%7),%3|||%4|||%5)
+#define hex_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<h>[%7],%2,%3|||%4|||%5)
 
-#define bin:%0;UNFORMAT__(%1) %0;UNFORMAT__(%1)
+#define bin:%0;unformat(%1) %0;unformat(%1)
 #define bin_EXTRO:%0#%1,%2|||%3=%9|||%4,%5) EXTRY:%0#%1B"("#%9")"#,%2,%3|||%4|||%5)
 #define bin_EXTRN:%0#%1,%2|||%3|||%4,%5) EXTRY:%0#%1b,%2,%3|||%4|||%5)
-#define bin_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<b>[*],%2,(%7),%3|||%4|||%5)
-
-#define colour:%0;UNFORMAT__(%1) %0;UNFORMAT__(%1)
-#define colour_EXTRO:%0#%1,%2|||%3=%9|||%4,%5) EXTRY:%0#%1M"("#%9")"#,%2,%3|||%4|||%5)
-#define colour_EXTRN:%0#%1,%2|||%3|||%4,%5) EXTRY:%0#%1m,%2,%3|||%4|||%5)
-#define colour_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<m>[*],%2,(%7),%3|||%4|||%5)
+#define bin_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<b>[%7],%2,%3|||%4|||%5)
 
 #define kustom:%0<%1> %0
 #define kustom_EXTRO:%0#%1,%2|||%3<%8>=%9|||%4,%5) EXTRY:%0#%1K<%8>"("#%9")"#,%2,%3|||%4|||%5)
 #define kustom_EXTRN:%0#%1,%2|||%3<%8>|||%4,%5) EXTRY:%0#%1k<%8>,%2,%3|||%4|||%5)
-//#define bin_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<b>[*],%2,(%7),%3|||%4|||%5)
+//#define bin_EXTRW:%0#%1,%2|||%3[%7]|||%4,%5) EXTRY:%0#%1a<b>[%7],%2,%3|||%4|||%5)
 
 SSCANF:weapon(string[])
 {
@@ -677,5 +629,4 @@ SSCANF:vehicle(string[])
 // Fix the compiler crash when both the PAWN and Plugin versions of sscanf are
 // found by renaming the old version at declaration.  (fixes.inc compatible
 // naming scheme: "BAD_Function()").
-#define SSCANF__(%0:...) BAD_sscanf(%0:...)
-
+#define sscanf(%0:...) BAD_sscanf(%0:...)

@@ -28,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.8 Build 1"
+#define SERVER_VERSION 			"v0.8 Build 3"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -222,6 +222,7 @@
 #include "core/admin/level.pwn"
 #include "core/admin/callbacks.pwn"
 #include "core/admin/commands.pwn"
+//#include "core/admin/discord.pwn"
 
 // Boombox
 #include "core/boombox/main.pwn"
@@ -1774,7 +1775,15 @@ static const INVALID_NAMES[][100] =
 	"Rubius",
 	"Goku",
 	"Vegeta",
-	"Vegetta"
+	"Vegetta",
+	"Puto",
+	"Negro",
+	"Fraca",
+	"Heladero",
+	"Panadero",
+	"Whatsapp",
+	"Facebook",
+	"Instagram"
 };
 
 enum
@@ -1925,7 +1934,7 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, P_TRUCKS, INTERIOR_TRUCK, -1, true, 25, 18, 1297.457031, -61.437820, 1002.498046, 180.0, -1, false, 0, 0, 2509.533935, -2637.530761, 13.645265, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, P_SAPD, INTERIOR_POLICE_LS, -1, true, 0, 6, 1881.801635, -1688.519531, 5216.709960, 130.0, 30, false, 0, 0, 1555.400390, -1675.611694, 16.195312, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, P_GARAGE, INTERIOR_POLICE_GARAGE, -1, true, 0, 6, 1881.341674, -1727.080688, 5216.709960, 270.594818, -1, false, 0, 0, 1568.651977, -1690.080688, 6.218750, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "Alhambra Club", INTERIOR_ALHAMBRA, -1, false, 0, 17, 493.487731, -24.662528, 1000.679687, 0.0, 48, false, 0, 0, 1836.876586, -1682.407104, 13.329626, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	//{-1, "Alhambra Club", INTERIOR_ALHAMBRA, -1, false, 0, 17, 493.487731, -24.662528, 1000.679687, 0.0, 48, false, 0, 0, 1836.876586, -1682.407104, 13.329626, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Tecno", INTERIOR_NO_INFO, -1, true, 1, 17, 1715.986572, -1254.442993, 471.174316, 269.257873, 42, false, 0, 0, 1738.542846, -1269.991577, 13.543532, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, P_CHURCH, INTERIOR_NO_INFO, -1, true, 2, 17, 387.479644, 2324.503906, 1889.583374, 88.438690, 38, false, 0, 0, 2233.164306, -1333.295043, 23.981561, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, P_CHURCH, INTERIOR_NO_INFO, -1, true, 3, 17, 387.479644, 2324.503906, 1889.583374, 88.438690, 38, false, 0, 0, 2490.7651, 918.6208, 11.0234, 95.5125, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // iglesia lv
@@ -1948,7 +1957,7 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Club de la pelea", INTERIOR_NO_INFO, -1, false, 0, 16, -14.497008, 100.967079, 1101.521118, 180.0, -1, false, 0, 0, 950.341247, -987.135864, 38.743835, 322.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Osborn", INTERIOR_NO_INFO, -1, true, 0, 29, 887.343566, 1918.198364, -88.974365, 93.182411, -1, false, 0, 0, 3025.392333, -2004.350708, 3.214900, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Estadio", INTERIOR_NO_INFO, -1, true, 1336, 0, 2684.587890, -1733.565185, 424.386718, 180.0, -1, false, 0, 0, 2781.461181, -1813.566162, 11.843750, 211.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "Moriarty Luxury Bar", INTERIOR_NO_INFO, -1, true, 0, 64, 2627.9360, 490.5309, 2621.2078, 173.315292, -1, false, 0, 0, 2851.3330, -1532.3297, 11.0991, 271.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	//{-1, "Moriarty Luxury Bar", INTERIOR_NO_INFO, -1, true, 0, 64, 2627.9360, 490.5309, 2621.2078, 173.315292, -1, false, 0, 0, 2851.3330, -1532.3297, 11.0991, 271.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
@@ -3459,6 +3468,7 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
 	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] =
 	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = 
+	PLAYER_TEMP[playerid][py_CLUB_INDEX] = 
 	PLAYER_TEMP[playerid][py_CUTTING] =
 	PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] = 
 	PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
@@ -4179,6 +4189,7 @@ ExitSite(playerid)
                 CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
                 CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
                 PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
+                PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
                 SetPlayerPosEx(playerid, PROPERTY_INFO[info[1]][property_EXT_X], PROPERTY_INFO[info[1]][property_EXT_Y], PROPERTY_INFO[info[1]][property_EXT_Z], PROPERTY_INFO[info[1]][property_EXT_ANGLE], PROPERTY_INFO[info[1]][property_EXT_INTERIOR], 0, false /*PROPERTY_INFO[info[1]][property_EXT_FREEZE]*/, false);
                 SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
                 StopAudioStreamForPlayer(playerid);
@@ -4330,6 +4341,7 @@ EnterSite(playerid)
                 	CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_OWN_PROPERTY;
                     CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = PROPERTY_INFO[info[1]][property_ID];
                     PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = info[1];
+                    PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
                     SetPlayerPosEx(playerid, PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_ANGLE], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_INTERIOR], PROPERTY_INFO[info[1]][property_ID], false /*PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_FREEZE]*/, true);
                     FreezePlayer(playerid);
 
@@ -4345,6 +4357,7 @@ EnterSite(playerid)
                     CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_GUEST_PROPERTY;
                     CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = PROPERTY_INFO[info[1]][property_ID];
                     PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = info[1];
+                    PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
                     SetPlayerPosEx(playerid, PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_ANGLE], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_INTERIOR], PROPERTY_INFO[info[1]][property_ID], false /*PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_FREEZE]*/, true);
                     FreezePlayer(playerid);
                 }
@@ -4355,6 +4368,7 @@ EnterSite(playerid)
                         CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_OWN_PROPERTY;
                         CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = PROPERTY_INFO[info[1]][property_ID];
                         PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = info[1];
+                        PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
                         SetPlayerPosEx(playerid, PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_ANGLE], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_INTERIOR], PROPERTY_INFO[info[1]][property_ID], false /*PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_FREEZE]*/, true);
                         FreezePlayer(playerid);
                     }
@@ -5697,6 +5711,7 @@ Menu:CLUB_MENU(playerid, response, listitem)
 							CHARACTER_INFO[i][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 							CHARACTER_INFO[i][ch_INTERIOR_EXTRA] = 0;
 							PLAYER_TEMP[i][py_PROPERTY_INDEX] = -1;
+							PLAYER_TEMP[i][py_CLUB_INDEX] = -1;
 							SetPlayerPosEx(i, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_X], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Y], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Z], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_ANGLE], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_INTERIOR], 0, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_FREEZE], false);
 							StopAudioStreamForPlayer(i);
 							ShowPlayerMessage(i, "~r~Te echaron de la propiedad.", 4);
@@ -6115,6 +6130,7 @@ public OnPlayerSpawn(playerid)
 				CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
 				PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
 				PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
+				PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
 
 				PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] = 35;
 				UpdateHospitalSizeTextdrawLife(playerid);
@@ -6245,6 +6261,7 @@ public OnPlayerSpawn(playerid)
 				CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
 				PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
 				PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
+				PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
 
 				PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] = 35;
 				UpdateHospitalSizeTextdrawLife(playerid);
@@ -6398,7 +6415,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
 	#endif
 
-	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
+	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
@@ -6991,7 +7008,9 @@ CALLBACK: InitLastGraffiti()
 	Result = db_query(Database, "SELECT `LAST_GRAFFITI` FROM `SERVER_PROPERTIES`;");
 	if (db_num_rows(Result)) graff_id = db_get_field_assoc_int(Result, "LAST_GRAFFITI");
  
-	if (graff_id > 0) InitGraffiti(graff_id);
+	if (graff_id != 0) InitGraffiti(graff_id);
+	else InitGraffiti( minrand(0, sizeof(GRAFFITIS_OBJ)) );
+
 	db_free_result(Result);
 	return 1;
 }
@@ -7344,8 +7363,12 @@ public OnGameModeInit()
 >>>>>>> 119039e (oooo chad on da house)
 =======
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
+<<<<<<< HEAD
 	SetTimer("InitLastGraffiti", 120000, false);
 >>>>>>> abcefe6 (Iniciar el ultimo graffiti)
+=======
+	SetTimer("InitLastGraffiti", 60000, false);
+>>>>>>> 58fa9ab (Graffitis random)
 
 	GraffitiGetTime = gettime();
 	MarketGetTime = gettime();
@@ -13708,6 +13731,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		printf("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
 	#endif
 
+	if (!IsPlayerConnected(playerid)) return 0;
+	if (IsPlayerPaused(playerid)) return 0;
+
 	if (PLAYER_TEMP[playerid][py_DIALOG_RESPONDED]) return 1;
 	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = true;
 
@@ -13843,7 +13869,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) ShowDialog(playerid, DIALOG_QUESTION_RESPONSE);
 
 				#if defined FINAL_BUILD
-    				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 700000, true, "i", playerid);
+    				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 120000, true, "i", playerid);
 				#endif
 
 				new pass_str[364];
@@ -19255,6 +19281,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
+				strreplace(crew_name, "~", "");
+
 				ShowDialog(playerid, DIALOG_CREW_CHANGE_DESC);
 
 				format(CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], 32, "%s", crew_name);
@@ -24653,7 +24681,6 @@ CALLBACK: AddPlayerReputation(playerid)
 			ACCOUNT_INFO[playerid][ac_PAYDAY_REP] = 0;
 		}
 
-
 		ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
 		PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
 		new DB_Query[256];
@@ -25086,6 +25113,8 @@ LoadCrews()
 		CREW_INFO[total_crews][crew_VALID] = true;
 		CREW_INFO[total_crews][crew_ID] = db_get_field_assoc_int(Result, "ID");
 		db_get_field_assoc(Result, "NAME", CREW_INFO[total_crews][crew_NAME], 32);
+		strreplace(CREW_INFO[total_crews][crew_NAME], "~", "");
+
 		db_get_field_assoc(Result, "DESC", CREW_INFO[total_crews][crew_DESCRIPTION], 32);
 		CREW_INFO[total_crews][crew_COLOR] = db_get_field_assoc_int(Result, "COLOR");
 		CREW_INFO[total_crews][crew_GRAFFITIS_COUNT] = db_get_field_assoc_int(Result, "GRAFFITIS_COUNT");
@@ -25987,6 +26016,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		printf("OnPlayerKeyStateChange %d %d %d",playerid, newkeys, oldkeys); // debug juju
     #endif
 
+	if (!IsPlayerConnected(playerid)) return 0;
+	if (IsPlayerPaused(playerid)) return 0;
+	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
+	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
+
     if (PRESSED(  KEY_SECONDARY_ATTACK  ))
     {
     	if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] == true) PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = false;
@@ -26278,21 +26312,30 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 	if (PRESSED( KEY_SPRINT ))
 	{
+		printf("KEY_SPRINT 1");
 		if (PLAYER_TEMP[playerid][py_FISHING] && PLAYER_WORKS[playerid][WORK_FISHER])
 		{
+			printf("KEY_SPRINT 2");
 			ManualUpdateFish(playerid);
+			printf("KEY_SPRINT 3");
 		}
 
+		printf("KEY_SPRINT 4");
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
     	{
+    		printf("KEY_SPRINT 5");
     		new Float:x, Float:y, Float:z;
     		if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
     		{
+    			printf("KEY_SPRINT 6");
 				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
 				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z - 0.1);
 				SetPlayerCameraLookAt(playerid, x, y, z);
+				printf("KEY_SPRINT 7");
 			}
+			printf("KEY_SPRINT 8");
 		}
+		printf("KEY_SPRINT 9");
 	}
 
 	if (PRESSED( KEY_SUBMISSION ))
@@ -31212,6 +31255,12 @@ CALLBACK: PlantingUp(playerid, seeds)
 	PLANTS[index][plant_OBJECT_ID] = CreateDynamicObject(2244, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], 0.0, 0.0, CHARACTER_INFO[playerid][ch_ANGLE], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 	SetDynamicObjectMaterial(PLANTS[index][plant_OBJECT_ID], 2, 2244, "plants_tabletop", "CJ_PLANT", 0x00F7F7F7);
 
+	if (GetPlayerInterior(playerid) == 0)
+	{
+		CA_FindZ_For2DCoord(CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2]);
+		MoveDynamicObject(PLANTS[index][plant_OBJECT_ID], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], 12.0, 0.0, 0.0, CHARACTER_INFO[playerid][ch_ANGLE]);
+	}
+
 	new info[2];
 	info[0] = OBJECT_TYPE_PLANT;
 	info[1] = index;
@@ -32103,6 +32152,23 @@ PlayerPayday(playerid)
 	if (money > 4500) money = 4500;
 	money += minrand(100, 200);
 
+
+	for(new i = 0; i < MAX_CLUBS; i++)
+	{
+		if (CLUBS_INFO[i][club_USER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+		{
+			CLUBS_INFO[i][club_BALANCE] += minrand(2000, 5000);
+
+			new DB_Query[164];
+			format(DB_Query, sizeof(DB_Query), "\
+				UPDATE `CLUB_INFO` SET\
+					`BALANCE` = '%d' \
+				WHERE `ID` = '%d';\
+			", CLUBS_INFO[i][club_BALANCE], CLUBS_INFO[i][club_ID]);
+			db_free_result(db_query(Database, DB_Query));
+		}
+	}
+
 	format(str_payday, sizeof(str_payday), "~g~Paga de juego~w~~n~General: ~y~%s$~w~", number_format_thousand(money));
 
 	if (ACCOUNT_INFO[playerid][ac_SU] < 2)
@@ -32605,6 +32671,8 @@ CMD:esposar(playerid, params[])
 	if (!IsPlayerInRangeOfPoint(playerid, 30.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes esposar a este jugador ahora.", 3);
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para esposar a esta persona tiene que estar depie.", 3);
+	if (params[0] == playerid) return ShowPlayerMessage(playerid, "~r~No puedes esposarte a ti mismo");
+	if (PLAYER_WORKS[params[0]][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3)
 
 	if (PLAYER_TEMP[params[0]][py_CUFFED])
 	{
@@ -33380,6 +33448,7 @@ GetPointZone(Float:f_Pos_X, Float:f_Pos_Y, city[], zone[])
 
 JailPlayer(playerid, seconds = 300)
 {
+	PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
 	ResetItemBody(playerid);
 
     CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
@@ -33430,6 +33499,7 @@ CALLBACK: UnjailPlayer(playerid)
 		{
 			CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = ENTER_EXIT[i][ee_ID];
 			PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
+			PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
 
 			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 			CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
@@ -34685,6 +34755,9 @@ StartTerritoryAttack(crew_index, territory_index, time)
 	format(str_text, sizeof(str_text), "[TERRITORIO] %s", message);
 	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 
+	format(str_text, sizeof(str_text), "%s", message);
+	SendDiscordWebhook(str_text, 4);
+
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if (IsPlayerConnected(i))
@@ -34724,6 +34797,9 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 		new str_text[144];
 		format(str_text, sizeof(str_text), "[TERRITORIO] %s", message);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+
+		format(str_text, sizeof(str_text), "%s", message);
+		SendDiscordWebhook(str_text, 4);
 
 		new DBResult:rows, query[200];
 		format(query, sizeof(query), "SELECT * FROM `CREW_TERRITORIES` WHERE `ID_TERRITORY` = %d;", TERRITORIES[territory_index][territory_ID]);
@@ -34811,6 +34887,9 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 		new str_text[144];
 		format(str_text, sizeof(str_text), "[TERRITORIO] %s", message);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+
+		format(str_text, sizeof(str_text), "%s", message);
+		SendDiscordWebhook(str_text, 4);
 
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_LAST_ATTACK] = gettime();
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_FIGHTING] = false;
