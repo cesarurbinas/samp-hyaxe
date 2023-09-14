@@ -3827,7 +3827,7 @@ SetPlayerPoliceSearchLevel(playerid, level)
 		PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] = level;
 		SetPlayerWantedLevel(playerid, 0);
 		SavePlayerMisc(playerid);
-		
+
 		format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Ninguna");
 		return 1;
 	}
@@ -25271,6 +25271,21 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					}
 				}
 			}
+		}
+
+		if (GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_SMOKE_CIGGY)
+		{
+			PLAYER_TEMP[playerid][py_JOINT_USES] ++;
+			GivePlayerHealthEx(playerid, 0.5);
+
+			if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
+			{
+				PLAYER_TEMP[playerid][py_JOINT_USES] = 0;
+				PLAYER_MISC[playerid][MISC_JOINT] -= 1;
+				ResetItemBody(playerid);
+				ShowPlayerMessage(playerid, "~r~Porro acabado", 3);
+			}
+
 		}
 	}
 	else if (RELEASED(KEY_FIRE))

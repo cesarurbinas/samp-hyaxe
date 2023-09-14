@@ -152,18 +152,13 @@ UseItemSlot(playerid)
 		case 3:
 		{
 			if(PLAYER_MISC[playerid][MISC_CANNABIS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes marihuana.", 3);
-			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_WEED]) < 30) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 30 segundos para volver a consumir marihuana.", 3);
-			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
+			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
 
 			PLAYER_MISC[playerid][MISC_CANNABIS] --;
+			PLAYER_MISC[playerid][MISC_JOINT] ++;
 			SavePlayerMisc(playerid);
-			GivePlayerHealthEx(playerid, 10.0);
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Consume marihuana.", 0xffcb90FF, 20.0, 2000);
-			ShowPlayerMessage(playerid, "Consumiste marihuana.", 2);
-			GivePlayerDrunkLevel(playerid, 9000);
-			ApplyAnimation(playerid,"ped","Smoke_in_car",4.1,1,1,1,1,1);
-			SetTimerEx("StopDrugEffect", 15000, false, "i", playerid);
-			PLAYER_TEMP[playerid][py_LIMIT_WEED] = gettime();
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Crea un porro.", 0xffcb90FF, 20.0, 2000);
+			ShowPlayerMessage(playerid, "Creaste un porro.", 3);
 			ResetItemBody(playerid);
 			return 1;
 		}

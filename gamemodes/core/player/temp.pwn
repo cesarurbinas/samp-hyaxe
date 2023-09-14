@@ -222,7 +222,6 @@ enum Temp_Enum
 	py_LIMIT_REMEDY,
 	py_LIMIT_BAND,
 	py_LIMIT_CRACK,
-	py_LIMIT_WEED,
 	py_LIMIT_MEDIC,
 	py_LIMIT_SHIT,
 	py_SILENT_AIM_COUNT,
@@ -265,7 +264,8 @@ enum Temp_Enum
 	bool:py_WANT_MEDIC,
 	py_LIMIT_AMBULANCE,
 	bool:py_VOICE_CHAT,
-	py_FIX_VALUE
+	py_FIX_VALUE,
+	py_JOINT_USES
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
