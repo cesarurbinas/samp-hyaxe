@@ -6515,7 +6515,7 @@ public OnPlayerSpawn(playerid)
 
 				SetPlayerPosEx(playerid, Hp_Spawn_Interior_Pos[random_pos][0], Hp_Spawn_Interior_Pos[random_pos][1], Hp_Spawn_Interior_Pos[random_pos][2], Hp_Spawn_Interior_Pos[random_pos][3], 3, 2);
 				TogglePlayerControllableEx(playerid, false);
-				ApplyAnimation(playerid,"INT_HOUSE","BED_In_R", 4.1, 0, 0, 0, 1, 0);
+				ApplyAnimation(playerid, "INT_HOUSE", "BED_In_R", 4.1, 0, 0, 0, 1, 0);
 				ShowPlayerNotification(playerid, "Fuiste ingresado en el centro médico más cercano.", 3);
 			}
 			case ROLEPLAY_STATE_CRACK:
@@ -10080,6 +10080,74 @@ CMD:tirar(playerid, params[])
 		else ShowPlayerMessage(playerid, "~r~No puedes hacerlo con ese objeto", 4);
 	}
 	else ShowPlayerMessage(playerid, "~r~No tienes un item en la mano", 4);
+	return 1;
+}
+
+CMD:guardar(playerid, params[])
+{
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
+
+	new ammount;
+	if (sscanf(params, "d", ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tirar <cantidad>");
+	if (ammount <= 0 || ammount > 1000) return ShowPlayerMessage(playerid, "~r~La cantidad no es válida.", 3);
+
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
+
+	new vehicleid = GetPlayerCameraTargetVehicle(playerid);
+	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~Tienes que estar cerca de un vehículo", 4);
+	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Tienes que estar cerca de un vehículo", 4);
+	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID] || IsPlayerInKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], ACCOUNT_INFO[playerid][ac_ID]))
+	{
+		PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] = vehicleid;
+		
+		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+		{
+			new slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
+
+			if (ammount > PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad", 4);
+			if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50) return 0;
+
+			
+			if (!PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+			{
+				new count = GetVehicleItemsCount(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID]);
+				if (count >= 11) return ShowPlayerMessage(playerid, "~r~El maletero se encuentra lleno.", 4);
+
+				if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50) return 0;
+
+				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Item guardado", 2000, 5);
+				ResetItemBody(playerid);
+
+				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot, ammount);
+
+				new already_exists = ItemAlreadyInVehicle(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
+
+				if (already_exists)
+				{
+					new DB_Query[164];
+					format(DB_Query, sizeof DB_Query,
+						"UPDATE `VEHICLE_STORAGE` SET `EXTRA` = EXTRA + '%d' WHERE `ID` = '%d';",
+						ammount,
+						already_exists
+					);
+					db_free_result(db_query(Database, DB_Query));
+				}
+				else
+				{
+					AddItemToVehicle(
+						PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID],
+						PLAYER_VISUAL_INV[playerid][slot_TYPE][slot],
+						ammount
+					);		
+				}
+
+				RefreshItemList(playerid);
+				SetPlayerChatBubble(playerid, "\n\n\n\n* Mete algo al maletero.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			}
+			else ShowPlayerMessage(playerid, "~r~No puedes hacerlo con ese objeto", 4);
+		}
+		else ShowPlayerMessage(playerid, "~r~No tienes un item en la mano", 4);
+		}
 	return 1;
 }
 
