@@ -188,7 +188,7 @@ public OnPlayerConnect(playerid)
 		lstream[playerid] = SvCreateDLStreamAtPlayer(40.0, SV_INFINITY, playerid, 0x81df79ff, "E");
 		if (lstream[playerid])
 		{
-			SendClientMessage(playerid, 0xec4134FF, "[DEBUG]{FFFFFF} Streaming iniciado");
+			SendClientMessage(playerid, 0xec4134FF, "[Client]{FFFFFF} Streaming iniciado");
 			SvAddKey(playerid, 0x5A);
 		}
 	#endif
@@ -1070,7 +1070,7 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 	;
 
 	size_gasoline = 516.0 + (GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] * 0.9);
-	if (size_gasoline < 630.0)
+	if (size_gasoline < 630.0 && GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] <= 100.0)
 	{
 		PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], size_gasoline, 0.000000);
 	}
@@ -1556,9 +1556,9 @@ public OnPlayerSpawn(playerid)
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
 						PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
 
-		    			ResetPlayerWeapons(playerid);
+		    			ResetPlayerWeaponsEx(playerid); // No ex
 		    			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-		    			DeleteIlegalInv(playerid);
+		    			DeleteIlegalItems(playerid);
 		    			SetPlayerColorEx(playerid, PLAYER_COLOR);
 
 						SetPlayerHud(playerid);
@@ -1660,8 +1660,7 @@ public OnPlayerSpawn(playerid)
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 						PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-						if (ACCOUNT_INFO[playerid][ac_SU] >= 2) DeleteIlegalInv(playerid);
-						else DeleteIlegalInv(playerid, true);
+						DeleteIlegalItems(playerid);
 
 						new random_pos = minrand(0, 12); 
 						PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
@@ -1823,8 +1822,7 @@ public OnPlayerSpawn(playerid)
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 						PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-						if (ACCOUNT_INFO[playerid][ac_SU] >= 2) DeleteIlegalInv(playerid);
-						else DeleteIlegalInv(playerid, true);
+						DeleteIlegalItems(playerid);
 
 						ClearPlayerChatBox(playerid);
 						if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
@@ -6022,7 +6020,7 @@ public ContinuePlayerIntro(playerid, step)
 
 			SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 			PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
-			ResetPlayerWeapons(playerid);
+			ResetPlayerWeaponsEx(playerid); // No ex
 			ResetPlayerMoney(playerid);
 			GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
 			SetPlayerFightingStyle(playerid, CHARACTER_INFO[playerid][ch_FIGHT_STYLE]);

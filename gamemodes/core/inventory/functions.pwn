@@ -302,6 +302,8 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	{
 		for(new i; i < db_num_rows(Result); i++ )
 		{
+			if (i >= 13) continue;
+
 			new 
 				str_text[64],
 				td_init = (i + 10),
@@ -586,7 +588,7 @@ RefreshItemList(playerid)
 
 	switch(PLAYER_TEMP[playerid][py_INVENTORY_TYPE])
 	{
-		case 0:
+		case PLAYER_INVENTORY:
 		{
 			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 212.00000, 18.0000);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Inventario");
@@ -630,7 +632,7 @@ RefreshItemList(playerid)
 				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][37]);
 			}
 		}
-		case 1:
+		case PROPERTY_INVENTORY_TAKE:
 		{
 			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
@@ -670,7 +672,7 @@ RefreshItemList(playerid)
 
 			ShowPlayerMessage(playerid, "Seleccione un item para sacar del almacenamiento.", 5);
 		}
-		case 2:
+		case PROPERTY_INVENTORY_PUT:
 		{
 			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
@@ -709,7 +711,7 @@ RefreshItemList(playerid)
 
 			ShowPlayerMessage(playerid, "Seleccione un item para meter al almacenamiento.", 5);
 		}
-		case 3:
+		case VEHICLE_INVENTORY_TAKE:
 		{
 			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_NAME]);
@@ -754,7 +756,7 @@ RefreshItemList(playerid)
 
 			SetPlayerChatBubble(playerid, "\n\n\n\n* Abre el maletero de un veh√≠culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		}
-		case 4:
+		case VEHICLE_INVENTORY_PUT:
 		{
 			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_NAME]);
@@ -1308,49 +1310,44 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			{
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-				new grab_status;
-
 				if (ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_SINGLE_SLOT])
 				{
-					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+					AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
 				}
 				else
 				{
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] -= 1;
-					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
+					AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
 				}
 
-				if (grab_status)
+				new item_str[64];
+				format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_NAME]);
+				GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
+
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+				ResetItemBody(playerid);
+
+				new DB_Query[132];
+
+				if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] <= 0)
 				{
-					new item_str[64];
-					format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_NAME]);
-					GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
-
-					PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-					ResetItemBody(playerid);
-
-					new DB_Query[132];
-
-					if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] <= 0)
-					{
-						format(DB_Query, sizeof DB_Query,
-							"DELETE FROM `PROPERTY_STORAGE` WHERE `ID` = '%d';", 
-							PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
-						);
-					}
-					else
-					{
-						format(DB_Query, sizeof DB_Query,
-							"UPDATE `PROPERTY_STORAGE` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
-							PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot],
-							PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
-						);
-					}
-
-					db_free_result(db_query(Database, DB_Query));
-					RefreshItemList(playerid);
+					format(DB_Query, sizeof DB_Query,
+						"DELETE FROM `PROPERTY_STORAGE` WHERE `ID` = '%d';", 
+						PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
+					);
 				}
+				else
+				{
+					format(DB_Query, sizeof DB_Query,
+						"UPDATE `PROPERTY_STORAGE` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
+						PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot],
+						PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
+					);
+				}
+
+				db_free_result(db_query(Database, DB_Query));
+				RefreshItemList(playerid);
 			}
 			else
 			{
@@ -1420,50 +1417,45 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			{
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-				new grab_status;
-
 				if (ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_SINGLE_SLOT])
 				{
-					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+					AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
 				}
 				else
 				{
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] -= 1;
-					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
+					AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
 				}
 
-				if (grab_status)
+				new item_str[64];
+				format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_NAME]);
+				GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
+
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+				ResetItemBody(playerid);
+
+				new DB_Query[132];
+
+				if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] <= 0)
 				{
-					new item_str[64];
-					format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_NAME]);
-					GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
-
-					PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-					ResetItemBody(playerid);
-
-					new DB_Query[132];
-
-					if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] <= 0)
-					{
-						format(DB_Query, sizeof DB_Query,
-							"DELETE FROM `VEHICLE_STORAGE` WHERE `ID` = '%d';", 
-							PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
-						);
-					}
-					else
-					{
-						format(DB_Query, sizeof DB_Query,
-							"UPDATE `VEHICLE_STORAGE` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
-							PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot],
-							PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
-						);
-					}
-
-					db_free_result(db_query(Database, DB_Query));
-
-					RefreshItemList(playerid);
+					format(DB_Query, sizeof DB_Query,
+						"DELETE FROM `VEHICLE_STORAGE` WHERE `ID` = '%d';", 
+						PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
+					);
 				}
+				else
+				{
+					format(DB_Query, sizeof DB_Query,
+						"UPDATE `VEHICLE_STORAGE` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
+						PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot],
+						PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
+					);
+				}
+
+				db_free_result(db_query(Database, DB_Query));
+
+				RefreshItemList(playerid);
 
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Saca algo del maletero.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
@@ -1601,6 +1593,9 @@ UseItemSlot(playerid)
 				
 				KillTimer(PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16]);
 				PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16] = SetTimerEx("StandUpBotikin", 5000, false, "ii", playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
+
+				SubtractItem(playerid, 0);
+				PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = 9999;
 
 				ApplyAnimation(playerid, "MEDIC", "CPR", 4.1, false, 0, 0, 0, 0, 1);
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Usa un botiquÌ≠n.", 0xffcb90FF, 20.0, 2000);

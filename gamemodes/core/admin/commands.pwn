@@ -1706,6 +1706,7 @@ CMD:dropitem(playerid, params[])
 {
 	new type, ammount;
 	if (sscanf(params, "dd", type, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dropitem <tipo> <cantidad>");
+	if (type > sizeof(ITEM_INFO)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dropitem <tipo> <cantidad>");
 
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(playerid, x, y, z);

@@ -110,7 +110,7 @@ Listado de cosas para hacer
 
 ❌ Arreglar el sync de los player attach
 
-❌ Ajustar el requisar y revisar a los nuevos items
+✅ Ajustar el requisar y revisar a los nuevos items
 
 ✅ Poder seleccionar de que forma se ordena el inventario
 
@@ -186,17 +186,30 @@ Diferencia: 16 dias
 * Se corrigió el error de arma al tener 0 munición
 * Se ha arreglado el puesto de minero
 * Se corrigió el precio de los potenciadores
-
-* Se ha arreglado el equipamiento de The Family Sindacco
-* Se ha arreglado el bug que al golpear con la culata de un arma sacaba la vida como si fuera un disparo
-* Se ha arreglado el bug que al agarrar un tazer en LSPD te daba un botiquin
-* Se ha mejorado el spawn de items, ahora ya no se podran arriba tuyo
-* Se arreglo la adquisicion de balas en los equipamientos de mafia y policia
+* Arreglado el equipamiento de The Family Sindacco
+* Se corrigió el error que al golpear con la culata de un arma, sacaba vida como si fuera un disparo
+* Se corrigió el error que al agarrar un tazer en LSPD te daba un botiquín de primeros auxilios
+* Se ha mejorado la generación de items, ahora ya no pueden estar encima de ti.
+* Se corrigió la adquisición de balas en el equipamiento mafioso y policial.
 * Nuevo comando para Mod V: /resetinv
-	- Sirve para borrar el inventario completo de un usuario
-* Nuevo comando para Operador: /getresponse
-	- Sirve para obtener la pregunta de seguridad de un usuario
-	- Tambien esta disponible en discord a partir de rol Administrador
-* Se arreglo el bug de dupliplicar items con la H
-* Se arreglo un fallo en el sistema de danos
-* Se arreglo el bug que no dejaba picar en minero
+	- Se utiliza para eliminar todo el inventario de un usuario.
+* Nuevo comando para el operador: /getresponse
+	- Se utiliza para obtener la pregunta de seguridad de un usuario.
+	- También está disponible en discord desde el rol de administrador
+* Se corrigió el error de duplicar items con la H
+* Se corrigió un error en el sistema de daños.
+* Se corrigió un error que no permitía que el minero picara.
+* Correcciones en el registrador
+* Se corrigió el error de duplicar balas.
+* Se corrigió el error de no gastar botiquines de primeros auxilios.
+* El comando /requisar ahora funciona correctamente
+* Se corrigió un error que hacía que no perdieras tus armas al morir.
+* Se corrigió un error en el comando /dropitem
+* Se corrigió un error en la muestra de items dentro del inventario.
+* Pago de SAPD cambiado
+* Texto de potenciadores arreglado
+* Se corrigió el error de la barra de combustible.
+
+
+
+Decidimos dividir la actualización en tres partes, la primera saldrá entre el domingo o el jueves y como queda poco aprovechamos para lanzar una promoción exclusiva hasta el día de apertura.

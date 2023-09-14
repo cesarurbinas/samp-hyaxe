@@ -500,7 +500,7 @@ CMD:requisar(playerid, params[])
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar depie.", 3);
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
 
-	DeleteIlegalInv(params[0], true);
+	DeleteIlegalItems(params[0]);
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Requisa las pertenecias ilegales de alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	ShowPlayerMessage(playerid, "Has requisado a este jugador", 3);

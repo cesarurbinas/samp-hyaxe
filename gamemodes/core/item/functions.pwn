@@ -7,6 +7,15 @@ IsWeaponType(type)
 	return false;
 }
 
+IsDrugType(type)
+{
+	switch(type)
+	{
+		case 3, 4, 6, 7, 8, 38: return true;
+	}
+	return false;
+}
+
 TypeToWeapon(type)
 {
 	switch(type)
@@ -84,7 +93,7 @@ GetFreeDropItemSlot()
 CreateDropItem(type, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, worldid, interiorid, const owner[] = "Null", ammount = 1, playerid = INVALID_PLAYER_ID)
 {
 	new index = GetFreeDropItemSlot();
-	if (index == -1) return print("[DEBUG] Error: Todos los slots de item sueltos estan ocupados.");
+	if (index == -1) return Logger_Error("Todos los slots de item sueltos estan ocupados.");
 
 	DROP_ITEMS[index][itm_ID] = CreateDynamicObject(ITEM_INFO[type][item_MODELID], x, y, z, rx, ry, rz, worldid, interiorid, .streamdistance = 80.0, .drawdistance = 80.0);
 	DROP_ITEMS[index][itm_VALID] = true;
@@ -107,7 +116,7 @@ CreateDropItem(type, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, wo
 			{
 				x = px;
 				y = py;
-				z = pz;
+				z = pz - 0.9;
 			}
 		}
 		
@@ -306,6 +315,42 @@ PlayerAlreadyHasItem(playerid, type)
 
 	if (db_num_rows(Result)) return true;
 	return false;
+}
+
+DeleteIlegalItems(playerid)
+{
+	if (PLAYER_WORKS[playerid][WORK_POLICE]) return 0;
+	
+	new
+		DBResult:Result,
+		DB_Query[140],
+		id,
+		type
+	;
+
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		for(new i; i < db_num_rows(Result); i++ )
+		{
+			id = db_get_field_assoc_int(Result, "ID");
+			type = db_get_field_assoc_int(Result, "TYPE");
+			
+			if (IsWeaponType(type) || IsDrugType(type))
+			{
+				format(DB_Query, sizeof DB_Query,
+					"DELETE FROM `PLAYER_INVENTORY` WHERE `ID` = '%d';",
+					id
+				);
+				db_free_result(db_query(Database, DB_Query));
+			}
+		}
+		db_free_result(Result);
+	}
+
+	return 1;
 }
 
 AddPlayerItem(playerid, type, extra = 1)

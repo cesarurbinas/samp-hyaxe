@@ -858,7 +858,7 @@ LoadPlayerVehicles(playerid)
 	{
 		if (total_vehicles >= MAX_SU_VEHICLES)
 		{
-			printf("[debug]  MAX_SU_VEHICLES superado al cargar de base de datos.");
+			Logger_Error("MAX_SU_VEHICLES superado al cargar de base de datos.");
 			break;
 		}
 

@@ -28,7 +28,9 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 			{
 				new word[128], length;
 				if (!Match_GetGroup(match, 0, word, length)) break;
-				printf("word: %s, length: %d", word, length);
+				
+				Logger_Debug("word: %s, length: %d", word, length);
+				
 				pos_y -= (length * 0.4);
 				startpos += pos + length;
 				Match_Free(match);

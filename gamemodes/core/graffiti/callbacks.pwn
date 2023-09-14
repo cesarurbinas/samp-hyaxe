@@ -24,7 +24,7 @@ public FirstGraffitiAnnounce()
 	gettime(hour, minute, second);
 	if (hour >= 2 && hour <= 6) 
 	{
-		print("Skipping graffiti event activation until 6 AM.");
+		//print("Skipping graffiti event activation until 6 AM.");
 		return 0;
 	}
 

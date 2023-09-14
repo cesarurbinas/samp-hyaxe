@@ -32,7 +32,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"Experimental v1.0" // Old: Legacy v0.9 Build 10
+#define SERVER_VERSION 			"Experimental v2.0" // Old: Legacy v0.9 Build 10
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -360,11 +360,11 @@
 
 main()
 {
-	Logger_Info("[info: hostname] "SERVER_HOSTNAME"");
-	Logger_Info("[info: language] "SERVER_LANGUAGE"");
-	Logger_Info("[info: website] "SERVER_WEBSITE"");
-	Logger_Info("[info: discord] "SERVER_DISCORD"");
-	Logger_Info("\n[build] Hyaxe SA-MP "SERVER_VERSION"\n");
+	Logger_Info("hostname > "SERVER_HOSTNAME"");
+	Logger_Info("language > "SERVER_LANGUAGE"");
+	Logger_Info("website > "SERVER_WEBSITE"");
+	Logger_Info("discord > "SERVER_DISCORD"");
+	Logger_Info("build: Hyaxe SA-MP "SERVER_VERSION"\n");
 }
 
 <<<<<<< HEAD

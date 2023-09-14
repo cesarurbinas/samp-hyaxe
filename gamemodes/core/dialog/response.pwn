@@ -2656,7 +2656,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 0:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 450) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						GivePlayerWeaponEx(playerid, weapon_id, 50, false, true);
+						GivePlayerWeaponEx(playerid, weapon_id, 50, false, true, .prevent = true);
 
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 50 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
@@ -2676,7 +2676,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 1:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 650) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						GivePlayerWeaponEx(playerid, weapon_id, 100, false, true);
+						GivePlayerWeaponEx(playerid, weapon_id, 100, false, true, .prevent = true);
 
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 100 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
@@ -2696,7 +2696,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 2:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 850) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						GivePlayerWeaponEx(playerid, weapon_id, 250, false, true);
+						GivePlayerWeaponEx(playerid, weapon_id, 250, false, true, .prevent = true);
 
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 200 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
@@ -2716,7 +2716,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 3:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 1350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						GivePlayerWeaponEx(playerid, weapon_id, 300, false, true);
+						GivePlayerWeaponEx(playerid, weapon_id, 300, false, true, .prevent = true);
 
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 300 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
@@ -4074,6 +4074,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						KillTimer(PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16]);
 						PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16] = SetTimerEx("StandUpBotikin", 7000, false, "ii", playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
+
+						SubtractItem(playerid, 0);
+						PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = 9999;
 
 						ApplyAnimation(playerid, "MEDIC", "CPR", 4.1, false, 0, 0, 0, 0, 1);
 						SetPlayerChatBubble(playerid, "\n\n\n\n* Usa un botiquín.", 0xffcb90FF, 20.0, 2000);
@@ -6667,7 +6670,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
 						PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER] += listitem * 5;
-						ShowPlayerMessage(playerid, sprintf("Ahora puedes picar hasta ~y~%d rocas~w~ de forma veloz.", PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER], 4));
+						ShowPlayerMessage(playerid, sprintf("Ahora puedes picar hasta ~y~%d rocas~w~ de forma veloz.", PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER]), 4);
 
 		            	GivePlayerCash(playerid, -price, false);
 					}

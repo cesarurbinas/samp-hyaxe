@@ -26,22 +26,6 @@ GetFreePoliceObjectSlot()
 	return -1;
 }
 
-DeleteIlegalInv(playerid, bool:drugs = false)
-{
-	if (!PLAYER_WORKS[playerid][WORK_POLICE])
-	{
-		// RESETIAR ARMAS AKI AKI
-	}
-
-	if (drugs)
-	{
-		// RESETIAR DROGAS AKI
-		SavePlayerMisc(playerid);
-	}
-
-	return 1;
-}
-
 SendPoliceNotification(const message[], time)
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)

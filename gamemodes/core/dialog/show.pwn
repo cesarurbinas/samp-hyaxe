@@ -1138,7 +1138,7 @@ ShowDialog(playerid, dialogid)
 				{
 					if (i >= TOTAL_TUNING_PARTS)
 					{
-						printf("[debug]  Límite superado en array 'PLAYER_TUNING_MENU, dialog Parts' al intentar cargar de la base de datos.");
+						Logger_Debug("Límite superado en array 'PLAYER_TUNING_MENU, dialog Parts' al intentar cargar de la base de datos.");
 						break;
 					}
 
@@ -1172,7 +1172,7 @@ ShowDialog(playerid, dialogid)
 				{
 					if (i >= MAX_TUNING_PARTS_COMPONENTS)
 					{
-						printf("[debug]  Límite superado en array 'PLAYER_TUNING_MENU, dialog Partsnames' al intentar cargar de la base de datos.");
+						Logger_Debug("Límite superado en array 'PLAYER_TUNING_MENU, dialog Partsnames' al intentar cargar de la base de datos.");
 						break;
 					}
 

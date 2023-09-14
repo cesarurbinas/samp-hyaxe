@@ -479,8 +479,13 @@ enum Temp_Enum
 >>>>>>> e31f7fb (alimentos usables)
 =======
 	py_EATING,
+<<<<<<< HEAD
 	py_ACTUAL_SLOT
 >>>>>>> b558bff (inventory scroll)
+=======
+	py_ACTUAL_SLOT,
+	py_AMMO
+>>>>>>> 81198a54 (me olvide de hacer commit otra vez)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

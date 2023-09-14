@@ -1512,7 +1512,7 @@ ReLockPlayerVehicles(playerid, bool:remove = false)
 	{
 		if (total_vehicles >= MAX_SU_VEHICLES)
 		{
-			printf("[debug]  MAX_SU_VEHICLES superado al cargar de base de datos.");
+			Logger_Error("MAX_SU_VEHICLES superado al cargar de base de datos.");
 			break;
 		}
 
@@ -1914,9 +1914,7 @@ public StandUpBotikin(medic, playerid)
 {
 	Logger_Debug("StandUpBotikin"); // debug juju
 
-	SubtractItem(medic, 0);
 	ResetItemBody(medic);
-	SavePlayerMisc(medic);
 	ShowPlayerMessage(medic, "~g~Has curado a esta persona.", 3);
 
 	CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
@@ -4364,10 +4362,25 @@ PlayerPayday(playerid)
 
 	if (PLAYER_WORKS[playerid][WORK_POLICE])
 	{
-		new work_payment = (5500 * PLAYER_SKILLS[playerid][WORK_POLICE]);
-		money += work_payment;
+		switch(PLAYER_SKILLS[playerid][WORK_POLICE])
+		{
+			case 1: money += 2000;
+			case 2..4: money += 2500;
+			case 5: money += 4000;
+			case 6: money += 5000;
+			case 7: money += 10000;
+			case 8: money += 11000;
+			case 9: money += 13000;
+			case 10: money += 15000;
+			case 11: money += 17000;
+			case 12: money += 20000;
+			case 13: money += 23000;
+			case 14: money += 25000;
+			case 15: money += 50000;
+			default: money += 2000;
+		}
 
-		format(str_temp, sizeof(str_temp), "~n~SAPD: ~g~%s$~w~", number_format_thousand(work_payment));
+		format(str_temp, sizeof(str_temp), "~n~SAPD: ~g~%s$~w~", number_format_thousand(money));
 		strcat(str_payday, str_temp);
 	}
 
@@ -4375,7 +4388,7 @@ PlayerPayday(playerid)
 	{
 		new mafia = GetPlayerMafia(playerid);
 
-		new work_payment = (4000 * PLAYER_SKILLS[playerid][mafia]);
+		new work_payment = (2000 * PLAYER_SKILLS[playerid][mafia]);
 
 		money += work_payment;
 
@@ -4385,7 +4398,7 @@ PlayerPayday(playerid)
 
 	if (PLAYER_CREW[playerid][player_crew_VALID] && CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT] > 0)
 	{
-		new graffiti_payment = 600 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT];
+		new graffiti_payment = 800 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT];
 
 		money += graffiti_payment;
 
@@ -4395,7 +4408,7 @@ PlayerPayday(playerid)
 
 	if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT] > 0)
 	{
-		new market_payment = 5000 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT];
+		new market_payment = 7000 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT];
 
 		money += market_payment;
 
@@ -4497,8 +4510,10 @@ PlayerPayday(playerid)
 	return td_icon;
 }*/
 
-GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false, bool:save = false)
+GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false, bool:save = false, prevent = false)
 {
+	if (!prevent) ResetPlayerWeaponsEx(playerid);
+
 	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id)
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
 	else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;
@@ -5888,7 +5903,7 @@ LoadPlayerPhoneData(playerid)
 	{
 		if (index >= MAX_PHONE_CONTACTS)
 		{
-			printf("[debug]  Límite superado en array 'PB' al intentar cargar de la base de datos.");
+			Logger_Error("Límite superado en array 'PB' al intentar cargar de la base de datos.");
 			break;
 		}
 
@@ -6277,7 +6292,7 @@ LoadPlayerGPSData(playerid)
 	{
 		if (index >= MAX_PLAYER_GPS_SAVES)
 		{
-			printf("[debug]  Límite superado en array 'P_GPS' al intentar cargar de la base de datos.");
+			Logger_Error("Límite superado en array 'P_GPS' al intentar cargar de la base de datos.");
 			break;
 		}
 
@@ -6311,7 +6326,7 @@ LoadPlayerToysData(playerid)
 	{
 		if (index >= MAX_PLAYER_ATTACHED_OBJECTS)
 		{
-			printf("[debug]  Límite superado en array 'PTOYS' al intentar cargar de la base de datos.");
+			Logger_Error("Límite superado en array 'PTOYS' al intentar cargar de la base de datos.");
 			break;
 		}
 
@@ -6468,7 +6483,7 @@ ShowTuningMenu(playerid)
 		{
 			if (i >= TOTAL_TUNING_PARTS)
 			{
-				printf("[debug]  Límite superado en array 'PLAYER_TUNING_MENU, dialog Parts' al intentar cargar de la base de datos.");
+				Logger_Error("Límite superado en array 'PLAYER_TUNING_MENU, dialog Parts' al intentar cargar de la base de datos.");
 				break;
 			}
 
@@ -7287,7 +7302,7 @@ LoadEnterExits()
 		total_enterexits ++;
 	}
 
-	printf("[debug] Lugares cargados: %d", total_enterexits);
+	Logger_Debug("Lugares cargados: %d", total_enterexits);
 	return 1;
 }
 
@@ -7301,7 +7316,7 @@ LoadProperties()//cargado propiedes
 	{
 		if (total_houses >= MAX_PROPERTIES)
 		{
-			printf("[debug]  Límite superado en array 'PROPERTY_INFO' al intentar cargar de la base de datos.");
+			Logger_Error("Límite superado en array 'PROPERTY_INFO' al intentar cargar de la base de datos.");
 			break;
 		}
 
@@ -7422,8 +7437,8 @@ LoadProperties()//cargado propiedes
 	}
 	db_free_result(Result);
 
-    printf("[debug] Propiedades libres: %d.", total_houses_free);
-	printf("[debug] Propiedades totales: %d.", total_houses);
+    Logger_Debug("Propiedades libres: %d.", total_houses_free);
+	Logger_Debug("Propiedades totales: %d.", total_houses);
 	return 1;
 }
 
@@ -7437,7 +7452,7 @@ LoadCrews()
 	{
 		if (total_crews >= MAX_CREWS)
 		{
-			printf("[debug]  Límite superado en array 'CREW_INFO' al intentar cargar de la base de datos.");
+			Logger_Error("Límite superado en array 'CREW_INFO' al intentar cargar de la base de datos.");
 			break;
 		}
 
@@ -7515,7 +7530,7 @@ LoadCrews()
 		db_next_row(Result);
 	}
 
-	printf("[debug] Bandas cargadas: %d", total_crews);
+	Logger_Debug("Bandas cargadas: %d", total_crews);
 	db_free_result(Result);
 	return 1;
 }
@@ -7531,7 +7546,7 @@ LoadGangZones()
 	{
 		if (total_territories >= MAX_TERRITORIES)
 		{
-			printf("[debug]  Límite superado en array 'TERRITORIES' al intentar cargar de la base de datos.");
+			Logger_Error("Límite superado en array 'TERRITORIES' al intentar cargar de la base de datos.");
 			break;
 		}
 
@@ -7621,7 +7636,7 @@ LoadGangZones()
 		db_next_row(Result);
 	}
 
-	printf("[debug] Territorios totales: %d", total_territories);
+	Logger_Debug("Territorios totales: %d", total_territories);
 	db_free_result(Result);
 	return 1;
 }
