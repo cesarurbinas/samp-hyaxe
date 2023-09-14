@@ -139,10 +139,10 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 		{
 			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{
-				new count = GetPropertyItemsCount(PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED]);
+				new count = GetPropertyItemsCount(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]);
 				if (count >= 11) return ShowPlayerMessage(playerid, "~r~El amacenamiento de la propiedad se encuentra lleno.", 4);
 
-				GameTextForPlayer(playerid, "Item guardado", 2000, 5);
+				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Item guardado", 2000, 5);
 				ResetItemBody(playerid);
 
 				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot);
@@ -150,21 +150,20 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
 				{
 					AddItemToProperty(
-						PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED],
+						PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],
 						PLAYER_VISUAL_INV[playerid][slot_TYPE][slot],
 						PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]
 					);
 				}
 				else
 				{
-					new already_exists = ItemAlreadyInProperty(PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
+					new already_exists = ItemAlreadyInProperty(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
 					if (already_exists)
 					{
 						new DB_Query[164];
 						format(DB_Query, sizeof DB_Query,
-							"UPDATE `PROPERTY_STORAGE` SET `EXTRA` = EXTRA + '%d' WHERE `ID` = '%d';",
-							1,
+							"UPDATE `PROPERTY_STORAGE` SET `EXTRA` = EXTRA + '1' WHERE `ID` = '%d';",
 							already_exists
 						);
 						db_free_result(db_query(Database, DB_Query));
@@ -172,7 +171,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 					else
 					{
 						AddItemToProperty(
-							PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED],
+							PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],
 							PLAYER_VISUAL_INV[playerid][slot_TYPE][slot],
 							1
 						);		

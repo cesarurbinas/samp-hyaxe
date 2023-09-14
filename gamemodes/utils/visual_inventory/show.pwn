@@ -91,7 +91,9 @@ ShowInventory(playerid, type = 0)
 	{
 		case 0:
 		{
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 212.00000, 18.0000);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Inventario");
+
 			inv_AccommodateItems(playerid);
 
 			new 
@@ -133,7 +135,9 @@ ShowInventory(playerid, type = 0)
 		}
 		case 1:
 		{
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Propiedad");
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
+			
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
@@ -170,7 +174,9 @@ ShowInventory(playerid, type = 0)
 		}
 		case 2:
 		{
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Propiedad");
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
+
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);

@@ -84,6 +84,8 @@ AddItemToProperty(property_id, type, extra)
 		extra
 	);
 
+	printf("%s", DB_Query);
+
 	Result = db_query(Database, DB_Query);
 	if (db_num_rows(Result)) id = db_get_field_int(Result, 0);
 	db_free_result(Result);
