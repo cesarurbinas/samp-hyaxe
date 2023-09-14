@@ -2703,7 +2703,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			new diff = tick - s_LastShot[playerid][e_Tick];
 
 			if (s_LastShot[playerid][e_Tick] && diff < 1200 && !s_CbugFroze[playerid]) {	
-				PlayerPlaySound(playerid, 1055, 0.0, 0.0, 0.0);
+				//PlayerPlaySound(playerid, 1055, 0.0, 0.0, 0.0);
 
 				if (s_LastShot[playerid][e_Valid] && floatabs(s_LastShot[playerid][e_HX]) > 1.0 && floatabs(s_LastShot[playerid][e_HY]) > 1.0) {
 					SetPlayerFacingAngle(playerid, AngleBetweenPoints(
@@ -2792,7 +2792,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 					if (IsPlayerInRangeOfPoint(playerid, 0.5, sc_VendingMachines[i][e_FrontX], sc_VendingMachines[i][e_FrontY], z)) {
 						if (failed) {
-							PlayerPlaySound(playerid, 1055, 0.0, 0.0, 0.0);
+							//PlayerPlaySound(playerid, 1055, 0.0, 0.0, 0.0);
 							break;
 						}
 
@@ -2806,10 +2806,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 							SetPlayerPos(playerid, sc_VendingMachines[i][e_FrontX], sc_VendingMachines[i][e_FrontY], z);
 							ApplyAnimation(playerid, animlib, animname, 4.1, 0, 0, 1, 0, 0, 1);
 
-							PlayerPlaySound(playerid, 42600, 0.0, 0.0, 0.0);
-						} else {
+							//PlayerPlaySound(playerid, 42600, 0.0, 0.0, 0.0);
+						} /*else {
 							PlayerPlaySound(playerid, 1055, 0.0, 0.0, 0.0);
-						}
+						}*/
 
 						break;
 					}
@@ -5488,30 +5488,30 @@ public OnPlayerDamageDone(playerid, Float:amount, issuerid, weapon, bodypart)
 		DebugMessageAll("OnPlayerDamageDone(%d did %f to %d with %d on bodypart %d)", issuerid, amount, playerid, weapon, bodypart);
 
 		if (s_DamageTakenSound) {
-			PlayerPlaySound(playerid, s_DamageTakenSound, 0.0, 0.0, 0.0);
+			//PlayerPlaySound(playerid, s_DamageTakenSound, 0.0, 0.0, 0.0);
 
 			#if defined _inc_y_iterate
 			foreach (new i : Player) {
 			#else 
 			for (new i = GetPlayerPoolSize(); i != -1; i--) {
 			#endif
-				if (s_Spectating[i] == playerid && i != playerid) {
+				/*if (s_Spectating[i] == playerid && i != playerid) {
 					PlayerPlaySound(i, s_DamageTakenSound, 0.0, 0.0, 0.0);
-				}
+				}*/
 			}
 		}
 
 		if (s_DamageGivenSound && issuerid != INVALID_PLAYER_ID) {
-			PlayerPlaySound(issuerid, s_DamageGivenSound, 0.0, 0.0, 0.0);
+			//PlayerPlaySound(issuerid, s_DamageGivenSound, 0.0, 0.0, 0.0);
 
 			#if defined _inc_y_iterate
 			foreach (new i : Player) {
 			#else 
 			for (new i = GetPlayerPoolSize(); i != -1; i--) {
 			#endif
-				if (s_Spectating[i] == issuerid && i != issuerid) {
+				/*if (s_Spectating[i] == issuerid && i != issuerid) {
 					PlayerPlaySound(i, s_DamageGivenSound, 0.0, 0.0, 0.0);
-				}
+				}*/
 			}
 		}
 	}
