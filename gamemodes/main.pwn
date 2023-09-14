@@ -6240,7 +6240,13 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-				DeleteIlegalInv(playerid);
+				if(!PLAYER_WORKS[playerid][WORK_POLICE])
+				{
+					new DB_Query[90];
+					format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+					db_free_result(db_query(Database, DB_Query));
+					ResetPlayerWeaponsEx(playerid); // LMFAOO HAHAHA!
+				}
 
 				new random_pos = minrand(0, 12); 
 				PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
@@ -6329,7 +6335,13 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-				DeleteIlegalInv(playerid);
+				if(!PLAYER_WORKS[playerid][WORK_POLICE])
+				{
+					new DB_Query[90];
+					format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+					db_free_result(db_query(Database, DB_Query));
+					ResetPlayerWeaponsEx(playerid); // LMFAOO HAHAHA!
+				}
 
 				ClearPlayerChatBox(playerid);
 				if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
@@ -34579,7 +34591,7 @@ DeleteIlegalInv(playerid)
 		new DB_Query[90];
 		format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 		db_free_result(db_query(Database, DB_Query));
-		ResetPlayerWeaponsEx(playerid); // LFMFAOO HAHAHA!
+		ResetPlayerWeaponsEx(playerid); // LMFAOO HAHAHA!
 	}
 
 	PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
