@@ -238,6 +238,33 @@ BuyClub(playerid, index)
 	return 1;
 }
 
+ReleaseClub(playerid, index)
+{
+	CLUBS_INFO[index][club_USER_ID] = 0;
+	CLUBS_INFO[index][club_BALANCE] = 0;
+	CLUBS_INFO[index][club_STATE] = 1;
+
+	format(DB_Query, sizeof DB_Query,
+	"\
+		UPDATE `CLUB_INFO` SET \
+			`USER_ID` = '%d', \
+			`BALANCE` = '%d', \
+			`STATE` = '%d' \
+		WHERE `ID` = '%d';\
+	",
+		CLUBS_INFO[index][club_USER_ID],
+		CLUBS_INFO[index][club_BALANCE],
+		CLUBS_INFO[index][club_STATE],
+		CLUBS_INFO[index][club_ID]
+	);
+	db_free_result(db_query(Database, DB_Query));
+
+	new str_text[264];
+	format(label_str, 264, ""COL_WHITE"%d %s (%s)\nEntrada: %s\n"COL_GREEN"En venta", index, CLUBS_INFO[index][club_NAME], (CLUBS_INFO[index][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(index));
+	UpdateDynamic3DTextLabelText(CLUBS_INFO[index][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
+	return 1;
+}
+
 AddClubProduct(club_id, const name[], type, extra, price)
 {
 	new DBResult:Result, DB_Query[340];
