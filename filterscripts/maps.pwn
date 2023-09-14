@@ -8009,13 +8009,13 @@ public OnFilterScriptInit()
     tmpobjid = CreateDynamicObject(2035, 3853.693603, -1287.483276, 7549.840820, 99.299957, 0.299999, 96.299987, object_world, object_int, -1, 300.00, 300.00); 
 
     //mafia natalia
-    tmpobjid = CreateDynamicObject(987, 2778.188964, -1600.381469, 12.004866, 0.299997, -2.400005, -178.900161, object_world, object_int, -1, 300.00, 300.00); 
+    /*tmpobjid = CreateDynamicObject(987, 2778.188964, -1600.381469, 12.004866, 0.299997, -2.400005, -178.900161, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(987, 2790.385253, -1600.228149, 11.991618, 0.999997, -0.100006, -179.100189, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(987, 2811.919433, -1609.377075, 11.639586, 0.299997, -0.100005, 152.899993, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(987, 2812.348632, -1608.271972, 11.291102, -0.100008, -178.199996, -23.900075, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(8674, 2790.275878, -1594.884521, 13.534873, 0.000000, -0.599996, 90.099960, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(987, 2769.188964, -1600.549926, 12.465839, -3.000000, 178.200027, -179.300155, object_world, object_int, -1, 300.00, 300.00); 
-    tmpobjid = CreateDynamicObject(987, 2778.360351, -1600.440429, 12.420105, -3.000000, 177.900009, -179.200134, object_world, object_int, -1, 300.00, 300.00);
+    tmpobjid = CreateDynamicObject(987, 2778.360351, -1600.440429, 12.420105, -3.000000, 177.900009, -179.200134, object_world, object_int, -1, 300.00, 300.00);*/
     
     //globo
     CreateDynamicObject(16337, -372.6110, -1634.1915, 24.2311, 0.0000, 0.0000, -178.2001); //des_cranecontrol
@@ -21530,6 +21530,9 @@ public OnFilterScriptInit()
 
 public OnPlayerConnect(playerid)
 {
+    //mfb
+    RemoveBuildingForPlayer(playerid, 1440, 161.867, -175.554, 1.062, 0.250);
+    
     //osborn
     RemoveBuildingForPlayer(playerid, 705, -2491.585, -670.718, 138.429, 0.250);
     RemoveBuildingForPlayer(playerid, 10496, -2501.789, -701.187, 227.148, 0.250);

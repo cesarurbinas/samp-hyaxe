@@ -48,7 +48,7 @@
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 #define NO_SUSPICION_LOGS
 
