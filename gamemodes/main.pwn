@@ -11155,7 +11155,13 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_NOTARY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Notaría", ""COL_WHITE"Vender una propiedad al banco\n"COL_WHITE"Vender un vehículo al banco\n"COL_WHITE"Vender una propiedad a una persona\n"COL_WHITE"Vender un vehículo a una persona", "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Notaría",
+				"Vender una propiedad al banco\n\
+				Vender un vehículo al banco\n\
+				Vender una propiedad a una persona\n\
+				Vender un vehículo a una persona\n\
+				Vender un club al banco\n\
+				Vender un club a una persona", "Ver", "Cerrar");
 			return 1;
 		}
 		case DIALOG_NOTARY_SELECT_PROPERTY:
