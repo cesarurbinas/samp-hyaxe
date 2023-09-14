@@ -20830,7 +20830,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PLAYER_OBJECT[playerid][po_MP3] = true;
 						ShowPlayerNotification(playerid, "Has comprado un MP3.", 4);
 						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
-						PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 						return 1;
 					}
 					case ELECTRONIC_BOOMBOX:
@@ -20841,7 +20840,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PLAYER_OBJECT[playerid][po_BOOMBOX] = true;
 						ShowPlayerNotification(playerid, "Has comprado un parlante.", 4);
 						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
-						PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+						return 1;
+					}
+					case ELECTRONIC_GEO:
+					{
+						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						PLAYER_MISC[playerid][MISC_GEO] ++;
+						ShowPlayerNotification(playerid, "Has comprado un geolocalizador.", 4);
+						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
+						SavePlayerMisc(playerid);
 						return 1;
 					}
 					default: return 0;
