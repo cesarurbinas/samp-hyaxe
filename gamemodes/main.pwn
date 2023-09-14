@@ -5667,7 +5667,9 @@ Menu:CLUB_MENU(playerid, response, listitem)
 
 				CheckClubOptions(playerid);
 			}
-			case 6:
+			case 6: ShowDialog(playerid, DIALOG_CLUB_RADIO);
+			case 7: ShowDialog(playerid, DIALOG_CLUB_PRICE);
+			case 8:
 			{
 				ShowPlayerMessage(playerid, "~r~No disponible", 4);
 				CheckClubOptions(playerid);	
@@ -5698,6 +5700,8 @@ CheckClubOptions(playerid)
 				AddPlayerMenuItem(playerid, sprintf("Puerta (%s)", (CLUBS_INFO[club][club_STATE] ? "Abierta" : "Cerrada")));
 				AddPlayerMenuItem(playerid, "Echar a todos");
 				AddPlayerMenuItem(playerid, "Retirar fondos");
+				AddPlayerMenuItem(playerid, "Cambiar radio");
+				AddPlayerMenuItem(playerid, "Precio de entrada");
 				AddPlayerMenuItem(playerid, "Personalizar");
 
 				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
@@ -13077,7 +13081,7 @@ ShowDialog(playerid, dialogid)
     			strcat(dialog, line);
     		}
 
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Emisoras", dialog, "Selecc", "Cerrar");
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Emisoras", dialog, "Cambiar", "Cerrar");
     		return 1;
     	}
     	case DIALOG_VEHICLE_OPTIONS:
@@ -13419,6 +13423,24 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_CLUB_WELCOME:
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar bienvenida", ""COL_WHITE"Ingrese un mensaje para la bienvenida (max. 64).", "Cambiar", "Atrás");
+		}
+		case DIALOG_CLUB_RADIO:
+		{
+			new dialog[564];
+    		format(dialog, sizeof(dialog), "Apagar\t\n");
+
+    		for(new i = 0; i != sizeof RADIO_STATIONS; i ++)
+    		{
+    			new line[128];
+    			format(line, sizeof(line), "%s\t%s\n", RADIO_STATIONS[i][r_NAME], RADIO_STATIONS[i][r_TYPE]);
+    			strcat(dialog, line);
+    		}
+
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Cambiar radio", dialog, "Cambiar", "Cerrar");
+		}
+		case DIALOG_CLUB_PRICE:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Precio de entrada", ""COL_WHITE"Ingrese un precio de entrada (ponga 0 para dejarlo gratis).", "Cambiar", "Atrás");
 		}
 		default: return 0;
 	}
@@ -21847,6 +21869,72 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					CheckClubOptions(playerid);
 				}
+			}
+			else CheckClubOptions(playerid);
+		}
+		case DIALOG_CLUB_RADIO:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+				{
+					new 
+						club = PLAYER_TEMP[playerid][py_CLUB_INDEX],
+						index = (listitem - 1)
+					;
+
+					if (listitem == 0)
+					{
+						CLUBS_INFO[club][club_RADIO] = 100;
+						ShowPlayerMessage(playerid, "Radio ~r~apagada", 2);
+
+						for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+						{
+							if (IsPlayerConnected(i))
+							{
+								if (PLAYER_TEMP[i][py_CLUB_INDEX] == PLAYER_TEMP[playerid][py_CLUB_INDEX])
+								{
+									StopAudioStreamForPlayer(i);
+								}
+							}
+						}
+					}
+					else
+					{
+						CLUBS_INFO[club][club_RADIO] = index;
+						ShowPlayerMessage(playerid, "Emisora ~g~cambiada", 2);
+
+						for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+						{
+							if (IsPlayerConnected(i))
+							{
+								if (PLAYER_TEMP[i][py_CLUB_INDEX] == PLAYER_TEMP[playerid][py_CLUB_INDEX])
+								{
+									StopAudioStreamForPlayer(i);
+									PlayAudioStreamForPlayer(i, RADIO_STATIONS[index][r_URL]);
+								}
+							}
+						}
+					}
+
+					new DB_Query[128];
+	    			format(DB_Query, sizeof(DB_Query), "\
+						UPDATE `CLUB_INFO` SET\
+							`RADIO` = '%d' \
+						WHERE `ID` = '%d';\
+					", CLUBS_INFO[club][club_RADIO], club);
+					db_free_result(db_query(Database, DB_Query));
+
+					CheckClubOptions(playerid);
+				}
+			}
+			else CheckClubOptions(playerid);
+		}
+		case DIALOG_CLUB_PRICE:
+		{
+			if (response)
+			{
+
 			}
 			else CheckClubOptions(playerid);
 		}
