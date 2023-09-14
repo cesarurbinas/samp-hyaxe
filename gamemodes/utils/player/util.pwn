@@ -315,3 +315,31 @@ public response_SendEmail(index, response_code, const data[])
 	//printf("[EMAIL_DEBUG] Data: %s", data);
 	return 1;
 }
+
+PlayerIsInMafia(playerid)
+{
+	if (PLAYER_WORKS[playerid][WORK_MAFIA]) return true;
+	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA]) return true;
+	if (PLAYER_WORKS[playerid][WORK_OSBORN]) return true;
+	return false;
+}
+
+GetPlayerMafia(playerid)
+{
+	if (PLAYER_WORKS[playerid][WORK_MAFIA]) return WORK_MAFIA;
+	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA]) return WORK_ENEMY_MAFIA;
+	if (PLAYER_WORKS[playerid][WORK_OSBORN]) return WORK_OSBORN;
+	return -1;
+}
+
+GetMafiaColor(mafia)
+{
+	new color = 0xFFFFFFFF;
+	switch(mafia)
+	{
+		case WORK_MAFIA: color = 0xa912e2FF;
+		case WORK_ENEMY_MAFIA: color = 0x33D1FFFF;
+		case WORK_OSBORN: color = 0x3a3eabFF;
+	}
+	return color;
+}

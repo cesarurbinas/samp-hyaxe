@@ -346,6 +346,37 @@ UseItemSlot(playerid)
 			 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableGangRefMark", 120000, false, "i", playerid);
 				PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
+				return 1;
+			}
+
+			if (PlayerIsInMafia(playerid))
+			{
+				new 
+					city[45],
+					zone[45],
+					message[144],
+					mafia = GetPlayerMafia(playerid)
+				;
+
+				GetPlayerZones(playerid, city, zone);
+				format(message, sizeof message, "~r~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+
+			 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+				{
+					if (IsPlayerConnected(i))
+					{
+						if (PLAYER_WORKS[i][mafia])
+						{
+							SetPlayerMarkerForPlayer(i, playerid, GetMafiaColor(mafia));
+							ShowPlayerNotification(i, message, 4);
+						}
+					}
+				}
+
+			 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableMafiaRefMark", 120000, false, "i", playerid);
+				PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
+				return 1;
 			}
 			return 1;
 		}

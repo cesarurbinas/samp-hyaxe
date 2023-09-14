@@ -33261,6 +33261,39 @@ CALLBACK: DisableGangRefMark(playerid)
     return 1;
 }
 
+CALLBACK: DisableMafiaRefMark(playerid)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+
+    new 
+		city[45],
+		zone[45],
+		message[144],
+		mafia = GetPlayerMafia(playerid)
+	;
+
+    GetPlayerZones(playerid, city, zone);
+    format(message, sizeof message, "~r~%s~w~ se perdió (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+    SetPlayerColorEx(playerid, PLAYER_COLOR);
+
+    if (PlayerIsInMafia(playerid))
+	{
+	    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+		{
+			if (IsPlayerConnected(i))
+			{
+				if (PLAYER_WORKS[i][mafia])
+				{
+					SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
+                    SetPlayerColorEx(playerid, PLAYER_COLOR);
+                    ShowPlayerNotification(i, message, 4);
+				}
+			}
+		}
+	}
+    return 1;
+}
+
 CALLBACK: DisableCombatMode(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][44]);
