@@ -35316,7 +35316,7 @@ TextureCountryFlag(objectid, index, country)
 			material_size  = 60;
 			font           = "Webdings";
 			font_size      = 55;
-			text_alignment = 1;
+			text_alignment = 1; 
 		}
 		case 13: // Holanda
 		{
