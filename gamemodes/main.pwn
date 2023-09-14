@@ -3579,6 +3579,15 @@ public OnPlayerDisconnect(playerid, reason)
 	  		NearbyMessage(CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_INTERIOR], GetPlayerVirtualWorld(playerid), 15.0, COLOR_FADE1, disconnect_message);
 
 	  		if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
+
+			if(PlayerHasBoombox(playerid))
+			{
+				for(new i = 0; i < MAX_BOOMBOXS; i++)
+				{
+					if(BOOMBOX[i][bb_OWNER] == ACCOUNT_INFO[playerid][ac_ID])
+						DestroyBoombox(i);
+				}
+			}
   		}
   	}
 
