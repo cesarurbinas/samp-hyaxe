@@ -152,9 +152,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][46]);
 						PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", 10000, false, "dd", playerid, i);
 						PLAYER_TEMP[playerid][py_TIMERS][46] = SetTimerEx("UpdateTreeCutting", 100, true, "d", playerid);
-						ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 0.0, 0, 0, 0, 0, 0, 0); // Preload
-						ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 4.1, 1, 1, 1, 1, 0, 1);
-						TogglePlayerControllable(playerid, false);
+						ApplyAnimation(playerid, "CHAINSAW", "null", 0.0, 0, 0, 0, 0, 0, 0); // Preload
+						ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 4.1, true, true, true, true, 0, true);
 
 						PLAYER_TEMP[playerid][py_CUTTING] = i;
 
@@ -205,11 +204,6 @@ public UpdateTreeCutting(playerid)
 		}
 
 		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
-	}
-	else
-	{
-		PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
-		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][46]);
 	}
 
 	return 1;
@@ -274,7 +268,6 @@ public FinishTreeCutting(playerid, treeid)
 	TogglePlayerDynamicCP(playerid, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], true);
 
 	Streamer_Update(playerid);
-	TogglePlayerControllable(playerid, true);
 
 	return 1;
 }
