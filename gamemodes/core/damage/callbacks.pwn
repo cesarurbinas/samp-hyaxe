@@ -72,8 +72,8 @@ public OnPlayerSpawn(playerid)
 
 	g_rgbitsPlayerFlags[playerid] &= ~e_bmPlayerDead;
 	
-	Player_SetHealth(playerid, 100);
-	Player_SetArmour(playerid, 0);
+	/*Player_SetHealth(playerid, 100);
+	Player_SetArmour(playerid, 0);*/
 
 	#if defined Damage_OnPlayerSpawn
 		return Damage_OnPlayerSpawn(playerid);
