@@ -1,6 +1,6 @@
 public OnGameModeInit()
 {
-	g_WoodcutterArea = CreateDynamicRectangle(-2065.0, -2446.1595458984375, -1707.5294494628906, -2092.0);
+	// g_WoodcutterArea = CreateDynamicRectangle(-2065.0, -2446.1595458984375, -1707.5294494628906, -2092.0);
 
 	// Información
 	CreateDynamicPickup(1275, 0, -1932.7006, -2454.7651, 30.7005);
@@ -138,13 +138,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0], "hud:radar_gangY");
 						PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1], "Talando...");
 						PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2], TextToSpanish("Pulsa ESPACIO rápidamente"));
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2]);
-
 						PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][3], AdjustDarkness(colors[color], 1.75));
 						PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4], colors[color]);
 						PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4], 382.000000, 0.000000);
+						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0]);
+						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1]);
+						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2]);
 						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][3]);
 						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
 
@@ -241,13 +240,14 @@ public FinishTreeCutting(playerid, treeid)
 	}
 
 	PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] = 0;
+	PLAYER_SKILLS[playerid][WORK_WOODCUTTER]++;
 
 	new label[100];
 	DestroyDynamicObject(Trees[treeid][tree_OBJECT]);
 	format(label, sizeof(label), ""COL_RED"Ramas de un arbol\n"COL_WHITE"Este árbol fue cortado hace poco. Crecera en unos minutos.");
 
 	UpdateDynamic3DTextLabelText(Trees[treeid][tree_LABEL], 0xFFFFFF00, label);
-	if(Trees[treeid][tree_TYPE] == TREE_TYPE_NORMAL) Trees[treeid][tree_CHOPPED_OBJECT] = CreateDynamicObject(831, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z] - 2.8, 0.0, 0.0, 0.0);
+	if(Trees[treeid][tree_TYPE] == TREE_TYPE_NORMAL) Trees[treeid][tree_CHOPPED_OBJECT] = CreateDynamicObject(831, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z] - 3.0, 0.0, 0.0, 0.0);
 	else Trees[treeid][tree_CHOPPED_OBJECT] = CreateDynamicObject(831, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z], 0.0, 0.0, 0.0);
 
 	Trees[treeid][tree_CHOPPED] = true;
