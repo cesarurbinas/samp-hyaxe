@@ -48,7 +48,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
-#tryinclude <profiler>
+//#tryinclude <profiler>
 
 // Must fix
 #include <nex-ac>
@@ -14404,16 +14404,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(str, sizeof str, "127.0.0.1:12345/search?query=%s", inputtext);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
-				HTTP(playerid, HTTP_GET, str, "", "OnYouTubeQueryResult");
+				HTTP(playerid, HTTP_GET, str, "", "OnYouTubeQueryResponse");
 			}
 			return 1;
 		}
 		case DIALOG_PLAYER_MP3_RESULTS:
 		{
-			if (response)
+			if(response)
 			{
 				new url[128];
-				format(url, 128, "127.0.0.1:12345/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
+				format(url, 128, "127.0.0.1:12345/download/%s/pipe_addr_returning", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
+				printf("%s", url);
 				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
 			}
 			return 1;
@@ -20531,6 +20532,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else ShowDialog(playerid, DIALOG_BOX_FIGHTERS);
 		}
 	}
+
+	printf("dialogid %d", dialogid);
 	return 0;
 }
 
@@ -20542,32 +20545,6 @@ GetDatabasePages(const query_[], limit)
 	new Float:tpages = floatdiv(floatround(db_get_field_int(pages, 0)), limit);
 	db_free_result(pages);
 	return floatround(tpages, floatround_ceil);
-}
-
-CALLBACK: OnPlayerSongFound(index, response_code, data[])
-{
-	if (!PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP]) return 1;
-
-	/*if (response_code == 200)
-	{
-		new videodata[11][4][86], dialog_counter;
-		if(sscanf(data, "p<,>a<dds[86]>[11]", videodata));
-
-		new dialog[150 * sizeof(videodata)];
-		format(dialog, sizeof(dialog), "Nombre\tDuración\n");
-		for(new i = 0; i != sizeof(videodata); i++)
-		{
-			format(PLAYER_DIALOG_MP3_RESULT[index][i][videoID], sizeof(dialog), "%d\n", videodata[i][1]);
-			dialog_counter ++;
-		}
-
-		ShowPlayerDialog(index, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_LIST, "Resultados", dialog, "Reproducir", "Salir");
-		PLAYER_TEMP[index][py_DIALOG_RESPONDED] = false;
-	}
-	else ShowPlayerMessage(index, "~r~La búsqueda falló, inténtelo de nuevo más tarde.", 3);*/
-
-	PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP] = false;
-	return 1;
 }
 
 GetEmptyPlayer_GPS_Slot(playerid)

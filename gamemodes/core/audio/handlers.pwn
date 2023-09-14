@@ -13,6 +13,8 @@ forward OnDownloadResponse(playerid, response_code, data[]);
 public OnYouTubeQueryResponse(playerid, response_code, data[])
 {
 	printf("OnYouTubeQueryResponse - playerid %d - response_code %d - data [JSON]", playerid, response_code);
+	if(!PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return 1;
+
 	if(response_code == 200)
 	{
 		new Node:vidata, results, Node:arr_data, length;
@@ -22,7 +24,7 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 		JSON_ArrayLength(arr_data, length);
 
 		new dialog[250 * 10], line[250];
-		format(dialog, sizeof(dialog), "Subido por\tTÃ­tulo\n");
+		format(dialog, sizeof(dialog), "Subido por\tTítulo\n");
 		for(new i = 0; i < length; i++)
 		{
 			new Node:object;
@@ -34,6 +36,7 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 			strcat(dialog, line);
 		}
 
+		PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
 		ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf("Resultados - %d", results), dialog, "Reproducir", "Cancelar");
 	} else ShowPlayerMessage(playerid, "~r~No se pudo procesar su busqueda.", 3);
 
@@ -42,12 +45,15 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 
 public OnDownloadResponse(playerid, response_code, data[])
 {
+	printf("OnDownloadResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
+	PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
+
 	if(response_code != 200)
 	{
 		switch(response_code)
 		{
-			case 403: return SendClientMessage(playerid, COLOR_WHITE, "No pudimos reproducir esta canciÃ³n...");
-			case 429: return SendClientMessage(playerid, COLOR_WHITE, "Se han estado solicitando muchas canciones ultimamente, intenta mÃ¡s tarde.");
+			case 403: return SendClientMessage(playerid, COLOR_WHITE, "No pudimos reproducir esta canción...");
+			case 429: return SendClientMessage(playerid, COLOR_WHITE, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.");
 			default: return 0;
 		}
 	}
@@ -64,12 +70,12 @@ public OnDownloadResponse(playerid, response_code, data[])
 				if ( (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY || CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY) && CHARACTER_INFO[i][ch_INTERIOR_EXTRA] == CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA])
 				{
 					PlayAudioStreamForPlayer(i, url);
-					SendClientMessage(i, COLOR_WHITE, "Reproduciendo mÃºsica. Usa {CCFF00}/stop para parar la mÃºsica.");
+					SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
 				}
 			}
 		}
 		PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
-		SetPlayerChatBubble(playerid, "\n\n\n\n* PonÃ© mÃºsica en su propiedad.\n\n\n", 0xffcb90FF, 20.0, 5000);
+		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su propiedad.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	}
 	else if (PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE])
 	{
@@ -82,19 +88,19 @@ public OnDownloadResponse(playerid, response_code, data[])
 					if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
 					{
 						PlayAudioStreamForPlayer(i, url);
-						SendClientMessage(i, COLOR_WHITE, "Reproduciendo mÃºsica. Usa {CCFF00}/stop para parar la mÃºsica.");
+						SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
 					}
 				}
 			}
 		}
 		PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = false;
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone mÃºsica en su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	}
 	else
 	{
 		PlayAudioStreamForPlayer(playerid, url);
-		SendClientMessage(playerid, COLOR_WHITE, "Reproduciendo mÃºsica. Usa {CCFF00}/stop para parar la mÃºsica.");
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Escucha mÃºsica en sus auriculares.\n\n\n", 0xffcb90FF, 20.0, 5000);
+		SendClientMessage(playerid, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
+		SetPlayerChatBubble(playerid, "\n\n\n\n* Escucha música en sus auriculares.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	}
 
 	return 1;
