@@ -255,6 +255,8 @@
 #include "core/soccer/functions.pwn"
 #include "core/soccer/callbacks.pwn"
 
+/* v1.0 Features */
+
 // Special maps
 #if defined HALLOWEEN_MODE
 	#include "core/maps/halloween.pwn"
