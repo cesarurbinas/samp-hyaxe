@@ -390,4 +390,39 @@ ValidSurfingVehicle(modelid)
 	return true;
 }
 
-GetAccountStatusName(playerid,)
+GetAccountStatusValue(playerid)
+{
+	new value;
+	if (PLAYER_MISC[playerid][MISC_MUTES] >= 4) value ++;
+	
+	if (PLAYER_MISC[playerid][MISC_KIKEOS] >= 1) value ++;
+	else if (PLAYER_MISC[playerid][MISC_KIKEOS] >= 3) value ++;
+	
+	if (PLAYER_MISC[playerid][MISC_BANEOS] >= 1) value ++;
+	else if (PLAYER_MISC[playerid][MISC_BANEOS] >= 3) value += 5;
+	
+	if (PLAYER_MISC[playerid][MISC_JAILS] >= 3) value ++;
+
+	if (PLAYER_MISC[playerid][MISC_SANS] >= 3) value ++;
+	else if (PLAYER_MISC[playerid][MISC_SANS] >= 10) value += 5;
+	return value;
+}
+
+GetAccountStatusName(playerid)
+{
+	new 
+		name[64],
+		status = GetAccountStatusValue(playerid)
+	;
+
+	if (value < 3)
+		format(name, sizeof(name), ""COL_GREEN"Confiable"COL_WHITE"");
+
+	if (value >= 3)
+		format(name, sizeof(name), ""COL_YELLOW"Medio"COL_WHITE"");
+
+	if (value >= 5)
+		format(name, sizeof(name), ""COL_RED"Desconfiable"COL_WHITE"");
+	
+	return name'
+}
