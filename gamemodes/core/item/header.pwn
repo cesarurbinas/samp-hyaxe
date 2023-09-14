@@ -65,7 +65,7 @@ new ITEM_INFO[][Item_Info_Enum] = {
     {"Jugo de manzana",         19564,     false}, // 57
     {"Ketchup",                 11722,     false}, // 58
     {"Helado de chocolate",     19567,     false}, // 59
-    {"Helado de manzana",       19568,     false}, // 60
+    {"Helado de frutilla",      19568,     false}, // 60
     {"Pizza",                   2814,      false}, // 61
     {"Jugo cepita",             19564,     false}, // 62
     {"Cerveza",                 1484,      false}, // 63

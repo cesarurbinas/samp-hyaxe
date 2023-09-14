@@ -2883,6 +2883,330 @@ ShellingThings(playerid)
     return 1;
 }
 
+ShowBurgerMenu(playerid)
+{
+	return 1;
+}
+
+ShowPizzaMenu(playerid)
+{
+	return 1;
+}
+
+ShowClukinMenu(playerid)
+{
+	HidePlayerMenu(playerid);
+
+	ShowPlayerMenu(playerid, MENU_CLUKIN, "Clukin Bell");
+	AddPlayerMenuItem(playerid, TextToSpanish("Pollo"), "Precio: ~g~300$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Burrito"), "Precio: ~g~200$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Jugo de naranja"), "Precio: ~g~70$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Jugo de manzana"), "Precio: ~g~70$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Jugo cepita"), "Precio: ~g~70$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Cerveza"), "Precio: ~g~80$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Helado de chocolate"), "Precio: ~g~100$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Helado de frutilla"), "Precio: ~g~100$");
+	return 1;
+}
+
+Menu:MENU_CLUKIN(playerid, response, listitem)
+{
+    if (response == MENU_RESPONSE_SELECT)
+    {
+		if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno", 4);
+
+		switch(listitem)
+		{
+			case 0:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 300)
+				{
+					GivePlayerCash(playerid, -300);
+					AddPlayerItem(playerid, 67);
+					ShowPlayerNotification(playerid, "Compraste un sanguche de pollo.", 3);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+			case 1:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 200)
+				{
+					GivePlayerCash(playerid, -200);
+					AddPlayerItem(playerid, 50);
+					ShowPlayerNotification(playerid, "Compraste un burrito.", 3);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+			case 2:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 70)
+				{
+					AddPlayerItem(playerid, 56);
+					ShowPlayerNotification(playerid, "Compraste un jugo de naranja.", 3);
+					GivePlayerCash(playerid, -70);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+			case 3:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 70)
+				{
+					AddPlayerItem(playerid, 57);
+					ShowPlayerNotification(playerid, "Compraste un jugo de manzana.", 3);
+					GivePlayerCash(playerid, -70);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+			case 4:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 70)
+				{
+					AddPlayerItem(playerid, 62);
+					ShowPlayerNotification(playerid, "Compraste un jugo cepita.", 3);
+					GivePlayerCash(playerid, -70);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+			case 5:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 80)
+				{
+					AddPlayerItem(playerid, 63);
+					ShowPlayerNotification(playerid, "Compraste una cerveza.", 3);
+					GivePlayerCash(playerid, -80);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+			case 6:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 100)
+				{
+					AddPlayerItem(playerid, 59);
+					ShowPlayerNotification(playerid, "Compraste un helado de chocolate.", 3);
+					GivePlayerCash(playerid, -100);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+			case 7:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 100)
+				{
+					AddPlayerItem(playerid, 60);
+					ShowPlayerNotification(playerid, "Compraste un helado de chocolate.", 3);
+					GivePlayerCash(playerid, -100);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+Show247Menu(playerid)
+{
+	HidePlayerMenu(playerid);
+
+	ShowPlayerMenu(playerid, MENU_247, "24/7");
+	AddPlayerMenuItem(playerid, TextToSpanish("Guía telefónica"), "Precio: ~g~500$");
+	AddPlayerMenuItem(playerid, TextToSpanish("GPS"), "Precio: ~g~500$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Tostada"), "Precio: ~g~10$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Jugo de naranja"), "Precio: ~g~70$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Jugo de manzana"), "Precio: ~g~70$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Leche"), "Precio: ~g~70$");
+	return 1;
+}
+
+Menu:MENU_247(playerid, response, listitem)
+{
+    if (response == MENU_RESPONSE_SELECT)
+    {
+		if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno", 4);
+
+		switch(listitem)
+		{
+			case 0:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 500)
+				{
+					if (PLAYER_OBJECT[playerid][po_PHONE_RESOLVER])
+					{
+						ShowPlayerMessage(playerid, "~r~Ya tienes una guía telefónica.", 2);
+						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+						return 1;
+					}
+
+					GivePlayerCash(playerid, -500);
+
+					PLAYER_OBJECT[playerid][po_PHONE_RESOLVER] = true;
+					ShowPlayerNotification(playerid, "Compraste una guía telefónica.", 3);
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 1:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 500)
+				{
+					if (PLAYER_OBJECT[playerid][po_GPS])
+					{
+						ShowPlayerMessage(playerid, "~r~Ya tienes un GPS", 2);
+						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+						return 1;
+					}
+
+					GivePlayerCash(playerid, -500);
+
+					PLAYER_OBJECT[playerid][po_GPS] = true;
+					ShowPlayerNotification(playerid, "Compraste un GPS.", 3);
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 2:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 10)
+				{
+					AddPlayerItem(playerid, 54);
+					ShowPlayerNotification(playerid, "Compraste una tostada.", 3);
+					GivePlayerCash(playerid, -10);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 3:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 70)
+				{
+					AddPlayerItem(playerid, 56);
+					ShowPlayerNotification(playerid, "Compraste un jugo de naranja.", 3);
+					GivePlayerCash(playerid, -70);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 4:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 70)
+				{
+					AddPlayerItem(playerid, 57);
+					ShowPlayerNotification(playerid, "Compraste un jugo de manzana.", 3);
+					GivePlayerCash(playerid, -70);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 5:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 70)
+				{
+					AddPlayerItem(playerid, 55);
+					ShowPlayerNotification(playerid, "Compraste una caja de leche.", 3);
+					GivePlayerCash(playerid, -70);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+			
+		}
+	}
+    return 1; 
+}
+
 CheckFoodShop(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_INTERIOR_INDEX] == -1) return 0;
@@ -2892,13 +3216,13 @@ CheckFoodShop(playerid)
 	new index = GetFastFoodLocalIndexByIntType(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE]);
 	if (index == -1) return 0;
 
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0, Fast_Food_Positions[index][fast_food_X], Fast_Food_Positions[index][fast_food_Y], Fast_Food_Positions[index][fast_food_Z])) return 0;
+	if (!IsPlayerInRangeOfPoint(playerid, 1.3, Fast_Food_Positions[index][fast_food_X], Fast_Food_Positions[index][fast_food_Y], Fast_Food_Positions[index][fast_food_Z])) return 0;
 
 	switch(Fast_Food_Positions[index][fast_food_INTERIOR_TYPE])
 	{
-		case INTERIOR_BURGER_SHOT: ShowDialog(playerid, DIALOG_FOOD_BURGER);
-		case INTERIOR_PIZZA: ShowDialog(playerid, DIALOG_FOOD_PIZZA);
-		case INTERIOR_CLUCKIN_BELL: ShowDialog(playerid, DIALOG_FOOD_CLUCKIN);
+		case INTERIOR_BURGER_SHOT: ShowBurgerMenu(playerid);
+		case INTERIOR_PIZZA: ShowPizzaMenu(playerid);
+		case INTERIOR_CLUCKIN_BELL: ShowClukinMenu(playerid);
 	}
 	return 1;
 }
@@ -2935,7 +3259,7 @@ CheckShopAndExecute(playerid)
 	{
 		if (IsPlayerInRangeOfPoint(playerid, 1.0, -27.964675, -89.948631, 1003.546875))
 		{
-			ShowDialog(playerid, DIALOG_247_LIST);
+			Show247Menu(playerid);
 		}
 	}
 	return 0;

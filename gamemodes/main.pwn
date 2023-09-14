@@ -29,10 +29,10 @@
 #include <a_samp>
 
 #undef MAX_PLAYERS
-#define MAX_PLAYERS 150
+#define MAX_PLAYERS 32
 
 // Server information
-#define SERVER_VERSION 			"Experimental v0.10 Build 10" // Old: Legacy v0.9 Build 10
+#define SERVER_VERSION 			"Experimental v1.0" // Old: Legacy v0.9 Build 10
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
