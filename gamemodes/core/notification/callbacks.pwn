@@ -1,7 +1,6 @@
 forward DestroyNotification(playerid, notification_id);
 public DestroyNotification(playerid, notification_id)
 {
-	printf("destroy");
 	static pos;
 
 	pos = FindNotificationPosById(playerid, notification_id);

@@ -425,8 +425,13 @@ enum Temp_Enum
 >>>>>>> 3499290 (skin per mission)
 =======
 	py_MISSION_TYPE,
+<<<<<<< HEAD
 	py_KEY_NOT
 >>>>>>> 8846614 (not index fix)
+=======
+	py_KEY_NOT,
+	bool:py_BOT
+>>>>>>> b339f02 (fix logs)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

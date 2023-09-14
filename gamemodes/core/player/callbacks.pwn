@@ -1,3 +1,32 @@
+new BOT_ADDRESS[][] =
+{
+	"51.222.21.190",
+	"192.95.10.233",
+	"51.222.21.191",
+	"51.38.208.149",
+	"127.0.0.1"
+};
+
+isBotConnection(playerid)
+{
+	for(new x = 0; x < sizeof(BOT_ADDRESS); x ++)
+    {
+        if (strfind(PLAYER_TEMP[playerid][py_IP], BOT_ADDRESS[x], true) != -1)
+        {
+        	return true;
+    	}
+    }
+	return false;
+}
+
+RegisterBot(playerid)
+{
+	ACCOUNT_INFO[playerid][ac_ID] = minrand(30000, 40000);
+	SetPlayerScore(playerid, minrand(1, 5));
+	PLAYER_TEMP[playerid][py_BOT] = true;
+	return 1;
+}
+
 public OnPlayerStreamIn(playerid, forplayerid)
 {
 	if (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] != 0)
@@ -169,19 +198,12 @@ public OnPlayerConnect(playerid)
 	#endif
 
 	//printf("[%d] OnPlayerConnect 5", playerid);
-	/*if (!strcmp(PLAYER_TEMP[playerid][py_IP], "127.0.0.1"))
+	if (isBotConnection(playerid))
 	{
-		#if defined FINAL_BUILD
-			Bot(playerid);
-			return 0;
-		#endif
-	}
-	else if (!strcmp(PLAYER_TEMP[playerid][py_IP], "51.222.21.190")) // backup rdp
-	{
-		Bot(playerid);
+		RegisterBot(playerid);
 		return 0;
 	}
-	else*/
+
 	if (!IsPlayerNPC(playerid))
 	{
 		CheckProxy(playerid);
@@ -189,11 +211,6 @@ public OnPlayerConnect(playerid)
 		if (GetPlayersInIP(PLAYER_TEMP[playerid][py_IP]) > 5)
 		{
 			GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
-
-			/*new str_text[144];
-			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el máximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
-		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
-		    SendDiscordWebhook(str_text, 1);*/
 		    
 		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el máximo de conexiones");
 		    KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
@@ -201,12 +218,7 @@ public OnPlayerConnect(playerid)
 		}
 
 		if (IsFakeClient(playerid))
-		{
-			/*new str_text[144];
-			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Cliente inválido", PLAYER_TEMP[playerid][py_NAME], playerid);
-		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
-		    SendDiscordWebhook(str_text, 1);*/
-		    
+		{   
 		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inválido");
 		    KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			return 0;	
@@ -5765,12 +5777,12 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			}
 		}
 
-		if (ACCOUNT_INFO[playerid][ac_LEVEL] == 1)
+		/*if (ACCOUNT_INFO[playerid][ac_LEVEL] == 1)
 		{
 			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar siendo nivel 1.");
 			TogglePlayerControllableEx(playerid, false);
 			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-		}
+		}*/
 
 		if (PLAYER_WORKS[playerid][WORK_MEDIC] && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_MEDIC)
 		{
@@ -6279,5 +6291,43 @@ public CarJackingFinish(playerid)
 	#endif
 
 	TogglePlayerControllableEx(playerid, true);
+	return 1;
+}
+
+public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
+{
+	switch(rpcid)
+	{
+		case 155:
+		{
+			new 
+				ping,
+				BitStream:bs_two = BS_New()
+			;
+
+			if (!IsPlayerConnected(playerid)) return 0;
+
+			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	    	{
+		    	if (IsPlayerConnected(i))
+		    	{
+		    		if (PLAYER_TEMP[i][py_BOT]) ping = minrand(100, 300);
+					else ping = GetPlayerPing(i);
+
+					BS_WriteValue(
+						bs_two,
+						PR_UINT16, i,
+						PR_INT32, GetPlayerScore(i),
+						PR_UINT32, ping
+					);
+
+		    		PR_SendRPC(bs_two, playerid, rpcid);
+		    	}
+		    }
+
+			BS_Delete(bs_two);
+			return 0;
+		}
+	}
 	return 1;
 }
