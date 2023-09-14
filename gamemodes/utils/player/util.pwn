@@ -9,6 +9,265 @@ new NAME_WHITELIST[][24] =
 	"Atom"
 };
 
+static const QUIT_KEYWORDS[][16] =
+{
+	"7q",
+	"(q",
+	"9/q",
+	"(/q",
+	"*/q",
+	")q",
+	"8q",
+	"9q"
+};
+
+static const INVALID_WORDS[][] =
+{
+	"zoor",
+	"zo0r",
+	"samphub",
+	"chanpu",
+	"champu",
+	"fenixzone",
+	"pene",
+	"vagina",
+	"mierda",
+	"goldenstate",
+	"unplayer",
+	"spell",
+	"ecuazone",
+	"pelotudo",
+	"boludo",
+	"omegazone",
+	"starrp",
+	"fabiking",
+	"kreisel",
+	"pingote",
+	"kanox",
+	"lexerzone",
+	"puta",
+	"sampdroid",
+	"samp droid",
+	"samp_droid",
+	"puto",
+	"put0",
+	"chupas",
+	"adobe",
+	"chitero",
+	"bots",
+	".ga",
+	"b0ts",
+	".net",
+	".xyz",
+	".ml",
+	".tk",
+	"samptab",
+	"heix",
+	"aver no",
+	"aber no",
+	"- mong",
+	"aver sido",
+	"aber sido",
+	"blade",
+	"yarmak",
+	"scythekill",
+	"exterminio total",
+	"BOTNET",
+	"botnet",
+	"betazone",
+	"imgui",
+	"adri1",
+	"superroleplay",
+	"sampvoice",
+	"daniel mor",
+	"github",
+	"b0tnet",
+	"botn3t",
+	"b o t n e t",
+	"botonet",
+	"bot n3t",
+	"b0t net",
+	"b0t n3t",
+	"pawncode",
+	"pawnes",
+	"hispawno",
+	"world champion pawno scripta",
+	"bigmommymilkers"
+};
+
+static const INVALID_NAMES[][100] =
+{
+	"Capija",
+	"Mierda",
+	"Caverga",
+	"Melano",
+	"Yahir_Kozel",
+	"Apellido",
+	"Sech",
+	"Nombre",
+	"Pija",
+	"Conazo",
+	"Misco_Jonnes",
+	"Portuano",
+	"Chorizo",
+	"Turbado",
+	"Nanero",
+	"Pene",
+	"Vagina",
+	"Pompas",
+	"Gaming",
+	"Polainas",
+	"Pingote",
+	"Yarmak",
+	"BetaZone",
+	"Pearce",
+	"Kanox",
+	"Pingo",
+	"Heix",
+	"Avant",
+	"Come_",
+	"_Tela",
+	"Morgan_Skulls",
+	"Imgui",
+	"ImGui",
+	"Sampvoice",
+	"Diablo",
+	"Pito_Corto",
+	"Empanada",
+	"Hamburguesa",
+	"Willyrex",
+	"Telapone",
+	"Tedoma",
+	"Hambre",
+	"Trabuco",
+	"Mirry",
+	"Mirri",
+	"Verdesin",
+	"Verdoso",
+	"Verde",
+	"Cheat",
+	"Cheater",
+	"Cheto",
+	"Maricon",
+	"Chitero",
+	"Neptunia",
+	"Pito",
+	"Corto",
+	"Fizio",
+	"Peruano",
+	"Boliviano",
+	"Narizon",
+	"Culon",
+	"Gordo",
+	"Teton",
+	"Rubius",
+	"Goku",
+	"Vegeta",
+	"Vegetta",
+	"Puto",
+	"Negro",
+	"Fraca",
+	"Heladero",
+	"Panadero",
+	"Whatsapp",
+	"Facebook",
+	"Instagram",
+	"Lil_",
+	"Gamer",
+	"Chupador",
+	"Play",
+	"El_Vaginon",
+	"El_",
+	"Vaginon",
+	"Elva_",
+	"_Ginon",
+	"Kreisel",
+	"Ryan_West"
+};
+
+static const BAN_KEYWORDS[][100] =
+{
+	"fenixzone",
+	"goldenstate",
+	"golden state",
+	"golden states",
+	"unplayer",
+	"z0ne",
+	"zon3",
+	"z0n3",
+	"linox",
+	"ZONE",
+	"Z0NE",
+	"LINOX",
+	"z.o.n.e",
+	"f.e.n.i.x",
+	"samphub",
+	"s4mp hub",
+	"samp hub",
+	"github",
+	"b0tnet",
+	"botn3t",
+	"b o t n e t",
+	"botonet",
+	"bot n3t",
+	"b0t net",
+	"b0t n3t",
+	"world champion pawno scripta",
+	"sampvoice",
+	"adobe",
+	"ad0be",
+	"ad0b3",
+	"a.d.o.b.e",
+	"b0ts",
+	".net",
+	".xyz",
+	".ml",
+	".tk",
+	"bots",
+	"omegazone",
+	"ecuazone",
+	"lexerzone",
+	"sampdroid",
+	"samp droid",
+	"samp_droid",
+	"B-O-T-S",
+	"H-U-B",
+	"b-o-t-s",
+	"V0TS",
+	"B0TS",
+	"B-0-T-S",
+	"VOTS",
+	"V-O-T-S",
+	"V-0-T-S",
+	"B.O.T.S",
+	"B.0.T.S",
+	"V.O.T.S",
+	"V.0.T.S",
+	"B O T S",
+	"B 0 T S",
+	"V 0 T S",
+	"V O T S",
+	"H.U.B",
+	"170.83.221.2",
+	"BREÑAS",
+	"cable color",
+	"CABLE COLOR",
+	"170.83.220.0/22",
+	"doxbin",
+	"wearelegal",
+	"bit.ly",
+	"dox",
+	"server de mierda",
+	"sampfive",
+	"samp5",
+	"sampfaiv",
+	"samp five",
+	"SAMPFIVE",
+	"kreisel",
+	"KREISEL",
+	"SAMP FIVE"
+};
+
 new g_iPlayerLastUpdate[MAX_PLAYERS];
 
 new const Float:NewUserPos[][] =
@@ -1253,4 +1512,49 @@ public StandUpBotikin(medic, playerid)
 
 	DisablePlayerMedicMark(playerid);
 	return 1;
+}
+
+
+CheckKillEvadeAttemp(const str_text[])
+{
+	for(new x = 0; x < sizeof(QUIT_KEYWORDS); x ++)
+    {
+        if (strfind(str_text, QUIT_KEYWORDS[x], true) != -1)
+        {
+        	printf("[QUIT-CHECK] %s - %s", QUIT_KEYWORDS[x], str_text);
+        	return true;
+    	}
+    }
+	return false;
+}
+
+CheckSpamViolation(const str_text[])
+{
+	for(new x = 0; x < sizeof(BAN_KEYWORDS); x ++)
+    {
+        if (strfind(str_text, BAN_KEYWORDS[x], true) != -1)
+        {
+        	printf("[SPAM-CHECK] %s - %s", BAN_KEYWORDS[x], str_text);
+        	return true;
+    	}
+    }
+	return false;
+}
+
+CheckFilterViolation(const str_text[])
+{
+	for(new x = 0; x < sizeof(INVALID_WORDS); x ++)
+    {
+        if (strfind(str_text, INVALID_WORDS[x], true) != -1) return true;
+    }
+	return false;
+}
+
+CheckNameFilterViolation(const str_text[])
+{
+	for(new x = 0; x < sizeof(INVALID_NAMES); x ++)
+    {
+        if (strfind(str_text, INVALID_NAMES[x], true) != -1) return true;
+    }
+	return false;
 }

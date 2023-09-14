@@ -29,12 +29,12 @@
 #define MAX_PLAYERS 150
 
 // Server information
-// #define SERVER_VERSION 			"Experimental v0.10 Snapshot 1 Build 10"
-#define SERVER_VERSION 			"Legacy v0.9 Build 10"
+#define SERVER_VERSION 			"Experimental v0.10 Snapshot 1 Build 10" // Old: Legacy v0.9 Build 10
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
-#define SERVER_COIN 			"Hycoins"
+
+#define safe_db_query(%0) db_free_result(db_query(Database, %0))
 
 // Misc config
 #define MAX_BAD_LOGIN_ATTEMPS 	3
@@ -53,6 +53,9 @@
 #define MAX_SU_PROPERTIES 		4
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
+
+// Coin
+#define SERVER_COIN 			"Hycoins"
 
 // Features
 #define VOICE_CHAT
@@ -106,8 +109,6 @@
 #define DC_PREFIX           "!"
 #define DC_PREFIX_LENGTH    1
 #include <discord-command>
-
-#define safe_db_query(%0) db_free_result(db_query(Database, %0))
 
 /* v0.x Features */
 
@@ -299,6 +300,10 @@
 // GUI
 #include "core/gui/header.pwn"
 #include "core/gui/functions.pwn"
+
+// Channels
+#include "core/channel/callbacks.pwn"
+#include "core/channel/functions.pwn"
 
 // Gamemodes
 //#include "core/lgbt_infection/functions.pwn"
@@ -1165,265 +1170,6 @@ enum
 	PED_RUNNING,
 	PED_SPRINTING,
 	PED_BYCICLING
-};
-
-static const INVALID_WORDS[][] =
-{
-	"zoor",
-	"zo0r",
-	"samphub",
-	"chanpu",
-	"champu",
-	"fenixzone",
-	"pene",
-	"vagina",
-	"mierda",
-	"goldenstate",
-	"unplayer",
-	"spell",
-	"ecuazone",
-	"pelotudo",
-	"boludo",
-	"omegazone",
-	"starrp",
-	"fabiking",
-	"kreisel",
-	"pingote",
-	"kanox",
-	"lexerzone",
-	"puta",
-	"sampdroid",
-	"samp droid",
-	"samp_droid",
-	"puto",
-	"put0",
-	"chupas",
-	"adobe",
-	"chitero",
-	"bots",
-	".ga",
-	"b0ts",
-	".net",
-	".xyz",
-	".ml",
-	".tk",
-	"samptab",
-	"heix",
-	"aver no",
-	"aber no",
-	"- mong",
-	"aver sido",
-	"aber sido",
-	"blade",
-	"yarmak",
-	"scythekill",
-	"exterminio total",
-	"BOTNET",
-	"botnet",
-	"betazone",
-	"imgui",
-	"adri1",
-	"superroleplay",
-	"sampvoice",
-	"daniel mor",
-	"github",
-	"b0tnet",
-	"botn3t",
-	"b o t n e t",
-	"botonet",
-	"bot n3t",
-	"b0t net",
-	"b0t n3t",
-	"pawncode",
-	"pawnes",
-	"hispawno",
-	"world champion pawno scripta",
-	"bigmommymilkers"
-};
-
-static const INVALID_NAMES[][100] =
-{
-	"Capija",
-	"Mierda",
-	"Caverga",
-	"Melano",
-	"Yahir_Kozel",
-	"Apellido",
-	"Sech",
-	"Nombre",
-	"Pija",
-	"Conazo",
-	"Misco_Jonnes",
-	"Portuano",
-	"Chorizo",
-	"Turbado",
-	"Nanero",
-	"Pene",
-	"Vagina",
-	"Pompas",
-	"Gaming",
-	"Polainas",
-	"Pingote",
-	"Yarmak",
-	"BetaZone",
-	"Pearce",
-	"Kanox",
-	"Pingo",
-	"Heix",
-	"Avant",
-	"Come_",
-	"_Tela",
-	"Morgan_Skulls",
-	"Imgui",
-	"ImGui",
-	"Sampvoice",
-	"Diablo",
-	"Pito_Corto",
-	"Empanada",
-	"Hamburguesa",
-	"Willyrex",
-	"Telapone",
-	"Tedoma",
-	"Hambre",
-	"Trabuco",
-	"Mirry",
-	"Mirri",
-	"Verdesin",
-	"Verdoso",
-	"Verde",
-	"Cheat",
-	"Cheater",
-	"Cheto",
-	"Maricon",
-	"Chitero",
-	"Neptunia",
-	"Pito",
-	"Corto",
-	"Fizio",
-	"Peruano",
-	"Boliviano",
-	"Narizon",
-	"Culon",
-	"Gordo",
-	"Teton",
-	"Rubius",
-	"Goku",
-	"Vegeta",
-	"Vegetta",
-	"Puto",
-	"Negro",
-	"Fraca",
-	"Heladero",
-	"Panadero",
-	"Whatsapp",
-	"Facebook",
-	"Instagram",
-	"Lil_",
-	"Gamer",
-	"Chupador",
-	"Play",
-	"El_Vaginon",
-	"El_",
-	"Vaginon",
-	"Elva_",
-	"_Ginon",
-	"Kreisel",
-	"Ryan_West"
-};
-
-static const BAN_KEYWORDS[][100] =
-{
-	"fenixzone",
-	"goldenstate",
-	"golden state",
-	"golden states",
-	"unplayer",
-	"z0ne",
-	"zon3",
-	"z0n3",
-	"linox",
-	"ZONE",
-	"Z0NE",
-	"LINOX",
-	"z.o.n.e",
-	"f.e.n.i.x",
-	"samphub",
-	"s4mp hub",
-	"samp hub",
-	"github",
-	"b0tnet",
-	"botn3t",
-	"b o t n e t",
-	"botonet",
-	"bot n3t",
-	"b0t net",
-	"b0t n3t",
-	"world champion pawno scripta",
-	"sampvoice",
-	"adobe",
-	"ad0be",
-	"ad0b3",
-	"a.d.o.b.e",
-	"b0ts",
-	".net",
-	".xyz",
-	".ml",
-	".tk",
-	"bots",
-	"omegazone",
-	"ecuazone",
-	"lexerzone",
-	"sampdroid",
-	"samp droid",
-	"samp_droid",
-	"B-O-T-S",
-	"H-U-B",
-	"b-o-t-s",
-	"V0TS",
-	"B0TS",
-	"B-0-T-S",
-	"VOTS",
-	"V-O-T-S",
-	"V-0-T-S",
-	"B.O.T.S",
-	"B.0.T.S",
-	"V.O.T.S",
-	"V.0.T.S",
-	"B O T S",
-	"B 0 T S",
-	"V 0 T S",
-	"V O T S",
-	"H.U.B",
-	"170.83.221.2",
-	"BREÑAS",
-	"cable color",
-	"CABLE COLOR",
-	"170.83.220.0/22",
-	"doxbin",
-	"wearelegal",
-	"bit.ly",
-	"dox",
-	"server de mierda",
-	"sampfive",
-	"samp5",
-	"sampfaiv",
-	"samp five",
-	"SAMPFIVE",
-	"kreisel",
-	"KREISEL",
-	"SAMP FIVE"
-};
-
-static const QUIT_KEYWORDS[][16] =
-{
-	"7q",
-	"(q",
-	"9/q",
-	"(/q",
-	"*/q",
-	")q",
-	"8q",
-	"9q"
 };
 
 enum
@@ -22865,6 +22611,7 @@ public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags)
     return 1; 
 }
 
+<<<<<<< HEAD
 CheckKillEvadeAttemp(const str_text[])
 {
 	for(new x = 0; x < sizeof(QUIT_KEYWORDS); x ++)
@@ -23267,6 +23014,8 @@ flags:depositveh(CMD_MODERATOR)
 >>>>>>> a47e1e7 (command flags)
 =======
 >>>>>>> 4946df2 (police modules)
+=======
+>>>>>>> b005a33 (bugfixes)
 // Dialogs
 #include "core/dialog/show.pwn"
 #include "core/dialog/response.pwn"
