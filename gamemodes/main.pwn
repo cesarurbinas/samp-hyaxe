@@ -26159,8 +26159,23 @@ SetPlayerCash(playerid, ammount, bool:update = true)
 	return 1;
 }
 
-GivePlayerCash(playerid, ammount, bool:update = true)
+GivePlayerCash(playerid, ammount, bool:update = true, bool:game_text = true)
 {
+	if (game_text)
+	{
+		new str_text[128];
+
+		format(str_text, sizeof(str_text), "~w~=%d$", ammount);
+
+		if (ammount >= 0)
+			format(str_text, sizeof(str_text), "~g~+%d$", ammount);
+
+		if (ammount < 0)
+			format(str_text, sizeof(str_text), "~r~-%d$", ammount);
+		
+		GameTextForPlayer(playerid, str_text, 4000, 1);
+	}
+	
 	CHARACTER_INFO[playerid][ch_CASH] += ammount;
 	ResetPlayerMoney(playerid);
 	GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
