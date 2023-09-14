@@ -2770,3 +2770,66 @@ CMD:dlply(playerid, params[])
 
 	return 1;
 }
+
+CMD:destroypveh(playerid, params[])
+{
+	new vehicleid;
+	if(sscanf(params, "d", vehicleid)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /destroypveh (vehicleid)");
+	if(!IsValidVehicle(vehicleid) || !PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return SendClientMessage(playerid, COLOR_WHITE, "Vehículo inválido.");
+
+	new ownerid = INVALID_PLAYER_ID;
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if(!IsPlayerConnected(i)) continue;
+		if(ACCOUNT_INFO[i][ac_ID] == PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID]) ownerid = i;
+	}
+
+	new DB_Query_update[350];
+	format(DB_Query_update, sizeof(DB_Query_update), "DELETE FROM `PLAYER_VEHICLES` WHERE `ID` = %d;", PLAYER_VEHICLES[vehicleid][player_vehicle_ID]);
+	db_free_result(db_query(Database, DB_Query_update));
+
+	SendClientMessageEx(ownerid, COLOR_WHITE, "El administrador "COL_RED"%s "COL_WHITE"eliminó tu "COL_RED"%s "COL_WHITE"(NP "COL_RED"%s"COL_WHITE").", ACCOUNT_INFO[playerid][ac_NAME], VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], GLOBAL_VEHICLES[vehicleid][gb_vehicle_NUMBER_PLATE]);
+	SendClientMessageEx(playerid, COLOR_WHITE, "Eliminaste el "COL_RED"%s "COL_WHITE"(NP "COL_RED"%s"COL_WHITE") de "COL_RED"%s"COL_WHITE".", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], GLOBAL_VEHICLES[vehicleid][gb_vehicle_NUMBER_PLATE], ACCOUNT_INFO[ownerid][ac_NAME]);
+
+	if(PLAYER_PHONE[ownerid][player_phone_VALID])
+	{
+		RegisterPhoneMessage(1337, PLAYER_PHONE[ownerid][player_phone_NUMBER], "VEHICULO DESTRUIDO POR UN ADMINISTRADOR");
+		if (PLAYER_PHONE[ownerid][player_phone_STATE] == PHONE_STATE_ON) SendClientMessageEx(ownerid, COLOR_WHITE, ""COL_GREEN"[Mensaje] "COL_WHITE"%s: VEHICULO DESTRUIDO POR UN ADMINISTRADOR", convertPhoneNumber(playerid, 1337));
+	}
+
+	new str[145];
+    format(str, 145, "[ADMIN] %s (%d) eliminó la %s (NP %s) de %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], GLOBAL_VEHICLES[vehicleid][gb_vehicle_NUMBER_PLATE], ACCOUNT_INFO[ownerid][ac_NAME]);
+    SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+    new webhook[264];
+	format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+	SendDiscordWebhook(webhook, 1);
+
+	if(GetPlayerVehicleID(ownerid) == vehicleid) RemovePlayerFromVehicle(ownerid);
+	DestroyVehicleEx(vehicleid);
+
+	if(!ACCOUNT_INFO[ownerid][ac_SU]) ReLockPlayerVehicles(ownerid);
+
+	return 1;
+}
+flags:destroypveh(CMD_MODERATOR4)
+
+CMD:setbankcash(playerid, params[])
+{
+	new to_player, amount;
+	if(sscanf(params, "rd", to_player, amount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setbankcash [player] [amount]");
+	if(!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
+	if(0 > amount || amount > 2147483647) return SendClientMessage(playerid, COLOR_WHITE, "La cantidad no puede ser menor a 0 ni mayor a 2,147,483,647.");
+	if(BANK_ACCOUNT[to_player][bank_account_BALANCE] == amount) return SendClientMessage(playerid, COLOR_WHITE, "El jugador ya tiene esa cantidad de dinero en el banco.");
+
+	if(amount > BANK_ACCOUNT[to_player][bank_account_BALANCE]) RegisterBankAccountTransaction(BANK_ACCOUNT[to_player][bank_account_ID], 0, amount);
+	else RegisterBankAccountTransaction(BANK_ACCOUNT[to_player][bank_account_ID], 1, amount);
+	BANK_ACCOUNT[to_player][bank_account_BALANCE] = amount;
+
+	ShowPlayerNotification(to_player, sprintf("Un administrador establecio tu dinero en el banco a ~r~$%d~w~.", amount), 5);
+	SendClientMessage(playerid, COLOR_WHITE, sprintf("Estableciste el dinero en el banco de "COL_RED"%s"COL_WHITE" a "COL_RED"%d"COL_WHITE".", ACCOUNT_INFO[to_player][ac_NAME], amount));
+
+	SaveUserData(to_player);
+	return 1;
+}
+flags:setbankcash(CMD_ADMIN)
