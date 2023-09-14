@@ -71,7 +71,7 @@ AddItemToProperty(property_id, type, extra)
 	"\
 		INSERT INTO `PROPERTY_STORAGE`\
 		(\
-			`ID_PROPERTY`, `TPYE`, `EXTRA`\
+			`ID_PROPERTY`, `TYPE`, `EXTRA`\
 		)\
 		VALUES\
 		(\
@@ -99,7 +99,7 @@ ItemAlreadyInProperty(property_id, type)
 		id
 	;
 
-	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PROPERTY_STORAGE` WHERE `TPYE` = '%d' AND `ID_PROPERTY` = '%d';", type, property_id);
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PROPERTY_STORAGE` WHERE `TYPE` = '%d' AND `ID_PROPERTY` = '%d';", type, property_id);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
