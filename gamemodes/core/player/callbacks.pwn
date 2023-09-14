@@ -4618,7 +4618,7 @@ public OnPlayerUpdate(playerid)
     }
 
     CheckRobActor(playerid);
-	SendClientMessageEx(playerid, -1, "%d", GetPlayerAnimationIndex(playerid));
+	//SendClientMessageEx(playerid, -1, "%d", GetPlayerAnimationIndex(playerid));
 	return 1;
 }
 
@@ -5759,12 +5759,19 @@ public OnPlayerSuspectedForAimbot(playerid, hitid, weaponid, warnings)
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 		SendDiscordWebhook(str_text, 1);
 	}
-	
+
 	if (warnings & WARNING_RANDOM_AIM)
 	{
 		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Aviso sobre %s (%d): Aimbot (%s)", PLAYER_TEMP[playerid][py_NAME], playerid, weapon_name);
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 		SendDiscordWebhook(str_text, 1);
+
+		PLAYER_TEMP[playerid][py_SING_AIM] ++;
+		if (PLAYER_TEMP[playerid][py_SING_AIM] > 10)
+		{
+			PLAYER_TEMP[playerid][py_SING_AIM] = 0;
+			Anticheat_Ban(playerid, "Aimbot #2");
+		}
 	}
 
 	if (warnings & WARNING_CONTINOUS_SHOTS)
@@ -5772,6 +5779,13 @@ public OnPlayerSuspectedForAimbot(playerid, hitid, weaponid, warnings)
 		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Aviso sobre %s (%d): 10 disparos acertados (weaponId: %d, hitId: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, weaponid, hitid);
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 		SendDiscordWebhook(str_text, 1);
+
+		PLAYER_TEMP[playerid][py_TRUSTED_AIM] ++;
+		if (PLAYER_TEMP[playerid][py_TRUSTED_AIM] > 5)
+		{
+			PLAYER_TEMP[playerid][py_TRUSTED_AIM] = 0;
+			Anticheat_Ban(playerid, "Aimbot #1");
+		}
 	}
 	return 0;
 }
@@ -5788,7 +5802,8 @@ IPacket:AIM_SYNC(playerid, BitStream:bs)
         return 0;
     }
 
-	PLAYER_TEMP[playerid][py_LAST_AIM_SYNC] = gettime();
+	PLAYER_TEMP[playerid][py_LAST_AIM_SYNC] = GetTickCount();
+	//SendClientMessage(playerid, -1, "aim");
     return 1;
 }
 
@@ -5807,10 +5822,12 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 			PLAYER_TEMP[playerid][py_TOTAL_SHOT] = 0;
 
 			// Anti damager
-			if ((gettime() - PLAYER_TEMP[playerid][py_LAST_AIM_SYNC]) < 5)
+			new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_LAST_AIM_SYNC]);
+			if (interval > 700)
 			{
+				//SendClientMessage(playerid, -1, "checked");
 				PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] ++;
-				if (PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] > 5)
+				if (PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] >= 3)
 				{
 					PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] = 0;
 					Anticheat_Ban(playerid, "Damager");

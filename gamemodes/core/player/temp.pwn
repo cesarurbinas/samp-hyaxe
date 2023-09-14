@@ -451,8 +451,14 @@ enum Temp_Enum
 =======
 	bool:py_ANDROID,
 	py_LAST_AIM_SYNC,
+<<<<<<< HEAD
 	py_DAMAGER_ALERTS
 >>>>>>> 3e9727b (damager fix)
+=======
+	py_DAMAGER_ALERTS,
+	py_TRUSTED_AIM,
+	py_SING_AIM
+>>>>>>> a68591c (aimbot ban)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
