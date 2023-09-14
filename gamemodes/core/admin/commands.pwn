@@ -3425,6 +3425,19 @@ CMD:createclub(playerid, params[])
 }
 flags:createclub(CMD_OWNER)
 
+CMD:exclub(playerid, params[])
+{
+	new club_id;
+	if (sscanf(params, "d", club_id)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /exclub <id>");
+	if (club_id <= 0) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /exclub <id>");
+	if (!CLUBS_INFO[club_id][club_VALID]) return SendClientMessage(playerid, COLOR_WHITE, "Ese club no existe");
+
+	ReleaseClub(club_id);
+	SendCmdLogToAdmins(playerid, "exclub", params);
+	return 1;
+}
+flags:exclub(CMD_MODERATOR4)
+
 /*CMD:profilerstart(playerid, params[])
 {
 	Profiler_Start();
