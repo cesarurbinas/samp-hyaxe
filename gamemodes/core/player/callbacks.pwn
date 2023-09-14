@@ -1556,7 +1556,11 @@ public OnPlayerSpawn(playerid)
 		printf("OnPlayerSpawn",playerid); // debug juju
 	#endif
 
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO]);
+	// Show server logo
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO][0]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO][1]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO][2]);
+
 	SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 	StopAudioStreamForPlayer(playerid);
 	

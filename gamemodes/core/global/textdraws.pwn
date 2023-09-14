@@ -14,7 +14,7 @@ enum Textdraws_Enum
 	Text:textdraw_PROGRESS_BG,
 	Text:textdraw_BANK_MENU[7],
 	Text:textdraw_GODMODE[2],
-	Text:textdraw_LOGO,
+	Text:textdraw_LOGO[3],
 	Text:textdraw_MAIN_MENU[6]
 };
 new Textdraws[Textdraws_Enum];
