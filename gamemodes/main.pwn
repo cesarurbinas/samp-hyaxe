@@ -3755,6 +3755,32 @@ public OnPlayerConnect(playerid)
 					CHARACTER_INFO[playerid][ch_INTERIOR] = PROPERTY_INFO[index][property_EXT_INTERIOR];
 				}
 			}
+			case ROLEPLAY_STATE_OWN_CLUB:
+			{
+				new index = GetClubIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
+				if (index == -1)
+				{
+					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+					new index_pos = minrand(0, sizeof(NewUserPos));
+					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
+					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+					CHARACTER_INFO[playerid][ch_WORLD] = 0;
+				}
+				else
+				{
+					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+					CHARACTER_INFO[playerid][ch_POS][0] = CLUBS_INFO[index][club_X];
+					CHARACTER_INFO[playerid][ch_POS][1] = CLUBS_INFO[index][club_Y];
+					CHARACTER_INFO[playerid][ch_POS][2] = CLUBS_INFO[index][club_Z];
+					CHARACTER_INFO[playerid][ch_ANGLE] = CLUBS_INFO[index][club_ANGLE];
+					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+				}
+			}
 		}
 
 		PlayAudioStreamForPlayer(playerid, Intro_Music[random(sizeof(Intro_Music))]); // Música
@@ -4361,8 +4387,8 @@ EnterSite(playerid)
 	                }
 
                 	new interior = CLUBS_INFO[ info[1] ][club_INTERIOR];
-                    CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_INTERIOR;
-                    CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = CLUBS_INTERIORS[interior][interior_ID];
+                    CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_OWN_CLUB;
+                    CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = CLUBS_INFO[ info[1] ][club_ID];
                     PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = info[1];
                     PLAYER_TEMP[playerid][py_CLUB_INDEX] = info[1];
 
@@ -6113,6 +6139,34 @@ public OnPlayerSpawn(playerid)
 				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 				PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
 				return 1;
+			}
+			case ROLEPLAY_STATE_OWN_CLUB:
+			{
+				new index = GetClubIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
+				if (index == -1)
+				{
+					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+					new index_pos = minrand(0, sizeof(NewUserPos));
+					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
+					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+					CHARACTER_INFO[playerid][ch_WORLD] = 0;
+					SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
+				}
+				else
+				{
+					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+					CHARACTER_INFO[playerid][ch_POS][0] = CLUBS_INFO[index][club_X];
+					CHARACTER_INFO[playerid][ch_POS][1] = CLUBS_INFO[index][club_Y];
+					CHARACTER_INFO[playerid][ch_POS][2] = CLUBS_INFO[index][club_Z];
+					CHARACTER_INFO[playerid][ch_ANGLE] = CLUBS_INFO[index][club_ANGLE];
+					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+					SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
+				}
 			}
 		}
 

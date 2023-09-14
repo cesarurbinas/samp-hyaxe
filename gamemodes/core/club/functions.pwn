@@ -273,3 +273,13 @@ GetClubEnterPrice(club_id)
 	else format(price, sizeof(price), ""COL_YELLOW"%d$"COL_WHITE"", CLUBS_INFO[club_id][club_ENTER_PRICE]);
 	return price;
 }
+
+GetClubyIndexByID(id)
+{
+	for(new i = 0; i != MAX_CLUBS; i ++)
+	{
+		if (!CLUBS_INFO[i][club_VALID]) continue;
+		if (CLUBS_INFO[i][club_ID] == id) return i;
+	}
+	return -1;
+}
