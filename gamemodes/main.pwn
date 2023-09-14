@@ -36994,7 +36994,6 @@ flags:atenderre(CMD_MODERATOR);
 flags:deletead(CMD_SUPER_MODERATOR);
 flags:settime(CMD_GAME_OPERATOR);
 flags:darstaff(CMD_DEVELOPER);
-//flags:setplayergravity(CMD_SUPER_MODERATOR);
 flags:fakequery(CMD_DEVELOPER);
 flags:fakeping(CMD_DEVELOPER);
 flags:botmaster(CMD_DEVELOPER);
