@@ -274,7 +274,7 @@ GetClubEnterPrice(club_id)
 	return price;
 }
 
-GetClubyIndexByID(id)
+GetClubIndexByID(id)
 {
 	for(new i = 0; i != MAX_CLUBS; i ++)
 	{
