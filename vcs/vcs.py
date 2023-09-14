@@ -78,7 +78,7 @@ def product_buy(key, identificator, credit):
 			actual_credit = int(f.read())
 			negative_credit = int(credit)
 
-			if actual_credit > negative_credit:
+			if actual_credit >= negative_credit:
 				new_credit = (actual_credit - negative_credit)
 				if new_credit < 0:
 					new_credit = 0

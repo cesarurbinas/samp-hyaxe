@@ -29,7 +29,8 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"Experimental v0.10 Snapshot 1 Build 10"
+// #define SERVER_VERSION 			"Experimental v0.10 Snapshot 1 Build 10"
+#define SERVER_VERSION 			"Legacy v0.9 Build 10"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -7949,8 +7950,8 @@ public OnGameModeInit()
 
     // Server
 	SetGameModeText(SERVER_MODE);
-	
-	SendRconCommand("hostname Hyaxe | Developer mode");
+
+	SendRconCommand("hostname Hyaxe Dev | "SERVER_VERSION"");
 	
 	#if defined FINAL_BUILD
 		SetTimer("GiveAutoGift", 300000, false);
@@ -15100,13 +15101,13 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender local", str_text, "Si", "No");
 		}
 		case DIALOG_STORE:
-		{
+		{c
 			new
 				dialog[1024],
 				caption[128]
 			;
 
-			format(caption, sizeof(caption), ""COL_RED"Tienda | Crédito: %s$", PLAYER_TEMP[playerid][py_CREDIT]);
+			format(caption, sizeof(aption), ""COL_RED"Tienda | Crédito: %s$", PLAYER_TEMP[playerid][py_CREDIT]);
 
     		for(new i = 0; i != sizeof STORE_PRODUCTS; i ++)
     		{
