@@ -35120,6 +35120,39 @@ CMD:cargos(playerid, params[])
 	return 1;
 }
 
+CMD:documento(playerid, params[])
+{
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerNotification(playerid, "Ahora no puedes usar comandos.", 3);
+
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
+	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 1) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
+
+	new to_player;
+	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /documento <ID o nombre>");
+	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
+
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Revisa el documento de alguien\n\n\n", 0xffcb90FF, 20.0, 5000);
+
+	new
+		caption[64],
+		dialog[144],
+		drive[3]
+	;
+
+	if (PLAYER_MISC[to_player][MISC_DNI] != 0) drive = "Si";
+	else drive = "No";
+
+	format(caption, sizeof(caption), ""COL_RED"%s", PLAYER_TEMP[to_player][py_NAME]);
+	format(dialog, sizeof(dialog), ""COL_WHITE"Documento: %d\nLicencia de conducir: %s", PLAYER_MISC[to_player][MISC_DNI], drive);
+
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
+	return 1;
+}
+
 GetAvaibleCrewIndex()
 {
 	for(new i = 0; i != MAX_CREWS; i ++)
