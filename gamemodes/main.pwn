@@ -11442,7 +11442,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_POLICE_ARMOUR:
 		{
 			SetPlayerHealthEx(playerid, 100.0);
-			SetPlayerArmourEx(playerid, 100.0);
+			SetPlayerArmourEx(playerid, 50.0);
 			ShowDialog(playerid, DIALOG_POLICE_SHOP);
 			return 1;
 		}

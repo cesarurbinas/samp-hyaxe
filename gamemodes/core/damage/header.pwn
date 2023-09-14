@@ -85,7 +85,7 @@ new const g_rgszWeaponName[][] = {
 		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: Slot inválido
         { 8, 8, 5, 5, 5, 5, 20 }, // Colt45
 		{ 8, 8, 5, 5, 5, 5, 20 }, // Silenced
-		{ 25, 25, 25, 25, 25, 25, 30 }, // Deagle
+		{ 20, 20, 20, 20, 20, 20, 30 }, // Deagle
 		{ 15, 12, 12, 12, 12, 12, 15 }, // Escopeta
 		{ 15, 10, 10, 10, 10, 10, 15 }, // Recortada
 		{ 8, 8, 8, 8, 8, 8, 10 }, // Combate
