@@ -26958,8 +26958,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			return 1;
 		}
 
-		CheckAndOpenBoot(playerid);
-
 		if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 		{
 			for(new i = 0; i != MAX_DROP_ITEMS; i ++)
@@ -33424,8 +33422,13 @@ CheckAndOpenBoot(playerid, type)
 	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID] || IsPlayerInKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], ACCOUNT_INFO[playerid][ac_ID]))
 	{
 		PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] = vehicleid;
-		ShowDialog(playerid, DIALOG_VEHICLE_BOOT);
 		ResetItemBody(playerid);
+
+		switch(type)
+		{
+			case 0: ShowInventory(playerid, 3);
+			case 1: ShowInventory(playerid, 4);
+		}
 	}
 	return 1;
 }
