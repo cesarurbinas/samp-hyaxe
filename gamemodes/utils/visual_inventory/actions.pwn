@@ -314,70 +314,7 @@ UseItemSlot(playerid)
 
 		case 56:
 		{
-			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar el geolocalizador.", 3);
-			if ((gettime() - PLAYER_TEMP[playerid][py_LAST_GEO_USE]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 5 minutos para volver a hacer eso.", 4);
-			
-			if (PLAYER_CREW[playerid][player_crew_VALID])
-			{
-				new 
-					city[45],
-					zone[45],
-					message[144]
-				;
-
-				GetPlayerZones(playerid, city, zone);
-				format(message, sizeof message, "~r~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
-
-			 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-				{
-					if (IsPlayerConnected(i))
-					{
-						if (PLAYER_CREW[i][player_crew_VALID])
-						{
-							if (PLAYER_CREW[i][player_crew_ID] == PLAYER_CREW[playerid][player_crew_ID])
-							{
-								SetPlayerMarkerForPlayer(i, playerid, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);
-								ShowPlayerNotification(i, message, 4);
-							}
-						}
-					}
-				}
-
-			 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
-				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableGangRefMark", 120000, false, "i", playerid);
-				PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
-				return 1;
-			}
-
-			if (PlayerIsInMafia(playerid))
-			{
-				new 
-					city[45],
-					zone[45],
-					message[144],
-					mafia = GetPlayerMafia(playerid)
-				;
-
-				GetPlayerZones(playerid, city, zone);
-				format(message, sizeof message, "~r~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
-
-			 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-				{
-					if (IsPlayerConnected(i))
-					{
-						if (PLAYER_WORKS[i][mafia])
-						{
-							SetPlayerMarkerForPlayer(i, playerid, GetMafiaColor(mafia));
-							ShowPlayerNotification(i, message, 4);
-						}
-					}
-				}
-
-			 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
-				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableMafiaRefMark", 120000, false, "i", playerid);
-				PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
-				return 1;
-			}
+			ActiveGeolocation(playerid);
 			return 1;
 		}
 

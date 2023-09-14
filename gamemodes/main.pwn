@@ -31048,6 +31048,79 @@ CMD:plantar(playerid, params[])
 	return 1;
 }
 
+ActiveGeolocation(playerid)
+{
+	if (PLAYER_MISC[playerid][MISC_GEO])
+	{
+		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar el geolocalizador.", 3);
+		if ((gettime() - PLAYER_TEMP[playerid][py_LAST_GEO_USE]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 5 minutos para volver a hacer eso.", 4);
+		
+		if (PLAYER_CREW[playerid][player_crew_VALID])
+		{
+			new 
+				city[45],
+				zone[45],
+				message[144]
+			;
+
+			GetPlayerZones(playerid, city, zone);
+			format(message, sizeof message, "~r~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+
+		 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			{
+				if (IsPlayerConnected(i))
+				{
+					if (PLAYER_CREW[i][player_crew_VALID])
+					{
+						if (PLAYER_CREW[i][player_crew_ID] == PLAYER_CREW[playerid][player_crew_ID])
+						{
+							SetPlayerMarkerForPlayer(i, playerid, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);
+							ShowPlayerNotification(i, message, 4);
+						}
+					}
+				}
+			}
+
+		 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+			PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableGangRefMark", 120000, false, "i", playerid);
+			PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
+			return 1;
+		}
+
+		if (PlayerIsInMafia(playerid))
+		{
+			new 
+				city[45],
+				zone[45],
+				message[144],
+				mafia = GetPlayerMafia(playerid)
+			;
+
+			GetPlayerZones(playerid, city, zone);
+			format(message, sizeof message, "~r~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+
+		 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			{
+				if (IsPlayerConnected(i))
+				{
+					if (PLAYER_WORKS[i][mafia])
+					{
+						SetPlayerMarkerForPlayer(i, playerid, GetMafiaColor(mafia));
+						ShowPlayerNotification(i, message, 4);
+					}
+				}
+			}
+
+		 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+			PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableMafiaRefMark", 120000, false, "i", playerid);
+			PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
+			return 1;
+		}
+	}
+	else ShowPlayerMessage(playerid, "~r~No tienes un geolocalizador.", 4);
+	return 1;
+}
+
 CMD:piezas(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mecánico.", 3);
@@ -33172,37 +33245,40 @@ CMD:requisar(playerid, params[])
 
 CMD:ref(playerid, params[])
 {
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
-
-	new city[45], zone[45];
-	GetPlayerZones(playerid, city, zone);
-
-	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
-
-	new message[144];
-	format(message, sizeof message, "~b~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
-	SendPoliceNotification(message, 4);
-
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	if (PLAYER_WORKS[playerid][WORK_POLICE])
 	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
-			{
-				if (PLAYER_WORKS[i][WORK_POLICE])
-				{
-					if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
-					{
-						SetPlayerMarkerForPlayer(i, playerid, 0x0087ffFF);
-					}
-				}
-   			}
-		}
- 	}
+		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
- 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
-	PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableRefMark", 120000, false, "i", playerid);
+		new city[45], zone[45];
+		GetPlayerZones(playerid, city, zone);
+
+		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
+
+		new message[144];
+		format(message, sizeof message, "~b~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+		SendPoliceNotification(message, 4);
+
+		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+		{
+			if (IsPlayerConnected(i))
+			{
+				if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+				{
+					if (PLAYER_WORKS[i][WORK_POLICE])
+					{
+						if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
+						{
+							SetPlayerMarkerForPlayer(i, playerid, 0x0087ffFF);
+						}
+					}
+	   			}
+			}
+	 	}
+
+	 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+		PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableRefMark", 120000, false, "i", playerid);
+	}
+	else ActiveGeolocation(playerid);
 	return 1;
 }
 alias:ref("refuerzos")
