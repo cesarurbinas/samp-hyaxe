@@ -302,8 +302,13 @@ enum Temp_Enum
 >>>>>>> refs/rewritten/aa
 =======
 	bool:py_STEAL_SUSPICION,
+<<<<<<< HEAD
 	bool:py_COMBAT_MODE
 >>>>>>> 8914c15 (Mejoras en el filtro de nombres)
+=======
+	bool:py_COMBAT_MODE,
+	py_CRANE_VEHICLE
+>>>>>>> c59b3ca (Poder mandar el vehiculo al ultimo estacionamiento)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

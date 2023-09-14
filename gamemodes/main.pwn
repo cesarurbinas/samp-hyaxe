@@ -9674,7 +9674,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_NOTARY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Notaría", ""COL_WHITE"Vender una propiedad al banco\n"COL_WHITE"Vender un vehículo al banco\n"COL_WHITE"Vender una propiedad a una persona\n"COL_WHITE"Vender un vehículo a una persona", "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Notaría", ""COL_WHITE"Vender una propiedad al banco\n"COL_WHITE"Vender un vehículo al banco\n"COL_WHITE"Vender una propiedad a una persona\n"COL_WHITE"Vender un vehículo a una persona", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_NOTARY_SELECT_PROPERTY:
@@ -11463,6 +11463,11 @@ ShowDialog(playerid, dialogid)
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona el vehículo", dialog, "Selecc.", "Cerrar");
 			return 1;
+		}
+		case DIALOG_CRANE_SELECT_PLACE:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona el lugar", "Depósito municipal\nÚltimo estacionamiento\n", "Selecc.", "Cerrar");
+			return 1;	
 		}
 		case DIALOG_USER_NOTIFICATIONS:
 		{
@@ -17834,22 +17839,63 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
-				new crane_point = random(sizeof(CRANE_POINTS));
-				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_SPAWN_X] = CRANE_POINTS[crane_point][0];
-				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_SPAWN_Y] = CRANE_POINTS[crane_point][1];
-				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_SPAWN_Z] = CRANE_POINTS[crane_point][2];
-				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_SPAWN_ANGLE] = CRANE_POINTS[crane_point][3];
+				PLAYER_TEMP[playerid][py_CRANE_VEHICLE] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
+				ShowDialog(playerid, DIALOG_CRANE_SELECT_PLACE);
+			}
+			return 1;
+		}
+		case DIALOG_CRANE_SELECT_PLACE:
+		{
+			if (response)
+			{
+				new veh_money = (VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_PRICE] / 100) + 350;
+				if (veh_money > CHARACTER_INFO[playerid][ch_CASH])
+				{
+					ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 4);
+					return 1;
+				}
 
-				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_LAST_CLOSED_TIME] = gettime();
-				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_PARAMS_ENGINE] = 0;
-				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_PARAMS_LIGHTS] = 0;
-				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_PARAMS_DOORS] = 1;
-				UpdateVehicleParams(PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]);
-				SetVehicleToRespawnEx(PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]);
-				RepairVehicleEx(PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]);
+				if (GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_OCCUPIED])
+				{
+				    ShowPlayerMessage(playerid, "~r~No se puede remolcar tu vehículo porque hay alguien conduciéndolo.", 3);
+					return 1;
+				}
 
 				GivePlayerCash(playerid, -veh_money);
-				ShowPlayerNotification(playerid, "El vehículo ha sido remolcado hasta el depósito municipal.", 4);
+
+				switch(listitem)
+				{
+					case 0:
+					{
+						new crane_point = random(sizeof(CRANE_POINTS));
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_X] = CRANE_POINTS[crane_point][0];
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Y] = CRANE_POINTS[crane_point][1];
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = CRANE_POINTS[crane_point][2];
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = CRANE_POINTS[crane_point][3];
+
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_LAST_CLOSED_TIME] = gettime();
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_PARAMS_ENGINE] = 0;
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_PARAMS_LIGHTS] = 0;
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_PARAMS_DOORS] = 1;
+						UpdateVehicleParams(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
+						SetVehicleToRespawnEx(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
+						RepairVehicleEx(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
+
+						ShowPlayerNotification(playerid, "El vehículo ha sido remolcado hasta el depósito municipal.", 4);
+					}
+					case 1:
+					{
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_LAST_CLOSED_TIME] = gettime();
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_PARAMS_ENGINE] = 0;
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_PARAMS_LIGHTS] = 0;
+						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_PARAMS_DOORS] = 1;
+						UpdateVehicleParams(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
+						SetVehicleToRespawnEx(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
+						RepairVehicleEx(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
+
+						ShowPlayerNotification(playerid, "El vehículo ha sido remolcado hasta el último estacionamiento.", 4);
+					}
+				}
 			}
 			return 1;
 		}
