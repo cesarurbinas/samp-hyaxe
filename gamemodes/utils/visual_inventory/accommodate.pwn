@@ -2,9 +2,9 @@ inv_AccommodateAccessories(playerid)
 {
 	new bool:toys_inv_slots[6];
 
-	if(PLAYER_TOYS[playerid][0][player_toy_VALID])
+	if (PLAYER_TOYS[playerid][0][player_toy_VALID])
 	{
-		if(toys_inv_slots[0] == false)
+		if (toys_inv_slots[0] == false)
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][5], PLAYER_TOYS[playerid][0][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][5], -15.000000, 0.000000, 12.000000, 1.000000);
@@ -13,9 +13,9 @@ inv_AccommodateAccessories(playerid)
 		}
 	}
 
-	if(PLAYER_TOYS[playerid][1][player_toy_VALID])
+	if (PLAYER_TOYS[playerid][1][player_toy_VALID])
 	{
-		if(toys_inv_slots[1] == false)
+		if (toys_inv_slots[1] == false)
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][6], PLAYER_TOYS[playerid][1][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][6], -15.000000, 0.000000, 12.000000, 1.000000);
@@ -23,9 +23,9 @@ inv_AccommodateAccessories(playerid)
 		}
 	}
 
-	if(PLAYER_TOYS[playerid][2][player_toy_VALID])
+	if (PLAYER_TOYS[playerid][2][player_toy_VALID])
 	{
-		if(toys_inv_slots[2] == false)
+		if (toys_inv_slots[2] == false)
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][7], PLAYER_TOYS[playerid][2][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][7], -15.000000, 0.000000, 12.000000, 1.000000);
@@ -34,9 +34,9 @@ inv_AccommodateAccessories(playerid)
 		}
 	}
 
-	if(PLAYER_TOYS[playerid][3][player_toy_VALID])
+	if (PLAYER_TOYS[playerid][3][player_toy_VALID])
 	{
-		if(toys_inv_slots[3] == false)
+		if (toys_inv_slots[3] == false)
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][8], PLAYER_TOYS[playerid][3][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][8], -15.000000, 0.000000, 12.000000, 1.000000);
@@ -45,9 +45,9 @@ inv_AccommodateAccessories(playerid)
 		}
 	}
 
-	if(PLAYER_TOYS[playerid][4][player_toy_VALID])
+	if (PLAYER_TOYS[playerid][4][player_toy_VALID])
 	{
-		if(toys_inv_slots[4] == false)
+		if (toys_inv_slots[4] == false)
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][9], PLAYER_TOYS[playerid][0][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][9], -15.000000, 0.000000, 12.000000, 1.000000);
@@ -66,15 +66,6 @@ inv_GetFreeSlot(playerid)
     }
     return false;
 }
-
-/*inv_GetFreeItem(playerid)
-{
-	for(new i = 0; i != 12; i++)
-	{
-		if(PLAYER_TEMP[playerid][py_INV_ITEM_USED][i] == false) return i;
-	}
-	return -1;
-}*/
 
 GetTypePreviewRot(type, &Float:rx, &Float:ry, &Float:rz, &Float:zoom)
 {
@@ -120,7 +111,7 @@ inv_ItemToTextdraw(playerid, slot, type)
 
 	PLAYER_VISUAL_INV[playerid][slot_TD_ID][slot] = PlayerTextdraws[playerid][ptextdraw_INV][td_init];
 
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50)
+	if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50)
 	{
 		format(str_text, sizeof(str_text), "Cel");
 	}
@@ -146,7 +137,7 @@ inv_ItemToTextdraw(playerid, slot, type)
 	return 1;
 }
 
-inv_AccommodateItems(playerid)
+inv_AccommodateItems(playerid, bool:is_visual = true)
 {
 	for(new x = 0; x != 12; x++)
 	{
@@ -159,174 +150,174 @@ inv_AccommodateItems(playerid)
 
 	new free_slot;
 
-	if(PLAYER_PHONE[playerid][player_phone_VALID])
+	if (PLAYER_PHONE[playerid][player_phone_VALID])
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 50;
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = 1;
-		inv_ItemToTextdraw(playerid, free_slot, 50);
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 50);
 	}
 
 	for(new i; i != 13; i ++)
 	{
-		if(!PLAYER_WEAPONS[playerid][i][player_weapon_VALID]) continue;
+		if (!PLAYER_WEAPONS[playerid][i][player_weapon_VALID]) continue;
 
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = WeaponToType(PLAYER_WEAPONS[playerid][i][player_weapon_ID]);
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_WEAPONS[playerid][i][player_weapon_AMMO];
 		PLAYER_VISUAL_INV[playerid][slot_WEAPON][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][free_slot] = i;
-		inv_ItemToTextdraw(playerid, free_slot, WeaponToType(PLAYER_WEAPONS[playerid][i][player_weapon_ID]));
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, WeaponToType(PLAYER_WEAPONS[playerid][i][player_weapon_ID]));
 	}
 
-	if(PLAYER_MISC[playerid][MISC_BOTIKIN] > 0)
+	if (PLAYER_MISC[playerid][MISC_BOTIKIN] > 0)
 	{
 		for(new i; i != PLAYER_MISC[playerid][MISC_BOTIKIN]; i ++)
 		{
 			free_slot = inv_GetFreeSlot(playerid);
-			if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 0;
 			PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = 1;
-			inv_ItemToTextdraw(playerid, free_slot, 0);
+			if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 0);
 		}
 	}
 
-	if(PLAYER_MISC[playerid][MISC_FIXKIT] > 0)
+	if (PLAYER_MISC[playerid][MISC_FIXKIT] > 0)
 	{
 		for(new i; i != PLAYER_MISC[playerid][MISC_FIXKIT]; i ++)
 		{
 			free_slot = inv_GetFreeSlot(playerid);
-			if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 53;
 			PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = 1;
-			inv_ItemToTextdraw(playerid, free_slot, 53);
+			if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 53);
 		}
 	}
 
-	if(PLAYER_MISC[playerid][MISC_MEDICINE] > 0)
+	if (PLAYER_MISC[playerid][MISC_MEDICINE] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 1;
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_MEDICINE];
-		inv_ItemToTextdraw(playerid, free_slot, 1);
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 1);
 	}
 
-	if(PLAYER_MISC[playerid][MISC_VENDAS] > 0)
+	if (PLAYER_MISC[playerid][MISC_VENDAS] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 2;
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_VENDAS];
-		inv_ItemToTextdraw(playerid, free_slot, 2);
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 2);
 	}
 
-	if(PLAYER_MISC[playerid][MISC_CANNABIS] > 0)
+	if (PLAYER_MISC[playerid][MISC_CANNABIS] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 3;
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_CANNABIS];
-		inv_ItemToTextdraw(playerid, free_slot, 3);
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 3);
 	}
 
-	if(PLAYER_MISC[playerid][MISC_CRACK] > 0)
+	if (PLAYER_MISC[playerid][MISC_CRACK] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 4;
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_CRACK];
-		inv_ItemToTextdraw(playerid, free_slot, 4);
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 4);
 	}
 
-	if(PLAYER_MISC[playerid][MISC_FUEL_DRUM] > 0)
+	if (PLAYER_MISC[playerid][MISC_FUEL_DRUM] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 5;
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_FUEL_DRUM];
-		inv_ItemToTextdraw(playerid, free_slot, 5);
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 5);
 	}
 
-	if(PLAYER_MISC[playerid][MISC_ROD] > 0)
+	if (PLAYER_MISC[playerid][MISC_ROD] > 0)
 	{
 		for(new i; i != PLAYER_MISC[playerid][MISC_ROD]; i ++)
 		{
 			free_slot = inv_GetFreeSlot(playerid);
-			if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 51;
 			PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = 1;
-			inv_ItemToTextdraw(playerid, free_slot, 51);
+			if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 51);
 		}
 	}
 
-	if(PLAYER_MISC[playerid][MISC_MALLET] > 0)
+	if (PLAYER_MISC[playerid][MISC_MALLET] > 0)
 	{
 		for(new i; i != PLAYER_MISC[playerid][MISC_MALLET]; i ++)
 		{
 			free_slot = inv_GetFreeSlot(playerid);
-			if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 52;
 			PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = 1;
-			inv_ItemToTextdraw(playerid, free_slot, 52);
+			if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 52);
 		}
 	}
 
-	if(PLAYER_MISC[playerid][MISC_SEED_MEDICINE] > 0)
+	if (PLAYER_MISC[playerid][MISC_SEED_MEDICINE] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 6;
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_SEED_MEDICINE];
-		inv_ItemToTextdraw(playerid, free_slot, 6);
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 6);
 	}
 
-	if(PLAYER_MISC[playerid][MISC_SEED_CANNABIS] > 0)
+	if (PLAYER_MISC[playerid][MISC_SEED_CANNABIS] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 7;
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_SEED_CANNABIS];
-		inv_ItemToTextdraw(playerid, free_slot, 7);
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 7);
 	}
 
-	if(PLAYER_MISC[playerid][MISC_SEED_CRACK] > 0)
+	if (PLAYER_MISC[playerid][MISC_SEED_CRACK] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 8;
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_SEED_CRACK];
-		inv_ItemToTextdraw(playerid, free_slot, 8);
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 8);
 	}
 	return 1;
 }

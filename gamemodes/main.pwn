@@ -4546,6 +4546,9 @@ ExitSite(playerid)
 
     if (!IsPlayerInRangeOfPoint(playerid, 1.0, pos[0], pos[1], pos[2])) return 0;
 
+    PLAYER_TEMP[playerid][py_IN_MARKET] = false;
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
+
     switch(info[0])
     {
         case PICKUP_TYPE_ENTER_EXIT:
@@ -4561,9 +4564,6 @@ ExitSite(playerid)
                 FreezePlayer(playerid);
 
                 if (ENTER_EXIT[ info[1] ][ee_EXT_INTERIOR] == 0) SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
-
-                KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
-            	PLAYER_TEMP[playerid][py_IN_MARKET] = false;
                 if (ENTER_EXIT[info[1]][ee_INTERIOR_TYPE] == INTERIOR_ALHAMBRA) StopAudioStreamForPlayer(playerid);
             }
             else ShowPlayerMessage(playerid, "~r~No estás en sitio correcto.", 2);
