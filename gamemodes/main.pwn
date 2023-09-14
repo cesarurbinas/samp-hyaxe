@@ -34618,7 +34618,7 @@ CMD:cargos(playerid, params[])
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (to_player == playerid) return ShowPlayerMessage(playerid, "~r~No puedes verte a tu mismo");
 	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
-	if (!PLAYER_TEMP[to_player][py_POLICE_REASON]) ShowPlayerMessage(playerid, "~r~Este jugador no tiene razones de cargos.", 3);
+	if (!PLAYER_TEMP[to_player][py_POLICE_REASON]) return ShowPlayerMessage(playerid, "~r~Este jugador no tiene razones de cargos.", 3);
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "%s tiene cargos por "COL_RED"%s", PLAYER_TEMP[to_player][py_NAME], PLAYER_TEMP[to_player][py_POLICE_REASON]);
 	return 1;
