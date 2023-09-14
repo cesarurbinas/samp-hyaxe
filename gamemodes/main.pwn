@@ -2494,6 +2494,9 @@ Suburban_Shop_Male_Skins[][] =
 	{2, 100   , 0},
 	{3, 140   , 0},
 	{20, 190  , 0},
+	{23, 190  , 0},
+	{24, 190  , 0},
+	{25, 190  , 0},
 	{43, 180  , 0},
 	{48, 145  , 0},
 	{60, 250  , 0},
@@ -2570,7 +2573,8 @@ Didier_Shop_Male_Skins[][] =
 	{223, 3100 , 0},
 	{240, 1500 , 0},
 	{295, 3000 , 0},
-	{294, 5000 , 0}
+	{294, 5000 , 0},
+	{290, 5000 , 0}
 },
 
 Didier_Shop_Female_Skins[][] =
@@ -21934,7 +21938,39 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
+				if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+				{
+					new club = PLAYER_TEMP[playerid][py_CLUB_INDEX];
 
+					if (sscanf(inputtext, "d", inputtext[0]))
+					{
+						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+						ShowPlayerMessage(playerid, "Introduce un valor numérico.", 2);
+						ShowDialog(playerid, dialogid);
+						return 1;
+					}
+					if (inputtext[0] <= 0)
+					{
+						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+						ShowPlayerMessage(playerid, "Introduce un valor positivo.", 2);
+						ShowDialog(playerid, dialogid);
+						return 1;
+					}
+
+					CLUBS_INFO[club][club_ENTER_PRICE] = inputtext[0];
+
+					new DB_Query[128];
+	    			format(DB_Query, sizeof(DB_Query), "\
+						UPDATE `CLUB_INFO` SET\
+							`ENTER_PRICE` = '%d' \
+						WHERE `ID` = '%d';\
+					", CLUBS_INFO[club][club_ENTER_PRICE], club);
+					db_free_result(db_query(Database, DB_Query));				
+
+					ShowPlayerMessage(playerid, "Valor de entrada cambiado.", 3);
+
+					CheckClubOptions(playerid);
+				}
 			}
 			else CheckClubOptions(playerid);
 		}
