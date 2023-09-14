@@ -240,7 +240,7 @@ inv_AccommodateVehicleItems(playerid, vehicle_id)
 		DB_Query[140]
 	;
 
-	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_STORAGE` WHERE `ID_PROPERTY` = '%d';", vehicle_id);
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_STORAGE` WHERE `ID_VEHICLE` = '%d';", vehicle_id);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
