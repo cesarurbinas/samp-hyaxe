@@ -114,8 +114,10 @@ Listado de cosas para hacer
 
 ✅ Rehacer 24/7
 
-❌ Rehacer Burger Shot
+✅ Rehacer Burger Shot
 
-❌ Rehacer Clukin Bell
+✅ Rehacer Clukin Bell
 
-❌ Rehacer Stacked Pizza
+✅ Rehacer Stacked Pizza
+
+❌ Agregar el poder de remolcar tus propios autos con otro auto

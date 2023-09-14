@@ -3389,6 +3389,8 @@ Show247Menu(playerid)
 	AddPlayerMenuItem(playerid, TextToSpanish("Jugo de naranja"), "Precio: ~g~70$");
 	AddPlayerMenuItem(playerid, TextToSpanish("Jugo de manzana"), "Precio: ~g~70$");
 	AddPlayerMenuItem(playerid, TextToSpanish("Leche"), "Precio: ~g~70$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Naranja"), "Precio: ~g~10$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Café"), "Precio: ~g~20$");
 	return 1;
 }
 
@@ -3511,6 +3513,42 @@ Menu:MENU_247(playerid, response, listitem)
 					AddPlayerItem(playerid, 55);
 					ShowPlayerNotification(playerid, "Compraste una caja de leche.", 3);
 					GivePlayerCash(playerid, -70);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 6:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 10)
+				{
+					AddPlayerItem(playerid, 53);
+					ShowPlayerNotification(playerid, "Compraste una naranja.", 3);
+					GivePlayerCash(playerid, -10);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 7:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 20)
+				{
+					AddPlayerItem(playerid, 68);
+					ShowPlayerNotification(playerid, "Compraste un café.", 3);
+					GivePlayerCash(playerid, -20);
 					
 					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
