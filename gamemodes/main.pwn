@@ -2501,6 +2501,9 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Sección B", INTERIOR_NO_INFO, -1, true, 37, 26, 1988.257446, 1204.595825, -63.139907, 268.650756, 56, false, 36, 25, 1270.046142, 1000.668884, -99.214637, 81.757308, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Sección C", INTERIOR_NO_INFO, -1, true, 38, 27, 2546.433105, 1924.534423, -58.649192, 265.830688, 56, false, 37, 26, 2067.543212, 1201.233398, -61.074184, 85.059127, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "TCC", INTERIOR_NO_INFO, -1, true, 0, 28, 3854.231933, -1265.252319, 7547.983398, 188.315292, 44, false, 0, 0, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 0, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 693.761047, 1967.498168, 5.539062, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 1, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 1145.013916,-1131.447998,23.828125, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 2, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 2421.501953,-1219.768432,25.527839, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
@@ -4497,12 +4500,6 @@ ExitSite(playerid)
     if (IsPlayerInRangeOfPoint(playerid, 2.0, 1881.341674, -1727.080688, 5216.709960))
     {
     	SetPlayerPosEx(playerid, 1568.651977, -1690.080688, 6.218750, 180.0, 0, 0, false);
-        return 1;
-    }
-
-    if (IsPlayerInRangeOfPoint(playerid, 2.0, 3854.231933, -1265.252319, 7547.983398))
-    {
-    	SetPlayerPosEx(playerid, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, false);
         return 1;
     }
 
@@ -7318,35 +7315,15 @@ SanAndreas()
 	gettime(SERVER_TIME[0], SERVER_TIME[1]);
 	SetTimer("UpdateWorldTime", 60000, true);
 
-	//Putis
-    //CreateDynamic3DTextLabel(""COL_WHITE"Pulsa {7f03cf}'F' "COL_WHITE"para soltar billetes.", 0xF7F7F700, 1208.744140, -34.261119, 1000.953125, 5.0, .testlos = true, .worldid = 0, .interiorid = 3);
-    //CreateDynamic3DTextLabel(""COL_WHITE"Pulsa {7f03cf}'F' "COL_WHITE"para soltar billetes.", 0xF7F7F700, 1213.738037, -33.667881, 1000.953125, 5.0, .testlos = true, .worldid = 0, .interiorid = 3);
-	CreateDynamic3DTextLabel(""COL_WHITE"Pulsa "COL_RED"H "COL_WHITE"para comprar bebida alcohólica.", 0xF7F7F700, 1207.234375, -29.231435, 1000.953125, 5.0, .testlos = true, .worldid = 0, .interiorid = 3);
-	//Putis2
-    //CreateDynamic3DTextLabel(""COL_WHITE"Pulsa {7f03cf}'F' "COL_WHITE"para soltar billetes.", 0xF7F7F700, 1208.744140, -34.261119, 1000.953125, 5.0, .testlos = true, .worldid = 1, .interiorid = 3);
-    //CreateDynamic3DTextLabel(""COL_WHITE"Pulsa {7f03cf}'F' "COL_WHITE"para soltar billetes.", 0xF7F7F700, 1213.738037, -33.667881, 1000.953125, 5.0, .testlos = true, .worldid = 1, .interiorid = 3);
-	CreateDynamic3DTextLabel(""COL_WHITE"Pulsa {7f03cf}H "COL_WHITE"para comprar bebida alcohólica.", 0xF7F7F700, 1207.234375, -29.231435, 1000.953125, 5.0, .testlos = true, .worldid = 1, .interiorid = 3);
-	//Putis3
-    //CreateDynamic3DTextLabel(""COL_WHITE"Pulsa {7f03cf}'F' "COL_WHITE"para soltar billetes.", 0xF7F7F700, 1208.744140, -34.261119, 1000.953125, 5.0, .testlos = true, .worldid = 2, .interiorid = 3);
-    //CreateDynamic3DTextLabel(""COL_WHITE"Pulsa {7f03cf}'F' "COL_WHITE"para soltar billetes.", 0xF7F7F700, 1213.738037, -33.667881, 1000.953125, 5.0, .testlos = true, .worldid = 2, .interiorid = 3);
-	CreateDynamic3DTextLabel(""COL_WHITE"Pulsa {7f03cf}H "COL_WHITE"para comprar bebida alcohólica.", 0xF7F7F700, 1207.234375, -29.231435, 1000.953125, 5.0, .testlos = true, .worldid = 2, .interiorid = 3);
-	CreateDynamic3DTextLabel(""COL_WHITE"Pulsa {7f03cf}H "COL_WHITE"para comprar bebida alcohólica.", 0xF7F7F700, 496.589172,-76.033905,998.757812, 5.0, .testlos = true, .worldid = 2, .interiorid = 11);
-
 	//ptas
 	Club_Strippers_Actor[0] = CreateDynamicActor(246, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 0, .interiorid = 3);
     Club_Strippers_Actor[1] = CreateDynamicActor(87, 1215.355712, -33.439422, 1001.382812, 85.3, .worldid = 0, .interiorid = 3);
-	CreateDynamic3DTextLabel("Monica", 0xF7F7F700, 1209.416503, -36.272216, 1001.484375 + 0.3, 5.0, .testlos = false, .worldid = 0, .interiorid = 3);
-	CreateDynamic3DTextLabel("Tatiana", 0xF7F7F700, 1215.355712, -33.439422, 1001.382812 + 0.3, 5.0, .testlos = false, .worldid = 0, .interiorid = 3);
 	//ptas2
 	Club_Strippers_Actor[2] = CreateDynamicActor(64, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 1, .interiorid = 3);
     Club_Strippers_Actor[3] = CreateDynamicActor(63, 1215.355712, -33.439422, 1001.382812, 85.3, .worldid = 1, .interiorid = 3);
-	CreateDynamic3DTextLabel("Yuliana", 0xF7F7F700, 1209.416503, -36.272216, 1001.484375 + 0.3, 5.0, .testlos = false, .worldid = 1, .interiorid = 3);
-	CreateDynamic3DTextLabel("Natacha", 0xF7F7F700, 1215.355712, -33.439422, 1001.382812 + 0.3, 5.0, .testlos = false, .worldid = 1, .interiorid = 3);
 	//ptas3
 	Club_Strippers_Actor[4] = CreateDynamicActor(75, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 2, .interiorid = 3);
     Club_Strippers_Actor[5] = CreateDynamicActor(238, 1215.355712, -33.439422, 1001.382812, 85.3, .worldid = 2, .interiorid = 3);
-	CreateDynamic3DTextLabel("Karen", 0xF7F7F700, 1209.416503, -36.272216, 1001.484375 + 0.3, 5.0, .testlos = false, .worldid = 2, .interiorid = 3);
-	CreateDynamic3DTextLabel("Mariza", 0xF7F7F700, 1215.355712, -33.439422, 1001.382812 + 0.3, 5.0, .testlos = false, .worldid = 2, .interiorid = 3);
 
 	//cantina
     Club_Bar_Actor[0] = CreateDynamicActor(194, 1206.232788, -29.325387, 1000.953125, 270.0, .worldid = 0, .interiorid = 3);
@@ -24727,6 +24704,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
         EnterSite(playerid);
 
+        if (IsPlayerInRangeOfPoint(playerid, 2.0, 3854.231933, -1265.252319, 7547.983398))
+	    {
+	    	SetPlayerPosEx(playerid, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, false);
+	        return 1;
+	    }
+
         if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 		{
 			if (PLAYER_TEMP[playerid][py_INTERIOR_INDEX] != -1)
@@ -37114,4 +37097,3 @@ flags:rev(CMD_SUPER_MODERATOR);
 flags:a(CMD_MODERATOR);
 flags:borrarop(CMD_SUPER_MODERATOR);
 flags:admac(CMD_ADMIN);
-//Fernando smith - Agustin Gavier
