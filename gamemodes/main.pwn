@@ -32383,6 +32383,8 @@ CALLBACK: StopShitting(playerid)
 
 CMD:no(playerid, params[])
 {
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 	if(IsPlayerJumping(playerid)) return 1;
 	
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
