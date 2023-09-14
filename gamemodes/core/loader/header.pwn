@@ -83,7 +83,6 @@ SanAndreas()
 	for(new i = 0; i < sizeof ATM_BANK; i ++)
 	{
 		ATM_BANK[i][atm_OBJECT] = CreateDynamicObject(19324, ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], ATM_BANK[i][atm_Z], ATM_BANK[i][atm_RX], ATM_BANK[i][atm_RY], ATM_BANK[i][atm_RZ], ATM_BANK[i][atm_WORLD], ATM_BANK[i][atm_INTERIOR]);
-		Streamer_SetIntData(STREAMER_TYPE_OBJECT, ATM_BANK[i][atm_OBJECT], E_STREAMER_EXTRA_ID, i);
 		AddKeyArea(ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], 0.8, KEY_TYPE_Y);
 
 		ATM_BANK[i][atm_HEALTH] = 1000.0;
@@ -96,6 +95,12 @@ SanAndreas()
 		info[1] = i; // Index
 		info[2] = 0; // Nada
 		Streamer_SetArrayData(STREAMER_TYPE_PICKUP, atm_pickup_id, E_STREAMER_EXTRA_ID, info);
+
+		info[0] = OBJECT_TYPE_ATM;
+		info[1] = i; // Index
+		info[2] = 0; // Nada
+		Streamer_SetArrayData(STREAMER_TYPE_OBJECT, ATM_BANK[i][atm_OBJECT], E_STREAMER_EXTRA_ID, info);
+
 	}
 
 	// 3D Texts Gasolinera

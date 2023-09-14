@@ -6204,41 +6204,44 @@ public RespawnATM(atm_id)
 
 public OnPlayerShootDynamicObject(playerid, weaponid, objectid, Float:x, Float:y, Float:z)
 {
-	if (PLAYER_WORKS[playerid][WORK_POLICE]) return 0;
+	new info[2];
+	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, areaid, E_STREAMER_EXTRA_ID, info);
 
-	new atm_id = Streamer_GetIntData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID);
-	if(!atm_id) return 0;
-	if (ATM_BANK[atm_id][atm_HEALTH] <= 0.0) return ShowPlayerMessage(playerid, "~r~Este cajero ya fue destruido.", 4);
-
-	ATM_BANK[atm_id][atm_HEALTH] -= mathfrandom(1.0, 5.0);
-	if (ATM_BANK[atm_id][atm_HEALTH] <= 0.0)
+	if (info[0] == OBJECT_TYPE_ATM)
 	{
-		ATM_BANK[atm_id][atm_HEALTH] = 0.0;
+		if (PLAYER_WORKS[playerid][WORK_POLICE]) return 0;
+		if (ATM_BANK[info[1]][atm_HEALTH] <= 0.0) return ShowPlayerMessage(playerid, "~r~Este cajero ya fue destruido.", 4);
 
-		new str_text[164], prize = minrand(1000, 4000);
-		format(str_text, sizeof(str_text), "Has destruido un cajero automático y le has sacado ~g~$%d~w~. ¡Corre, ahí viene la policía!", prize);
-		ShowPlayerNotification(playerid, str_text, 6);
-		GivePlayerCash(playerid, prize);
+		ATM_BANK[info[1]][atm_HEALTH] -= mathfrandom(1.0, 5.0);
+		if (ATM_BANK[info[1]][atm_HEALTH] <= 0.0)
+		{
+			ATM_BANK[info[1]][atm_HEALTH] = 0.0;
 
-		CreateExplosion(ATM_BANK[atm_id][atm_X], ATM_BANK[atm_id][atm_Y], ATM_BANK[atm_id][atm_Z], 12, 1.0);
-		DestroyDynamicObject(ATM_BANK[atm_id][atm_OBJECT]);
+			new str_text[164], prize = minrand(1000, 4000);
+			format(str_text, sizeof(str_text), "Has destruido un cajero automático y le has sacado ~g~$%d~w~. ¡Corre, ahí viene la policía!", prize);
+			ShowPlayerNotification(playerid, str_text, 6);
+			GivePlayerCash(playerid, prize);
 
-		ATM_BANK[atm_id][atm_OBJECT] = CreateDynamicObject(2943, ATM_BANK[atm_id][atm_X], ATM_BANK[atm_id][atm_Y], ATM_BANK[atm_id][atm_Z], ATM_BANK[atm_id][atm_RX], ATM_BANK[atm_id][atm_RY], ATM_BANK[atm_id][atm_RZ], ATM_BANK[atm_id][atm_WORLD], ATM_BANK[atm_id][atm_INTERIOR]);
-		SetTimerEx("RespawnATM", 600000, false, "d", atm_id);
+			CreateExplosion(ATM_BANK[info[1]][atm_X], ATM_BANK[info[1]][atm_Y], ATM_BANK[info[1]][atm_Z], 12, 1.0);
+			DestroyDynamicObject(ATM_BANK[info[1]][atm_OBJECT]);
 
-		SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 2);
-		format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Vandalismo");
-		ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Vandalismo", 5);
+			ATM_BANK[info[1]][atm_OBJECT] = CreateDynamicObject(2943, ATM_BANK[info[1]][atm_X], ATM_BANK[info[1]][atm_Y], ATM_BANK[info[1]][atm_Z], ATM_BANK[info[1]][atm_RX], ATM_BANK[info[1]][atm_RY], ATM_BANK[info[1]][atm_RZ], ATM_BANK[info[1]][atm_WORLD], ATM_BANK[info[1]][atm_INTERIOR]);
+			SetTimerEx("RespawnATM", 600000, false, "d", info[1]);
 
-		Streamer_Update(playerid);
-		return 1;
+			SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 2);
+			format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Vandalismo");
+			ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Vandalismo", 5);
+
+			Streamer_Update(playerid);
+			return 1;
+		}
+
+		new str_text[64];
+		if (ATM_BANK[info[1]][atm_HEALTH] > 800.0) format(str_text, sizeof(str_text), "Cajero: ~g~%.2f", ATM_BANK[info[1]][atm_HEALTH]);
+		if (ATM_BANK[info[1]][atm_HEALTH] < 800.0) format(str_text, sizeof(str_text), "Cajero: ~y~%.2f", ATM_BANK[info[1]][atm_HEALTH]);
+		if (ATM_BANK[info[1]][atm_HEALTH] < 300.0) format(str_text, sizeof(str_text), "Cajero: ~r~%.2f", ATM_BANK[info[1]][atm_HEALTH]);
+
+		ShowPlayerMessage(playerid, str_text, 2);
 	}
-
-	new str_text[64];
-	if (ATM_BANK[atm_id][atm_HEALTH] > 800.0) format(str_text, sizeof(str_text), "Cajero: ~g~%.2f", ATM_BANK[atm_id][atm_HEALTH]);
-	if (ATM_BANK[atm_id][atm_HEALTH] < 800.0) format(str_text, sizeof(str_text), "Cajero: ~y~%.2f", ATM_BANK[atm_id][atm_HEALTH]);
-	if (ATM_BANK[atm_id][atm_HEALTH] < 300.0) format(str_text, sizeof(str_text), "Cajero: ~r~%.2f", ATM_BANK[atm_id][atm_HEALTH]);
-
-	ShowPlayerMessage(playerid, str_text, 2);
 	return 1;
 }
