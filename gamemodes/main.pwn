@@ -3017,7 +3017,8 @@ new BLACK_MARKT_WEAPONS[][enum_BLACK_MARKT_WEAPONS] =
 	{33, 5200, 0} // Rifle 
 };
 
-CALLBACK: DisablePlayerPoliceSearchLevel(playerid)
+forward DisablePlayerPoliceSearchLevel(playerid);
+public DisablePlayerPoliceSearchLevel(playerid)
 {
 	SetPlayerPoliceSearchLevel(playerid, 0);
 	SetPlayerWantedLevel(playerid, 0);
@@ -3183,7 +3184,8 @@ NeuroJail(playerid, time, const reason[])
 	return 1;
 }
 
-CALLBACK: IsValidVehicleAbuse(playerid, vehicleid)
+forward IsValidVehicleAbuse(playerid, vehicleid);
+public IsValidVehicleAbuse(playerid, vehicleid)
 {
 	new Float:speed = GetPlayerSpeed(playerid);
 	if (speed > 15.0)
@@ -3596,7 +3598,8 @@ SendPoliceMark(playerid, color)
 	return 1;
 }
 
-CALLBACK: UpdateWantedLevelMark()
+forward UpdateWantedLevelMark();
+public UpdateWantedLevelMark();
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
     {
@@ -3645,7 +3648,8 @@ SetPlayerPoliceSearchLevel(playerid, level)
     return 1;
 }
 
-CALLBACK: UpdatePrisionTime(playerid)
+forward UpdatePrisionTime(playerid);
+public UpdatePrisionTime(playerid)
 {
 	new 
 		time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]),
@@ -3664,7 +3668,8 @@ CALLBACK: UpdatePrisionTime(playerid)
 	return 1;
 }
 
-CALLBACK: SavePrisionTime(playerid)
+forward SavePrisionTime(playerid);
+public SavePrisionTime(playerid)
 {
 	SaveUserData(playerid);
 	return 1;
@@ -3688,7 +3693,8 @@ GetPlayersInIP(const ip[])
 	return count;
 }
 
-CALLBACK: UpdateBotPing(playerid)
+forward UpdateBotPing(playerid);
+public UpdateBotPing(playerid)
 {
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	SetPlayerFakePing(playerid, minrand(170, 345));
@@ -3697,7 +3703,8 @@ CALLBACK: UpdateBotPing(playerid)
 	return 1;
 }
 
-CALLBACK: UpdateBotName(playerid)
+forward UpdateBotName(playerid);
+public UpdateBotName(playerid)
 {
 	new name[MAX_PLAYER_NAME];
 	format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);
@@ -4481,7 +4488,8 @@ ExitSite(playerid)
     return 1;
 }
 
-CALLBACK: RestorePlayerPos(playerid, Float:x, Float: y, Float: z)
+forward RestorePlayerPos(playerid, Float:x, Float: y, Float: z);
+public RestorePlayerPos(playerid, Float:x, Float: y, Float: z)
 {
 	if (GetPlayerInterior(playerid) == 0) return 0;
 	SetPlayerPosEx(playerid, x, y, z, 90.0, 0, 0);
@@ -5392,13 +5400,15 @@ CheckPlayerHouseDoor(playerid)
 	return 1;
 }
 
-CALLBACK: RestartBalloon(balloon_id)
+forward RestartBalloon(balloon_id);
+public RestartBalloon(balloon_id)
 {
 	BackBalloonToStart(balloon_id, 10.0);
 	return 1;
 }
 
-CALLBACK: UpBalloon(balloon_id)
+forward UpBalloon(balloon_id);
+public UpBalloon(balloon_id)
 {
 	SetBalloonAction(balloon_id, float(minrand(200, 300)), -float(minrand(1700, 1950)), 90.0, 10.0);
 	return 1;
@@ -5754,7 +5764,8 @@ ShowRangeUser(playerid)
 	return 1;
 }
 
-CALLBACK: RespawnMinerRock(rock_id)
+forward RespawnMinerRock(rock_id);
+public RespawnMinerRock(rock_id)
 {
 	new color_type = GetRockColorType(ROCKS_OBJ[rock_id][r_TYPE]);
 	ROCKS_OBJ[rock_id][r_OBJECT_ID] = CreateDynamicObject(ROCKS_OBJ[rock_id][r_MODELID], ROCKS_OBJ[rock_id][r_X], ROCKS_OBJ[rock_id][r_Y], ROCKS_OBJ[rock_id][r_Z], ROCKS_OBJ[rock_id][r_RX], ROCKS_OBJ[rock_id][r_RY], ROCKS_OBJ[rock_id][r_RZ], ROCKS_OBJ[rock_id][r_WORLD], ROCKS_OBJ[rock_id][r_INTERIOR]);
@@ -5763,7 +5774,8 @@ CALLBACK: RespawnMinerRock(rock_id)
 	return 1;
 }
 
-CALLBACK: PutPlayerRock(playerid, rock_type)
+forward PutPlayerRock(playerid, rock_type);
+public PutPlayerRock(playerid, rock_type)
 {
 	ResetItemBody(playerid);
 
@@ -5775,7 +5787,8 @@ CALLBACK: PutPlayerRock(playerid, rock_type)
 	return 1;
 }
 
-CALLBACK: UpdateMining(playerid, rock_id)
+forward UpdateMining(playerid, rock_id);
+public UpdateMining(playerid, rock_id)
 {
 	if (GetPlayerInterior(playerid) == 0)
 	{
@@ -5908,7 +5921,8 @@ CheckShopAndExecute(playerid)
 	return 0;
 }
 
-CALLBACK: StopDrugEffect(playerid)
+forward StopDrugEffect(playerid);
+public StopDrugEffect(playerid)
 {
     SetPlayerDrunkLevel(playerid, 0);
     new p_int = GetPlayerInterior(playerid);
@@ -7245,7 +7259,8 @@ DropPlayerRock(playerid, place_id)
 	return 1;
 }
 
-CALLBACK: DeleteDroppedRock(obj_id)
+forward DeleteDroppedRock(obj_id);
+public DeleteDroppedRock(obj_id)
 {
 	DestroyDynamicObject(obj_id);
 	return 1;
@@ -7312,7 +7327,8 @@ CreateMinerRocks()
 	return 1;
 }
 
-CALLBACK: InitLastGraffiti()
+forward InitLastGraffiti();
+public InitLastGraffiti()
 {
 	new DBResult:Result, graff_id;
 	Result = db_query(Database, "SELECT * FROM `SERVER_PROPERTIES`;");
@@ -7325,7 +7341,8 @@ CALLBACK: InitLastGraffiti()
 	return 1;
 }
 
-CALLBACK: FirstGraffitiAnnounce()
+forward FirstGraffitiAnnounce();
+public FirstGraffitiAnnounce()
 {
 	new hour, minute, second;
 	gettime(hour, minute, second);
@@ -7342,7 +7359,8 @@ CALLBACK: FirstGraffitiAnnounce()
 	return 1;
 }
 
-CALLBACK: TwoGraffitiAnnounce()
+forward TwoGraffitiAnnounce();
+public TwoGraffitiAnnounce()
 {
 	SendGraffitiNotification("En 5 minutos se iniciara una disputa.");
 	SendDiscordWebhook("En 5 minutos se iniciara una disputa.", 2);
@@ -7351,14 +7369,16 @@ CALLBACK: TwoGraffitiAnnounce()
 	return 1;
 }
 
-CALLBACK: FinalGraffitiAnnounce()
+forward FinalGraffitiAnnounce();
+public FinalGraffitiAnnounce()
 {
 	SendGraffitiNotification("En 60 segundos se iniciara una disputa.");
 	SendDiscordWebhook("En 60 segundos se iniciara una disputa.", 2);
 	return 1;
 }
 
-CALLBACK: CancelGraffiti()
+forward CancelGraffiti();
+public CancelGraffiti()
 {
 	KillTimer(GraffitiCancelTimer);
 
@@ -7506,7 +7526,8 @@ InitGraffiti(graff_id)
 	}
 }
 
-CALLBACK: InitRandomGangEvent()
+forward InitRandomGangEvent();
+public InitRandomGangEvent()
 {	
 	/*new event = minrand(0, 6);
 	switch(event)
@@ -7557,7 +7578,8 @@ AddGiftCode(code[], type, extra)
 	return 1;
 }
 
-CALLBACK: SendGift()
+forward SendGift();
+public SendGift()
 {
 	for(new i = 0, j = 10; i <= j; i++)
 	{
@@ -7584,7 +7606,8 @@ CALLBACK: SendGift()
 	return 1;
 }
 
-CALLBACK: GiveAutoGift()
+forward GiveAutoGift();
+public GiveAutoGift()
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -8546,14 +8569,16 @@ SanAndreas()
 	return 1;
 }
 
-CALLBACK: InjuredAnimationCut(playerid)
+forward InjuredAnimationCut(playerid);
+public InjuredAnimationCut(playerid)
 {
 	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
 	PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = false;
 	return 1;
 }
 
-CALLBACK: UpdateThePutis()
+forward UpdateThePutis();
+public UpdateThePutis()
 {
 	ApplyDynamicActorAnimation(Club_Bar_Actor[0], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
     ApplyDynamicActorAnimation(Club_Bar_Actor[1], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
@@ -9245,7 +9270,8 @@ CMD:runtime(playerid, params[])
 	return 1;
 }
 
-CALLBACK: SavePlayerData(playerid)
+forward SavePlayerData(playerid);
+public SavePlayerData(playerid)
 {
 	SaveUserData(playerid);
 	SavePlayerVehicles(playerid, false);
@@ -24425,7 +24451,8 @@ KickEx(playerid, time = 0)
 	return 1;
 }
 
-CALLBACK: KickPlayer(playerid)
+forward KickPlayer(playerid);
+public KickPlayer(playerid)
 {
 	return Kick(playerid);
 }
@@ -24639,7 +24666,8 @@ RegisterPhoneMessage(from, to, const message[], offline = 0)
 	return 1;
 }
 
-CALLBACK: NoCallResponse(playerid)
+forward NoCallResponse(playerid);
+public NoCallResponse(playerid)
 {
 	if (!PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return 0;
 	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] == INVALID_PLAYER_ID) return 0;
@@ -25088,7 +25116,8 @@ CheckBlockedWeapon(playerid, weapon_ip)
  	return 1;
 }
 
-CALLBACK: UpdateWorldTime()
+forward UpdateWorldTime();
+public UpdateWorldTime()
 {
 	gettime(SERVER_TIME[0], SERVER_TIME[1]);
 
@@ -25671,7 +25700,8 @@ GivePlayerReputation(playerid)
 	return 0;
 }
 
-CALLBACK: AddPlayerReputation(playerid)
+forward AddPlayerReputation(playerid);
+public AddPlayerReputation(playerid)
 {
 	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
 	if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
@@ -26559,7 +26589,8 @@ CheckGraffitiProgress(playerid)
 	return 1;
 }
 
-CALLBACK: UpdateGraffitiProgress(playerid)
+forward UpdateGraffitiProgress(playerid);
+public UpdateGraffitiProgress(playerid)
 {
 	if (IsPlayerPaused(playerid)) return 0;
 
@@ -26710,7 +26741,8 @@ UpdateSizeBarMarket(crew_index, init)
 	return 1;
 }
 
-CALLBACK: UpdateMarketProgress(playerid)
+forward UpdateMarketProgress(playerid);
+public UpdateMarketProgress(playerid)
 {
 	if (IsPlayerPaused(playerid)) return 0;
 	if (GetPlayerInterior(playerid) != 0) return 0;
@@ -26843,7 +26875,8 @@ CALLBACK: UpdateMarketProgress(playerid)
     return 1;
 }
 
-CALLBACK: UpdateEasing(playerid)
+forward UpdateEasing(playerid);
+public UpdateEasing(playerid)
 {
 	initial_ease_pos = initial_ease_pos * 1.7;
 
@@ -26931,7 +26964,8 @@ CheckMarketAttack(playerid)
 	return 1;
 }
 
-CALLBACK: CheckCrunchAnimation(playerid)
+forward CheckCrunchAnimation(playerid);
+public CheckCrunchAnimation(playerid)
 {
 	if (!IsPlayerConnected(playerid)) return 0;
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
@@ -26954,7 +26988,8 @@ CALLBACK: CheckCrunchAnimation(playerid)
 	return 1;
 }
 
-CALLBACK: GetAmbulanceItem(playerid, vehicleid)
+forward GetAmbulanceItem(playerid, vehicleid);
+public GetAmbulanceItem(playerid, vehicleid)
 {
 	ClearAnimations(playerid);
 	PLAYER_MISC[playerid][MISC_BOTIKIN] += 1;
@@ -27599,35 +27634,40 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	return 1;
 }
 
-CALLBACK: ClosePoliceDoor(i)
+forward ClosePoliceDoor(i);
+public ClosePoliceDoor(i)
 {
 	POLICE_DOORS[i][police_door_CLOSED] = true;
 	MoveDynamicObject(POLICE_DOORS[i][police_door_OBJECT_ID], POLICE_DOORS[i][police_door_X], POLICE_DOORS[i][police_door_Y], POLICE_DOORS[i][police_door_Z], 2.0, 0.0, 0.0, POLICE_DOORS[i][police_door_RZ]);
 	return 1;
 }
 
-CALLBACK: CloseJailDoor(i)
+forward CloseJailDoor(i);
+public CloseJailDoor(i)
 {
 	JAIL_DOORS[i][jail_door_CLOSED] = true;
 	MoveDynamicObject(JAIL_DOORS[i][jail_door_OBJECT_ID], JAIL_DOORS[i][jail_door_X], JAIL_DOORS[i][jail_door_Y], JAIL_DOORS[i][jail_door_Z], 1.0, 0.0, 0.0, JAIL_DOORS[i][jail_door_RZ]);
 	return 1;
 }
 
-CALLBACK: CloseMafiaDoor(i)
+forward CloseMafiaDoor(i);
+public CloseMafiaDoor(i)
 {
 	MAFIA_DOORS[i][mafia_door_CLOSED] = true;
 	MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z], 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
 	return 1;
 }
 
-CALLBACK: ClosePoliceGarageDoor(index)
+forward ClosePoliceGarageDoor(index);
+public ClosePoliceGarageDoor(index)
 {
 	POLICE_GARAGE_DOORS[index][police_gdoor_CLOSING] = true;
 	MoveDynamicObject(POLICE_GARAGE_DOORS[index][police_gdoor_OBJECT_ID], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_X], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_Y], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_Z], POLICE_GARAGE_DOORS[index][police_gdoor_MOVE_SPEED], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_RX], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_RY], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_RZ]);
 	return 1;
 }
 
-CALLBACK: CloseBarrier(i)
+forward CloseBarrier(i);
+public CloseBarrier(i)
 {
 	San_Andreas_Barriers[i][barrier_CLOSING] = true;
 	MoveDynamicObject(San_Andreas_Barriers[i][barrier_OBJECT_ID], San_Andreas_Barriers[i][barrier_X], San_Andreas_Barriers[i][barrier_Y], San_Andreas_Barriers[i][barrier_Z] + 0.72967, 0.0065, 0.0, -90.0, San_Andreas_Barriers[i][barrier_ROTATION]);
@@ -28079,11 +28119,11 @@ SetPlayerPosEx(playerid, Float:x, Float:y, Float:z, Float:angle, interior, world
 	return 1;
 }
 
-CALLBACK: TogglePlayerControl(playerid, bool:controlable)
+forward TogglePlayerControl(playerid, bool:controlable);
+public TogglePlayerControl(playerid, bool:controlable)
 {
 	return TogglePlayerControllableEx(playerid, controlable);
 }
-
 
 GetNearestHospitalForPlayer(playerid)
 {
