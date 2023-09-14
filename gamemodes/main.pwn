@@ -4644,7 +4644,7 @@ CheckMedicJobSite(playerid)
 	return 1;
 }
 
-CheckIsFireWeapon(weapon)
+/*CheckIsFireWeapon(weapon)
 {
 	switch(weapon)
 	{
@@ -4741,9 +4741,9 @@ ResyncWeapon(playerid, weapon)
 		}
 	}
 	return 1;
-}
+}*/
 
-CheckAndReload(playerid)
+/*CheckAndReload(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL)
 	{
@@ -4796,7 +4796,7 @@ CheckAndReload(playerid)
 		}
 	}
 	return 1;
-}
+}*/
 
 ShowTuningMenu(playerid)
 {
@@ -12893,7 +12893,6 @@ ShowDialog(playerid, dialogid)
     	}
     	case DIALOG_DEATH:
     	{
-    		"COL_WHITE"Producto\t"COL_WHITE"Precio\n\
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Herido", ""COL_WHITE"Opción\t"COL_WHITE"Efecto\n\
     			"COL_WHITE"Ir al hospital\t"COL_RED"Pierdes armas\n\
     			"COL_WHITE"Pedir un medico\t"COL_YELLOW"Tarda en llegar\n", "Selecc.", "Cerrar");
