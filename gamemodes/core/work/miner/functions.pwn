@@ -71,6 +71,55 @@ PayPlayerMiner(playerid)
 	return 1;
 }
 
+PayPlayerProcessor(playerid, processor_id)
+{
+	new pay = minrand(500, 1500);
+
+	if (ACCOUNT_INFO[playerid][ac_SU]) pay += minrand(200, 500);
+
+	GivePlayerCash(playerid, pay);
+	
+	PLAYER_SKILLS[playerid][WORK_MINER] ++;
+	SavePlayerSkills(playerid);
+
+	if (random(2) == 1) GivePlayerReputation(playerid);
+	return 1;
+}
+
+CheckRepairRockProcessor(playerid);
+{
+	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 4.0, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z]))
+		{
+			if (ROCK_PROCESSOR[i][rp_FUEL] <= 0.0 || ROCK_PROCESSOR[i][rp_HEALTH] <= 0.0)
+			{
+				if (ROCK_PROCESSOR[i][rp_REPAIR]) return ShowPlayerMessage(playerid, "~r~Otro usuario ya se encuentra reparando la procesadora.", 4);
+				
+				ROCK_PROCESSOR[i][rp_REPAIR] = true;
+				ResetItemBody(playerid);
+
+				PLAYER_TEMP[playerid][py_ROCK] = false;
+				PLAYER_TEMP[playerid][py_MINING] = false;
+				SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+				ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.1, false, false, false, false, 0, false);
+				RemovePlayerAttachedObject(playerid, 9);
+
+				SetPlayerChatBubble(playerid, "\n\n\n\n* Se pone a reparar la procesadora.\n\n\n", 0xffcb90FF, 20.0, 5000);
+				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
+
+				if (ROCK_PROCESSOR[i][rp_FUEL] <= 0.0)
+				{
+					PLAYER_TEMP[playerid][py_TIMERS][32] = SetTimerEx("FixProcessorUpdate", 1000, true, "iid", playerid, i, 0);
+				}
+				else PLAYER_TEMP[playerid][py_TIMERS][32] = SetTimerEx("FixProcessorUpdate", 1000, true, "iid", playerid, i, 1);
+			}
+			break;
+		}
+	}
+	return 1;
+}
+
 DropPlayerRock(playerid, place_id)
 {
 	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
@@ -188,10 +237,10 @@ UpdateRockProcessorLabel(processor_id)
 
 	new str_text[164];
 	format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquí­.\n\nGasolina: %.1f\nEstado: %.1f%", processor_id, ROCK_PROCESSOR[processor_id][rp_FUEL], ROCK_PROCESSOR[processor_id][rp_HEALTH]);
-	
+	printf("update 1: %s", str_text);
 	if (ROCK_PROCESSOR[processor_id][rp_FUEL] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere gasolina");
 	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere reparación");
-	
+	printf("update 2: %s", str_text);
 	UpdateDynamic3DTextLabelText(ROCK_PROCESSOR[processor_id][rp_LABEL], 0xF7F7F7FF, str_text);
 	return 1;
 }
@@ -200,11 +249,15 @@ CreateMinerRocks()
 {
 	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
 	{
-		ROCK_PROCESSOR[i][rp_FUEL] = float(minrand(10, 100));
-		ROCK_PROCESSOR[i][rp_HEALTH] = float(minrand(10, 100));
+		/*ROCK_PROCESSOR[i][rp_FUEL] = float(minrand(10, 100));
+		ROCK_PROCESSOR[i][rp_HEALTH] = float(minrand(10, 100));*/
+
+		ROCK_PROCESSOR[i][rp_FUEL] = float(minrand(2, 10));
+		ROCK_PROCESSOR[i][rp_HEALTH] = float(minrand(2, 10));
 
 		new str_text[164];
 		format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquí­.\n\nGasolina: %.1f\nEstado: %.1f%", i, ROCK_PROCESSOR[i][rp_FUEL], ROCK_PROCESSOR[i][rp_HEALTH]);
+		printf("create 1: %s", str_text);
 		ROCK_PROCESSOR[i][rp_LABEL] = CreateDynamic3DTextLabel(str_text, 0xF7F7F7FF, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z] + 4.0, 35.0, .testlos = true, .worldid = -1, .interiorid = -1);
 	}
 

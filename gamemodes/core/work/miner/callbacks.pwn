@@ -79,3 +79,66 @@ public DeleteDroppedRock(obj_id)
 	DestroyDynamicObject(obj_id);
 	return 1;
 }
+
+forward FixProcessorUpdate(playerid, processor_id, type);
+public FixProcessorUpdate(playerid, processor_id, type)
+{
+	#if DEBUG_MODE == 1
+		printf("FixProcessorUpdate"); // debug juju
+	#endif
+
+	switch(type)
+	{
+		case 0:
+		{
+			if (ROCK_PROCESSOR[processor_id][rp_FUEL] < 100.0)
+			{
+				ROCK_PROCESSOR[processor_id][rp_FUEL] += float(5 + minrand(1, 8));
+				if (ROCK_PROCESSOR[processor_id][rp_FUEL] > 100.0) ROCK_PROCESSOR[processor_id][rp_FUEL] = 100.0;
+
+				ApplyAnimation(playerid, "COP_AMBIENT", "COPBROWSE_NOD", 4.1, true, false, false, false, 0, false);
+				
+				new str_text[64];
+				format(str_text, sizeof(str_text), "Cargando gasolina ~r~%d%", ROCK_PROCESSOR[processor_id][rp_FUEL]);
+				ShowPlayerMessage(playerid, str_text, 2);
+
+				if (ROCK_PROCESSOR[processor_id][rp_FUEL] > 99)
+				{
+					ShowPlayerMessage(playerid, "Cargando gasolina ~r~100%", 2);
+					KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
+					ClearAnimations(playerid);
+					ResetItemBody(playerid);
+					ROCK_PROCESSOR[processor_id][rp_REPAIR] = false;
+					PayPlayerProcessor(playerid, processor_id);
+				}
+			}
+		}
+		case 1:
+		{
+			if (ROCK_PROCESSOR[processor_id][rp_HEALTH] < 100.0)
+			{
+				ROCK_PROCESSOR[processor_id][rp_HEALTH] += float(5 + minrand(1, 8));
+				if (ROCK_PROCESSOR[processor_id][rp_HEALTH] > 100.0) ROCK_PROCESSOR[processor_id][rp_HEALTH] = 100.0;
+
+				ApplyAnimation(playerid, "COP_AMBIENT", "COPBROWSE_NOD", 4.1, true, false, false, false, 0, false);
+				
+				new str_text[64];
+				format(str_text, sizeof(str_text), "Reparando ~r~%d%", ROCK_PROCESSOR[processor_id][rp_HEALTH]);
+				ShowPlayerMessage(playerid, str_text, 2);
+
+				if (ROCK_PROCESSOR[processor_id][rp_HEALTH] > 99)
+				{
+					ShowPlayerMessage(playerid, "Reparando ~r~100%", 2);
+					KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
+					ClearAnimations(playerid);
+					ResetItemBody(playerid);
+					ROCK_PROCESSOR[processor_id][rp_REPAIR] = false;
+					PayPlayerProcessor(playerid, processor_id);
+				}
+			}
+		}
+	}
+
+	UpdateRockProcessorLabel(processor_id);
+	return 1;
+}

@@ -3685,6 +3685,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     	if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] == true) PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = false;
 
         EnterSite(playerid);
+		CheckRepairRockProcessor(playerid);
 
         if (IsPlayerInRangeOfPoint(playerid, 2.0, 3854.231933, -1265.252319, 7547.983398))
 	    {
@@ -3921,7 +3922,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					if (IsPlayerInRangeOfPoint(playerid, 1.8, DROP_ROCK_POS[i][mp_X], DROP_ROCK_POS[i][mp_Y], DROP_ROCK_POS[i][mp_Z]))
 					{
 						if (DropPlayerRock(playerid, i))
-						{	PLAYER_TEMP[playerid][py_ROCK] = false;
+						{
+							PLAYER_TEMP[playerid][py_ROCK] = false;
 							PLAYER_TEMP[playerid][py_MINING] = false;
 							SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 							ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.1, false, false, false, false, 0, false);
@@ -3929,7 +3931,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 							PayPlayerMiner(playerid);
 							EquipItemByType(playerid, 52);
 						}
-						else return ShowPlayerMessage(playerid, "~r~La procesadora no se encuentra estable para trabajar.", 4);
+						else return ShowPlayerMessage(playerid, "~r~La procesadora no se encuentra estable para~n~trabajar. Pulse ENTER para arreglarla.", 4);
 					}	
 				}
 			}

@@ -28,7 +28,7 @@ enum rock_processor_enum
 	Float:rp_Z,
 	Float:rp_FUEL,
 	Float:rp_HEALTH,
-	bool:rp_WORKING,
+	bool:rp_REPAIR,
 	Text3D:rp_LABEL
 };
 new ROCK_PROCESSOR[][rock_processor_enum] =
