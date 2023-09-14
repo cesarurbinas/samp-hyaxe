@@ -2,7 +2,7 @@ CreateStalls()
 {
 	for (new i; i < sizeof(STALL_INFO); i++)
 	{
-		STALL_INFO[i][st_SKIN] = minrand(0, sizeof(STALL_SKIN));
+		STALL_INFO[i][st_SKIN] = STALL_SKIN[ minrand(0, sizeof(STALL_SKIN))];
 		STALL_INFO[i][st_PRODUCT] = minrand(0, sizeof(STALL_PRODUCT));
 
 		CreateDynamicActor(
@@ -16,16 +16,29 @@ CreateStalls()
 		);
 
 		new Float:x, Float:y;
-		x = 1.0 * floatsin(-STALL_INFO[i][st_ANGLE], degrees);
-		y = 1.0 * floatcos(-STALL_INFO[i][st_ANGLE], degrees);
+		GetXYFromAngle(x, y, STALL_INFO[i][st_ANGLE], 1.0);
 
 		CreateDynamicObject(
 			3039,
 			x,
 			y,
 			STALL_INFO[i][st_Z],
-			0.0, 0.0, 0.0,
-			0, 0
+			0.0, 0.0, 0.0
+		);
+
+		new str_text[128];
+		format(str_text, sizeof(str_text),
+			""COL_WHITE"Puesto de comida\n%s a "COL_GREEN"%d$",
+			STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_NAME],
+			STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE]
+		);
+
+		CreateDynamic3DTextLabel(
+			str_text, 0xF7F7F700,
+			x,
+			y,
+			STALL_INFO[i][st_Z] + 1.0,
+			10.0
 		);
 	}
 	return 1;
