@@ -14410,7 +14410,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new str[180];
-				format(str, sizeof str, "127.0.0.1:12345/search?query=%s&max=5", inputtext);
+				format(str, sizeof str, "51.178.211.161:12345/search?query=%s&max=5", inputtext);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
 				HTTP(playerid, HTTP_GET, str, "", "OnYouTubeQueryResponse");
