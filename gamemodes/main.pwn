@@ -173,6 +173,9 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Boombox
 #include "core/boombox/main.pwn"
 
+// Shops
+#include "core/shops/electronic.pwn"
+
 new Float:NewUserPos[][] =
 {
 	{1090.567138, -1805.910156, 16.593750, 1.044739},
@@ -1105,7 +1108,8 @@ enum Player_Objects_Enum
 {
 	po_GPS,
 	po_MP3,
-	po_PHONE_RESOLVER
+	po_PHONE_RESOLVER,
+	po_BOOMBOX
 };
 new PLAYER_OBJECT[MAX_PLAYERS][Player_Objects_Enum];
 
@@ -6797,6 +6801,9 @@ SanAndreas()
 	//24/7
 	CreateDynamic3DTextLabel(""COL_RED"Tienda 24/7\n"COL_WHITE"12 productos disponibles", 0xF7F7F7FF, -27.964675, -89.948631, 1003.546875, 10.0, .testlos = true, .interiorid = 18);
 
+	// Electrónica
+	CreateDynamic3DTextLabel(""COL_RED"Tienda Electrónica\n"COL_WHITE"2 productos disponibles", 0xF7F7F7FF, 1722.2310, -1253.8021, 471.1665, 10.0, .testlos = true, .interiorid = 17);
+	
 	// Farmacia
 	CreateDynamic3DTextLabel(""COL_RED"Farmacia\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, -198.002197, -1762.759643, 675.768737, 10.0, .testlos = true, .interiorid = 3);
 
@@ -7440,6 +7447,12 @@ UpdatePlayerZoneMessages(playerid)
     	ShowPlayerKeyMessage(playerid, "Y");
         return 1;
     }
+
+	if(IsPlayerInRangeOfPoint(playerid, 1.0, 1722.2310, -1253.8021, 471.1665))
+	{
+		ShowPlayerKeyMessage(playerid, "Y");
+        return 1;
+	}
 
     for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
     {
@@ -12366,6 +12379,17 @@ ShowDialog(playerid, dialogid)
 			if(BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), "Opción\tEstado\nParlante público\t< "COL_GREEN"Sí\n");
 			else format(dialog, sizeof(dialog), "Opción\tEstado\nParlante público\t< "COL_RED"No\n");
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Opciones del parlante", dialog, "Cambiar", "Salir");
+		}
+		case DIALOG_ELECTRONIC_SHOP:
+		{
+			new dialog[350 * sizeof ELECTRONIC_PRODUCTS], line[150];
+			format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
+			for(new i = 0; i != sizeof ELECTRONIC_PRODUCTS; i++)
+			{
+				format(line, sizeof(line), "%s\t"COL_GREEN"$%d\n", ELECTRONIC_PRODUCTS[i][ep_NAME], ELECTRONIC_PRODUCTS[i][ep_PRICE]);
+				strcat(dialog, line);
+			}
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Productos electrónicos", dialog, "Comprar", "Salir");
 		}
 		default: return 0;
 	}
@@ -20578,6 +20602,40 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowDialog(playerid, DIALOG_BOOMBOX_OPTIONS);
 			} else PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
 		}
+		case DIALOG_ELECTRONIC_SHOP:
+		{
+			if(response)
+			{
+				if(ELECTRONIC_PRODUCTS[listitem][ep_PRICE] > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 2);
+				
+				switch(ELECTRONIC_PRODUCTS[listitem][ep_TYPE])
+				{
+					case ELECTRONIC_MP3:
+					{
+						if(PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~Ya tienes un MP3.", 2);
+
+						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						PLAYER_OBJECT[playerid][po_MP3] = true;
+						SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"usa "COL_RED"/mp3 "COL_WHITE"para usarlo.", ELECTRONIC_PRODUCTS[listitem][ep_NAME], ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
+						PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+						return 1;
+					}
+					case ELECTRONIC_BOOMBOX:
+					{
+						if(PLAYER_OBJECT[playerid][po_BOOMBOX]) return ShowPlayerMessage(playerid, "~r~Ya tienes un parlante.", 2);
+
+						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						PLAYER_OBJECT[playerid][po_BOOMBOX] = true;
+						SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"usa "COL_RED"/parlante "COL_WHITE"para más información.", ELECTRONIC_PRODUCTS[listitem][ep_NAME], ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
+						PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+						return 1;
+					}
+					default: return 0;
+				}
+			}
+		}
 	}
 	return 0;
 }
@@ -24131,6 +24189,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				}
 			}
 		}
+
+		if(IsPlayerInRangeOfPoint(playerid, 1.0, 1722.2310, -1253.8021, 471.1665))
+			ShowDialog(playerid, DIALOG_ELECTRONIC_SHOP);
 	}
 
 	if (PRESSED( KEY_WALK ))
