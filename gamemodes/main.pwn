@@ -1,3 +1,5 @@
+#pragma option -d2 // un debuj medio como kn dise
+
 #include <a_samp>
 
 // Server Config
@@ -138,9 +140,6 @@
 
 // Macros
 #define CALLBACK:%0(%1) forward%0(%1);public%0(%1)
-
-#pragma compress 0
-#pragma warning disable 240
 
 // Default valors of ECO.TXT
 new
@@ -4268,6 +4267,9 @@ public OnPlayerDisconnect(playerid, reason)
     			CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 600 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL];
 				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
 			}
+
+			if(CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL)
+				CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] -= gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME];
 
 			SaveUserData(playerid);
 	  		SavePlayerMisc(playerid);
