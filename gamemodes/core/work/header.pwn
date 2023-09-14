@@ -85,10 +85,14 @@ new work_info[][work_info_info] =
 =======
 	{WORK_TYPE_FAMILY, 0, "The Family Connor",		        	false, 1000, 1, 0},
 <<<<<<< HEAD
+<<<<<<< HEAD
 	{WORK_TYPE_FAMILY, 0, "Diviso Per Tutti",		        	false, 1000, 1, 0}
 >>>>>>> b35a666 (arreglos en el anti aimbot)
 =======
 	{WORK_TYPE_FAMILY, 0, "Diviso Per Tutti",		        	false, 1000, 1, 0},
+=======
+	{WORK_TYPE_FAMILY, 0, "Guns N' Roses",		        	false, 1000, 1, 0},
+>>>>>>> ecf5348 (fixes)
 	{WORK_TYPE_FAMILY, 0, "The Family Sindacco",		        	false, 1000, 1, 0}
 >>>>>>> e76ea2e (anti pg removido)
 };

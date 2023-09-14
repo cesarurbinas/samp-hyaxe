@@ -2261,7 +2261,7 @@ ShowDialog(playerid, dialogid)
 
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{a9ee70}Diviso Per Tutti", dialog, "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{E55B5B}Guns N' Roses", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_DIVISO_MAFIA_MODIFY:
@@ -3195,7 +3195,7 @@ ShowDialog(playerid, dialogid)
 			{
 				if (PLAYER_SKILLS[playerid][WORK_DIVISO] >= 11)
 				{
-					strcat(dialog, "Invitar a DPT\n");
+					strcat(dialog, "Invitar a GNR\n");
 					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 11;
 					listitem ++;
 				}

@@ -450,11 +450,15 @@ enum Temp_Enum
 >>>>>>> a116e0a (client check integration)
 =======
 	bool:py_ANDROID,
+<<<<<<< HEAD
 	py_LAST_AIM_SYNC,
 <<<<<<< HEAD
 	py_DAMAGER_ALERTS
 >>>>>>> 3e9727b (damager fix)
 =======
+=======
+	py_LAST_DAMAGE,
+>>>>>>> ecf5348 (fixes)
 	py_DAMAGER_ALERTS,
 	py_TRUSTED_AIM,
 	py_SING_AIM

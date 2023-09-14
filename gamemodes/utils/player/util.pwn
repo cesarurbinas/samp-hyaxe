@@ -248,7 +248,7 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Estadio", INTERIOR_NO_INFO, -1, true, 1336, 0, 2684.587890, -1733.565185, 424.386718, 180.0, -1, false, 0, 0, 2781.461181, -1813.566162, 11.843750, 211.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	//{-1, "Moriarty Luxury Bar", INTERIOR_NO_INFO, -1, true, 0, 64, 2627.9360, 490.5309, 2621.2078, 173.315292, -1, false, 0, 0, 2851.3330, -1532.3297, 11.0991, 271.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "TFC", INTERIOR_NO_INFO, -1, true, 0, 55, 436.9655, -996.6303, 931.0529, -90.0, -1, false, 0, 0, 437.3256, -999.9439, 93.1982, 92.18, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "DPT", INTERIOR_CLUB, -1, false, 264, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, 1132.5565, -2034.1417, 69.1477, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "GNR", INTERIOR_CLUB, -1, false, 264, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, 1132.5565, -2034.1417, 69.1477, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
@@ -953,7 +953,7 @@ IsPlayerPaused(playerid)
 {
 	if (playerid == 65535)
 	{
-		print("pausa asdasd");
+		print("Paused");
 		return false;
 	}
 	if (IsPlayerNPC(playerid)) return false;
@@ -1325,7 +1325,7 @@ GetMafiaColor(mafia)
 		case WORK_ENEMY_MAFIA: color = 0xf5e30aFF;
 		case WORK_OSBORN: color = 0x3a3eabFF;
 		case WORK_CONNOR: color = 0xFFFFFFFF;
-		case WORK_DIVISO: color = 0xa9ee70FF;
+		case WORK_DIVISO: color = 0xE55B5BFF;
 		case WORK_SINDACCO: color = 0xFFFFFFFF;
 	}
 	return color;
@@ -2008,7 +2008,7 @@ InviteToDS(playerid, to_player)
 	SavePlayerWorks(to_player);
 	SavePlayerSkills(to_player);
 
-	SendClientMessageEx(playerid, 0xa9ee70FF, "[DPT] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	SendClientMessageEx(playerid, 0xE55B5BFF, "[GNR] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
 	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
 	return 1;
 }
@@ -2049,7 +2049,7 @@ InviteToSindacco(playerid, to_player)
 	SavePlayerWorks(to_player);
 	SavePlayerSkills(to_player);
 
-	SendClientMessageEx(playerid, 0xa9ee70FF, "[DPT] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	SendClientMessageEx(playerid, 0xE55B5BFF, "[SNC] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
 	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
 	return 1;
 }
@@ -3890,7 +3890,7 @@ PlayerPayday(playerid)
 
 	if (PLAYER_WORKS[playerid][WORK_POLICE])
 	{
-		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_POLICE]);
+		new work_payment = (8000 * PLAYER_SKILLS[playerid][WORK_POLICE]);
 		money += work_payment;
 
 		format(str_temp, sizeof(str_temp), "~n~SAPD: ~g~%s$~w~", number_format_thousand(work_payment));
@@ -3911,7 +3911,7 @@ PlayerPayday(playerid)
 
 	if (PLAYER_CREW[playerid][player_crew_VALID] && CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT] > 0)
 	{
-		new graffiti_payment = 200 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT];
+		new graffiti_payment = 300 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT];
 
 		money += graffiti_payment;
 

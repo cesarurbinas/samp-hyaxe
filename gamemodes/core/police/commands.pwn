@@ -1,16 +1,16 @@
 CMD:antecedente(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 
 	new to_player, reason[128];
 	if (sscanf(params, "us[128]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /antecedentes <playerid> <razon>");
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 	if (to_player == playerid) return 1;
 
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No se puede a√±adir algo a este jugador ahora.", 3);
-	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No se puede a√±adir algo a este jugador porque es polic√≠a.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No se puede aÒadir algo a este jugador ahora.", 3);
+	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No se puede aÒadir algo a este jugador porque es policÌa.", 3);
 
 	AddPlayerPoliceHistory(to_player, ACCOUNT_INFO[playerid][ac_NAME], reason);
 	SendPoliceNotification(sprintf("%s ha actualizado el historial de ~y~%s~w~.", PLAYER_TEMP[playerid][py_RP_NAME], PLAYER_TEMP[to_player][py_RP_NAME]), 4);
@@ -20,8 +20,8 @@ CMD:antecedente(playerid, params[])
 CMD:limpiar(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 11) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
 	new to_player;
@@ -40,8 +40,8 @@ CMD:limpiar(playerid, params[])
 CMD:historial(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 
 	ShowDialog(playerid, DIALOG_POLICE_BYC);
 	return 1;
@@ -52,16 +52,16 @@ CMD:c(playerid, params[])
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerNotification(playerid, "Ahora no puedes usar comandos.", 3);
 
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 1) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
 	new to_player, level, reason[32];
 	if (sscanf(params, "uds[32]", to_player, level, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /c <ID o nombre> <1/6> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (to_player == playerid) return ShowPlayerMessage(playerid, "~r~No puedes darte cargos a tu mismo");
-	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la polic√≠a.", 3);
+	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policÌa.", 3);
 	if (level > 6) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /c <ID o nombre> <1/6> <razon>");
-	if (strlen(reason) >= 24) return ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir una raz√≥n de 32 caracteres.", 3);
+	if (strlen(reason) >= 24) return ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir una razÛn de 32 caracteres.", 3);
 
 	PLAYER_TEMP[to_player][py_POLICE_REASON] = reason;
 
@@ -78,14 +78,14 @@ CMD:cargos(playerid, params[])
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerNotification(playerid, "Ahora no puedes usar comandos.", 3);
 
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 1) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /cargos <ID o nombre>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (to_player == playerid) return ShowPlayerMessage(playerid, "~r~No puedes verte a tu mismo");
-	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la polic√≠a.", 3);
+	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policÌa.", 3);
 	if (!PLAYER_TEMP[to_player][py_POLICE_REASON]) return ShowPlayerMessage(playerid, "~r~Este jugador no tiene razones de cargos.", 3);
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "%s tiene cargos por "COL_RED"%s", PLAYER_TEMP[to_player][py_NAME], PLAYER_TEMP[to_player][py_POLICE_REASON]);
@@ -97,7 +97,7 @@ CMD:documento(playerid, params[])
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerNotification(playerid, "Ahora no puedes usar comandos.", 3);
 
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 1) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
 	new to_player;
@@ -105,7 +105,7 @@ CMD:documento(playerid, params[])
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(to_player, x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Revisa el documento de alguien\n\n\n", 0xffcb90FF, 20.0, 5000);
 
@@ -132,8 +132,8 @@ CMD:documento(playerid, params[])
 CMD:frecuencias(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 
 	ShowDialog(playerid, DIALOG_POLICE_RADIOS);
 	return 1;
@@ -142,47 +142,47 @@ CMD:frecuencias(playerid, params[])
 CMD:entregar(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 
 	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /entregar [ID o nombre] [Minutos]");
-	if (params[1] < 1 || params[1] > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: cantidad de minutos no v√°lida.");
+	if (params[1] < 1 || params[1] > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: cantidad de minutos no v·lida.");
 
-	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ShowPlayerMessage(playerid, "~r~Para entregar tienes que estar dentro de un veh√≠culo policial.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ShowPlayerMessage(playerid, "~r~Para entregar tienes que estar dentro de un vehÌculo policial.", 3);
 
 	new vehicleid = GetPlayerVehicleID(playerid);
-	if (!WORK_VEHICLES[vehicleid][work_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Para entregar tienes que estar dentro de un veh√≠culo policial.", 3);
-	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~Para entregar tienes que estar dentro de un veh√≠culo policial.", 3);
+	if (!WORK_VEHICLES[vehicleid][work_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Para entregar tienes que estar dentro de un vehÌculo policial.", 3);
+	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~Para entregar tienes que estar dentro de un vehÌculo policial.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
 	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 5.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
+	if (!IsPlayerInRangeOfPoint(playerid, 5.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes arrestar a este jugador ahora.", 3);
-	if (GetPlayerState(params[0]) != PLAYER_STATE_PASSENGER) return ShowPlayerMessage(playerid, "~r~Para entregar a esta persona tiene que estar dentro del veh√≠culo policial.", 3);
-	if (GetPlayerVehicleID(params[0]) != vehicleid) return ShowPlayerMessage(playerid, "~r~Para entregar a esta persona tiene que estar dentro del veh√≠culo policial.", 3);
+	if (GetPlayerState(params[0]) != PLAYER_STATE_PASSENGER) return ShowPlayerMessage(playerid, "~r~Para entregar a esta persona tiene que estar dentro del vehÌculo policial.", 3);
+	if (GetPlayerVehicleID(params[0]) != vehicleid) return ShowPlayerMessage(playerid, "~r~Para entregar a esta persona tiene que estar dentro del vehÌculo policial.", 3);
 
 	if (IsPlayerInRangeOfPoint(playerid, 20.0, 1564.971923, -1694.916381, 5.617697))
 	{
-	    ShowPlayerMessage(playerid, "~g~La persona fue enviada a la c√°rcel.", 3);
+	    ShowPlayerMessage(playerid, "~g~La persona fue enviada a la c·rcel.", 3);
 		CHARACTER_INFO[params[0]][ch_POLICE_JAIL_ID] = 0;
 		JailPlayer(params[0], params[1] * 60);
 		AddPlayerPoliceHistory(params[0], "Central", "Encarcelamiento");
 	}
 	else if (IsPlayerInRangeOfPoint(playerid, 20.0, -1589.333496, 716.759521, -5.515106))
 	{
-		ShowPlayerMessage(playerid, "~g~La persona fue enviada a la c√°rcel", 3);//%s.", PLAYER_POCKET[playerid][slot][player_pocket_object_NAME]
+		ShowPlayerMessage(playerid, "~g~La persona fue enviada a la c·rcel", 3);//%s.", PLAYER_POCKET[playerid][slot][player_pocket_object_NAME]
 		CHARACTER_INFO[params[0]][ch_POLICE_JAIL_ID] = 1;
 		JailPlayer(params[0], params[1] * 60);
 		AddPlayerPoliceHistory(params[0], "Central", "Encarcelamiento");
 	}
 	else if (IsPlayerInRangeOfPoint(playerid, 20.0, 2282.200439, 2431.598632, 3.000518))
 	{
-		ShowPlayerMessage(playerid, "~g~La persona fue enviada a la c√°rcel", 3);
+		ShowPlayerMessage(playerid, "~g~La persona fue enviada a la c·rcel", 3);
 		CHARACTER_INFO[params[0]][ch_POLICE_JAIL_ID] = 2;
 		JailPlayer(params[0], params[1] * 60);
 		AddPlayerPoliceHistory(params[0], "Central", "Encarcelamiento");
 	}
-	else ShowPlayerMessage(playerid, "~r~No est√°s en el sitio correcto.", 3);
+	else ShowPlayerMessage(playerid, "~r~No est·s en el sitio correcto.", 3);
 
 	new str_text[128];
 	format(str_text, sizeof(str_text), "%s ha entregado a ~g~%s~w~.", PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[params[0]][py_NAME]);
@@ -193,7 +193,7 @@ CMD:entregar(playerid, params[])
 CMD:policias(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
 
 	PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
 	PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
@@ -204,19 +204,19 @@ CMD:policias(playerid, params[])
 CMD:m(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 
-	if (!IsPlayerInAnyVehicle(playerid)) return ShowPlayerMessage(playerid, "~r~Para usar el meg√°fono tienes que estar dentro de un veh√≠culo policial.", 3);
+	if (!IsPlayerInAnyVehicle(playerid)) return ShowPlayerMessage(playerid, "~r~Para usar el meg·fono tienes que estar dentro de un vehÌculo policial.", 3);
 
 	new vehicleid = GetPlayerVehicleID(playerid);
-	if (!WORK_VEHICLES[vehicleid][work_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Para usar el meg√°fono tienes que estar dentro de un veh√≠culo policial.", 3);
-	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~Para usar el meg√°fono tienes que estar dentro de un veh√≠culo policial.", 3);
+	if (!WORK_VEHICLES[vehicleid][work_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Para usar el meg·fono tienes que estar dentro de un vehÌculo policial.", 3);
+	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~Para usar el meg·fono tienes que estar dentro de un vehÌculo policial.", 3);
 
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /m [Mensaje]");
 
 	new str_text[190];
-	format(str_text, 190, "(Meg√°fono) %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], params);
+	format(str_text, 190, "(Meg·fono) %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], params);
 	ProxDetector(playerid, 40.0, str_text, 0x4FAFFFFF, 0x4FAFFFFF, 0x4FAFFFFF, 0x4FAFFFFF, 0x4FAFFFFF, 85);
 	return 1;
 }
@@ -224,15 +224,15 @@ CMD:m(playerid, params[])
 CMD:multar(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /multar [ID o nombre] [precio$]");
 	if (params[1] < 0) return ShowPlayerMessage(playerid, "~r~El precio no puede ser menor a 0$.", 3);
 	else if (params[1] > 500000) return ShowPlayerMessage(playerid, "~r~El precio no puede ser mayor a 500.000$.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
 	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 5.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
+	if (!IsPlayerInRangeOfPoint(playerid, 5.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes multar a este jugador ahora.", 3);
 	if (CHARACTER_INFO[params[0]][ch_STATE] == ROLEPLAY_STATE_ARRESTED || CHARACTER_INFO[params[0]][ch_STATE] == ROLEPLAY_STATE_JAIL) return ShowPlayerMessage(playerid, "~r~No puedes multar a este jugador ahora.", 3);
 
@@ -249,23 +249,23 @@ CMD:multar(playerid, params[])
 CMD:arrestar(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 
-	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /arrestar [ID o nombre] [Asiento 1 √≥ 2]");
-	if (params[1] < 1 || params[1] > 2) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /arrestar [ID o nombre] [Asiento 1 √≥ 2]");
+	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /arrestar [ID o nombre] [Asiento 1 Û 2]");
+	if (params[1] < 1 || params[1] > 2) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /arrestar [ID o nombre] [Asiento 1 Û 2]");
 	params[1] ++;
 
-	if (!IsPlayerInAnyVehicle(playerid)) return ShowPlayerMessage(playerid, "~r~Para arrestar tienes que estar dentro de un veh√≠culo policial.", 3);
+	if (!IsPlayerInAnyVehicle(playerid)) return ShowPlayerMessage(playerid, "~r~Para arrestar tienes que estar dentro de un vehÌculo policial.", 3);
 
 	new vehicleid = GetPlayerVehicleID(playerid);
-	if (!WORK_VEHICLES[vehicleid][work_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Para arrestar tienes que estar dentro de un veh√≠culo policial.", 3);
-	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~Para arrestar tienes que estar dentro de un veh√≠culo policial.", 3);
-	if ( (params[1] + 1) > VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_SEATS]) return SendClientMessageEx(playerid, COLOR_WHITE, "Este veh√≠culo policial es de %d pasajeros, as√≠ que no puedes llevar arrestados en √©l.", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_SEATS]);
+	if (!WORK_VEHICLES[vehicleid][work_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Para arrestar tienes que estar dentro de un vehÌculo policial.", 3);
+	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~Para arrestar tienes que estar dentro de un vehÌculo policial.", 3);
+	if ( (params[1] + 1) > VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_SEATS]) return SendClientMessageEx(playerid, COLOR_WHITE, "Este vehÌculo policial es de %d pasajeros, asÌ que no puedes llevar arrestados en Èl.", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_SEATS]);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
 	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 20.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
+	if (!IsPlayerInRangeOfPoint(playerid, 20.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes arrestar a este jugador ahora.", 3);
 
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para arrestar a esta persona tiene que estar esposada.", 3);
@@ -287,35 +287,38 @@ CMD:arrestar(playerid, params[])
 
 CMD:callsing(playerid, params[])
 {
+	print("callsing 0");
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
-	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 11) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
-
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
+	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 2) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
+	print("callsing 1");
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /callsing [Texto]");
-	if (!IsPlayerInAnyVehicle(playerid)) return ShowPlayerMessage(playerid, "~r~Para asignar callsing tienes que estar dentro de un veh√≠culo policial.", 3);
-
+	if (!IsPlayerInAnyVehicle(playerid)) return ShowPlayerMessage(playerid, "~r~Para asignar callsing tienes que estar dentro de un vehÌculo policial.", 3);
+	print("callsing 3");
 	new vehicleid = GetPlayerVehicleID(playerid);
-	if (!WORK_VEHICLES[vehicleid][work_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Para asignar callsing tienes que estar dentro de un veh√≠culo policial.", 3);
-	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~Para asignar callsing tienes que estar dentro de un veh√≠culo policial.", 3);
-
+	if (!WORK_VEHICLES[vehicleid][work_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Para asignar callsing tienes que estar dentro de un vehÌculo policial.", 3);
+	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~Para asignar callsing tienes que estar dentro de un vehÌculo policial.", 3);
+	print("callsing 4");
 	if (IsValidDynamic3DTextLabel(GLOBAL_VEHICLES[vehicleid][gb_vehicle_LABEL]))
 	{
+		print("callsing 5");
 		DestroyDynamic3DTextLabel(GLOBAL_VEHICLES[vehicleid][gb_vehicle_LABEL]);
 		GLOBAL_VEHICLES[vehicleid][gb_vehicle_LABEL] = Text3D:INVALID_STREAMER_ID;
 	}
-	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LABEL] = CreateDynamic3DTextLabel(params, 0xF0F0F000, -0.7, -1.9, -0.3, 20.0, .attachedvehicle = vehicleid);
+	print("callsing 6");
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LABEL] = CreateDynamic3DTextLabel(params, COLOR_WHITE, -0.7, -1.9, -0.3, 20.0, .attachedvehicle = vehicleid);
 	return 1;
 }
 
 CMD:econtrol(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
-	if (GetPlayerVirtualWorld(playerid) != 0 || GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No puedes editar objetos policiales aqu√≠.", 3);
+	if (GetPlayerVirtualWorld(playerid) != 0 || GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No puedes editar objetos policiales aquÌ.", 3);
 
 	SelectObject(playerid);
 	return 1;
@@ -324,11 +327,11 @@ CMD:econtrol(playerid, params[])
 CMD:control(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
-	if (GetPlayerVirtualWorld(playerid) != 0 || GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No puedes colocar objetos policiales aqu√≠.", 3);
+	if (GetPlayerVirtualWorld(playerid) != 0 || GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No puedes colocar objetos policiales aquÌ.", 3);
 
 	new type;
 	if (sscanf(params, "d", type)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /control "COL_WHITE"[Tipo 1-6]");
@@ -342,11 +345,11 @@ CMD:control(playerid, params[])
 		case 4: modelid = 3265;
 		case 5: modelid = 3091;
         case 6: modelid = 3091;
-		default: return ShowPlayerMessage(playerid, "~r~No puedes colocar objetos policiales aqu√≠.", 3);
+		default: return ShowPlayerMessage(playerid, "~r~No puedes colocar objetos policiales aquÌ.", 3);
 	}
 
 	new index = GetFreePoliceObjectSlot();
-	if (index == -1) return ShowPlayerMessage(playerid, "~r~No se pueden crear m√°s objetos policiales.", 3);
+	if (index == -1) return ShowPlayerMessage(playerid, "~r~No se pueden crear m·s objetos policiales.", 3);
 
 	POLICE_OBJECTS[index][police_object_VALID] = true;
 	format(POLICE_OBJECTS[index][police_object_USER], 24, "%s", ACCOUNT_INFO[playerid][ac_NAME]);
@@ -373,14 +376,14 @@ CMD:control(playerid, params[])
 CMD:policia(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
 	{
 	    ShowPlayerMessage(playerid, "~r~Ya estas en servicio en otro trabajo.", 3);
 		return 1;
 	}
 
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 	{
 		if (!PLAYER_TEMP[playerid][py_WORKING_IN]) ShowDialog(playerid, DIALOG_SELECT_POLICE_SKIN);
 		else EndPlayerJob(playerid);
@@ -392,18 +395,18 @@ CMD:policia(playerid, params[])
 CMD:esposar(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /esposar [ID o nombre]");
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
 	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 30.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
+	if (!IsPlayerInRangeOfPoint(playerid, 30.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes esposar a este jugador ahora.", 3);
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para esposar a esta persona tiene que estar depie.", 3);
 	if (params[0] == playerid) return ShowPlayerMessage(playerid, "~r~No puedes esposarte a ti mismo");
-	if (PLAYER_WORKS[params[0]][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la polic√≠a.", 3);
+	if (PLAYER_WORKS[params[0]][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policÌa.", 3);
 
 	if (PLAYER_TEMP[params[0]][py_CUFFED])
 	{
@@ -419,8 +422,8 @@ CMD:esposar(playerid, params[])
 
 	if (!PLAYER_TEMP[params[0]][py_CUFFING])
 	{
-	    ShowPlayerMessage(params[0], "Est√°s siendo esposado", 3);
-	    ShowPlayerMessage(playerid, "Est√°s esposando a esta persona", 3);
+	    ShowPlayerMessage(params[0], "Est·s siendo esposado", 3);
+	    ShowPlayerMessage(playerid, "Est·s esposando a esta persona", 3);
 
 	    CHARACTER_INFO[params[0]][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 		if (ACCOUNT_INFO[params[0]][ac_SU]) SetPlayerHealthEx(params[0], 50.0);
@@ -445,16 +448,16 @@ CMD:esposar(playerid, params[])
 CMD:placa(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /placa [ID o nombre]");
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
 	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
-	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes ense√±arle tu placa a este jugador ahora.", 3);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
+	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes enseÒarle tu placa a este jugador ahora.", 3);
 
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Le ense√±a su placa a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Le enseÒa su placa a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	SendClientMessageEx(params[0], COLOR_WHITE, "%s %c. %s "COL_YELLOW"[Placa: %d]", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME], PLAYER_MISC[playerid][MISC_PLACA_PD]);
 	ShowPlayerMessage(playerid, "Has mostrado tu placa", 3);
 	return 1;
@@ -463,14 +466,14 @@ CMD:placa(playerid, params[])
 CMD:revisar(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /revisar [ID o nombre]");
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
 	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes revisar a este jugador ahora.", 3);
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar depie.", 3);
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
@@ -485,14 +488,14 @@ alias:revisar("cachear")
 CMD:requisar(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /requisar [ID o nombre]");
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
 	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes revisar a este jugador ahora.", 3);
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar depie.", 3);
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
@@ -509,7 +512,7 @@ CMD:ref(playerid, params[])
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (PLAYER_WORKS[playerid][WORK_POLICE])
 	{
-		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 
 		new city[45], zone[45];
 		GetPlayerZones(playerid, city, zone);

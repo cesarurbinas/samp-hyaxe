@@ -39,7 +39,8 @@
 
 // Features
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
+//#define DM_MODE
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -2435,6 +2436,10 @@ public OnGameModeInit()
 	#if defined EASTER_MODE
 		SendRconCommand("hostname "EASTER_HOSTNAME"");
 		EasterMap();
+	#endif
+
+	#if defined DM_MODE
+		SendRconCommand("hostname Hyaxe DM | MAMAGUEBOS VS MAMAGUEBOS");
 	#endif
 
 	SendRconCommand("language "SERVER_LANGUAGE"");

@@ -209,6 +209,22 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 	if (IsPlayerConnected(issuerid))
 	{
+		// Anti damager
+		if (ACCOUNT_INFO[issuerid][ac_ADMIN_LEVEL] < 2)
+		{
+			new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[issuerid][py_LAST_DAMAGE]);
+			//printf("interval: %d, normal: %d, name: %s", interval, WEAPON_INFO[weaponid][weapon_info_SHOT_TIME], PLAYER_TEMP[issuerid][py_NAME]);
+			if (interval < WEAPON_INFO[weaponid][weapon_info_SHOT_TIME])
+			{
+				PLAYER_TEMP[issuerid][py_DAMAGER_ALERTS] ++;
+				if (PLAYER_TEMP[issuerid][py_DAMAGER_ALERTS] >= 60)
+				{
+					PLAYER_TEMP[issuerid][py_DAMAGER_ALERTS] = 0;
+					Anticheat_Ban(issuerid, "Damager");
+				}
+			}
+		}
+
 		/*if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 2)
 		{
 			if (is_lgbt[issuerid] && !is_lgbt[playerid])
@@ -283,15 +299,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 				GetPlayerPos(issuerid, x, y, z);
 				new Float:dist = GetPlayerDistanceFromPoint(playerid, x, y, z);
 				
-				if (dist >= 5.0)
-				{
-					PLAYER_TEMP[playerid][py_BIG_PUNCH] ++;
-					if (PLAYER_TEMP[playerid][py_BIG_PUNCH] >= 5)
-					{
-						PLAYER_TEMP[playerid][py_BIG_PUNCH] = 0;
-						Anticheat_Kick(playerid, "Fist Slapper");
-					}
-				}
+				if (dist >= 5.0) return 0;
 			}
 			case 22..27, 33, 34:
 			{
@@ -541,6 +549,8 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 			PlayerTextDrawSetString(issuerid, g_ptdDamageGiven[issuerid], TextToSpanish(g_sDamageGivenText[issuerid]));
 			PlayerTextDrawShow(issuerid, g_ptdDamageGiven[issuerid]);
 		}
+
+		PLAYER_TEMP[issuerid][py_LAST_DAMAGE] = GetTickCount();
 	}
 
 	Logger_Debug("OnPlayerDamage(playerid: %d, issuerid: %d, amount: %d, weaponid: %d, bodypart: %d)", playerid, issuerid, amount, weaponid, bodypart);

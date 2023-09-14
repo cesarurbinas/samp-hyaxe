@@ -24,6 +24,11 @@ RegisterBot(playerid)
 	ACCOUNT_INFO[playerid][ac_ID] = minrand(30000, 40000);
 	SetPlayerScore(playerid, minrand(1, 5));
 	PLAYER_TEMP[playerid][py_BOT] = true;
+
+	for(new i = 0; i < 52; i++)
+	{
+		EnableAntiCheatForPlayer(playerid, i, false);
+	}
 	return 1;
 }
 
@@ -704,11 +709,11 @@ public SavePlayerData(playerid)
 	SavePlayerMisc(playerid);
 	SavePlayerWeaponsData(playerid);
 
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+	/*if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
 		if (GetPlayerPing(playerid) >= 300)
 			Anticheat_Kick(playerid, "Ping alto");
-	}
+	}*/
 
 	return 1;
 }
@@ -2621,10 +2626,10 @@ public OnPlayerText(playerid, text[])
 
 				if (PLAYER_WORKS[playerid][WORK_DIVISO])
 				{
-					if (text[1] == '!') format(str_text, sizeof str_text, "[DPT] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-					else format(str_text, sizeof str_text, "[DPT] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], text[1]);
+					if (text[1] == '!') format(str_text, sizeof str_text, "[GNR] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
+					else format(str_text, sizeof str_text, "[GNR] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], text[1]);
 
-					SendDivisoMafiaMessage(0xa9ee70FF, str_text);
+					SendDivisoMafiaMessage(0xE55B5BFF, str_text);
 					return 0;
 				}
 
@@ -5801,7 +5806,6 @@ IPacket:AIM_SYNC(playerid, BitStream:bs)
         return 0;
     }
 
-	PLAYER_TEMP[playerid][py_LAST_AIM_SYNC] = GetTickCount();
 	//SendClientMessage(playerid, -1, "aim");
     return 1;
 }
@@ -5820,18 +5824,6 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 		{
 			PLAYER_TEMP[playerid][py_TOTAL_SHOT] = 0;
 
-			// Anti damager
-			new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_LAST_AIM_SYNC]);
-			if (interval > 700)
-			{
-				//SendClientMessage(playerid, -1, "checked");
-				PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] ++;
-				if (PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] >= 3)
-				{
-					PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] = 0;
-					Anticheat_Ban(playerid, "Damager");
-				}
-			}
 			/*if (!IsShootingAnimation(GetPlayerAnimationIndex(playerid)))
 			{
 				return Anticheat_Ban(playerid, "Damager");
@@ -6116,7 +6108,11 @@ public ContinuePlayerIntro(playerid, step)
 		{
 			ClearPlayerChatBox(playerid);
 
-            CHARACTER_INFO[playerid][ch_CASH] = 30000;
+			CHARACTER_INFO[playerid][ch_CASH] = 30000;
+			#if defined DM_MODE
+            	CHARACTER_INFO[playerid][ch_CASH] = 200000;
+			#endif
+
 			new index_pos = minrand(0, sizeof(NewUserPos));
 			CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
 			CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];

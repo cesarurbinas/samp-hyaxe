@@ -4784,7 +4784,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
 				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0xa9ee70FF, "[DPT] "COL_WHITE" El nuevo rango de %s es: %s.", name, DIVISO_RANKS[listitem]);
+				SendClientMessageEx(playerid, 0xE55B5BFF, "[GNR] "COL_WHITE" El nuevo rango de %s es: %s.", name, DIVISO_RANKS[listitem]);
 
 				if (listitem == 0)
 				{
@@ -4800,9 +4800,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_DIVISO) EndPlayerJob(player_id);
 						PLAYER_WORKS[player_id][WORK_DIVISO] = false;
-						SendClientMessageEx(player_id, 0xa9ee70FF, "[DPT] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+						SendClientMessageEx(player_id, 0xE55B5BFF, "[GNR] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], PLAYER_TEMP[playerid][py_RP_NAME]);
 					}
-					else SendClientMessageEx(player_id, 0xa9ee70FF, "[DPT] "COL_WHITE" El %s %s ha modificado tu rango a %s.", DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], PLAYER_TEMP[playerid][py_RP_NAME], DIVISO_RANKS[listitem]);
+					else SendClientMessageEx(player_id, 0xE55B5BFF, "[GNR] "COL_WHITE" El %s %s ha modificado tu rango a %s.", DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], PLAYER_TEMP[playerid][py_RP_NAME], DIVISO_RANKS[listitem]);
 				}
 			}
 			else ShowDialog(playerid, DIALOG_DIVISO_MAFIA_LIST);

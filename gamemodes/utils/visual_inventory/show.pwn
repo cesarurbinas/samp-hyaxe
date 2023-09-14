@@ -3,6 +3,7 @@ new
 
 ShowInventory(playerid, type = 0)
 {
+	PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] = 0;
 	PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = type;
 
 	new ms = (200 + GetPlayerPing(playerid));

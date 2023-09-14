@@ -40,7 +40,9 @@ SendMessageToDoubtChannel(playerid, const message[])
 	channelid = DCC_FindChannelById("790742732829491230");
 	SendDiscordMessage(channelid, "%s", str);
 
-	if (!ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) ScanDoubt(playerid, message);
+	#if defined FINAL_BUILD
+		if (!ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) ScanDoubt(playerid, message);
+	#endif
 	return 1;
 }
 
