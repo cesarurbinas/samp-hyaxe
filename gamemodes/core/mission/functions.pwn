@@ -184,8 +184,8 @@ CheckMissionPlace(playerid)
                                 PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
                                 CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 
-                                SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 100.0);
-                                FCNPC_GiveHealth(SWEET_DEALERS[i][sd_ID], 100.0);
+                                SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
+                                FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
                                 
                                 FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
 
