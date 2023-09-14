@@ -129,8 +129,11 @@ inv_ItemToTextdraw(playerid, slot, type)
 		format(str_text, sizeof(str_text), "%d", PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 	}
 
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 0) format(str_text, sizeof(str_text), " ");
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 41) format(str_text, sizeof(str_text), "Spray");
+	switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
+	{
+		case 0, 53, 51: format(str_text, sizeof(str_text), " ");
+		case 41: format(str_text, sizeof(str_text), "Spray");
+	}
 
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
 
