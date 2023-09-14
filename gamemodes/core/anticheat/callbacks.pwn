@@ -89,7 +89,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 			case 31: Anticheat_Kick(playerid, "CarShot");
 			case 32: Anticheat_Kick(playerid, "CarJack");
 			case 33: Anticheat_Kick(playerid, "UnFreeze");
-			case 34: Anticheat_Kick(playerid, "AFK Ghost");
+			case 34: Anticheat_Ban(playerid, "AFK Ghost");
 			case 35: Anticheat_Kick(playerid, "Full Aiming");
 			case 36: Anticheat_Kick(playerid, "Fake NPC");
 			case 37: Anticheat_Kick(playerid, "Reconnect");
