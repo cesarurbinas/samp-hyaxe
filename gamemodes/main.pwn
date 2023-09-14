@@ -2428,7 +2428,10 @@ SanAndreas()
 public OnGameModeInit()
 {
 	CA_RemoveBarriers();
-	RemoveObjectCollisions();
+
+	#if defined FINAL_BUILD
+		RemoveObjectCollisions();
+	#endif
 
 	CA_Init();
 
@@ -2484,10 +2487,12 @@ public OnGameModeInit()
 	CreateGraffitis();
 	CreateMinerRocks();
 
-	SetTimer("UpdateWantedLevelMark", 30000, true);
+	#if defined FINAL_BUILD
+		SetTimer("UpdateWantedLevelMark", 30000, true);
 
-	SetTimer("FirstGraffitiAnnounce", 1500000, false);
-	SetTimer("InitLastGraffiti", 60000, false);
+		SetTimer("FirstGraffitiAnnounce", 1500000, false);
+		SetTimer("InitLastGraffiti", 60000, false);
+	#endif
 
 	GraffitiGetTime = gettime();
 	MarketGetTime = gettime();

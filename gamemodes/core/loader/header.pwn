@@ -12,52 +12,54 @@ SanAndreas()
 	SERVER_TIME[1] = 1;
 	WorldCycleTimer = SetTimer("UpdateWorldTime", 5000, true);
 
-	//ptas
-	Club_Strippers_Actor[0] = CreateDynamicActor(246, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 0, .interiorid = 3);
-    Club_Strippers_Actor[1] = CreateDynamicActor(87, 1215.355712, -33.439422, 1001.382812, 85.3, .worldid = 0, .interiorid = 3);
-	//ptas2
-	Club_Strippers_Actor[2] = CreateDynamicActor(64, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 1, .interiorid = 3);
-    Club_Strippers_Actor[3] = CreateDynamicActor(63, 1215.355712, -33.439422, 1001.382812, 85.3, .worldid = 1, .interiorid = 3);
-	//ptas3
-	Club_Strippers_Actor[4] = CreateDynamicActor(75, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 2, .interiorid = 3);
-    Club_Strippers_Actor[5] = CreateDynamicActor(238, 1215.355712, -33.439422, 1001.382812, 85.3, .worldid = 2, .interiorid = 3);
+	#if defined FINAL_BUILD
+		//ptas
+		Club_Strippers_Actor[0] = CreateDynamicActor(246, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 0, .interiorid = 3);
+		Club_Strippers_Actor[1] = CreateDynamicActor(87, 1215.355712, -33.439422, 1001.382812, 85.3, .worldid = 0, .interiorid = 3);
+		//ptas2
+		Club_Strippers_Actor[2] = CreateDynamicActor(64, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 1, .interiorid = 3);
+		Club_Strippers_Actor[3] = CreateDynamicActor(63, 1215.355712, -33.439422, 1001.382812, 85.3, .worldid = 1, .interiorid = 3);
+		//ptas3
+		Club_Strippers_Actor[4] = CreateDynamicActor(75, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 2, .interiorid = 3);
+		Club_Strippers_Actor[5] = CreateDynamicActor(238, 1215.355712, -33.439422, 1001.382812, 85.3, .worldid = 2, .interiorid = 3);
 
-	//cantina
-    Club_Bar_Actor[0] = CreateDynamicActor(194, 1206.232788, -29.325387, 1000.953125, 270.0, .worldid = 0, .interiorid = 3);
-	//cantina2
-    Club_Bar_Actor[1] = CreateDynamicActor(171, 1206.232788, -29.325387, 1000.953125, 270.0, .worldid = 1, .interiorid = 3);
-	//cantina3
-    Club_Bar_Actor[2] = CreateDynamicActor(172, 1206.232788, -29.325387, 1000.953125, 270.0, .worldid = 2, .interiorid = 3);
-	//cantina3
-    Club_Bar_Actor[3] = CreateDynamicActor(172, 496.554840,-77.601684,998.765075,0.000000, .worldid = 2, .interiorid = 11);
+		//cantina
+		Club_Bar_Actor[0] = CreateDynamicActor(194, 1206.232788, -29.325387, 1000.953125, 270.0, .worldid = 0, .interiorid = 3);
+		//cantina2
+		Club_Bar_Actor[1] = CreateDynamicActor(171, 1206.232788, -29.325387, 1000.953125, 270.0, .worldid = 1, .interiorid = 3);
+		//cantina3
+		Club_Bar_Actor[2] = CreateDynamicActor(172, 1206.232788, -29.325387, 1000.953125, 270.0, .worldid = 2, .interiorid = 3);
+		//cantina3
+		Club_Bar_Actor[3] = CreateDynamicActor(172, 496.554840,-77.601684,998.765075,0.000000, .worldid = 2, .interiorid = 11);
 
-    //carneros
-	Club_Actors[0] = CreateDynamicActor(2, 1209.846191, -33.879096, 1000.953125, 180.626205, .worldid = 0, .interiorid = 3);
-	Club_Actors[1] = CreateDynamicActor(15, 1207.873535, -34.441837, 1000.953125, 213.213790, .worldid = 0, .interiorid = 3);
-	Club_Actors[2] = CreateDynamicActor(3, 1215.694702, -31.700962, 1000.953125, 158.379913, .worldid = 0, .interiorid = 3);
-	Club_Actors[3] = CreateDynamicActor(19, 1214.740356, -35.461227, 1000.953125, 337.608306, .worldid = 0, .interiorid = 3);
-	Club_Actors[4] = CreateDynamicActor(78, 1213.713012, -34.496170, 1000.953125, 293.427886, .worldid = 0, .interiorid = 3);
-	Club_Actors[5] = CreateDynamicActor(20, 1211.037963, -36.378440, 1000.960571, 74.092475, .worldid = 0, .interiorid = 3);
-	Club_Actors[6] = CreateDynamicActor(40, 1207.190307, -36.132881, 1000.953125, 277.761077, .worldid = 0, .interiorid = 3);
-	//carneros
-	Club_Actors[7] = CreateDynamicActor(45, 1209.846191, -33.879096, 1000.953125, 180.626205, .worldid = 1, .interiorid = 3);
-	Club_Actors[8] = CreateDynamicActor(37, 1207.873535, -34.441837, 1000.953125, 213.213790, .worldid = 1, .interiorid = 3);
-	Club_Actors[9] = CreateDynamicActor(28, 1215.694702, -31.700962, 1000.953125, 158.379913, .worldid = 1, .interiorid = 3);
-	Club_Actors[10] = CreateDynamicActor(66, 1214.740356, -35.461227, 1000.953125, 337.608306, .worldid = 1, .interiorid = 3);
-	Club_Actors[11] = CreateDynamicActor(67, 1213.713012, -34.496170, 1000.953125, 293.427886, .worldid = 1, .interiorid = 3);
-	Club_Actors[12] = CreateDynamicActor(68, 1211.037963, -36.378440, 1000.960571, 74.092475, .worldid = 1, .interiorid = 3);
-	Club_Actors[13] = CreateDynamicActor(69, 1207.190307, -36.132881, 1000.953125, 277.761077, .worldid = 1, .interiorid = 3);
-	//carneros
-	Club_Actors[14] = CreateDynamicActor(100, 1209.846191, -33.879096, 1000.953125, 180.626205, .worldid = 2, .interiorid = 3);
-	Club_Actors[15] = CreateDynamicActor(101, 1207.873535, -34.441837, 1000.953125, 213.213790, .worldid = 2, .interiorid = 3);
-	Club_Actors[16] = CreateDynamicActor(120, 1215.694702, -31.700962, 1000.953125, 158.379913, .worldid = 2, .interiorid = 3);
-	Club_Actors[17] = CreateDynamicActor(112, 1214.740356, -35.461227, 1000.953125, 337.608306, .worldid = 2, .interiorid = 3);
-	Club_Actors[18] = CreateDynamicActor(140, 1213.713012, -34.496170, 1000.953125, 293.427886, .worldid = 2, .interiorid = 3);
-	Club_Actors[19] = CreateDynamicActor(142, 1211.037963, -36.378440, 1000.960571, 74.092475, .worldid = 2, .interiorid = 3);
-	Club_Actors[20] = CreateDynamicActor(139, 1207.190307, -36.132881, 1000.953125, 277.761077, .worldid = 2, .interiorid = 3);
+		//carneros
+		Club_Actors[0] = CreateDynamicActor(2, 1209.846191, -33.879096, 1000.953125, 180.626205, .worldid = 0, .interiorid = 3);
+		Club_Actors[1] = CreateDynamicActor(15, 1207.873535, -34.441837, 1000.953125, 213.213790, .worldid = 0, .interiorid = 3);
+		Club_Actors[2] = CreateDynamicActor(3, 1215.694702, -31.700962, 1000.953125, 158.379913, .worldid = 0, .interiorid = 3);
+		Club_Actors[3] = CreateDynamicActor(19, 1214.740356, -35.461227, 1000.953125, 337.608306, .worldid = 0, .interiorid = 3);
+		Club_Actors[4] = CreateDynamicActor(78, 1213.713012, -34.496170, 1000.953125, 293.427886, .worldid = 0, .interiorid = 3);
+		Club_Actors[5] = CreateDynamicActor(20, 1211.037963, -36.378440, 1000.960571, 74.092475, .worldid = 0, .interiorid = 3);
+		Club_Actors[6] = CreateDynamicActor(40, 1207.190307, -36.132881, 1000.953125, 277.761077, .worldid = 0, .interiorid = 3);
+		//carneros
+		Club_Actors[7] = CreateDynamicActor(45, 1209.846191, -33.879096, 1000.953125, 180.626205, .worldid = 1, .interiorid = 3);
+		Club_Actors[8] = CreateDynamicActor(37, 1207.873535, -34.441837, 1000.953125, 213.213790, .worldid = 1, .interiorid = 3);
+		Club_Actors[9] = CreateDynamicActor(28, 1215.694702, -31.700962, 1000.953125, 158.379913, .worldid = 1, .interiorid = 3);
+		Club_Actors[10] = CreateDynamicActor(66, 1214.740356, -35.461227, 1000.953125, 337.608306, .worldid = 1, .interiorid = 3);
+		Club_Actors[11] = CreateDynamicActor(67, 1213.713012, -34.496170, 1000.953125, 293.427886, .worldid = 1, .interiorid = 3);
+		Club_Actors[12] = CreateDynamicActor(68, 1211.037963, -36.378440, 1000.960571, 74.092475, .worldid = 1, .interiorid = 3);
+		Club_Actors[13] = CreateDynamicActor(69, 1207.190307, -36.132881, 1000.953125, 277.761077, .worldid = 1, .interiorid = 3);
+		//carneros
+		Club_Actors[14] = CreateDynamicActor(100, 1209.846191, -33.879096, 1000.953125, 180.626205, .worldid = 2, .interiorid = 3);
+		Club_Actors[15] = CreateDynamicActor(101, 1207.873535, -34.441837, 1000.953125, 213.213790, .worldid = 2, .interiorid = 3);
+		Club_Actors[16] = CreateDynamicActor(120, 1215.694702, -31.700962, 1000.953125, 158.379913, .worldid = 2, .interiorid = 3);
+		Club_Actors[17] = CreateDynamicActor(112, 1214.740356, -35.461227, 1000.953125, 337.608306, .worldid = 2, .interiorid = 3);
+		Club_Actors[18] = CreateDynamicActor(140, 1213.713012, -34.496170, 1000.953125, 293.427886, .worldid = 2, .interiorid = 3);
+		Club_Actors[19] = CreateDynamicActor(142, 1211.037963, -36.378440, 1000.960571, 74.092475, .worldid = 2, .interiorid = 3);
+		Club_Actors[20] = CreateDynamicActor(139, 1207.190307, -36.132881, 1000.953125, 277.761077, .worldid = 2, .interiorid = 3);
 
-	UpdateThePutis();
-	SetTimer("UpdateThePutis", 3000, true);
+		UpdateThePutis();
+		SetTimer("UpdateThePutis", 3000, true);
+	#endif
 
 	// 3D Texts Ropas
 	for(new i = 0; i < sizeof Clothing_Shop_Positions; i++)
@@ -100,6 +102,7 @@ SanAndreas()
 		CreateDynamic3DTextLabel(""COL_RED"Gasolinera\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, Fuel_Stations[i][0], Fuel_Stations[i][1], Fuel_Stations[i][2] + 0.25, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 		AddKeyArea(Fuel_Stations[i][0], Fuel_Stations[i][1], 1.5, KEY_TYPE_Y);
 	}
+
 	//Mercado negro
 	CreateDynamic3DTextLabel(""COL_RED"Mercado negro\n"COL_WHITE"2 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
 	CreateDynamic3DTextLabel(""COL_RED"Mercado negro\n"COL_WHITE"2 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
@@ -241,6 +244,7 @@ SanAndreas()
 
 	//Notario
 	CreateDynamic3DTextLabel(""COL_WHITE"Vender una propiedad o vehículo", 0xF7F7F700, 1796.071655, -1414.565307, 2770.660156, 10.0, .testlos = true, .worldid = 20, .interiorid = 20);
+	
 	//Grua
 	CreateDynamic3DTextLabel(""COL_WHITE"Servicio de grúa", 0xF7F7F700,  1795.293823,-1407.773681,2770.660156, 10.0, .testlos = true, .worldid = 20, .interiorid = 20);
 	

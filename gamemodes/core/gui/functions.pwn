@@ -45,7 +45,7 @@ HideMainMenu(playerid)
 	return 1;
 }
 
-ShowGamemodesMenu(playerid)
+/*ShowGamemodesMenu(playerid)
 {
 	minigames_page[playerid] = 0;
 	in_main_menu[playerid] = true;
@@ -56,7 +56,7 @@ ShowGamemodesMenu(playerid)
 	
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_MAIN_MENU][5]);
 	return 1;
-}
+}*/
 
 UpdateGamemodesMenu(playerid)
 {

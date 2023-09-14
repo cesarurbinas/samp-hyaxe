@@ -1309,7 +1309,7 @@ stock RandomCordFromPoint(range, negative, &Float:x, &Float:y)
 	return 1;
 }
 
-ValidSurfingVehicle(modelid)
+/*ValidSurfingVehicle(modelid)
 {
 	switch(modelid)
 	{
@@ -1345,7 +1345,7 @@ ValidSurfingVehicle(modelid)
 		case 605: return false;
 	}
 	return true;
-}
+}*/
 
 enum {
 	STATUS_TRUSTED,
