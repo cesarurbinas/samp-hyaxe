@@ -3157,7 +3157,7 @@ NeuroJail(playerid, time, const reason[])
 CALLBACK: IsValidVehicleAbuse(playerid, vehicleid)
 {
 	new Float:speed = GetPlayerSpeed(playerid);
-	if (speed > 1.2)
+	if (speed > 15.0)
 	{
  		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
  		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
@@ -3177,8 +3177,8 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
         BS_IgnoreBits(bs, 8);
         BS_ReadOnFootSync(bs, onFootData);
 
-        new Float:spid = GetPlayerSpeed(playerid);
-        SendClientMessageEx(playerid, -1, "%f", spid);
+        //new Float:spid = GetPlayerSpeed(playerid);
+        //SendClientMessageEx(playerid, -1, "%f", spid);
 
         if (onFootData[PR_surfingVehicleId] != 0 && onFootData[PR_surfingVehicleId] != INVALID_VEHICLE_ID)
         {
@@ -3199,7 +3199,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		            if (ValidSurfingVehicle(modelid))
 		            {
 			            new Float:speed = GetPlayerSpeed(playerid);
-						if (speed > 1.2)
+						if (speed > 20.0)
 						{
 			         		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = onFootData[PR_surfingVehicleId];
 			         		
