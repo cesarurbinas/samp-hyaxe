@@ -32120,6 +32120,9 @@ CALLBACK: UnjailPlayer(playerid)
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
 	CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 0;
 	CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_INTERIOR;
+	CHARACTER_INFO[playerid][ch_JAILED_BY] = 0;
+	CHARACTER_INFO[playerid][ch_JAIL_REASON][0] = EOS;
+	
 	//SetWeaponsForPlayer(playerid);
 	ac_SetPlayerArmedWeapon(playerid, 0);
 	TogglePlayerControllableEx(playerid, true);
@@ -37252,4 +37255,6 @@ flags:rev(CMD_MODERATOR2)
 flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_MODERATOR4)
+
+// comandos por jeiks
 flags:jailoff(CMD_MODERATOR)
