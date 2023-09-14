@@ -710,8 +710,11 @@ public SavePlayerData(playerid)
 	SavePlayerMisc(playerid);
 	SavePlayerWeaponsData(playerid);
 
-	if (GetPlayerPing(playerid) >= 400)
-		Anticheat_Kick(playerid, "Ping alto");
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+	{
+		if (GetPlayerPing(playerid) >= 400)
+			Anticheat_Kick(playerid, "Ping alto");
+	}
 
 	return 1;
 }
