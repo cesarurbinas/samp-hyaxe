@@ -83,7 +83,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 			case 25: Anticheat_Kick(playerid, "Quick turn");
 			case 26: Anticheat_Kick(playerid, "Rapid fire");
 			case 27: Anticheat_Kick(playerid, "FakeSpawn");
-			case 28: Anticheat_Kick(playerid, "FakeKill");
+			case 28: Anticheat_Ban(playerid, "FakeKill");
 			case 29: Anticheat_Kick(playerid, "Pro Aim");
 			case 30: Anticheat_Kick(playerid, "CJ run");
 			case 31: Anticheat_Kick(playerid, "CarShot");
