@@ -8564,6 +8564,66 @@ CMD:discord(playerid, params[])
 	return 1;
 }*/
 
+CMD:setmutes(playerid, params[])
+{
+	new to_player, ammount;
+    if (sscanf(params, "ud", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setmutes <player_id>");
+    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+
+    PLAYER_MISC[to_player][MISC_MUTES] = ammount;
+    SavePlayerMisc(to_player);
+	SendCmdLogToAdmins(playerid, "setmutes", params);
+	return 1;
+}
+
+CMD:setjails(playerid, params[])
+{
+	new to_player, ammount;
+    if (sscanf(params, "ud", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setjails <player_id>");
+    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+
+    PLAYER_MISC[to_player][MISC_JAILS] = ammount;
+    SavePlayerMisc(to_player);
+	SendCmdLogToAdmins(playerid, "setjails", params);
+	return 1;
+}
+
+CMD:setbans(playerid, params[])
+{
+	new to_player, ammount;
+    if (sscanf(params, "ud", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setbans <player_id>");
+    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+
+    PLAYER_MISC[to_player][MISC_BANEOS] = ammount;
+    SavePlayerMisc(to_player);
+	SendCmdLogToAdmins(playerid, "setbans", params);
+	return 1;
+}
+
+CMD:setadv(playerid, params[])
+{
+	new to_player, ammount;
+    if (sscanf(params, "ud", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setadv <player_id>");
+    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+
+    PLAYER_MISC[to_player][MISC_SANS] = ammount;
+    SavePlayerMisc(to_player);
+	SendCmdLogToAdmins(playerid, "setadv", params);
+	return 1;
+}
+
+CMD:setkicks(playerid, params[])
+{
+	new to_player, ammount;
+    if (sscanf(params, "ud", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setkicks <player_id>");
+    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+
+    PLAYER_MISC[to_player][MISC_KIKEOS] = ammount;
+    SavePlayerMisc(to_player);
+	SendCmdLogToAdmins(playerid, "setkicks", params);
+	return 1;
+}
+
 CMD:runtime(playerid, params[])
 {
 	SendClientMessageEx(playerid, COLOR_WHITE, "El servidor se ha iniciado: %s", ReturnTimelapse(ServerInitTime, gettime()));
@@ -12881,7 +12941,7 @@ ShowDialog(playerid, dialogid)
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			radio_station,
     			(PLAYER_TEMP[playerid][py_GPS_MAP] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
-    			(windows[0] ? ""COL_GREEN"Abierta" : ""COL_RED"Cerrada")
+    			(windows[0] ? ""COL_RED"Cerrada" : ""COL_GREEN"Abierta")
     		);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Cambiar", "Cerrar");
@@ -21101,26 +21161,30 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 3:
 					{
-						new windows[4];
+						if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
+						else ShowPlayerGpsMap(playerid);
+					}
+					case 4:
+					{
+						new 
+							windows[4],
+							vehicleid = GetPlayerVehicleID(playerid)
+						;
+
 						GetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], windows[2], windows[3]);
 
 						if (windows[0] == 0)
 						{
 							SetVehicleParamsCarWindows(vehicleid, 1, windows[1], windows[2], windows[3]);
-							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto la Ventana de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-							ShowPlayerMessage(playerid, "Ventana ~g~abierta", 2);
+							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha cerrado la ventana de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+							ShowPlayerMessage(playerid, "Ventana ~r~cerrada", 2);
 						}
 						else
 						{
 							SetVehicleParamsCarWindows(vehicleid, 0, windows[1], windows[2], windows[3]);
-							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha cerrado la Ventana de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-							ShowPlayerMessage(playerid, "Ventana ~r~cerrada", 2);
+							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto la ventana de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+							ShowPlayerMessage(playerid, "Ventana ~g~abierta", 2);
 						}
-					}
-					case 4:
-					{
-						if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
-						else ShowPlayerGpsMap(playerid);
 					}
 					case 5:
 					{
@@ -24943,7 +25007,7 @@ CALLBACK: GetAmbulanceItem(playerid, vehicleid)
 	if (vehicleid != INVALID_VEHICLE_ID)
 	{
 		new doors[4];
-		GetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], doors[2], doors[3])
+		GetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], doors[2], doors[3]);
 		SetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], 0, 0);
 	}
 	return 1;
@@ -24959,13 +25023,13 @@ CheckAmbulance(playerid)
 		if (vehicleid == INVALID_VEHICLE_ID) return 0;
 		if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] == 416)
 		{
-			SetTimerEx("GetAmbulanceItem", 3000, false, "ii", playerid, vehicleid);
+			SetTimerEx("GetAmbulanceItem", 2100, false, "ii", playerid, vehicleid);
 
 			new doors[4];
-			GetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], doors[2], doors[3])
+			GetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], doors[2], doors[3]);
 			SetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], 1, 1);
 
-			ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 3000, true);
+			ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 2000, true);
 		}
 	}
 	return 1;
@@ -28263,7 +28327,7 @@ CALLBACK: StartVehicleEngine(playerid, vehicleid)
 	}
 
 	ShowPlayerMessage(playerid, "~g~Encendiendo...", 2);
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	return 1;
 }
 
@@ -37458,6 +37522,11 @@ flags:setveh(CMD_MODERATOR);
 flags:setvh(CMD_MODERATOR);
 flags:jailtime(CMD_MODERATOR);
 flags:randomgraffiti(CMD_OPERATOR);
+flags:setmutes(CMD_OPERATOR);
+flags:setjails(CMD_OPERATOR);
+flags:setbans(CMD_OPERATOR);
+flags:setadv(CMD_OPERATOR);
+flags:setkicks(CMD_OPERATOR);
 flags:initmarket(CMD_ADMIN);
 flags:dropitem(CMD_MODERATOR3);
 flags:gmx(CMD_OPERATOR);
