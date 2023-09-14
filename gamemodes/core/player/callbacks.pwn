@@ -2645,12 +2645,7 @@ public OnPlayerText(playerid, text[])
 			}
 
 			//Do code
-			strreplace(str_text, "[", "{dbc766}[");
-			strreplace(str_text, "]", "]{E6E6E6}");
-
-			//Negrita code
-			strreplace(str_text, "<", "{A8A8A8}");
-			strreplace(str_text, ">", "{E6E6E6}");
+			ReplaceStringByRegex(str_text, "\\[(.*?)\\]", "{dbc766}[$1]{E6E6E6}", str_text);
 
 			// Send message
 			ProxDetector(playerid, 15.0, str_text, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5, 85);

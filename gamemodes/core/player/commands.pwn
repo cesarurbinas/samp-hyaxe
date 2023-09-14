@@ -131,12 +131,7 @@ CMD:g(playerid, params[])
 	format(str_text, 190, "%s grita: ¡%s!", PLAYER_TEMP[playerid][py_RP_NAME], params);
 
 	//Do code
-	strreplace(str_text, "[", "{dbc766}[");
-	strreplace(str_text, "]", "]{E6E6E6}");
-
-	//Negrita code
-	strreplace(str_text, "<", "{A8A8A8}");
-	strreplace(str_text, ">", "{E6E6E6}");
+	ReplaceStringByRegex(str_text, "\\[(.*?)\\]", "{dbc766}[$1]{E6E6E6}", str_text);
 
 	ProxDetector(playerid, 25.0, str_text, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5, 85);
 	return 1;
@@ -151,12 +146,7 @@ CMD:s(playerid, params[])
 	format(str_text, sizeof(str_text), "%s susurra: %s", PLAYER_TEMP[playerid][py_RP_NAME], params);
 
 	//Do code
-	strreplace(str_text, "[", "{dbc766}[");
-	strreplace(str_text, "]", "]{E6E6E6}");
-
-	//Negrita code
-	strreplace(str_text, "<", "{A8A8A8}");
-	strreplace(str_text, ">", "{E6E6E6}");
+	ReplaceStringByRegex(str_text, "\\[(.*?)\\]", "{dbc766}[$1]{E6E6E6}", str_text);
 
 	ProxDetector(playerid, 5.0, str_text, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5, 85);
 	return 1;
