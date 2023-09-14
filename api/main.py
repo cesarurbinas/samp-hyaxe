@@ -8,7 +8,6 @@ from datetime import date
 
 app = Flask(__name__)
 
-
 def IsValidKey(key):
 	if key == 'I88B7B7F7Es6bKkNS9SB77svJA':
 		return True
@@ -77,24 +76,30 @@ def SendWebhookMessage(message, msg_type):
 
 @app.route('/webhook')
 def webhook():
-	message = request.args.get('content', default = '*', type = str)
-	message = message.replace("ª", " ")
+	if request.remote_addr == '51.161.31.157':
+		message = request.args.get('content', default = '*', type = str)
+		message = message.replace("ª", " ")
 
-	if message[:3] == '[1]':
-		content = message[3:]
-		SendWebhookMessage(content, 1)
+		if message[:3] == '[1]':
+			content = message[3:]
+			SendWebhookMessage(content, 1)
 
-	elif message[:3] == '[2]':
-		content = message[3:]
-		SendWebhookMessage(content, 2)
+		elif message[:3] == '[2]':
+			content = message[3:]
+			SendWebhookMessage(content, 2)
 
-	elif message[:3] == '[3]':
-		content = message[3:]
-		SendWebhookMessage(content, 3)
+		elif message[:3] == '[3]':
+			content = message[3:]
+			SendWebhookMessage(content, 3)
 
-	elif message[:3] == '[4]':
-		content = message[3:]
-		SendWebhookMessage(content, 4)
+		elif message[:3] == '[4]':
+			content = message[3:]
+			SendWebhookMessage(content, 4)
+
+		return 'very yas'
+
+	else:
+		return 'ola tomi karakuel komo lo iebas mi pana, saludillos al pana andres y al pana gabi'
 		
 	return 'yas'
 
@@ -129,7 +134,7 @@ def add_webhook():
 
 @app.route('/proxycheck/<ip>')
 def proxy_check(ip):
-	whitelist = ['138.204.13.179']
+	whitelist = ['138.204.13.179', '31.214.141.206']
 	if ip in whitelist:
 		return 'N'
 		

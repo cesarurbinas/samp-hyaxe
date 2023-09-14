@@ -12,7 +12,7 @@
  *  - 1: Saldrán mensajes de debug solamente en la consola.
  *  - 2: Saldrán mensajes de debug en la consola y en el juego.
 */
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 #if DEBUG_MODE != 0
 	#pragma option -d3
@@ -28,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.8 Build 3"
+#define SERVER_VERSION 			"v0.8 Build 15"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -48,7 +48,7 @@
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 #define NO_SUSPICION_LOGS
 
@@ -63,7 +63,7 @@
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
-//#tryinclude <profiler>
+#tryinclude <profiler>
 
 // Damage
 #include "core/damage/header.pwn"
@@ -937,31 +937,44 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 521, 2767.0242, -1609.7168, 10.4805, 90.0000, 0, 158, 0},
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 521, 2767.0242, -1609.7168, 10.4805, 90.0000, 0, 158, 0},
 	// osborn
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 511, 3206.6060, -2119.1448, 4.6798, 0.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 487, 3017.2002, -1904.9767, 6.3630, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 563, 2998.5906, -1904.5751, 6.3634, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 409, 3019.4124, -2012.9783, 2.9382, 0.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 3019.4795, -2019.2274, 2.7198, 0.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 3019.5522, -2006.8885, 2.7198, 0.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 3026.0164, -2024.5907, 2.7091, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 3028.1963, -2024.5907, 2.7091, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 473, 2930.0132, -1999.1056, 0.2562, 0.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 454, 2941.4685, -1995.8323, 0.5565, 0.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3177.4370, -1974.6346, 2.7849, 0.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3037.0732, -1917.8037, 2.8117, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3087.4309, -1917.0355, 2.8034, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3127.5481, -1917.9360, 2.8056, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3197.1799, -1912.4203, 2.8316, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3149.2908, -1971.5250, 2.8257, 90.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3149.2908, -1974.8250, 2.8257, 90.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3149.2908, -1977.8450, 2.8257, 90.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, 3127.0017, -1966.8230, 2.8642, -90.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, 3127.0017, -1973.8831, 2.8642, -90.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 428, 3128.1396, -2011.9847, 3.3663, 0.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 482, 3127.2163, -1970.3862, 3.2450, -90.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, 3127.6077, -1984.3718, 3.1655, -90.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, 3127.6077, -1988.4117, 3.1655, -90.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, 3127.6077, -1992.2917, 3.1655, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, -2538.2732, -638.5104, 132.7914, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, -2538.2722, -641.6822, 132.7914, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 522, -2539.1340, -644.8869, 132.3923, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 482, -2538.4988, -649.7926, 132.9753, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 428, -2538.3896, -653.4010, 133.0961, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, -2538.2935, -635.3489, 132.7914, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, -2538.3108, -632.1124, 132.7914, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, -2538.9534, -628.1598, 132.4716, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, -2530.1001, -643.7878, 132.4717, 0.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 522, -2524.0586, -643.8281, 132.3524, 0.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 522, -2526.9846, -643.7561, 132.3524, 0.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, -2535.5217, -602.4193, 132.1022, 180.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, -2531.8696, -602.4933, 132.1022, 180.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, -2528.0593, -602.1702, 132.2213, 180.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, -2524.3132, -602.2142, 132.2213, 180.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, -2526.2009, -627.3993, 132.3321, 180.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, -2523.9807, -627.4330, 132.3321, 180.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, -2505.3975, -659.7274, 138.9362, 0.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, -2508.7749, -659.6862, 138.9362, 0.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, -2393.1111, -742.6507, 132.7643, 90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, -2416.8835, -588.8335, 132.2879, -145.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, -2399.6226, -613.2672, 132.2871, 35.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 493, -2978.6677, -877.2886, 0.0077, 140.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 484, -2959.9651, -890.1926, -0.0190, 140.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 452, -2943.7051, -886.5799, -0.0185, 140.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 454, -2969.0022, -882.8113, -0.0177, 140.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 446, -2953.9661, -898.3783, -0.0108, 140.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 452, -2969.1699, -866.2029, -0.0185, 140.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 487, -2463.6067, -707.4576, 149.5862, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 487, -2462.9429, -671.2291, 149.7262, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 519, -1363.3896, -488.9436, 15.2492, -154.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 593, -1438.7922, -530.8261, 14.7322, -154.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 409, -2510.6765, -619.2047, 132.3098, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 409, -2500.4331, -619.1856, 132.3098, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 593, -1111.7780, -182.0618, 14.6178, 113.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 519, -1113.8134, -200.4334, 15.1298, 48.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 519, -1132.9298, -212.7986, 15.1298, 48.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 511, -1146.3324, -175.6646, 15.5835, 150.0000, 205, 205, 0},
 	// medico
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1178.3592, -1307.1132, 13.9921, 269.3424, 1, 198, 0}, //Ambulance
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1177.1497, -1340.5240, 14.0583, 267.7389, 1, 198, 0}, //Ambulance
@@ -1534,9 +1547,9 @@ new MAFIA_DOORS[][enum_MAFIA_DOORS] =
 	//tcc
 	{19912, 2801.428222, -1603.694580, 12.685187, -18.600008, 0, 0, true, INVALID_STREAMER_ID, -1},
 	//osborn
-	{19912, 2985.96143, -2001.79089, 5.01620, 90.00000, 0, 0, true, INVALID_STREAMER_ID, -1},
-	{19912, 2985.96143, -2024.86121, 5.01620, -90.00000, 0, 0, true, INVALID_STREAMER_ID, -1},
-	{980, 959.0797, -1437.4704, 15.3599, 0.0000, 0, 0, true, INVALID_STREAMER_ID, -1}
+	{19912, -2350.201416, -662.360290, 120.741500, 30.000000, 0, 0, true, INVALID_STREAMER_ID, -1},
+	{19912, -2464.229003, -488.837310, 105.451400, 30.000000, 0, 0, true, INVALID_STREAMER_ID, -1},
+	{8378, -1166.879516, -202.562149, 23.027000, -65.000000, 0, 0, true, INVALID_STREAMER_ID, -1}
 };
 
 // Barredor
@@ -1955,7 +1968,7 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 2, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 2421.501953,-1219.768432, 25.527839, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Mike Santander", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, -245.578720, -2193.103271, 29.839702, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Club de la pelea", INTERIOR_NO_INFO, -1, false, 0, 16, -14.497008, 100.967079, 1101.521118, 180.0, -1, false, 0, 0, 950.341247, -987.135864, 38.743835, 322.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "Osborn", INTERIOR_NO_INFO, -1, true, 0, 29, 887.343566, 1918.198364, -88.974365, 93.182411, -1, false, 0, 0, 3025.392333, -2004.350708, 3.214900, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Osborn", INTERIOR_NO_INFO, -1, true, 0, 29, 887.343566, 1918.198364, -88.974365, 93.182411, -1, false, 0, 0, -2517.1223, -664.4894, 139.3531, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Estadio", INTERIOR_NO_INFO, -1, true, 1336, 0, 2684.587890, -1733.565185, 424.386718, 180.0, -1, false, 0, 0, 2781.461181, -1813.566162, 11.843750, 211.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	//{-1, "Moriarty Luxury Bar", INTERIOR_NO_INFO, -1, true, 0, 64, 2627.9360, 490.5309, 2621.2078, 173.315292, -1, false, 0, 0, 2851.3330, -1532.3297, 11.0991, 271.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
@@ -2934,7 +2947,8 @@ IPacket:VEHICLE_SYNC(playerid, BitStream:bs)
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 		SendDiscordWebhook(string, 1);
 
-		Kick(playerid);
+		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Vehicle Grabber (1)");
+		KickEx(playerid, 500);
 		return 0;
 	}
     return 1;
@@ -5088,6 +5102,10 @@ ExitCrack(playerid)
 	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK) return 0;
 	if (PLAYER_TEMP[playerid][py_CUFFED]) return 0;
 	if (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] > 0) return 0;
+
+	new str_text[144];
+	format(str_text, sizeof(str_text), "[KILL] %s (%d) ha aceptado muerte.", PLAYER_TEMP[playerid][py_NAME], playerid);
+	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 
 	SetPlayerHealthEx(playerid, 0.0);
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha muerto.\n\n\n", 0xffcb90FF, 20.0, 5000);
@@ -8823,176 +8841,288 @@ CMD:ayuda(playerid, params[])
 cmd:tr(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): tr", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): tr (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:salo(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): salo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): salo (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:fantasma(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): fantasma (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:domar(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): domar (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:sapito(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): sapito (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:pinwino(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): pinwino (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:verdesin(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): verdesin (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:piso(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): piso (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:storm(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): storm (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:gg(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): gg [gagarin] (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:baciga(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): baciga (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:spread(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): spread", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): spread (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:cfind(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): cfind", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): cfind (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:master(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): master", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): master (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:tmp(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): tmp", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): tmp (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:fr(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): fr", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): fr (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:hmo(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): hmo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): hmo (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:skr(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): skr", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): skr (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:xex(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): xex", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): xex (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
-	return 1;
-}
-
-cmd:kill(playerid, params[])
-{
-	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): kill", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
-	SendDiscordWebhook(string, 1);
-
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:up(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): up", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): up (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:slide(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): slide", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): slide (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:cbug(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): cbug", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): cbug (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:aimbot(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): aimbot", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): aimbot (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
 cmd:aim(playerid, params[])
 {
 	new string[128];
-	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): aim", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): aim (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	Kick(playerid);
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
 	return 1;
 }
 
@@ -21894,7 +22024,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PLAYER_TEMP[playerid][py_ANSWER_INDEX] = listitem;
 				ShowDialog(playerid, DIALOG_QUESTION_CREATE);
 			}
-			else Kick(playerid);
+			else
+			{
+				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Respuesta incorrecta");
+				KickEx(playerid, 500);
+			}
 		}
 		case DIALOG_QUESTION_CREATE:
 		{
@@ -21948,7 +22082,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(ACCOUNT_INFO[playerid][ac_IP], 16, "%s", PLAYER_TEMP[playerid][py_IP]);
 					PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = false;
 				}
-				else Kick(playerid);
+				else
+				{
+					SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Respuesta incorrecta");
+					KickEx(playerid, 500);
+				}
 			}
 			else Kick(playerid);
 		}
@@ -26534,7 +26672,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						{
 							KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
 							MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
-							MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - 15.0, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
+
+							new Float:distance = 15.0;
+							if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
+								distance = 50.0;
+
+							MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
 							MAFIA_DOORS[i][mafia_door_CLOSED] = false;
 							break;
 						}
@@ -32163,6 +32306,8 @@ PlayerPayday(playerid)
 {
 	if (IsPlayerPaused(playerid)) return 0;
 	
+	GivePlayerReputation(playerid);
+
 	new 
 		str_payday[364],
 		str_temp[64],
@@ -36648,7 +36793,7 @@ flags:setworkexp(CMD_OPERATOR)
 flags:setcash(CMD_ADMIN)
 flags:givecash(CMD_ADMIN)
 flags:setbmlevel(CMD_OPERATOR)
-flags:asay(CMD_MODERATOR4)
+flags:asay(CMD_ADMIN)
 flags:lpos(CMD_MODERATOR)
 flags:setworld(CMD_MODERATOR)
 flags:setinterior(CMD_MODERATOR)

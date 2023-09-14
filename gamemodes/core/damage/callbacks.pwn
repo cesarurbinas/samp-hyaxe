@@ -155,7 +155,6 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 	if (IsPlayerPaused(issuerid)) return 0;
 
 	if (!PLAYER_TEMP[playerid][py_COMBAT_MODE] && IsPlayerPaused(playerid)) return 0;
-
 	if (PLAYER_TEMP[playerid][py_GODMODE] && issuerid != INVALID_PLAYER_ID) return 0;
 
 	if (issuerid != INVALID_PLAYER_ID && weaponid == 23)
@@ -169,6 +168,27 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 	if (IsPlayerConnected(issuerid))
 	{
+		switch(weaponid)
+		{
+			case 0:
+			{
+				new Float:x, Float:y, Float:z;
+				GetPlayerPos(issuerid, x, y, z);
+				new Float:dist = GetPlayerDistanceFromPoint(playerid, x, y, z);
+
+				if (dist >= 3.0)
+				{
+					new string[128];
+					format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): Fist slapper (wp: %d, dist: %f)", ACCOUNT_INFO[issuerid][ac_NAME], issuerid, weaponid, dist);
+					SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+					SendDiscordWebhook(string, 1);
+
+					SendClientMessageEx(issuerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fist slapper");
+					KickEx(issuerid, 500);
+				}
+			}
+		}
+
 		if (!PLAYER_WORKS[issuerid][WORK_POLICE])
 		{
 			KillTimer(PLAYER_TEMP[issuerid][py_TIMERS][44]);

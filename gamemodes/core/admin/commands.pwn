@@ -2899,3 +2899,24 @@ CMD:createclub(playerid, params[])
 	return 1;
 }
 flags:createclub(CMD_OWNER)
+
+CMD:profilerstart(playerid, params[])
+{
+	Profiler_Start();
+	return 1;
+}
+flags:profilerstart(CMD_OWNER)
+
+CMD:profilerstop(playerid, params[])
+{
+	Profiler_Stop();
+	return 1;
+}
+flags:profilerstop(CMD_OWNER)
+
+CMD:profilerdump(playerid, params[])
+{
+	Profiler_Dump();
+	return 1;
+}
+flags:profilerdump(CMD_OWNER)
