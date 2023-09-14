@@ -296,8 +296,13 @@ enum Temp_Enum
 >>>>>>> 93ebe19 (Usar ColAndreas para calcular la posición)
 	py_ANSWER_INDEX,
 	py_ANSWER_RESPONSE[32],
+<<<<<<< HEAD
 	bool:py_STEAL_SUSPICION
 >>>>>>> refs/rewritten/aa
+=======
+	bool:py_STEAL_SUSPICION,
+	bool:py_COMBAT_MODE
+>>>>>>> 8914c15 (Mejoras en el filtro de nombres)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

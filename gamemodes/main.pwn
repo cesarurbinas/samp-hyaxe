@@ -1730,7 +1730,11 @@ static const INVALID_NAMES[][100] =
 	"Morgan_Skulls",
 	"Imgui",
 	"ImGui",
-	"Sampvoice"
+	"Sampvoice",
+	"Diablo",
+	"Pito_Corto",
+	"Empanada",
+	"Hamburguesa"
 };
 
 enum
