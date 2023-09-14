@@ -642,44 +642,6 @@ Zip_Shop_Female_Skins[][] =
 	{55, 1011   , 0}
 };
 
-enum Food_Info
-{
-	food_NAME[24],
-	food_PRICE,
-	Float:food_HUNGRY,
-	Float:food_THIRST,
-};
-new PIZZA_FOOD[][Food_Info] =
-{
-	{"Pizza de verduras", 25, 10.0, -0.1},
-	{"Pizza de jamón y queso", 60, 16.0, -0.1},
-	{"Pizza barbacoa", 40, 15.0, -0.1},
-	{"Pizza 4 quesos", 55, 14.0, -0.1},
-	{"Ensalada", 20, 10.0, 5.0},
-	{"Sprunk", 30, 0.0, 12.0},
-	{"Agua", 30, 0.0, 19.0}
-};
-new BURGER_SHOT_FOOD[][Food_Info] =
-{
-	{"Hamburguesa normal", 60, 16.0, -0.1},
-	{"Hamburguesa con pollo", 80, 10.0, -0.1},
-	{"Hamburguesa vegana", 80, 10.0, -0.1},
-	{"Hamburguesa especial", 60, 12.0, -3.0},
-	{"Ensalada", 20, 10.0, 5.0},
-	{"Sprunk", 30, 0.0, 12.0},
-	{"Agua", 30, 0.0, 19.0}
-};
-new CLUCKIN_BELL_FOOD[][Food_Info] =
-{
-	{"Alitas de pollo", 60, 16.0, -0.1},
-	{"Papas fritas", 80, 18.0, -2.0},
-	{"Pato asado", 80, 18.0, -2.0},
-	{"Pollo al horno", 80, 18.0, -2.0},
-	{"Ensalada", 20, 10.0, 5.0},
-	{"Sprunk", 30, 0.0, 12.0},
-	{"Agua", 30, 0.0, 19.0}
-};
-
 new Toys_Bones[][24] =
 {
 	{"Espalda"},

@@ -290,31 +290,6 @@ new Clothing_Shop_Positions[][Clothing_Shop_Info] =
 	{INTERIOR_ZIP, "ZIP", 161.443634, -83.589271, 1001.804687, 180.0, 18} //Zip
 };
 
-// Super products
-enum
-{
-	PRODUCT_TYPE_NONE,
-	PRODUCT_TYPE_FOOD,
-	PRODUCT_TYPE_PHONE,
-	PRODUCT_TYPE_GPS,
-	PRODUCT_TYPE_PHONE_RESOLVER
-};
-enum Supermarket_Enum
-{
-	product_TYPE,
-	product_NAME[24],
-	product_PRICE,
-	Float:product_HUNGRY,
-	Float:product_THIRST,
-	product_DRUNK
-};
-new Supermarket_Product_List[][Supermarket_Enum] =
-{
-	{PRODUCT_TYPE_PHONE, NAME_PHONE, 350, 0.0, 0.0, 0},
-	{PRODUCT_TYPE_PHONE_RESOLVER, NAME_PHONE_R, 200, 0.0, 0.0, 0},
-	{PRODUCT_TYPE_GPS, "GPS", 300, 0.0, 0.0, 0},
-};
-
 // Food
 enum Fast_Food_Info
 {

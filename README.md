@@ -26,7 +26,7 @@ Listado de cosas para hacer
 
 ❌ Arreglar el candado del velocimetro
 
-❌ Agregar comida como item
+✅ Agregar comida como item
 
 ❌ Rehacer sistema completo de items y inventario
 
@@ -111,3 +111,11 @@ Listado de cosas para hacer
 ❌ Arreglar barra del inventario
 
 ✅ Agregar el celular al inventario
+
+✅ Rehacer 24/7
+
+❌ Rehacer Burger Shot
+
+❌ Rehacer Clukin Bell
+
+❌ Rehacer Stacked Pizza

@@ -297,7 +297,7 @@ ShowDialog(playerid, dialogid)
 				"COL_WHITE"GPS\t"COL_GREEN"$500\n\
 				"COL_WHITE"Tostada\t"COL_GREEN"$10\n\
 				"COL_WHITE"Jugo de naranja\t"COL_GREEN"$70\n\
-				"COL_WHITE"Jugo de manzana\t"COL_GREEN"$70\n,
+				"COL_WHITE"Jugo de manzana\t"COL_GREEN"$70\n",
 			"Comprar", "Cerrar");
 			return 1;
 		}
