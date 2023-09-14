@@ -15,6 +15,7 @@ CMD:comandosadmin(playerid, params[])
     new CmdArray:command_arr = PC_GetCommandArray();
     new len = PC_GetArraySize(command_arr);
     new dialog[700], line[50];
+    strcat(dialog, "{FFFFFF}");
     for(new i = 0; i != len; i++)
     {
         new cmdname[31], flags;
@@ -22,7 +23,7 @@ CMD:comandosadmin(playerid, params[])
         flags = PC_GetFlags(cmdname);
         if(!flags) continue;
         if(flags != level) continue;
-        format(line, sizeof(line), "{FFFFFF}/%s (Nivel %d)\n", cmdname, flags);
+        format(line, sizeof(line), "/%s (Nivel %d)\n", cmdname, flags);
         strcat(dialog, line);
     }
 

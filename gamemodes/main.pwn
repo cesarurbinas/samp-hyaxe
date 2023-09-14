@@ -4156,7 +4156,7 @@ ResyncWeapon(playerid, weapon)
 	{
 		case 22: // 9MM
 		{
-			GivePlayerWeaponEx(playerid, weapon, 15, true);
+			GivePlayerWeaponEx(playerid, weapon, 15, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+15"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4164,7 +4164,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 24: // Desert
 		{
-			GivePlayerWeaponEx(playerid, weapon, 7, true);
+			GivePlayerWeaponEx(playerid, weapon, 7, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+7"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4172,7 +4172,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 32: // TEC9
 		{
-			GivePlayerWeaponEx(playerid, weapon, 20, true);
+			GivePlayerWeaponEx(playerid, weapon, 20, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+20"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4180,7 +4180,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 28: // UZI
 		{
-			GivePlayerWeaponEx(playerid, weapon, 25, true);
+			GivePlayerWeaponEx(playerid, weapon, 25, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+25"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4188,7 +4188,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 33: // Rifle
 		{
-			GivePlayerWeaponEx(playerid, weapon, 8, true);
+			GivePlayerWeaponEx(playerid, weapon, 8, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+8"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4196,7 +4196,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 26: // Recortada
 		{
-			GivePlayerWeaponEx(playerid, weapon, 2, true);
+			GivePlayerWeaponEx(playerid, weapon, 2, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+2"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4204,7 +4204,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 25: // Escopeta
 		{
-			GivePlayerWeaponEx(playerid, weapon, 5, true);
+			GivePlayerWeaponEx(playerid, weapon, 5, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+5"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4212,7 +4212,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 29: // MP5
 		{
-			GivePlayerWeaponEx(playerid, weapon, 35, true);
+			GivePlayerWeaponEx(playerid, weapon, 35, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+35"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4220,7 +4220,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 30: // AK-47
 		{
-			GivePlayerWeaponEx(playerid, weapon, 50, true);
+			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4228,7 +4228,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 31: // M4
 		{
-			GivePlayerWeaponEx(playerid, weapon, 50, true);
+			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -29813,8 +29813,6 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7, bool:equip = f
 		GivePlayerWeapon(playerid, weapon_id, ammo);
 		SetPlayerArmedWeapon(playerid, weapon_id);
 	}
-
-    SavePlayerWeaponsData(playerid);
 	return 1;
 }
 
@@ -30151,7 +30149,7 @@ LoadPlayerWeaponsData(playerid)
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = db_get_field_assoc_int(Result, "AMMO");
 		
-		if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] > 1000)
+		if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] >= 10000)
 			PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = 100;
 
 		total ++;

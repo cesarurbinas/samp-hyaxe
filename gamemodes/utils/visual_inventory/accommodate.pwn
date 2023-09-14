@@ -123,10 +123,7 @@ inv_ItemToTextdraw(playerid, slot, type)
 	switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
 	{
 		case 0, 53, 51, 54, 41: format(str_text, sizeof(str_text), " ");
-		case 9: format(str_text, sizeof(str_text), "B-1");
-		case 10: format(str_text, sizeof(str_text), "B-2");
-		case 11: format(str_text, sizeof(str_text), "B-3");
-		case 55: format(str_text, sizeof(str_text), "B-4");
+		case 9, 10, 11, 55: format(str_text, sizeof(str_text), "Balas");
 	}
 
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
