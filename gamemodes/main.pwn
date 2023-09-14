@@ -263,6 +263,9 @@
 #include "core/stall/header.pwn"
 #include "core/stall/functions.pwn"
 
+// Particles
+#include "core/particles/functions.pwn"
+
 /* Special Features */
 
 // Special maps
@@ -28463,7 +28466,7 @@ public HealthUp(playerid)
 		}
 
 		new pay_str[64];
-		if (PLAYER_WORKS[playerid][WORK_POLICE] || ACCOUNT_INFO[playerid][ac_SU] >= 2) 
+		if (PLAYER_WORKS[playerid][WORK_POLICE] || ACCOUNT_INFO[playerid][ac_SU] >= 2)
 		{
 			ShowPlayerNotification(playerid, "No se te ha cobrado por ser VIP", 4);
 		}
@@ -33696,29 +33699,6 @@ PlayerPayday(playerid)
 
 	ShowPlayerNotification(playerid, str_payday, 6, false);
 	GivePlayerCash(playerid, money);
-	return 1;
-}
-
-forward DestroyShitObject(objectid);
-public DestroyShitObject(objectid)
-{
-	#if DEBUG_MODE == 1
-		printf("DestroyShitObject"); // debug juju
-	#endif
-
-	return DestroyDynamicObject(objectid);
-}
-
-forward StopShitting(playerid);
-public StopShitting(playerid)
-{
-	#if DEBUG_MODE == 1
-		printf("StopShitting"); // debug juju
-	#endif
-
-	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
-	ClearAnimations(playerid);	
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Termina de cagar y se sube los pantalones.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	return 1;
 }
 
