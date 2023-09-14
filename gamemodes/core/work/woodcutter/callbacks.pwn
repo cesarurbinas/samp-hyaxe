@@ -3,12 +3,16 @@ public OnGameModeInit()
 	// g_WoodcutterArea = CreateDynamicRectangle(-2065.0, -2446.1595458984375, -1707.5294494628906, -2092.0);
 
 	// Información
-	CreateDynamicPickup(1275, 0, -1932.7006, -2454.7651, 30.7005);
+	CreateDynamicPickup(1275, 1, -1932.7006, -2454.7651, 30.7005);
 	CreateDynamic3DTextLabel(""COL_RED"Armario del aserradero\n"COL_WHITE"Usa "COL_RED"Y"COL_WHITE" para ponerte en servicio.", 0xFFFFFF00, -1932.7006, -2454.7651, 30.7005, 10.0, .testlos = true);
 
+	// Cinta transportadora
+	CreateDynamicPickup(1318, 1, -1989.2733, -2383.7856, 30.6250);
+	CreateDynamic3DTextLabel(""COL_RED"Cinta transportadora\n"COL_WHITE"Usa "COL_RED"Y"COL_WHITE" para soltar tus troncos y recibir tu paga", 0xFFFFFFFF, -1989.2733, -2383.7856, 30.6250, 10.0, .testlos = true);
+
+	new label[100];
 	for(new i = 0; i != sizeof(Trees); ++i)
 	{
-		new label[100];
 		switch(Trees[i][tree_TYPE])
 		{
 			case TREE_TYPE_NORMAL:
@@ -94,7 +98,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				if(PLAYER_TEMP[playerid][py_HOLDING_CART])
 				{
-					new object = GetPlayerCameraTargetObject(playerid), Float:x, Float:y, Float:z;
+					new object = Streamer_GetItemStreamerID(playerid, STREAMER_TYPE_OBJECT, GetPlayerCameraTargetObject(playerid)), Float:x, Float:y, Float:z;
 
 					if(object != INVALID_OBJECT_ID)
 					{
@@ -196,6 +200,20 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				else
 				{
 					PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
+				}
+			}
+
+			if((newkeys & KEY_YES) && PLAYER_TEMP[playerid][py_HOLDING_CART])
+			{
+				if(IsPlayerInRangeOfPoint(playerid, 1.0, -1989.2733, -2383.7856, 30.6250))
+				{
+					if(LogCarts[playerid][cart_AMOUNT] <= 0) return ShowPlayerNotification(playerid, "Tu carro no tiene troncos que soltar.", 3);
+					new object = CreateDynamicObject(19793, -1989.995337, -2384.471191, 29.726585, 0.0, 0.0, -44.100006);
+					MoveDynamicObject(object, -1993.934570, -2388.530761, 31.026594, 1.0, 0.0, 0.0, -44.100006);
+
+					GivePlayerCash(playerid, 150 * LogCarts[playerid][cart_AMOUNT]);
+					ShowPlayerNotification(playerid, sprintf("Soltaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 150 * LogCarts[playerid][cart_AMOUNT]), 3);
+					LogCarts[playerid][cart_AMOUNT] = 0;
 				}
 			}
 		}
@@ -306,7 +324,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 					if(LogCarts[playerid][cart_AMOUNT] > 10)
 					{
 						LogCarts[playerid][cart_AMOUNT] = 10;
-						ShowPlayerNotification(playerid, TextToSpanish("No pudiste agarrar más troncos porque tu carrito está lleno."), 5);
+						ShowPlayerNotification(playerid, TextToSpanish("No pudiste agarrar más troncos porque tu carrito está lleno. Entregalos en la cinta transportadora."), 5);
 					}
 					else
 					{

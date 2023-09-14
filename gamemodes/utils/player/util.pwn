@@ -5,7 +5,8 @@ new NAME_WHITELIST[][24] =
 	"Pepe_Garcia",
 	"Eusebio_Capone",
 	"Yarmak_Pingote",
-	"Oleksandr_Volkov"
+	"Oleksandr_Volkov",
+	"Pearce_Campbell"
 };
 
 new g_iPlayerLastUpdate[MAX_PLAYERS];

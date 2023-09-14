@@ -18767,6 +18767,16 @@ public OnFilterScriptInit()
     CreateDynamicObject(18609, -1943.3387, -2456.1708, 30.7156, -1.2000, -0.7999, -136.0999); //Cs_Logs06
     CreateDynamicObject(18609, -1938.1464, -2460.5163, 30.0499, -178.5999, -0.7999, -142.9999); //Cs_Logs06
     CreateDynamicObject(18228, -1846.15417, -2461.52173, 27.65077, 356.85840, 0.00000, 216.68089); // Rocas
+    tmpobjid = CreateDynamicObject(2957, -1993.0839, -2388.8403, 30.9870, 0.0000, 0.0000, -44.3999); //chinaTgarageDoor
+    SetDynamicObjectMaterial(tmpobjid, 0, 14666, "genintintsex", "mp_porn_wall", 0x00000000);
+    CreateDynamicObject(2893, -1994.3288, -2387.5786, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    tmpobjid = CreateDynamicObject(2957, -1994.1547, -2387.7768, 30.9870, 0.0000, 0.0000, -44.3999); //chinaTgarageDoor
+    SetDynamicObjectMaterial(tmpobjid, 0, 14666, "genintintsex", "mp_porn_wall", 0x00000000);
+    CreateDynamicObject(984, -1993.4158, -2389.7355, 31.0438, -14.2999, 0.0000, -44.4999); //fenceshit2
+    CreateDynamicObject(2893, -1993.9042, -2388.0034, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CreateDynamicObject(2893, -1993.4940, -2388.4140, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CreateDynamicObject(2893, -1993.0555, -2388.8530, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CreateDynamicObject(984, -1995.1997, -2387.9826, 31.0438, -14.2999, 0.0000, -44.4999); //fenceshit2
     
 	BlockGarages();
 	return 1;
