@@ -21175,7 +21175,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				switch(listitem)
 				{
 					case 0: ExitCrack(playerid);
-					case 1:
+					case 1: SendAlertToMedics(playerid);
 				}
 			}
 		}
@@ -25385,9 +25385,19 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 		}
 
+		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
+		{
+			if (!PLAYER_TEMP[playerid][py_CUFFED])
+			{
+				if (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] == 0)
+				{
+					ShowDialog(playerid, DIALOG_DEATH);
+				}
+			}
+		}
+
 		CheckMarketAttack(playerid);
 		GrabPlant(playerid);
-		ExitCrack(playerid);
 		return 1;
 	}
 
@@ -28814,8 +28824,8 @@ SendAlertToMedics(playerid)
 		}
 	}
 
-	format(str_text, sizeof(str_text), "Has solicitado a una ambulancia~n~Médicos activos: ~y~%d", total_medics);
-	ShowPlayerMessage()
+	format(str_text, sizeof(str_text), "Has solicitado una ambulancia~n~Médicos activos: ~y~%d", total_medics);
+	ShowPlayerMessage(playerid, stre_text, 5);
 	return 1;
 }
 
