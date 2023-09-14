@@ -5772,7 +5772,6 @@ CALLBACK: UpdateMining(playerid, rock_id)
 		ApplyAnimation(playerid, "CARRY", "LIFTUP", 4.1, false, false, false, false, 0, false);
 
 		DestroyDynamicObject(ROCKS_OBJ[rock_id][r_OBJECT_ID]);
-		SetTimerEx("RespawnMinerRock", 30000, false, "i", rock_id);
 	}
 	return 1;
 }
@@ -5794,6 +5793,7 @@ StartMining(playerid, rock_id)
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][35]);
 	PLAYER_TEMP[playerid][py_TIMERS][35] = SetTimerEx("UpdateMining", GetRockMiningTime(ROCKS_OBJ[rock_id][r_TYPE]), true, "ii", playerid, rock_id);
 	ApplyAnimation(playerid, "SWORD", "SWORD_4", 4.1, true, false, false, false, 0, true);
+	SetTimerEx("RespawnMinerRock", 60000, false, "i", rock_id);
 	return 1;
 }
 
