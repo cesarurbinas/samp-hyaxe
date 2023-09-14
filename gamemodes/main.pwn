@@ -3328,6 +3328,7 @@ SetPlayerPoliceSearchLevel(playerid, level)
 		return 1;
 	}
 
+	level = (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + level);
 	if (level > 6) level = 6;
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
@@ -5822,20 +5823,21 @@ CheckPlayerDoors(playerid)
 
 	if (vehicleid == INVALID_VEHICLE_ID) return 0;
 	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return 0;
-	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return 0;
-
-	new Float:x, Float:y, Float:z;
-	GetVehiclePos(vehicleid, x, y, z);
-	if (GetPlayerDistanceFromPoint(playerid, x, y, z) < 10.0)
+	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID] || IsPlayerInKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], ACCOUNT_INFO[playerid][ac_ID]))
 	{
-		if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] == 0)
+		new Float:x, Float:y, Float:z;
+		GetVehiclePos(vehicleid, x, y, z);
+		if (GetPlayerDistanceFromPoint(playerid, x, y, z) < 10.0)
 		{
-		    CloseVehicle(playerid, vehicleid);
-		    return 0;
-	    }
-	    else
-	    {
-		    OpenVehicle(playerid, vehicleid);
+			if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] == 0)
+			{
+			    CloseVehicle(playerid, vehicleid);
+			    return 0;
+		    }
+		    else
+		    {
+			    OpenVehicle(playerid, vehicleid);
+			}
 		}
 	}
 	return 1;
@@ -6959,6 +6961,17 @@ CreateMinerRocks()
 	return 1;
 }
 
+CALLBACK: InitLastGraffiti()
+{
+	new DBResult:Result, graff_id;
+	Result = db_query(Database, "SELECT `LAST_GRAFFITI` FROM `SERVER_PROPERTIES`;");
+	if (db_num_rows(Result)) graff_id = db_get_field_assoc_int(Result, "LAST_GRAFFITI");
+ 
+	if (graff_id > 0) InitGraffiti(graff_id);
+	db_free_result(Result);
+	return 1;
+}
+
 CALLBACK: FirstGraffitiAnnounce()
 {
 	new hour, minute, second;
@@ -7093,6 +7106,10 @@ InitBlackMarket(market_id)
 InitGraffiti(graff_id)
 {
 	ResetGraffitiTextdraw();
+
+	new DB_Query[164];
+	format(DB_Query, sizeof DB_Query, "UPDATE `SERVER_PROPERTIES` SET `LAST_GRAFFITI` = '%d';", graff_id);
+	db_free_result(db_query(Database, DB_Query));
 
 	for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
 	{
@@ -7298,8 +7315,13 @@ public OnGameModeInit()
     	SetTimer("SendGift", 120000, true);
 	#endif
 
+<<<<<<< HEAD
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);	
 >>>>>>> 119039e (oooo chad on da house)
+=======
+	SetTimer("FirstGraffitiAnnounce", 1500000, false);
+	SetTimer("InitLastGraffiti", 120000, false);
+>>>>>>> abcefe6 (Iniciar el ultimo graffiti)
 
 	GraffitiGetTime = gettime();
 	MarketGetTime = gettime();
@@ -13213,7 +13235,8 @@ ShowDialog(playerid, dialogid)
     			Estación de radio\t%s\n\
     			Mapa\t%s\n\
     			Ventana\t%s\n\
-    			Estacionar\t",
+    			Estacionar\t\n\
+    			Gestioanr llaves\t",
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			radio_station,
@@ -21399,6 +21422,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 5:
 					{
 						SetPlayerVehiclePark(playerid);
+					}
+					case 6:
+					{
+						new vehicleid = INVALID_VEHICLE_ID;
+						if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER) vehicleid = GetPlayerVehicleID(playerid);
+
+						if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No estás en tu vehículo para aparcarlo.", 2);
+						if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 2);
+						if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 2);
+						ShowDialog(playerid, DIALOG_VEHICLE_KEYS)
 					}
 				}
 			}
