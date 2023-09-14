@@ -48,7 +48,7 @@ Listado de cosas para hacer
 
 ✅ Mejor forma de moverse por el inventario con el numpad
 
-❌ Acortar el nombre de los toys
+✅ Acortar el nombre de los toys
 
 🕐 Agregar opcion a los toys para que se acomoden solos
 
