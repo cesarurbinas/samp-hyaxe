@@ -9,7 +9,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
-#define SERVER_VERSION 			"v0.5 Build 155"
+#define SERVER_VERSION 			"v0.5 Build 170"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -48,7 +48,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
-#tryinclude <profiler>
+//#tryinclude <profiler>
 
 // Must fix
 #include <nex-ac>
@@ -2885,7 +2885,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{
-					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid)
+					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid && PLAYER_TEMP[i][py_BOX_BETTING])
 					{
 						ShowPlayerNotification(i, "Te hemos devuelto el dinero porque el luchador que apostaste se ha ido del ring.", 6);
 						GivePlayerCash(i, PLAYER_TEMP[i][py_BOX_BET]);
@@ -2894,6 +2894,10 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						PLAYER_TEMP[i][py_BOX_BETTING] = false;
 					}
 				}
+
+				new str_text[128];
+				format(str_text, sizeof(str_text), "%s se ha ido del ring.", PLAYER_TEMP[playerid][py_NAME]);
+				SendBoxMessage(str_text, 3);
 			}
 		}
     }
@@ -3518,7 +3522,7 @@ public OnPlayerDisconnect(playerid, reason)
 			{
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{
-					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid)
+					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid && PLAYER_TEMP[i][py_BOX_BETTING])
 					{
 						ShowPlayerNotification(i, "Te hemos devuelto el dinero porque el luchador que apostaste se ha ido del ring.", 6);
 						GivePlayerCash(i, PLAYER_TEMP[i][py_BOX_BET]);
@@ -3527,6 +3531,10 @@ public OnPlayerDisconnect(playerid, reason)
 						PLAYER_TEMP[i][py_BOX_BETTING] = false;
 					}
 				}
+
+				new str_text[128];
+				format(str_text, sizeof(str_text), "%s se ha ido del ring.", PLAYER_TEMP[playerid][py_NAME]);
+				SendBoxMessage(str_text, 3);
 			}
 
 			SaveUserData(playerid);
@@ -5563,10 +5571,11 @@ public OnPlayerSpawn(playerid)
 			case ROLEPLAY_STATE_BOX:
 			{
 				SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
-				CHARACTER_INFO[playerid][ch_INTERIOR] = 16;
 				SetCameraBehindPlayer(playerid);
 				SetPlayerPosEx(playerid, -25.157732, 87.987953, 1098.070190, 0.481732, 16, 0, false);
 				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+				PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
+				return 1;
 			}
 		}
 
@@ -5928,11 +5937,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 	{
 		if (PLAYER_TEMP[killerid][py_BOXING] && PLAYER_TEMP[playerid][py_BOXING])
 		{
-			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
-			PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
-			SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
-			CHARACTER_INFO[playerid][ch_INTERIOR] = 16;
-
 			new 
 				str_text[128],
 				final_pay = 100
@@ -5940,7 +5944,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 			{
-				if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid)
+				if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid && PLAYER_TEMP[i][py_BOX_BETTING])
 				{
 					ShowPlayerNotification(i, "EL jugador que apostaste ha perdido, ya puedes apostar nuevamente.", 5);
 					final_pay += PLAYER_TEMP[i][py_BOX_BET];
@@ -5950,7 +5954,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 					PLAYER_TEMP[i][py_BOX_BETTING] = false;
 				}
 
-				if (PLAYER_TEMP[i][py_BOX_PLAYER] == killerid)
+				if (PLAYER_TEMP[i][py_BOX_PLAYER] == killerid && PLAYER_TEMP[i][py_BOX_BETTING])
 				{
 					ShowPlayerNotification(i, "EL jugador que apostaste ha ganado, ya puedes apostar nuevamente.", 5);
 					final_pay += PLAYER_TEMP[i][py_BOX_BET];
@@ -5969,10 +5973,21 @@ public OnPlayerDeath(playerid, killerid, reason)
 			GameTextForPlayer(killerid, str_text, 5000, 1);
 			ShowPlayerNotification(killerid, "Pelea ganada, espera a que alguien vuelva a apostar por ti.", 4);
 			PLAYER_TEMP[killerid][py_BOX_PAY] = 0;
+			GivePlayerHealthEx(killerid, 25.0);
+			PLAYER_SKILLS[killerid][WORK_BOX] ++;
+
+			ShowPlayerNotification(playerid, "Has perdido, vuelve a la oficina si quieres participar.", 4);
 
 			PLAYER_TEMP[playerid][py_BOXING] = false;
 			PLAYER_TEMP[playerid][py_BOX_PAY] = 0;
+
+			PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
+			SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
+			CHARACTER_INFO[playerid][ch_INTERIOR] = 16;
+
 			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_BOX;
+			SetPlayerPosEx(playerid, -25.157732, 87.987953, 1098.070190, 0.481732, 16, 0, false);
+			return 1;
 		}
 	}
 
@@ -20435,6 +20450,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 0: ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Reglas del club", ""COL_WHITE"Caballeros, bienvenidos al Club de la pelea, reglas:\n1) No hables del Club de la pelea\n2) Nunca hables del Club de la pelea", "Cerrar", "");
 					case 1:
 					{
+						if (!PLAYER_WORKS[playerid][WORK_BOX]) return ShowPlayerMessage(playerid, "~r~No eres boxeador", 4);
 						if (PLAYER_TEMP[playerid][py_BOX_BETTING]) return ShowPlayerMessage(playerid, "~r~Un apostador no puede pelear", 4);
 
 						PLAYER_TEMP[playerid][py_BOXING] = true;
@@ -20513,11 +20529,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PLAYER_TEMP[playerid][py_BOX_BETTING] = true;
 
 				new str_text[128];
-				format(str_text, sizeof(str_text), "Has apostado %d$ a %s.", inputtext[0], PLAYER_TEMP[ PLAYER_TEMP[playerid][py_BOX_PLAYER] ][py_NAME]);
-				ShowPlayerNotification(playerid, str_text, 6);
-
-				format(str_text, sizeof(str_text), "%s ha apostado %d$ por ti.", PLAYER_TEMP[playerid][py_NAME], inputtext[0]);
-				ShowPlayerNotification(PLAYER_TEMP[playerid][py_BOX_PLAYER], str_text, 5);
+				format(str_text, sizeof(str_text), "%s ha apostado %d$ por %s.", PLAYER_TEMP[playerid][py_NAME], inputtext[0], PLAYER_TEMP[ PLAYER_TEMP[playerid][py_BOX_PLAYER] ][py_NAME]);
+				SendBoxMessage(str_text, 3);
 				return 1;
 			}
 			else ShowDialog(playerid, DIALOG_BOX_FIGHTERS);
@@ -23987,6 +24000,21 @@ CheckAmbulance(playerid)
 CheckBoxClub(playerid)
 {
 	if (IsPlayerInRangeOfPoint(playerid, 1.5, -11.283934, 88.862136, 1101.522705)) return ShowDialog(playerid, DIALOG_BOX_CLUB);
+	return 1;
+}
+
+SendBoxMessage(message[], time)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (IsPlayerInRangeOfPoint(i, 30.0, -17.344648, 99.261329, 1100.822021))
+			{
+				ShowPlayerNotification(i, message, time);
+			}
+		}
+	}
 	return 1;
 }
 
@@ -29795,10 +29823,10 @@ public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 
 		if (!PLAYER_TEMP[issuerid][py_BOXING])
 		{
-			if (IsPlayerInRangeOfPoint(playerid, 30.0, -17.344648, 99.261329, 1100.822021))
+			if (IsPlayerInRangeOfPoint(issuerid, 30.0, -17.344648, 99.261329, 1100.822021))
 			{
 				SetPlayerPosEx(issuerid, 950.341247, -987.135864, 38.743835, 322.0, 0, 0);
-				ShowPlayerMessage(playerid, "~r~Solos los boxeadores pueden pegar", 4);
+				ShowPlayerMessage(issuerid, "~r~Solos los boxeadores pueden pegar", 4);
 			}
 		}
 	}
@@ -32008,7 +32036,7 @@ CALLBACK: StandUpBotikin(medic, playerid)
 			format(str_text, sizeof(str_text), "~g~+%d$", pay);
 			GameTextForPlayer(medic, str_text, 5000, 1);
 
-			PLAYER_SKILLS[medic][WORK_MEDIC] ++;
+			PLAYER_SKILLS[medic][WORK_MEDIC] += 5;
 			SavePlayerSkills(medic);
 		}
 		else ShowPlayerNotification(playerid, "Este jugador no ha pedido un medico entonces no has ganado nada.", 4);

@@ -4,7 +4,8 @@ new NAME_WHITELIST[][24] =
 	"Atom_Palomita",
 	"Pepe_Garcia",
 	"Eusebio_Capone",
-	"Yarmak_Pingote"
+	"Yarmak_Pingote",
+	"Oleksandr_Volkov"
 };
 
 IsPlayerInWater(playerid)
