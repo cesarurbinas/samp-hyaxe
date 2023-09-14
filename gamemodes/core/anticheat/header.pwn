@@ -31,7 +31,8 @@ enum
 	CHEAT_DRIVE_BY,
 	CHEAT_UNOCCUPIED_VEHICLE_TP,
 	CHEAT_HIGH_POS,
-	CHEAT_CAR_JACKING
+	CHEAT_CAR_JACKING,
+	CHEAT_RAPID_FIRE
 };
 
 enum e_ac_Info
@@ -69,7 +70,8 @@ new ac_Info[][e_ac_Info] =
 	{"drive by",                  true, false,        1, 0},
 	{"unoccupied veh tp",         true, true,         1, 0},
 	{"high pos",                  true, true,         1, 0},
-	{"car jacking",               true, true,         1, 0}
+	{"car jacking",               true, true,         1, 0},
+	{"rapid fire",                true, true,         1, 0}
 };
 
 enum e_PLAYER_AC_INFO
@@ -79,3 +81,8 @@ enum e_PLAYER_AC_INFO
 	p_ac_info_IMMUNITY
 };
 new PLAYER_AC_INFO[MAX_PLAYERS][sizeof(ac_Info)][e_PLAYER_AC_INFO];
+
+new
+	skillLevel[MAX_PLAYERS] = {999, ...},
+	lastShotTick[MAX_PLAYERS]
+;

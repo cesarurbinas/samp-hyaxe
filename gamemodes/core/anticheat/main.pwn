@@ -1,6 +1,3 @@
-
-// ==================================================================================================
-
 IPacket:PLAYER_SYNC(playerid, BitStream:bs)
 {
 	if(PLAYER_TEMP[playerid][py_KICKED]) return 0;

@@ -217,6 +217,7 @@
 
 // Anticheat
 #include "core/anticheat/functions.pwn"
+#include "core/anticheat/callbacks.pwn"
 #include "core/anticheat/main.pwn"
 
 // Soccer
@@ -30062,14 +30063,14 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 	PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] ++;
 
-	/*if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 5)
+	if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 5)
 	{
 		format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): Max AC Adv (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
 		
 		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por sobrepasar cantidad máxima de advertencias del anti-cheat.");
 		KickEx(playerid, 500);
-	}*/
+	}
 
 	return 1;
 }
