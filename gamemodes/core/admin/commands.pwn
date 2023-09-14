@@ -288,6 +288,8 @@ alias:adv("advertencia", "san")
 
 CMD:kick(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new to_player, reason[128];
 	if (sscanf(params, "us[128]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /kick <player_id> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
@@ -308,9 +310,9 @@ CMD:kick(playerid, params[])
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' dbid: '%d', pid: '%d') expulsado.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player);
 
-
 	new str[145]; format(str, 145, "[ADMIN] %s (%d) kickeó a %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
 	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
@@ -614,6 +616,8 @@ alias:get("traer")
 
 CMD:unban(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new name[24];
 	if (sscanf(params, "s[24]", name)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /unban <nombre completo>");
 
@@ -636,6 +640,7 @@ CMD:unban(playerid, params[])
 	}
 	else SendClientMessageEx(playerid, COLOR_WHITE, "El nombre '%s' no está en la lista de baneados.", name);
 	db_free_result(Result);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
@@ -690,6 +695,8 @@ CMD:jail(playerid, params[])
 
 CMD:ban(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new to_player, reason[128];
 	if (sscanf(params, "us[128]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ban <player_id> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
@@ -721,6 +728,7 @@ CMD:ban(playerid, params[])
 	format(str, sizeof(str), "%s (%s): %s", ACCOUNT_INFO[to_player][ac_NAME], reason, serial);
 
 	Log("cheaters_gpci", str);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
@@ -735,6 +743,8 @@ alias:cls("log", "clear")
 
 CMD:tban(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new to_player, days, reason[128];
 	if (sscanf(params, "uds[128]", to_player, days, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tban <player_id> <dias> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
@@ -766,11 +776,14 @@ CMD:tban(playerid, params[])
 	format(str, sizeof(str), "%s (%s): %s", ACCOUNT_INFO[to_player][ac_NAME], reason, serial);
 
 	Log("cheaters_gpci", str);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
 CMD:dban(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new reason[128], to_account;
 	if (sscanf(params, "ds[128]", to_account, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dban <DB-ID> <razon>");
 
@@ -825,11 +838,15 @@ CMD:dban(playerid, params[])
 	}
 	else SendClientMessage(playerid, COLOR_WHITE, "No se encontro la DB-ID.");
 	db_free_result(Result);
+
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
 CMD:dtban(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new reason[128], to_account, days;
 	if (sscanf(params, "dds[128]", to_account, days, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dtban <DB-ID> <dias> <razon>");
 	if (days <= 0 || days > 9999) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dtban <DB-ID> <dias> <razon>");
@@ -885,6 +902,8 @@ CMD:dtban(playerid, params[])
 	}
 	else SendClientMessage(playerid, COLOR_WHITE, "No se encontro la DB-ID.");
 	db_free_result(Result);
+
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
@@ -1722,6 +1741,8 @@ CMD:setworkexp(playerid, params[])
 
 CMD:setcash(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new to_player, value;
 	if (sscanf(params, "ud", to_player, value)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setcash <player_id> <ammount>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
@@ -1731,11 +1752,14 @@ CMD:setcash(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE, "El dinero de %s (%d) ahora es %d.", ACCOUNT_INFO[to_player][ac_NAME], to_player, value);
 
 	SendCmdLogToAdmins(playerid, "setcash", params);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
 CMD:givecash(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new to_player, value;
 	if (sscanf(params, "ud", to_player, value)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /givecash <player_id> <ammount>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
@@ -1746,6 +1770,7 @@ CMD:givecash(playerid, params[])
 	SendClientMessageEx(to_player, COLOR_WHITE, "El administrador %s (%d) te ha dado %d.", ACCOUNT_INFO[playerid][ac_NAME], playerid, value);
 
 	SendCmdLogToAdmins(playerid, "givecash", params);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
@@ -2226,6 +2251,8 @@ CMD:eco(playerid, params[])
 
 CMD:setearsu(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new to_player, sd;
 	if (sscanf(params, "ud", to_player, sd)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setearsu <player_id> <sd>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
@@ -2238,12 +2265,15 @@ CMD:setearsu(playerid, params[])
 	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[to_player][ac_SD], ACCOUNT_INFO[to_player][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
-	SendCmdLogToAdmins(playerid, "setsd", params);
+	SendCmdLogToAdmins(playerid, "setearsu", params);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
 CMD:darsu(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new to_player, sd;
 	if (sscanf(params, "ud", to_player, sd)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /darsu <player_id> <sd>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
@@ -2257,11 +2287,14 @@ CMD:darsu(playerid, params[])
 	db_free_result(db_query(Database, DB_Query));
 
 	SendCmdLogToAdmins(playerid, "setsd", params);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
 CMD:darvip(playerid, params[])
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
 	new to_player, vip_level, days;
 	if (sscanf(params, "udd", to_player, vip_level, days)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setvip <player_id> <VIP level> <dias>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
@@ -2269,6 +2302,7 @@ CMD:darvip(playerid, params[])
 	SetPlayerVip(to_player, vip_level, 0, days);
 
 	SendCmdLogToAdmins(playerid, "setvip", params);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
 	return 1;
 }
 
