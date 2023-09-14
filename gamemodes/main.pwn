@@ -308,6 +308,7 @@
 // Channels
 #include "core/channel/callbacks.pwn"
 #include "core/channel/functions.pwn"
+#include "core/channel/commands.pwn"
 
 // Doors
 #include "core/door/header.pwn"

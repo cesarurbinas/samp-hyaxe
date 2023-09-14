@@ -63,3 +63,6 @@ forward Float:frandom(Float:max, Float:min, dp);
 #define MAX_ROUTES  5
 #define MAX_OBJECTS_PER_ROUTE 20
 #define MAX_PLAYER_GPS_SAVES 10
+
+#define MIN_TIME_BETWEEN_DOUBT 30
+#define MIN_TIME_BETWEEN_GLOBAL 2
