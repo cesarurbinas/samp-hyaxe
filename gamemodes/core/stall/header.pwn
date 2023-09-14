@@ -34,6 +34,6 @@ enum stall_enum
 new STALL_INFO[][stall_enum] =
 {
 	{2481.0144, -1745.2509, 13.5469, 1.1748, random( sizeof(STALL_SKIN) ), random( sizeof(STALL_PRODUCT) )},
-	{2353.6777, -1721.0406, 13.5509, 131.8641},
-	{2229.2869, -1742.4028, 13.5444, 89.2503}
+	{2353.6777, -1721.0406, 13.5509, 131.8641, random( sizeof(STALL_SKIN) ), random( sizeof(STALL_PRODUCT) )},
+	{2229.2869, -1742.4028, 13.5444, 89.2503, random( sizeof(STALL_SKIN) ), random( sizeof(STALL_PRODUCT) )}
 };

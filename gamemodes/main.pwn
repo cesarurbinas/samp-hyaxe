@@ -94,6 +94,8 @@
 
 #define safe_db_query(%0) db_free_result(db_query(Database, %0))
 
+/* v0.x Features */
+
 // Anticheats
 #include "core/anticheat/header.pwn"
 
@@ -256,6 +258,8 @@
 #include "core/soccer/callbacks.pwn"
 
 /* v1.0 Features */
+
+
 
 // Special maps
 #if defined HALLOWEEN_MODE
