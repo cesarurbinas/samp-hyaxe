@@ -326,7 +326,7 @@ HalloweenMap()
 forward SpawnPumpkin();
 public SpawnPumpkin()
 {
-	for(new i = 0, j = 15; i <= j; i++)
+	for(new i = 0, j = 70; i <= j; i++)
 	{
 		new 
 			index = random(sizeof(PUMPKIN_POSITIONS)),

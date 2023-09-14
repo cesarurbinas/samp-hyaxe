@@ -29,7 +29,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"v0.8 Build 31"
+#define SERVER_VERSION 			"v0.8 Build 32"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -55,7 +55,7 @@
 
 // Features
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 #define HALLOWEEN_MODE // Modo de halloween
@@ -1864,6 +1864,13 @@ static const BAN_KEYWORDS[][100] =
 	"golden state",
 	"golden states",
 	"unplayer",
+	"z0ne",
+	"zon3",
+	"z0n3",
+	"linox",
+	"ZONE",
+	"Z0NE",
+	"LINOX",
 	"z.o.n.e",
 	"f.e.n.i.x",
 	"samphub",
@@ -5825,6 +5832,7 @@ CheckRegister(playerid)
 	{
 		if (IsPlayerInRangeOfPoint(playerid, 2.0, 817.2799, -1103.3270, 25.7921))
 		{
+			if (PLAYER_MISC[playerid][MISC_PUMPKIN] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes calabazas.", 3);
 			ShowDialog(playerid, DIALOG_SELL_PUMPKIN);
 		}
 		return 1;
@@ -23099,6 +23107,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             	format(str_text, 32, "~g~+%d$", payment);
      			GameTextForPlayer(playerid, str_text, 5000, 1);
      			GivePlayerReputation(playerid);
+
+     			new is_hycoin_best = minrand(0, 10);
+			    if (is_hycoin_best == 5)
+			    {
+			    	new 
+			    		random_hycoin = minrand(1, 2),
+			    		coin_text[64];
+
+			    	ACCOUNT_INFO[playerid][ac_SD] += random_hycoin;
+			    	format(coin_text, sizeof(coin_text), "Acabas de ganar %d Hycoins.", random_hycoin);
+			    	ShowPlayerNotification(playerid, coin_text, 4);
+					new DB_Query[128];
+					format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+					db_free_result(db_query(Database, DB_Query));
+			    }
 			}
 		}
 	}
@@ -37321,7 +37344,6 @@ public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 
 				new str_text[145];
 			    format(str_text, 145, "[Dudas] "COL_WHITE"NeuroAdmin silenció a %s (%d) del canal de dudas/anuncios: Mal uso", ACCOUNT_INFO[index][ac_NAME], index);
-			    SendDiscordWebhook(str_text, 1);
 
 			    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{
@@ -37333,6 +37355,9 @@ public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 						}
 					}
 				}
+
+				format(str_text, 145, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[index][ac_NAME], index, PLAYER_TEMP[index][py_LAST_DOUBT]);
+			    SendDiscordWebhook(str_text, 1);
 
 				format(str_text, 145, "NeuroAdmin silencio a %s (%d) del canal de dudas/anuncios: Mal uso", ACCOUNT_INFO[index][ac_NAME], index);
 			    SendDiscordWebhook(str_text, 1);

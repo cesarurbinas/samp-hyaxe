@@ -29,6 +29,8 @@ CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz,
 	if (interiorid == 0)
 	{
 		CA_FindZ_For2DCoord(x, y, z);
+		
+		if (type == 57) z += 0.3;
 		MoveDynamicObject(DROP_ITEMS[index][itm_ID], x, y, z, 12.0, rx, ry, rz);
 	}
 
