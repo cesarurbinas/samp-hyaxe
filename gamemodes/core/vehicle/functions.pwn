@@ -1231,6 +1231,7 @@ ShowPlayerSpeedoMeter(playerid)
 	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return 0;
 	new vehicleid = GetPlayerVehicleID(playerid), modelid = GetVehicleModel(vehicleid);
 	if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return 0;
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][8]);
 
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][0]);
@@ -1244,10 +1245,6 @@ ShowPlayerSpeedoMeter(playerid)
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][10]);
 
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8]);
@@ -1261,6 +1258,27 @@ ShowPlayerSpeedoMeter(playerid)
 
 	// Lock detail
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
+
+	// Lights status
+	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS])
+	{
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 1385420031);
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 1385420031);
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 1385420031);
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 1385420031);
+	}
+	else
+	{
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 0x474747FF);
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 0x474747FF);
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 0x474747FF);
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 0x474747FF);
+	}
+
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5]);
 
 	PLAYER_TEMP[playerid][py_SPEEDOMETER] = true;
 	PLAYER_TEMP[playerid][py_FUEL_DOWN_TIME] = gettime();
