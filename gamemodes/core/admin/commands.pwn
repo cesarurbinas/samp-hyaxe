@@ -2641,3 +2641,29 @@ CMD:admac(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE, "Administradores de nivel %d o mayor no seran detectados por el Anticheat.", ADMIN_LEVEL_AC_IMMUNITY);
 	return 1;
 }
+
+CMD:depositveh(playerid, params[])
+{
+	new vehicleid;
+	if (sscanf(params, "if", vehicleid)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /depositveh <vehicleid>");
+	if (vehicleid >= MAX_VEHICLES) return SendClientMessage(playerid, COLOR_WHITE, "Vehículo no válido.");
+	if (!GLOBAL_VEHICLES[vehicleid][gb_vehicle_VALID]) return SendClientMessage(playerid, COLOR_WHITE, "Vehículo no válido.");
+
+	new crane_point = random(sizeof(CRANE_POINTS));
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_X] = CRANE_POINTS[crane_point][0];
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_Y] = CRANE_POINTS[crane_point][1];
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_Z] = CRANE_POINTS[crane_point][2];
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_ANGLE] = CRANE_POINTS[crane_point][3];
+
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LAST_CLOSED_TIME] = gettime();
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] = 0;
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] = 1;
+	UpdateVehicleParams(vehicleid);
+	SetVehicleToRespawnEx(vehicleid);
+	RepairVehicleEx(vehicleid);
+
+	SendClientMessage(playerid, COLOR_WHITE, "El vehículo fue enviado al estacionamiento municipal");
+
+	SendCmdLogToAdmins(playerid, "depositveh", params);
+}

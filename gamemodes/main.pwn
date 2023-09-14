@@ -34095,7 +34095,6 @@ flags:rev(CMD_MODERATOR2)
 flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_MODERATOR4)
-
-// comandos por jeiks
 flags:jailoff(CMD_MODERATOR)
 flags:unjailloff(CMD_MODERATOR)
+flags:depositveh(CMD_MODERATOR)
