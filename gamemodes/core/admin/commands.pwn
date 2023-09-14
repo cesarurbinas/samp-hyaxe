@@ -2005,8 +2005,8 @@ flags:setgang(CMD_MODERATOR5)
 
 CMD:getgang(playerid, params[])
 {
-    new gang;
-    if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setgang <gang_id>");
+    new gang_name[32];
+    if (sscanf(params, "s[32]", gang_name)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /getgang <gang_name>");
 
     SendClientMessage(playerid, COLOR_WHITE, "Buscando...");
     
@@ -2015,7 +2015,7 @@ CMD:getgang(playerid, params[])
     {
         if (strfind(gang_name, CREW_INFO[x][crew_NAME], true) != -1)
         {
-        	SendClientMessageEx(playerid, COLOR_WHITE, "Nombre: {f4f442}'%s' "COL_WHITE"DB-ID: '%d'", get_name, id);
+        	SendClientMessageEx(playerid, COLOR_WHITE, "Nombre: {f4f442}'%s' "COL_WHITE"ID: '%d'", CREW_INFO[x][crew_NAME], x);
 			count ++;
 		}
     }
