@@ -63,10 +63,11 @@ enum E_CART_DATA {
 }
 new LogCarts[MAX_PLAYERS][E_CART_DATA];
 
-// new g_WoodcutterArea;
+new g_WoodcutterArea;
 
 forward RegenerateTree(treeid);
 forward StartCutting(playerid, treeid);
 forward UpdateTreeCutting(playerid, treeid);
 forward FinishTreeCutting(playerid, treeid);
 forward GenerateLogs(amount);
+forward DestroyLogs(object);

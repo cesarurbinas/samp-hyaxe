@@ -1,6 +1,6 @@
 public OnGameModeInit()
 {
-	// g_WoodcutterArea = CreateDynamicRectangle(-2065.0, -2446.1595458984375, -1707.5294494628906, -2092.0);
+	g_WoodcutterArea = CreateDynamicRectangle(-2065.0, -2446.1595458984375, -1707.5294494628906, -2092.0);
 
 	// Información
 	CreateDynamicPickup(1275, 1, -1932.7006, -2454.7651, 30.7005);
@@ -369,6 +369,21 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 	#endif
 }
 
+public OnPlayerLeaveDynamicArea(playerid, areaid)
+{
+	if(areaid == g_WoodcutterArea && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_WOODCUTTER)
+	{
+		ShowPlayerNotification(playerid, TextToSpanish("Fuiste removido del servicio como leñador por salir del bosque y el aserradero."), 5);
+		EndPlayerJob(playerid);
+	}
+
+	#if defined WOOD_OnPlayerLeaveDynamicArea
+		return WOOD_OnPlayerLeaveDynamicArea(playerid, areaid);
+	#else
+		return 1;
+	#endif
+}
+
 /* 			Hooks			*/
 
 #if defined _ALS_OnGameModeInit
@@ -401,4 +416,15 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 #define OnPlayerEnterDynamicCP WOOD_OnPlayerEnterDynamicCP
 #if defined WOOD_OnPlayerEnterDynamicCP
 	forward WOOD_OnPlayerEnterDynamicCP(playerid, checkpointid);
+#endif
+
+
+#if defined _ALS_OnPlayerLeaveDynamicArea
+	#undef OnPlayerLeaveDynamicArea
+#else
+	#define _ALS_OnPlayerLeaveDynamicArea
+#endif
+#define OnPlayerLeaveDynamicArea WOOD_OnPlayerLeaveDynamicArea
+#if defined WOOD_OnPlayerLeaveDynamicArea
+	forward WOOD_OnPlayerLeaveDynamicArea(playerid, areaid);
 #endif
