@@ -11445,7 +11445,7 @@ ShowDialog(playerid, dialogid)
 
 			if (PLAYER_WORKS[playerid][WORK_MAFIA])
 			{
-				if (PLAYER_SKILLS[playerid][WORK_MAFIA] >= 7)
+				if (PLAYER_SKILLS[playerid][WORK_MAFIA] >= 14)
 				{
 					strcat(dialog, "Invitar a FSB\n");
 					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 7;
