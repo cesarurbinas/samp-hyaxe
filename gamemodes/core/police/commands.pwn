@@ -369,3 +369,178 @@ CMD:control(playerid, params[])
 	ShowPlayerMessage(playerid, "~r~Coloca el objeto, posteriormente puedes usar /econtrol para moverlo o eliminarlo.", 3);
 	return 1;
 }
+
+CMD:policia(playerid, params[])
+{
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
+	{
+	    ShowPlayerMessage(playerid, "~r~Ya estas en servicio en otro trabajo.", 3);
+		return 1;
+	}
+
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
+	{
+		if (!PLAYER_TEMP[playerid][py_WORKING_IN]) ShowDialog(playerid, DIALOG_SELECT_POLICE_SKIN);
+		else EndPlayerJob(playerid);
+	}
+
+	return 1;
+}
+
+CMD:esposar(playerid, params[])
+{
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
+	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /esposar [ID o nombre]");
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
+
+	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 30.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes esposar a este jugador ahora.", 3);
+	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para esposar a esta persona tiene que estar depie.", 3);
+	if (params[0] == playerid) return ShowPlayerMessage(playerid, "~r~No puedes esposarte a ti mismo");
+	if (PLAYER_WORKS[params[0]][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
+
+	if (PLAYER_TEMP[params[0]][py_CUFFED])
+	{
+		TogglePlayerControllableEx(params[0], true);
+		PLAYER_TEMP[params[0]][py_CUFFED] = false;
+		PLAYER_TEMP[params[0]][py_CUFFING] = false;
+		SetPlayerSpecialAction(params[0], SPECIAL_ACTION_NONE);
+
+		SetPlayerChatBubble(playerid, "\n\n\n\n* Le quita las esposas a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
+		SendPoliceMark(params[0], PLAYER_COLOR);
+		return 1;
+	}
+
+	if (!PLAYER_TEMP[params[0]][py_CUFFING])
+	{
+	    ShowPlayerMessage(params[0], "Estás siendo esposado", 3);
+	    ShowPlayerMessage(playerid, "Estás esposando a esta persona", 3);
+
+	    CHARACTER_INFO[params[0]][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+		if (ACCOUNT_INFO[params[0]][ac_SU]) SetPlayerHealthEx(params[0], 50.0);
+		else SetPlayerHealthEx(params[0], 25.0);
+
+		DisablePlayerMedicMark(params[0]);
+
+		ApplyAnimation(params[0], "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
+		ClearAnimations(params[0]);
+
+		PLAYER_TEMP[params[0]][py_CUFFED] = false;
+		PLAYER_TEMP[params[0]][py_CUFFING] = true;
+		KillTimer(PLAYER_TEMP[params[0]][py_TIMERS][14]);
+		TogglePlayerControllableEx(params[0], false);
+		SetPlayerSpecialAction(params[0], SPECIAL_ACTION_HANDSUP);
+		PLAYER_TEMP[params[0]][py_TIMERS][14] = SetTimerEx("CuffPlayer", 1000, false, "i", params[0]);
+		SendPoliceMark(params[0], 0x2DAA24FF);
+	}
+	return 1;
+}
+
+CMD:placa(playerid, params[])
+{
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
+	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /placa [ID o nombre]");
+
+	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes enseñarle tu placa a este jugador ahora.", 3);
+
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Le enseña su placa a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	SendClientMessageEx(params[0], COLOR_WHITE, "%s %c. %s "COL_YELLOW"[Placa: %d]", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME], PLAYER_MISC[playerid][MISC_PLACA_PD]);
+	ShowPlayerMessage(playerid, "Has mostrado tu placa", 3);
+	return 1;
+}
+
+CMD:revisar(playerid, params[])
+{
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
+	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /revisar [ID o nombre]");
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
+
+	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes revisar a este jugador ahora.", 3);
+	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar depie.", 3);
+	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
+
+	ShowPlayerInventory(playerid, params[0]);
+
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Revisa a alguien\n\n\n", 0xffcb90FF, 20.0, 5000);
+	return 1;
+}
+alias:revisar("cachear")
+
+CMD:requisar(playerid, params[])
+{
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
+	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /requisar [ID o nombre]");
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
+
+	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes revisar a este jugador ahora.", 3);
+	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar depie.", 3);
+	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
+
+	DeleteIlegalInv(params[0], true);
+
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Requisa las pertenecias ilegales de alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	ShowPlayerMessage(playerid, "Has requisado a este jugador", 3);
+	return 1;
+}
+
+CMD:ref(playerid, params[])
+{
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
+	if (PLAYER_WORKS[playerid][WORK_POLICE])
+	{
+		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
+
+		new city[45], zone[45];
+		GetPlayerZones(playerid, city, zone);
+
+		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
+
+		new message[144];
+		format(message, sizeof message, "~b~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+		SendPoliceNotification(message, 4);
+
+		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+		{
+			if (IsPlayerConnected(i))
+			{
+				if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+				{
+					if (PLAYER_WORKS[i][WORK_POLICE])
+					{
+						if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
+						{
+							SetPlayerMarkerForPlayer(i, playerid, 0x0087ffFF);
+						}
+					}
+	   			}
+			}
+	 	}
+
+	 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+		PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableRefMark", 120000, false, "i", playerid);
+	}
+	else ActiveGeolocation(playerid);
+	return 1;
+}
+alias:ref("refuerzos")
