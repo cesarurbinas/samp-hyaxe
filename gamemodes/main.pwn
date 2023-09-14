@@ -32122,7 +32122,7 @@ CALLBACK: UnjailPlayer(playerid)
 	CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_INTERIOR;
 	CHARACTER_INFO[playerid][ch_JAILED_BY] = 0;
 	CHARACTER_INFO[playerid][ch_JAIL_REASON][0] = EOS;
-	
+
 	//SetWeaponsForPlayer(playerid);
 	ac_SetPlayerArmedWeapon(playerid, 0);
 	TogglePlayerControllableEx(playerid, true);
@@ -37142,9 +37142,11 @@ flags:initmarket(CMD_OPERATOR)
 flags:dropitem(CMD_MODERATOR3)
 flags:gmx(CMD_OPERATOR)
 flags:closeserver(CMD_OPERATOR)
-flags:profilerstart(CMD_OPERATOR)
-flags:profilerstop(CMD_OPERATOR)
-flags:profilerdump(CMD_OPERATOR)
+#if defined PROFILER_PROFILER_INCLUDED
+	flags:profilerstart(CMD_OPERATOR)
+	flags:profilerstop(CMD_OPERATOR)
+	flags:profilerdump(CMD_OPERATOR)
+#endif
 flags:pmaletero(CMD_MODERATOR4)
 flags:stopall(CMD_OPERATOR)
 flags:purga(CMD_OPERATOR)
@@ -37246,9 +37248,6 @@ flags:explode(CMD_OPERATOR)
 flags:jetpack(CMD_MODERATOR2)
 flags:explosionbullet(CMD_MODERATOR2)
 flags:ultradebug(CMD_MODERATOR)
-flags:masflot(CMD_MODERATOR2)
-flags:masflot2(CMD_MODERATOR2)
-flags:masflot3(CMD_MODERATOR2)
 flags:lsdb(CMD_MODERATOR)
 flags:vpcar(CMD_ADMIN)
 flags:rev(CMD_MODERATOR2)
