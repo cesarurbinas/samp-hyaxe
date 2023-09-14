@@ -163,7 +163,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Edit mode
 #include "utils/edit_mode/edit.pwn"
 #include "utils/furniture/object.pwn"
-#include "core/furniture/callbacks.pwn"
 
 // Bots
 #include "utils/world/bots.pwn"
@@ -20662,7 +20661,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							pay = minrand(200, 400)
 						;
 
-						format(str_text, sizeof(str_text), "~g~+%s$", pay);
+						format(str_text, sizeof(str_text), "~g~+%d$", pay);
 						GameTextForPlayer(playerid, str_text, 5000, 1);
 						GivePlayerCash(playerid, pay, false);
 

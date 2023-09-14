@@ -166,13 +166,13 @@ UpdatePropertyObject(index, objectid)
 	format(DB_Query, sizeof DB_Query,
 	"\
 		UPDATE `PROPERTY_OBJECTS` SET \
-			`X` = '%f',\
-			`Y` = '%f',\
-			`Z` = '%f',\
-			`RX` = '%f',\
-			`RY` = '%f',\
-			`RZ` = '%f'\
-		WHERE `ID` = '%q';\
+			`X` = '%f', \
+			`Y` = '%f', \
+			`Z` = '%f', \
+			`RX` = '%f', \
+			`RY` = '%f', \
+			`RZ` = '%f' \
+		WHERE `ID` = '%d';\
 	",
 		PROPERTY_OBJECT[ index ][pobj_POS][0],
 		PROPERTY_OBJECT[ index ][pobj_POS][1],
@@ -182,7 +182,11 @@ UpdatePropertyObject(index, objectid)
 		PROPERTY_OBJECT[ index ][pobj_ROTATION][2],
 		PROPERTY_OBJECT[ index ][pobj_DB_ID]
 	);
+	print("--------------------------------------------");
+	print("--------------------------------------------");
 	print(DB_Query);
+	print("--------------------------------------------");
+	print("--------------------------------------------");
 	db_free_result(db_query(Database, DB_Query));
 	return 1;
 }
@@ -194,5 +198,6 @@ DeletePropertyObject(object_id, index)
 	db_free_result(db_query(Database, DB_Query));
 
 	PROPERTY_OBJECT[ index ][pobj_VALID] = false;
+	DestroyDynamicObject(PROPERTY_OBJECT[ index ][pobj_ID]);
 	return 1;
 }

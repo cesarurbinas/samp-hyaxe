@@ -42,6 +42,6 @@ CancelEditingMode(playerid)
 	ShowPlayerNotification(playerid, "Has salido del modo de edición.", 3);
 	ShowPlayerMessage(playerid, "_", 1);
 
-	OnEditFinish(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
+	UpdatePropertyObject(PLAYER_TEMP[playerid][py_FURNITURE_SELECTED], PLAYER_TEMP[playerid][py_EDITING_OBJ]);
 	return 1;
 }
