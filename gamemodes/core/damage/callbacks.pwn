@@ -123,6 +123,8 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 
 public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 {
+	if (IsPlayerConnected(issuerid)) return 0;
+
 	if (issuerid != INVALID_PLAYER_ID && weaponid < 50 && weaponid != WEAPON_FLAMETHROWER)
 	{
 		return 0;
@@ -152,6 +154,7 @@ IPacket:207(playerid, BitStream:bs)
 
 public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 {
+	if (IsPlayerConnected(issuerid)) return 0;
 	if (IsPlayerPaused(issuerid)) return 0;
 
 	if (!PLAYER_TEMP[playerid][py_COMBAT_MODE] && IsPlayerPaused(playerid)) return 0;

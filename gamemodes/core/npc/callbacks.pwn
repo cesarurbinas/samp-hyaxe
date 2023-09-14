@@ -114,7 +114,7 @@ public NPC_Update()
 public FCNPC_OnSpawn(npcid)
 {
 	SetPlayerTeam(npcid, DEFAULT_TEAM);
-	g_rgbitsPlayerFlags[npci] &= ~e_bmPlayerDead;
+	g_rgbitsPlayerFlags[npcid] &= ~e_bmPlayerDead;
 	return 1;
 }
 
