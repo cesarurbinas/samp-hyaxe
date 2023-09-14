@@ -4202,7 +4202,7 @@ ResyncWeapon(playerid, weapon)
 			GivePlayerWeaponEx(playerid, weapon, 8, 0x00F7F7F7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+8"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			ApplyAnimation(playerid, "RIFLE", "RIFLE_load", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
 		case 26: // Recortada
