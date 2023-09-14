@@ -781,19 +781,19 @@ CreateTextDraws()
 	TextDrawSetProportional(Textdraws[textdraw_GODMODE][0], 1);
 	TextDrawSetSelectable(Textdraws[textdraw_GODMODE][0], 0);
 
-	Textdraws[textdraw_GODMODE][0] = TextDrawCreate(319.000000, 421.000000, "GODMODE~n~~g~ACTIVADO");
-	TextDrawFont(Textdraws[textdraw_GODMODE][0], 1);
-	TextDrawLetterSize(Textdraws[textdraw_GODMODE][0], 0.191667, 0.949999);
-	TextDrawTextSize(Textdraws[textdraw_GODMODE][0], 215.000000, -168.500000);
-	TextDrawSetOutline(Textdraws[textdraw_GODMODE][0], 0);
-	TextDrawSetShadow(Textdraws[textdraw_GODMODE][0], 0);
-	TextDrawAlignment(Textdraws[textdraw_GODMODE][0], 2);
-	TextDrawColor(Textdraws[textdraw_GODMODE][0], -1);
-	TextDrawBackgroundColor(Textdraws[textdraw_GODMODE][0], 255);
-	TextDrawBoxColor(Textdraws[textdraw_GODMODE][0], 50);
-	TextDrawUseBox(Textdraws[textdraw_GODMODE][0], 0);
-	TextDrawSetProportional(Textdraws[textdraw_GODMODE][0], 1);
-	TextDrawSetSelectable(Textdraws[textdraw_GODMODE][0], 0);
+	Textdraws[textdraw_GODMODE][1] = TextDrawCreate(319.000000, 421.000000, "GODMODE~n~~g~ACTIVADO");
+	TextDrawFont(Textdraws[textdraw_GODMODE][1], 1);
+	TextDrawLetterSize(Textdraws[textdraw_GODMODE][1], 0.191667, 0.949999);
+	TextDrawTextSize(Textdraws[textdraw_GODMODE][1], 215.000000, -168.500000);
+	TextDrawSetOutline(Textdraws[textdraw_GODMODE][1], 0);
+	TextDrawSetShadow(Textdraws[textdraw_GODMODE][1], 0);
+	TextDrawAlignment(Textdraws[textdraw_GODMODE][1], 2);
+	TextDrawColor(Textdraws[textdraw_GODMODE][1], -1);
+	TextDrawBackgroundColor(Textdraws[textdraw_GODMODE][1], 255);
+	TextDrawBoxColor(Textdraws[textdraw_GODMODE][1], 50);
+	TextDrawUseBox(Textdraws[textdraw_GODMODE][1], 0);
+	TextDrawSetProportional(Textdraws[textdraw_GODMODE][1], 1);
+	TextDrawSetSelectable(Textdraws[textdraw_GODMODE][1], 0);
 	
 	return 1;
 }
