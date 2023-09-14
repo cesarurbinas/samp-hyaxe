@@ -1370,8 +1370,12 @@ CMD:setgas(playerid, params[])
 
 	new vehicleid = GetPlayerVehicleID(playerid);
 	if (!vehicleid) return SendClientMessage(playerid, COLOR_WHITE, "No estás en un vehículo.");
-
-	if (val + GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] > GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS]) val = GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS];
+	printf("1: %f", val);
+	printf("total: %f", (val + GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]));
+	printf("max: %f", GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS]);
+	if (val> GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS])
+		val = GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS];
+	printf("2: %f", val);
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] = val;
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "La gasolina del vehículo (%d) ahora es %.1f.", vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]);
