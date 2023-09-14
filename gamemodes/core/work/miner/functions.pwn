@@ -35,7 +35,7 @@ GetRockColorType(rock_type)
 		case 7: rock_color = 0xFFe30bf5; // Cuarzo
 		case 8: rock_color = 0xFF0bf5ea; // Diamante
 		case 9: rock_color = 0xFF0bf5ea; // Bismuto
-		case 10: rock_color = 0xFF0042ff; // Lapisl√°zuli
+		case 10: rock_color = 0xFF0042ff; // Lapisl·zuli
 		case 11: rock_color = 0xFFeceff8; // Platino
 	}
 	return rock_color;
@@ -110,7 +110,6 @@ DropPlayerRock(playerid, place_id)
 	return 1;
 }
 
-
 GetRockMiningTime(rock_type)
 {
 	switch(rock_type)
@@ -137,7 +136,7 @@ GetRockNameType(rock_type)
 
 	switch(rock_type)
 	{
-		case 0: rock_name = "Carb√≥n";
+		case 0: rock_name = "CarbÛn";
 		case 1: rock_name = "Azufre";
 		case 2: rock_name = "Hierro";
 		case 3: rock_name = "Jaspe";
@@ -147,7 +146,7 @@ GetRockNameType(rock_type)
 		case 7: rock_name = "Cuarzo";
 		case 8: rock_name = "Diamante";
 		case 9: rock_name = "Bismuto";
-		case 10: rock_name = "Lapisl√°zuli";
+		case 10: rock_name = "Lapisl·zuli";
 		case 11: rock_name = "Platino";
 	}
 	return rock_name;
