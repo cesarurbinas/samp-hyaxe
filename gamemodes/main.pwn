@@ -32552,6 +32552,9 @@ JailPlayer(playerid, seconds = 300)
 	format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
 	PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
 
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+	PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
 	PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
 
