@@ -148,6 +148,9 @@
 // Player util
 #include "utils/player/header.pwn"
 
+// Missions
+#include "code/mission/header.pwn"
+
 // Player
 #include "core/player/account.pwn"
 #include "core/player/temp.pwn"
