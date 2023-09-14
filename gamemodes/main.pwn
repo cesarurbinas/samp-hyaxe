@@ -2797,7 +2797,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 	        }
 	        case 695:
 	        {
-	            if (GetPlayerInterior(playerid) != 0)
+	            if (GetPlayerInterior(playerid) == 0)
 	            {
 	            	new str_text[144];
 					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): SleepAnim", PLAYER_TEMP[playerid][py_NAME], playerid);
@@ -12233,7 +12233,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_QUESTION_CREATE:
 		{
-			new dialog[128];
+			new dialog[180];
 			format(dialog, sizeof(dialog), ""COL_WHITE"Escriba la respuesta a la pregunta:\n"COL_RED"%s"COL_WHITE"\n\nAVISO: Si se olvida la respuesta no hay\nforma alguna de recuperar la cuenta.", SECURITY_QUESTIONS[ PLAYER_TEMP[playerid][py_ANSWER_INDEX] ]);
 
 			ShowPlayerNotification(playerid, "Escriba la respuesta a su pregunta de seguridad.", 5);
