@@ -32407,7 +32407,7 @@ ResetPlayerWeaponsEx(playerid)
 	for(new i = 0; i != 13; i ++) PLAYER_WEAPONS[playerid][i] = tmp_PLAYER_WEAPONS;
 
 	ResetPlayerWeapons(playerid);
-	
+	ResetItemBody();
 	return 1;
 }
 
