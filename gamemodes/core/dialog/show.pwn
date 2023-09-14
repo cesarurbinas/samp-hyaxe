@@ -1353,18 +1353,6 @@ ShowDialog(playerid, dialogid)
 				"COL_WHITE"300 Balas\t"COL_GREEN"1350$\n", "Comprar", "Volver");
 			return 1;
 		}
-		case DIALOG_TRICKS_SU:
-		{
-			new dialog[150];
-			format(dialog, sizeof dialog, ""COL_WHITE"%s te quiere vender %d "SERVER_COIN" a %s$.",
-									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
-									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
-									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
-								);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Venta", dialog, "Si", "No");
-			return 1;
-		}
 		case DIALOG_SELECT_POLICE_SKIN:
 		{
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;

@@ -2770,62 +2770,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			return 1;
 		}
-		case DIALOG_TRICKS_SU:
-		{
-			if (response)
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-
-				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
-
-
-				ACCOUNT_INFO[playerid][ac_SD] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_SD] -= PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-
-				new DB_Query_update[256];
-				format
-				(
-					DB_Query_update, sizeof DB_Query_update,
-
-						"\
-							UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';\
-							UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';\
-						",
-							ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID],
-							ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_SD], ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID]
-				);
-				db_free_result(db_query(Database, DB_Query_update));
-
-				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-
-				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			
-				new str_text[164];
-				format(str_text, sizeof(str_text), "%s (%d) le ha vendido %d hycoins a %s (%d) al precio de %d$.",
-					PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_NAME],
-					PLAYER_TEMP[playerid][py_TRICK_SELLER_PID],
-					PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
-					PLAYER_TEMP[playerid][py_NAME],
-					playerid,
-					PLAYER_TEMP[playerid][py_TRICK_PRICE]
-				);
-				Log("hycoin_sell", str_text);
-			}
-			else
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return 1;
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return 1;
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return 1;
-
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
-			}
-			return 1;
-		}
 		case DIALOG_SELECT_POLICE_SKIN:
 		{
 			if (response)
