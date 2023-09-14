@@ -457,3 +457,30 @@ ResetItemBody(playerid)
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	return 1;
 }
+
+ConsumeFood(playerid, food_id)
+{
+	if (PLAYER_TEMP[playerid][py_EATING]) return 0;
+	PLAYER_TEMP[playerid][py_EATING] = true;
+
+	new item_id = food_id + 49;
+	SubtractItem(playerid, item_id);
+	ShowPlayerNotification(playerid, sprintf("Has consumido: ~y~%s", ITEM_INFO[item_id][item_NAME]), 4);
+	SetPlayerChatBubble(playerid, sprintf("\n\n\n\n* Consume alimento (%s).\n\n\n", ITEM_INFO[item_id][item_NAME]), 0xffcb90FF, 20.0, 5000);
+	
+	Add_Hungry_Thirst(playerid, FOOD_INFO[food_id][food_HUNGRY], FOOD_INFO[food_id][food_THIRST]);
+	SetPlayerDrunkLevel(playerid, FOOD_INFO[food_id][food_DRUNK_LEVEL]);
+
+	if (FOOD_INFO[food_id][food_ANIM])
+	{
+		ApplyAnimation(playerid, "BAR", "dnk_stndM_loop", 4.0, 0, 1, 1, 0, 2500);
+	}
+	else
+	{
+		ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
+		ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);	
+	}
+
+	SetTimerEx("FinishEat", 2500, false, "i", playerid);
+	return 1;
+}

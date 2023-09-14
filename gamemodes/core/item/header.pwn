@@ -1,3 +1,38 @@
+enum Food_Info_Enum
+{
+	Float:food_HUNGRY,
+    Float:food_THIRST,
+    food_ANIM,
+    food_DRUNK_LEVEL
+};
+
+/*
+food_ANIM (0): Animacion de comer
+food_ANIM (1): Animacion de beber
+*/
+new FOOD_INFO[][Food_Info_Enum] = {
+    {10.0, 0.0, 0}, // Hamburguesa
+    {12.0, 0.0, 0}, // Burrito
+    {1.0, 0.0, 0}, // Carne cruda
+    {15.0, 0.0, 0}, // Jamon
+    {8.0, 0.0, 0}, // Naranja 
+    {8.0, 0.0, 0}, // Tostada
+    {12.0, 12.0, 1}, // Leche 
+    {0.0, 10.0, 1}, // Jugo de naranja 
+    {0.0, 10.0, 1}, // Jugo de manzana 
+    {3.0, 0.0, 0}, // Ketchup 
+    {14.0, 0.0, 0}, // Helado de chocolate
+    {14.0, 0.0, 0}, // Helado de frutilla
+    {15.0, 0.0, 0}, // Pizza
+    {0.0, 15.0, 1}, // Jugo cepita
+    {0.0, 10.0, 1, 1}, // Cerveza
+    {0.0, 10.0, 1, 5}, // Wisky
+    {0.0, 11.0, 1, 1}, // Champagne
+    {0.0, 0.0, 1, 1}, // Cerveza artesanal
+    {13.0, 0.0, 0}, // Pollo
+    {2.0, 8.0, 1} // Cafe
+};
+
 enum Item_Info_Enum
 {
 	item_NAME[64],

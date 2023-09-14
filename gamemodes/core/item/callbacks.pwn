@@ -14,3 +14,12 @@ public DeleteDropItem(index)
 	DROP_ITEMS[index][itm_OWNER] = EOS;
 	return 1;
 }
+
+forward FinishEat(playerid);
+public FinishEat(playerid)
+{
+	ResetItemBody(playerid);
+	ClearAnimations(playerid);
+	PLAYER_TEMP[playerid][py_EATING] = false;
+	return 1;
+}

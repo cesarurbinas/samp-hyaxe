@@ -1815,6 +1815,11 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
+		case 49..68:
+		{
+			ConsumeFood(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] - 49);
+		}
+
 		//default: CheckAndReload(playerid);
 	}
 	return 1;

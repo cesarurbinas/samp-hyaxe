@@ -74,7 +74,7 @@ SanAndreas()
 	for(new i = 0; i < sizeof Fast_Food_Positions; i++)
 	{
 		new label_str[128];
-		format(label_str, sizeof label_str, ""COL_RED"%s\n"COL_WHITE"7 productos disponibles", Fast_Food_Positions[i][fast_food_NAME]);
+		format(label_str, sizeof label_str, ""COL_RED"%s\n"COL_WHITE"8 productos disponibles", Fast_Food_Positions[i][fast_food_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xF0F0F0FF, Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], Fast_Food_Positions[i][fast_food_Z] + 0.25, 10.0, .testlos = true, .interiorid = Fast_Food_Positions[i][fast_food_INTERIOR]);
 		AddKeyArea(Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], 0.8, KEY_TYPE_Y);
 	}

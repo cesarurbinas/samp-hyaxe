@@ -466,11 +466,16 @@ enum Temp_Enum
 =======
 	py_SING_AIM,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	py_FISH
 >>>>>>> d1b24ed (comandos viejos eliminados)
 =======
 	py_FISHS
 >>>>>>> 905e9a5 (items migrados)
+=======
+	py_FISHS,
+	py_EATING
+>>>>>>> e31f7fb (alimentos usables)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
