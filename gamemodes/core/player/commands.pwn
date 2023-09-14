@@ -745,10 +745,10 @@ CMD:vender(playerid, params[])
 		ShowPlayerNotification(playerid, str_text, 4);
 
 		format(str_text, sizeof(str_text),
-			"%s te quiere vender %d "SERVER_COIN" a %s$.",
-			PLAYER_TEMP[to_playerid][py_RP_NAME],
-			PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA],
-			PLAYER_TEMP[to_playerid][py_TRICK_PRICE]
+			"%s te quiere vender %d "SERVER_COIN" a %d$.",
+			PLAYER_TEMP[playerid][py_NAME],
+			extra,
+			price
 		);
 		ShowActionForPlayer(to_playerid, HYCOIN_SELL, str_text, .action_time = 10000);
 		return 1;
@@ -789,7 +789,7 @@ Action:HYCOIN_SELL(playerid, response)
 
 		GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
 		GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-
+		ShowPlayerNotification(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], sprintf("Has vendido %d hycoins.", PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA]), 5);
 		SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 		new str_text[164];
