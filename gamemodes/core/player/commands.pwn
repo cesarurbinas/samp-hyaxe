@@ -288,6 +288,12 @@ CMD:runtime(playerid, params[])
 	return 1;
 }
 
+CMD:tickrate(playerid, params[])
+{
+	SendClientMessageEx(playerid, COLOR_WHITE, "Server tick rate: %d", GetServerTickRate());
+	return 1;
+}
+
 CMD:accsave(playerid, params[])
 {
 	if (gettime() < PLAYER_TEMP[playerid][py_SAVE_ACCOUNT_TIME] + 30)
@@ -521,8 +527,8 @@ cmd:aim(playerid, params[])
 CMD:creditos(playerid, params[])
 {
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Colaboradores", ""COL_WHITE"Hyaxe es posible gracias a:\n\
-		Muphy, Atom, Kitis, Arkerooz\n\
-		Mitt, Alper.", "Cerrar", "");
+		Muphy, Atom, Kitis, Arkerooz, Heix, Cokito99\n\
+		Mitt, Alper, Deru, Blade, Nahuel37.", "Cerrar", "");
 	return 1;
 }
 

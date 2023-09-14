@@ -316,6 +316,21 @@ PlayerAlreadyHasItem(playerid, type)
 	return false;
 }
 
+DeletePlayerItems(playerid)
+{
+	if (PLAYER_WORKS[playerid][WORK_POLICE]) return 0;
+	
+	new DB_Query[140];
+
+	format(DB_Query, sizeof DB_Query,
+		"DELETE FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d';",
+		ACCOUNT_INFO[playerid][ac_ID]
+	);
+	db_free_result(db_query(Database, DB_Query));
+
+	return 1;
+}
+
 DeleteIlegalItems(playerid, drugs = true)
 {
 	if (PLAYER_WORKS[playerid][WORK_POLICE]) return 0;

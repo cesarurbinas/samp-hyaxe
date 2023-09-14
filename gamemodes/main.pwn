@@ -80,6 +80,7 @@ L1:
 #include <ColAndreas>
 
 // Other Library
+#include <a_mysql>
 #include <physics>
 #include <a_http>
 #include <sscanf2>

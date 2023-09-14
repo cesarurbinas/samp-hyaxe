@@ -1663,7 +1663,8 @@ public OnPlayerSpawn(playerid)
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 						PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-						DeleteIlegalItems(playerid, false);
+						//DeleteIlegalItems(playerid, false);
+						DeletePlayerItems(playerid);
 
 						new random_pos = minrand(0, 12); 
 						PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
@@ -1825,7 +1826,8 @@ public OnPlayerSpawn(playerid)
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 						PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-						DeleteIlegalItems(playerid, false);
+						DeletePlayerItems(playerid);
+						//DeleteIlegalItems(playerid, false);
 
 						ClearPlayerChatBox(playerid);
 						if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
@@ -2704,11 +2706,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 	{
 		case AREA_TYPE_NONE:
 		{
-			if (areaid == Farmer_Area)
-			{
-				if (PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_FARMER) EndPlayerJob(playerid);
-			}
-			else if (areaid == Harvest_Area)
+			if (areaid == Harvest_Area)
 			{
 				if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 				{
@@ -6193,4 +6191,54 @@ Action:ActionTest(playerid, response)
 	{
 		ShowPlayerNotification(playerid, "Alert response: No", 4);
 	}
+}
+
+forward RespawnATM(atm_id);
+public RespawnATM(atm_id)
+{
+	ATM_BANK[atm_id][atm_HEALTH] = 1000.0;
+	DestroyDynamicObject(ATM_BANK[atm_id][atm_OBJECT]);
+	ATM_BANK[atm_id][atm_OBJECT] = CreateDynamicObject(19324, ATM_BANK[atm_id][atm_X], ATM_BANK[atm_id][atm_Y], ATM_BANK[atm_id][atm_Z], ATM_BANK[atm_id][atm_RX], ATM_BANK[atm_id][atm_RY], ATM_BANK[atm_id][atm_RZ], ATM_BANK[atm_id][atm_WORLD], ATM_BANK[atm_id][atm_INTERIOR]);
+	return 1;
+}
+
+public OnPlayerShootDynamicObject(playerid, weaponid, objectid, Float:x, Float:y, Float:z)
+{
+	if (PLAYER_WORKS[playerid][WORK_POLICE]) return 0;
+
+	new atm_id = Streamer_GetIntData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID);
+	if(!atm_id) return 0;
+	if (ATM_BANK[atm_id][atm_HEALTH] <= 0.0) return ShowPlayerMessage(playerid, "~r~Este cajero ya fue destruido.", 4);
+
+	ATM_BANK[atm_id][atm_HEALTH] -= mathfrandom(1.0, 5.0);
+	if (ATM_BANK[atm_id][atm_HEALTH] <= 0.0)
+	{
+		ATM_BANK[atm_id][atm_HEALTH] = 0.0;
+
+		new str_text[164], prize = minrand(1000, 4000);
+		format(str_text, sizeof(str_text), "Has destruido un cajero automático y le has sacado ~g~$%d~w~. ¡Corre, ahí viene la policía!", prize);
+		ShowPlayerNotification(playerid, str_text, 6);
+		GivePlayerCash(playerid, prize);
+
+		CreateExplosion(ATM_BANK[atm_id][atm_X], ATM_BANK[atm_id][atm_Y], ATM_BANK[atm_id][atm_Z], 12, 1.0);
+		DestroyDynamicObject(ATM_BANK[atm_id][atm_OBJECT]);
+
+		ATM_BANK[atm_id][atm_OBJECT] = CreateDynamicObject(2943, ATM_BANK[atm_id][atm_X], ATM_BANK[atm_id][atm_Y], ATM_BANK[atm_id][atm_Z], ATM_BANK[atm_id][atm_RX], ATM_BANK[atm_id][atm_RY], ATM_BANK[atm_id][atm_RZ], ATM_BANK[atm_id][atm_WORLD], ATM_BANK[atm_id][atm_INTERIOR]);
+		SetTimerEx("RespawnATM", 30000, false, "d", atm_id);
+
+		SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 2);
+		format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Vandalismo");
+		ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Vandalismo", 5);
+
+		Streamer_Update(playerid);
+		return 1;
+	}
+
+	new str_text[64];
+	if (ATM_BANK[atm_id][atm_HEALTH] > 800.0) format(str_text, sizeof(str_text), "Cajero: ~g~%.2f", ATM_BANK[atm_id][atm_HEALTH]);
+	if (ATM_BANK[atm_id][atm_HEALTH] < 800.0) format(str_text, sizeof(str_text), "Cajero: ~y~%.2f", ATM_BANK[atm_id][atm_HEALTH]);
+	if (ATM_BANK[atm_id][atm_HEALTH] < 300.0) format(str_text, sizeof(str_text), "Cajero: ~r~%.2f", ATM_BANK[atm_id][atm_HEALTH]);
+
+	ShowPlayerMessage(playerid, str_text, 2);
+	return 1;
 }

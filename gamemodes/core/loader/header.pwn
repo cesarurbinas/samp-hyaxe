@@ -82,9 +82,11 @@ SanAndreas()
 	//Cajeros
 	for(new i = 0; i < sizeof ATM_BANK; i ++)
 	{
-		CreateDynamicObject(19324, ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], ATM_BANK[i][atm_Z], ATM_BANK[i][atm_RX], ATM_BANK[i][atm_RY], ATM_BANK[i][atm_RZ], ATM_BANK[i][atm_WORLD], ATM_BANK[i][atm_INTERIOR]);
+		ATM_BANK[i][atm_OBJECT] = CreateDynamicObject(19324, ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], ATM_BANK[i][atm_Z], ATM_BANK[i][atm_RX], ATM_BANK[i][atm_RY], ATM_BANK[i][atm_RZ], ATM_BANK[i][atm_WORLD], ATM_BANK[i][atm_INTERIOR]);
+		Streamer_SetIntData(STREAMER_TYPE_OBJECT, ATM_BANK[i][atm_OBJECT], E_STREAMER_EXTRA_ID, i);
 		AddKeyArea(ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], 0.8, KEY_TYPE_Y);
 
+		ATM_BANK[i][atm_HEALTH] = 1000.0;
 		ATM_BANK[i][atm_X] += (-0.5 * floatsin(-(ATM_BANK[i][atm_RZ] - 90.0), degrees));
 		ATM_BANK[i][atm_Y] += (-0.5 * floatcos(-(ATM_BANK[i][atm_RZ] - 90.0), degrees));
 		CreateDynamicMapIcon(ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], ATM_BANK[i][atm_Z], 52, COLOR_WHITE, ATM_BANK[i][atm_WORLD], ATM_BANK[i][atm_INTERIOR]);
@@ -487,8 +489,6 @@ SanAndreas()
 	CreateTrashCheckpoint(2, 1440, 125.15490, -1289.90332, 46.98190, 0.00000, 1.50000, 86.94010);
 
 	// Granjero
-	Farmer_Area = CreateDynamicCircle(1461.8894, -83.2621, 65.0, 0, 0);
-	CreateDynamicMapIcon(1461.8894, -83.2621, 65.0, 53, COLOR_WHITE, 0, 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Tienda de semillas", 0xF0F0F000, -382.580657, -1426.404296, 26.219505, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	// Cosechador

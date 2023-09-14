@@ -9,7 +9,9 @@ enum atm_bank_info
 	Float:atm_RY,
 	Float:atm_RZ,
 	atm_WORLD,
-	atm_INTERIOR
+	atm_INTERIOR,
+	Float:atm_HEALTH,
+	atm_OBJECT
 };
 
 new ATM_BANK[][atm_bank_info] =
@@ -2799,6 +2801,8 @@ CheckAtmPlayerAndExecute(playerid)
     new info[3];
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
     if (info[0] != PICKUP_TYPE_ATM) return 0;
+
+	if (ATM_BANK[info[1]][atm_HEALTH] <= 0.0) return ShowPlayerMessage(playerid, "~r~Este cajero automático está destruido, ¡busca otro!", 4);
     
     new Float:x, Float:y, Float:z; 
     Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);

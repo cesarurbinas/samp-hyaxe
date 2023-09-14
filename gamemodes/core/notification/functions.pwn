@@ -40,7 +40,7 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 		}
 	}
 
-	format(NotificationData[playerid][free_pos][nt_TEXT], 128, "~w~%s", text);
+	format(NotificationData[playerid][free_pos][nt_TEXT], 128, "~w~%s", TextToSpanish(text));
  
 	/*new PlayerText:notification_bg = CreatePlayerTextDraw(playerid, 24.000000, pos_y + 6.0, TextToSpanish(NotificationData[playerid][free_pos][nt_TEXT]));
 	PlayerTextDrawFont(playerid, notification_bg, 1);
