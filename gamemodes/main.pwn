@@ -2660,7 +2660,7 @@ new BLACK_MARKT_WEAPONS[][enum_BLACK_MARKT_WEAPONS] =
 	{32, 3600, 0}, // Tec 9
 	{25, 4000, 0}, // Escopeta
 	{26, 4500, 0}, // recortada
-	{33, 5200, 0} // Rifle
+	{33, 5200, 0} // Rifle 
 };
 
 CALLBACK: DisablePlayerPoliceSearchLevel(playerid)
