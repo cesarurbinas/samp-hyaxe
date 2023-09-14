@@ -4027,7 +4027,7 @@ RegisterNewPlayerWeapon(playerid, weapon_slot)
 	return 1;
 }
 
-GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F0F0F0, bool:equip = false)
+GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false)
 {
 	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
 	else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;

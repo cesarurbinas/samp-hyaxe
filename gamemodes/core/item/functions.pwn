@@ -8,7 +8,7 @@ GetFreeDropItemSlot()
     return -1;
 }
 
-CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, worldid, interiorid, const name[] = "Null", const owner[] = "Null", type, ammount = 1, color = 0x00F0F0F0)
+CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, worldid, interiorid, const owner[] = "Null", type, ammount = 1)
 {
 	new index = GetFreeDropItemSlot();
 	if (index == -1) return print("[DEBUG] Error: Todos los slots de item sueltos estan ocupados.");
@@ -18,13 +18,9 @@ CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz,
 	DROP_ITEMS[index][itm_VALID] = true;
 	DROP_ITEMS[index][itm_TYPE] = type;
 	DROP_ITEMS[index][itm_AMMOUNT] = ammount;
-	DROP_ITEMS[index][itm_COLOR] = color;
 	DROP_ITEMS[index][itm_WORLD] = worldid;
 	DROP_ITEMS[index][itm_INTERIOR] = interiorid;
-	format(DROP_ITEMS[index][itm_NAME], 64, name);
 	format(DROP_ITEMS[index][itm_OWNER], 24, owner);
-
-	//SetDynamicObjectMaterial(DROP_ITEMS[index][itm_ID], 0, -1, "none", "none", color);
 
 	if (interiorid == 0)
 	{
@@ -40,7 +36,7 @@ CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz,
 	}
 
 	new str_text[72];
-	format(str_text, sizeof(str_text), "{FFFFFF}%s", name);
+	format(str_text, sizeof(str_text), "{FFFFFF}%s", ITEM_INFO[type][item_NAME]);
 	DROP_ITEMS[index][itm_LABEL] = CreateDynamic3DTextLabel(str_text, 0xFFFFFF00, x, y, z + 0.4, 3.0, .testlos = true, .worldid = worldid, .interiorid = interiorid);
 
 	SetTimerEx("DeleteDropItem", DELETE_ITEM_TIME, false, "i", index);
@@ -345,7 +341,7 @@ WeaponToType(type)
 	return weapon;
 }
 
-GrabWeapon(playerid, type, ammount, color = 0x00F0F0F0)
+GrabWeapon(playerid, type, ammount)
 {
 	new 
 		weapon_id = TypeToWeapon(type), 
@@ -361,11 +357,11 @@ GrabWeapon(playerid, type, ammount, color = 0x00F0F0F0)
 	}
 
 	RegisterNewPlayerWeapon(playerid, weapon_slot);
-	GivePlayerWeaponEx(playerid, weapon_id, ammount, color);
+	GivePlayerWeaponEx(playerid, weapon_id, ammount);
 	return 1;
 }
 
-GrabItem(playerid, type, ammount = 1, color = 0x00F0F0F0)
+GrabItem(playerid, type, ammount = 1)
 {
 	switch(type)
 	{
@@ -381,28 +377,28 @@ GrabItem(playerid, type, ammount = 1, color = 0x00F0F0F0)
 		case 9: return PLAYER_MISC[playerid][MISC_CARTRIDGE_1] += ammount;
 		case 10: return PLAYER_MISC[playerid][MISC_CARTRIDGE_2] += ammount;
 		case 11: return PLAYER_MISC[playerid][MISC_CARTRIDGE_3] += ammount;
-		case 12: return GrabWeapon(playerid, type, ammount, color);
-		case 13: return GrabWeapon(playerid, type, ammount, color);
-		case 14: return GrabWeapon(playerid, type, ammount, color);
-		case 15: return GrabWeapon(playerid, type, ammount, color);
-		case 16: return GrabWeapon(playerid, type, ammount, color);
-		case 17: return GrabWeapon(playerid, type, ammount, color);
-		case 18: return GrabWeapon(playerid, type, ammount, color);
-		case 19: return GrabWeapon(playerid, type, ammount, color);
-		case 22: return GrabWeapon(playerid, type, ammount, color);
-		case 23: return GrabWeapon(playerid, type, ammount, color);
-		case 24: return GrabWeapon(playerid, type, ammount, color);
-		case 25: return GrabWeapon(playerid, type, ammount, color);
-		case 26: return GrabWeapon(playerid, type, ammount, color);
-		case 28: return GrabWeapon(playerid, type, ammount, color);
-		case 29: return GrabWeapon(playerid, type, ammount, color);
-		case 30: return GrabWeapon(playerid, type, ammount, color);
-		case 31: return GrabWeapon(playerid, type, ammount, color);
-		case 32: return GrabWeapon(playerid, type, ammount, color);
-		case 33: return GrabWeapon(playerid, type, ammount, color);
-		case 41: return GrabWeapon(playerid, type, ammount, color);
-		case 43: return GrabWeapon(playerid, type, ammount, color);
-		case 46: return GrabWeapon(playerid, type, ammount, color);
+		case 12: return GrabWeapon(playerid, type, ammount);
+		case 13: return GrabWeapon(playerid, type, ammount);
+		case 14: return GrabWeapon(playerid, type, ammount);
+		case 15: return GrabWeapon(playerid, type, ammount);
+		case 16: return GrabWeapon(playerid, type, ammount);
+		case 17: return GrabWeapon(playerid, type, ammount);
+		case 18: return GrabWeapon(playerid, type, ammount);
+		case 19: return GrabWeapon(playerid, type, ammount);
+		case 22: return GrabWeapon(playerid, type, ammount);
+		case 23: return GrabWeapon(playerid, type, ammount);
+		case 24: return GrabWeapon(playerid, type, ammount);
+		case 25: return GrabWeapon(playerid, type, ammount);
+		case 26: return GrabWeapon(playerid, type, ammount);
+		case 28: return GrabWeapon(playerid, type, ammount);
+		case 29: return GrabWeapon(playerid, type, ammount);
+		case 30: return GrabWeapon(playerid, type, ammount);
+		case 31: return GrabWeapon(playerid, type, ammount);
+		case 32: return GrabWeapon(playerid, type, ammount);
+		case 33: return GrabWeapon(playerid, type, ammount);
+		case 41: return GrabWeapon(playerid, type, ammount);
+		case 43: return GrabWeapon(playerid, type, ammount);
+		case 46: return GrabWeapon(playerid, type, ammount);
 		case 51: return PLAYER_MISC[playerid][MISC_ROD] += ammount;
 		case 52: return PLAYER_MISC[playerid][MISC_MALLET] += ammount;
 		case 53: return PLAYER_MISC[playerid][MISC_FIXKIT] += ammount;
