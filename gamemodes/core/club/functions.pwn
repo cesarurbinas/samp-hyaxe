@@ -238,8 +238,13 @@ BuyClub(playerid, index)
 	return 1;
 }
 
-ReleaseClub(playerid, index)
+ReleaseClub(index)
 {
+	new 
+		DB_Query[340],
+		label_str[264]
+	;
+	
 	CLUBS_INFO[index][club_USER_ID] = 0;
 	CLUBS_INFO[index][club_BALANCE] = 0;
 	CLUBS_INFO[index][club_STATE] = 1;
