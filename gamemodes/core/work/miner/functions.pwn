@@ -177,8 +177,11 @@ CreateMinerRocks()
 {
 	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
 	{
+		ROCK_PROCESSOR[i][rp_FUEL] = frandom(10.0, 100.0, 2);
+		ROCK_PROCESSOR[i][rp_HEALTH] = frandom(10.0, 100.0, 2);
+
 		new str_text[164];
-		format(str_text, sizeof(str_text), ""COL_RED"Procesadora #1\n"COL_WHITE"Suelta los materiales aquí­\n\nGasolina: %.1f\nEstado: %.1f%", i, ROCK_PROCESSOR[i][rp_FUEL], ROCK_PROCESSOR[i][rp_HEALTH]);
+		format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquí­\n\nGasolina: %.1f\nEstado: %.1f%", i, ROCK_PROCESSOR[i][rp_FUEL], ROCK_PROCESSOR[i][rp_HEALTH]);
 		CreateDynamic3DTextLabel(str_text, 0xF7F7F7FF, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z] + 3, 35.0, .testlos = true, .worldid = -1, .interiorid = -1);
 	}
 
