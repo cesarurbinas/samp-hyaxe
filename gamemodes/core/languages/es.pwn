@@ -114,7 +114,7 @@ OSBORN_RANKS[][] =
 
 TextToSpanish(const base[])
 {
-	new result[256];
+	new result[1024];
 
 	strcat(result, base);
 
