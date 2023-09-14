@@ -36494,11 +36494,10 @@ CMD:c(playerid, params[])
 	new to_player, level, reason[32];
 	if (sscanf(params, "uds[32]", to_player, level, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /c <ID o nombre> <1/6> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 	if (to_player == playerid) return ShowPlayerMessage(playerid, "~r~No puedes darte cargos a tu mismo");
 	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
 	if (level > 6) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /c <ID o nombre> <1/6> <razon>");
-	if (strlen(inputtext) >= 24) return ShowPlayerMessage(playerid, "~r~Como máximo puedes introducir una razón de 32 caracteres.", 3);
+	if (strlen(reason) >= 24) return ShowPlayerMessage(playerid, "~r~Como máximo puedes introducir una razón de 32 caracteres.", 3);
 
 	PLAYER_TEMP[to_player][py_POLICE_REASON] = reason;
 
@@ -36508,6 +36507,23 @@ CMD:c(playerid, params[])
 
 	ShowPlayerNotification(to_player, "Sera mejor que corras, la policía te esta buscando", 2);
 	SetPlayerPoliceSearchLevel(to_player, level);
+	return 1;
+}
+
+CMD:cargos(playerid, params[])
+{
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerNotification(playerid, "Ahora no puedes usar comandos.", 3);
+
+	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
+	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 1) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
+
+	new to_player;
+	if (sscanf(params, "uds[32]", to_player, level, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /cargos <ID o nombre>");
+	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
+	if (to_player == playerid) return ShowPlayerMessage(playerid, "~r~No puedes verte a tu mismo");
+	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
+
+	SendClientMessageEx(playerid, COLOR_WHITE, "%s tiene cargos por "COL_RED"%s", PLAYER_TEMP[to_player][py_NAME], PLAYER_TEMP[to_player][py_POLICE_REASON]);
 	return 1;
 }
 
