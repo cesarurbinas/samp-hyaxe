@@ -58,3 +58,35 @@ public DeleteDropItem(index)
 	DROP_ITEMS[index][itm_NAME] = EOS;
 	return 1;
 }
+
+AddItemToProperty(property_id, type, extra)
+{
+	new
+		id
+		DB_Query[164],
+		DBResult:Result
+	;
+
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `PROPERTY_STORAGE`\
+		(\
+			`ID_PROPERTY`, `TPYE`, `EXTRA`\
+		)\
+		VALUES\
+		(\
+			'%d', '%d', '%d'\
+		);\
+		SELECT MAX(`ID`) FROM `PROPERTY_STORAGE`;\
+	",
+		property_id,
+		type,
+		extra
+	);
+
+	Result = db_query(Database, DB_Query);
+	if (db_num_rows(Result)) id = db_get_field_int(Result, 0);
+	db_free_result(Result);
+
+	return id;
+}

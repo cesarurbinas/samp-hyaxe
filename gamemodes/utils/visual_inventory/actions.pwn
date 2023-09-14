@@ -142,11 +142,19 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				GameTextForPlayer(playerid, "Item guardado", 2000, 5);
 				ResetItemBody(playerid);
 
+				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot);
+
+				new DB_Query[164];
 				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
 				{
-					SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot);
+					AddItemToProperty(
+						PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED],
+						PLAYER_VISUAL_INV[playerid][slot_TYPE][slot],
+						PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]
+					);
 				}
-				else SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot, 1);
+
+				db_free_result(db_query(Database, DB_Query));
 
 				HideInventory(playerid);
 				ShowInventory(playerid, 2);
