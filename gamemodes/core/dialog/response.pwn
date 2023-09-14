@@ -756,7 +756,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						StopAudioStreamForPlayer(playerid);
 						
-						if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 2)PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_2.mp3");
+						if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 2)PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com/tutorial_2.mp3");
 						PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 3;
 					}
 				}

@@ -1680,7 +1680,7 @@ CMD:a(playerid, params[])
 
 	new string[145];
     format(string, sizeof(string), "[C-A]"COL_WHITE" %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
-	SendMessageToAdmins(0x64A752FF, string);
+	SendMessageToAdmins(0x80E266FF, string);
 	return 1;
 }
 

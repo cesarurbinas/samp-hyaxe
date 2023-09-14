@@ -29,8 +29,8 @@ stock GetXYInFrontOfPlayer(playerid, &Float:x2, &Float:y2, Float:distance) // **
 
 new INTRO_MUSIC[][] =
 {
-	"http://tmp6.hyaxe.com:20100/intro0.mp3",
-	"http://tmp6.hyaxe.com:20100/intro3.mp3",
-	"http://tmp6.hyaxe.com:20100/intro1.mp3",
-	"http://tmp6.hyaxe.com:20100/intro2.mp3"
+	"http://tmp6.hyaxe.com/intro0.mp3",
+	"http://tmp6.hyaxe.com/intro3.mp3",
+	"http://tmp6.hyaxe.com/intro1.mp3",
+	"http://tmp6.hyaxe.com/intro2.mp3"
 };
