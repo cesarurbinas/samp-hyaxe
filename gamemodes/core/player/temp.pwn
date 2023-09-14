@@ -415,8 +415,13 @@ enum Temp_Enum
 >>>>>>> fa92fd6 (misiones base)
 =======
 	py_LAST_AREA,
+<<<<<<< HEAD
 	py_MISSION_POINTS
 >>>>>>> e6faa9e (mision fallida, mejoras de la ai)
+=======
+	py_MISSION_POINTS,
+	py_MISSION_TYPE
+>>>>>>> 3499290 (skin per mission)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

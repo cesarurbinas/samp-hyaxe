@@ -164,6 +164,7 @@ CheckMissionPlace(playerid)
         SetMissionPlayerMarkers(playerid);
 
         if (players_in_mission <= 1) START_MISSION[index][ems_TYPE] = random(START_MISSION[index][ems_MAX_MISSIONS]);
+        PLAYER_TEMP[playerid][py_MISSION_TYPE] = START_MISSION[index][ems_TYPE];
 
         // Show message
         switch(index)
@@ -190,6 +191,8 @@ CheckMissionPlace(playerid)
                                 FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
 
                                 FCNPC_Respawn(SWEET_DEALERS[i][sd_ID]);
+
+                                FCNPC_SetSkin(SWEET_DEALERS[i][sd_ID], DEALER_SKIN[ random(sizeof(DEALER_SKIN))]);
 
                                 FCNPC_SetPosition(
                                     SWEET_DEALERS[i][sd_ID],
@@ -220,8 +223,56 @@ CheckMissionPlace(playerid)
                             SetPlayerColor(SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
                         }
                         
-                        ShowPlayerMessage(playerid, "Elimina a los ~r~Dealers~w~ colados en el barrio.", 12);
+                        ShowPlayerMessage(playerid, "Elimina a los ~r~Dealers~w~ colados en el barrio.", 15);
                         SetTimer("NPC_Update", 3000, false);
+                    }
+
+                    // Drug stealer
+                    case 1:
+                    {
+                        for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+                        {
+                            if (players_in_mission <= 1)
+                            {
+                                PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
+                                CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+
+                                SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
+                                FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
+                                
+                                FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
+
+                                FCNPC_Respawn(SWEET_DEALERS[i][sd_ID]);
+
+                                FCNPC_SetSkin(SWEET_DEALERS[i][sd_ID], BALLAS_SKINS[ random(sizeof(BALLAS_SKINS))]);
+
+                                FCNPC_SetPosition(
+                                    SWEET_DEALERS[i][sd_ID],
+                                    SWEET_DEALERS[i][sd_X],
+                                    SWEET_DEALERS[i][sd_Y],
+                                    SWEET_DEALERS[i][sd_Z]
+                                );
+
+                                FCNPC_SetAngle(SWEET_DEALERS[i][sd_ID], SWEET_DEALERS[i][sd_ANGLE]);
+
+                                FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
+                                FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
+                                FCNPC_UseInfiniteAmmo(SWEET_DEALERS[i][sd_ID], true);
+
+                                FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 0);
+
+                                FCNPC_SetInvulnerable(SWEET_DEALERS[i][sd_ID], false);
+
+                                FCNPC_AimAtPlayer(SWEET_DEALERS[i][sd_ID], playerid, true, 1000);
+                            }
+
+                            if (FCNPC_IsSpawned(SWEET_DEALERS[i][sd_ID]) && !FCNPC_IsDead(SWEET_DEALERS[i][sd_ID]))
+                                SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
+                            
+                            SetPlayerColor(SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
+                        }
+
+                        ShowPlayerMessage(playerid, "Roba la ~b~cocaina~w~ de la banda rival.", 15);
                     }
                 }
             }
