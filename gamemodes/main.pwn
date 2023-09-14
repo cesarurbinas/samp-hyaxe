@@ -5107,7 +5107,7 @@ CheckBlackMarketAmmo(playerid)
 {
 	if (IsPlayerInRangeOfPoint(playerid, 1.5, 2162.462158, -1169.053222, -16.871662) || IsPlayerInRangeOfPoint(playerid, 1.5, -187.830596, -2249.291503, 24.332202))
 	{
-    	ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
+    	ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO_STOCK);
     }
     return 1;
 }
@@ -10057,10 +10057,10 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_BLACK_MARKET_AMMO_STOCK:
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Balas", ""COL_WHITE"Producto\t"COL_WHITE"Precio\n\
-				"COL_WHITE"Balas de Pistola\t"COL_GREEN"300$\n\
-				"COL_WHITE"Balas de Subfusil\t"COL_GREEN"500$\n\
-				"COL_WHITE"Balas de Rifle\t"COL_GREEN"700$\n\
-				"COL_WHITE"Balas de Escopeta\t"COL_GREEN"850$\n", "Comprar", "Salir");
+				"COL_WHITE"Balas de Pistola\t"COL_GREEN"50$\n\
+				"COL_WHITE"Balas de Subfusil\t"COL_GREEN"100$\n\
+				"COL_WHITE"Balas de Rifle\t"COL_GREEN"400$\n\
+				"COL_WHITE"Balas de Escopeta\t"COL_GREEN"250$\n", "Comprar", "Salir");
 			return 1;
 		}
 		case DIALOG_BLACK_MARKET_SELECT_WEA:
@@ -16087,7 +16087,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						ShowDialog(playerid, DIALOG_BLACK_MARKET_WEAPONS);
 					}
-					case 1: ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
+					case 1: ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO_STOCK);
 				}
 			}
 			return 1;
@@ -16142,57 +16142,57 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 300) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_1] += 5;
+						PLAYER_MISC[playerid][MISC_CARTRIDGE_1]++;
 						SavePlayerMisc(playerid);
 
 						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
 						{
-							GivePlayerCash(playerid, -300, false);
-							GameTextForPlayer(playerid, "~r~-300$", 5000, 1);
+							GivePlayerCash(playerid, -50, false);
+							GameTextForPlayer(playerid, "~r~-50$", 5000, 1);
 						}
 						return 1;
 					}
 					case 1:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 500) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 100) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_4] += 5;
+						PLAYER_MISC[playerid][MISC_CARTRIDGE_4]++;
 						SavePlayerMisc(playerid);
 
 						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
 						{
-							GivePlayerCash(playerid, -500, false);
-							GameTextForPlayer(playerid, "~r~-500$", 5000, 1);
+							GivePlayerCash(playerid, -100, false);
+							GameTextForPlayer(playerid, "~r~-100$", 5000, 1);
 						}
 						return 1;
 					}
 					case 2:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 700) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 400) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_3] += 5;
+						PLAYER_MISC[playerid][MISC_CARTRIDGE_3]++;
 						SavePlayerMisc(playerid);
 
 						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
 						{
-							GivePlayerCash(playerid, -700, false);
-							GameTextForPlayer(playerid, "~r~-700$", 5000, 1);
+							GivePlayerCash(playerid, -400, false);
+							GameTextForPlayer(playerid, "~r~-400$", 5000, 1);
 						}
 						return 1;
 					}
 					case 3:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 850) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 250) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 
 						PLAYER_MISC[playerid][MISC_CARTRIDGE_2] += 5;
 						SavePlayerMisc(playerid);
 
 						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
 						{
-							GivePlayerCash(playerid, -850, false);
-							GameTextForPlayer(playerid, "~r~-850$", 5000, 1);
+							GivePlayerCash(playerid, -250, false);
+							GameTextForPlayer(playerid, "~r~-250$", 5000, 1);
 						}
 						return 1;
 					}
@@ -17218,7 +17218,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0: ShowDialog(playerid, DIALOG_POLICE_WEAPONS);
 					case 1: ShowDialog(playerid, DIALOG_POLICE_ARMOUR);
-					case 2: ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
+					case 2: ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO_STOCK);
 				}
 			}
 			return 1;
@@ -29804,6 +29804,7 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7, bool:equip = f
 	{
 		ResetPlayerWeapons(playerid);
 		GivePlayerWeapon(playerid, weapon_id, ammo);
+		SetPlayerArmedWeapon(playerid, weapon_id);
 	}
 
     SavePlayerWeaponsData(playerid);
