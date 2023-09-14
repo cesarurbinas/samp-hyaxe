@@ -3754,9 +3754,10 @@ PlayerPayday(playerid)
 	return td_icon;
 }*/
 
-GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false)
+GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false, bool:save = false)
 {
-	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
+	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id)
+		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
 	else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;
 
 	PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY] = gettime() + 3;
@@ -3770,6 +3771,12 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false)
 		ResetPlayerWeapons(playerid);
 		GivePlayerWeapon(playerid, weapon_id, ammo);
 		SetPlayerArmedWeapon(playerid, weapon_id);
+	}
+
+	if (save)
+	{
+		SaveActualWeapon(playerid, true);
+		ResetItemBody(playerid);
 	}
 	return 1;
 }

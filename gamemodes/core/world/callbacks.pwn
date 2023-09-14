@@ -26,9 +26,9 @@ public UpdateThePutis()
 forward UpdateWorldTime();
 public UpdateWorldTime()
 {
-	#if DEBUG_MODE == 1
+	/*#if DEBUG_MODE == 1
 		printf("UpdateWorldTime"); // debug juju
-	#endif
+	#endif*/
 
 	SERVER_TIME[1] += 2;
 	if (SERVER_TIME[1] > 60)

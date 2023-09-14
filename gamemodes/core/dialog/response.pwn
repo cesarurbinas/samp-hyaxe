@@ -3649,7 +3649,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 0:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 450) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						GivePlayerWeaponEx(playerid, weapon_id, 50, true);
+						GivePlayerWeaponEx(playerid, weapon_id, 50, false, true);
 
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 50 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
@@ -3669,7 +3669,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 1:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 650) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						GivePlayerWeaponEx(playerid, weapon_id, 100, true);
+						GivePlayerWeaponEx(playerid, weapon_id, 100, false, true);
 
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 100 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
@@ -3689,7 +3689,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 2:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 850) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						GivePlayerWeaponEx(playerid, weapon_id, 250, true);
+						GivePlayerWeaponEx(playerid, weapon_id, 250, false, true);
 
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 200 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
@@ -3709,7 +3709,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 3:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 1350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						GivePlayerWeaponEx(playerid, weapon_id, 300, true);
+						GivePlayerWeaponEx(playerid, weapon_id, 300, false, true);
 
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 300 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);

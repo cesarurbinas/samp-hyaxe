@@ -1279,6 +1279,8 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			}
 			else
 			{
+				PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = 9999;
+				ResetPlayerWeaponsEx(playerid);
 				ResetItemBody(playerid);
 				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Vacio", 2000, 5);
 				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
