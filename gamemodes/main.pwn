@@ -28,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.7 Build 23"
+#define SERVER_VERSION 			"v0.8 Build 1"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -12926,13 +12926,13 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_POLICE_BYC:
 		{
 			new caption[128];
-			format(caption, sizeof caption, "Placa Nº%d | %c. %s", PLAYER_MISC[playerid][MISC_PLACA_PD], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, "Ver últimos registros a BYC\nBuscar BYC de una persona", "Selecc.", "Salir");
+			format(caption, sizeof caption, ""COL_LIGHT_BLUE"Placa Nº%d | %c. %s", PLAYER_MISC[playerid][MISC_PLACA_PD], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME]);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, "Ver últimos registros\nBuscar una persona", "Ver", "Salir");
 			return 1;
 		}
 		case DIALOG_POLICE_BYC_NAME_FIND:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Búsqueda", "Introduce el nombre completo del sospechoso.\n\nUsa el guión bajo para separar nombre y apellido\nPor ejemplo: Nombre_Apellido.", "Buscar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_LIGHT_BLUE"Búsqueda", ""COL_WHITE"Introduce el nombre completo del sospechoso.\nUsa el guión bajo para separar nombre y apellido (Nombre_Apellido).", "Buscar", "Salir");
 			return 1;
 		}
 		case DIALOG_POLICE_BYC_LAST_ALL:
@@ -12970,7 +12970,7 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "BYC", dialog, "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_LIGHT_BLUE"Registro", dialog, "Ver", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_BYC_LAST_PLAYER:
@@ -13008,12 +13008,12 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "BYC", dialog, "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_LIGHT_BLUE"Registro", dialog, "Ver", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_DELETE_BYC:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "BYC", "¿Borrar esto del historial?", "Borrar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_LIGHT_BLUE"Borrar", ""COL_WHITE"¿Borrar esto del historial?", "Si", "No");
 			return 1;
 		}
     	case DIALOG_GIFT:
@@ -25055,7 +25055,7 @@ CheckGraffitiProgress(playerid)
 
 CALLBACK: UpdateGraffitiProgress(playerid)
 {
-	if (IsPlayerPaused(playerid)) return 1;
+	if (IsPlayerPaused(playerid)) return 0;
 
 	if (GetPlayerWeapon(playerid) != 41) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 
@@ -25206,7 +25206,9 @@ UpdateSizeBarMarket(crew_index, init)
 
 CALLBACK: UpdateMarketProgress(playerid)
 {
-	if (IsPlayerPaused(playerid)) return 1;
+	if (IsPlayerPaused(playerid)) return 0;
+	if (GetPlayerInterior(playerid) != 0) return 0;
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
 
 	//Strings
 	new crew_one[64],
@@ -31618,7 +31620,7 @@ TransferPlayerWeapon(from_playerid, slot, to_playerid)
 
 PlayerPayday(playerid)
 {
-	if (IsPlayerPaused(playerid)) return 1;
+	if (IsPlayerPaused(playerid)) return 0;
 	
 	new 
 		str_payday[364],
@@ -34208,6 +34210,10 @@ StartTerritoryAttack(crew_index, territory_index, time)
 	}
 	else format(message, sizeof message, "%s está atacando un territorio en %s.", CREW_INFO[crew_index][crew_NAME], TERRITORIES[territory_index][territory_NAME]);
 
+	new str_text[144];
+	format(str_text, sizeof(str_text), "[TERRITORIO] %s", message);
+	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if (IsPlayerConnected(i))
@@ -34243,6 +34249,10 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 
 		new message[144];
 		format(message, sizeof message, "%s ha conquistado un nuevo territorio.", CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
+
+		new str_text[144];
+		format(str_text, sizeof(str_text), "[TERRITORIO] %s", message);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 
 		new DBResult:rows, query[200];
 		format(query, sizeof(query), "SELECT * FROM `CREW_TERRITORIES` WHERE `ID_TERRITORY` = %d;", TERRITORIES[territory_index][territory_ID]);
@@ -34326,6 +34336,10 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 	if (attackers_in_area <= 0)
 	{
 		format(message, sizeof message, "%s no ha podido completar su conquista.", CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
+
+		new str_text[144];
+		format(str_text, sizeof(str_text), "[TERRITORIO] %s", message);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_LAST_ATTACK] = gettime();
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_FIGHTING] = false;
@@ -35915,32 +35929,32 @@ GetFreePoliceObjectSlot()
 	return -1;
 }
 
-CMD:abyc(playerid, params[])
+CMD:antecedente(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
 	new to_player, reason[128];
-	if (sscanf(params, "us[128]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /abyc [Playerid o nombre] [razon]");
+	if (sscanf(params, "us[128]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /antecedentes <playerid> <razon>");
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 	if (to_player == playerid) return 1;
 
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No se puede añadir byc a este jugador ahora.", 3);
-	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No se puede añadir byc a este jugador porque es policía.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No se puede añadir algo a este jugador ahora.", 3);
+	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No se puede añadir algo a este jugador porque es policía.", 3);
 
 	AddPlayerPoliceHistory(to_player, ACCOUNT_INFO[playerid][ac_NAME], reason);
-	SendClientMessageEx(playerid, COLOR_WHITE, "Se ha añadido el informe al historial policial de %s.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	SendPoliceNotification(sprintf("%s ha actualizado el historial de ~y~%s~w~.", PLAYER_TEMP[playerid][py_RP_NAME], PLAYER_TEMP[to_player][py_RP_NAME]), 4);
 	return 1;
 }
 
-CMD:dbyc(playerid, params[])
+CMD:limpiar(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 11) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
 	new to_player;
-	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dbyc [Playerid o nombre]");
+	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /limpiar <playerid>");
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No se puede eliminar el historial policial de este jugador ahora.", 3);
 
@@ -35948,12 +35962,11 @@ CMD:dbyc(playerid, params[])
 	format(DB_Query, sizeof DB_Query, "DELETE FROM `POLICE_HISTORY` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[to_player][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
-	SendClientMessageEx(playerid, COLOR_WHITE, "Has borrado el historial policial de %s.", PLAYER_TEMP[to_player][py_RP_NAME]);
-	ShowPlayerMessage(playerid, "~y~Historial borrado.", 3);
+	SendPoliceNotification(sprintf("%s ha borrado el historial de ~y~%s~w~.", PLAYER_TEMP[playerid][py_RP_NAME], PLAYER_TEMP[to_player][py_RP_NAME]), 4);
 	return 1;
 }
 
-CMD:byc(playerid, params[])
+CMD:historial(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
