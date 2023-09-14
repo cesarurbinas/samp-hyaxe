@@ -31762,7 +31762,7 @@ OpenMafiaDoor(playerid)
 			{
 				case 19861: range = 3.0;
 				case 974: range = 3.0;
-				case 1495: range = 2.0
+				case 1495: range = 2.0;
 			}
 
 			if (IsPlayerInRangeOfPoint(playerid, range, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
