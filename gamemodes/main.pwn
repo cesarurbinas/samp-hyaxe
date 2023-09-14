@@ -5766,6 +5766,15 @@ CALLBACK: StopDrugEffect(playerid)
     return 1;
 }
 
+CheckRegister(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 2.0, 1879.2662, -1701.0118, 5216.7100))
+	{
+		ShowDialog(playerid, DIALOG_REGISTER_CIVIL);
+	}	
+	return 1;
+}
+
 CheckClubMenu(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
@@ -8200,6 +8209,10 @@ SanAndreas()
 	//medico
 	CreateDynamicPickup(1239, 1, -212.521926, -1739.015014, 675.768737, 2, 3);
 	CreateDynamic3DTextLabel(""COL_WHITE"Punto de control", 0xF7F7F700, -212.521926, -1739.015014, 675.768737, 20.0, .testlos = true, .worldid = 2, .interiorid = 3);
+
+	//registro civil
+	CreateDynamic3DTextLabel(""COL_RED"Registro"COL_WHITE"\nAdquiere un documento o licencia de conducir", 0xF7F7F7FF, 1879.2662, -1701.0118, 5216.7100, 20.0, .testlos = true, .worldid = 0, .interiorid = 6);
+	AddKeyArea(1879.2662, -1701.0118, 1.5, KEY_TYPE_Y);
 
 	//base mafia
 	CreateDynamic3DTextLabel("{a912e2}Family SaintBlood'S\n"COL_WHITE"Equipamiento", 0xF7F7F700, 726.2478, -1276.3830, 13.5662, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -14093,6 +14106,11 @@ ShowDialog(playerid, dialogid)
 			if (listitem == 0) return ShowPlayerMessage(playerid, "~r~No hay llaves para eliminar", 4);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccione el usuario", dialog, "Eliminar", "Atrás");
 		}
+		case DIALOG_REGISTER_CIVIL:
+    	{
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", ""COL_WHITE"Documento\t"COL_GREEN"$500\n"COL_WHITE"Licencia de conducir\t"COL_GREEN"$1000", "Comprar", "Cerrar");
+    		return 1;
+    	}
 		default: return 0;
 	}
 	return 1;
@@ -22927,6 +22945,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else ShowDialog(playerid, DIALOG_VEHICLE_KEYS);
 		}
+		case DIALOG_REGISTER_CIVIL:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0:
+					{
+						if (500 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+					}
+					case 1:
+					{
+						if (1000 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+					}
+				}
+			}
+		}
 	}
 	return 0;
 }
@@ -26637,6 +26672,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckAmbulance(playerid);
         CheckBoxClub(playerid);
         CheckClubMenu(playerid);
+        CheckRegister(playerid);
 
         for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
 		{
@@ -32842,7 +32878,7 @@ CMD:sexo(playerid, params[])
 	GetPlayerPos(params[0], x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 
-	new str_text[144]
+	new str_text[144];
 	format(str_text, sizeof(str_text), "* %s le hace sexo oral a %s.", PLAYER_TEMP[playerid][py_RP_NAME], PLAYER_TEMP[params[0]][py_RP_NAME]);
 	ProxDetector(playerid, 15.0, str_text, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 85);
 
@@ -33035,7 +33071,7 @@ CMD:saludar(playerid, params[])
 	GetPlayerPos(params[0], x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 30.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 
-	new str_text[144]
+	new str_text[144];
 	format(str_text, sizeof(str_text), "* %s saluda a %s.", PLAYER_TEMP[playerid][py_RP_NAME], PLAYER_TEMP[params[0]][py_RP_NAME]);
 	ProxDetector(playerid, 15.0, str_text, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 85);
 

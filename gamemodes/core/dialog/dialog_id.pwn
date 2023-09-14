@@ -306,6 +306,11 @@ enum
 	DIALOG_PRODUCT_DELETE,
 	DIALOG_VEHICLE_KEYS,
 	DIALOG_VEHICLE_KEYS_ADD,
+<<<<<<< HEAD
 	DIALOG_VEHICLE_KEYS_DEL
 >>>>>>> e31d847 (Compartir llaves de vehiculos terminado)
+=======
+	DIALOG_VEHICLE_KEYS_DEL,
+	DIALOG_REGISTER_CIVIL
+>>>>>>> a74d6aa (registro civil)
 };
