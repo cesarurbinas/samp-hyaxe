@@ -4348,7 +4348,7 @@ public SV_BOOL:OnPlayerVoice(SV_UINT:playerid, SV_PACKET:packet, SV_UINT:volume)
 
 		for(new i = 0; i < MAX_PLAYERS; i++)
 		{
-			if (playerid == i) continue;
+			//if (playerid == i) continue;
 			if (!IsPlayerConnected(i)) continue; 
 			if (GetPlayerState(i) == PLAYER_STATE_SPECTATING) continue;
 			if (VALID_CLIENT[i] == false) continue;
@@ -5634,7 +5634,7 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
     return 1; 
 }
 
-ShowFurnitureMenu(playerid)
+/*ShowFurnitureMenu(playerid)
 {
 	ShowPlayerMenu(playerid, PROPERTY_FURNITURE, "Personalizar");
 
@@ -5649,7 +5649,7 @@ ShowFurnitureMenu(playerid)
 
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 	return 1;
-}
+}*/
 
 ShowPropertyOptions(playerid)
 {
@@ -7363,7 +7363,7 @@ CALLBACK: GiveAutoGift()
 public OnGameModeInit()
 {
 	printf("ongamemodeini"); // debug juju
-	sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 0.0, 0.0);
+	sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 5.0, 5.0);
 
     SetWeaponDamage(WEAPON_SNIPER, DAMAGE_TYPE_RANGE, 7.0, 10.0, 25.0, 40.0, 30.0); //sniper
     SetWeaponDamage(WEAPON_VEHICLE, DAMAGE_TYPE_RANGE, 50.0, 10.0, 50.0, 40.0, 50.0); //vehiculo
@@ -36519,7 +36519,7 @@ CMD:cargos(playerid, params[])
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 1) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
 	new to_player;
-	if (sscanf(params, "uds[32]", to_player, level, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /cargos <ID o nombre>");
+	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /cargos <ID o nombre>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (to_player == playerid) return ShowPlayerMessage(playerid, "~r~No puedes verte a tu mismo");
 	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
