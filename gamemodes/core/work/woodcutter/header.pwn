@@ -64,7 +64,8 @@ enum E_CART_DATA {
 }
 new LogCarts[MAX_PLAYERS][E_CART_DATA];
 
-new g_WoodcutterArea;
+new g_WoodcutterArea,
+	g_iSawmillStock = 0;
 
 forward RegenerateTree(treeid);
 forward StartCutting(playerid, treeid);
