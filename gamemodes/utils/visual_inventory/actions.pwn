@@ -106,8 +106,21 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 					new DB_Query[132];
 
-					if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] =< 0) format(DB_Query, sizeof DB_Query, "DELETE FROM `PROPERTY_STORAGE` WHERE `ID` = '%d';", PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]);
-					else format(DB_Query, sizeof DB_Query, "UPDATE `PROPERTY_STORAGE` SET `EXTRA` = '%d' WHERE `ID` = '%d';", PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]);
+					if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] =< 0)
+					{
+						format(DB_Query, sizeof DB_Query,
+							"DELETE FROM `PROPERTY_STORAGE` WHERE `ID` = '%d';", 
+							PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
+						);
+					}
+					else
+					{
+						format(DB_Query, sizeof DB_Query,
+							"UPDATE `PROPERTY_STORAGE` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
+							PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot],
+							PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
+						);
+					}
 
 					db_free_result(db_query(Database, DB_Query));
 
