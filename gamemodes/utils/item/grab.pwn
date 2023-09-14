@@ -1,20 +1,20 @@
-SubtractItem(playerid, type, slot)
+SubtractItem(playerid, type, slot, ammount = 1)
 {
 	switch(type)
 	{
-		case 0: return PLAYER_MISC[playerid][MISC_BOTIKIN] -= 1;
-		case 1: return PLAYER_MISC[playerid][MISC_MEDICINE] -= 1;
-		case 2: return PLAYER_MISC[playerid][MISC_VENDAS] -= 1;
-		case 3: return PLAYER_MISC[playerid][MISC_CANNABIS] -= 1;
-		case 4: return PLAYER_MISC[playerid][MISC_CRACK] -= 1;
+		case 0: return PLAYER_MISC[playerid][MISC_BOTIKIN] -= ammount;
+		case 1: return PLAYER_MISC[playerid][MISC_MEDICINE] -= ammount;
+		case 2: return PLAYER_MISC[playerid][MISC_VENDAS] -= ammount;
+		case 3: return PLAYER_MISC[playerid][MISC_CANNABIS] -= ammount;
+		case 4: return PLAYER_MISC[playerid][MISC_CRACK] -= ammount;
 		case 5: return PLAYER_MISC[playerid][MISC_FUEL_DRUM] = 0;
-		case 6: return PLAYER_MISC[playerid][MISC_SEED_MEDICINE] -= 1;
-		case 7: return PLAYER_MISC[playerid][MISC_SEED_CANNABIS] -= 1;
-		case 8: return PLAYER_MISC[playerid][MISC_SEED_CRACK] -= 1;
-		case 9: return PLAYER_MISC[playerid][MISC_CARTRIDGE_1] -= 1;
-		case 10: return PLAYER_MISC[playerid][MISC_CARTRIDGE_2] -= 1;
-		case 11: return PLAYER_MISC[playerid][MISC_CARTRIDGE_3] -= 1;
-		case 12: return PLAYER_MISC[playerid][MISC_CARTRIDGE_4] -= 1;
+		case 6: return PLAYER_MISC[playerid][MISC_SEED_MEDICINE] -= ammount;
+		case 7: return PLAYER_MISC[playerid][MISC_SEED_CANNABIS] -= ammount;
+		case 8: return PLAYER_MISC[playerid][MISC_SEED_CRACK] -= ammount;
+		case 9: return PLAYER_MISC[playerid][MISC_CARTRIDGE_1] -= ammount;
+		case 10: return PLAYER_MISC[playerid][MISC_CARTRIDGE_2] -= ammount;
+		case 11: return PLAYER_MISC[playerid][MISC_CARTRIDGE_3] -= ammount;
+		case 12: return PLAYER_MISC[playerid][MISC_CARTRIDGE_4] -= ammount;
 		case 13: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
 		case 14: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
 		case 15: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
@@ -36,10 +36,10 @@ SubtractItem(playerid, type, slot)
 		case 41: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
 		case 43: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
 		case 46: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 51: return PLAYER_MISC[playerid][MISC_ROD] -= 1;
-		case 52: return PLAYER_MISC[playerid][MISC_MALLET] -= 1;
-		case 53: return PLAYER_MISC[playerid][MISC_FIXKIT] -= 1;
-		case 54: return PLAYER_MISC[playerid][MISC_JOINT] -= 1;
+		case 51: return PLAYER_MISC[playerid][MISC_ROD] -= ammount;
+		case 52: return PLAYER_MISC[playerid][MISC_MALLET] -= ammount;
+		case 53: return PLAYER_MISC[playerid][MISC_FIXKIT] -= ammount;
+		case 54: return PLAYER_MISC[playerid][MISC_JOINT] -= ammount;
 	}
 	return 1;
 }

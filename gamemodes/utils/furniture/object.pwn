@@ -110,22 +110,18 @@ AddPropertyObject(playerid, modelid, property_id, name[], type, interior, world)
 		PROPERTY_OBJECT[ slot ][pobj_INTERIOR]
 	);
 
-	Result = db_query(Database, "SELECT * FROM `PROPERTY_OBJECTS`;");
-	PROPERTY_OBJECT[ slot ][pobj_DB_ID] = db_num_rows(Result);
-	db_free_result(Result);
-
 	format(DB_Query, sizeof DB_Query,
 	"\
 		INSERT INTO `PROPERTY_OBJECTS`\
 		(\
-			`ID`, `ID_PROPERTY`, `MODELID`, `TYPE`, `X`, `Y`, `Z`, `RX`, `RY`, `RZ`, `NAME`\
+			`ID_PROPERTY`, `MODELID`, `TYPE`, `X`, `Y`, `Z`, `RX`, `RY`, `RZ`, `NAME`\
 		)\
 		VALUES\
 		(\
-			'%d', '%d', '%d', '%d', '%f', '%f', '%f', '%f', '%f', '%f', '%s'\
+			'%d', '%d', '%d', '%f', '%f', '%f', '%f', '%f', '%f', '%s'\
 		);\
+		SELECT MAX(`ID`) FROM `PROPERTY_OBJECTS`;\
 	",
-		PROPERTY_OBJECT[ slot ][pobj_DB_ID],
 		PROPERTY_OBJECT[ slot ][pobj_PROPERTY_ID],
 		PROPERTY_OBJECT[ slot ][pobj_MODELID],
 		PROPERTY_OBJECT[ slot ][pobj_TYPE],
@@ -137,7 +133,9 @@ AddPropertyObject(playerid, modelid, property_id, name[], type, interior, world)
 		PROPERTY_OBJECT[ slot ][pobj_ROTATION][2],
 		PROPERTY_OBJECT[ slot ][pobj_NAME]
 	);
-	db_free_result(db_query(Database, DB_Query));
+	db_query(Database, DB_Query);
+	if (db_num_rows(Result)) PROPERTY_OBJECT[ slot ][pobj_DB_ID] = db_get_field_int(Result, 0);
+	db_free_result(Result);
 
 	PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] = slot;
 	PLAYER_TEMP[playerid][py_EDITING_OBJ] = PROPERTY_OBJECT[ slot ][pobj_ID];
@@ -182,11 +180,6 @@ UpdatePropertyObject(index, objectid)
 		PROPERTY_OBJECT[ index ][pobj_ROTATION][2],
 		PROPERTY_OBJECT[ index ][pobj_DB_ID]
 	);
-	print("--------------------------------------------");
-	print("--------------------------------------------");
-	print(DB_Query);
-	print("--------------------------------------------");
-	print("--------------------------------------------");
 	db_free_result(db_query(Database, DB_Query));
 	return 1;
 }

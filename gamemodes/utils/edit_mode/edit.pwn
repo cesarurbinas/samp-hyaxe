@@ -1,6 +1,6 @@
 EditingMode(playerid, objectid)
 {
-	ShowPlayerNotification(playerid, "~w~Mover/Rotar: ~r~WASD~w~~n~Subir: ~r~C~w~~n~Bajar: ~r~SPACE~w~~n~Cambiar modo: ~r~H~w~~n~Salir: ~r~ALT", 12);
+	ShowPlayerNotification(playerid, "~w~Mover/Rotar: ~r~WASD~w~~n~Subir: ~r~C~w~~n~Bajar: ~r~SPACE~w~~n~Cambiar modo: ~r~H~w~~n~Salir: ~r~ALT      ", 12);
 
 	new Float:pos[3];
 	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);

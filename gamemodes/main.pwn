@@ -4871,8 +4871,11 @@ ShowPropertyOptions(playerid)
         {
             if (PROPERTY_INFO[info[1]][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
             {
-                PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] = info[1];
-                ShowPropertyMenu(playerid);
+            	if (!PLAYER_TEMP[playerid][py_EDITING_MODE])
+            	{
+                	PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] = info[1];
+                	ShowPropertyMenu(playerid);
+                }
             }
             else return 0;
         }
@@ -5709,15 +5712,6 @@ Log(const nombre[], const texto[])
     fclose(arc);
     return 1;
 }
-
-/*CMD:editmodetestxd(playerid, params[])
-{
-	new Float:pos[3];
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-	PLAYER_TEMP[playerid][py_EDITING_OBJ] = CreateDynamicObject(2738, pos[0] + 0.6, pos[1] + 0.6, pos[2], 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-	EditingMode(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
-	return 1;
-}*/
 
 CALLBACK: PurgeAnnounce()
 {
@@ -8275,6 +8269,41 @@ CMD:vender(playerid, params[])
 		return 1;
 	}
 	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender hycoins <id> <cantidad> <precio>");
+	return 1;
+}
+
+CMD:tirar(playerid, params[])
+{
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
+	if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2", 2);
+
+	new ammount;
+	if (sscanf(params, "d", ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tirar <cantidad>");
+	if (ammount <= 0 || ammount > 1000) return ShowPlayerMessage(playerid, "~r~La cantidad no es válida.", 3);
+
+	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+	{
+		new 
+			Float:pos[3],
+			slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
+
+		if (ammount > PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad", 4);
+		if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50) return 0;
+
+		GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
+		
+		if (!PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+		{
+			CreateDropItem(GetItemObjectByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), PLAYER_TEMP[playerid][py_NAME], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], ammount);
+			
+			SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot, ammount);
+			ResetItemBody(playerid);
+			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]--;
+		}
+		else ShowPlayerMessage(playerid, "~r~No puedes hacerlo con ese objeto", 4);
+	}
+	else ShowPlayerMessage(playerid, "~r~No tienes un item en la mano", 4);
 	return 1;
 }
 
@@ -12380,7 +12409,7 @@ ShowDialog(playerid, dialogid)
 		{
 			new caption[64];
 			format(caption, 64, ""COL_RED"%s", PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar\nVender\n", "Ver", "Atrás");	
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar\nVender\n", "Ver", "Atrás");
 		}
 		default: return 0;
 	}
@@ -24187,7 +24216,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 	if(PRESSED(KEY_CTRL_BACK))
 	{
-		if(PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 			DropItemSlot(playerid);
 	}
 
@@ -30000,7 +30029,6 @@ SavePlayerWeaponsData(playerid)
     	new DB_Query[128];
     	format(DB_Query, sizeof(DB_Query), "UPDATE `PLAYER_WEAPONS` SET `WEAPON_ID` = '%d', `AMMO` = '%d' WHERE `ID_WEAPON` = '%d';", PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO], PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]);
     	db_free_result(db_query(Database, DB_Query));
-    	//printf("save: id: %d, ammo: %d, db_id: %d", PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO], PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]);
   	}
   	return 1;
 }
@@ -34391,6 +34419,9 @@ flags:setcrack(CMD_OPERATOR)
 flags:setmedis(CMD_OPERATOR)
 flags:exproperty(CMD_MODERATOR4)
 flags:gotoproperty(CMD_MODERATOR4)
+flags:comandosadmin(CMD_HELPER)
+flags:freezedetect(CMD_MODERATOR2)
+flags:dlply(CMD_MODERATOR2)
 flags:setpass(CMD_MODERATOR4)
 flags:setip(CMD_MODERATOR4)
 flags:accsaveall(CMD_MODERATOR4)
@@ -34400,6 +34431,8 @@ flags:eproperty(CMD_OPERATOR)
 flags:cproperty(CMD_OPERATOR)
 flags:eco(CMD_OPERATOR)
 flags:darsu(CMD_OPERATOR)
+flags:jailoff(CMD_MODERATOR)
+flags:unjailloff(CMD_MODERATOR)
 flags:setearsu(CMD_ADMIN)
 flags:darvip(CMD_OPERATOR)
 flags:darskin(CMD_MODERATOR4)
@@ -34409,7 +34442,7 @@ flags:ls(CMD_MODERATOR)
 flags:darmaverick(CMD_OPERATOR)
 flags:explode(CMD_OPERATOR)
 flags:jetpack(CMD_MODERATOR2)
-flags:explosionbullet(CMD_MODERATOR2)
+flags:explosionbullet(CMD_ADMIN)
 flags:ultradebug(CMD_MODERATOR)
 flags:lsdb(CMD_MODERATOR)
 flags:vpcar(CMD_ADMIN)
@@ -34418,10 +34451,3 @@ flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_OWNER)
 flags:depositveh(CMD_MODERATOR)
-
-// dije que komandos by jeiks
-flags:jailoff(CMD_MODERATOR)
-flags:unjailloff(CMD_MODERATOR)
-flags:comandosadmin(CMD_HELPER)
-flags:freezedetect(CMD_MODERATOR2) // Detecta freezecolls
-flags:dlply(CMD_MODERATOR2)
