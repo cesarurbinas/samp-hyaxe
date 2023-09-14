@@ -2579,12 +2579,12 @@ CMD:rev(playerid, params[])
 	if (CHARACTER_INFO[to_player][ch_STATE] != ROLEPLAY_STATE_CRACK) return SendClientMessage(playerid, COLOR_WHITE, "Esta persona no está herida.");
 
 	CHARACTER_INFO[to_player][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-	if (ACCOUNT_INFO[to_player][ac_SU]) SetPlayerHealthEx(playerid, 50.0);
+	if (ACCOUNT_INFO[to_player][ac_SU]) SetPlayerHealthEx(to_player, 50.0);
 	else SetPlayerHealthEx(to_player, 25.0);
 
 	ApplyAnimation(to_player, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 	ClearAnimations(to_player);
-	DisablePlayerMedicMark(playerid);
+	DisablePlayerMedicMark(to_player);
 
 	SendCmdLogToAdmins(playerid, "rev", params);
 	return 1;
