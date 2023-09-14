@@ -53,7 +53,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 	}
 
 	new url[128];
-	format(url, sizeof(url), "http://127.0.0.1:12345%s", data); // /pipe/%d
+	format(url, sizeof(url), "127.0.0.1:12345%s", data); // /pipe/%d
 
 	if (PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY])
 	{

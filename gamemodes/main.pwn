@@ -8048,6 +8048,17 @@ CMD:stop(playerid, params[])
 	return 1;
 }
 
+CMD:mp3(playerid, params[])
+{
+	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
+	if(!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes ningún GPS, ve a un 24/7.", 3, 1085);
+	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
+	
+	PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
+	ShowDialog(playerid, DIALOG_PLAYER_MP3);
+	return 1;
+}
+
 CMD:pass(playerid, params[])
 {
 	ShowDialog(playerid, DIALOG_CHANGE_PASSWORD);
@@ -9200,7 +9211,7 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la propiedad", ""COL_WHITE"Ingresa el nuevo nombre de la propiedad.", ">>", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "MP3 - Buscar una canción", "Introduce el nombre de un video de YouTube que quieras reproducir.\n\nPor ejemplo: Bruh Sound Effect #2", "Buscar", "Salir");
+		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "MP3", "Introduce el nombre de un video de YouTube que quieras reproducir.\n\nPor ejemplo: Bruh Sound Effect #2", "Buscar", "Salir");
 		case DIALOG_BUY_VEHICLE:
 		{
 			if (!GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_VALID]) return 0;
