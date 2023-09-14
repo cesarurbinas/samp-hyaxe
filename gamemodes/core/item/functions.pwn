@@ -361,6 +361,27 @@ SubtractItem(playerid, type, extra = 1)
 			already_exists
 		);
 		db_free_result(db_query(Database, DB_Query));
+
+		format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID` = '%d';", already_exists);
+		new DBResult:Result = db_query(Database, DB_Query);
+
+		if (db_num_rows(Result))
+		{
+			for(new i; i < db_num_rows(Result); i++ )
+			{
+				new amount = db_get_field_assoc_int(Result, "EXTRA");
+				if (amount <= 0)
+				{
+					format(DB_Query, sizeof DB_Query,
+						"DELETE FROM `PLAYER_INVENTORY` WHERE `ID` = '%d';",
+						already_exists
+					);
+					db_free_result(db_query(Database, DB_Query));
+				}
+				break;
+			}
+			db_free_result(Result);
+		}
 	}
 	
 	if (already_exists && ITEM_INFO[type][item_SINGLE_SLOT])
