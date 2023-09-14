@@ -115,6 +115,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			
 					SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 					RemovePlayerAttachedObject(playerid, 1);
+					SetPlayerAttachedObject(playerid, 2, 341, 6, 0.026999, -0.015000, -0.096999, 0.000000, -35.600006, 0.000000, 1.000000, 1.000000, 1.000000);
 					
 					PLAYER_TEMP[playerid][py_HOLDING_CART] = false;
 				}
@@ -127,6 +128,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						if(IsPlayerInRangeOfPoint(playerid, 1.5, x, y, z))
 						{
 							RemovePlayerAttachedObject(playerid, 1);
+							RemovePlayerAttachedObject(playerid, 2);
 							SetPlayerAttachedObject(playerid, 1, 1458, 6, 1.840000, -0.546001, 0.419000, 62.100097, -158.799804, 78.600196, 0.474999, 1.000000, 1.000000);
 							SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 							DestroyDynamicObject(LogCarts[playerid][cart_OBJECT]);
