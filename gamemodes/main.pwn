@@ -21999,7 +21999,7 @@ SaveUserData(playerid)
 {
 	if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
-	new DB_Query[1800];
+	new DB_Query[1950];
 	format(DB_Query, sizeof(DB_Query), "\
 		UPDATE `CUENTA` SET \
 		`IP` = '%q',\
@@ -22035,7 +22035,7 @@ SaveUserData(playerid)
 		`HUNGRY` = '%f',\
 		`THIRST` = '%f',\
 		`BLACK_MARKET_LEVEL` = '%d',\
-		`POLICE_JAIL_TIME` = '%d',\
+		`POLICE_JAIL_TIME` = '%d', \
 		`POLICE_JAIL_ID` = '%d', \
 		`JAIL_REASON` = '%q', \
 		`JAILED_BY` = %d \
