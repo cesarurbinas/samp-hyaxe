@@ -34168,6 +34168,17 @@ ShowPlayerStats(playerid, pid)
 	new caption[48], dialog[600 + (27 * sizeof(work_info))];
 	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
 
+	new
+		drive[3],
+		dni[64]
+	;
+
+	if (PLAYER_MISC[playerid][MISC_DRIVE] != 0) drive = "Si";
+	else drive = "No";
+
+	if (PLAYER_MISC[playerid][MISC_DNI]) format(dni, sizeof(dni), "%d", PLAYER_MISC[playerid][MISC_DNI]);
+	else dni = "No";
+
 	format(dialog, sizeof dialog,
 
 		"\
@@ -34187,8 +34198,8 @@ ShowPlayerStats(playerid, pid)
 	    "COL_WHITE"  Jails: "COL_RED"%d\n\
 	    "COL_WHITE"  Dudas enviadas: "COL_GREEN"%d\n\
 		"COL_WHITE"  VIP: "COL_YELLOW"%s\n\
-		"COL_WHITE"  DNI: "COL_YELLOW"%s\n\
-		"COL_WHITE"  Licencia de conducir: "COL_YELLOW"%s",
+		"COL_WHITE"  DNI: %s\n\
+		"COL_WHITE"  Licencia de conducir: %s",
 
 			ACCOUNT_INFO[pid][ac_ID],
 			ACCOUNT_INFO[pid][reg_DATE],
@@ -34205,7 +34216,9 @@ ShowPlayerStats(playerid, pid)
 			PLAYER_MISC[pid][MISC_SANS],
 			PLAYER_MISC[pid][MISC_JAILS],
 			PLAYER_MISC[pid][MISC_DOUBT_SENT],
-			getPlayerVip(pid)
+			getPlayerVip(pid),
+			dni,
+			drive
 	);
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
