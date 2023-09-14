@@ -111,6 +111,13 @@ public NPC_Update()
 	return 1;
 }
 
+public FCNPC_OnSpawn(npcid)
+{
+	SetPlayerTeam(playerid, DEFAULT_TEAM);
+	g_rgbitsPlayerFlags[playerid] &= ~e_bmPlayerDead;
+	return 1;
+}
+
 public FCNPC_OnDeath(npcid, killerid, reason)
 {
 	new mission = NPC_INFO[npcid][ni_MISSION];
@@ -172,6 +179,14 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 			}
 		}
 	}
+
+	if (g_rgbitsPlayerFlags[playerid] & e_bmPlayerDead)
+		return 0;
+	
+	g_rgbitsPlayerFlags[playerid] |= e_bmPlayerDead;
+
+	g_iPlayerHealth[playerid] = 0;
+	g_iPlayerArmour[playerid] = 0;
 	return 1;
 }
 
@@ -201,6 +216,11 @@ public FCNPC_OnTakeDamage(npcid, issuerid, Float:amount, weaponid, bodypart)
 			}
 		}
 	}
+
+	if (amount <= 0.9) amount = 1.0;
+
+	OnPlayerDamage(npcid, issuerid, floatround(amount), weaponid, bodypart);
+	Damage_Send(npcid, issuerid, amount, weaponid);
 	return 1;
 }
 

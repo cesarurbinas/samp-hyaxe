@@ -157,20 +157,21 @@ CheckMissionPlace(playerid)
                             {
                                 PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
                                 CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-                                g_rgbitsPlayerFlags[ SWEET_DEALERS[i][sd_ID] ] &= ~e_bmPlayerDead;
 
                                 SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 100.0);
                                 FCNPC_GiveHealth(SWEET_DEALERS[i][sd_ID], 100.0);
                                 
                                 FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
 
-                                FCNPC_Spawn(
+                                FCNPC_Respawn(SWEET_DEALERS[i][sd_ID]);
+
+                                /*FCNPC_Spawn(
                                     SWEET_DEALERS[i][sd_ID],
                                     DEALER_SKIN[ random(sizeof(DEALER_SKIN))],
                                     SWEET_DEALERS[i][sd_X],
                                     SWEET_DEALERS[i][sd_Y],
                                     SWEET_DEALERS[i][sd_Z]
-                                );
+                                );*/
 
                                 FCNPC_SetPosition(
                                     SWEET_DEALERS[i][sd_ID],
