@@ -6719,7 +6719,7 @@ SanAndreas()
 		new label_str[128];
 		format(label_str, sizeof label_str, ""COL_WHITE"%s", Clothing_Shop_Positions[i][clothing_shop_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xF7F7F700, Clothing_Shop_Positions[i][clothing_shop_X], Clothing_Shop_Positions[i][clothing_shop_Y], Clothing_Shop_Positions[i][clothing_shop_Z] + 0.25, 10.0, .testlos = true, .interiorid = Clothing_Shop_Positions[i][clothing_shop_INTERIOR]);
-		AddKeyArea(Clothing_Shop_Positions[i][clothing_shop_X], Clothing_Shop_Positions[i][clothing_shop_Y], 0.8, "Y");
+		AddKeyArea(Clothing_Shop_Positions[i][clothing_shop_X], Clothing_Shop_Positions[i][clothing_shop_Y], 0.8, KEY_TYPE_Y);
 	}
 
 	// 3D Texts Pedir comida
@@ -6728,14 +6728,14 @@ SanAndreas()
 		new label_str[128];
 		format(label_str, sizeof label_str, ""COL_RED"%s\n"COL_WHITE"7 productos disponibles", Fast_Food_Positions[i][fast_food_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xF7F7F7FF, Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], Fast_Food_Positions[i][fast_food_Z] + 0.25, 10.0, .testlos = true, .interiorid = Fast_Food_Positions[i][fast_food_INTERIOR]);
-		AddKeyArea(Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], 0.8, "Y");
+		AddKeyArea(Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], 0.8, KEY_TYPE_Y);
 	}
 
 	//Cajeros
 	for(new i = 0; i < sizeof ATM_BANK; i ++)
 	{
 		CreateDynamicObject(19324, ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], ATM_BANK[i][atm_Z], ATM_BANK[i][atm_RX], ATM_BANK[i][atm_RY], ATM_BANK[i][atm_RZ], ATM_BANK[i][atm_WORLD], ATM_BANK[i][atm_INTERIOR]);
-		AddKeyArea(ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], 0.8, "Y");
+		AddKeyArea(ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], 0.8, KEY_TYPE_Y);
 
 		ATM_BANK[i][atm_X] += (-0.5 * floatsin(-(ATM_BANK[i][atm_RZ] - 90.0), degrees));
 		ATM_BANK[i][atm_Y] += (-0.5 * floatcos(-(ATM_BANK[i][atm_RZ] - 90.0), degrees));
@@ -6752,7 +6752,7 @@ SanAndreas()
 	for(new i = 0; i < sizeof Fuel_Stations; i++)
 	{
 		CreateDynamic3DTextLabel(""COL_RED"Gasolinera\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, Fuel_Stations[i][0], Fuel_Stations[i][1], Fuel_Stations[i][2] + 0.25, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
-		AddKeyArea(Fuel_Stations[i][0], Fuel_Stations[i][1], 1.5, "Y");
+		AddKeyArea(Fuel_Stations[i][0], Fuel_Stations[i][1], 1.5, KEY_TYPE_Y);
 	}
 	//Mercado negro
 	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Armas)\n"COL_WHITE"7 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = 20, .worldid = 0);
@@ -6981,13 +6981,13 @@ SanAndreas()
 	for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
 	{
 		TELE_MIRRORS[i][teleview_OBJECT_ID] = CreateDynamicObject(TELE_MIRRORS[i][teleview_MODELID], TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], TELE_MIRRORS[i][teleview_Z], 0.0, 0.0, TELE_MIRRORS[i][teleview_RZ], TELE_MIRRORS[i][teleview_WORLD], TELE_MIRRORS[i][teleview_INTERIOR]);
-		AddKeyArea(TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], 0.8, "Y");
+		AddKeyArea(TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], 0.8, KEY_TYPE_Y);
 	}
 
 	for(new i = 0; i != sizeof HOTAIR_BALLOONS; i ++)
 	{
 		HOTAIR_BALLOONS[i][balloon_OBJECT_ID] = CreateDynamicObject(HOTAIR_BALLOONS[i][balloon_MODELID], HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], HOTAIR_BALLOONS[i][balloon_Z], 0.0, 0.0, HOTAIR_BALLOONS[i][balloon_RZ], HOTAIR_BALLOONS[i][balloon_WORLD], HOTAIR_BALLOONS[i][balloon_INTERIOR]);
-		AddKeyArea(HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], 0.8, "Y");
+		AddKeyArea(HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], 0.8, KEY_TYPE_Y);
 	}
 
 	CreateDynamic3DTextLabel(""COL_RED"Balloon Express\n"COL_WHITE"Viaje en globo aerostático (200$)", 0xF7F7F7FF, -370.339721, -1634.205932, 25.057666, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -7014,7 +7014,7 @@ SanAndreas()
 				CreateDynamicPickup(1314, 1, obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], obtain_work_coords[i][obtain_work_Z], COLOR_WHITE, obtain_work_coords[i][obtain_work_INTERIOR]);
 				if (obtain_work_coords[i][obtain_work_MAP_ICON]) CreateDynamicMapIcon(obtain_work_coords[i][obtain_work_MAP_ICON_X], obtain_work_coords[i][obtain_work_MAP_ICON_Y], obtain_work_coords[i][obtain_work_MAP_ICON_Z], obtain_work_coords[i][obtain_work_MAP_ICON_ID], COLOR_WHITE, 0, 0);
 				
-				AddKeyArea(obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], 0.8, "Y");
+				AddKeyArea(obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], 0.8, KEY_TYPE_Y);
 			}
 		}
 	}
@@ -7024,7 +7024,7 @@ SanAndreas()
 	{
 		CreateDynamic3DTextLabel(""COL_WHITE"Punto de carga", 0xF7F7F700, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2], 15.0, .testlos = true, .worldid = 0, .interiorid = 0);
 		CreateDynamicPickup(19607, 1, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2], 0, 0);
-		AddKeyArea(LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], 1.8, "H");
+		AddKeyArea(LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], 1.8, KEY_TYPE_H);
 	}
 
 	//Mecánico
@@ -7053,7 +7053,7 @@ SanAndreas()
 		new str_text[128];
 		format(str_text, sizeof(str_text), ""COL_RED"Levantador nº %d\n"COL_WHITE"Acércate para usar", i + 1);
 		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2] + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-		AddKeyArea(MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], 1.5, "H");
+		AddKeyArea(MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], 1.5, KEY_TYPE_H);
 	}
 
 	CreateDynamic3DTextLabel(""COL_RED"Taller mecánico\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 1060.838256, -917.609741, 43.124679, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -7137,33 +7137,33 @@ SanAndreas()
 	Harvest_Area = CreateDynamicRectangle(-428.336059, -1667.658569, -116.565414, -1220.122070, 0, 0);
 
 	// Key areas
-	AddKeyArea(-27.964675, -89.948631, 0.8, "Y");
-	AddKeyArea(2125.901123, -65.776679, 0.8, "Y");
-	AddKeyArea(1060.838256, -917.609741, 0.8, "Y");
-	AddKeyArea(509.910125, -708.205383, 0.8, "Y");
-	AddKeyArea(2157.049560, -92.550987, 0.8, "Y");
-	AddKeyArea(-198.002197, -1762.759643, 0.8, "Y");
-	AddKeyArea(2164.021484, -1164.398925, 0.8, "Y");
-	AddKeyArea(2162.462158, -1169.053222, 0.8, "Y");
-	AddKeyArea(2310.057128, -1789.786865, 0.8, "Y");
-	AddKeyArea(219.244018, 69.982215, 0.8, "Y");
-	AddKeyArea(262.945587, 109.785270, 0.8, "Y");
-	AddKeyArea(222.683914, 186.956054, 0.8, "Y");
-	AddKeyArea(407.302886, 2531.673095, 0.8, "Y");
-	AddKeyArea(219.244018, 69.982215, 0.8, "Y");
-	AddKeyArea(-382.580657, -1426.404296, 0.8, "Y");
-	AddKeyArea(1796.071655, -1414.565307, 1.5, "H");
-	AddKeyArea(1207.234375, -29.231435, 1.5, "H");
-	AddKeyArea(496.589172, -76.033905, 1.5, "H");
-	AddKeyArea(1795.293823, -1407.773681, 1.5, "H");
-	AddKeyArea(-370.339721, -1634.205932, 0.8, "Y");
-	AddKeyArea(1722.2310, -1253.8021, 0.8, "Y");
-	AddKeyArea(726.2478, -1276.3830, 0.8, "Y");
-	AddKeyArea(976.715881, -1442.519775, 0.8, "Y");
-	AddKeyArea(3855.066162, -1290.975585, 0.8, "Y");
-	AddKeyArea(1626.089355, -2174.786132, 0.8, "H");
-	AddKeyArea(-212.521926, -1739.015014, 0.8, "H");
-	AddKeyArea(-11.283934, 88.862136, 0.8, "Y");
+	AddKeyArea(-27.964675, -89.948631, 0.8, KEY_TYPE_Y);
+	AddKeyArea(2125.901123, -65.776679, 0.8, KEY_TYPE_Y);
+	AddKeyArea(1060.838256, -917.609741, 0.8, KEY_TYPE_Y);
+	AddKeyArea(509.910125, -708.205383, 0.8, KEY_TYPE_Y);
+	AddKeyArea(2157.049560, -92.550987, 0.8, KEY_TYPE_Y);
+	AddKeyArea(-198.002197, -1762.759643, 0.8, KEY_TYPE_Y);
+	AddKeyArea(2164.021484, -1164.398925, 0.8, KEY_TYPE_Y);
+	AddKeyArea(2162.462158, -1169.053222, 0.8, KEY_TYPE_Y);
+	AddKeyArea(2310.057128, -1789.786865, 0.8, KEY_TYPE_Y);
+	AddKeyArea(219.244018, 69.982215, 0.8, KEY_TYPE_Y);
+	AddKeyArea(262.945587, 109.785270, 0.8, KEY_TYPE_Y);
+	AddKeyArea(222.683914, 186.956054, 0.8, KEY_TYPE_Y);
+	AddKeyArea(407.302886, 2531.673095, 0.8, KEY_TYPE_Y);
+	AddKeyArea(219.244018, 69.982215, 0.8, KEY_TYPE_Y);
+	AddKeyArea(-382.580657, -1426.404296, 0.8, KEY_TYPE_Y);
+	AddKeyArea(1796.071655, -1414.565307, 1.5, KEY_TYPE_H);
+	AddKeyArea(1207.234375, -29.231435, 1.5, KEY_TYPE_H);
+	AddKeyArea(496.589172, -76.033905, 1.5, KEY_TYPE_H);
+	AddKeyArea(1795.293823, -1407.773681, 1.5, KEY_TYPE_H);
+	AddKeyArea(-370.339721, -1634.205932, 0.8, KEY_TYPE_Y);
+	AddKeyArea(1722.2310, -1253.8021, 0.8, KEY_TYPE_Y);
+	AddKeyArea(726.2478, -1276.3830, 0.8, KEY_TYPE_Y);
+	AddKeyArea(976.715881, -1442.519775, 0.8, KEY_TYPE_Y);
+	AddKeyArea(3855.066162, -1290.975585, 0.8, KEY_TYPE_Y);
+	AddKeyArea(1626.089355, -2174.786132, 0.8, KEY_TYPE_H);
+	AddKeyArea(-212.521926, -1739.015014, 0.8, KEY_TYPE_H);
+	AddKeyArea(-11.283934, 88.862136, 0.8, KEY_TYPE_Y);
 	return 1;
 }
 
@@ -20242,7 +20242,9 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 	switch(type)
 	{
-		case AREA_TYPE_KEY: ShowPlayerKeyMessage(playerid, KEY_AREAS[areaid][ka_KEY]);
+		case KEY_TYPE_ENTER: ShowPlayerKeyMessage(playerid, "ENTER");
+		case KEY_TYPE_Y: ShowPlayerKeyMessage(playerid, "Y");
+		case KEY_TYPE_H: ShowPlayerKeyMessage(playerid, "H");
 	}
 
 	switch(info[0])
@@ -20290,7 +20292,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 	switch(type)
 	{
-		case AREA_TYPE_KEY:
+		case KEY_TYPE_ENTER, KEY_TYPE_Y, KEY_TYPE_H:
 		{
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
@@ -22516,8 +22518,8 @@ LoadEnterExits()
 
 		format(label_str, sizeof(label_str), "{ffffff}%s", ENTER_EXIT[total_enterexits][ee_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xEAE9E900, ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], ENTER_EXIT[total_enterexits][ee_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = ENTER_EXIT[total_enterexits][ee_EXT_WORLD], .interiorid = ENTER_EXIT[total_enterexits][ee_EXT_INTERIOR]);
-		AddKeyArea(ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], 0.8, "ENTER");
-		AddKeyArea(ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], 0.8, "ENTER");
+		AddKeyArea(ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], 0.8, KEY_TYPE_ENTER);
+		AddKeyArea(ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], 0.8, KEY_TYPE_ENTER);
 
 		ENTER_EXIT[total_enterexits][ee_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], ENTER_EXIT[total_enterexits][ee_INT_Z] - 0.7, .worldid = ENTER_EXIT[total_enterexits][ee_INT_WORLD], .interiorid = ENTER_EXIT[total_enterexits][ee_INT_INTERIOR]);
 		ENTER_EXIT[total_enterexits][ee_EXT_PICKUP_ID] = CreateDynamicPickup(19902, 1, ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], ENTER_EXIT[total_enterexits][ee_EXT_Z] - 0.7, ENTER_EXIT[total_enterexits][ee_EXT_WORLD], ENTER_EXIT[total_enterexits][ee_EXT_INTERIOR]);
@@ -22652,7 +22654,7 @@ LoadProperties()//cargado propiedes
 		PROPERTY_INFO[total_houses][property_EXT_PICKUP_ID] = CreateDynamicPickup(pickup_modelid, 1, PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], PROPERTY_INFO[total_houses][property_EXT_Z], 0, PROPERTY_INFO[total_houses][property_EXT_INTERIOR]);
 		PROPERTY_INFO[total_houses][property_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INFO[total_houses][property_ID], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_INTERIOR]);
 
-		AddKeyArea(PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], 0.8, "ENTER");
+		AddKeyArea(PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], 0.8, KEY_TYPE_ENTER);
 		AddKeyArea(PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], 0.8, "ENTER");
 
 		info[0] = PICKUP_TYPE_PROPERTY;
