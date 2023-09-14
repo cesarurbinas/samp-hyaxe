@@ -1,6 +1,6 @@
 #include <a_samp>
 
-#define MAX_NOTIFICATIONS 20
+#define MAX_NOTIFICATIONS 10
 
 enum HY_NOTIFICATIONS_ENUM
 {

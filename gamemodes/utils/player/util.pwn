@@ -236,7 +236,7 @@ CheckProxy(playerid)
         if (!strcmp(PLAYER_TEMP[playerid][py_NAME], NAME_WHITELIST[i], true)) return 0;
     }
 
-	new str_text[128];
+	new str_text[50];
 	format(str_text, sizeof(str_text), "51.161.31.157:9991/proxycheck/%s", PLAYER_TEMP[playerid][py_IP]);
 	HTTP(playerid, HTTP_GET, str_text, "", "OnPlayerProxyFound");
 	return 1;

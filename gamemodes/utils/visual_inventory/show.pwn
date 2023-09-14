@@ -350,7 +350,7 @@ ShowSecondaryInventory(playerid)
 	inv_AccommodateItems(playerid);
 
 	new 
-		str_text[128],
+		str_text[64],
 		Float:size_items = 310.000000;
 		
 	format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
@@ -500,7 +500,7 @@ ShowCrew(playerid)
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
 
 
-	new str_text[664], rank_str[664];
+	new str_text[500], rank_str[664];
 
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][18], TextToSpanish(CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]));
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][18], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);

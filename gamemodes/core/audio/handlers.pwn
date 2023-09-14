@@ -79,7 +79,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 		{
 			case 403: return ShowPlayerMessage(playerid, "~r~No pudimos reproducir esta canción", 4);
 			case 429, 500: return ShowPlayerNotification(playerid, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.", 6);
-			default: return 0;
+			default: return ShowPlayerMessage(playerid, "~r~Hubo un error intentando buscar el contenido, intenta nuevamente en un minuto.", 4);
 		}
 	}
 

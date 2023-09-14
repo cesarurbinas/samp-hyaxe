@@ -2,7 +2,7 @@
 #pragma option -d3 // un debuj medio como kn dise
 #pragma warning disable 239
 #pragma warning disable 214
-#pragma dynamic 16000
+#pragma dynamic 10000000
 
 #include <a_samp>
 
@@ -40,6 +40,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #define YSI_NO_MODE_CACHE	
 #define YSI_NO_OPTIMISATION_MESSAGE	
 #define YSI_NO_VERSION_CHECK
+#define NO_SUSPICION_LOGS
 
 // Other Library 
 #include <a_http>
@@ -535,13 +536,6 @@ new Tuning_Shop_Objects[][e_Tuning_Shop_Objects] =
 	{1097, "wheel_gn4", 1000},
 	{1098, "wheel_gn5", 1000},
 	{19620, "police", 50000}
-};
-
-//ZONAS
-enum
-{
-	AREA_TYPE_NONE,
-	AREA_TYPE_GANGZONE
 };
 
 #define MAX_TERRITORIES  100
@@ -2548,9 +2542,9 @@ new PLAYER_POCKET[MAX_PLAYERS][MAX_PLAYER_POCKET_OBJECTS][Player_Pocket_Enum]; /
 
 
 new
-	DIALOG_FOOD_PIZZA_String[800],
-	DIALOG_FOOD_CLUCKIN_String[800],
-	DIALOG_FOOD_BURGER_String[800],
+	DIALOG_FOOD_PIZZA_String[400],
+	DIALOG_FOOD_CLUCKIN_String[400],
+	DIALOG_FOOD_BURGER_String[400],
 	DIALOG_247_LIST_String[34 + 55 * sizeof Supermarket_Product_List],
 	DIALOG_PLAYER_GPS_SITE_0_String[90 * (sizeof(Hospital_Spawn_Positions) + 1)],
 	DIALOG_PLAYER_GPS_SITE_7_String[90 * (sizeof(SELL_VEHICLES_SHOPS_SPAWN) + 1)],
@@ -2713,6 +2707,8 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 {
     if (packetid == PLAYER_SYNC)
     {
+    	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
+
         new onFootData[PR_OnFootSync];
 
         BS_IgnoreBits(bs, 8);
@@ -2729,13 +2725,17 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
             } 
         }
 
-        /*Fly*/
         switch(onFootData[PR_animationId])
         {
 			case 157, 159, 161:
 	        {
 	            if (!IsPlayerInAnyVehicle(playerid))
 	            {
+	            	new str_text[144];
+					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
+				    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+				    SendDiscordWebhook(str_text, 1);
+				    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
 					KickEx(playerid, 500);
 					return 0;
 	            }
@@ -2744,9 +2744,27 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 	        {
 	        	if (onFootData[PR_weaponId] != WEAPON_PARACHUTE)
 				{
+					new str_text[144];
+					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
+				    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+				    SendDiscordWebhook(str_text, 1);
+				    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
 					KickEx(playerid, 500);
 					return 0;
 				}
+	        }
+	        case 799:
+	        {
+	            if (!IsPlayerInAnyVehicle(playerid))
+	            {
+	            	new str_text[144];
+					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Anti-L", PLAYER_TEMP[playerid][py_NAME], playerid);
+				    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+				    SendDiscordWebhook(str_text, 1);
+				    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Anti-L");
+					KickEx(playerid, 500);
+					return 0;
+	            }
 	        }
 	        /*case 1538, 1539, 1543:
 	        {
@@ -3128,7 +3146,7 @@ public OnPlayerConnect(playerid)
 		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el máximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
 	    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
 	    SendDiscordWebhook(str_text, 1);
-	    	
+	    
 	    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el máximo de conexiones");
 	    KickEx(playerid, 500);
 		return 0;
@@ -3197,7 +3215,7 @@ public OnPlayerConnect(playerid)
 			}
 			else
 			{
-				new dialog[600];
+				new dialog[500];
 				format(dialog, sizeof dialog,
 
 					"\
@@ -6451,7 +6469,7 @@ CALLBACK: SendGift()
 		}
 
 		if (type == 0) extra = minrand(300, 2000);
-		else extra = minrand(1, 5);
+		else extra = minrand(1, 3);
 
 		GenString(code, 8);
 
@@ -7363,7 +7381,7 @@ public OnPlayerText(playerid, text[])
 		format(str, 145, "[ADMIN] %s (%d) fue baneado permanentemente: Superar los 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-		new webhook[264]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);	
 	}
 
@@ -7448,13 +7466,8 @@ CMD:duda(playerid, params[])
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar una duda primero debes activar el canal de dudas con "COL_RED"/dudas");
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /duda "COL_WHITE"[DUDA]");
 	
-	/*if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
-	{
-		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Estás silenciado en el canal de dudas y anuncios de forma permanente.");
-		return 1;
-	}*/
-
 	if (PLAYER_MISC[playerid][MISC_MUTES] >= 5) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tienes muchos muteos, ya no eres aceptado en el canal de dudas.");
+	if (strlen(params) > 64) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Su duda es muy larga");
 
 	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
 	{
@@ -7516,14 +7529,9 @@ CMD:anuncio(playerid, params[])
 {
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar un anuncio primero debes activar el canal de dudas con "COL_RED"/dudas");
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /anuncio "COL_WHITE"[TEXTO]");
-	
-	/*if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
-	{
-		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Estás silenciado en el canal de dudas y anuncios de forma permanente.");
-		return 1;
-	}*/
 
 	if (PLAYER_MISC[playerid][MISC_MUTES] >= 5) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tienes muchos muteos, ya no eres aceptado en el canal de dudas.");
+	if (strlen(params) > 64) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Su anuncio es muy largo");
 
 	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
 	{
@@ -7564,7 +7572,7 @@ CMD:anuncio(playerid, params[])
 		{
 			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL] && !PLAYER_TEMP[playerid][py_NEW_USER])
 			{
-				SendResponsiveMessage(i, COLOR_LIGHT_ORANGE, str_text, 125);
+				SendResponsiveMessage(i, COLOR_LIGHT_ORANGE, str_text, 135);
 			}
 		}
 	}
@@ -11530,7 +11538,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_SU_BUY:
 		{
-			new dialog[664];
+			new dialog[420];
 			format(dialog, sizeof dialog, ""COL_WHITE"Ventajas del VIP Classic\n\
 				- Tener hasta 6 vehículos\n\
 				- Tener hasta 2 propiedades\n\
@@ -20287,7 +20295,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 		type
 	;
 
-	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
+	type = Streamer_GetIntData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID);
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
 
 	switch(type)
@@ -21062,7 +21070,7 @@ ProxDetector(playerid, Float:radi, string[], col1, col2, col3, col4, col5, div =
 
 SendResponsiveMessage(playerid, color, const string[], div = 0)
 {
-	new line1_str[165], line2_str[165], bool:line2_used;
+	new line1_str[145], line2_str[145], bool:line2_used;
 
 	if (div)
 	{
@@ -21602,7 +21610,7 @@ SavePlayerToysData(playerid)
   {
     if (!PLAYER_TOYS[playerid][i][player_toy_VALID]) continue;
 
-    new DB_Query[1000];
+    new DB_Query[900];
     format(DB_Query, sizeof(DB_Query), "\
 	UPDATE `PLAYER_TOYS` SET \
 	   `NAME` = '%q',\
@@ -23983,20 +23991,23 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 	if (PRESSED(KEY_FIRE))
 	{
-		if (GetPlayerWeapon(playerid) == 41)
+		if (GetPlayerVirtualWorld(playerid) == 0 && GetPlayerInterior(playerid) == 0)
 		{
-			if (PLAYER_CREW[playerid][player_crew_VALID])
+			if (GetPlayerWeapon(playerid) == 41)
 			{
-				if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PLAYER_TEMP[playerid][py_WORKING_IN])
+				if (PLAYER_CREW[playerid][player_crew_VALID])
 				{
-					for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
+					if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PLAYER_TEMP[playerid][py_WORKING_IN])
 					{
-						if (IsPlayerInRangeOfPoint(playerid, 3.0, GRAFFITIS_OBJ[i][g_X], GRAFFITIS_OBJ[i][g_Y], GRAFFITIS_OBJ[i][g_Z]))
+						for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
 						{
-							if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
+							if (IsPlayerInRangeOfPoint(playerid, 3.0, GRAFFITIS_OBJ[i][g_X], GRAFFITIS_OBJ[i][g_Y], GRAFFITIS_OBJ[i][g_Z]))
 							{
-								if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
-								PLAYER_TEMP[playerid][py_TIMERS][41] = SetTimerEx("UpdateGraffitiProgress", 1000, 1, "i", playerid);
+								if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
+								{
+									if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
+									PLAYER_TEMP[playerid][py_TIMERS][41] = SetTimerEx("UpdateGraffitiProgress", 1000, 1, "i", playerid);
+								}
 							}
 						}
 					}
@@ -24004,21 +24015,24 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 		}
 
-		if (GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_SMOKE_CIGGY &&  PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ] == 54)
+		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 		{
-			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_JOINT]) > 2)
+			if (GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_SMOKE_CIGGY &&  PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ] == 54)
 			{
-				PLAYER_TEMP[playerid][py_JOINT_USES] ++;
-				GivePlayerHealthEx(playerid, 3.0);
-
-				if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
+				if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_JOINT]) > 2)
 				{
-					PLAYER_TEMP[playerid][py_JOINT_USES] = 0;
-					PLAYER_MISC[playerid][MISC_JOINT] --;
-					ResetItemBody(playerid);
-					ShowPlayerMessage(playerid, "~r~Porro acabado", 3);
+					PLAYER_TEMP[playerid][py_JOINT_USES] ++;
+					GivePlayerHealthEx(playerid, 3.0);
+
+					if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
+					{
+						PLAYER_TEMP[playerid][py_JOINT_USES] = 0;
+						PLAYER_MISC[playerid][MISC_JOINT] --;
+						ResetItemBody(playerid);
+						ShowPlayerMessage(playerid, "~r~Porro acabado", 3);
+					}
+					PLAYER_TEMP[playerid][py_LIMIT_JOINT] = gettime();
 				}
-				PLAYER_TEMP[playerid][py_LIMIT_JOINT] = gettime();
 			}
 		}
 	}
@@ -26388,7 +26402,7 @@ SavePlayerVehicles(playerid, destroy = false)
 		GetVehicleDamageStatus(i, GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_PANELS], GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_DOORS], GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_LIGHTS], GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_TIRES]);
     	GLOBAL_VEHICLES[i][gb_vehicle_WORLD] = 0; /*GetVehicleVirtualWorld(i);*/
 
-		new DB_Query[1800];
+		new DB_Query[1700];
 		format(DB_Query, sizeof DB_Query,
 			"\
 			UPDATE `PLAYER_VEHICLES` SET \
@@ -29285,7 +29299,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			format(str, 145, "[ADMIN] %s (%d) fue baneado: Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-			new webhook[264];
+			new webhook[145];
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 			SendDiscordWebhook(webhook, 1);
 		}
@@ -29508,7 +29522,6 @@ OnCheatDetected(playerid, ip_address[], type, code)
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
 	TogglePlayerControllableEx(playerid, false);
 	KickEx(playerid, 500);
-
 	return 1;
 }
 
@@ -30751,12 +30764,12 @@ SendPoliceRadioMessage(radio, color, const message[])
 				{
 					if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
 					{
-						if (radio == -1) SendResponsiveMessage(i, color, message, 164);
+						if (radio == -1) SendResponsiveMessage(i, color, message, 135);
 						else
 						{
 							if (PLAYER_TEMP[i][py_POLICE_RADIO] == radio)
 							{
-								SendResponsiveMessage(i, color, message, 154);
+								SendResponsiveMessage(i, color, message, 135);
 							}
 						}
 					}
@@ -30775,7 +30788,7 @@ SendMafiaMessage(color, const message[])
 		{
 			if (PLAYER_WORKS[i][WORK_MAFIA])
 			{
-				SendResponsiveMessage(i, color, message, 154);
+				SendResponsiveMessage(i, color, message, 135);
 			}
 		}
 	}
@@ -30790,7 +30803,7 @@ SendEnemyMafiaMessage(color, const message[])
 		{
 			if (PLAYER_WORKS[i][WORK_ENEMY_MAFIA])
 			{
-				SendResponsiveMessage(i, color, message, 154);
+				SendResponsiveMessage(i, color, message, 135);
 			}
 		}
 	}
@@ -30805,7 +30818,7 @@ SendOsbornMafiaMessage(color, const message[])
 		{
 			if (PLAYER_WORKS[i][WORK_OSBORN])
 			{
-				SendResponsiveMessage(i, color, message, 154);
+				SendResponsiveMessage(i, color, message, 135);
 			}
 		}
 	}
@@ -31111,7 +31124,7 @@ AddPlayerBadHistory(account_id, by_account_id, type, const text[])
 
 AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, const text[], days = 0, mod[] = "day")
 {
-	new DBResult:Result, DB_Query[485];
+	new DBResult:Result, DB_Query[400];
 
 	if (!days)
 	{
@@ -31298,7 +31311,7 @@ SendCmdLogToAdmins(playerid, const cmdtext[], const params[])
 {
 	new
 		message[145],
-		str_text[365];
+		str_text[145];
 
 	if (isnull(params)) format(message, sizeof message, "%s (%d) uso el comando /%s", ACCOUNT_INFO[playerid][ac_NAME], playerid, cmdtext);
 	else format(message, sizeof message, "%s (%d) uso el comando /%s %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, cmdtext, params);
@@ -32033,7 +32046,7 @@ SendMessageToCrewMembers(crew_id, color, const message[])
 			{
 				if (PLAYER_CREW[i][player_crew_ID] == crew_id)
 				{
-					SendResponsiveMessage(i, color, message, 164);
+					SendResponsiveMessage(i, color, message, 135);
 				}
 			}
 		}
@@ -33363,7 +33376,7 @@ TextureCountryFlag(objectid, index, country)
 
 RegisterNewVehicleObject(vehicleid, slot)
 {
-	new DBResult:Result, DB_Query[1800];
+	new DBResult:Result, DB_Query[1500];
 	format(DB_Query, sizeof DB_Query,
 	"\
 		INSERT INTO `VEHICLE_OBJECTS`\
@@ -33399,7 +33412,7 @@ RegisterNewVehicleObject(vehicleid, slot)
 
 UpdateVehicleObject(vehicleid, slot)
 {
-	new DB_Query[1800];
+	new DB_Query[1500];
 	format(DB_Query, sizeof DB_Query,
 
 		"UPDATE `VEHICLE_OBJECTS` SET \
@@ -33725,10 +33738,10 @@ SendMessageToDoubtChannel(playerid, message[])
 {
 	new str[364];
 
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"%s %s (%d): (( %s ))", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ], PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) format(str, sizeof(str), "[Dudas] "COL_WHITE"%s %s (%d): (( %s ))", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ], PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
 	else
 	{
-		format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"Jugador %s (%d): (( %s ))", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
+		format(str, sizeof(str), "[Dudas] "COL_WHITE"Jugador %s (%d): (( %s ))", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
 		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Recordatorio", ""COL_WHITE"Recuerde que si dice cosas sarcásticas, insultos, anuncios o\n\
 			cualquier cosa que no sea relacionada al tema del canal\n\
 			puede ser muteado y a los 4 muteos no va a poder enviar\n\
@@ -33754,7 +33767,7 @@ SendMessageToDoubtChannel(playerid, message[])
 		{
 			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL] && !PLAYER_TEMP[playerid][py_NEW_USER])
 			{
-				SendResponsiveMessage(i, COLOR_DARK_GREEN, str, 125);
+				SendResponsiveMessage(i, COLOR_DARK_GREEN, str, 135);
 			}
 		}
 	}
@@ -33903,8 +33916,6 @@ flags:rac2(CMD_MODERATOR2)
 flags:rv(CMD_MODERATOR2)
 flags:pm(CMD_HELPER)
 flags:atenderre(CMD_MODERATOR)
-flags:deletead(CMD_MODERATOR2)
-flags:settime(CMD_MODERATOR3)
 flags:darstaff(CMD_OWNER)
 <<<<<<< HEAD
 //flags:fakeping(CMD_OWNER)
