@@ -19920,19 +19920,37 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							// Helicópteros
 							case 0:
 							{
-
+								new crane_point = random(sizeof(HELI_POINTS));
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_X] = HELI_POINTS[crane_point][0];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Y] = HELI_POINTS[crane_point][1];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = HELI_POINTS[crane_point][2];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = HELI_POINTS[crane_point][3];
+								
+								ShowPlayerNotification(playerid, "El vehículo ha sido remolcado al ~y~LS Airport~w~.", 4);
 							}
 
 							// Aviones
 							case 1:
 							{
-
+								new crane_point = random(sizeof(PLANE_POINTS));
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_X] = PLANE_POINTS[crane_point][0];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Y] = PLANE_POINTS[crane_point][1];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = PLANE_POINTS[crane_point][2];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = PLANE_POINTS[crane_point][3];
+								
+								ShowPlayerNotification(playerid, "El vehículo ha sido remolcado al ~y~LS Airport~w~.", 4);
 							}
 
 							// Barcos
 							case 2:
 							{
+								new crane_point = random(sizeof(BOAT_POINTS));
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_X] = BOAT_POINTS[crane_point][0];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Y] = BOAT_POINTS[crane_point][1];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = BOAT_POINTS[crane_point][2];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = BOAT_POINTS[crane_point][3];
 								
+								ShowPlayerNotification(playerid, "El vehículo ha sido remolcado a la ~y~Playa de Santa Maria~w~.", 4);
 							}
 
 							// Autos, motos, etc
