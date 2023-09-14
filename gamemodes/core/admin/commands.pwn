@@ -11,7 +11,7 @@ CMD:comandosadmin(playerid, params[])
     else if(level >= sizeof(ADMIN_LEVELS)) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de un rango que no existe.");
     else if(level > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de un rango mayor al tuyo.");
 	else if(!level) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de usuarios.");
-	
+
     new CmdArray:command_arr = PC_GetCommandArray();
     new len = PC_GetArraySize(command_arr);
     new dialog[1250], line[50];
@@ -502,20 +502,21 @@ CMD:vehinfo(playerid, params[])
 	new to_car;
 	if (sscanf(params, "i", to_car)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vehinfo <car_id>");
 	if (to_car >= MAX_VEHICLES) return 1;
-
 	if (!GLOBAL_VEHICLES[to_car][gb_vehicle_VALID]) return SendClientMessage(playerid, COLOR_WHITE, "Vehículo no válido.");
 
-	new dialog[264];
+	new dialog[280];
 	format(dialog, sizeof dialog, ""COL_WHITE"\
 		Vehículo: %i\n\
 		Ocupado: %d\n\
 		Gasolina: %.1f/%.1f\n\
-		Motor: %d",
+		Motor: %d\n\
+		Dueño: %s",
 		to_car,
 		GLOBAL_VEHICLES[to_car][gb_vehicle_OCCUPIED],
 		GLOBAL_VEHICLES[to_car][gb_vehicle_GAS],
 		GLOBAL_VEHICLES[to_car][gb_vehicle_MAX_GAS],
-		GLOBAL_VEHICLES[to_car][gb_vehicle_PARAMS_ENGINE]
+		GLOBAL_VEHICLES[to_car][gb_vehicle_PARAMS_ENGINE],
+		ACCOUNT_INFO[ PLAYER_VEHICLES[to_car][player_vehicle_OWNER_ID] ][ac_NAME]
 	);
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Veh info", dialog, "Cerrar", "");
 
