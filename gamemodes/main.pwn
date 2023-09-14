@@ -26237,19 +26237,6 @@ Add_Hungry_Thirst(playerid, Float:hungry, Float:thirst)
 	return 1;
 }
 
-/*SetActorFacingAngleEx(actorid, skin, Float:angle, &actor)
-{
-	actor = INVALID_ACTOR_ID;
-
-    new Float:x, Float:y, Float:z, vw;
-    GetActorPos(actorid, x, y, z);
-	vw = GetActorVirtualWorld(actorid);
-    DestroyActor(actorid);
-    actor = CreateActor(skin, x, y, z, angle);
-	SetActorVirtualWorld(actor, vw);
-	return 1;
-}*/
-
 GetPlayerIdByBankAccountId(account_id)
 {
 	for(new i = 0; i != sizeof(BANK_ACCOUNT); i ++)
