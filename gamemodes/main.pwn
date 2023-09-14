@@ -1537,7 +1537,7 @@ new SAFE_ZONES[][enum_SAFE_ZONES] =
 	{INVALID_STREAMER_ID, 2760.0, -1843.0, 2810.0, -1793.0, 0, 0} // Futbolista
 };
 
-enum enum_MAFIA_DOORS_TYPES
+enum
 {
 	DOOR_TYPE_ALL,
 	DOOR_TYPE_MAFIA,
