@@ -42,7 +42,7 @@ CreateStalls()
 		);
 
 		STALL_INFO[i][st_LABEL] = CreateDynamic3DTextLabel(
-			str_text, 0xF7F7F700,
+			str_text, 0xF0F0F000,
 			x,
 			y,
 			STALL_INFO[i][st_Z] + 0.9,

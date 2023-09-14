@@ -45,7 +45,7 @@ LoadClubs()
 				}
 			}
 
-			CLUBS_INFO[i][club_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, CLUBS_INFO[i][club_X], CLUBS_INFO[i][club_Y], CLUBS_INFO[i][club_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
+			CLUBS_INFO[i][club_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF0F0F000, CLUBS_INFO[i][club_X], CLUBS_INFO[i][club_Y], CLUBS_INFO[i][club_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
 			CLUBS_INFO[i][club_EXT_PICKUP_ID] = CreateDynamicPickup(19902, 1, CLUBS_INFO[i][club_X], CLUBS_INFO[i][club_Y], CLUBS_INFO[i][club_Z] - 0.7, 0, 0);
 			CLUBS_INFO[i][club_INT_PICKUP_ID] = CreateDynamicPickup(
 				19902,
@@ -59,7 +59,7 @@ LoadClubs()
 
 			CreateDynamic3DTextLabel(
 				""COL_WHITE"Comprar productos",
-				0xF7F7F700,
+				0xF0F0F000,
 				CLUBS_INTERIORS[ CLUBS_INFO[i][club_INTERIOR] ][interior_BUY_X],
 				CLUBS_INTERIORS[ CLUBS_INFO[i][club_INTERIOR] ][interior_BUY_Y],
 				CLUBS_INTERIORS[ CLUBS_INFO[i][club_INTERIOR] ][interior_BUY_Z] + 0.25,
@@ -149,7 +149,7 @@ CreateClub(const name[], const welcome[], Float:x, Float:y, Float:z, Float:angle
 
 	new label_str[264];
 	format(label_str, 264, ""COL_WHITE"%d | %s (%s)\nEntrada: %s\n"COL_GREEN"En venta", index, CLUBS_INFO[index][club_NAME], (CLUBS_INFO[index][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(index));
-	CLUBS_INFO[index][club_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, CLUBS_INFO[index][club_X], CLUBS_INFO[index][club_Y], CLUBS_INFO[index][club_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CLUBS_INFO[index][club_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF0F0F000, CLUBS_INFO[index][club_X], CLUBS_INFO[index][club_Y], CLUBS_INFO[index][club_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CLUBS_INFO[index][club_EXT_PICKUP_ID] = CreateDynamicPickup(19902, 1, CLUBS_INFO[index][club_X], CLUBS_INFO[index][club_Y], CLUBS_INFO[index][club_Z] - 0.7, 0, 0);
 	CLUBS_INFO[index][club_INT_PICKUP_ID] = CreateDynamicPickup(
 		19902,
@@ -163,7 +163,7 @@ CreateClub(const name[], const welcome[], Float:x, Float:y, Float:z, Float:angle
 
 	CreateDynamic3DTextLabel(
 		""COL_WHITE"Comprar productos",
-		0xF7F7F700,
+		0xF0F0F000,
 		CLUBS_INTERIORS[ CLUBS_INFO[index][club_INTERIOR] ][interior_BUY_X],
 		CLUBS_INTERIORS[ CLUBS_INFO[index][club_INTERIOR] ][interior_BUY_Y],
 		CLUBS_INTERIORS[ CLUBS_INFO[index][club_INTERIOR] ][interior_BUY_Z] + 0.25,
@@ -234,7 +234,7 @@ BuyClub(playerid, index)
 
 	new str_text[264];
 	format(str_text, 264, ""COL_WHITE"%d | %s (%s)\nEntrada: %s\nPropietario:{35A7FF} %s", index, CLUBS_INFO[index][club_NAME], (CLUBS_INFO[index][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(index), PLAYER_TEMP[playerid][py_NAME]);
-	UpdateDynamic3DTextLabelText(CLUBS_INFO[index][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
+	UpdateDynamic3DTextLabelText(CLUBS_INFO[index][club_EXT_LABEL_ID], 0xF0F0F000, str_text);
 	return 1;
 }
 
@@ -263,7 +263,7 @@ ReleaseClub(index)
 
 	new str_text[264];
 	format(str_text, 264, ""COL_WHITE"%d | %s (%s)\nEntrada: %s\n"COL_GREEN"En venta", index, CLUBS_INFO[index][club_NAME], (CLUBS_INFO[index][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(index));
-	UpdateDynamic3DTextLabelText(CLUBS_INFO[index][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
+	UpdateDynamic3DTextLabelText(CLUBS_INFO[index][club_EXT_LABEL_ID], 0xF0F0F000, str_text);
 	return 1;
 }
 

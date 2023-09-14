@@ -655,7 +655,7 @@ DC_CMD:setname(DCC_User:userid, params[], DCC_Message:message)
 				Propietario:{35A7FF} %s\n\
 			", zone, PROPERTY_INFO[i][property_ID], ACCOUNT_INFO[to_player][ac_NAME]
 		);
-		UpdateDynamic3DTextLabelText(PROPERTY_INFO[i][property_EXT_LABEL_ID], 0xF7F7F700, label_str);
+		UpdateDynamic3DTextLabelText(PROPERTY_INFO[i][property_EXT_LABEL_ID], 0xF0F0F000, label_str);
 	}
 
 	SendClientMessageEx(to_player, COLOR_WHITE, ""COL_WHITE"Tu nombre ha sido cambiado a %s", new_name);
@@ -860,7 +860,7 @@ DC_CMD:dudas(DCC_User:userid, params[], DCC_Message:message)
 	strreplace(str, ">", "{FFFFFF}");
 
 	strreplace(str, "@", "{4db6ac}@");
-	strreplace(str, ":", "{F7F7F7}");
+	strreplace(str, ":", "{F0F0F0}");
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{

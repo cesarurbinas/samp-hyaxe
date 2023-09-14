@@ -152,18 +152,18 @@ public OnPlayerConnect(playerid)
 	#if defined VOICE_CHAT
 		if (!SvGetVersion(playerid))
 		{
-			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} Instale/Actualize Hyaxe Client en {ec4134}www.hyaxe.com/client");
+			SendClientMessage(playerid, 0xC33D33FF, "[AVISO]{FFFFFF} Instale/Actualize Hyaxe Client en {C33D33}www.hyaxe.com/client");
 		}
 		
 		if (!SvHasMicro(playerid))
 		{
-			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} No tienes un micrófono conectado");
+			SendClientMessage(playerid, 0xC33D33FF, "[AVISO]{FFFFFF} No tienes un micrófono conectado");
 		}
 		
 		lstream[playerid] = SvCreateDLStreamAtPlayer(40.0, SV_INFINITY, playerid, 0x81df79ff, "E");
 		if (lstream[playerid])
 		{
-			SendClientMessage(playerid, 0xec4134FF, "[DEBUG]{FFFFFF} Streaming iniciado");
+			SendClientMessage(playerid, 0xC33D33FF, "[DEBUG]{FFFFFF} Streaming iniciado");
 			SvAddKey(playerid, 0x5A);
 		}
 	#endif
@@ -1642,7 +1642,7 @@ public OnPlayerSpawn(playerid)
 							new name[25];
 							db_get_field_assoc(NameR, "NAME", name);
 							format(str_text, sizeof(str_text), "Fuiste encarcelado por %s. Razón: %s.", name, CHARACTER_INFO[playerid][ch_JAIL_REASON]);
-							SendClientMessage(playerid, 0xF7F7F7CC, str_text);
+							SendClientMessage(playerid, 0xF0F0F0CC, str_text);
 						}
 						db_free_result(NameR);
 
@@ -2542,7 +2542,7 @@ public OnPlayerText(playerid, text[])
 	{
 		new string[144];
 	    format(string, sizeof(string), "[C-A]"COL_WHITE" %s (%d): %s", PLAYER_TEMP[playerid][py_NAME], playerid, text[1]);
-		SendMessageToAdmins(0x80E266FF, string);
+		SendMessageToAdmins(0x64A752FF, string);
 		return 0;
 	}
 

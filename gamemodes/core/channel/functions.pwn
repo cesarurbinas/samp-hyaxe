@@ -22,7 +22,7 @@ SendMessageToDoubtChannel(playerid, const message[])
 		//strreplace(str, ">", "{FFFFFF}");
 
 		strreplace(str, "@", "{4db6ac}@");
-		strreplace(str, ":", "{F7F7F7}");
+		strreplace(str, ":", "{F0F0F0}");
 	}
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)

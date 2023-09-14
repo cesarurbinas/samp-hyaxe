@@ -56,7 +56,7 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 				DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_POLICE_LABEL]);
 				PLAYER_TEMP[playerid][py_POLICE_LABEL] = Text3D:INVALID_STREAMER_ID;
 			}
-			PLAYER_TEMP[playerid][py_POLICE_LABEL] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, 0.0, 0.0, 0.3, 20.0, playerid, .testlos = true);
+			PLAYER_TEMP[playerid][py_POLICE_LABEL] = CreateDynamic3DTextLabel(label_str, 0xF0F0F000, 0.0, 0.0, 0.3, 20.0, playerid, .testlos = true);
 
 			//for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
 		}

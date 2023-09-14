@@ -51,20 +51,20 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 }
 
 // Color pallete
-#define COLOR_WHITE 0xF7F7F7FF
-#define COL_WHITE "{F7F7F7}"
+#define COLOR_WHITE 0xF0F0F0FF
+#define COL_WHITE "{F0F0F0}"
 
-#define COLOR_RED 0xec4134FF
-#define COL_RED "{ec4134}"
+#define COLOR_RED 0xC33D33FF
+#define COL_RED "{C33D33}"
 
-#define COLOR_ORANGE 0xe76f51FF
-#define COL_ORANGE "{e76f51}"
+#define COLOR_ORANGE 0xDD6A4DFF
+#define COL_ORANGE "{DD6A4D}"
 
 #define COLOR_DARK_GREEN 0x2a9d8fFF
 #define COL_DARK_GREEN "{2a9d8f}"
 
-#define COLOR_GREEN 0x80E266FF
-#define COL_GREEN "{80E266}"
+#define COLOR_GREEN 0x64A752FF
+#define COL_GREEN "{64A752}"
 
 #define COLOR_YELLOW 0xe9c46aFF
 #define COL_YELLOW "{e9c46a}"
@@ -94,7 +94,7 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 #define COLOR_FADE4 0xE6E6E6E6
 #define COLOR_FADE5 0xE6E6E6E6
 
-#define PLAYER_COLOR 0xF7F7F700
+#define PLAYER_COLOR 0xF0F0F000
 
 enum color_info
 {
@@ -104,7 +104,7 @@ enum color_info
 };
 new COLOR_INFO[][color_info] =
 {
-	{"Blanco", "{F7F7F7}", 0xF7F7F7FF},
+	{"Blanco", "{F0F0F0}", 0xF0F0F0FF},
     {"Azul", "{3563e9}", 0x3563e9FF},
     {"Rojo", "{e93535}", 0xe93535FF},
     {"Amarillo", "{e7e53c}", 0xe7e53cFF},

@@ -255,7 +255,7 @@ UpdateRockProcessorLabel(processor_id)
 	if (ROCK_PROCESSOR[processor_id][rp_FUEL] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere gasolina");
 	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere reparación");
 	//printf("update 2: %s", str_text);
-	UpdateDynamic3DTextLabelText(ROCK_PROCESSOR[processor_id][rp_LABEL], 0xF7F7F7FF, str_text);
+	UpdateDynamic3DTextLabelText(ROCK_PROCESSOR[processor_id][rp_LABEL], 0xF0F0F0FF, str_text);
 	return 1;
 }
 
@@ -274,7 +274,7 @@ CreateMinerRocks()
 		new str_text[164];
 		format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aqui­.\n\nGasolina: %.1f\nEstado: %.1f%", i, ROCK_PROCESSOR[i][rp_FUEL], ROCK_PROCESSOR[i][rp_HEALTH]);
 		//printf("create 1: %s", str_text);
-		ROCK_PROCESSOR[i][rp_LABEL] = CreateDynamic3DTextLabel(str_text, 0xF7F7F7FF, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z] + 4.0, 35.0, .testlos = true, .worldid = -1, .interiorid = -1);
+		ROCK_PROCESSOR[i][rp_LABEL] = CreateDynamic3DTextLabel(str_text, 0xF0F0F0FF, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z] + 4.0, 35.0, .testlos = true, .worldid = -1, .interiorid = -1);
 	}
 
 	for(new i = 0; i < sizeof ROCKS_OBJ; i ++)
@@ -286,7 +286,7 @@ CreateMinerRocks()
 
 		/*new str_text[32];
 		format(str_text, sizeof(str_text), "{ffffff}%s", GetRockNameType(ROCKS_OBJ[i][r_TYPE]));
-		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, ROCKS_OBJ[i][r_X], ROCKS_OBJ[i][r_Y], ROCKS_OBJ[i][r_Z] + 1.0, 10.0, .testlos = true, .worldid = ROCKS_OBJ[i][r_WORLD], .interiorid = ROCKS_OBJ[i][r_INTERIOR]);*/
+		CreateDynamic3DTextLabel(str_text, 0xF0F0F000, ROCKS_OBJ[i][r_X], ROCKS_OBJ[i][r_Y], ROCKS_OBJ[i][r_Z] + 1.0, 10.0, .testlos = true, .worldid = ROCKS_OBJ[i][r_WORLD], .interiorid = ROCKS_OBJ[i][r_INTERIOR]);*/
 
 		SetDynamicObjectMaterial(ROCKS_OBJ[i][r_OBJECT_ID], 0, -1, "none", "none", color_type);
 		ROCKS_OBJ[i][r_ACTIVATED] = true;

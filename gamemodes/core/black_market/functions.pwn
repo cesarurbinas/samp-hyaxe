@@ -81,7 +81,7 @@ LoadBlackMarkets()
 			format(str_text, sizeof(str_text), "\n"COL_WHITE"Dominado por: Nadie");
 		}
 
-		BLACK_MARKET_OBJ[i][bm_LABEL] = CreateDynamic3DTextLabel(str_text, 0xF7F7F700, BLACK_MARKET_OBJ[i][bm_EXTERIOR_X], BLACK_MARKET_OBJ[i][bm_EXTERIOR_Y], BLACK_MARKET_OBJ[i][bm_EXTERIOR_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
+		BLACK_MARKET_OBJ[i][bm_LABEL] = CreateDynamic3DTextLabel(str_text, 0xF0F0F000, BLACK_MARKET_OBJ[i][bm_EXTERIOR_X], BLACK_MARKET_OBJ[i][bm_EXTERIOR_Y], BLACK_MARKET_OBJ[i][bm_EXTERIOR_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	}
 	return 1;
 }
@@ -138,7 +138,7 @@ CheckMarketProgress(playerid)
     			SendMessageToAdmins(COLOR_ANTICHEAT, str, 1);
 
     			format(str_text, sizeof(str_text), "\n"COL_WHITE"Dominado por: {%06x}%s",  CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
-    			UpdateDynamic3DTextLabelText(BLACK_MARKET_OBJ[i][bm_LABEL], 0xF7F7F700, str_text);
+    			UpdateDynamic3DTextLabelText(BLACK_MARKET_OBJ[i][bm_LABEL], 0xF0F0F000, str_text);
 
 				new DB_Query[140];
 

@@ -330,7 +330,7 @@ HalloweenMap()
 	g_Actor[6] = CreateActor(82, 816.4625, -1097.3935, 25.7933, 100.8999); //Black Elvis
 	ApplyActorAnimation(g_Actor[6], "CLOTHES", "CLO_POSE_SHOES", 4.0998, 1, 0, 0, 0, 0);
 
-	CreateDynamic3DTextLabel(""COL_RED"Bruja perazoli"COL_WHITE"\nHabla con ella si quieres vender calabazas", 0xF7F7F7FF, 817.2799, -1103.3270, 25.7921, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Bruja perazoli"COL_WHITE"\nHabla con ella si quieres vender calabazas", 0xF0F0F0FF, 817.2799, -1103.3270, 25.7921, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	AddKeyArea(817.2799, -1103.3270, 1.5, KEY_TYPE_Y);
 
 	SetTimer("SpawnPumpkin", 600000, true);

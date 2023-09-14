@@ -3877,7 +3877,7 @@ ShowDialog(playerid, dialogid)
 			new caption[64];
 			format(caption, sizeof caption, "Color (%d) de '%s'", PLAYER_TEMP[playerid][py_TUNING_EDIT_COLOR_SLOT], VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Introduce el color en formato AARRGGBB\nPor ejemplo: F7F7F7FF", "Selecc.", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Introduce el color en formato AARRGGBB\nPor ejemplo: F0F0F0FF", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_CDELETE:

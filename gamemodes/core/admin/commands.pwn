@@ -713,7 +713,7 @@ CMD:duty(playerid)
 			PLAYER_TEMP[playerid][py_ADMIN_LABEL] = Text3D:INVALID_STREAMER_ID;
 		}
 
-		SendClientMessageEx(playerid, 0xF7F7F7CC, "Ahora no estás de servicio como {E73838}%s", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
+		SendClientMessageEx(playerid, 0xF0F0F0CC, "Ahora no estás de servicio como {E73838}%s", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
 	}
 	else
 	{
@@ -730,7 +730,7 @@ CMD:duty(playerid)
 			PLAYER_TEMP[playerid][py_ADMIN_LABEL] = Text3D:INVALID_STREAMER_ID;
 		}
 
-		SendClientMessageEx(playerid, 0xF7F7F7CC, "Ahora estás de servicio como {4BD53D}%s", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
+		SendClientMessageEx(playerid, 0xF0F0F0CC, "Ahora estás de servicio como {4BD53D}%s", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
 	}
 	return 1;
 }
@@ -1680,7 +1680,7 @@ CMD:a(playerid, params[])
 
 	new string[145];
     format(string, sizeof(string), "[C-A]"COL_WHITE" %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
-	SendMessageToAdmins(0x80E266FF, string);
+	SendMessageToAdmins(0x64A752FF, string);
 	return 1;
 }
 
@@ -2321,7 +2321,7 @@ CMD:setname(playerid, params[])
 				Propietario:{35A7FF} %s\n\
 			", zone, PROPERTY_INFO[i][property_ID], ACCOUNT_INFO[to_player][ac_NAME]
 		);
-		UpdateDynamic3DTextLabelText(PROPERTY_INFO[i][property_EXT_LABEL_ID], 0xF7F7F700, label_str);
+		UpdateDynamic3DTextLabelText(PROPERTY_INFO[i][property_EXT_LABEL_ID], 0xF0F0F000, label_str);
 	}
 
 	SendClientMessageEx(to_player, COLOR_WHITE, ""COL_WHITE"Tu nombre ha sido cambiado a '%s'", new_name);
@@ -3231,7 +3231,7 @@ CMD:dreply(playerid, params[])
 	if (strlen(content) > 132) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Su duda es muy larga");
 
 	new str[145];
-    format(str, 145, "[Dudas] "COL_WHITE"Ayudante %s (%d): (( {4db6ac}@%d{F7F7F7} %s ))",
+    format(str, 145, "[Dudas] "COL_WHITE"Ayudante %s (%d): (( {4db6ac}@%d{F0F0F0} %s ))",
     	ACCOUNT_INFO[playerid][ac_NAME],
     	playerid,
     	to_player,

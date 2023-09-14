@@ -55,7 +55,7 @@ public PlantingUp(playerid, seeds)
 	PLANTS[index][plant_PLANTED_BY_ACCOUNT_ID] = ACCOUNT_INFO[playerid][ac_ID];
 	format(PLANTS[index][plant_PLANTED_BY_NAME], 24, "%s", PLAYER_TEMP[playerid][py_RP_NAME]);
 	PLANTS[index][plant_OBJECT_ID] = CreateDynamicObject(2244, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], 0.0, 0.0, CHARACTER_INFO[playerid][ch_ANGLE], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-	SetDynamicObjectMaterial(PLANTS[index][plant_OBJECT_ID], 2, 2244, "plants_tabletop", "CJ_PLANT", 0x00F7F7F7);
+	SetDynamicObjectMaterial(PLANTS[index][plant_OBJECT_ID], 2, 2244, "plants_tabletop", "CJ_PLANT", 0x00F0F0F0);
 
 	if (GetPlayerInterior(playerid) == 0)
 	{
@@ -70,7 +70,7 @@ public PlantingUp(playerid, seeds)
 
 	new label_str[256];
 	format(label_str, sizeof label_str, ""COL_YELLOW"%s"COL_WHITE" de %s\n"COL_WHITE"Creciendo: %.1f%%", plant_info[ PLANTS[index][plant_TYPE] ][plant_info_NAME], PLANTS[index][plant_PLANTED_BY_NAME], PLANTS[index][plant_GROWING_PROGRESS]);
-	PLANTS[index][plant_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2] + 0.25, 10.0, .testlos = false, .interiorid = GetPlayerInterior(playerid), .worldid = GetPlayerVirtualWorld(playerid));
+	PLANTS[index][plant_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF0F0F000, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2] + 0.25, 10.0, .testlos = false, .interiorid = GetPlayerInterior(playerid), .worldid = GetPlayerVirtualWorld(playerid));
 
 	KillTimer(PLANTS[index][plant_TIMER]);
 	PLANTS[index][plant_TIMER] = SetTimerEx("GrowPlantUp", 15000, false, "d", index);
@@ -103,7 +103,7 @@ public GrowPlantUp(plant)
 
 		new label_str[256];
 		format(label_str, sizeof label_str, ""COL_YELLOW"%s"COL_WHITE" de %s\n"COL_WHITE"Creciendo: %.1f%%", plant_info[ PLANTS[plant][plant_TYPE] ][plant_info_NAME], PLANTS[plant][plant_PLANTED_BY_NAME], PLANTS[plant][plant_GROWING_PROGRESS]);
-		UpdateDynamic3DTextLabelText(PLANTS[plant][plant_LABEL_ID], 0xF7F7F700, label_str);
+		UpdateDynamic3DTextLabelText(PLANTS[plant][plant_LABEL_ID], 0xF0F0F000, label_str);
 
 		KillTimer(PLANTS[plant][plant_TIMER]);
 		PLANTS[plant][plant_TIMER] = SetTimerEx("GrowPlantUp", 15000, false, "d", plant);
@@ -117,7 +117,7 @@ public GrowPlantUp(plant)
 
 	new label_str[256];
 	format(label_str, sizeof label_str, ""COL_YELLOW"%s"COL_WHITE" de %s\n"COL_WHITE"Expira en %s minutos", plant_info[ PLANTS[plant][plant_TYPE] ][plant_info_NAME], PLANTS[plant][plant_PLANTED_BY_NAME], TimeConvert(PLANTS[plant][plant_EXPIRE_TIME]));
-	UpdateDynamic3DTextLabelText(PLANTS[plant][plant_LABEL_ID], 0xF7F7F700, label_str);
+	UpdateDynamic3DTextLabelText(PLANTS[plant][plant_LABEL_ID], 0xF0F0F000, label_str);
 
 	KillTimer(PLANTS[plant][plant_TIMER]);
 	PLANTS[plant][plant_TIMER] = SetTimerEx("ExpirePlantTime", 1000, false, "d", plant);
@@ -139,7 +139,7 @@ public ExpirePlantTime(plant)
 
 		new label_str[256];
 		format(label_str, sizeof label_str, ""COL_YELLOW"%s"COL_WHITE" de %s\n"COL_WHITE"Expira en %s minutos", plant_info[ PLANTS[plant][plant_TYPE] ][plant_info_NAME], PLANTS[plant][plant_PLANTED_BY_NAME], TimeConvert(PLANTS[plant][plant_EXPIRE_TIME]));
-		UpdateDynamic3DTextLabelText(PLANTS[plant][plant_LABEL_ID], 0xF7F7F700, label_str);
+		UpdateDynamic3DTextLabelText(PLANTS[plant][plant_LABEL_ID], 0xF0F0F000, label_str);
 
 		KillTimer(PLANTS[plant][plant_TIMER]);
 		PLANTS[plant][plant_TIMER] = SetTimerEx("ExpirePlantTime", 1000, false, "d", plant);

@@ -304,7 +304,7 @@ CMD:callsing(playerid, params[])
 		DestroyDynamic3DTextLabel(GLOBAL_VEHICLES[vehicleid][gb_vehicle_LABEL]);
 		GLOBAL_VEHICLES[vehicleid][gb_vehicle_LABEL] = Text3D:INVALID_STREAMER_ID;
 	}
-	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LABEL] = CreateDynamic3DTextLabel(params, 0xF7F7F700, -0.7, -1.9, -0.3, 20.0, .attachedvehicle = vehicleid);
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LABEL] = CreateDynamic3DTextLabel(params, 0xF0F0F000, -0.7, -1.9, -0.3, 20.0, .attachedvehicle = vehicleid);
 	return 1;
 }
 

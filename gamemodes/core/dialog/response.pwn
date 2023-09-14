@@ -1560,7 +1560,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						Propietario:{35A7FF} %s\n\
 					", zone, PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_ID], ACCOUNT_INFO[playerid][ac_NAME]
 				);
-				UpdateDynamic3DTextLabelText(PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_LABEL_ID], 0xF7F7F700, label_str);
+				UpdateDynamic3DTextLabelText(PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_LABEL_ID], 0xF0F0F000, label_str);
 
 				DestroyDynamicPickup(PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_PICKUP_ID]);
 				PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_PICKUP_ID] = INVALID_STREAMER_ID;
@@ -2345,7 +2345,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						Propietario:{35A7FF} %s\n\
 					", zone, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID], ACCOUNT_INFO[playerid][ac_NAME]
 				);
-				UpdateDynamic3DTextLabelText(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_LABEL_ID], 0xF7F7F700, label_str);
+				UpdateDynamic3DTextLabelText(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_LABEL_ID], 0xF0F0F000, label_str);
 
 				PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_OWNER_ID] = ACCOUNT_INFO[playerid][ac_ID];
 				new DB_Query_update[350];
@@ -5949,7 +5949,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						", zone, PROPERTY_INFO[i][property_ID], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]
 					);
 
-					UpdateDynamic3DTextLabelText(PROPERTY_INFO[i][property_EXT_LABEL_ID], 0xF7F7F700, label_str);
+					UpdateDynamic3DTextLabelText(PROPERTY_INFO[i][property_EXT_LABEL_ID], 0xF0F0F000, label_str);
 				}
 			}
 			else ShowDialog(playerid, DIALOG_CREW_MENU);
@@ -6784,7 +6784,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						Banda: %s\n\
 					", zone, PROPERTY_INFO[index][property_ID], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]
 				);
-				UpdateDynamic3DTextLabelText(PROPERTY_INFO[ index ][property_EXT_LABEL_ID], 0xF7F7F700, label_str);
+				UpdateDynamic3DTextLabelText(PROPERTY_INFO[ index ][property_EXT_LABEL_ID], 0xF0F0F000, label_str);
 
 				new DB_Query[350];
 
@@ -8468,7 +8468,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 
 						RegisterNewPlayerWeapon(playerid, weapon_slot);
-						GivePlayerWeaponEx(playerid, weapon_id, 1000, 0x00F7F7F7);
+						GivePlayerWeaponEx(playerid, weapon_id, 1000, 0x00F0F0F0);
 
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
 						ShowPlayerNotification(playerid, "Has comprado una cámara.", 4);
@@ -8823,7 +8823,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					new str_text[264];
 					format(str_text, 264, ""COL_WHITE"%s (%s)\nEntrada: %s\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(club), PLAYER_TEMP[playerid][py_NAME]);
-					UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
+					UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF0F0F000, str_text);
 
 					CheckClubOptions(playerid);
 				}
@@ -8987,7 +8987,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					new str_text[264];
 					format(str_text, 264, ""COL_WHITE"%s (%s)\nEntrada: %s\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(club), PLAYER_TEMP[playerid][py_NAME]);
-					UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
+					UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF0F0F000, str_text);
 
 					ShowPlayerMessage(playerid, "Valor de entrada cambiado.", 3);
 

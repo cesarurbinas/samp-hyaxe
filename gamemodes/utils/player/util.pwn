@@ -728,7 +728,7 @@ ResyncWeapon(playerid, weapon)
 	{
 		case 22: // 9MM
 		{
-			GivePlayerWeaponEx(playerid, weapon, 15, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 15, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+15"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -736,7 +736,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 24: // Desert
 		{
-			GivePlayerWeaponEx(playerid, weapon, 7, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 7, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+7"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -744,7 +744,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 32: // TEC9
 		{
-			GivePlayerWeaponEx(playerid, weapon, 20, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 20, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+20"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -752,7 +752,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 28: // UZI
 		{
-			GivePlayerWeaponEx(playerid, weapon, 25, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 25, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+25"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -760,7 +760,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 33: // Rifle
 		{
-			GivePlayerWeaponEx(playerid, weapon, 8, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 8, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+8"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "RIFLE", "RIFLE_load", 4.0, 0, 0, 0, 0, 1000);
@@ -768,7 +768,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 26: // Recortada
 		{
-			GivePlayerWeaponEx(playerid, weapon, 2, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 2, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+2"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -776,7 +776,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 25: // Escopeta
 		{
-			GivePlayerWeaponEx(playerid, weapon, 5, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 5, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+5"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -784,7 +784,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 29: // MP5
 		{
-			GivePlayerWeaponEx(playerid, weapon, 35, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 35, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+35"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -792,7 +792,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 30: // AK-47
 		{
-			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -800,7 +800,7 @@ ResyncWeapon(playerid, weapon)
 		}
 		case 31: // M4
 		{
-			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F7F7F7, true);
+			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F0F0F0, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4042,7 +4042,7 @@ RegisterNewPlayerWeapon(playerid, weapon_slot)
 	return 1;
 }
 
-GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7, bool:equip = false)
+GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F0F0F0, bool:equip = false)
 {
 	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
 	else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;
@@ -5547,7 +5547,7 @@ UpdateUnnocupiedPropertyLabel(index)
 	new label_str[256], city[45], zone[45];
 	GetPointZone(PROPERTY_INFO[index][property_EXT_X], PROPERTY_INFO[index][property_EXT_Y], city, zone);
 	format(label_str, sizeof label_str, ""COL_WHITE"Propiedad en %s (%d)\n"COL_GREEN"En venta", zone, PROPERTY_INFO[index][property_ID]);
-	UpdateDynamic3DTextLabelText(PROPERTY_INFO[index][property_EXT_LABEL_ID], 0xF7F7F700, label_str);
+	UpdateDynamic3DTextLabelText(PROPERTY_INFO[index][property_EXT_LABEL_ID], 0xF0F0F000, label_str);
 	return 1;
 }
 
@@ -6539,7 +6539,7 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 				DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_POLICE_LABEL]);
 				PLAYER_TEMP[playerid][py_POLICE_LABEL] = Text3D:INVALID_STREAMER_ID;
 			}
-			PLAYER_TEMP[playerid][py_POLICE_LABEL] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, 0.0, 0.0, 0.3, 20.0, playerid, .testlos = true);
+			PLAYER_TEMP[playerid][py_POLICE_LABEL] = CreateDynamic3DTextLabel(label_str, 0xF0F0F000, 0.0, 0.0, 0.3, 20.0, playerid, .testlos = true);
 
 			//for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
 		}
@@ -7161,7 +7161,7 @@ LoadProperties()//cargado propiedes
 		db_free_result(Result_info_owner);
 
 
-		PROPERTY_INFO[total_houses][property_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], PROPERTY_INFO[total_houses][property_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = PROPERTY_INFO[total_houses][property_EXT_INTERIOR]);
+		PROPERTY_INFO[total_houses][property_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF0F0F000, PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], PROPERTY_INFO[total_houses][property_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = PROPERTY_INFO[total_houses][property_EXT_INTERIOR]);
 		PROPERTY_INFO[total_houses][property_EXT_PICKUP_ID] = CreateDynamicPickup(pickup_modelid, 1, PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], PROPERTY_INFO[total_houses][property_EXT_Z], 0, PROPERTY_INFO[total_houses][property_EXT_INTERIOR]);
 		PROPERTY_INFO[total_houses][property_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INFO[total_houses][property_ID], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_INTERIOR]);
 
@@ -7863,7 +7863,7 @@ Create_PlayerPropertyConstructo(playerid)
 		}
 	}
 
-	PROPERTY_INFO[slot][property_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, PROPERTY_INFO[slot][property_EXT_X], PROPERTY_INFO[slot][property_EXT_Y], PROPERTY_INFO[slot][property_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = PROPERTY_INFO[slot][property_EXT_INTERIOR]);
+	PROPERTY_INFO[slot][property_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF0F0F000, PROPERTY_INFO[slot][property_EXT_X], PROPERTY_INFO[slot][property_EXT_Y], PROPERTY_INFO[slot][property_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = PROPERTY_INFO[slot][property_EXT_INTERIOR]);
 	PROPERTY_INFO[slot][property_EXT_PICKUP_ID] = CreateDynamicPickup(1273, 1, PROPERTY_INFO[slot][property_EXT_X], PROPERTY_INFO[slot][property_EXT_Y], PROPERTY_INFO[slot][property_EXT_Z], 0, PROPERTY_INFO[slot][property_EXT_INTERIOR]);
 	PROPERTY_INFO[slot][property_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, PROPERTY_INTERIORS[ PROPERTY_INFO[slot][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[slot][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[slot][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INFO[slot][property_ID], PROPERTY_INTERIORS[ PROPERTY_INFO[slot][property_ID_INTERIOR] ][property_INT_INTERIOR]);
 

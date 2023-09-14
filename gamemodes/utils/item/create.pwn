@@ -8,7 +8,7 @@ GetFreeDropItemSlot()
     return -1;
 }
 
-CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, worldid, interiorid, const name[] = "Null", const owner[] = "Null", type, ammount = 1, color = 0x00F7F7F7)
+CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, worldid, interiorid, const name[] = "Null", const owner[] = "Null", type, ammount = 1, color = 0x00F0F0F0)
 {
 	new index = GetFreeDropItemSlot();
 	if (index == -1) return print("[DEBUG] Error: Todos los slots de item sueltos estan ocupados.");

@@ -144,7 +144,7 @@ WeaponToType(type)
 	return weapon;
 }
 
-GrabWeapon(playerid, type, ammount, color = 0x00F7F7F7)
+GrabWeapon(playerid, type, ammount, color = 0x00F0F0F0)
 {
 	new 
 		weapon_id = TypeToWeapon(type), 
@@ -164,7 +164,7 @@ GrabWeapon(playerid, type, ammount, color = 0x00F7F7F7)
 	return 1;
 }
 
-GrabItem(playerid, type, ammount = 1, color = 0x00F7F7F7)
+GrabItem(playerid, type, ammount = 1, color = 0x00F0F0F0)
 {
 	switch(type)
 	{
