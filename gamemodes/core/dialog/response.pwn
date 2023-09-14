@@ -66,6 +66,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 CHARACTER_INFO[playerid][ch_SKIN] = RANDOM_SKIN[random(sizeof(RANDOM_SKIN))];
             }
 
+			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 500, false, "id", playerid, 0);
 			ShowDialog(playerid, DIALOG_SELECC_ANSWER);
         }       
 		case DIALOG_REGISTER_EMAIL:
@@ -8582,12 +8583,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(db_query(Database, DB_Query));
 
 				ShowPlayerNotification(playerid, "Perfecto, ya tienes protegida tu cuenta, recuerda no darle la respuesta a nadie.", 5);
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"ALERTA",
-					""COL_WHITE"Cuidado con lo que digas por el canal de dudas/anuncios\n\
-					en el caso que vengas a hacer spam, insultar a Hyaxe, o algo parecido\n\
-					vamos a publicar todos tus datos privados en la siguiente página:\n\
-					"COL_RED"https://www.hyaxe.com/servers/samp/ban"COL_WHITE"\n\n\
-					No te preocupes si has puesto datos falsos, Hyaxe está en todos lados.", "Cerrar", "");
 			}
 			else ShowDialog(playerid, DIALOG_SELECC_ANSWER);
 		}
