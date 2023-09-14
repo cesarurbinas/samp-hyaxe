@@ -419,11 +419,6 @@ SanAndreas()
 	// Minero
 	CreateDynamic3DTextLabel(""COL_RED"Puesto para mineros\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 509.910125, -708.205383, 19.242210, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	
-	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
-	{
-		CreateDynamic3DTextLabel(""COL_RED"Procesadora\n"COL_WHITE"Suelta los materiales aquí", 0xF7F7F7FF, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z] + 3, 25.0, .testlos = true, .worldid = -1, .interiorid = -1);
-	}
-	
 	//heliport
 	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 1\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1876.87915, -2286.58911, 1.16550 + 15, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 2\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1055.9615, -910.1790, 49.1911 + 1, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);

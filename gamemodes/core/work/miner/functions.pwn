@@ -175,6 +175,13 @@ SetRandomRockType(index)
 
 CreateMinerRocks()
 {
+	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
+	{
+		new str_text[164];
+		format(str_text, sizeof(str_text), ""COL_RED"Procesadora #1\n"COL_WHITE"Suelta los materiales aquí­\n\nGasolina: %.1f\nEstado: %.1f%", i, ROCK_PROCESSOR[i][rp_FUEL], ROCK_PROCESSOR[i][rp_HEALTH]);
+		CreateDynamic3DTextLabel(str_text, 0xF7F7F7FF, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z] + 3, 35.0, .testlos = true, .worldid = -1, .interiorid = -1);
+	}
+
 	for(new i = 0; i < sizeof ROCKS_OBJ; i ++)
 	{
 		SetRandomRockType(i);
@@ -182,10 +189,9 @@ CreateMinerRocks()
 		ROCKS_OBJ[i][r_OBJECT_ID] = CreateDynamicObject(ROCKS_OBJ[i][r_MODELID], ROCKS_OBJ[i][r_X], ROCKS_OBJ[i][r_Y], ROCKS_OBJ[i][r_Z], ROCKS_OBJ[i][r_RX], ROCKS_OBJ[i][r_RY], ROCKS_OBJ[i][r_RZ], ROCKS_OBJ[i][r_WORLD], ROCKS_OBJ[i][r_INTERIOR]);
 		new color_type = GetRockColorType(ROCKS_OBJ[i][r_TYPE]);
 
-		// Test
-		new str_text[32];
+		/*new str_text[32];
 		format(str_text, sizeof(str_text), "{ffffff}%s", GetRockNameType(ROCKS_OBJ[i][r_TYPE]));
-		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, ROCKS_OBJ[i][r_X], ROCKS_OBJ[i][r_Y], ROCKS_OBJ[i][r_Z] + 1.0, 10.0, .testlos = true, .worldid = ROCKS_OBJ[i][r_WORLD], .interiorid = ROCKS_OBJ[i][r_INTERIOR]);
+		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, ROCKS_OBJ[i][r_X], ROCKS_OBJ[i][r_Y], ROCKS_OBJ[i][r_Z] + 1.0, 10.0, .testlos = true, .worldid = ROCKS_OBJ[i][r_WORLD], .interiorid = ROCKS_OBJ[i][r_INTERIOR]);*/
 
 		SetDynamicObjectMaterial(ROCKS_OBJ[i][r_OBJECT_ID], 0, -1, "none", "none", color_type);
 		ROCKS_OBJ[i][r_ACTIVATED] = true;
