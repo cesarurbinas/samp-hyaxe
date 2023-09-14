@@ -4316,7 +4316,8 @@ public OnPlayerDisconnect(playerid, reason)
 							new Float:distance = GetDistanceBetweenPoints3D(police_pos[0], police_pos[1], police_pos[2], player_pos[0], player_pos[1], player_pos[2]);
 							if (distance >= 200.0) 
 							{
-								JailPlayer(playerid, 600 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL]);
+								CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
+    							CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 600 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL];
 							}
 						}
 					}
