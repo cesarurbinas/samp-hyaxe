@@ -261,6 +261,9 @@
 
 // Stall
 #include "core/stall/header.pwn"
+#include "core/stall/functions.pwn"
+
+/* Special Features */
 
 // Special maps
 #if defined HALLOWEEN_MODE
@@ -8679,6 +8682,11 @@ SanAndreas()
 	AddKeyArea(1626.089355, -2174.786132, 0.8, KEY_TYPE_H);
 	AddKeyArea(-212.521926, -1739.015014, 0.8, KEY_TYPE_H);
 	AddKeyArea(-11.283934, 88.862136, 0.8, KEY_TYPE_Y);
+
+	/* v1.0 Features */
+
+	// Stall
+	CreateStalls();
 
 	// Soccer
 	CreateBall();
