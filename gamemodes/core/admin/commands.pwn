@@ -2828,7 +2828,7 @@ CMD:ufo(playerid, params[])
 	return 1;
 }
 
-static const ALIEN_ITEMS[][] =
+static const ALIEN_ITEMS[] =
 {
 	0, 1, 3, 28, 57, 32, 2, 4
 };
@@ -2848,7 +2848,7 @@ CMD:aliendrop(playerid, params[])
 		GetPlayerPos(playerid, x, y, z);
 		RandomCordFromPoint(minrand(10, 50), minrand(3, 5), x, y);
 
-		type = random(sizeof(ALIEN_ITEMS));
+		type = ALIEN_ITEMS[ random(sizeof(ALIEN_ITEMS)) ];
 
 		switch(type)
 		{
