@@ -72,7 +72,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	if (GetPlayerVirtualWorld(playerid) == 1336)
+	if (GetPlayerVirtualWorld(playerid) == 1336 && PLAYER_WORKS[playerid][WORK_SOCCER])
 	{
 		new
 			tick = GetTickCount(),
@@ -335,6 +335,10 @@ public PHY_OnObjectUpdate(objectid)
 			format(string, sizeof string, "%s ha anotado un gol.", name);
 			SendToAllStadium(string);
 			RecreateBall();
+
+			PLAYER_SKILLS[LastTouch][WORK_SOCCER] ++;
+			SavePlayerSkills(LastTouch);
+
 			#pragma unused goal
 		}
 	}
