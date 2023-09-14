@@ -338,8 +338,13 @@ enum Temp_Enum
 >>>>>>> 94707da (Comando /gotopoint)
 =======
 	Float:py_MAP_Z,
+<<<<<<< HEAD
 	py_LAST_DOUBT[144]
 >>>>>>> 45008c5 (neurodmin integrado)
+=======
+	py_LAST_DOUBT[144],
+	py_INVENTORY_TYPE
+>>>>>>> c1402b1 (Tipos de inventario)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

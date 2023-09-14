@@ -3,6 +3,8 @@ new
 
 ShowInventory(playerid, type = 0)
 {
+	PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = type;
+	
 	new ms = (200 + GetPlayerPing(playerid));
 
 	g_iInvLastTick[playerid] = GetTickCount() + ms;
@@ -131,7 +133,7 @@ ShowInventory(playerid, type = 0)
 		}
 		case 1:
 		{
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Almacenamiento");
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Almacenamiento de propiedad");
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
