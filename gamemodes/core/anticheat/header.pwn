@@ -80,9 +80,7 @@ enum e_PLAYER_AC_INFO
 	p_ac_info_LAST_DETECTION,
 	p_ac_info_IMMUNITY
 };
-new PLAYER_AC_INFO[MAX_PLAYERS][sizeof(ac_Info)][e_PLAYER_AC_INFO];
-
-new
-	skillLevel[MAX_PLAYERS] = {999, ...},
+new 
+	PLAYER_AC_INFO[MAX_PLAYERS][sizeof(ac_Info)][e_PLAYER_AC_INFO],
 	lastShotTick[MAX_PLAYERS]
 ;

@@ -5806,6 +5806,7 @@ public OnPlayerSpawn(playerid)
 	SetPlayerNormalColor(playerid);
 	SetTracingColor(playerid, COLOR_RED);
 	PreloadAnims(playerid);
+	lastShotTick[playerid] = GetTickCount();
 	
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
 	{
@@ -29781,7 +29782,6 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7)
 	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_COLOR] = color;
 
     SavePlayerWeaponsData(playerid);
-    lastShotTick[playerid] = GetTickCount();
 	return 1;
 }
 
@@ -29937,7 +29937,6 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		PLAYER_TEMP[playerid][py_LAST_SHOT_TIME] = gettime();
 	}
 
-
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
 		if (IsPlayerInSafeZone(playerid))
@@ -30022,7 +30021,6 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			}
 		}
 	}
-
     return 1;
 }
 
