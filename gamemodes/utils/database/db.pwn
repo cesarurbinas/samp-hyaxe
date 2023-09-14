@@ -18,7 +18,7 @@ public OnGameModeInit()
 
 	safe_db_query( "\
 		PRAGMA FOREIGN_KEYS = ON;\
-		UPDATE `CUENTA` SET `CONNECTED` = '0', PLAYERID = '-1';\
+		UPDATE `ACCOUNTS` SET `CONNECTED` = '0', PLAYERID = '-1';\
 	");
 
 	#if defined DB_OnGameModeInit

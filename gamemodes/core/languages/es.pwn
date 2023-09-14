@@ -1,7 +1,7 @@
 // Server
 #define SERVER_HOSTNAME "Hyaxe Role Play [hyaxe.com]"
 #define SERVER_LANGUAGE "Español / Spanish"
-#define SERVER_MODE "RPG/Roleplay"
+#define SERVER_MODE "Roleplay"
 
 // Special hostnames
 #define HALLOWEEN_HOSTNAME "Hyaxe | Evento de Halloween"

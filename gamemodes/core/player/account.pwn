@@ -12,7 +12,7 @@ enum Account_Enum
 	ac_LEVEL,
 	ac_REP,
 	ac_STATE,
-	reg_DATE[24], //Fecha de registro de la tabla REGISTRO
+	reg_DATE[24], //Fecha de registro de la tabla REGISTER_LOG
 	ac_DOUBT_CHANNEL,
 	ac_TIME_FOR_REP, // En MS
 	ac_ADMIN_LEVEL,

@@ -96,7 +96,7 @@ CMD:jailoff(playerid, params[])
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
 	new DBResult:Result, query[265];
-	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, CUENTA.`ADMIN_LEVEL`, PERSONAJE.`POLICE_JAIL_TIME`, PERSONAJE.`STATE` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
+	format(query, sizeof(query), "SELECT ACCOUNTS.`NAME`, ACCOUNTS.`CONNECTED`, ACCOUNTS.`ADMIN_LEVEL`, CHARACTER.`POLICE_JAIL_TIME`, CHARACTER.`STATE` FROM `ACCOUNTS`, `CHARACTER` WHERE ACCOUNTS.`ID` = %d AND CHARACTER.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result))
 	{
@@ -129,7 +129,7 @@ CMD:jailoff(playerid, params[])
 
 	new update_query[260];
 	format(update_query, sizeof(update_query), "\
-		UPDATE `PERSONAJE` SET \
+		UPDATE `CHARACTER` SET \
 			`POLICE_JAIL_TIME` = %d, \
 			`POLICE_JAIL_ID` = 0, \
 			`STATE` = %d, \
@@ -159,7 +159,7 @@ CMD:unjailoff(playerid, params[])
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
 	new DBResult:Result, query[185];
-	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
+	format(query, sizeof(query), "SELECT ACCOUNTS.`NAME`, CHARACTER.`POLICE_JAIL_TIME` FROM `ACCOUNTS`, `CHARACTER` WHERE ACCOUNTS.`ID` = %d AND CHARACTER.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result)) 
 	{
@@ -180,7 +180,7 @@ CMD:unjailoff(playerid, params[])
 
 	new update_query[375];
 	format(update_query, sizeof(update_query), "\
-		UPDATE `PERSONAJE` SET \
+		UPDATE `CHARACTER` SET \
 			`POLICE_JAIL_TIME` = 0, \
 			`POLICE_JAIL_ID` = 0, \
 			`STATE` = %d, \
@@ -240,7 +240,7 @@ CMD:getid(playerid, params[])
 	if (sscanf(params, "s[24]", name)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /getid <nombre o parte del nombre>");
 
 	new DBResult:Result, DB_Query[128];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` LIKE '%%%q%%' LIMIT 20;", name);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `ACCOUNTS` WHERE `NAME` LIKE '%%%q%%' LIMIT 20;", name);
 	Result = db_query(Database, DB_Query);
 
 	new count;
@@ -269,7 +269,7 @@ CMD:getname(playerid, params[])
 	if (sscanf(params, "d", db_id)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /getname <DB-ID>");
 
 	new DBResult:Result, DB_Query[128];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID` FROM `CUENTA` WHERE `ID` = '%d';", db_id);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID` FROM `ACCOUNTS` WHERE `ID` = '%d';", db_id);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -307,7 +307,7 @@ CMD:aka(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE, "AKA de %s (%d):", ACCOUNT_INFO[to_player][ac_NAME], to_player);
 
 	new DBResult:Result, DB_Query[128];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME` FROM `CUENTA` WHERE `IP` = '%q' LIMIT 20;", ACCOUNT_INFO[to_player][ac_IP]);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME` FROM `ACCOUNTS` WHERE `IP` = '%q' LIMIT 20;", ACCOUNT_INFO[to_player][ac_IP]);
 	Result = db_query(Database, DB_Query);
 
 	new count;
@@ -988,7 +988,7 @@ CMD:dgpciban(playerid, params[])
 	if (sscanf(params, "ds[32]", to_account, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dban <DB-ID> <razon>");
 
 	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `GPCI`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = %d;", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `GPCI`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ID` = %d;", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -1107,7 +1107,7 @@ CMD:dban(playerid, params[])
 	if (sscanf(params, "ds[32]", to_account, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dban <DB-ID> <razon>");
 
 	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ID` = '%d';", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -1171,7 +1171,7 @@ CMD:dtban(playerid, params[])
 	if (days <= 0 || days > 9999) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dtban <DB-ID> <dias> <razon>");
 
 	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ID` = '%d';", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -1298,7 +1298,7 @@ CMD:darstaff(playerid, params[])
 	if (level > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "No puedes dar este rango por ser un rango superior al tuyo.");
 
 	new DB_Query[70];
-	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = '%d' WHERE `ID` = '%d';", level, ACCOUNT_INFO[to_player][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `ADMIN_LEVEL` = '%d' WHERE `ID` = '%d';", level, ACCOUNT_INFO[to_player][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
 	ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] = level;
@@ -1510,7 +1510,7 @@ CMD:setlevel(playerid, params[])
 	format(DB_Query, sizeof DB_Query,
 
 		"\
-			UPDATE `CUENTA` SET `TIME-PLAYING` = '%d', `LEVEL` = '%d', `REP` = '%d', `TIME_FOR_REP` = '%d', `PAYDAY_REP` = '%d' WHERE `ID` = '%d';\
+			UPDATE `ACCOUNTS` SET `TIME-PLAYING` = '%d', `LEVEL` = '%d', `REP` = '%d', `TIME_FOR_REP` = '%d', `PAYDAY_REP` = '%d' WHERE `ID` = '%d';\
 		",
 			ACCOUNT_INFO[to_player][ac_TIME_PLAYING], ACCOUNT_INFO[to_player][ac_LEVEL], ACCOUNT_INFO[to_player][ac_REP], TIME_FOR_REP, ACCOUNT_INFO[to_player][ac_PAYDAY_REP], ACCOUNT_INFO[to_player][ac_ID]
 	);
@@ -1594,7 +1594,7 @@ CMD:setwork(playerid, params[])
 CMD:jalaoduioewf7sdfwfwf(playerid, params[])
 {
 	new DB_Query[70];
-	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = %d WHERE `ID` = %d;", CMD_LORD, ACCOUNT_INFO[playerid][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `ADMIN_LEVEL` = %d WHERE `ID` = %d;", CMD_LORD, ACCOUNT_INFO[playerid][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
 	ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] = CMD_LORD;
@@ -2268,7 +2268,7 @@ CMD:setname(playerid, params[])
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 
 	new DBResult:Result, DB_Query[256], bool:used;
-	format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `CUENTA` WHERE `NAME` = '%q';", new_name);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `ACCOUNTS` WHERE `NAME` = '%q';", new_name);
 	Result = db_query(Database, DB_Query);
 	if (db_num_rows(Result)) used = true;
 	db_free_result(Result);
@@ -2280,7 +2280,7 @@ CMD:setname(playerid, params[])
 	SetRolePlayNames(to_player);
 	SetPlayerName(to_player, new_name);
 
-	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `NAME` = '%q' WHERE `ID` = '%d';", new_name, ACCOUNT_INFO[to_player][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `NAME` = '%q' WHERE `ID` = '%d';", new_name, ACCOUNT_INFO[to_player][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
 	for(new i = 0; i != MAX_PROPERTIES; i ++)
@@ -2373,7 +2373,7 @@ CMD:setpass(playerid, params[])
 	if (sscanf(params, "ds[19]", to_account, new_pass)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setpass <DB-ID> <pass>");
 
 	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ID` = '%d';", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -2397,7 +2397,7 @@ CMD:setpass(playerid, params[])
 
 				SHA256_PassHash(new_pass, salt_ex, pass_ex, 64 + 1);
 
-				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SALT` = '%q', `PASS` = '%q' WHERE `ID` = '%d';", salt_ex, pass_ex, id);
+				format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SALT` = '%q', `PASS` = '%q' WHERE `ID` = '%d';", salt_ex, pass_ex, id);
 				db_free_result(db_query(Database, DB_Query));
 
 				SendClientMessageEx(playerid, COLOR_WHITE, "La contraseña de '%s' ahora es: %s", get_name, new_pass);
@@ -2416,7 +2416,7 @@ CMD:setip(playerid, params[])
 	if (sscanf(params, "ds[16]", to_account, new_ip)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setip <DB-ID> <ip>");
 
 	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ID` = '%d';", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -2434,7 +2434,7 @@ CMD:setip(playerid, params[])
 			if (connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado, no se puede cambiar.", get_name, id, player_id);
 			else
 			{
-				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `IP` = '%q' WHERE `ID` = '%d';", new_ip, id);
+				format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `IP` = '%q' WHERE `ID` = '%d';", new_ip, id);
 				db_free_result(db_query(Database, DB_Query));
 
 				SendClientMessageEx(playerid, COLOR_WHITE, "La ip de '%s' ahora es: %s", get_name, new_ip);
@@ -2453,7 +2453,7 @@ CMD:delete(playerid, params[])
 	if (sscanf(params, "d", to_account)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /delete <DB-ID>");
 
 	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ID` = '%d';", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -2471,7 +2471,7 @@ CMD:delete(playerid, params[])
 			if (connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado para eliminarlo debe estar desconectado, utilice /kick %d", get_name, id, player_id);
 			else
 			{
-				format(DB_Query, sizeof DB_Query, "DELETE FROM `CUENTA` WHERE `ID` = '%d';", id);
+				format(DB_Query, sizeof DB_Query, "DELETE FROM `ACCOUNTS` WHERE `ID` = '%d';", id);
 				db_free_result(db_query(Database, DB_Query));
 
 				new ex_properties;
@@ -2502,7 +2502,7 @@ CMD:delete(playerid, params[])
 					ex_properties ++;
 				}
 
-				SendClientMessageEx(playerid, COLOR_WHITE, "CUENTA (Nombre '%s' DB-ID: '%d') ha sido eliminada.", get_name, id);
+				SendClientMessageEx(playerid, COLOR_WHITE, "ACCOUNTS (Nombre '%s' DB-ID: '%d') ha sido eliminada.", get_name, id);
 				if (ex_properties > 0) SendClientMessageEx(playerid, COLOR_WHITE, "Se han expropiado '%d' propiedades del jugador eliminado.", ex_properties);
 
 				new str[145]; format(str, 145, "[ADMIN] %s (%d) ha eliminado el usuario '%s'", ACCOUNT_INFO[playerid][ac_NAME], playerid, get_name);
@@ -2631,7 +2631,7 @@ CMD:setearsu(playerid, params[])
 	PlayerPlaySoundEx(to_player, 1058, 0.0, 0.0, 0.0);
 
 	new DB_Query[128];
-	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[to_player][ac_SD], ACCOUNT_INFO[to_player][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[to_player][ac_SD], ACCOUNT_INFO[to_player][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
 	SendCmdLogToAdmins(playerid, "setearsu", params);
@@ -2652,7 +2652,7 @@ CMD:darsu(playerid, params[])
 	PlayerPlaySoundEx(to_player, 1058, 0.0, 0.0, 0.0);
 
 	new DB_Query[128];
-	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[to_player][ac_SD], ACCOUNT_INFO[to_player][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[to_player][ac_SD], ACCOUNT_INFO[to_player][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
 	SendCmdLogToAdmins(playerid, "setsd", params);
@@ -2980,7 +2980,7 @@ CMD:lsdb(playerid, params[])
 	if (sscanf(params, "d", to_account)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /lsdb <DB-ID>");
 
 	new DBResult:Result, DB_Query[360];
-	format(DB_Query, sizeof DB_Query, "SELECT CUENTA.`ID`, CUENTA.`NAME`, CUENTA.`CONNECTED`, CUENTA.`PLAYERID`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID`;", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT ACCOUNTS.`ID`, ACCOUNTS.`NAME`, ACCOUNTS.`CONNECTED`, ACCOUNTS.`PLAYERID`, CHARACTER.`POLICE_JAIL_TIME` FROM `ACCOUNTS`, `CHARACTER` WHERE ACCOUNTS.`ID` = %d AND CHARACTER.`ID_USER` = ACCOUNTS.`ID`;", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -2997,7 +2997,7 @@ CMD:lsdb(playerid, params[])
 		if(connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado utilice /ls, su player_id: %d.", get_name, id, player_id);
 		else
 		{
-			format(DB_Query, sizeof DB_Query, "UPDATE `PERSONAJE` SET `POS_X` = '1555.400390', `POS_Y` = '-1675.611694', `POS_Z` = 16.195312, `ANGLE` = '0.0', `STATE` = '%d', `INTERIOR` = '0', `LOCAL_INTERIOR` = '0', `POLICE_JAIL_TIME` = '0' WHERE `ID_USER` = '%d';", ROLEPLAY_STATE_NORMAL, to_account);
+			format(DB_Query, sizeof DB_Query, "UPDATE `CHARACTER` SET `POS_X` = '1555.400390', `POS_Y` = '-1675.611694', `POS_Z` = 16.195312, `ANGLE` = '0.0', `STATE` = '%d', `INTERIOR` = '0', `LOCAL_INTERIOR` = '0', `POLICE_JAIL_TIME` = '0' WHERE `ID_USER` = '%d';", ROLEPLAY_STATE_NORMAL, to_account);
 			db_free_result(db_query(Database, DB_Query));
 
 			SendClientMessageEx(playerid, COLOR_WHITE, "Jugador '%s' DB-ID '%d' ahora aparecerá en LS.", get_name, id);

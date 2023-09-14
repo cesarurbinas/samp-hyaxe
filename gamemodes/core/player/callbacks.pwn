@@ -328,8 +328,8 @@ public OnPlayerConnect(playerid)
 	new DBResult:Result;
 	format(DB_Query, sizeof(DB_Query),
 	"\
-		SELECT CUENTA.*, REGISTRO.DATE, PERSONAJE.INTERIOR, PERSONAJE.LOCAL_INTERIOR, PERSONAJE.POS_X, PERSONAJE.POS_Y, PERSONAJE.POS_Z, PERSONAJE.ANGLE, PERSONAJE.STATE AS PSTATE FROM `CUENTA`, `REGISTRO`, `PERSONAJE` WHERE CUENTA.`NAME` = '%q' AND REGISTRO.`ID_USER` = CUENTA.`ID` AND PERSONAJE.`ID_USER` = CUENTA.`ID`;\
-		UPDATE `CUENTA` SET `CONNECTED` = '1', `PLAYERID` = '%d' WHERE `NAME` = '%q';\
+		SELECT ACCOUNTS.*, REGISTER_LOG.DATE, CHARACTER.INTERIOR, CHARACTER.LOCAL_INTERIOR, CHARACTER.POS_X, CHARACTER.POS_Y, CHARACTER.POS_Z, CHARACTER.ANGLE, CHARACTER.STATE AS PSTATE FROM `ACCOUNTS`, `REGISTER_LOG`, `CHARACTER` WHERE ACCOUNTS.`NAME` = '%q' AND REGISTER_LOG.`ID_USER` = ACCOUNTS.`ID` AND CHARACTER.`ID_USER` = ACCOUNTS.`ID`;\
+		UPDATE `ACCOUNTS` SET `CONNECTED` = '1', `PLAYERID` = '%d' WHERE `NAME` = '%q';\
 	", PLAYER_TEMP[playerid][py_NAME], playerid, PLAYER_TEMP[playerid][py_NAME]);
 	Result = db_query(Database, DB_Query);
 	//printf("[%d] OnPlayerConnect 12", playerid);
@@ -516,7 +516,7 @@ public OnPlayerDisconnect(playerid, reason)
 	if (ACCOUNT_INFO[playerid][ac_ID] != 0)
 	{
 		new DB_Query[128];
-		format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `CONNECTED` = '0', PLAYERID = '-1' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+		format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `CONNECTED` = '0', PLAYERID = '-1' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 		db_free_result(db_query(Database, DB_Query));
 	}
 
@@ -750,7 +750,7 @@ public AddPlayerReputation(playerid)
 		format(DB_Query, sizeof DB_Query,
 
 			"\
-				UPDATE `CUENTA` SET `TIME-PLAYING` = '%d', `LEVEL` = '%d', `REP` = '%d', `TIME_FOR_REP` = '%d', `PAYDAY_REP` = '%d' WHERE `ID` = '%d';\
+				UPDATE `ACCOUNTS` SET `TIME-PLAYING` = '%d', `LEVEL` = '%d', `REP` = '%d', `TIME_FOR_REP` = '%d', `PAYDAY_REP` = '%d' WHERE `ID` = '%d';\
 			",
 				ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID]
 		);
@@ -1587,7 +1587,7 @@ public OnPlayerSpawn(playerid)
 						ShowPlayerMessage(playerid, str_text, 1);
 
 						new DBResult:NameR, query[65];
-						format(query, sizeof(query), "SELECT `NAME` FROM `CUENTA` WHERE `ID` = %d LIMIT 1;", CHARACTER_INFO[playerid][ch_JAILED_BY]);
+						format(query, sizeof(query), "SELECT `NAME` FROM `ACCOUNTS` WHERE `ID` = %d LIMIT 1;", CHARACTER_INFO[playerid][ch_JAILED_BY]);
 						NameR = db_query(Database, query);
 						if (db_num_rows(NameR))
 						{
@@ -3923,7 +3923,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 											ACCOUNT_INFO[playerid][ac_SD] += hycoins;
 
-											format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+											format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 											db_free_result(db_query(Database, DB_Query));
 
 											format(DB_Query, sizeof(DB_Query), "~g~[HYCOINS]~w~ Has encontrado %d Hycoins", hycoins);
@@ -5487,7 +5487,7 @@ public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 			    	format(coin_text, sizeof(coin_text), "Acabas de ganar %d Hycoins.", random_hycoin);
 			    	ShowPlayerNotification(playerid, coin_text, 4);
 					new DB_Query[128];
-					format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+					format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 					db_free_result(db_query(Database, DB_Query));
 
 					ApplyAnimation(playerid, "OTB", "WTCHRACE_WIN", 4.1, false, false, false, false, 0, false);

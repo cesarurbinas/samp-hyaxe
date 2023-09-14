@@ -269,7 +269,7 @@ DC_CMD:dban(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "ds[32]", to_account, reason)) return SendDiscordMessage(channelid, ":x: `!dban <DB-ID> <razon>`");
 
 	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ID` = '%d';", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -322,7 +322,7 @@ DC_CMD:dtban(DCC_User:userid, params[], DCC_Message:message)
 	if (days <= 0 || days > 9999) return SendDiscordMessage(channelid, ":warning: `!dtban <DB-ID> <dias> <razon>`");
 
 	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID` FROM `ACCOUNTS` WHERE `ID` = '%d';", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -449,7 +449,7 @@ DC_CMD:lsdb(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "d", to_account)) return SendDiscordMessage(channelid, ":warning: Uso: `/lsdb <DB-ID>`");
 
 	new DBResult:Result, DB_Query[360];
-	format(DB_Query, sizeof DB_Query, "SELECT CUENTA.`ID`, CUENTA.`NAME`, CUENTA.`CONNECTED`, CUENTA.`PLAYERID`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID`;", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT ACCOUNTS.`ID`, ACCOUNTS.`NAME`, ACCOUNTS.`CONNECTED`, ACCOUNTS.`PLAYERID`, CHARACTER.`POLICE_JAIL_TIME` FROM `ACCOUNTS`, `CHARACTER` WHERE ACCOUNTS.`ID` = %d AND CHARACTER.`ID_USER` = ACCOUNTS.`ID`;", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -466,7 +466,7 @@ DC_CMD:lsdb(DCC_User:userid, params[], DCC_Message:message)
 		if(connected) SendDiscordMessage(channelid, ":warning: JUGADOR `%s` DB-ID `%d` conectado utilice `!ls`, su player_id: `%d`.", get_name, id, player_id);
 		else
 		{
-			format(DB_Query, sizeof DB_Query, "UPDATE `PERSONAJE` SET `POS_X` = '1555.400390', `POS_Y` = '-1675.611694', `POS_Z` = 16.195312, `ANGLE` = '0.0', `STATE` = '%d', `INTERIOR` = '0', `LOCAL_INTERIOR` = '0', `POLICE_JAIL_TIME` = '0' WHERE `ID_USER` = '%d';", ROLEPLAY_STATE_NORMAL, to_account);
+			format(DB_Query, sizeof DB_Query, "UPDATE `CHARACTER` SET `POS_X` = '1555.400390', `POS_Y` = '-1675.611694', `POS_Z` = 16.195312, `ANGLE` = '0.0', `STATE` = '%d', `INTERIOR` = '0', `LOCAL_INTERIOR` = '0', `POLICE_JAIL_TIME` = '0' WHERE `ID_USER` = '%d';", ROLEPLAY_STATE_NORMAL, to_account);
 			db_free_result(db_query(Database, DB_Query));
 
 			SendDiscordMessage(channelid, "Jugador `%s - DB-ID %d` ahora aparecerá en LS.", get_name, id);
@@ -487,7 +487,7 @@ DC_CMD:getname(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "d", db_id)) return SendDiscordMessage(channelid, ":warning: Uso: `!getname <DB-ID>`");
 
 	new DBResult:Result, DB_Query[128];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID` FROM `CUENTA` WHERE `ID` = '%d';", db_id);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID` FROM `ACCOUNTS` WHERE `ID` = '%d';", db_id);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -515,7 +515,7 @@ DC_CMD:player(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "s[24]", name)) return SendDiscordMessage(channelid, ":warning: Uso: `!player <nombre o parte del nombre>`");
 
 	new DBResult:Result, DB_Query[264];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` LIKE '%%%q%%' LIMIT 3;", name);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `ACCOUNTS` WHERE `NAME` LIKE '%%%q%%' LIMIT 3;", name);
 	Result = db_query(Database, DB_Query);
 
 	new count;
@@ -549,7 +549,7 @@ DC_CMD:getid(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "s[24]", name)) return SendDiscordMessage(channelid, ":warning: Uso: `!getid <nombre o parte del nombre>`");
 
 	new DBResult:Result, DB_Query[128];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` LIKE '%%%q%%' LIMIT 5;", name);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `ACCOUNTS` WHERE `NAME` LIKE '%%%q%%' LIMIT 5;", name);
 	Result = db_query(Database, DB_Query);
 
 	new count;
@@ -582,7 +582,7 @@ DC_CMD:setpass(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "ds[19]", to_account, new_pass)) return SendDiscordMessage(channelid, ":warning: Uso: `!setpass <DB-ID> <pass>`");
 
 	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID` FROM `ACCOUNTS` WHERE `ID` = '%d';", to_account);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -603,7 +603,7 @@ DC_CMD:setpass(DCC_User:userid, params[], DCC_Message:message)
 
 			SHA256_PassHash(new_pass, salt_ex, pass_ex, 64 + 1);
 
-			format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SALT` = '%q', `PASS` = '%q' WHERE `ID` = '%d';", salt_ex, pass_ex, id);
+			format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SALT` = '%q', `PASS` = '%q' WHERE `ID` = '%d';", salt_ex, pass_ex, id);
 			db_free_result(db_query(Database, DB_Query));
 
 			SendDiscordMessage(channelid, "La contraseña de `%s` ahora es: `%s`", get_name, new_pass);
@@ -625,7 +625,7 @@ DC_CMD:setname(DCC_User:userid, params[], DCC_Message:message)
 	if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
 
 	new DBResult:Result, DB_Query[256], bool:used;
-	format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `CUENTA` WHERE `NAME` = '%q';", new_name);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `ACCOUNTS` WHERE `NAME` = '%q';", new_name);
 	Result = db_query(Database, DB_Query);
 	if (db_num_rows(Result)) used = true;
 	db_free_result(Result);
@@ -637,7 +637,7 @@ DC_CMD:setname(DCC_User:userid, params[], DCC_Message:message)
 	SetRolePlayNames(to_player);
 	SetPlayerName(to_player, new_name);
 
-	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `NAME` = '%q' WHERE `ID` = '%d';", new_name, ACCOUNT_INFO[to_player][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `NAME` = '%q' WHERE `ID` = '%d';", new_name, ACCOUNT_INFO[to_player][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
 	for(new i = 0; i != MAX_PROPERTIES; i ++)

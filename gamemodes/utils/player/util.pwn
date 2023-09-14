@@ -1112,7 +1112,7 @@ GetDatabaseUserName(db_id)
 		name[25]
 	;
 
-	format(DB_Query, sizeof(DB_Query), "SELECT `NAME` FROM `CUENTA` WHERE `ID` = %d LIMIT 1;", db_id);
+	format(DB_Query, sizeof(DB_Query), "SELECT `NAME` FROM `ACCOUNTS` WHERE `ID` = %d LIMIT 1;", db_id);
 	Result = db_query(Database, DB_Query);
 	if (db_num_rows(Result))
 		db_get_field_assoc(Result, "NAME", name);
@@ -1370,10 +1370,10 @@ SetPlayerVip(playerid, vip_level, price_coin = 0, days = 30)
 	ACCOUNT_INFO[playerid][ac_SU] = vip_level;
 
 	new DB_Query[128], DBResult:Result;
-	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d', `SU` = '%d', `SU_EXPIRE_DATE` = DATETIME('NOW', '+%d day') WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SU], days, ACCOUNT_INFO[playerid][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d', `SU` = '%d', `SU_EXPIRE_DATE` = DATETIME('NOW', '+%d day') WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SU], days, ACCOUNT_INFO[playerid][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
-	format(DB_Query, sizeof DB_Query, "SELECT `SU_EXPIRE_DATE` FROM `CUENTA` WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "SELECT `SU_EXPIRE_DATE` FROM `ACCOUNTS` WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 	Result = db_query(Database, DB_Query);
 	if (db_num_rows(Result)) db_get_field(Result, 0, ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE], 24);
 	db_free_result(Result);
@@ -1491,13 +1491,13 @@ GetPlayerCameraLookAt(playerid, &Float:X, &Float:Y, &Float:Z)
 CheckPlayerSuperUser(playerid)
 {
 	new DBResult:Result, DB_Query[144], bool:expired;
-	format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `CUENTA` WHERE `ID` = '%d' AND DATETIME('NOW') >= `SU_EXPIRE_DATE`;", ACCOUNT_INFO[playerid][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `ACCOUNTS` WHERE `ID` = '%d' AND DATETIME('NOW') >= `SU_EXPIRE_DATE`;", ACCOUNT_INFO[playerid][ac_ID]);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
 	{
 		expired = true;
-		format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SU` = 0, `SU_EXPIRE_DATE` = '0' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+		format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SU` = 0, `SU_EXPIRE_DATE` = '0' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 		db_free_result(db_query(Database, DB_Query));
 	}
 	db_free_result(Result);
@@ -4383,7 +4383,7 @@ NextLevel(playerid)
 	format(DB_Query, sizeof DB_Query,
 
 		"\
-			UPDATE `CUENTA` SET `TIME-PLAYING` = '%d', `LEVEL` = '%d', `REP` = '%d', `TIME_FOR_REP` = '%d', `PAYDAY_REP` = '%d' WHERE `ID` = '%d';\
+			UPDATE `ACCOUNTS` SET `TIME-PLAYING` = '%d', `LEVEL` = '%d', `REP` = '%d', `TIME_FOR_REP` = '%d', `PAYDAY_REP` = '%d' WHERE `ID` = '%d';\
 		",
 			ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID]
 	);
@@ -4403,7 +4403,7 @@ SetPlayerCash(playerid, ammount, bool:update = true)
 	if (update)
 	{
 		new DB_Query[160];
-		format(DB_Query, sizeof DB_Query, "UPDATE `PERSONAJE` SET `CASH` = '%d' WHERE `ID_USER` = '%d';", CHARACTER_INFO[playerid][ch_CASH], ACCOUNT_INFO[playerid][ac_ID]);
+		format(DB_Query, sizeof DB_Query, "UPDATE `CHARACTER` SET `CASH` = '%d' WHERE `ID_USER` = '%d';", CHARACTER_INFO[playerid][ch_CASH], ACCOUNT_INFO[playerid][ac_ID]);
 		db_free_result(db_query(Database, DB_Query));
 	}
 	return 1;
@@ -4433,7 +4433,7 @@ GivePlayerCash(playerid, ammount, bool:update = true, bool:game_text = true)
 	if (update)
 	{
 		new DB_Query[160];
-		format(DB_Query, sizeof DB_Query, "UPDATE `PERSONAJE` SET `CASH` = '%d' WHERE `ID_USER` = '%d';", CHARACTER_INFO[playerid][ch_CASH], ACCOUNT_INFO[playerid][ac_ID]);
+		format(DB_Query, sizeof DB_Query, "UPDATE `CHARACTER` SET `CASH` = '%d' WHERE `ID_USER` = '%d';", CHARACTER_INFO[playerid][ch_CASH], ACCOUNT_INFO[playerid][ac_ID]);
 		db_free_result(db_query(Database, DB_Query));
 	}
 	return 1;
@@ -4612,7 +4612,7 @@ RegisterNewPlayer(playerid)
 	new DBResult:Result, DB_Query[900];
 	format(DB_Query, sizeof DB_Query,
 	"\
-		INSERT INTO `CUENTA` \
+		INSERT INTO `ACCOUNTS` \
 		(\
 			`IP`, `NAME`, `EMAIL`, `GPCI`, `SALT`, `PASS`, `CONNECTED`, `PLAYERID`, `TIME_FOR_REP`\
 		) \
@@ -4620,7 +4620,7 @@ RegisterNewPlayer(playerid)
 		(\
 			'%q', '%q', '%q', '%q', '%q', '%q', 1, %d, %d\
 		);\
-		SELECT `ID`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` = '%q';\
+		SELECT `ID`, `LAST_CONNECTION` FROM `ACCOUNTS` WHERE `NAME` = '%q';\
 	", ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SERIAL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], playerid, TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_NAME]);
 	Result = db_query(Database, DB_Query);
 
@@ -4636,7 +4636,7 @@ RegisterNewPlayer(playerid)
 	new DBResult:Result_reg;
 	format(DB_Query, sizeof DB_Query,
 	"\
-		INSERT INTO `REGISTRO`\
+		INSERT INTO `REGISTER_LOG`\
 		(\
 			`ID_USER`, `IP`, `NAME`, `EMAIL`, `SALT`, `PASS`\
 		)\
@@ -4644,7 +4644,7 @@ RegisterNewPlayer(playerid)
 		(\
 			'%d', '%q', '%q', '%q', '%q', '%q'\
 		);\
-		SELECT `DATE` FROM `REGISTRO` WHERE `ID_USER` = '%d';\
+		SELECT `DATE` FROM `REGISTER_LOG` WHERE `ID_USER` = '%d';\
 	", ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_ID]);
 	Result_reg = db_query(Database, DB_Query);
 
@@ -4655,7 +4655,7 @@ RegisterNewPlayer(playerid)
 	DB_Query[0] = EOS;
 	format(DB_Query, sizeof DB_Query,
 	"\
-		INSERT INTO `PERSONAJE`\
+		INSERT INTO `CHARACTER`\
 		(\
 			`ID_USER`, `SKIN`, `CASH`, `POS_X`, `POS_Y`, `POS_Z`, `ANGLE`, `SEX`\
 		)\
@@ -4721,7 +4721,7 @@ SaveUserData(playerid)
 
 	new DB_Query[1950];
 	format(DB_Query, sizeof(DB_Query), "\
-		UPDATE `CUENTA` SET \
+		UPDATE `ACCOUNTS` SET \
 		`IP` = '%q',\
 		`NAME` = '%q',\
 		`EMAIL` = '%q',\
@@ -4739,7 +4739,7 @@ SaveUserData(playerid)
 		`PAYDAY_REP` = '%d' \
 		WHERE `ID` = '%d';\
 		\
-		UPDATE `PERSONAJE` SET \
+		UPDATE `CHARACTER` SET \
 		`SKIN` = '%d',\
 		`CASH` = '%d',\
 		`POS_X` = '%f',\
@@ -5041,7 +5041,7 @@ LoadCharacterData(playerid)
 	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
 
 	new DBResult:Result, DB_Query[164];
-	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PERSONAJE` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `CHARACTER` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -6728,7 +6728,7 @@ LoadProperties()//cargado propiedes
 		if (PROPERTY_INFO[total_houses][property_VIP_LEVEL]) PROPERTY_INFO[total_houses][property_LEVEL] = 1;
 
 		new DBResult:Result_info_owner, DB_Query[600], owner[24], info[3], label_str[256], pickup_modelid;
-		format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PROPERTY_OWNER`.`ID_USER`, `PROPERTY_OWNER`.`PROPERTY_NAME` FROM `CUENTA`, `PROPERTY_OWNER` WHERE `PROPERTY_OWNER`.`ID_PROPERTY` = '%d' AND `CUENTA`.`ID` = `PROPERTY_OWNER`.`ID_USER`;", PROPERTY_INFO[total_houses][property_ID]);
+		format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PROPERTY_OWNER`.`ID_USER`, `PROPERTY_OWNER`.`PROPERTY_NAME` FROM `ACCOUNTS`, `PROPERTY_OWNER` WHERE `PROPERTY_OWNER`.`ID_PROPERTY` = '%d' AND `ACCOUNTS`.`ID` = `PROPERTY_OWNER`.`ID_USER`;", PROPERTY_INFO[total_houses][property_ID]);
 		Result_info_owner = db_query(Database, DB_Query);
 
 		if (db_num_rows(Result_info_owner))

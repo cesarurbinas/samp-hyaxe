@@ -35,7 +35,7 @@ LoadClubs()
 					owner[24]
 				;
 
-				format(DB_Query, sizeof DB_Query, "SELECT `NAME` FROM `CUENTA` WHERE `ID` = %d;", CLUBS_INFO[i][club_USER_ID]);
+				format(DB_Query, sizeof DB_Query, "SELECT `NAME` FROM `ACCOUNTS` WHERE `ID` = %d;", CLUBS_INFO[i][club_USER_ID]);
 				Result_info_owner = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result_info_owner))
@@ -199,7 +199,7 @@ BuyClub(playerid, index)
 	ACCOUNT_INFO[playerid][ac_SD] -= CLUBS_INFO[index][club_PRICE];
 
 	new DB_Query[264];
-	format(DB_Query, sizeof(DB_Query), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+	format(DB_Query, sizeof(DB_Query), "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
 	CLUBS_INFO[index][club_USER_ID] = ACCOUNT_INFO[playerid][ac_ID];

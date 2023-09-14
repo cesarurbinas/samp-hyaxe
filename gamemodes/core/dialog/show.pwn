@@ -241,17 +241,17 @@ ShowDialog(playerid, dialogid)
 						}
 						case BANK_TRANSACTION_TRANSFER_SENT:
 						{
-							format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_GREEN"TRANSFERENCIA A LA CUENTA %d\t"COL_WHITE"-%s$\n", date, extra, number_format_thousand(ammount));
+							format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_GREEN"TRANSFERENCIA A LA ACCOUNTS %d\t"COL_WHITE"-%s$\n", date, extra, number_format_thousand(ammount));
 							strcat(dialog, line_str);
 						}
 						case BANK_TRANSACTION_TRANSFER_RECE:
 						{
-							format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_GREEN"TRANSFERENCIA DE LA CUENTA %d\t"COL_WHITE"%s$\n", date, extra, number_format_thousand(ammount));
+							format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_GREEN"TRANSFERENCIA DE LA ACCOUNTS %d\t"COL_WHITE"%s$\n", date, extra, number_format_thousand(ammount));
 							strcat(dialog, line_str);
 						}
 						case BANK_TRANSACTION_CREATE_ACCOUNT:
 						{
-							format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_GREEN"CREACION DE LA CUENTA\t"COL_WHITE"%s$\n", date, number_format_thousand(ammount));
+							format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_GREEN"CREACION DE LA ACCOUNTS\t"COL_WHITE"%s$\n", date, number_format_thousand(ammount));
 							strcat(dialog, line_str);
 						}
 						case BANK_TRANSACTION_BUY_PROPERTY:
@@ -1704,7 +1704,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_POLICE, WORK_POLICE, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`ID`, `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_POLICE, WORK_POLICE, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -1751,7 +1751,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_MAFIA, WORK_MAFIA, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`ID`, `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_MAFIA, WORK_MAFIA, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -1790,7 +1790,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_MAFIA_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_MAFIA);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_MAFIA);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result))
@@ -1844,7 +1844,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_ENEMY_MAFIA, WORK_ENEMY_MAFIA, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`ID`, `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_ENEMY_MAFIA, WORK_ENEMY_MAFIA, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -1883,7 +1883,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_ENEMY_MAFIA_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_ENEMY_MAFIA);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_ENEMY_MAFIA);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result))
@@ -1937,7 +1937,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_OSBORN, WORK_OSBORN, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`ID`, `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_OSBORN, WORK_OSBORN, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -1976,7 +1976,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_OSBORN_MAFIA_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_OSBORN);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_OSBORN);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result))
@@ -2030,7 +2030,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_CONNOR, WORK_CONNOR, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`ID`, `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_CONNOR, WORK_CONNOR, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -2069,7 +2069,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_CONNOR_MAFIA_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_CONNOR);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_CONNOR);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result))
@@ -2123,7 +2123,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_DIVISO, WORK_DIVISO, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`ID`, `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_DIVISO, WORK_DIVISO, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -2162,7 +2162,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_DIVISO_MAFIA_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result))
@@ -2216,7 +2216,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_SINDACCO, WORK_SINDACCO, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`ID`, `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_SINDACCO, WORK_SINDACCO, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -2255,7 +2255,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_SINDACCO_MAFIA_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result))
@@ -2301,7 +2301,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_POLICE_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_POLICE);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_POLICE);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result))
@@ -2537,7 +2537,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[400];
-			format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION`, `CONNECTED`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ADMIN_LEVEL` > 0 ORDER BY `CONNECTED` DESC, `ADMIN_LEVEL` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION`, `CONNECTED`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ADMIN_LEVEL` > 0 ORDER BY `CONNECTED` DESC, `ADMIN_LEVEL` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -2573,7 +2573,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_ADMIN_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `NAME`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
+			format(DB_Query, sizeof DB_Query, "SELECT `NAME`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result))
@@ -3210,7 +3210,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[320];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '%d' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK` ASC LIMIT %d, %d;", PLAYER_CREW[playerid][player_crew_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `ACCOUNTS`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '%d' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK` ASC LIMIT %d, %d;", PLAYER_CREW[playerid][player_crew_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -3262,7 +3262,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[350];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '%d' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK` ASC LIMIT %d, %d;", PLAYER_CREW[playerid][player_crew_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`ID`, `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `ACCOUNTS`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '%d' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK` ASC LIMIT %d, %d;", PLAYER_CREW[playerid][player_crew_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -3471,7 +3471,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[350];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '%d' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK` ASC LIMIT %d, %d;", PLAYER_CREW[playerid][player_crew_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`ID`, `ACCOUNTS`.`NAME`, `ACCOUNTS`.`LAST_CONNECTION`, `ACCOUNTS`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `ACCOUNTS`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '%d' ORDER BY `ACCOUNTS`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK` ASC LIMIT %d, %d;", PLAYER_CREW[playerid][player_crew_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -3507,7 +3507,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_CREW_MODIFY_MEMBER:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID`;", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PLAYER_CREW`.`RANK` FROM `ACCOUNTS`, `PLAYER_CREW` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_CREW`.`ID_USER` = `ACCOUNTS`.`ID`;", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
 			Result = db_query(Database, DB_Query);
 
 			if (db_num_rows(Result))
@@ -3921,7 +3921,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Sospechoso\t"COL_WHITE"Añadido por\t"COL_WHITE"Fecha\t"COL_WHITE"Razón\n");
 
 			new DBResult:Result, DB_Query[256], name[24], by[24], reason[128], date[24];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `POLICE_HISTORY`.* FROM `CUENTA`, `POLICE_HISTORY` WHERE `CUENTA`.`ID` = `POLICE_HISTORY`.`ID_USER` ORDER BY `DATE` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `POLICE_HISTORY`.* FROM `ACCOUNTS`, `POLICE_HISTORY` WHERE `ACCOUNTS`.`ID` = `POLICE_HISTORY`.`ID_USER` ORDER BY `DATE` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )
@@ -3959,7 +3959,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, ""COL_WHITE"Sospechoso\t"COL_WHITE"Añadido por\t"COL_WHITE"Fecha\t"COL_WHITE"Razón\n");
 
 			new DBResult:Result, DB_Query[256], name[24], by[24], reason[128], date[24];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `POLICE_HISTORY`.* FROM `CUENTA`, `POLICE_HISTORY` WHERE `POLICE_HISTORY`.`ID_USER` = '%d' AND `CUENTA`.`ID` = `POLICE_HISTORY`.`ID_USER` ORDER BY `DATE` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_SELECTED_BYC_USER_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `POLICE_HISTORY`.* FROM `ACCOUNTS`, `POLICE_HISTORY` WHERE `POLICE_HISTORY`.`ID_USER` = '%d' AND `ACCOUNTS`.`ID` = `POLICE_HISTORY`.`ID_USER` ORDER BY `DATE` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_SELECTED_BYC_USER_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
 			Result = db_query(Database, DB_Query);
 
 			for(new i; i < db_num_rows(Result); i++ )

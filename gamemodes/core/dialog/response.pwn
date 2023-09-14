@@ -74,7 +74,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (strfind(inputtext, ".", true) == -1) return ShowDialog(playerid, dialogid);
 
 			new DBResult:Result, bool:email_exists, DB_Query[80];
-			format(DB_Query, sizeof(DB_Query), "SELECT * FROM `CUENTA` WHERE `EMAIL` = '%q'", inputtext);
+			format(DB_Query, sizeof(DB_Query), "SELECT * FROM `ACCOUNTS` WHERE `EMAIL` = '%q'", inputtext);
 			Result = db_query(Database, DB_Query);
 			if (db_num_rows(Result)) email_exists = true;
 			db_free_result(Result);
@@ -1534,7 +1534,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					ACCOUNT_INFO[playerid][ac_SD] -= PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA];
 
-					format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+					format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 					db_free_result(db_query(Database, DB_Query_update));
 
 					ShowPlayerNotification(playerid, sprintf("Has gastado %d "SERVER_COIN" en la compra de esta propiedad.", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA]));
@@ -2110,7 +2110,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ACCOUNT_INFO[playerid][ac_SD] -= SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA];
 
 					new DB_Query_update[160];
-					format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+					format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 					db_free_result(db_query(Database, DB_Query_update));
 
 					SendClientMessageEx(playerid, COLOR_WHITE, "Has gastado %d "SERVER_COIN" en la compra de este vehículo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA]);
@@ -4006,8 +4006,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					DB_Query_update, sizeof DB_Query_update,
 
 						"\
-							UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';\
-							UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';\
+							UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';\
+							UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';\
 						",
 							ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID],
 							ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_SD], ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID]
@@ -4110,7 +4110,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_POLICE);
+				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_POLICE);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -4203,7 +4203,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_MAFIA);
+				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_MAFIA);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -4296,7 +4296,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_ENEMY_MAFIA);
+				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_ENEMY_MAFIA);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -4389,7 +4389,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_OSBORN);
+				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_OSBORN);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -4482,7 +4482,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_CONNOR);
+				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_CONNOR);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -4575,7 +4575,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
+				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -4668,7 +4668,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
+				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -4800,13 +4800,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
 				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -2) // Siguiente
 				{
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages("SELECT COUNT() FROM `CUENTA` WHERE `ADMIN_LEVEL` > 0;", PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
+					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages("SELECT COUNT() FROM `ACCOUNTS` WHERE `ADMIN_LEVEL` > 0;", PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
 					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
 					ShowDialog(playerid, dialogid);
 				}
 				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -3) //Anterior
 				{
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages("SELECT COUNT() FROM `CUENTA` WHERE `ADMIN_LEVEL` > 0;", PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
+					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages("SELECT COUNT() FROM `ACCOUNTS` WHERE `ADMIN_LEVEL` > 0;", PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
 					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
 					ShowDialog(playerid, dialogid);
 				}
@@ -4832,7 +4832,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
+				format(DB_Query, sizeof DB_Query, "SELECT `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `ACCOUNTS` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -4853,7 +4853,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
-				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = '%d' WHERE `ID` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
+				format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `ADMIN_LEVEL` = '%d' WHERE `ID` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
 				db_free_result(db_query(Database, DB_Query));
 				SendClientMessageEx(playerid, COLOR_WHITE, "El nuevo rango de %s es: '%s'.", name, ADMIN_LEVELS[listitem]);
 
@@ -4902,7 +4902,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SHA256_PassHash(inputtext, ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], 64 + 1);
 
 				new DB_Query[160];
-				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SALT` = '%q' `PASS` = '%q' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_ID]);
+				format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SALT` = '%q' `PASS` = '%q' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_ID]);
 				db_free_result(db_query(Database, DB_Query));
 
 				ShowPlayerNotification(playerid, "~r~Importante~w~~n~¡Nunca compartas o muestres la contraseña de tu cuenta! Los administradores de "SERVER_NAME" nunca solicitan esta información.", 4);
@@ -5841,7 +5841,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
 
 					new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
-					format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID`;", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
+					format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `PLAYER_CREW`.`RANK` FROM `ACCOUNTS`, `PLAYER_CREW` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_CREW`.`ID_USER` = `ACCOUNTS`.`ID`;", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
 					Result = db_query(Database, DB_Query);
 
 					if (db_num_rows(Result))
@@ -5886,7 +5886,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				new DBResult:Result, DB_Query[320], name[24], current_rank, connected, player_id, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID`;", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
+				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_CREW`.`RANK` FROM `ACCOUNTS`, `PLAYER_CREW` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_CREW`.`ID_USER` = `ACCOUNTS`.`ID`;", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -6511,7 +6511,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new DBResult:Result, DB_Query[320], name[24], current_rank, connected, player_id, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID`;", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
+				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_CREW`.`RANK` FROM `ACCOUNTS`, `PLAYER_CREW` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_CREW`.`ID_USER` = `ACCOUNTS`.`ID`;", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -6827,10 +6827,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ACCOUNT_INFO[playerid][ac_SD] -= SU_SD_PRICE;
 
 						new DB_Query[128], DBResult:Result;
-						format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d', `SU` = '%d', `SU_EXPIRE_DATE` = DATETIME(`SU_EXPIRE_DATE`, '+30 day') WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SU], ACCOUNT_INFO[playerid][ac_ID]);
+						format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d', `SU` = '%d', `SU_EXPIRE_DATE` = DATETIME(`SU_EXPIRE_DATE`, '+30 day') WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SU], ACCOUNT_INFO[playerid][ac_ID]);
 						db_free_result(db_query(Database, DB_Query));
 
-						format(DB_Query, sizeof DB_Query, "SELECT `SU_EXPIRE_DATE` FROM `CUENTA` WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+						format(DB_Query, sizeof DB_Query, "SELECT `SU_EXPIRE_DATE` FROM `ACCOUNTS` WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 						Result = db_query(Database, DB_Query);
 						if (db_num_rows(Result)) db_get_field(Result, 0, ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE], 24);
 						db_free_result(Result);
@@ -7566,7 +7566,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "s[24]", name)) return ShowDialog(playerid, dialogid);
 
 				new DBResult:Result, DB_Query[128], bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `CUENTA` WHERE `NAME` = '%q';", name);
+				format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `ACCOUNTS` WHERE `NAME` = '%q';", name);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -7703,7 +7703,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							{
 								ACCOUNT_INFO[playerid][ac_SD] += extra;
 
-								format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+								format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 								db_free_result(db_query(Database, DB_Query));
 
 								format(str_text, sizeof(str_text), "~g~[HYCOINS]~w~ Has canjeado %d Hycoins", extra);
@@ -8050,7 +8050,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ACCOUNT_INFO[playerid][ac_SD] -= inputtext[0];
 
-				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+				format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 				db_free_result(db_query(Database, DB_Query));
 
 				GivePlayerCash(playerid, 150000 * inputtext[0], true);
@@ -9044,7 +9044,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    	format(coin_text, sizeof(coin_text), "Acabas de ganar %d Hycoins.", random_hycoin);
 			    	ShowPlayerNotification(playerid, coin_text, 4);
 					new DB_Query[128];
-					format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+					format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 					db_free_result(db_query(Database, DB_Query));
 			    }
 			}
@@ -9063,7 +9063,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ACCOUNT_INFO[playerid][ac_SD] += extra;
 
-				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+				format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 				db_free_result(db_query(Database, DB_Query));
 
 				format(str_text, sizeof(str_text), "Acabas de vender el local por ~y~%d Hycoins", extra);
@@ -9167,7 +9167,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ACCOUNT_INFO[playerid][ac_SD] -= 5;
 
 				new DB_Query_update[160];
-				format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+				format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 				db_free_result(db_query(Database, DB_Query_update));
 
 				PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] = listitem;
@@ -9186,7 +9186,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ACCOUNT_INFO[playerid][ac_SD] -= 5;
 
 				new DB_Query_update[160];
-				format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+				format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 				db_free_result(db_query(Database, DB_Query_update));
 
 				PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] = listitem;
