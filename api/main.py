@@ -153,7 +153,7 @@ def add_webhook():
 # Proxy check
 @app.route('/proxycheck/<ip>')
 def proxy_check(ip):
-	whitelist = ['138.204.13.179', '31.214.141.206']
+	whitelist = ['138.204.13.179', '95.156.227.96']
 	if ip in whitelist:
 		return 'N'
 		

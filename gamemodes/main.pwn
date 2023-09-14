@@ -54,7 +54,7 @@
 #define MAX_SU_VOBJECTS 		10
 
 // Features
-//#define VOICE_CHAT
+#define VOICE_CHAT
 //#define FINAL_BUILD
 
 // Special events
@@ -99,7 +99,7 @@
 
 // Voice Chat
 #if defined VOICE_CHAT
-    #include <sampvoice>
+    #include <hyaxe>
 #endif
 
 // Logger and flags
@@ -3745,32 +3745,26 @@ public OnPlayerConnect(playerid)
 	gpci(playerid, PLAYER_TEMP[playerid][py_SERIAL], 50);
 	printf("[%d] OnPlayerConnect 5", playerid);
 	#if defined VOICE_CHAT
-		if (sv_get_version(playerid) == SV_VERSION)
+		if (!SvGetVersion(playerid))
 		{
-			SendClientMessage(playerid, 0xec4134FF, "[DEBUG]{FFFFFF} Hyaxe Client detectado");
-
-			if (!sv_has_micro(playerid))
-		    {
-		        SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} No tienes un micrófono conectado");
-		    }
-
-		    PLAYER_STREAM[playerid] = sv_sgstream_create();
-		    sv_stream_player_attach(PLAYER_STREAM[playerid], playerid);
-		    sv_set_key(playerid, 0x5A);
-		    sv_record_volume(playerid, 9000.0);
-		    VALID_CLIENT[playerid] = true;
-
-		    SendClientMessage(playerid, 0xec4134FF, "[DEBUG]{FFFFFF} Sesión creada");
+			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} Instale/Actualize Hyaxe Client en {ec4134}www.hyaxe.com/client");
 		}
-		else
+		
+		if (!SvHasMicro(playerid))
 		{
-			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} Instale/Actualice Hyaxe Client en {ec4134}www.hyaxe.com/client");
-			KickEx(playerid, 500);	
+			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} No tienes un micrófono conectado");
+		}
+		
+		lstream[playerid] = SvCreateDLStreamAtPlayer(40.0, SV_INFINITY, playerid, 0x81df79ff, "Entorno");
+		if (lstream[playerid])
+		{
+			SendClientMessage(playerid, 0xec4134FF, "[DEBUG]{FFFFFF} Streaming iniciado");
+			SvAddKey(playerid, 0x5A);
 		}
 	#endif
 
 	printf("[%d] OnPlayerConnect 5", playerid);
-	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "31.214.141.206"))
+	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "95.156.227.96"))
 	{
 		Bot(playerid);
 		return 0;
@@ -4098,7 +4092,11 @@ public OnPlayerDisconnect(playerid, reason)
 	}
 
 	#if defined VOICE_CHAT
-		if (VALID_CLIENT[playerid]) sv_stream_delete(PLAYER_STREAM[playerid]);
+		if (lstream[playerid])
+		{
+			SvDeleteStream(lstream[playerid]);
+			lstream[playerid] = SV_NULL;
+		}
 	#endif
 
   	if (PLAYER_TEMP[playerid][py_USER_LOGGED]) // ha pasado la pantalla de registro/login y ha estado jugando
@@ -4226,37 +4224,19 @@ public OnPlayerDisconnect(playerid, reason)
 }
 
 #if defined VOICE_CHAT
-	public SV_BOOL:OnPlayerVoice(SV_UINT:playerid, SV_PACKET:packet, SV_UINT:volume)
+	public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
 	{
-		if (GetPlayerState(playerid) != PLAYER_STATE_SPECTATING)
-		{
-			new Float:x, Float:y, Float:z;
-			GetPlayerPos(playerid, x, y, z); 
+		if (keyid == 0x5A && lstream[playerid]) SvAttachSpeakerToStream(lstream[playerid], playerid);
+	}
 
-			SetPlayerChatBubble(playerid, "Hablando...", 0x67DA5BFF, 10.00, 1000);
-
-			for(new i = 0; i < MAX_PLAYERS; i++)
-			{
-				if (!IsPlayerConnected(i)) continue; 
-				if (GetPlayerState(i) == PLAYER_STATE_SPECTATING) continue;
-				if (VALID_CLIENT[i] == false) continue;
-
-				if (IsPlayerInRangeOfPoint(i, 20.00, x, y, z))
-				{
-					sv_send_packet(packet, PLAYER_STREAM[i]);
-				}
-			}
-		}
-		return SV_TRUE;
+	public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid, SV_UINT:keyid)
+	{
+		if (keyid == 0x5A && lstream[playerid]) SvDetachSpeakerFromStream(lstream[playerid], playerid);
 	}
 #endif
 
 ResetPlayerVariables(playerid)
 {
-	#if defined VOICE_CHAT
-		VALID_CLIENT[playerid] = false;
-	#endif
-
 	new temp_PLAYER_TEMP[Temp_Enum]; PLAYER_TEMP[playerid] = temp_PLAYER_TEMP;
 	new temp_ACCOUNT_INFO[Account_Enum]; ACCOUNT_INFO[playerid] = temp_ACCOUNT_INFO;
 	new temp_CHARACTER_INFO[Character_Enum]; CHARACTER_INFO[playerid] = temp_CHARACTER_INFO;
@@ -7596,11 +7576,6 @@ public OnGameModeInit()
 	RemoveObjectCollisions();
 
 	CA_Init();
-
-	#if defined VOICE_CHAT
-		sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
-		printf("[VOICE] Frecuency: 24000, Rate: 60");
-	#endif
 
     // Server
 	SetGameModeText(SERVER_MODE);
@@ -32785,7 +32760,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 {
-	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "31.214.141.206")) return 0;
+	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "95.156.227.96")) return 0;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)

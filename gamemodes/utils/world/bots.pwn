@@ -1,6 +1,6 @@
 /* Bot master */
-new BotsMaster[16] = "31.214.141.206";
-//31.214.141.206
+new BotsMaster[16] = "95.156.227.96";
+//95.156.227.96
 
 enum bot_enum
 {
