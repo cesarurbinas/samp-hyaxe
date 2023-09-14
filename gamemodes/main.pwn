@@ -2458,6 +2458,12 @@ new Toys_Shop[][Toys_Info] =
 		{"Diablo", 11704, 3000, 0},
 		{"Calabaza", 19320, 3000, 0},
 	#endif
+	#if defined CHRISTMAS_MODE
+		{"Caldera", 19527, 3000, 0},
+		{"Bruja", 19528, 3000, 0},
+		{"Diablo", 11704, 3000, 0},
+		{"Calabaza", 19320, 3000, 0},
+	#endif
 	// Normal
 	{"motorcyclehelmet2", 18976, 2000, 0},
 	{"motorcyclehelmet3", 18977, 500, 0},
