@@ -80,7 +80,9 @@ Listado de cosas para hacer
 
 ❌ Agregar trabajo taxi
 
-❌ Cambiar sistema de bidon de gasolina
+✅ Cambiar sistema de bidon de gasolina
+
+✅ Arreglar caracteres espanoles en las notifiaciones
 
 ❌ Agregar trabajo de conductor de bus
 
@@ -89,6 +91,10 @@ Listado de cosas para hacer
 🕐 Actualizar evento de navidad y halloween a nuevos items
 
 ✅ Enumerations en inventory type
+
+❌ Mejorar el inicio de disputas
+
+❌ Arreglar el tiempo restante para una disputa en el panel de banda
 
 ❌ Cambiar celular
 

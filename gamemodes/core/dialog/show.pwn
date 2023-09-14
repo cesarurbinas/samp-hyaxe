@@ -4311,7 +4311,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_INV_ORDER:
     	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Cambiar orden del inventario", "Normal\nTipo\nCantidad", "Cambiar", "Atrás");
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Cambiar orden del inventario", "Normal\nTipo (Ascendente)\nCantidad (Ascendente)\nTipo (Descendente)\nCantidad (Descendente)", "Cambiar", "Atrás");
     		return 1;
     	}
 		default: return 0;
