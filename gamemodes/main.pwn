@@ -5628,7 +5628,7 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
 {
     if (response == MENU_RESPONSE_SELECT)
     {
-    	print("asd");
+    	print("test etst asd");
     }
     return 1; 
 }
@@ -17981,7 +17981,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				  case 26: ApplyAnimation(playerid, "GYMNASIUM", "gym_shadowbox",  4.1,7,5,1,1,1);//boxear
 				  case 27: ApplyAnimation(playerid,"GANGS","hndshkfa_swt",4.1,0,0,0,0,0);//saludar
 				  case 28: ApplyAnimation(playerid,"GRAVEYARD","mrnF_loop",4.1,0,0,0,0,0);//llorar
-				  case 29: ApplyAnimation(playerid,"INT_HOUSE","BED_In_R",4.1,0,0,0,1,0);//dormir
+				  case 29: ApplyAnimation( playerid,"ped", "fucku", 4.0, 0, 1, 1, 1, 1 );//fucku antes era dormir
 				  case 30: ApplyAnimation(playerid,"RAPPING","RAP_B_Loop",4.0,1,0,0,0,8000);//rapear
 				  case 31: ApplyAnimation(playerid,"STRIP","strip_A",4.1,7,5,1,1,1);//strip
 				  case 32: ApplyAnimation(playerid,"DANCING","DAN_Down_A",4.1,7,5,1,1,1);//bailar
@@ -32522,12 +32522,12 @@ CMD:llorar(playerid, params[])
 	ApplyAnimation(playerid,"GRAVEYARD","mrnF_loop",4.1,0,0,0,0,0);//llorar
 	return 1;
 }
-CMD:dormir(playerid, params[])
+/*CMD:dormir(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	ApplyAnimation(playerid,"INT_HOUSE","BED_In_R",4.1,0,0,0,1,0);//dormir
 	return 1;
-}
+}*/
 CMD:rapear(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
