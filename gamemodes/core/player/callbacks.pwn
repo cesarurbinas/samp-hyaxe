@@ -6076,7 +6076,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 		{
 			new bad_history[24];
 			format(bad_history, sizeof bad_history, "ac, cheat (%02d)", cheat);
-			AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], COLOR_WHITE, TYPE_KICK, bad_history);
+			AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], 11, TYPE_KICK, bad_history);
 
 			if (extra != 0.0) format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d, extra: %.1f)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval], extra);
 			else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);

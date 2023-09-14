@@ -3938,7 +3938,7 @@ PlayerPayday(playerid)
 
 	if (ACCOUNT_INFO[playerid][ac_SU] >= 2)
 	{
-		money += minrand(8000, 15000);
+		money += minrand(8000, 12000);
 	}
 
 	if (money > 0) format(str_temp, sizeof(str_temp), "~n~RESUMEN: ~g~%s$~w~", number_format_thousand(money));
