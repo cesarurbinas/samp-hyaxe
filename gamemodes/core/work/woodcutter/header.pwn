@@ -65,7 +65,8 @@ enum E_CART_DATA {
 new LogCarts[MAX_PLAYERS][E_CART_DATA];
 
 new g_WoodcutterArea,
-	g_iSawmillStock = 0;
+	g_iSawmillStock = 0,
+	Text3D:SawmillLabel = INVALID_3DTEXT_ID;
 
 forward RegenerateTree(treeid);
 forward StartCutting(playerid, treeid);

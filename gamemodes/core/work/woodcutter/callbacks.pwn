@@ -2,6 +2,10 @@ public OnGameModeInit()
 {
 	g_WoodcutterArea = CreateDynamicRectangle(-2065.0, -2446.1595458984375, -1707.5294494628906, -2092.0);
 
+	new DBResult:Result;
+	Result = db_query(Database, "SELECT `SAWMILL_STOCK` FROM `SERVER_PROPERTIES`;");
+	if(db_num_rows(Result)) g_iSawmillStock = db_get_field_assoc_int(Result, "SAWMILL_STOCK");
+
 	// Información
 	CreateDynamicPickup(1275, 1, -1932.7006, -2454.7651, 30.7005);
 	CreateDynamic3DTextLabel(""COL_RED"Armario del aserradero\n"COL_WHITE"Usa "COL_RED"Y"COL_WHITE" para ponerte en servicio.", 0xFFFFFF00, -1932.7006, -2454.7651, 30.7005, 10.0, .testlos = true);
@@ -10,6 +14,9 @@ public OnGameModeInit()
 	CreateDynamicPickup(1318, 1, -1989.2733, -2383.7856, 30.6250);
 	CreateDynamic3DTextLabel(""COL_RED"Cinta transportadora\n"COL_WHITE"Usa "COL_RED"Y"COL_WHITE" para soltar tus troncos y recibir tu paga", 0xFFFFFFFF, -1989.2733, -2383.7856, 30.6250, 10.0, .testlos = true);
 
+	// Stock del aserradero
+	SawmillLabel = CreateDynamic3DTextLabel(sprintf(""COL_RED"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock), 0xFFFFFFFF, -1942.0737, -2453.7593, 30.6734, 5.0);
+	
 	new label[100];
 	for(new i = 0; i != sizeof(Trees); ++i)
 	{
@@ -210,6 +217,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					MoveDynamicObject(object, -1993.934570, -2388.530761, 31.026594, 1.0, 0.0, 0.0, -44.100006);
 					SetTimerEx("GenerateLogs", 1000, false, "d", LogCarts[playerid][cart_AMOUNT] - 1);
 					SetTimerEx("DestroyLogs", 5000, false, "d", object);
+
+					g_iSawmillStock += LogCarts[playerid][cart_AMOUNT];
+					safe_db_query(sprintf("UPDATE `SERVER_PROPERTIES` SET `SAWMILL_STOCK` = %d;", g_iSawmillStock));
+					UpdateDynamic3DTextLabelText(SawmillLabel, 0xFFFFFFFF, sprintf(""COL_RED"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock));
 
 					GivePlayerCash(playerid, 150 * LogCarts[playerid][cart_AMOUNT]);
 					ShowPlayerNotification(playerid, sprintf("Procesaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 150 * LogCarts[playerid][cart_AMOUNT]), 3);
