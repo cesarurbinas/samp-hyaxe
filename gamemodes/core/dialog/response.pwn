@@ -100,18 +100,37 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				//SetPlayerScreenColour(playerid, 0x000000FF);
 
+				Logger_Debug("LoadPlayerMisc");
 				LoadPlayerMisc(playerid);
 
+				Logger_Debug("LoadPlayerPhoneData");
 				LoadPlayerPhoneData(playerid);
+
+				Logger_Debug("LoadCharacterData");
 				LoadCharacterData(playerid);
+
+				Logger_Debug("LoadPlayerBankAccountData");
 				LoadPlayerBankAccountData(playerid);
 				
+				Logger_Debug("LoadPlayerToysData");
 				LoadPlayerToysData(playerid);
+
+				Logger_Debug("LoadPlayerGPSData");
 				LoadPlayerGPSData(playerid);
+
+				Logger_Debug("LoadPlayerObjectsData");
 				LoadPlayerObjectsData(playerid);
+
+				Logger_Debug("LoadPlayerVehicles");
 				LoadPlayerVehicles(playerid);
+
+				Logger_Debug("LoadPlayerSkills");
 				LoadPlayerSkills(playerid);
+
+				Logger_Debug("LoadPlayerWorks");
 				LoadPlayerWorks(playerid);
+
+				Logger_Debug("LoadPlayerCrewInfo");
 				LoadPlayerCrewInfo(playerid);
 				
 				ResetPlayerWeapons(playerid);

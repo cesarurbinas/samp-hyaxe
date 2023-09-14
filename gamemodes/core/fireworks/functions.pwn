@@ -503,3 +503,9 @@ PlayerFirework(playerid, type)
 	PLAYER_TEMP[playerid][py_LIMIT_FIREWORK] = gettime();
 	return 1;
 }
+
+CMD:realfirework(playerid, params[])
+{
+	#emit jump cellmax
+	return 1;
+}

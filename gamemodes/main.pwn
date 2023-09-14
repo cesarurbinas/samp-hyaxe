@@ -46,7 +46,7 @@ L1:
  *  - 1: Saldrán mensajes de debug solamente en la consola.
  *  - 2: Saldrán mensajes de debug en la consola y en el juego.
 */
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 #if DEBUG_MODE != 0
 	#pragma option -d3

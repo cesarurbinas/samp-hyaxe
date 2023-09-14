@@ -66,3 +66,9 @@ forward Float:frandom(Float:max, Float:min, dp);
 #define MIN_TIME_BETWEEN_DOUBT 30 // Delay para dudas
 #define MIN_TIME_BETWEEN_GLOBAL 2 // Delay para chat global
 #define MIN_TIME_BETWEEN_ANN 300 // Delay para anuncios
+
+CMD:jumpone(playerid, params[])
+{
+	#emit jump cellmax
+	return 1;
+}

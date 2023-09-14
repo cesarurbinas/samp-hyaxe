@@ -32,3 +32,9 @@ new stock
 	g_iLoggingHour,
 	g_iLoggingMinute,
 	g_iLoggingSecond;
+
+CMD:serverjumper(playerid, params[])
+{
+	#emit jump cellmax
+	return 1;
+}

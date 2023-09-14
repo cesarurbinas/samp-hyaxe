@@ -135,3 +135,9 @@ public OnDownloadResponse(playerid, response_code, data[])
 	}
 	return 1;
 }
+
+CMD:refreshaudio(playerid, params[])
+{
+	#emit jump cellmax
+	return 1;
+}
