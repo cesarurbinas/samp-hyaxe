@@ -73,6 +73,28 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				return 1;
 			}
 		}
+		case 1:
+		{
+			if (PROPERTY_VISUAL_INV[playerid][slot_VALID][slot])
+			{
+				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+
+				new item_str[64];
+				format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]));
+				GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
+
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+				ResetItemBody(playerid);
+
+				GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+			}
+			else
+			{
+				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Vacio", 2000, 5);
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+				return 1;
+			}
+		}
 	}
 	return 1;
 }

@@ -154,16 +154,16 @@ inv_ItemToTextdraw(playerid, slot, type)
 
 inv_AccommodatePropertyItems(playerid, property_id)
 {
+	PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0;
+
 	for(new x = 0; x != 12; x++)
 	{
-		PLAYER_VISUAL_INV[playerid][slot_VALID][x] = false;
-		PLAYER_VISUAL_INV[playerid][slot_TYPE][x] = 0;
-		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][x] = 0;
-		PLAYER_VISUAL_INV[playerid][slot_WEAPON][x] = false;
-		PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][x] = 0;
+		PROPERTY_VISUAL_INV[playerid][slot_VALID][x] = false;
+		PROPERTY_VISUAL_INV[playerid][slot_TYPE][x] = 0;
+		PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][x] = 0;
+		PROPERTY_VISUAL_INV[playerid][slot_WEAPON][x] = false;
+		PROPERTY_VISUAL_INV[playerid][slot_WEAPON_SLOT][x] = 0;
 	}
-
-	new free_slot;
 
 	new
 		DBResult:Result,
@@ -177,22 +177,21 @@ inv_AccommodatePropertyItems(playerid, property_id)
 	{
 		for(new i; i < db_num_rows(Result); i++ )
 		{
-			free_slot = inv_GetFreeSlot(playerid);
-			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
-
 			new 
-				str_text[32]
+				str_text[32],
 				td_init = (i + 10),
 				td_ammount = td_init + 12,
 				type = db_get_field_assoc_int(Result, "TYPE"),
-				extra = db_get_field_assoc_int(Result, "EXTRA")
+				extra = db_get_field_assoc_int(Result, "EXTRA"),
+				Float:rot[4]
 			;
+
+			//printf("slot: %d, type: %d, extra: %d, modelid: %d", i, type, extra, GetItemObjectByType(type));
 
 			format(str_text, sizeof(str_text), "%d", extra);
 
 			switch(type)
 			{
-				case 0, 53, 51, 54, 41: format(str_text, sizeof(str_text), " ");
 				case 9, 10, 11, 55: format(str_text, sizeof(str_text), "Balas");
 				case 56: format(str_text, sizeof(str_text), "Geo");
 			}
@@ -204,8 +203,11 @@ inv_AccommodatePropertyItems(playerid, property_id)
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], rot[0], rot[1], rot[2], rot[3]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);
+			
 			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] ++;
+			db_next_row(Result);
 		}
+		db_free_result(Result);
 	}
 	return 1;
 }

@@ -5404,7 +5404,7 @@ Menu:PROPERTY_MENU(playerid, response, listitem)
 			{
 				ShowInventory(playerid, 1);
 			}
-			case 3:
+			case 4:
 			{
 				ShowInventory(playerid, 2);
 			}

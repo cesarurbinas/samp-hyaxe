@@ -115,11 +115,11 @@ GrabWeapon(playerid, type, ammount, color = 0x00F7F7F7)
 		str_text[128]
 	;
 
-	if(PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
+	if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
 	{
 		format(str_text, sizeof(str_text), "Para agarrar esta arma tienes que deshacerte de tu %s para tener espacio.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] ][weapon_info_NAME]);
 		ShowPlayerNotification(playerid, str_text, 4);
-		return 1;
+		return 0;
 	}
 
 	RegisterNewPlayerWeapon(playerid, weapon_slot);
