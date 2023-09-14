@@ -499,21 +499,21 @@ stock BustAim::GetTeleportStats(playerid,Float:arr[],sz = sizeof(arr))
 	#pragma unused playerid
 	#pragma unused arr
 	#pragma unused sz
-	print("[BUST-AIM] GetTeleportStats must not be used when WSTATS is disabled.");
+	print("[OCTA] GetTeleportStats must not be used when WSTATS is disabled.");
 }
 stock BustAim::GetRandomAimStats(playerid,Float:arr[],sz = sizeof(arr))
 {
 	#pragma unused playerid
 	#pragma unused arr
 	#pragma unused sz
-	print("[BUST-AIM] GetAimStats must not be used when WSTATS is disabled.");
+	print("[OCTA] GetAimStats must not be used when WSTATS is disabled.");
 }
 stock BustAim::GetRangeStats(playerid,Float:arr[],sz = sizeof(arr))
 {
 	#pragma unused playerid
 	#pragma unused arr
 	#pragma unused sz
-	print("[BUST-AIM] GetRangeStats must not be used when WSTATS is disabled.");
+	print("[OCTA] GetRangeStats must not be used when WSTATS is disabled.");
 }
 #else
 stock BustAim::GetTeleportStats(playerid,Float:arr[],sz = sizeof(arr))
@@ -535,23 +535,23 @@ stock BustAim::GetPlayerWeaponProfile(playerid,weaponid,&allshots,&hitshots,&max
 {
 	#pragma unused playerid
 	#pragma unused weaponid
-	print("[BUST-AIM] GetPlayerWeaponProfile must not be used when profiling is disabled.");
+	print("[OCTA] GetPlayerWeaponProfile must not be used when profiling is disabled.");
 }
 stock BustAim::ResetPlayerWeaponProfile(playerid,weaponid)
 {
 	#pragma unused playerid
 	#pragma unused weaponid
-	print("[BUST-AIM] ResetWeaponProfile must not be used when profiling is disabled");
+	print("[OCTA] ResetWeaponProfile must not be used when profiling is disabled");
 }
 stock BustAim::GetPlayerProfile(playerid,&shotsfired,&shotshit,&max_cont_shots,&out_of_range_warns,&random_aim_warns,&proaim_tele_warns)
 {
 	#pragma unused playerid
-	print("[BUST-AIM] GetPlayerProfile must not be used when profiling is disabled.");
+	print("[OCTA] GetPlayerProfile must not be used when profiling is disabled.");
 }
 stock BustAim::ResetPlayerProfile(playerid)
 {
 	#pragma unused playerid
-	print("[BUST-AIM] ResetPlayerProfile must not be used when profiling is disabled.");
+	print("[OCTA] ResetPlayerProfile must not be used when profiling is disabled.");
 }
 #else
 stock BustAim::GetPlayerWeaponProfile(playerid,weaponid,&allshots,&hitshots,&max_cont_shots,&out_of_range_warns,&random_aim_warns,&proaim_tele_warns)
