@@ -1375,12 +1375,6 @@ CMD:initmarket(playerid, params[])
 	return 1;
 }
 
-CMD:gmx(playerid, params[])
-{
-	SendRconCommand("gmx");
-	return 1;
-}
-
 CMD:closeserver(playerid, params[])
 {
 	SendRconCommand("exit");
