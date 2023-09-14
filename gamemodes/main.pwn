@@ -7379,7 +7379,7 @@ public OnGameModeInit()
     SetWeaponDamage(WEAPON_DEAGLE, DAMAGE_TYPE_RANGE, 20.0, 15.0, 10.0, 40.0, 8.0); //dk
     SetWeaponDamage(WEAPON_SHOTGUN, DAMAGE_TYPE_RANGE, 2.0, 5.0, 4.0, 60.0, 2.0); //escopeta
     SetWeaponDamage(WEAPON_SHOTGSPA, DAMAGE_TYPE_RANGE, 0.0, 5.0, 0.0, 40.0, 0.0); //edc
-    SetWeaponDamage(WEAPON_M4, DAMAGE_TYPE_RANGE, 20.0, 20.0, 20.0, 80.0, 20.0); //m4
+    SetWeaponDamage(WEAPON_M4, DAMAGE_TYPE_RANGE, 15.0, 20.0, 15.0, 80.0, 15.0); //m4
     SetWeaponDamage(WEAPON_SAWEDOFF, DAMAGE_TYPE_RANGE, 2.5, 10.0, 1.5, 40.0, 1.0);//escopeta recortada
     SetWeaponDamage(WEAPON_AK47, DAMAGE_TYPE_RANGE, 9.0, 20.0, 1.5, 80.0, 1.0); //ak 47
     SetWeaponDamage(WEAPON_SPRAYCAN, DAMAGE_TYPE_RANGE, 0.2, 20.0, 0.2, 40.0, 0.2); //spray

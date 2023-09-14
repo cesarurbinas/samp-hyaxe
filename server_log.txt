@@ -45305,3 +45305,53 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [13:24:40] save: id: 31, ammo: 4500, db_id: 28273
 [13:26:07] OnPlayerDisconnect 0 1
 [13:26:58] [part] Yahir_Kozel has left the server (0:1)
+[13:28:46] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[13:28:46] OnPlayerConnect 0
+[13:28:55] OnPlayerRequestClass 0 0
+[13:28:55] OnPlayerStaeChnagge 0 9 0
+[13:29:11] OnDialogresponde 0 3 1 -1 lma0$$$
+[13:29:11] OnVehicleId 275
+[13:29:11] OnVehicleId 276
+[13:29:12] OnVehicleId 277
+[13:29:12] OnVehicleId 278
+[13:29:12] OnVehicleId 279
+[13:29:12] OnVehicleId 280
+[13:29:12] load: id 32, ammo: 0, db_id: 28272
+[13:29:12] load: id 31, ammo: 4500, db_id: 28273
+[13:29:32] OnPlayerStaeChnagge 0 8 9
+[13:29:32] OnPlayerSpawn
+[13:29:33] OnPlayerStaeChnagge 0 1 8
+[13:32:05] OnPlayerDisconnect 0 1
+[13:33:12] [part] Yahir_Kozel has left the server (0:1)
+Console input: exit
+[13:34:40] --- Server Shutting Down.
+[13:34:40] OnGameModeExit()
+[13:34:40] Deteniendo servidor...
+[13:34:41]  
+[13:34:41] --------------------------------------
+[13:34:41]  Estadisticas ANTI-CHEAT
+[13:34:41]  Detectado y evitado:
+[13:34:41]   0 los intentos de conspiraciones
+[13:34:41]   0 intentos de intrusion
+[13:34:41]   0 los intentos de el desmoldeo
+[13:34:41]   0 los intentos de flood
+[13:34:41]   0 los ataques
+[13:34:41]  Todo es descubierto y castigado 0 jugadores deshonestos
+[13:34:41] --------------------------------------
+
+[13:34:41] 
+
+*** Streamer Plugin v2.9.1 by Incognito unloaded ***
+
+[13:34:41] 
+
+[13:34:41]  ===============================
+
+[13:34:41]      sscanf plugin unloaded.    
+
+[13:34:41]  ===============================
+
+[13:34:41] Pawn.RakNet plugin v1.3.0 by urShadow has been unloaded
+[13:34:41] Pawn.CMD plugin v3.1.4 by urShadow unloaded
+[13:34:42] Pawn.Regex plugin v1.1.2 by urShadow unloaded
+[13:34:43] [GPS plugin]: Unloaded.
