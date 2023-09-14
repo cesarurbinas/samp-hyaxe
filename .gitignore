@@ -3,3 +3,12 @@
 *.dll
 *.zip
 *.exe
+
+/server_log.*
+/crashinfo.*
+/pawno/*
+/logs
+!/pawno/include
+/npcmodes
+.vscode/
+*.db

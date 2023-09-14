@@ -14936,3 +14936,85 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [16:01:42] OnPlayerKeyState 0 8 0
 [16:01:43] OnPlayerKeyState 0 0 8
 [16:01:45] OnPlayerDisconnect 0 1
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[00:04:49] 
+[00:04:49] Server Plugins
+[00:04:49] --------------
+[00:04:49]  Loading plugin: crashdetect
+[00:04:49]   CrashDetect v4.18.1 is OK.
+[00:04:49]   Loaded.
+[00:04:49]  Loading plugin: streamer
+[00:04:49] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[00:04:49]   Loaded.
+[00:04:49]  Loading plugin: sscanf
+[00:04:49] 
+
+[00:04:49]  ===============================
+
+[00:04:49]       sscanf plugin loaded.     
+
+[00:04:49]          Version:  2.8.3        
+
+[00:04:49]   (c) 2018 Alex "Y_Less" Cole  
+
+[00:04:49]  ===============================
+
+[00:04:49]   Loaded.
+[00:04:49]  Loading plugin: pawnraknet
+[00:04:49] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[00:04:49]   Loaded.
+[00:04:49]  Loading plugin: SKY
+[00:04:49] 
+[00:04:49]  ===============================
+[00:04:49]    
+[00:04:49]    < SKY - 2.3.0 >
+[00:04:49]    
+[00:04:49]    (c) 2008 - Present | YSF Maintainers
+[00:04:49]    (c) 2015 | Oscar "Slice" Broman
+[00:04:49]    
+[00:04:49]    Server Version: 0.3.7 R2
+[00:04:49]    Operating System: Windows
+[00:04:49]    Built on: Jul 19 2020 at 18:01:33
+[00:04:49]    
+[00:04:49]  ===============================
+[00:04:49] 
+[00:04:49]   Loaded.
+[00:04:49]  Loading plugin: pawncmd
+[00:04:49] [Pawn.CMD] plugin v3.3.3 by urShadow loaded
+[00:04:49]   Loaded.
+[00:04:49]  Loading plugin: pawnregex
+[00:04:49] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[00:04:49]   Loaded.
+[00:04:49]  Loading plugin: GPS
+[00:04:50] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[00:04:50]   Loaded.
+[00:04:50]  Loaded 8 plugins.
+
+[00:04:50] 
+[00:04:50] Filterscripts
+[00:04:50] ---------------
+[00:04:50]   Loading filterscript 'maps.amx'...
+[00:04:50]   Unable to load filterscript 'maps.amx'.
+[00:04:50]   Loaded 0 filterscripts.
+
+[00:04:50] [debug] Run time error 19: "File or function is not found"
+[00:04:50] [debug]  Profiler_Start
+[00:04:50] [debug]  Profiler_Stop
+[00:04:50] [debug]  Profiler_Dump
+[00:04:50] [debug] Run time error 19: "File or function is not found"
+[00:04:50] [debug]  Profiler_Start
+[00:04:50] [debug]  Profiler_Stop
+[00:04:50] [debug]  Profiler_Dump
+[00:04:50] Script[gamemodes/main.amx]: Run time error 19: "File or function is not found"
+[00:04:50] Number of vehicle models: 0

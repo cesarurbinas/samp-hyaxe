@@ -33,16 +33,16 @@
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
+#tryinclude <profiler>
 
-// Official Hyaxe Library
+// Must fix
 #include <hy_anticheat>
+#include <weapon-config>
 #include <hy_preview>
 #include <route-tracing>
-#include <hy_damage>
 #include <hy_string>
 #include <hy_actor>
 #include <hy_selection>
-#include <profiler>
 
 #if defined VOICE_CHAT
     #include <sampvoice>
@@ -93,8 +93,7 @@
 #include <../../gamemodes/core/vehicle/tuning.pwn>
 #include <../../gamemodes/core/vehicle/colors.pwn>
 
-// Animations
-#include <../../gamemodes/core/animations/libs.pwn>
+// Animation preloading
 #include <../../gamemodes/utils/animations/preload.pwn>
 
 // Textdraws
@@ -4428,7 +4427,7 @@ ResetPlayerVariables(playerid)
 
 	for(new i = 0; i != sizeof(PLAYER_WORKS[]); i ++) PLAYER_WORKS[playerid][i] = 0;
 
-	for(new i = 0; i != sizeof(PLAYER_MISC[]); i ++) PLAYER_MISC[playerid][i] = 0;
+	for(new i = 0; i != sizeof(PLAYER_MISC[]); i ++) PLAYER_MISC[playerid][E_MISC_DATA:i] = 0;
 
 	new temp_PLAYER_PROPERTY_CONSTRUCTO[PLAYER_PROPERTY_CONSTRUCTOR_ENU]; PLAYER_PROPERTY_CONSTRUCTOR[playerid] = temp_PLAYER_PROPERTY_CONSTRUCTO;
 
@@ -7217,26 +7216,28 @@ CMD:closeserver(playerid, params[])
 	return 1;
 }
 
-CMD:profilerstart(playerid, params[])
-{
-	Profiler_Start();
-	SendClientMessage(playerid, COLOR_WHITE, "Profiler iniciado");
-	return 1;
-}
+#if defined PROFILER_PROFILER_INC
+	CMD:profilerstart(playerid, params[])
+	{
+		Profiler_Start();
+		SendClientMessage(playerid, COLOR_WHITE, "Profiler iniciado");
+		return 1;
+	}
 
-CMD:profilerstop(playerid, params[])
-{
-	Profiler_Stop();
-	SendClientMessage(playerid, COLOR_WHITE, "Profiler detenido");
-	return 1;
-}
+	CMD:profilerstop(playerid, params[])
+	{
+		Profiler_Stop();
+		SendClientMessage(playerid, COLOR_WHITE, "Profiler detenido");
+		return 1;
+	}
 
-CMD:profilerdump(playerid, params[])
-{
-	Profiler_Dump();
-	SendClientMessage(playerid, COLOR_WHITE, "Profiler dump");
-	return 1;
-}
+	CMD:profilerdump(playerid, params[])
+	{
+		Profiler_Dump();
+		SendClientMessage(playerid, COLOR_WHITE, "Profiler dump");
+		return 1;
+	}
+#endif
 
 CALLBACK: GiveAutoGift()
 {
@@ -8515,7 +8516,7 @@ CMD:duda(playerid, params[])
 	SavePlayerMisc(playerid);
 	return 1;
 }
-alias:duda("n");
+alias:duda("n")
 
 CMD:dudas(playerid, params[])
 {
@@ -8609,7 +8610,7 @@ CMD:g(playerid, params[])
 	ProxDetector(playerid, 25.0, str_text, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5, 85);
 	return 1;
 }
-alias:g("gritar");
+alias:g("gritar")
 
 CMD:s(playerid, params[])
 {
@@ -8629,7 +8630,7 @@ CMD:s(playerid, params[])
 	ProxDetector(playerid, 5.0, str_text, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5, 85);
 	return 1;
 }
-alias:s("susurrar");
+alias:s("susurrar")
 
 CMD:desbug(playerid, params[])
 {
@@ -8728,7 +8729,7 @@ CMD:me(playerid, params[])
 	SendPlayerAction(playerid, params);
 	return 1;
 }
-alias:me("y");
+alias:me("y")
 
 CMD:oldinventario(playerid, params[])
 {
@@ -8736,7 +8737,7 @@ CMD:oldinventario(playerid, params[])
 	ShowPlayerInventory(playerid, playerid);
 	return 1;
 }
-alias:oldinventario("oldinv");
+alias:oldinventario("oldinv")
 
 CMD:habilidades(playerid, params[])
 {
@@ -8744,14 +8745,14 @@ CMD:habilidades(playerid, params[])
 	ShowPlayerSkills(playerid, playerid);
 	return 1;
 }
-alias:habilidades("hab", "exp", "skills");
+alias:habilidades("hab", "exp", "skills")
 
 CMD:cuenta(playerid, params[])
 {
 	ShowPlayerStats(playerid, playerid);
 	return 1;
 }
-alias:cuenta("est");
+alias:cuenta("est")
 
 CMD:web(playerid, params[])
 {
@@ -9072,7 +9073,7 @@ CMD:configuracion(playerid, params[])
 	ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 	return 1;
 }
-alias:configuracion("config", "ajustes", "panel");
+alias:configuracion("config", "ajustes", "panel")
 
 GetPropertyIndexByID(id)
 {
@@ -13357,7 +13358,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
 				Log("obj", pass_str);
 
-				SetDamageInformer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
+				SetDamageFeedForPlayer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
 
 				/*ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Chat de voz", ""COL_WHITE"\
 					Hemos removido el chat de voz ya que nadie lo usaba, pero tranquilo\n\
@@ -20933,10 +20934,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 8:
 					{
-						if (PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]) PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = false;
-						else PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = true;
+						PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = !PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER];
 
-						SetDamageInformer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
+						SetDamageFeedForPlayer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
 						SavePlayerMisc(playerid);
 						ShowDialog(playerid, dialogid);
 					}
@@ -25205,7 +25205,7 @@ CMD:notificaciones(playerid, params[])
 	ShowDialog(playerid, DIALOG_USER_NOTIFICATIONS);
 	return 1;
 }
-alias:notificaciones("not");
+alias:notificaciones("not")
 
 CMD:addcode(playerid, params[])
 {
@@ -25244,7 +25244,7 @@ CMD:canjear(playerid, params[])
 	ShowDialog(playerid, DIALOG_GIFT);
 	return 1;
 }
-alias:canjear("code", "giftcode");
+alias:canjear("code", "giftcode")
 
 CMD:pnot(playerid, params[])
 {
@@ -28663,7 +28663,7 @@ CMD:dimitir(playerid, params[])
 	PLAYER_WORKS[playerid][work] = false;
 	return 1;
 }
-alias:dimitir("renunciar");
+alias:dimitir("renunciar")
 
 SetPlayerVehiclePark(playerid)
 {
@@ -29550,7 +29550,7 @@ SavePlayerMisc(playerid)
   for(new i = 0; i != sizeof(PLAYER_MISC[]); i ++)
   {
     DB_Query[0] = EOS;
-    format(DB_Query, sizeof DB_Query, "INSERT INTO `PLAYER_MISC` (`ID_USER`, `ID`, `EXTRA`) VALUES ('%d', '%d', '%d');", ACCOUNT_INFO[playerid][ac_ID], i, PLAYER_MISC[playerid][i]);
+    format(DB_Query, sizeof DB_Query, "INSERT INTO `PLAYER_MISC` (`ID_USER`, `ID`, `EXTRA`) VALUES ('%d', '%d', '%d');", ACCOUNT_INFO[playerid][ac_ID], i, PLAYER_MISC[playerid][E_MISC_DATA:i]);
     db_query(Database, DB_Query);
   }
   return 1;
@@ -29567,7 +29567,7 @@ LoadPlayerMisc(playerid)
 	for(new i; i < db_num_rows(Result); i++ )
 	{
 		new index = db_get_field_assoc_int(Result, "ID");
-		PLAYER_MISC[playerid][index] = db_get_field_assoc_int(Result, "EXTRA");
+		PLAYER_MISC[playerid][E_MISC_DATA:index] = db_get_field_assoc_int(Result, "EXTRA");
 		db_next_row(Result);
 	}
 	db_free_result(Result);
@@ -31129,7 +31129,8 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 {
-	if (IsPlayerPaused(playerid)) return 0;
+	if(IsPlayerPaused(playerid)) return 0;
+
 	//printf("damage %d %d", playerid, weapon);
 
 	/*if (BOTS[playerid][b_ACTIVE])
@@ -31493,7 +31494,7 @@ CMD:cagar(playerid, params[])
 	PLAYER_TEMP[playerid][py_LIMIT_SHIT] = gettime();
 	return 1;
 }
-alias:cagar("defecar");
+alias:cagar("defecar")
 
 //Animaciones
 CMD:animaciones(playerid, params[])
@@ -31502,7 +31503,8 @@ CMD:animaciones(playerid, params[])
 	ShowDialog(playerid, DIALOG_ANIMS);
 	return 1;
 }
-alias:animaciones("anims", "acciones");
+alias:animaciones("anims", "acciones")
+
 CMD:parar(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
@@ -31940,7 +31942,7 @@ CMD:revisar(playerid, params[])
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Revisa a alguien\n\n\n", 0xffcb90FF, 20.0, 5000);
 	return 1;
 }
-alias:revisar("cachear");
+alias:revisar("cachear")
 
 CMD:requisar(playerid, params[])
 {
@@ -31997,7 +31999,7 @@ CMD:ref(playerid, params[])
 	PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableRefMark", 120000, false, "i", playerid);
 	return 1;
 }
-alias:ref("refuerzos");
+alias:ref("refuerzos")
 
 CALLBACK: DisableRefMark(playerid)
 {
@@ -32926,7 +32928,7 @@ CMD:hora(playerid, params[])
 	);
 	return 1;
 }
-alias:hora("fecha");
+alias:hora("fecha")
 
 CMD:gpci(playerid, params[])
 {
@@ -33059,7 +33061,7 @@ CMD:aka(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE, "Se encontraron %d coincidencias, el límite es 20.", count);
 	return 1;
 }
-alias:aka("cuentas");
+alias:aka("cuentas")
 
 CMD:adv(playerid, params[])
 {
@@ -33084,7 +33086,7 @@ CMD:adv(playerid, params[])
 	SendMessageToAdmins(COLOR_ANTICHEAT, str);
 	return 1;
 }
-alias:adv("advertencia", "san");
+alias:adv("advertencia", "san")
 
 CMD:kick(playerid, params[])
 {
@@ -33187,7 +33189,7 @@ CMD:freeze(playerid, params[])
 	SendCmdLogToAdmins(playerid, "freeze", params);
 	return 1;
 }
-alias:freeze("congelar");
+alias:freeze("congelar")
 
 CMD:unfreeze(playerid, params[])
 {
@@ -33200,7 +33202,7 @@ CMD:unfreeze(playerid, params[])
 	SendCmdLogToAdmins(playerid, "unfreeze", params);
 	return 1;
 }
-alias:unfreeze("descongelar");
+alias:unfreeze("descongelar")
 
 CMD:pest(playerid, params[])
 {
@@ -33378,7 +33380,7 @@ CMD:goto(playerid, params[])
 	SendCmdLogToAdmins(playerid, "goto", params);
 	return 1;
 }
-alias:goto("ir");
+alias:goto("ir")
 
 CMD:get(playerid, params[])
 {
@@ -33399,7 +33401,7 @@ CMD:get(playerid, params[])
 	SendCmdLogToAdmins(playerid, "get", params);
 	return 1;
 }
-alias:get("traer");
+alias:get("traer")
 
 CMD:unban(playerid, params[])
 {
@@ -33524,7 +33526,7 @@ CMD:cls(playerid, params[])
 	SendCmdLogToAdmins(playerid, "clear", params);
 	return 1;
 }
-alias:cls("log", "clear");
+alias:cls("log", "clear")
 
 CMD:tban(playerid, params[])
 {
@@ -33760,7 +33762,7 @@ CMD:deletead(playerid, params[])
 
 	return 1;
 }
-alias:deletead("borrarad");
+alias:deletead("borrarad")
 
 CMD:settime(playerid, params[])
 {
@@ -33795,7 +33797,7 @@ CMD:darstaff(playerid, params[])
 	SendCmdLogToAdmins(playerid, "givemod", params);
 	return 1;
 }
-alias:darstaff("givemod");
+alias:darstaff("givemod")
 
 CMD:ac(playerid, params[])
 {
@@ -33817,7 +33819,7 @@ CMD:setthirst(playerid, params[])
 	SendCmdLogToAdmins(playerid, "setthirst", params);
 	return 1;
 }
-alias:setthirst("setsed");
+alias:setthirst("setsed")
 
 CMD:sethungry(playerid, params[])
 {
@@ -33833,7 +33835,7 @@ CMD:sethungry(playerid, params[])
 	SendCmdLogToAdmins(playerid, "sethungry", params);
 	return 1;
 }
-alias:sethungry("sethambre");
+alias:sethungry("sethambre")
 
 CMD:setgas(playerid, params[])
 {
@@ -33882,7 +33884,7 @@ CMD:repairveh(playerid, params[])
 	SendCmdLogToAdmins(playerid, "repairveh", params);
 	return 1;
 }
-alias:repairveh("repararveh");
+alias:repairveh("repararveh")
 
 CMD:ayudante(playerid, params[])
 {
@@ -33890,7 +33892,7 @@ CMD:ayudante(playerid, params[])
 	SendCmdLogToAdmins(playerid, "ayudante", params);
 	return 1;
 }
-alias:ayudante("helper");
+alias:ayudante("helper")
 
 CMD:moderador(playerid, params[])
 {
@@ -33898,7 +33900,7 @@ CMD:moderador(playerid, params[])
 	SendCmdLogToAdmins(playerid, "moderador", params);
 	return 1;
 }
-alias:moderador("mod");
+alias:moderador("mod")
 
 CMD:supermoderador(playerid, params[])
 {
@@ -33906,7 +33908,7 @@ CMD:supermoderador(playerid, params[])
 	SendCmdLogToAdmins(playerid, "supermoderador", params);
 	return 1;
 }
-alias:supermoderador("smod");
+alias:supermoderador("smod")
 
 CMD:operador(playerid, params[])
 {
@@ -33914,7 +33916,7 @@ CMD:operador(playerid, params[])
 	SendCmdLogToAdmins(playerid, "operador", params);
 	return 1;
 }
-alias:operador("oper");
+alias:operador("oper")
 
 CMD:administrador(playerid, params[])
 {
@@ -33922,7 +33924,7 @@ CMD:administrador(playerid, params[])
 	SendCmdLogToAdmins(playerid, "administrador", params);
 	return 1;
 }
-alias:administrador("admin");
+alias:administrador("admin")
 
 CMD:sethealth(playerid, params[])
 {
@@ -33938,7 +33940,7 @@ CMD:sethealth(playerid, params[])
 	SendCmdLogToAdmins(playerid, "sethealth", params);
 	return 1;
 }
-alias:sethealth("setvida");
+alias:sethealth("setvida")
 
 CMD:setarmour(playerid, params[])
 {
@@ -33954,7 +33956,7 @@ CMD:setarmour(playerid, params[])
 	SendCmdLogToAdmins(playerid, "setarmour", params);
 	return 1;
 }
-alias:setarmour("setchaleco");
+alias:setarmour("setchaleco")
 
 CMD:setcrack(playerid, params[])
 {
@@ -34174,7 +34176,7 @@ CMD:asay(playerid, params[])
 	SendCmdLogToAdmins(playerid, "asay", params);
 	return 1;
 }
-alias:asay("global");
+alias:asay("global")
 
 CMD:setworld(playerid, params[])
 {
@@ -34372,7 +34374,7 @@ CMD:gotoproperty(playerid, params[])
 	SetPlayerPosEx(playerid, PROPERTY_INTERIORS[int_type][property_INT_X], PROPERTY_INTERIORS[int_type][property_INT_Y], PROPERTY_INTERIORS[int_type][property_INT_Z], PROPERTY_INTERIORS[int_type][property_INT_ANGLE], PROPERTY_INTERIORS[int_type][property_INT_INTERIOR], 0, false, true);
 	return 1;
 }
-alias:gotoproperty("ircasa");
+alias:gotoproperty("ircasa")
 
 CMD:setpass(playerid, params[])
 {
@@ -37904,7 +37906,7 @@ CMD:muteard(playerid, params[])
 	SendCmdLogToAdmins(playerid, "mute", params);
 	return 1;
 }
-alias:muteard("mute");
+alias:muteard("mute")
 
 CMD:desmuteard(playerid, params[])
 {
@@ -37923,7 +37925,7 @@ CMD:desmuteard(playerid, params[])
 	SendCmdLogToAdmins(playerid, "unmute", params);
 	return 1;
 }
-alias:desmuteard("unmute");
+alias:desmuteard("unmute")
 
 GetFreePoliceObjectSlot()
 {
@@ -38028,132 +38030,132 @@ CMD:admac(playerid, params[])
 	return 1;
 }
 
-flags:ayudante(CMD_HELPER);
-flags:ufo(CMD_OPERATOR);
-flags:staff(CMD_HELPER);
-flags:setveh(CMD_MODERATOR);
-flags:setvh(CMD_MODERATOR);
-flags:jailtime(CMD_MODERATOR);
-flags:randomgraffiti(CMD_OPERATOR);
-flags:setmutes(CMD_MODERATOR4);
-flags:setjails(CMD_MODERATOR4);
-flags:setbans(CMD_MODERATOR4);
-flags:setadv(CMD_MODERATOR4);
-flags:setkicks(CMD_MODERATOR4);
-flags:initmarket(CMD_OPERATOR);
-flags:dropitem(CMD_MODERATOR3);
-flags:gmx(CMD_OPERATOR);
-flags:closeserver(CMD_OPERATOR);
-flags:profilerstart(CMD_OPERATOR);
-flags:profilerstop(CMD_OPERATOR);
-flags:profilerdump(CMD_OPERATOR);
-flags:pmaletero(CMD_MODERATOR4);
-flags:stopall(CMD_OPERATOR);
-flags:purga(CMD_OPERATOR);
-flags:finpurga(CMD_OPERATOR);
-flags:gift(CMD_OPERATOR);
-flags:giftvip(CMD_OPERATOR);
-flags:setpd(CMD_OPERATOR);
-flags:moderador(CMD_MODERATOR);
-flags:pnot(CMD_MODERATOR);
-flags:addcode(CMD_OPERATOR);
-flags:supermoderador(CMD_MODERATOR2);
-flags:operador(CMD_MODERATOR3);
-flags:administrador(CMD_MODERATOR4);
-flags:muteard(CMD_HELPER);
-flags:desmuteard(CMD_HELPER);
-flags:trabajos(CMD_MODERATOR);
-flags:getid(CMD_MODERATOR);
-flags:getname(CMD_MODERATOR);
-flags:aka(CMD_MODERATOR);
-flags:adv(CMD_MODERATOR);
-flags:kick(CMD_MODERATOR);
-flags:spec(CMD_MODERATOR);
-flags:specoff(CMD_MODERATOR);
-flags:freeze(CMD_MODERATOR);
-flags:unfreeze(CMD_MODERATOR);
-flags:freezeall(CMD_ADMIN);
-flags:unfreezeall(CMD_ADMIN);
-flags:pest(CMD_MODERATOR);
-flags:pinv(CMD_MODERATOR);
-flags:pexp(CMD_MODERATOR);
-flags:pbank(CMD_MODERATOR);
-flags:unjail(CMD_MODERATOR);
-flags:ip(CMD_MODERATOR);
-flags:traerveh(CMD_MODERATOR);
-flags:vehinfo(CMD_MODERATOR);
-flags:goto(CMD_MODERATOR);
-flags:get(CMD_MODERATOR);
-flags:unban(CMD_MODERATOR2);
-flags:jail(CMD_MODERATOR);
-flags:ban(CMD_MODERATOR);
-flags:cls(CMD_MODERATOR);
-flags:tban(CMD_MODERATOR);
-flags:dban(CMD_MODERATOR);
-flags:dtban(CMD_MODERATOR);
-flags:rac(CMD_MODERATOR2);
-flags:rac2(CMD_MODERATOR2);
-flags:rv(CMD_MODERATOR2);
-flags:pm(CMD_HELPER);
-flags:atenderre(CMD_MODERATOR);
-flags:deletead(CMD_MODERATOR2);
-flags:settime(CMD_MODERATOR3);
-flags:darstaff(CMD_ADMIN);
-flags:fakeping(CMD_ADMIN);
-flags:botmaster(CMD_ADMIN);
-flags:hy(CMD_ADMIN);
-flags:dineroall(CMD_ADMIN);
-flags:ac(CMD_OPERATOR);
-flags:setthirst(CMD_MODERATOR2);
-flags:sethungry(CMD_MODERATOR2);
-flags:setgas(CMD_MODERATOR2);
-flags:repairveh(CMD_MODERATOR2);
-flags:sethealth(CMD_MODERATOR3);
-flags:setarmour(CMD_MODERATOR3);
-flags:setlevel(CMD_OPERATOR);
-flags:setwork(CMD_OPERATOR);
-flags:setworkexp(CMD_OPERATOR);
-flags:setcash(CMD_ADMIN);
-flags:givecash(CMD_ADMIN);
-flags:setbmlevel(CMD_OPERATOR);
-flags:asay(CMD_MODERATOR4);
-flags:spos(CMD_MODERATOR);
-flags:lpos(CMD_MODERATOR);
-flags:setworld(CMD_MODERATOR);
-flags:setinterior(CMD_MODERATOR);
-flags:v(CMD_MODERATOR2);
-flags:dv(CMD_MODERATOR);
-flags:setname(CMD_MODERATOR2);
-flags:setcrack(CMD_OPERATOR);
-flags:setmedis(CMD_OPERATOR);
-flags:exproperty(CMD_MODERATOR4);
-flags:gotoproperty(CMD_MODERATOR4);
-flags:setpass(CMD_MODERATOR4);
-flags:setip(CMD_MODERATOR4);
-flags:accsaveall(CMD_MODERATOR4);
-flags:delete(CMD_ADMIN);
-flags:rproperty(CMD_OPERATOR);
-flags:eproperty(CMD_OPERATOR);
-flags:cproperty(CMD_OPERATOR);
-flags:eco(CMD_OPERATOR);
-flags:darsu(CMD_OPERATOR);
-flags:setearsu(CMD_ADMIN);
-flags:darvip(CMD_OPERATOR);
-flags:darskin(CMD_MODERATOR4);
-flags:setfstyle(CMD_MODERATOR4);
-flags:ejercito(CMD_MODERATOR2);
-flags:ls(CMD_MODERATOR);
-flags:darmaverick(CMD_OPERATOR);
-flags:explode(CMD_OPERATOR);
-flags:jetpack(CMD_MODERATOR2);
-flags:explosionbullet(CMD_MODERATOR2);
-flags:ultradebug(CMD_MODERATOR);
-flags:masflot(CMD_MODERATOR2);
-flags:masflot2(CMD_MODERATOR2);
-flags:masflot3(CMD_MODERATOR2);
-flags:lsdb(CMD_MODERATOR);
-flags:vpcar(CMD_ADMIN);
-flags:rev(CMD_MODERATOR2);
-flags:a(CMD_MODERATOR);
-flags:borrarop(CMD_MODERATOR2);
-flags:admac(CMD_MODERATOR4);
+flags:ayudante(CMD_HELPER)
+flags:ufo(CMD_OPERATOR)
+flags:staff(CMD_HELPER)
+flags:setveh(CMD_MODERATOR)
+flags:setvh(CMD_MODERATOR)
+flags:jailtime(CMD_MODERATOR)
+flags:randomgraffiti(CMD_OPERATOR)
+flags:setmutes(CMD_MODERATOR4)
+flags:setjails(CMD_MODERATOR4)
+flags:setbans(CMD_MODERATOR4)
+flags:setadv(CMD_MODERATOR4)
+flags:setkicks(CMD_MODERATOR4)
+flags:initmarket(CMD_OPERATOR)
+flags:dropitem(CMD_MODERATOR3)
+flags:gmx(CMD_OPERATOR)
+flags:closeserver(CMD_OPERATOR)
+flags:profilerstart(CMD_OPERATOR)
+flags:profilerstop(CMD_OPERATOR)
+flags:profilerdump(CMD_OPERATOR)
+flags:pmaletero(CMD_MODERATOR4)
+flags:stopall(CMD_OPERATOR)
+flags:purga(CMD_OPERATOR)
+flags:finpurga(CMD_OPERATOR)
+flags:gift(CMD_OPERATOR)
+flags:giftvip(CMD_OPERATOR)
+flags:setpd(CMD_OPERATOR)
+flags:moderador(CMD_MODERATOR)
+flags:pnot(CMD_MODERATOR)
+flags:addcode(CMD_OPERATOR)
+flags:supermoderador(CMD_MODERATOR2)
+flags:operador(CMD_MODERATOR3)
+flags:administrador(CMD_MODERATOR4)
+flags:muteard(CMD_HELPER)
+flags:desmuteard(CMD_HELPER)
+flags:trabajos(CMD_MODERATOR)
+flags:getid(CMD_MODERATOR)
+flags:getname(CMD_MODERATOR)
+flags:aka(CMD_MODERATOR)
+flags:adv(CMD_MODERATOR)
+flags:kick(CMD_MODERATOR)
+flags:spec(CMD_MODERATOR)
+flags:specoff(CMD_MODERATOR)
+flags:freeze(CMD_MODERATOR)
+flags:unfreeze(CMD_MODERATOR)
+flags:freezeall(CMD_ADMIN)
+flags:unfreezeall(CMD_ADMIN)
+flags:pest(CMD_MODERATOR)
+flags:pinv(CMD_MODERATOR)
+flags:pexp(CMD_MODERATOR)
+flags:pbank(CMD_MODERATOR)
+flags:unjail(CMD_MODERATOR)
+flags:ip(CMD_MODERATOR)
+flags:traerveh(CMD_MODERATOR)
+flags:vehinfo(CMD_MODERATOR)
+flags:goto(CMD_MODERATOR)
+flags:get(CMD_MODERATOR)
+flags:unban(CMD_MODERATOR2)
+flags:jail(CMD_MODERATOR)
+flags:ban(CMD_MODERATOR)
+flags:cls(CMD_MODERATOR)
+flags:tban(CMD_MODERATOR)
+flags:dban(CMD_MODERATOR)
+flags:dtban(CMD_MODERATOR)
+flags:rac(CMD_MODERATOR2)
+flags:rac2(CMD_MODERATOR2)
+flags:rv(CMD_MODERATOR2)
+flags:pm(CMD_HELPER)
+flags:atenderre(CMD_MODERATOR)
+flags:deletead(CMD_MODERATOR2)
+flags:settime(CMD_MODERATOR3)
+flags:darstaff(CMD_ADMIN)
+flags:fakeping(CMD_ADMIN)
+flags:botmaster(CMD_ADMIN)
+flags:hy(CMD_ADMIN)
+flags:dineroall(CMD_ADMIN)
+flags:ac(CMD_OPERATOR)
+flags:setthirst(CMD_MODERATOR2)
+flags:sethungry(CMD_MODERATOR2)
+flags:setgas(CMD_MODERATOR2)
+flags:repairveh(CMD_MODERATOR2)
+flags:sethealth(CMD_MODERATOR3)
+flags:setarmour(CMD_MODERATOR3)
+flags:setlevel(CMD_OPERATOR)
+flags:setwork(CMD_OPERATOR)
+flags:setworkexp(CMD_OPERATOR)
+flags:setcash(CMD_ADMIN)
+flags:givecash(CMD_ADMIN)
+flags:setbmlevel(CMD_OPERATOR)
+flags:asay(CMD_MODERATOR4)
+flags:spos(CMD_MODERATOR)
+flags:lpos(CMD_MODERATOR)
+flags:setworld(CMD_MODERATOR)
+flags:setinterior(CMD_MODERATOR)
+flags:v(CMD_MODERATOR2)
+flags:dv(CMD_MODERATOR)
+flags:setname(CMD_MODERATOR2)
+flags:setcrack(CMD_OPERATOR)
+flags:setmedis(CMD_OPERATOR)
+flags:exproperty(CMD_MODERATOR4)
+flags:gotoproperty(CMD_MODERATOR4)
+flags:setpass(CMD_MODERATOR4)
+flags:setip(CMD_MODERATOR4)
+flags:accsaveall(CMD_MODERATOR4)
+flags:delete(CMD_ADMIN)
+flags:rproperty(CMD_OPERATOR)
+flags:eproperty(CMD_OPERATOR)
+flags:cproperty(CMD_OPERATOR)
+flags:eco(CMD_OPERATOR)
+flags:darsu(CMD_OPERATOR)
+flags:setearsu(CMD_ADMIN)
+flags:darvip(CMD_OPERATOR)
+flags:darskin(CMD_MODERATOR4)
+flags:setfstyle(CMD_MODERATOR4)
+flags:ejercito(CMD_MODERATOR2)
+flags:ls(CMD_MODERATOR)
+flags:darmaverick(CMD_OPERATOR)
+flags:explode(CMD_OPERATOR)
+flags:jetpack(CMD_MODERATOR2)
+flags:explosionbullet(CMD_MODERATOR2)
+flags:ultradebug(CMD_MODERATOR)
+flags:masflot(CMD_MODERATOR2)
+flags:masflot2(CMD_MODERATOR2)
+flags:masflot3(CMD_MODERATOR2)
+flags:lsdb(CMD_MODERATOR)
+flags:vpcar(CMD_ADMIN)
+flags:rev(CMD_MODERATOR2)
+flags:a(CMD_MODERATOR)
+flags:borrarop(CMD_MODERATOR2)
+flags:admac(CMD_MODERATOR4)
