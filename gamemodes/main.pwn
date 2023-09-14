@@ -38094,7 +38094,7 @@ forward neuroadmin_BotGetResponse(index, response_code, const data[]);
 public neuroadmin_BotGetResponse(index, response_code, const data[])
 {
 	#if DEBUG_MODE == 1
-		printf("neuroadmin_BotGetResponse"); // debug juju
+		printf("neuroadmin_BotGetResponse %d %d %s", index, response_code, data);
 	#endif
 
 	if (IsPlayerConnected(index))
@@ -38138,7 +38138,7 @@ forward neuroadmin_BotCheckBadUse(index, response_code, const data[]);
 public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 {
 	#if DEBUG_MODE == 1
-		printf("neuroadmin_BotCheckBadUse"); // debug juju
+		printf("neuroadmin_BotCheckBadUse %d %d %s", index, response_code, data); // debug juju
 	#endif
 
 	if (IsPlayerConnected(index))
