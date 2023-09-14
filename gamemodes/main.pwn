@@ -3160,11 +3160,11 @@ CALLBACK: IsValidVehicleAbuse(playerid, vehicleid)
 	    JailPlayer(playerid, time * 60);
 	    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 
-	    new str[145];
-	    format(str, 145, "[ADMIN] NeuroAdmin jaileó a %s (%d) por %s minutos: PG.", ACCOUNT_INFO[playerid][ac_NAME], playerid, TimeConvert(time * 60));
+	    new str[144];
+	    format(str, 144, "[ADMIN] NeuroAdmin jaileó a %s (%d) por %s minutos: PG.", ACCOUNT_INFO[playerid][ac_NAME], playerid, TimeConvert(time * 60));
 	    SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-	    new webhook[145];
+	    new webhook[144];
 	    format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 
@@ -8721,7 +8721,8 @@ public OnPlayerText(playerid, text[])
 		format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
-		new webhook[144]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		new webhook[144];
+		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);	
 	}
 
