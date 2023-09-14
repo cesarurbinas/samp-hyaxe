@@ -186,14 +186,15 @@ inv_AccommodatePropertyItems(playerid, property_id)
 				Float:rot[4]
 			;
 
-			//printf("slot: %d, type: %d, extra: %d, modelid: %d", i, type, extra, GetItemObjectByType(type));
-
 			format(str_text, sizeof(str_text), "%d", extra);
 
-			switch(type)
+			if (ITEM_INFO[type][item_SINGLE_SLOT])
+				format(str_text, sizeof(str_text), "");
+
+			switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
 			{
-				case 9, 10, 11, 55: format(str_text, sizeof(str_text), "Balas");
-				case 56: format(str_text, sizeof(str_text), "Geo");
+				case 9, 10, 11, 39: format(str_text, sizeof(str_text), "Balas");
+				case 40: format(str_text, sizeof(str_text), "Geo");
 			}
 
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
@@ -252,14 +253,15 @@ inv_AccommodateVehicleItems(playerid, vehicle_id)
 				Float:rot[4]
 			;
 
-			//printf("slot: %d, type: %d, extra: %d, modelid: %d", i, type, extra, GetItemObjectByType(type));
-
 			format(str_text, sizeof(str_text), "%d", extra);
 
-			switch(type)
+			if (ITEM_INFO[type][item_SINGLE_SLOT])
+				format(str_text, sizeof(str_text), "");
+
+			switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
 			{
-				case 9, 10, 11, 55: format(str_text, sizeof(str_text), "Balas");
-				case 56: format(str_text, sizeof(str_text), "Geo");
+				case 9, 10, 11, 39: format(str_text, sizeof(str_text), "Balas");
+				case 40: format(str_text, sizeof(str_text), "Geo");
 			}
 
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
@@ -283,6 +285,7 @@ inv_AccommodateVehicleItems(playerid, vehicle_id)
 	return 1;
 }
 
+// THIS NEED FIX ////////
 inv_AccommodateItems(playerid, bool:is_visual = true)
 {
 	for(new x = 0; x != 12; x++)
@@ -628,6 +631,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	}
 	return 1;
 }
+/////////////////////////
 
 ShowInventory(playerid, type = 0)
 {
@@ -690,7 +694,7 @@ HideInventory(playerid)
 		{
 			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = false;
 			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Cierra el maletero de un vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Cierra el maletero de un vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		}
 	}
 
@@ -1078,7 +1082,7 @@ RefreshItemList(playerid)
 
 			ShowPlayerMessage(playerid, "Seleccione un item para meter al maletero.", 5);
 
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Abre el maletero de un vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Abre el maletero de un vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		}
 	}
 	return 1;
