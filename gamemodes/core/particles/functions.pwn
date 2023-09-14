@@ -32,7 +32,7 @@ PlayerBloodParticle(playerid)
 			blood_particle,
 			Float:blood_x = x,
 			Float:blood_y = y,
-			rand = random(6)
+			rand = random(9)
 		;
 
 		switch(rand)
@@ -43,10 +43,14 @@ PlayerBloodParticle(playerid)
 			case 3: blood_x += 0.3;
 			case 4: blood_x += 0.2;
 			case 5: blood_x += 0.1;
+			case 6: blood_x += 0.4;
+			case 7: blood_x += 0.5;
+			case 8: blood_x += -0.4;
+			case 9: blood_x += -0.5;
 			default: blood_x = 0.0;
 		}
 
-		rand = random(6);
+		rand = random(9);
 
 		switch(rand)
 		{
@@ -56,6 +60,10 @@ PlayerBloodParticle(playerid)
 			case 3: blood_y += 0.3;
 			case 4: blood_y += 0.2;
 			case 5: blood_y += 0.1;
+			case 6: blood_y += 0.4;
+			case 7: blood_y += 0.5;
+			case 8: blood_y += -0.4;
+			case 9: blood_y += -0.5;
 			default: blood_y = 0.0;
 		}
 
