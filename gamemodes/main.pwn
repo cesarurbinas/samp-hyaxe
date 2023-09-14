@@ -21,7 +21,9 @@
 #include <a_samp>
 
 #undef MAX_PLAYERS
-#define MAX_PLAYERS 300 
+#define MAX_PLAYERS 300
+
+#include <ColAndreas>
 
 #define SERVER_VERSION 			"v0.6 Build 5"
 #define SERVER_NAME 			"Hyaxe"
@@ -57,7 +59,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 
 // Other Library 
 #include <a_http>
-#include <streamer>
 #include <sscanf2>
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
@@ -73,6 +74,8 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <strlib>
 #include <ExtendedActorFunctions>
 #include <gmenu>
+
+#include <streamer>
 
 #define safe_db_query(%0) db_free_result(db_query(Database, %0))
 
@@ -6582,6 +6585,8 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
+	CA_Init();
+
 	//print("OnGamemodeInit()"); // debug juju
 
 	#if defined VOICE_CHAT
@@ -34134,5 +34139,17 @@ flags:depositveh(CMD_MODERATOR)
 CMD:aaaaaaaa(playerid, params[])
 {
 	SetPlayerHealthEx(playerid, 0.0);
+	return 1;
+}
+
+CMD:findz(playerid, params[])
+{
+	extract params -> new Float:x, Float:y; else
+		return SendClientMessage(playerid, -1, "no");
+	
+	new Float:z;
+
+	CA_FindZ_For2DCoord(x, y, z);
+	SetPlayerPos(playerid, x, y, z);
 	return 1;
 }
