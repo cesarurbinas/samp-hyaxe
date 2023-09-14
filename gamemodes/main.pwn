@@ -1750,7 +1750,31 @@ static const INVALID_NAMES[][100] =
 	"Telapone",
 	"Tedoma",
 	"Hambre",
-	"Trabuco"
+	"Trabuco",
+	"Mirry",
+	"Mirri",
+	"Verdesin",
+	"Verdoso",
+	"Verde",
+	"Cheat",
+	"Cheater",
+	"Cheto",
+	"Maricon",
+	"Chitero",
+	"Neptunia",
+	"Pito",
+	"Corto",
+	"Fizio",
+	"Peruano",
+	"Boliviano",
+	"Narizon",
+	"Culon",
+	"Gordo",
+	"Teton",
+	"Rubius",
+	"Goku",
+	"Vegeta",
+	"Vegetta"
 };
 
 enum
