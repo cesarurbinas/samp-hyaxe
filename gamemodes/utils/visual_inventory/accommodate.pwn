@@ -124,6 +124,7 @@ inv_ItemToTextdraw(playerid, slot, type)
 	{
 		case 0, 53, 51, 54, 41: format(str_text, sizeof(str_text), " ");
 		case 9, 10, 11, 55: format(str_text, sizeof(str_text), "Balas");
+		case 56: format(str_text, sizeof(str_text), "Geo");
 	}
 
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
@@ -387,6 +388,20 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 55;
 			PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = 1;
 			if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 55);
+		}
+	}
+
+	if (PLAYER_MISC[playerid][MISC_GEO] > 0)
+	{
+		for(new i; i != PLAYER_MISC[playerid][MISC_GEO]; i ++)
+		{
+			free_slot = inv_GetFreeSlot(playerid);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
+			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 56;
+			PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = 1;
+			if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 56);
 		}
 	}
 	return 1;

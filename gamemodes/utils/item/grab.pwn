@@ -40,6 +40,7 @@ SubtractItem(playerid, type, slot, ammount = 1)
 		case 53: return PLAYER_MISC[playerid][MISC_FIXKIT] -= ammount;
 		case 54: return PLAYER_MISC[playerid][MISC_JOINT] -= ammount;
 		case 55: return PLAYER_MISC[playerid][MISC_CARTRIDGE_4] -= ammount;
+		case 56: return PLAYER_MISC[playerid][MISC_GEO] -= ammount;
 	}
 	return 1;
 }
@@ -167,6 +168,7 @@ GrabItem(playerid, type, ammount = 1, color = 0x00F7F7F7)
 		case 53: return PLAYER_MISC[playerid][MISC_FIXKIT] += ammount;
 		case 54: return PLAYER_MISC[playerid][MISC_JOINT] += ammount;
 		case 55: return PLAYER_MISC[playerid][MISC_CARTRIDGE_4] += ammount;
+		case 56: return PLAYER_MISC[playerid][MISC_GEO] += ammount;
 	}
 	return 1;
 }

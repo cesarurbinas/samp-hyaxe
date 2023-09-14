@@ -1742,7 +1742,9 @@ static const INVALID_NAMES[][100] =
 	"Hamburguesa",
 	"Willyrex",
 	"Telapone",
-	"Tedoma"
+	"Tedoma",
+	"Hambre",
+	"Trabuco"
 };
 
 enum
