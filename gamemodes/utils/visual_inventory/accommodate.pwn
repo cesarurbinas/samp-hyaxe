@@ -204,10 +204,10 @@ inv_AccommodatePropertyItems(playerid, property_id)
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);
 			
-			PROPERTY_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
-			PROPERTY_VISUAL_INV[playerid][slot_TYPE][free_slot] = type;
-			PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = extra;
-			PROPERTY_VISUAL_INV[playerid][slot_DB_ID][free_slot] = db_get_field_assoc_int(Result, "ID");
+			PROPERTY_VISUAL_INV[playerid][slot_VALID][i] = true;
+			PROPERTY_VISUAL_INV[playerid][slot_TYPE][i] = type;
+			PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][i] = extra;
+			PROPERTY_VISUAL_INV[playerid][slot_DB_ID][i] = db_get_field_assoc_int(Result, "ID");
 
 			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] ++;
 			db_next_row(Result);
