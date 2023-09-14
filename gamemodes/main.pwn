@@ -5796,21 +5796,6 @@ Log(const nombre[], const texto[])
     return 1;
 }
 
-CALLBACK: PurgeAnnounce()
-{
-	for(new i = 0; i < MAX_PLAYERS; i++)
-	{
-		ShowPlayerNotification(i, "La purga ha comenzado, todo crimen es permitido.", 4);
-		SavePlayerNotification(i, "¡Felicidades! Estas participando de la purga anual.");
-		SendClientMessage(i, COLOR_RED, "[PURGA]"COL_WHITE" La purga ha iniciado.");
-		SendClientMessage(i, COLOR_WHITE, "La purga solo tiene dos reglas: la primera es que durante esta, los funcionarios del gobierno de rango 10 o superior poseen");
-		SendClientMessage(i, COLOR_WHITE, "total inmunidad. La segunda, es que el uso de las armas por encima de Clase 4 (por ejemplo, armas de destrucción masiva)");
-		SendClientMessage(i, COLOR_WHITE, "están prohibidas, lo que significa que los dispositivos destructivos y materiales explosivos están excluidos de La Purga. Cualquier");
-		SendClientMessage(i, COLOR_WHITE, "persona que no siga las reglas de la purga será ejecutado.");
-	}	
-	return 1;
-}
-
 public OnPlayerDeath(playerid, killerid, reason)
 {
 	//printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
@@ -34102,8 +34087,6 @@ flags:gmx(CMD_ADMIN)
 flags:closeserver(CMD_ADMIN)
 flags:pmaletero(CMD_MODERATOR4)
 flags:stopall(CMD_OPERATOR)
-flags:purga(CMD_OPERATOR)
-flags:finpurga(CMD_OPERATOR)
 flags:gift(CMD_OPERATOR)
 flags:giftvip(CMD_OPERATOR)
 flags:setpd(CMD_OPERATOR)

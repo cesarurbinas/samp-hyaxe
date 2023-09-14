@@ -1341,37 +1341,6 @@ CMD:setwork(playerid, params[])
 	return 1;
 }
 
-CMD:finpurga(playerid, params[])
-{
-	SendRconCommand("hostname "SERVER_HOSTNAME"");
-
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if(!IsPlayerConnected(i)) continue;
-
-		StopAudioStreamForPlayer(i);
-		ClearPlayerChatBox(i);
-		SendClientMessage(i, COLOR_RED, "[PURGA]"COL_WHITE" La purga ha finalizado.");
-	}
-	return 1;
-}
-
-CMD:purga(playerid, params[])
-{
-	SendRconCommand("hostname Hyaxe Roleplay | PURGA ACTIVADA");
-	SetTimer("PurgeAnnounce", 8000, false);
-
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if(!IsPlayerConnected(i)) continue;
-
-		StopAudioStreamForPlayer(i);
-		PlayAudioStreamForPlayer(i, "https://cdn.discordapp.com/attachments/648718129077157892/704405119755747368/purga_roleplay.mp3");
-		ClearPlayerChatBox(i);
-	}
-	return 1;
-}
-
 CMD:dafuqungordoxdd(playerid, params[])
 {
 	new DB_Query[70];
