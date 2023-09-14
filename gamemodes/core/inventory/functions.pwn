@@ -283,7 +283,19 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		DB_Query[140]
 	;
 
-	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	switch(PLAYER_MISC[playerid][MISC_INV_CONFIG])
+	{
+		case 0: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+		
+		case 1: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `TYPE` ASC;", ACCOUNT_INFO[playerid][ac_ID]);
+		case 2: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `EXTRA` ASC;", ACCOUNT_INFO[playerid][ac_ID]);
+
+		case 1: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `TYPE` DESC;", ACCOUNT_INFO[playerid][ac_ID]);
+		case 2: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `EXTRA` DESC;", ACCOUNT_INFO[playerid][ac_ID]);
+		
+		default: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	}
+
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))

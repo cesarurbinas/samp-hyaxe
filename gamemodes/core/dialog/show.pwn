@@ -3582,6 +3582,7 @@ ShowDialog(playerid, dialogid)
 					Ver registros de IP\t\n\
 					Color del nombre\t%s%s\n\
 					Color del texto\t%s%s\n\
+					Orden de inventario\t%s\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
@@ -3594,7 +3595,8 @@ ShowDialog(playerid, dialogid)
 					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] ][color_HEX],
 					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] ][color_NAME],
 					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_HEX],
-					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_NAME]
+					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_NAME],
+					INV_CONFIG[ PLAYER_MISC[playerid][MISC_INV_CONFIG] ]
 			);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Panel de configuración", dialog, "Cambiar", "Salir");
@@ -4312,6 +4314,11 @@ ShowDialog(playerid, dialogid)
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Comprar color (chat)", dialog, "Comprar", "Volver");
 		}
+		case DIALOG_INV_ORDER:
+    	{
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Cambiar orden del inventario", "Normal\nTipo\nCantidad", "Cambiar", "Atrás");
+    		return 1;
+    	}
 		default: return 0;
 	}
 	return 1;

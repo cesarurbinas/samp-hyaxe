@@ -22,3 +22,12 @@ new
 	PLAYER_VISUAL_INV[MAX_PLAYERS][Visual_Inventory],
 	PROPERTY_VISUAL_INV[MAX_PLAYERS][Visual_Inventory]
 ;
+
+new INV_CONFIG[][] =
+{
+	"Normal",
+	"Tipo (Ascendente)",
+	"Cantidad (Ascendente)",
+	"Tipo (Descendente)",
+	"Cantidad (Descendente)"
+};

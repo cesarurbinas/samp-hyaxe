@@ -328,6 +328,11 @@ enum
 =======
 	DIALOG_SINDACCO_MAFIA_MODIFY,
 	DIALOG_BUY_NAME_COLOR,
+<<<<<<< HEAD
 	DIALOG_BUY_CHAT_COLOR
 >>>>>>> 68c68d6 (tienda de colores)
+=======
+	DIALOG_BUY_CHAT_COLOR,
+	DIALOG_INV_ORDER
+>>>>>>> 4d102db (configurar orden del inventario)
 };

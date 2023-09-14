@@ -6255,7 +6255,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 11: ShowDialog(playerid, DIALOG_BUY_NAME_COLOR);
 					case 12: ShowDialog(playerid, DIALOG_BUY_CHAT_COLOR);
-					case 13:
+					/*case 13:
 					{
 						if (ACCOUNT_INFO[playerid][ac_LEVEL] < 3) return ShowPlayerMessage(playerid, "~r~Necesitas ser nivel 3 para usar este modo.", 5);
 						if (PLAYER_TEMP[playerid][py_COMBAT_MODE]) return ShowPlayerMessage(playerid, "~r~No puedes usar el modo pacífico estando en combate.", 5);
@@ -6266,7 +6266,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						else SetPlayerChatBubble(playerid, "\n\n\n\n* Ha salido del modo pacífico.\n\n\n", 0xffcb90FF, 20.0, 7000);
 
 						ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
-					}
+					}*/
+					case 13: ShowDialog(playerid, DIALOG_INV_ORDER);
 				}
 			}
 			return 1;
@@ -7887,6 +7888,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerMessage(playerid, sprintf("Has comprado el color %s.", COLOR_INFO[listitem][color_NAME]), 4);
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
+		}
+		case DIALOG_INV_ORDER:
+		{
+			if (response)
+			{
+				PLAYER_MISC[playerid][MISC_INV_CONFIG] = listitem;
+				SavePlayerMisc(playerid);
+			}
+			ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 		}
 	}
 	return 0;

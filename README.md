@@ -106,9 +106,13 @@ Listado de cosas para hacer
 
 ❌ Ajustar el requisar y revisar a los nuevos items
 
+❌ Ir cambiando los slots del inv con F
+
+❌ Poder seleccionar de que forma se ordena el inventario
+
 ✅ Arreglar altura de paracaidas, calabaza y regalo
 
-🕐 Arreglar barra del inventario
+✅ Arreglar barra del inventario
 
 ✅ Agregar el celular al inventario
 
