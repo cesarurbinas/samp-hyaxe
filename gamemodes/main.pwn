@@ -6471,6 +6471,7 @@ CALLBACK: InitRandomGraffiti()
 	return 1;
 }
 
+/*
 GenString(strDest[], strLen = 10)
 {
     while(strLen --)
@@ -6523,16 +6524,11 @@ CALLBACK: SendGift()
 		GenString(code, 8);
 
 		AddGiftCode(code, type, extra);
-		HTTP(0, HTTP_GET, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "GiftResponse");
+		HTTP(0, HTTP_HEAD, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "");
 	}
 	return 1;
 }
-
-forward GiftResponse(index, response_code, data[]);
-public GiftResponse(index, response_code, data[])
-{
-	return 1;
-}
+*/
 
 CALLBACK: GiveAutoGift()
 {
@@ -6590,7 +6586,10 @@ public OnGameModeInit()
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
 	SetTimer("GiveAutoGift", 300000, false);
+<<<<<<< HEAD
 	//SetTimer("SendGift", 60000, true);
+=======
+>>>>>>> refs/rewritten/Retoques
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
@@ -17069,6 +17068,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (CHARACTER_INFO[playerid][ch_CASH] >= Toys_Shop[listitem][shop_toy_price])
 				{
 					new slot = GetEmptyPlayerToySlot(playerid);
+					printf("%d", slot);
+
 					if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_TOYS)
 					{
 						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
@@ -21665,7 +21666,7 @@ SavePlayerToysData(playerid)
 
 GetEmptyPlayerToySlot(playerid)
 {
-	for(new i = (MAX_PLAYER_ATTACHED_OBJECTS - 1); i != -1; --i)
+	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; ++i)
 	{
 		if (!PLAYER_TOYS[playerid][i][player_toy_VALID]) return i;
 	}
@@ -31208,8 +31209,8 @@ CMD:id(playerid, params[])
 	
 	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Versión: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f "COL_RED"|"COL_WHITE" Ping: %d",
 		player_version,
-		NetStats_PacketLossPercent(playerid),
-		GetPlayerPing(playerid)
+		NetStats_PacketLossPercent(to_player),
+		GetPlayerPing(to_player)
 	);
 	return 1;
 }
