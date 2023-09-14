@@ -29,6 +29,9 @@ enum stall_enum
 	Float:st_ANGLE,
 	st_SKIN,
 	st_PRODUCT
+	st_ACTOR,
+	Text3D:st_LABEL,
+	st_OBJECT
 };
 
 new STALL_INFO[][stall_enum] =

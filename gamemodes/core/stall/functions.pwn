@@ -5,7 +5,7 @@ CreateStalls()
 		STALL_INFO[i][st_SKIN] = STALL_SKIN[ minrand(0, sizeof(STALL_SKIN))];
 		STALL_INFO[i][st_PRODUCT] = minrand(0, sizeof(STALL_PRODUCT));
 
-		CreateDynamicActor(
+		STALL_INFO[i][st_ACTOR] = CreateDynamicActor(
 			STALL_INFO[i][st_SKIN],
 			STALL_INFO[i][st_X],
 			STALL_INFO[i][st_Y],
@@ -14,15 +14,19 @@ CreateStalls()
 			true, 100.0, 0, 0
 		);
 
-		new Float:x, Float:y;
+		new
+			Float:x = STALL_INFO[i][st_X],
+			Float:y = STALL_INFO[i][st_Y]
+		;
+
 		GetXYFromAngle(x, y, STALL_INFO[i][st_ANGLE], 1.0);
 
-		CreateDynamicObject(
+		STALL_INFO[i][st_OBJECT] = CreateDynamicObject(
 			3039,
 			x,
 			y,
 			STALL_INFO[i][st_Z],
-			0.0, 0.0, 0.0
+			0.0, 0.0, 0.0, 0, 0
 		);
 
 		new str_text[128];
@@ -32,7 +36,7 @@ CreateStalls()
 			STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE]
 		);
 
-		CreateDynamic3DTextLabel(
+		STALL_INFO[i][st_LABEL] = CreateDynamic3DTextLabel(
 			str_text, 0xF7F7F700,
 			x,
 			y,
