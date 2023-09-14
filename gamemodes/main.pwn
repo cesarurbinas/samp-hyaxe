@@ -24318,7 +24318,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 		}
 
-		if (GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_SMOKE_CIGGY && PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] == 54)
+		if (GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_SMOKE_CIGGY &&  PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ] == 54)
 		{
 			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_JOINT]) > 2)
 			{
