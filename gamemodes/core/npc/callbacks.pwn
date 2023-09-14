@@ -88,6 +88,22 @@ public NPC_Update()
 				else
 				{
 					SetPlayerColor(npcid, PLAYER_COLOR);
+
+					if (FCNPC_IsDead(npcid))
+					{
+						for(new x = 0, j = GetPlayerPoolSize(); x <= j; x++)
+						{
+							if (!IsPlayerConnected(x)) continue;
+
+							if (PLAYER_TEMP[x][py_IN_MISSION])
+							{
+								if (PLAYER_TEMP[x][py_MISSION] == mission)
+								{
+									SetPlayerMarkerForPlayer(x, npcid, PLAYER_COLOR);
+								}
+							}
+						}
+					}
 				}
 			}
 		}
