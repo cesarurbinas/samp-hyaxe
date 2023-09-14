@@ -20530,7 +20530,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				switch(listitem)
 				{
-					case 0: UpdateBoombox(playerid, !BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]);
+					case 0: UpdateBoombox(PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX], !BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]);
 				}
 
 				ShowDialog(playerid, DIALOG_BOOMBOX_OPTIONS);
