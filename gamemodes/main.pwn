@@ -78,6 +78,19 @@
 #include <Pawn.Regex>
 //#tryinclude <profiler>
 
+// Special maps
+#if defined HALLOWEEN_MODE
+	#include "core/maps/halloween.pwn"
+#endif
+
+#if defined CHRISTMAS_MODE
+	#include "core/maps/christmas.pwn"
+#endif
+
+#if defined EASTER_MODE
+	#include "core/maps/easter.pwn"
+#endif
+
 // Damage
 #include "core/damage/header.pwn"
 
@@ -2390,10 +2403,12 @@ enum Toys_Info
 new Toys_Shop[][Toys_Info] =
 {
 	// Halloween
-	{"Caldera", 19527, 3000, 0},
-	{"Bruja", 19528, 3000, 0},
-	{"Diablo", 11704, 3000, 0},
-	{"Calabaza", 19320, 3000, 0},
+	#if defined HALLOWEEN_MODE
+		{"Caldera", 19527, 3000, 0},
+		{"Bruja", 19528, 3000, 0},
+		{"Diablo", 11704, 3000, 0},
+		{"Calabaza", 19320, 3000, 0},
+	#endif
 	// Normal
 	{"motorcyclehelmet2", 18976, 2000, 0},
 	{"motorcyclehelmet3", 18977, 500, 0},
@@ -7462,14 +7477,17 @@ public OnGameModeInit()
 
 	#if defined HALLOWEEN_MODE
 		SendRconCommand("hostname "HALLOWEEN_HOSTNAME"");
+		HalloweenMap();
 	#endif
 
 	#if defined CHRISTMAS_MODE
 		SendRconCommand("hostname "CHRISTMAS_HOSTNAME"");
+		ChristmasMap();
 	#endif
 
 	#if defined EASTER_MODE
 		SendRconCommand("hostname "EASTER_HOSTNAME"");
+		EasterMap();
 	#endif
 
 	SendRconCommand("language "SERVER_LANGUAGE"");
