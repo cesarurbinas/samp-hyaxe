@@ -1,4 +1,4 @@
-t#if defined CORE_ANTICHEAT_H_
+#if defined CORE_ANTICHEAT_H_
 	#endinput
 #endif
 
@@ -72,8 +72,8 @@ new ac_Info[][e_ac_Info] =
 	{"unoccupied veh tp",         true, true,         1, 0},
 	{"high pos",                  true, true,         1, 0},
 	{"car jacking",               true, true,         1, 0},
-	{"rapid fire",                true, true,         1, 0}
-	{"head aim",                true, true,         1, 0}
+	{"rapid fire",                true, true,         1, 0},
+	{"head aim",                  true, true,         1, 0}
 };
 
 enum e_PLAYER_AC_INFO
