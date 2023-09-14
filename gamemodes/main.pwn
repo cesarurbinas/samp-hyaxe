@@ -22385,7 +22385,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				new to_player;
-			    if (sscanf(params, "u", to_player))
+			    if (sscanf(inputtext, "u", to_player))
 			    {
 			    	ShowPlayerMessage(playerid, "~r~Ingrese un nombre", 4);
 			    	ShowDialog(playerid, dialogid);
@@ -22406,6 +22406,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    	return 1;
 			    }
 
+			    new vehicleid = INVALID_VEHICLE_ID;
+				vehicleid = GetPlayerVehicleID(playerid);
+				if (vehicleid == INVALID_VEHICLE_ID) return 0;
+
 			    if (IsPlayerInKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], ACCOUNT_INFO[to_player][ac_ID]))
 			    {
 			    	ShowPlayerMessage(playerid, "~r~Ese jugador ya tiene las llaves", 4);
@@ -22413,16 +22417,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    	return 1;	
 			    }
 
-				new vehicleid = INVALID_VEHICLE_ID;
-				vehicleid = GetPlayerVehicleID(playerid);
-				if (vehicleid == INVALID_VEHICLE_ID) return 0;
-
 				AddPlayerKey(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], ACCOUNT_INFO[to_player][ac_ID]);
 				ShowPlayerMessage(playerid, "Llave ~g~agregada", 4);
 
 				ShowPlayerNotification(to_player, sprintf("%s te ha dado una copia de las llaves de su ~r~%s", PLAYER_TEMP[playerid][py_NAME], VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]), 5);
 			}
-			else ShowDialog(playerid, DIALOG_VEHICLE_KEYS)
+			else ShowDialog(playerid, DIALOG_VEHICLE_KEYS);
 		}
 		case DIALOG_VEHICLE_KEYS_DEL:
 		{
@@ -22437,7 +22437,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				RemovePlayerKey(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]);
 				ShowPlayerMessage(playerid, "Llave ~r~eliminada", 4);
 			}
-			else ShowDialog(playerid, DIALOG_VEHICLE_KEYS)
+			else ShowDialog(playerid, DIALOG_VEHICLE_KEYS);
 		}
 	}
 	return 0;
