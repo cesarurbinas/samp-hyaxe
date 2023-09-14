@@ -170,6 +170,9 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/admin/callbacks.pwn"
 #include "core/admin/commands.pwn"
 
+// Boombox
+#include "core/boombox/main.pwn"
+
 new Float:NewUserPos[][] =
 {
 	{1090.567138, -1805.910156, 16.593750, 1.044739},
@@ -3150,8 +3153,9 @@ public OnPlayerConnect(playerid)
 	SetPlayerColor(playerid, PLAYER_COLOR);
 
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
-	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
-	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
+	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] =
+	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = 
+	PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
 	PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS] = false;
 	PLAYER_TEMP[playerid][py_SEE_ACMD_LOG] = true;
 	PLAYER_TEMP[playerid][py_SEE_AC_LOG] = true;
@@ -12347,6 +12351,13 @@ ShowDialog(playerid, dialogid)
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_YELLOW"Ingrese apuesta", ""COL_WHITE"Ingrese la cantidad a apostar:", "Apostar", "Atrás");	
     	}
+		case DIALOG_BOOMBOX_OPTIONS:
+		{
+			new dialog[350];
+			if(BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), "Opción\tEstado\nBoombox pública\t< "COL_GREEN"Sí\n");
+			else format(dialog, sizeof(dialog), "Opción\tEstado\nBoombox pública\t< "COL_RED"No\n");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Opciones de boombox", dialog, "Cambiar", "Salir");
+		}
 		default: return 0;
 	}
 	return 1;
@@ -12354,7 +12365,7 @@ ShowDialog(playerid, dialogid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	printf("OnDialogresponde %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
+	printf("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
 	if (PLAYER_TEMP[playerid][py_DIALOG_RESPONDED]) return 1;
 	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = true;
 
@@ -20547,7 +20558,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else ShowDialog(playerid, DIALOG_BOX_FIGHTERS);
 		}
-		
+		case DIALOG_BOOMBOX_OPTIONS:
+		{
+			if(response)
+			{
+				switch(listitem)
+				{
+					case 0: UpdateBoombox(playerid, !BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]);
+				}
+
+				ShowDialog(playerid, DIALOG_BOOMBOX_OPTIONS);
+			} else PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
+		}
 	}
 	return 0;
 }
