@@ -2239,6 +2239,9 @@ CMD:v(playerid, params[])
 	SetVehicleVirtualWorld(vid, GetPlayerVirtualWorld(playerid));
 	PutPlayerInVehicleEx(playerid, vid, 0);
 
+	if (PLAYER_MISC[playerid][MISC_RADIO_STATION] < 100)
+		PlayAudioStreamForPlayer(playerid, RADIO_STATIONS[ PLAYER_MISC[playerid][MISC_RADIO_STATION] ][r_URL]);
+
 	SendCmdLogToAdmins(playerid, "v", params);
 	return 1;
 }

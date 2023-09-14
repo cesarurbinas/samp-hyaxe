@@ -39,7 +39,7 @@
 
 // Features
 //#define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 //#define DM_MODE
 
 // Special events
