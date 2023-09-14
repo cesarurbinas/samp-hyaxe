@@ -15379,7 +15379,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 									SetPlayerPosEx(i, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_X], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Y], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Z], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_ANGLE], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_INTERIOR], 0, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_FREEZE], false);
 									StopAudioStreamForPlayer(i);
 									SendClientMessageEx(i, COLOR_WHITE, "{bad2d8}%s "COL_WHITE"te ha echado de su propiedad.", PLAYER_TEMP[playerid][py_RP_NAME]);
-									ShowPlayerMessage(i, "~r~Te hecharon de la propiedad.", 3);
+									ShowPlayerMessage(i, "~r~Te echaron de la propiedad.", 3);
 									total ++;
 								}
 							}
