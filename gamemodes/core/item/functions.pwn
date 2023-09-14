@@ -39,6 +39,38 @@ TypeToWeapon(type)
 	return false;
 }
 
+WeaponToType(weapon)
+{
+	switch(weapon)
+	{
+		case 5: return 12;
+		case 3: return 13;
+		case 4: return 14;
+		case 6: return 15;
+		case 7: return 16;
+		case 17: return 17;
+		case 2: return 18;
+		case 1: return 19;
+		case 22: return 20;
+		case 22: return 21;
+		case 24: return 22;
+		case 25: return 23;
+		case 26: return 24;
+		case 28: return 25;
+		case 29: return 26;
+		case 30: return 27;
+		case 31: return 28;
+		case 32: return 29;
+		case 33: return 30;
+		case 41: return 31;
+		case 43: return 32;
+		case 46: return 33;
+		
+		default: return 0;
+	}
+	return false;
+}
+
 GetFreeDropItemSlot()
 {
     new i = MAX_DROP_ITEMS;
