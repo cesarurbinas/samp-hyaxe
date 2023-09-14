@@ -30036,6 +30036,16 @@ CALLBACK: StopShitting(playerid)
 	return 1;
 }
 
+CMD:no(playerid, params[])
+{
+	if(IsPlayerJumping(playerid)) return 1;
+	
+	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+	ClearAnimations(playerid);
+
+	return 1;
+}
+
 CMD:cagar(playerid, params[])
 {
 	if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_SHIT]) < 30) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 30 segundos para volver a hacer esto.", 3);
