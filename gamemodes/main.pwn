@@ -14733,7 +14733,7 @@ ShowDialog(playerid, dialogid)
     		for(new i = 0; i != sizeof STORE_PRODUCTS; i ++)
     		{
     			new line[264];
-    			format(line, sizeof(line), ""COL_WHITE"%s\t"COL_GREEN"%s$\n", STORE_PRODUCTS[i][store_NAME], STORE_PRODUCTS[i][store_PRICE]);
+    			format(line, sizeof(line), ""COL_WHITE"%s\t"COL_GREEN"%d$\n", STORE_PRODUCTS[i][store_NAME], STORE_PRODUCTS[i][store_PRICE]);
     			strcat(dialog, line);
     		}
 
@@ -23734,8 +23734,123 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else CheckClubOptions(playerid);
 		}
+		case DIALOG_STORE:
+		{
+			if (response)
+			{
+				PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] = listitem;
+
+				new payload[264];
+				format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/product_buy/%d/%d",
+					ACCOUNT_INFO[playerid][ac_ID],
+					STORE_PRODUCTS[listitem][store_PRICE]
+				);
+				HTTP(playerid, HTTP_GET, payload, "", "StoreBuyRecv");
+			}
+		}
 	}
 	return 0;
+}
+
+forward StoreBuyRecv(index, response_code, const data[]);
+public StoreBuyRecv(index, response_code, const data[])
+{
+	#if DEBUG_MODE == 1
+		printf("StoreBuyRecv %d %d %s", index, response_code, data);
+	#endif
+
+	if (IsPlayerConnected(index))
+	{
+	    if (response_code == 200)
+	    {
+	    	new playerid = index;
+
+	    	if (data[0] == 'Y')
+			{
+				switch( STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_TYPE] )
+				{
+					// HyCoins
+					case 0:
+					{
+						new DB_Query[140];
+						ACCOUNT_INFO[playerid][ac_SD] += STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA];
+
+						format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+						db_free_result(db_query(Database, DB_Query));
+					}
+
+					// Dinero
+					case 1:
+					{
+						GivePlayerCash(playerid, STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA], false);
+					}
+
+					// VIP Classic
+					case 2:
+					{
+						SetPlayerVip(playerid, 1, 0, STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA]);
+					}
+
+					// VIP Turbo
+					case 3:
+					{
+						SetPlayerVip(playerid, 2, 0, STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA]);
+					}
+
+					// Nivel
+					case 4:
+					{
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][2]);
+
+						ACCOUNT_INFO[playerid][ac_REP] = 1;
+						ACCOUNT_INFO[playerid][ac_LEVEL] += STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA];
+						SetPlayerSkillLevels(playerid);
+
+						SendClientMessageEx(playerid, COLOR_WHITE, ""COL_RED"¡Felicidades! "COL_WHITE"Has subido al nivel %d.", ACCOUNT_INFO[playerid][ac_LEVEL]);
+						SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
+
+						ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
+						PLAYER_TEMP[playerid][py_TIME_PASSED_LAST_REP] = gettime() * 1000;
+
+						ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
+						PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
+						new DB_Query[256];
+						format(DB_Query, sizeof DB_Query,
+
+							"\
+								UPDATE `CUENTA` SET `TIME-PLAYING` = '%d', `LEVEL` = '%d', `REP` = '%d', `TIME_FOR_REP` = '%d', `PAYDAY_REP` = '%d' WHERE `ID` = '%d';\
+							",
+								ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID]
+						);
+						db_free_result(db_query(Database, DB_Query));
+
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][2]);
+						PLAYER_TEMP[playerid][py_TIMERS][2] = SetTimerEx("AddPlayerReputation", ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], false, "i", playerid);
+					}
+
+					// Skin
+					case 6:
+					{
+						CHARACTER_INFO[playerid][ch_SKIN] = STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA];
+    					SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
+    					PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
+					}
+				}
+
+				new str_text[232];
+				format(str_text, sizeof(str_text), "Has comprado el producto \"%s\" por %d$. Felicidades.",
+					STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_NAME],
+					STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_PRICE]
+				);
+			}
+			else ShowPlayerNotification(playerid, "No tienes los créditos suficientes para realizar esta compra en la tienda.", 4);
+	    }
+	    else
+	    {
+			ShowPlayerMessage(index, "~r~Hubo un error al intentar conectarse a la tienda", 7);
+	    }
+	}
+	return 1;
 }
 
 GetDatabasePages(const query_[], limit)
