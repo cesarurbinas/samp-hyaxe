@@ -28338,8 +28338,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	}
 	else if (PRESSED( KEY_NO ))
     {
-    	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
-    		ShowInventory(playerid);
+    	if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 0)
+    	{
+    		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER) ShowInventory(playerid);
+    	}
 	}
 
 	if (PRESSED( KEY_SPRINT | KEY_YES ))
