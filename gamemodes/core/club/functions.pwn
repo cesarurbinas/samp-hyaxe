@@ -265,3 +265,11 @@ DeleteClubProduct(product_id)
 	db_free_result(db_query(Database, DB_Query));
 	return 1;
 }
+
+GetClubEnterPrice(club_id)
+{
+	new price[128];
+	if (CLUBS_INFO[club_id][club_ENTER_PRICE] <= 0) format(price, sizeof(price), ""COL_GREEN"Abierto"COL_WHITE"");
+	else format(price, sizeof(price), ""COL_YELLOW"%d$"COL_WHITE"", CLUBS_INFO[club_id][club_ENTER_PRICE]);
+	return price;
+}
