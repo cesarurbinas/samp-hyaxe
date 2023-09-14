@@ -112,7 +112,7 @@
 #include <../../gamemodes/utils/world/bots.pwn>
 
 // Server Config
-#define SERVER_VERSION 			"v0.5 Pre-Release Build 46"
+#define SERVER_VERSION 			"v0.5 Pre-Release Build 80"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -12895,7 +12895,7 @@ ShowDialog(playerid, dialogid)
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Herido", ""COL_WHITE"Opción\t"COL_WHITE"Efecto\n\
     			"COL_WHITE"Ir al hospital\t"COL_RED"Pierdes armas\n\
-    			"COL_WHITE"Pedir un medico\t"COL_YELLOW"Tarda en llegar\n", "Selecc.", "Cerrar");
+    			"COL_WHITE"Pedir un médico\t"COL_YELLOW"Tarda en llegar\n", "Selecc.", "Cerrar");
     		return 1;
     	}
 		default: return 0;
@@ -14322,7 +14322,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					RegisterPhoneMessage(PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_TEMP[playerid][py_PLAYER_PHONE_NUMBER_SELECTED], inputtext);
 					if (PLAYER_PHONE[to_playerid][player_phone_STATE] == PHONE_STATE_ON) SendClientMessageEx(to_playerid, COLOR_WHITE, ""COL_GREEN"[Mensaje] "COL_WHITE"%s: %s", convertPhoneNumber(to_playerid, PLAYER_PHONE[playerid][player_phone_NUMBER]), inputtext);
 				}
-				SendClientMessageEx(playerid, COLOR_WHITE, "Mensaje enviado a {7b9cd1}%s.", convertPhoneNumber(playerid, PLAYER_TEMP[playerid][py_PLAYER_PHONE_NUMBER_SELECTED]));
+				ShowPlayerNotification(playerid, "Mensaje enviado.", 3);
 			}
 			else ShowDialog(playerid, DIALOG_PHONE_SMS_MESSAGE);
 			return 1;
@@ -14362,7 +14362,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					RegisterPhoneMessage(PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_PHONE_NUMBER], inputtext);
 					if (PLAYER_PHONE[to_playerid][player_phone_STATE] == PHONE_STATE_ON) SendClientMessageEx(to_playerid, COLOR_WHITE, ""COL_GREEN"[Mensaje] "COL_WHITE"%s: %s", convertPhoneNumber(to_playerid, PLAYER_PHONE[playerid][player_phone_NUMBER]), inputtext);
 				}
-				SendClientMessageEx(playerid, COLOR_WHITE, "Mensaje enviado a {7b9cd1}%s.", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME]);
 			}
 			else ShowDialog(playerid, DIALOG_PHONE_BOOK_OPTIONS);
 			return 1;
@@ -24910,6 +24909,43 @@ CALLBACK: CheckCrunchAnimation(playerid)
 	return 1;
 }
 
+CALLBACK: GetAmbulanceItem(playerid, vehicleid)
+{
+	ClearAnimations(playerid);
+	PLAYER_MISC[playerid][MISC_BOTIKIN] += 1;
+	GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Botiquín"), 2000, 5);
+
+	if (vehicleid != INVALID_VEHICLE_ID)
+	{
+		new doors[4];
+		GetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], doors[2], doors[3])
+		SetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], 0, 0);
+	}
+	return 1;
+}
+
+CheckAmbulance(playerid)
+{
+	if (PLAYER_WORKS[playerid][WORK_MEDIC] && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_MEDIC && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+	{
+		new vehicleid = INVALID_VEHICLE_ID;
+		vehicleid = GetPlayerCameraTargetVehicle(playerid);
+
+		if (vehicleid == INVALID_VEHICLE_ID) return 0;
+		if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] == 416)
+		{
+			SetTimerEx("GetAmbulanceItem", 3000, false, "ii", playerid, vehicleid);
+
+			new doors[4];
+			GetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], doors[2], doors[3])
+			SetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], 1, 1);
+
+			ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 3000, true);
+		}
+	}
+	return 1;
+}
+
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
 	//printf("OnPlayerKeyState %d %d %d",playerid, newkeys, oldkeys); // debug juju
@@ -25042,6 +25078,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckPlayerHouseDoor(playerid);
         CheckFarmerShop(playerid);
         CheckBallonAction(playerid);
+        CheckAmbulance(playerid);
 
         for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
 		{
@@ -28076,7 +28113,7 @@ CheckWorkSite(playerid)
 					}
 					case WORK_MEDIC:
 					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de medico", ""COL_WHITE"\
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de médico", ""COL_WHITE"\
 							Bienvenido al equipo de paramédicos.\n\n\
 							Sube a una ambulancia y ve a salvar gente herida\n\
 							usando los botiquines que hay atrás de la ambula-\n\
@@ -28824,7 +28861,7 @@ SendAlertToMedics(playerid)
 	}
 
 	format(str_text, sizeof(str_text), "Has solicitado una ambulancia~n~Médicos activos: ~y~%d", total_medics);
-	ShowPlayerMessage(playerid, stre_text, 5);
+	ShowPlayerMessage(playerid, str_text, 5);
 	return 1;
 }
 
