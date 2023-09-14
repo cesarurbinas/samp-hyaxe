@@ -8971,7 +8971,7 @@ public OnPlayerText(playerid, text[])
 			if (text[1] == '!') format(str_text, sizeof str_text, "[TFC] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
 			else format(str_text, sizeof str_text, "[TFC] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], CONNOR_RANKS[ PLAYER_SKILLS[playerid][WORK_CONNOR] ], text[1]);
 
-			SendConnorMafiaMessage(0xFFFFFFFF, str_text);
+			SendConnorMafiaMessage(0xc33d3dFF, str_text);
 			return 0;
 		}
 
@@ -19400,7 +19400,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_CONNOR);
 				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0xFFFFFFFF, "[TFC] "COL_WHITE" El nuevo rango de %s es: %s.", name, CONNOR_RANKS[listitem]);
+				SendClientMessageEx(playerid, 0xc33d3dFF, "[TFC] "COL_WHITE" El nuevo rango de %s es: %s.", name, CONNOR_RANKS[listitem]);
 
 				if (listitem == 0)
 				{
@@ -19416,9 +19416,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_CONNOR) EndPlayerJob(player_id);
 						PLAYER_WORKS[player_id][WORK_CONNOR] = false;
-						SendClientMessageEx(player_id, 0xFFFFFFFF, "[TFC] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", CONNOR_RANKS[ PLAYER_SKILLS[playerid][WORK_CONNOR] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+						SendClientMessageEx(player_id, 0xc33d3dFF, "[TFC] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", CONNOR_RANKS[ PLAYER_SKILLS[playerid][WORK_CONNOR] ], PLAYER_TEMP[playerid][py_RP_NAME]);
 					}
-					else SendClientMessageEx(player_id, 0xFFFFFFFF, "[TFC] "COL_WHITE" El %s %s ha modificado tu rango a %s.", CONNOR_RANKS[ PLAYER_SKILLS[playerid][WORK_CONNOR] ], PLAYER_TEMP[playerid][py_RP_NAME], CONNOR_RANKS[listitem]);
+					else SendClientMessageEx(player_id, 0xc33d3dFF, "[TFC] "COL_WHITE" El %s %s ha modificado tu rango a %s.", CONNOR_RANKS[ PLAYER_SKILLS[playerid][WORK_CONNOR] ], PLAYER_TEMP[playerid][py_RP_NAME], CONNOR_RANKS[listitem]);
 				}
 			}
 			else ShowDialog(playerid, DIALOG_CONNOR_MAFIA_LIST);
@@ -36198,7 +36198,7 @@ InviteToFC(playerid, to_player)
 	SavePlayerWorks(to_player);
 	SavePlayerSkills(to_player);
 
-	SendClientMessageEx(playerid, 0xFFFFFFFF, "[TFC] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	SendClientMessageEx(playerid, 0xc33d3dFF, "[TFC] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
 	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
 	return 1;
 }
