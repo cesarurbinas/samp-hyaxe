@@ -8023,7 +8023,10 @@ UpdatePlayerZoneMessages(playerid)
     }
 
     if (IsPlayerInRangeOfPoint(playerid, 1.5, 1207.234375, -29.231435, 1000.953125) || IsPlayerInRangeOfPoint(playerid, 1.5, 496.589172, -76.033905, 998.757812))
-		{
+	{
+		ShowPlayerKeyMessage(playerid, "H");
+		return 1;
+	}
 
     if (IsPlayerInRangeOfPoint(playerid, 1.0, 1795.293823, -1407.773681, 2770.660156)) 
     {
