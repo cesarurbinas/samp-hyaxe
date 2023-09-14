@@ -4974,7 +4974,7 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
     			new
     				type = (listitem - 1),
     				sub_string[64],
-    				dialog_string[32 * 32],
+    				dialog_string[64 * 32],
     				total_objects
     			;
 
