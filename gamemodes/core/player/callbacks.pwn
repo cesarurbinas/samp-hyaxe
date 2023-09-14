@@ -6224,7 +6224,7 @@ public OnPlayerShootDynamicObject(playerid, weaponid, objectid, Float:x, Float:y
 		DestroyDynamicObject(ATM_BANK[atm_id][atm_OBJECT]);
 
 		ATM_BANK[atm_id][atm_OBJECT] = CreateDynamicObject(2943, ATM_BANK[atm_id][atm_X], ATM_BANK[atm_id][atm_Y], ATM_BANK[atm_id][atm_Z], ATM_BANK[atm_id][atm_RX], ATM_BANK[atm_id][atm_RY], ATM_BANK[atm_id][atm_RZ], ATM_BANK[atm_id][atm_WORLD], ATM_BANK[atm_id][atm_INTERIOR]);
-		SetTimerEx("RespawnATM", 30000, false, "d", atm_id);
+		SetTimerEx("RespawnATM", 600000, false, "d", atm_id);
 
 		SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 2);
 		format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Vandalismo");
