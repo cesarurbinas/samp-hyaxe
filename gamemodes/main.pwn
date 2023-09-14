@@ -25897,12 +25897,17 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
     return 1;
 }
 
-GivePlayerReputation(playerid)
+GivePlayerReputation(playerid, ammount = 1)
 {
 	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
 	if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
 	{
-		ACCOUNT_INFO[playerid][ac_REP] ++;
+		ACCOUNT_INFO[playerid][ac_REP] += ammount;
+		
+		new str_text[64];
+		format(str_text, sizeof(str_text), "REP~n~~w~+%d", ammount);
+		ShowPlayerAlert(playerid, str_text, 0xBF68EEFF, 4);
+		
 		if (ACCOUNT_INFO[playerid][ac_REP] >= neccessary_rep) NextLevel(playerid);
 		return 1;
 	}
@@ -26066,6 +26071,10 @@ NextLevel(playerid)
 
 	ShowPlayerNotification(playerid, sprintf("~r~SUBISTE DE NIVEL~w~~n~Felicidades, has subido al nivel %d.", ACCOUNT_INFO[playerid][ac_LEVEL]), 5);
 	SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
+
+	new str_text[64];
+	format(str_text, sizeof(str_text), "LVL~n~~w~%d", ACCOUNT_INFO[playerid][ac_LEVEL]);
+	ShowPlayerAlert(playerid, str_text, 0xF7AF30FF, 4);
 
 	ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
 	PLAYER_TEMP[playerid][py_TIME_PASSED_LAST_REP] = gettime() * 1000;

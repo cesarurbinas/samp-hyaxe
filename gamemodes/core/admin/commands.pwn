@@ -1299,6 +1299,10 @@ CMD:darstaff(playerid, params[])
 	SendClientMessageEx(to_player, COLOR_WHITE, "%s cambió tu rango administrativo a: %s.", ACCOUNT_INFO[playerid][ac_NAME], ADMIN_LEVELS[level]);
 	SendClientMessageEx(playerid, COLOR_WHITE, "El rango administrativo de %s (%d) ahora es %s.", ACCOUNT_INFO[to_player][ac_NAME], to_player, ADMIN_LEVELS[level]);
 
+	new str_text[64];
+	format(str_text, sizeof(str_text), "MOD~n~~w~%d", level);
+	ShowPlayerAlert(playerid, str_text, 0x6AEA5BFF, 4);
+
 	SendCmdLogToAdmins(playerid, "givemod", params);
 	return 1;
 }
