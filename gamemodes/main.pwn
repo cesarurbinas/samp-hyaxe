@@ -9227,7 +9227,7 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la propiedad", ""COL_WHITE"Ingresa el nuevo nombre de la propiedad.", ">>", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "MP3", "Introduce el nombre de un video de YouTube que quieras reproducir.\n\nPor ejemplo: Bruh Sound Effect #2", "Buscar", "Salir");
+		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"MP3", ""COL_WHITE"Introduce el nombre de un video de YouTube que quieras reproducir.", "Buscar", "Salir");
 		case DIALOG_BUY_VEHICLE:
 		{
 			if (!GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_VALID]) return 0;
@@ -14409,7 +14409,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (isnull(inputtext)) return ShowDialog(playerid, dialogid);
 
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, "Cargando ...", "Espera mientras buscamos resultados para su búsqueda ...", "X", "");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Espere", ""COL_WHITE"Buscando resultados para su búsqueda ...", "X", "");
 
 				for(new i = 0; i < strlen(inputtext); i++)
 				{
@@ -14417,7 +14417,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new str[180];
-				format(str, sizeof str, "127.0.0.1:12345/search?query=%s", inputtext);
+				format(str, sizeof str, "51.178.211.161:12345/search?query=%s", inputtext);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
 				HTTP(playerid, HTTP_GET, str, "", "OnYouTubeQueryResponse");
