@@ -74,6 +74,8 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <gmenu>
 #include <json>
 
+#define safe_db_query(%0) db_free_result(db_query(Database, %0))
+
 // Ojito con esto q se revienta el cpeu
 #if defined VOICE_CHAT
     #include <sampvoice>

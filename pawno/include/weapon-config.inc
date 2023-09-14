@@ -736,12 +736,12 @@ static s_DamageArmour[][2] = {
 // That's right, it's called cuntgun
 stock const g_WeaponName[57][WC_MAX_WEAPON_NAME] = {
 	{"Golpe"            }, {"Golpe"			}, {"Palo de golf"        },
-	{"Porra de policÃ­a" }, {"Cuchillo"      }, {"Bate"                 },
+	{"Porra de policí­a" }, {"Cuchillo"      }, {"Bate"                 },
 	{"Pala"             }, {"Taco de billar"}, {"Katana"              },
 	{"Motocierra"       }, {"Dildo Morado"  }, {"Dildo"               },
 	{"Vibrador"         }, {"Vibrador"      }, {"Ramo de flores"      },
-	{"CaÃ±a"             }, {"Grenada"       }, {"Gases lacrimÃ³genos"  },
-	{"Molotov"          }, {"M4 de vehÃ­culo"}, {"M4 de vehÃ­culo"      },
+	{"Caña"             }, {"Grenada"       }, {"Gases lacrimógenos"  },
+	{"Molotov"          }, {"M4 de vehí­culo"}, {"M4 de vehí­culo"      },
 	{""                 }, {"9mm"	        }, {"Tazer"   	  		  },
 	{"Deagle"           }, {"Escopeta"      }, {"Escopeta recortada"  },
 	{"Escopeta militar" }, {"Mac-10"        }, {"MP5"                 },

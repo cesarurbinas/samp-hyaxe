@@ -141,15 +141,15 @@ TEST__ y_punycode_hash()
 These all work in UTF-8, but can't be compiled in ANSI.
 
 xn--mgbh0fb.xn--kgbechtv 	http://مثال.إختبار 	Arabic 	Arabic
-xn--fsqu00a.xn--0zwm56d 	http://例子.测试 	Simplified Chinese 	Chinese
-xn--fsqu00a.xn--g6w251d 	http://例子.測試 	Traditional Chinese 	Chinese
-xn--hxajbheg2az3al.xn--jxalpdlp 	http://παράδειγμα.δοκιμή 	Greek 	Greek
-xn--p1b6ci4b4b3a.xn--11b5bs3a9aj6g 	http://उदाहरण.परीक्षा 	Devanagari 	Hindi
-xn--r8jz45g.xn--zckzah 	http://例え.テスト 	Kanji+Kana 	Japanese
+xn--fsqu00a.xn--0zwm56d 	http://例孝.测试 	Simplified Chinese 	Chinese
+xn--fsqu00a.xn--g6w251d 	http://例孝.測試 	Traditional Chinese 	Chinese
+xn--hxajbheg2az3al.xn--jxalpdlp 	http://παϝάδειγμα.δοκιμή 	Greek 	Greek
+xn--p1b6ci4b4b3a.xn--11b5bs3a9aj6g 	http://उदाहरण.परीकढ़षा 	Devanagari 	Hindi
+xn--r8jz45g.xn--zckzah 	http://例흈.탆킹탈 	Kanji+Kana 	Japanese
 xn--9n2bp8q.xn--9t4b11yi5a 	http://실례.테스트 	Hangul 	Korean
 xn--mgbh0fb.xn--hgbk6aj7f53bba 	http://مثال.آزمایشی 	Perso-Arabic 	Persian
-xn--e1afmkfd.xn--80akhbyknj4f 	http://пример.испытание 	Cyrillic 	Russian
-xn--zkc6cc5bi7f6e.xn--hlcj6aya9esc7a 	http://உதாரணம்.பரிட்சை 	Tamil 	Tamil
+xn--e1afmkfd.xn--80akhbyknj4f 	http://пример.иѝпытание 	Cyrillic 	Russian
+xn--zkc6cc5bi7f6e.xn--hlcj6aya9esc7a 	http://உதாரணம௝.பரிட௝சை 	Tamil 	Tamil
 xn--6dbbec0c.xn--deba0ad 	http://דוגמה.טעסט 	Hebrew 	Hebrew
 xn--fdbk5d8ap9b8a8d.xn--deba0ad 	http://בײַשפּיל.טעסט 	Hebrew 	Yiddish
 */

@@ -1,21 +1,24 @@
+#if defined UTILS_DATABASE
+	#endinput
+#endif
+
+#define UTILS_DATABASE
+
 new DB:Database;
 
 ConnectDatabase()
 {
-	Database = db_open("DATABASE/server.db");
-	if(Database == DB:0)
+	if (!(Database = db_open("DATABASE/server.db")))
 	{
-		printf("[debug] Error al conectar con base de datos\n");
-		SendRconCommand("exit");
+		Logger_Error("No se pudo abrir la base de datos.");
+		return 0;
 	}
-	else
-	{
-		printf("[debug] Base de datos conectada");
-		db_free_result(db_query(Database,
-		"\
-			PRAGMA FOREIGN_KEYS = ON;\
-			UPDATE `CUENTA` SET `CONNECTED` = '0', PLAYERID = '-1';\
-		"));
-	}
+
+	Logger_Info("Conexión con la base de datos establecida.");
+
+	safe_db_query( "\
+		PRAGMA FOREIGN_KEYS = ON;\
+		UPDATE `CUENTA` SET `CONNECTED` = '0', PLAYERID = '-1';\
+	");
 	return 1;
 }

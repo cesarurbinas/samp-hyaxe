@@ -12943,7 +12943,7 @@ public OnFilterScriptInit()
 	tmpobjid = CreateDynamicObject(19477, 2634.767089, 1917.489746, -55.858390, 0.000000, 0.000000, 147.299880, object_world, object_int, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF} < ", 120, "Arial", 90, 0, 0x00000000, 0x00000000, 0);
 	tmpobjid = CreateDynamicObject(19477, 2634.497070, 1917.008789, -55.888385, 0.000000, 0.000000, 148.299942, object_world, object_int, -1, 300.00, 300.00); 
-	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Secci贸n D", 120, "Arial", 80, 0, 0x00000000, 0x00000000, 0);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Secci髇 D", 120, "Arial", 80, 0, 0x00000000, 0x00000000, 0);
 	tmpobjid = CreateDynamicObject(898, 2617.017089, 1928.450683, -47.438304, 24.100000, 0.000000, 92.499977, object_world, object_int, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 0, 12871, "ce_ground01", "rocktbrn128", 0x00000000);
 	tmpobjid = CreateDynamicObject(3930, 2589.772216, 1925.043090, -55.618091, 81.999977, -23.799999, 103.499992, object_world, object_int, -1, 300.00, 300.00); 
@@ -13076,7 +13076,7 @@ public OnFilterScriptInit()
 	tmpobjid = CreateDynamicObject(3335, 2061.595947, 1196.207275, -64.639892, 0.000000, 0.000000, -129.000030, object_world, object_int, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 2, 19962, "samproadsigns", "greenbackgroundsign", 0x00000000);
 	tmpobjid = CreateDynamicObject(19477, 2061.364013, 1196.153320, -62.679901, 0.000000, 0.000000, 141.199951, object_world, object_int, -1, 300.00, 300.00); 
-	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF} < Secci贸n C", 120, "Arial", 80, 1, 0x00000000, 0x00000000, 0);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF} < Secci髇 C", 120, "Arial", 80, 1, 0x00000000, 0x00000000, 0);
 	tmpobjid = CreateDynamicObject(16134, 2028.275756, 1187.834594, -62.828815, -6.099997, 0.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 0, 12871, "ce_ground01", "rocktbrn128", 0x00000000);
 	tmpobjid = CreateDynamicObject(3525, 2052.465576, 1191.148559, -61.226074, -56.500026, 0.000000, 0.000000, object_world, object_int, -1, 300.00, 300.00); 
@@ -13127,7 +13127,7 @@ public OnFilterScriptInit()
 	tmpobjid = CreateDynamicObject(3335, 1267.557739, 1003.253417, -100.624626, -0.000019, -0.000012, -57.899948, object_world, object_int, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 2, 19962, "samproadsigns", "greenbackgroundsign", 0x00000000);
 	tmpobjid = CreateDynamicObject(19477, 1267.588867, 1002.930175, -98.554664, 0.000000, -0.000009, -147.700012, object_world, object_int, -1, 300.00, 300.00); 
-	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Secci贸n B", 120, "Arial", 100, 1, 0x00000000, 0x00000000, 0);
+	SetDynamicObjectMaterialText(tmpobjid, 0, "{FFFFFF}Secci髇 B", 120, "Arial", 100, 1, 0x00000000, 0x00000000, 0);
 	tmpobjid = CreateDynamicObject(6443, 1233.770996, 987.500671, -109.747985, -28.399988, 0.000007, -166.799926, object_world, object_int, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 0, 10351, "beach_sfs", "rocktb128", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 1, 10351, "beach_sfs", "rocktb128", 0x00000000);
@@ -14460,7 +14460,7 @@ public OnFilterScriptInit()
 	MecanicoJobxd = CreateDynamicObject(3082, -92.909851, -1199.552368, 2.597624, 0.000000, 90.000000, 0.000000, -1, -1, -1, 800.00, 800.00); 
 	SetDynamicObjectMaterial(MecanicoJobxd, 0, 16640, "a51", "ventb64", 0x00000000);
 	MecanicoJobxd = CreateDynamicObject(19482, -79.984748, -1201.871826, 4.490849, 0.000000, 0.000000, 76.399986, -1, -1, -1, 800.00, 800.00); 
-	SetDynamicObjectMaterialText(MecanicoJobxd, 0, "Dep贸sito", 110, "courier", 20, 1, 0xF0000000, 0x00000000, 1);
+	SetDynamicObjectMaterialText(MecanicoJobxd, 0, "Dep髎ito", 110, "courier", 20, 1, 0xF0000000, 0x00000000, 1);
 	MecanicoJobxd = CreateDynamicObject(19482, -100.449584, -1168.996093, 4.920833, 0.000000, 0.000000, 514.100036, -1, -1, -1, 800.00, 800.00); 
 	SetDynamicObjectMaterial(MecanicoJobxd, 0, 10375, "subshops_sfs", "ws_archangels_dirty", 0x00000000);
 	MecanicoJobxd = CreateDynamicObject(19817, -66.211524, -1161.481811, 0.726466 - 1.7, 0.000000, 0.000000, 244.399993, -1, -1, -1, 800.00, 800.00); 

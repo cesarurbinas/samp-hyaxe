@@ -11,7 +11,7 @@ enum enum_WEAPON_INFO
 };
 new WEAPON_INFO[][enum_WEAPON_INFO] =
 {
-	{false, false, NO_WEAPON, "PuÃ±o", 0, 250},
+	{false, false, NO_WEAPON, "Puño", 0, 250},
 	{true, false, WEAPON_BRASSKNUCKLE, "Manopla", 0, 250},
 	{true, false, WEAPON_GOLFCLUB, "Palo de golf", 1, 250},
 	{true, false, WEAPON_NITESTICK, "Porra", 1, 250},
@@ -26,9 +26,9 @@ new WEAPON_INFO[][enum_WEAPON_INFO] =
 	{true, false, WEAPON_VIBRATOR, "Vibrador", 10, 250},
 	{true, false, WEAPON_VIBRATOR2, "Vibrador plateado", 10, 250},
 	{true, false, WEAPON_FLOWER, "Flores", 10, 250},
-	{true, false, WEAPON_CANE, "BastÃ³n", 10, 250},
+	{true, false, WEAPON_CANE, "Bastón", 10, 250},
 	{true, true, WEAPON_GRENADE, "Granada", 8, 500},
-	{true, true, WEAPON_TEARGAS, "Gas lacrimÃ³geno", 8, 500},
+	{true, true, WEAPON_TEARGAS, "Gas lacrimógeno", 8, 500},
 	{true, true, WEAPON_MOLTOV, "Cocktail Molotov", 8, 500},
 	{false, false, NO_WEAPON, "", 0, 0},
 	{false, false, NO_WEAPON, "", 0, 0},
@@ -54,8 +54,8 @@ new WEAPON_INFO[][enum_WEAPON_INFO] =
 	{false, false, WEAPON_BOMB, "Detonador", 12, 500},
 	{false, true, WEAPON_SPRAYCAN, "Bote de spray", 9, 10},
 	{true, true, WEAPON_FIREEXTINGUISHER, "Extintor", 9, 10},
-	{true, false, WEAPON_CAMERA, "CÃ¡mara", 9, 500},
-	{true, false, NO_WEAPON, "Gafas de visiÃ³n nocturna", 11, 0},
-	{true, false, NO_WEAPON, "Gafas tÃ©rmicas", 11, 0},
-	{true, false, WEAPON_PARACHUTE, "ParacaÃ­das", 11, 0}
+	{true, false, WEAPON_CAMERA, "Cámara", 9, 500},
+	{true, false, NO_WEAPON, "Gafas de visión nocturna", 11, 0},
+	{true, false, NO_WEAPON, "Gafas térmicas", 11, 0},
+	{true, false, WEAPON_PARACHUTE, "Paracaí­das", 11, 0}
 };

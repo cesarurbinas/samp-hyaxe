@@ -30,7 +30,7 @@
 #define P_W_BM "Mercado negro (Armas)"
 
 // Police Ranks
-new POLICE_RANKS[][] =
+new const POLICE_RANKS[][] =
 {
 	/* 0 */ "Civil",
 	/* 1 */ "Cadete",
@@ -48,10 +48,10 @@ new POLICE_RANKS[][] =
 	/* 13 */ "Teniente",
 	/* 14 */ "General",
 	/* 15 */ "Jefe Policíal"
-};
+},
 
 // Mafia Ranks
-new MAFIA_RANKS[][] =
+MAFIA_RANKS[][] =
 {
 	"Civil",
 	/* 0 */ "Associato",
@@ -65,10 +65,10 @@ new MAFIA_RANKS[][] =
 	/* 8 */ "Don",
 	/* 9 */ "Capo di tutti capo",
 	/* 10 */ "Ricardo."
-};
+},
 
 // enemy mafia
-new ENEMY_MAFIA_RANKS[][] =
+ENEMY_MAFIA_RANKS[][] =
 {
 	"Civil",
 	"Bartender",
@@ -82,9 +82,9 @@ new ENEMY_MAFIA_RANKS[][] =
 	"Jefe de Negociantes",
 	"Representante",
 	"Lider"
-};
+},
 
-new OSBORN_RANKS[][] =
+OSBORN_RANKS[][] =
 {
 	"Civil",
 	/* 0 */ "Associato",

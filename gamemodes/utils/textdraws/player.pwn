@@ -1039,7 +1039,7 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][10], 0);
 	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][10], true);
 
-	PlayerTextdraws[playerid][ptextdraw_INV_CREW][11] = CreatePlayerTextDraw(playerid, 219.500000, 277.733367, TextToSpanish("PrÃ³ximas disputas"));
+	PlayerTextdraws[playerid][ptextdraw_INV_CREW][11] = CreatePlayerTextDraw(playerid, 219.500000, 277.733367, TextToSpanish("Próximas disputas"));
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][11], 0.286500, 1.500444);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][11], 15.000000, 119.000000);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][11], 2);

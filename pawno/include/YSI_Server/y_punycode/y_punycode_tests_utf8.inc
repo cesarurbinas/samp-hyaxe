@@ -74,17 +74,17 @@ TEST__ y_punycode_1()
 {
 	new
 		dst[32];
-	Puny_Encode(dst, "bücher");
+	Puny_Encode(dst, "bícher");
 	ASSERT_SAME(dst, "bcher-kva");
-	Puny_Encode(dst, "büücher");
+	Puny_Encode(dst, "bíüíher");
 	ASSERT_SAME(dst, "bcher-kvaa");
-	Puny_Encode(dst, "bücüher");
+	Puny_Encode(dst, "bícüíer");
 	ASSERT_SAME(dst, "bcher-kvab");
-	Puny_Encode(dst, "bücherü");
+	Puny_Encode(dst, "bícherüí);
 	ASSERT_SAME(dst, "bcher-kvae");
-	Puny_Encode(dst, "ýbücher");
+	Puny_Encode(dst, "íbüíher");
 	ASSERT_SAME(dst, "bcher-kvaf");
-	Puny_Encode(dst, "übücher");
+	Puny_Encode(dst, "íbüíher");
 	ASSERT_SAME(dst, "bcher-jvab");
 }
 
@@ -94,7 +94,7 @@ xn--fsqu00a.xn--0zwm56d 	http://例子.测试 	Simplified Chinese 	Chinese
 xn--fsqu00a.xn--g6w251d 	http://例子.測試 	Traditional Chinese 	Chinese
 xn--hxajbheg2az3al.xn--jxalpdlp 	http://παράδειγμα.δοκιμή 	Greek 	Greek
 xn--p1b6ci4b4b3a.xn--11b5bs3a9aj6g 	http://उदाहरण.परीक्षा 	Devanagari 	Hindi
-xn--r8jz45g.xn--zckzah 	http://例え.テスト 	Kanji+Kana 	Japanese
+xn--r8jz45g.xn--zckzah 	http://例え.íスト íKaíjiíKana 	Japanese
 xn--9n2bp8q.xn--9t4b11yi5a 	http://실례.테스트 	Hangul 	Korean
 xn--mgbh0fb.xn--hgbk6aj7f53bba 	http://مثال.آزمایشی 	Perso-Arabic 	Persian
 xn--e1afmkfd.xn--80akhbyknj4f 	http://пример.испытание 	Cyrillic 	Russian

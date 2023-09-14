@@ -126,8 +126,8 @@ TEST__ y_commands_AddAlt2()
 {
 	new
 		id1 = YCMD:y_commands_1,
-		id2 = Command_AddAlt(id1, "y_c贸mma艅ds_膮lt"),
-		id3 = Command_AddAltNamed("y_commands_1", "y_c贸mma艅ds_膮lt");
+		id2 = Command_AddAlt(id1, "y_c髆ma艅ds_膮lt"),
+		id3 = Command_AddAltNamed("y_commands_1", "y_c髆ma艅ds_膮lt");
 	ASSERT_NE(id1, id2);
 	ASSERT_NE(id2, COMMAND_NOT_FOUND);
 	ASSERT_EQ(id2, id3);
@@ -150,13 +150,13 @@ TEST__ y_commands_Perms()
 TEST__ y_commands_Perms2()
 {
 	new
-		id = Command_Find("y_c贸mma艅ds_膮lt");
+		id = Command_Find("y_c髆ma艅ds_膮lt");
 	Command_SetPlayer(id, 101, false);
 	ASSERT(!Command_GetPlayer(id, 101));
-	ASSERT(!Command_GetPlayerNamed("y_c贸mma艅ds_膮lt", 101));
-	Command_SetPlayerNamed("y_c贸mma艅ds_膮lt", 101, true);
+	ASSERT(!Command_GetPlayerNamed("y_c髆ma艅ds_膮lt", 101));
+	Command_SetPlayerNamed("y_c髆ma艅ds_膮lt", 101, true);
 	ASSERT(Command_GetPlayer(id, 101));
-	ASSERT(Command_GetPlayerNamed("y_c贸mma艅ds_膮lt", 101));
+	ASSERT(Command_GetPlayerNamed("y_c髆ma艅ds_膮lt", 101));
 }
 
 static stock

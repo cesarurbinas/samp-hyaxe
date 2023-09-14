@@ -36,18 +36,18 @@ new work_info[][work_info_info] =
 {
 	{WORK_TYPE_NONE, 0, "ninguno",                         	false, 0, 0, 0},
 	{WORK_TYPE_NORMAL, 1, "camionero",                     	false, 0, 50, 1300},
-	{WORK_TYPE_FAMILY, 1, "mec√°nico",                      	true, 0, 0, 0},
+	{WORK_TYPE_FAMILY, 1, "mec·nico",                      	true, 0, 0, 0},
 	{WORK_TYPE_NORMAL, 1, "cosechador",                    	false, 180, 30, 800},
 	{WORK_TYPE_NORMAL, 1, "basurero",                      	true, 200, 50, 2000},
 	{WORK_TYPE_FAMILY, 3, "granjero",                      	false, 0, 0, 0},
 	{WORK_TYPE_NORMAL, 1, "minero",		   					false, 0, 0, 0},
-	{WORK_TYPE_FAMILY, 0, "polic√≠a",                       	true, 1000, 1, 0},
+	{WORK_TYPE_FAMILY, 0, "policÌ≠a",                       	true, 1000, 1, 0},
 	{WORK_TYPE_NORMAL, 1, "pescador",                     	false, 500, 50, 1300},
 	{WORK_TYPE_FAMILY, 1, "barredor",						false, 500, 50, 1300},
 	{WORK_TYPE_FAMILY, 0, "mafioso",		                false, 1000, 1, 0},
 	{WORK_TYPE_FAMILY, 0, "mafioso enemigo",		        false, 1000, 1, 0},
 	{WORK_TYPE_FAMILY, 0, "familia osborn",		        	false, 1000, 1, 0},
-	{WORK_TYPE_NORMAL, 1, "m√©dico",                      	true, 200, 50, 2000},
+	{WORK_TYPE_NORMAL, 1, "mÈdico",                      	true, 200, 50, 2000},
 	{WORK_TYPE_NORMAL, 1, "boxeador",                      	false, 200, 50, 2000}
 };
 
