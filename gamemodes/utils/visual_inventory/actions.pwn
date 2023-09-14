@@ -268,11 +268,18 @@ UseItemSlot(playerid)
 
 				if (vehicleid != INVALID_VEHICLE_ID)
 				{
-					if (PLAYER_MISC[playerid][MISC_FIXKIT])
+					new Float:pos[3];
+					GetVehiclePos(vehicleid, pos[0], pos[1], pos[2]);
+					if (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) < 10.0)
 					{
-						PLAYER_TEMP[playerid][py_FIX_VALUE] = 0;
-						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
-						PLAYER_TEMP[playerid][py_TIMERS][32] = SetTimerEx("FixVehicleUpdate", 1000, true, "ii", playerid, vehicleid);
+						if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_OCCUPIED]) return ShowPlayerNotification(playerid, "~r~El vehículo está ocupado.", 4);
+
+						if (PLAYER_MISC[playerid][MISC_FIXKIT])
+						{
+							PLAYER_TEMP[playerid][py_FIX_VALUE] = 0;
+							KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
+							PLAYER_TEMP[playerid][py_TIMERS][32] = SetTimerEx("FixVehicleUpdate", 1000, true, "ii", playerid, vehicleid);
+						}
 					}
 				}
 			}

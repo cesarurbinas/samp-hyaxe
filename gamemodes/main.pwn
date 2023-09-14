@@ -4,7 +4,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
-#define SERVER_VERSION 			"v0.5 Build 150"
+#define SERVER_VERSION 			"v0.5 Build 155"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -15,12 +15,12 @@
 #define REP_FOR_PAYDAY 			3
 #define CMD_LOGGIN 				0
 #define MAX_NU_VEHICLES 		3
-#define MAX_NU_PROPERTIES 		2
+#define MAX_NU_PROPERTIES 		1
 #define MAX_NU_WORKS 			8
 #define MAX_NU_TOYS 			4
 #define MAX_NU_VOBJECTS 		5
 #define MAX_SU_VEHICLES 		6
-#define MAX_SU_PROPERTIES 		4
+#define MAX_SU_PROPERTIES 		2
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
@@ -1935,6 +1935,8 @@ new POLICE_SHOP_WEAPONS[][enum_POLICE_SHOP_WEAPONS] =
 	{2, 24, 0}, //deagle
 	{2, 25, 0}, //escopeta
 	{2, 28, 0}, //uzi
+	{2, 32, 0}, // Tec 9
+	{2, 26, 0}, // recortada
 	{2, 29, 0}, //mp5
 	{2, 30, 0}, //ak 47
 	{2, 31, 0}, //m4
@@ -2538,7 +2540,7 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Mina", INTERIOR_NO_INFO, -1, true, 36, 25, 1147.865356, 1001.796081, -99.214622, 273.832519, 11, false, 0, 0, 509.152374, -723.324951, 19.869243, 340.774505, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Sección B", INTERIOR_NO_INFO, -1, true, 37, 26, 1988.257446, 1204.595825, -63.139907, 268.650756, 56, false, 36, 25, 1270.046142, 1000.668884, -99.214637, 81.757308, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Sección C", INTERIOR_NO_INFO, -1, true, 38, 27, 2546.433105, 1924.534423, -58.649192, 265.830688, 56, false, 37, 26, 2067.543212, 1201.233398, -61.074184, 85.059127, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "TCC", INTERIOR_NO_INFO, -1, true, 0, 28, 3854.231933, -1265.252319, 7547.983398, 188.315292, -1, false, 0, 0, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "MFB", INTERIOR_NO_INFO, -1, true, 0, 28, 3854.231933, -1265.252319, 7547.983398, 188.315292, -1, false, 0, 0, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 0, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 693.761047, 1967.498168, 5.539062, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 1, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 1145.013916,-1131.447998, 23.828125, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 2, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 2421.501953,-1219.768432, 25.527839, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
@@ -6026,14 +6028,19 @@ CheckPlayerDoors(playerid)
 	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return 0;
 	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return 0;
 
-	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] == 0)
+	new Float:pos[3];
+	GetVehiclePos(vehicleid, pos[0], pos[1], pos[2]);
+	if (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) < 10.0)
 	{
-	    CloseVehicle(playerid, vehicleid);
-	    return 0;
-    }
-    else
-    {
-	    OpenVehicle(playerid, vehicleid);
+		if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] == 0)
+		{
+		    CloseVehicle(playerid, vehicleid);
+		    return 0;
+	    }
+	    else
+	    {
+		    OpenVehicle(playerid, vehicleid);
+		}
 	}
 	return 1;
 }
@@ -12703,20 +12710,25 @@ ShowDialog(playerid, dialogid)
 			if (db_num_rows(Result)) db_get_field(Result, 0, current_date, 24);
 			db_free_result(Result);
 
+			new
+				dialog[256],
+				caption[64]
+			;
 
-			new dialog[256];
+			format(caption, sizeof(caption), ""COL_YELLOW"VIP %s", getPlayerVip(playerid));
+
 			format(dialog, sizeof dialog,
 
 				"\
-					"COL_WHITE"Fecha actual: %s\n\
-					Fecha caducidad: %s",
+					Fecha actual:\t%s\n\
+					Fecha caducidad:\t%s\n\
+					Renovar\n",
 					current_date,
 					ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE],
 					SU_SD_PRICE
 			);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"VIP", dialog, "Salir", "Renovar");
-			ShowPlayerMessage(playerid, "~r~AVISO~w~~n~No presione ESC para salir, haga click en SALIR", 10);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Selecc", "Cerrar");
 			return 1;
 		}
 		case DIALOG_VOBJECT_MENU:
@@ -15851,7 +15863,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_query(Database, DB_Query_update);
 
 
-				ShowPlayerMessage(playerid, "¡Vehículo omprado! Utiliza /GPS para localizarlo.", 3);
+				ShowPlayerMessage(playerid, "¡Vehículo comprado! Utiliza /GPS para localizarlo.", 3);
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_RED"¡Vehículo %s comprado!", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 				SendClientMessageEx(seller, COLOR_WHITE, ""COL_RED"¡Vehículo vendido! "COL_WHITE"Has recibido {d1f442}%s$ "COL_WHITE"en tu cuenta bancaria.", number_format_thousand(price));
 				PlayerPlaySoundEx(seller, 1058, 0.0, 0.0, 0.0);
@@ -20252,13 +20264,20 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (SU_SD_PRICE > ACCOUNT_INFO[playerid][ac_SD])
+				switch(listitem)
 				{
-					ShowPlayerNotification(playerid, "No tienes los "SERVER_COIN" suficientes.", 3);
-					return 1;
-				}
+					case 0, 1: ShowDialog(dialogid);
+					case 2:
+					{
+						if (SU_SD_PRICE > ACCOUNT_INFO[playerid][ac_SD])
+						{
+							ShowPlayerNotification(playerid, "No tienes los "SERVER_COIN" suficientes.", 5);
+							return 1;
+						}
 
-				SetPlayerVip(playerid, 1, SU_SD_PRICE, 30);
+						SetPlayerVip(playerid, ACCOUNT_INFO[playerid][ac_SD], SU_SD_PRICE, 30);
+					}
+				}
 			}
 			return 1;
 		}
@@ -21191,7 +21210,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							}
 							case 2:
 							{
-								SetPlayerVip(playerid, 1, 0, extra);
+								SetPlayerVip(playerid, extra, 0, 30);
 							}
 							case 3:
 							{
@@ -26424,7 +26443,7 @@ CALLBACK: HealthUp(playerid)
 
 	if (PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] < 100)
 	{
-		if (ACCOUNT_INFO[playerid][ac_SU]) PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] += 10;
+		if (ACCOUNT_INFO[playerid][ac_SU] >= 2) PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] += 10;
 		else PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] += 5;
 
 		if (PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] > 100) PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] = 100;
@@ -26434,7 +26453,7 @@ CALLBACK: HealthUp(playerid)
 	}
 	else
 	{
-		if (ACCOUNT_INFO[playerid][ac_SU]) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
+		if (ACCOUNT_INFO[playerid][ac_SU] >= 2) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
 		else CHARACTER_INFO[playerid][ch_HEALTH] = 50.0;
 
 		SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
@@ -26454,7 +26473,7 @@ CALLBACK: HealthUp(playerid)
 		}
 
 		new pay_str[64];
-		if (ACCOUNT_INFO[playerid][ac_SU])
+		if (ACCOUNT_INFO[playerid][ac_SU] >= 2)
 		{
 			ShowPlayerNotification(playerid, "No se te ha cobrado por ser VIP", 4);
 		}
@@ -30129,7 +30148,11 @@ CALLBACK: FixVehicleUpdate(playerid, vehicleid)
 			if (health > 1000.0) health = 1000.0;
 
 			GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] = health;
-			SetVehicleHealthEx(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH]);
+
+			new driver = GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER];
+			if (driver == INVALID_PLAYER_ID) SetVehicleHealthEx(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH]);
+			else SetVehicleHealthEx(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH], driver);
+
 			UpdateVehicleParams(vehicleid);
 
 			ResetItemBody(playerid);
@@ -31298,7 +31321,7 @@ PlayerPayday(playerid)
 
 	format(str_payday, sizeof(str_payday), "~g~Paga de juego~w~~n~General: ~y~%s$~w~", number_format_thousand(money));
 
-	if (!ACCOUNT_INFO[playerid][ac_SU])
+	if (ACCOUNT_INFO[playerid][ac_SU] < 2)
 	{
 		for(new i = 0; i != MAX_VEHICLES; i ++)
 		{
@@ -31399,7 +31422,7 @@ PlayerPayday(playerid)
 		CHARACTER_INFO[playerid][ch_CASH] = 0;
 	}
 
-	if (ACCOUNT_INFO[playerid][ac_SU])
+	if (ACCOUNT_INFO[playerid][ac_SU] >= 2)
 	{
 		money += minrand(8000, 15000);
 	}
@@ -31742,7 +31765,7 @@ CMD:guardar(playerid, params[])
 
 	if (!strcmp(option, "arma", true))
 	{
-		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
+		if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 		{
 			if (extra < 0 || extra > 12) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guardar arma "COL_WHITE"[slot]");
 			if (!PLAYER_WEAPONS[playerid][extra][player_weapon_VALID])
@@ -32714,7 +32737,8 @@ getPlayerVip(playerid)
 {
 	new vip[16];
 	if (!ACCOUNT_INFO[playerid][ac_SU]) vip = "No";
-	else format(vip, sizeof vip, "Tarjeta %d", ACCOUNT_INFO[playerid][ac_SU]);
+	else if (ACCOUNT_INFO[playerid][ac_SU] == 1) vip = "Classic";
+	else if (ACCOUNT_INFO[playerid][ac_SU] >= 2) vip = "Turbo";
 	return vip;
 }
 
@@ -37772,7 +37796,7 @@ SendMessageToDoubtChannel(playerid, message[])
 {
 	new str[364];
 
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) format(str, COLOR_WHITE, "[Dudas] "COL_YELLOW"[%s]"COL_WHITE" %s (%d): (( %s ))", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ], PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"%s %s (%d): (( %s ))", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ], PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
 	else
 	{
 		format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"Jugador %s (%d): (( %s ))", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
@@ -37811,7 +37835,7 @@ SendMessageToDoubtChannel(playerid, message[])
 	{
 		if (strfind(message, DOUBT_RESPONSES[i][d_QUESTION], true) != -1)
 		{
-			SetTimerEx("BotDoubtResponse", 1000, false, "id", playerid, i);
+			SetTimerEx("BotDoubtResponse", 4000, false, "id", playerid, i);
 			break;
 		}
 	}
