@@ -37,6 +37,7 @@ DCC_IsUserAdministrator(DCC_User:user)
 	return false;
 }
 
+#if defined FINAL_BUILD
 // Users commands
 DC_CMD:id(DCC_User:userid, params[], DCC_Message:message)
 {
@@ -877,6 +878,7 @@ DC_CMD:dudas(DCC_User:userid, params[], DCC_Message:message)
 	SendDiscordMessage(channel, "%s", str);
 	return 1;
 }
+#endif
 
 // Callbacks
 public OnDiscordCommandPerformed(const params[], success, DCC_Message:message)
