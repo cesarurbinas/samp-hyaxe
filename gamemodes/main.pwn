@@ -6719,7 +6719,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		GetPlayerPos(killerid, x, y, z);
 
 		format(str_killer, sizeof str_killer, "Heriste a %s con %s desde %.1f metros.", ACCOUNT_INFO[playerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
-		SavePlayerNotification(playerid, str_killer);
+		SavePlayerNotification(killerid, str_killer);
 
 		format(str_victim, sizeof(str_victim), "%s te hirió con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 		ShowPlayerNotification(playerid, str_victim, 4);
@@ -6755,7 +6755,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		GetPlayerPos(killerid, x, y, z);
 
 		format(str_killer, sizeof str_killer, "Asesinaste a %s con %s desde %.1f metros.", ACCOUNT_INFO[playerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
-		SavePlayerNotification(playerid, str_killer);
+		SavePlayerNotification(killerid, str_killer);
 
 		format(str_victim, sizeof(str_victim), "%s te mató con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 		SavePlayerNotification(playerid, str_victim);
