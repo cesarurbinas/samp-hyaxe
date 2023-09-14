@@ -12,7 +12,7 @@ public TIMER_NotificationAlpha_0(playerid)
 		g_iNotificationCount_0{playerid} = NOTIFICATION_BAR_START;
 		
 		KillTimer(GetPVarInt(playerid, "notification_timer_0"));
-		SetPVarInt(playerid, "notification_timer_0", SetTimerEx("TIMER_NotificationMoveBar_0", 25, true, "i", playerid));
+		SetPVarInt(playerid, "notification_timer_0", SetTimerEx("TIMER_NotificationMoveBar_0", 22, true, "i", playerid));
 		return 1;
 	}
 
@@ -165,7 +165,7 @@ public TIMER_NotificationAlpha_1(playerid)
 		g_iNotificationCount_1{playerid} = NOTIFICATION_BAR_START;
 		
 		KillTimer(GetPVarInt(playerid, "notification_timer_1"));
-		SetPVarInt(playerid, "notification_timer_1", SetTimerEx("TIMER_NotificationMoveBar_1", 25, true, "i", playerid));
+		SetPVarInt(playerid, "notification_timer_1", SetTimerEx("TIMER_NotificationMoveBar_1", 22, true, "i", playerid));
 		return 1;
 	}
 
@@ -318,7 +318,7 @@ public TIMER_NotificationAlpha_2(playerid)
 		g_iNotificationCount_2{playerid} = NOTIFICATION_BAR_START;
 		
 		KillTimer(GetPVarInt(playerid, "notification_timer_2"));
-		SetPVarInt(playerid, "notification_timer_2", SetTimerEx("TIMER_NotificationMoveBar_2", 25, true, "i", playerid));
+		SetPVarInt(playerid, "notification_timer_2", SetTimerEx("TIMER_NotificationMoveBar_2", 22, true, "i", playerid));
 		return 1;
 	}
 
