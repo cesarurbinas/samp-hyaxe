@@ -14,7 +14,6 @@ SubtractItem(playerid, type, slot, ammount = 1)
 		case 9: return PLAYER_MISC[playerid][MISC_CARTRIDGE_1] -= ammount;
 		case 10: return PLAYER_MISC[playerid][MISC_CARTRIDGE_2] -= ammount;
 		case 11: return PLAYER_MISC[playerid][MISC_CARTRIDGE_3] -= ammount;
-		case 12: return PLAYER_MISC[playerid][MISC_CARTRIDGE_4] -= ammount;
 		case 13: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
 		case 14: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
 		case 15: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
@@ -40,6 +39,7 @@ SubtractItem(playerid, type, slot, ammount = 1)
 		case 52: return PLAYER_MISC[playerid][MISC_MALLET] -= ammount;
 		case 53: return PLAYER_MISC[playerid][MISC_FIXKIT] -= ammount;
 		case 54: return PLAYER_MISC[playerid][MISC_JOINT] -= ammount;
+		case 55: return PLAYER_MISC[playerid][MISC_CARTRIDGE_4] -= ammount;
 	}
 	return 1;
 }
@@ -166,6 +166,7 @@ GrabItem(playerid, type, ammount = 1, color = 0x00F7F7F7)
 		case 52: return PLAYER_MISC[playerid][MISC_MALLET] += ammount;
 		case 53: return PLAYER_MISC[playerid][MISC_FIXKIT] += ammount;
 		case 54: return PLAYER_MISC[playerid][MISC_JOINT] += ammount;
+		case 55: return PLAYER_MISC[playerid][MISC_CARTRIDGE_4] += ammount;
 	}
 	return 1;
 }

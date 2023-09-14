@@ -4132,7 +4132,7 @@ CheckMedicJobSite(playerid)
 	return 1;
 }
 
-/*CheckIsFireWeapon(weapon)
+CheckIsFireWeapon(weapon)
 {
 	switch(weapon)
 	{
@@ -4147,81 +4147,81 @@ ResyncWeapon(playerid, weapon)
 {
 	switch(weapon)
 	{
-		case 22: //9mm
+		case 22: // 9MM
 		{
-			GivePlayerWeaponEx(playerid, weapon, 15);
+			GivePlayerWeaponEx(playerid, weapon, 15, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+15"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
-		case 24: //dk
+		case 24: // Desert
 		{
-			GivePlayerWeaponEx(playerid, weapon, 7);
+			GivePlayerWeaponEx(playerid, weapon, 7, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+7"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
-		case 32: //tec 9
+		case 32: // TEC9
 		{
-			GivePlayerWeaponEx(playerid, weapon, 20);
+			GivePlayerWeaponEx(playerid, weapon, 20, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+20"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
-		case 28: //uzi
+		case 28: // UZI
 		{
-			GivePlayerWeaponEx(playerid, weapon, 25);
+			GivePlayerWeaponEx(playerid, weapon, 25, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+25"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
-		case 33: //rifle
+		case 33: // Rifle
 		{
-			GivePlayerWeaponEx(playerid, weapon, 8);
+			GivePlayerWeaponEx(playerid, weapon, 8, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+8"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
-		case 26: //recortada
+		case 26: // Recortada
 		{
-			GivePlayerWeaponEx(playerid, weapon, 2);
+			GivePlayerWeaponEx(playerid, weapon, 2, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+2"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
-		case 25: //escopeta
+		case 25: // Escopeta
 		{
-			GivePlayerWeaponEx(playerid, weapon, 5);
+			GivePlayerWeaponEx(playerid, weapon, 5, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+5"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
-		case 29: //mp5
+		case 29: // MP5
 		{
-			GivePlayerWeaponEx(playerid, weapon, 35);
+			GivePlayerWeaponEx(playerid, weapon, 35, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+35"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
-		case 30: //ak
+		case 30: // AK-47
 		{
-			GivePlayerWeaponEx(playerid, weapon, 50);
+			GivePlayerWeaponEx(playerid, weapon, 50, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
 		}
-		case 31: //m4
+		case 31: // M4
 		{
-			GivePlayerWeaponEx(playerid, weapon, 50);
+			GivePlayerWeaponEx(playerid, weapon, 50, true);
 			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
@@ -4229,62 +4229,66 @@ ResyncWeapon(playerid, weapon)
 		}
 	}
 	return 1;
-}*/
+}
 
-/*CheckAndReload(playerid)
+CheckAndReload(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL)
 	{
-		new actual_weapon = GetPlayerWeapon(playerid);
-		if (CheckIsFireWeapon(actual_weapon))
+		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 		{
-			switch(actual_weapon)
+			new slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
+
+			if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
 			{
-				case 22..24:
+				new actual_weapon = PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID];
+				if (CheckIsFireWeapon(actual_weapon))
 				{
-					if (PLAYER_MISC[playerid][MISC_CARTRIDGE_1] > 0)
+					switch(actual_weapon)
 					{
-						ResyncWeapon(playerid, actual_weapon);
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_1] --;
-						return 1;
+						case 22..24: // Pistolas
+						{
+							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_1] > 0)
+							{
+								ResyncWeapon(playerid, actual_weapon);
+								PLAYER_MISC[playerid][MISC_CARTRIDGE_1] --;
+								return 1;
+							}
+						}
+						case 25..27: // Escopetas
+						{
+							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_2] > 0)
+							{
+								ResyncWeapon(playerid, actual_weapon);
+								PLAYER_MISC[playerid][MISC_CARTRIDGE_2] --;
+								return 1;
+							}
+						}
+						case 33, 34: // Rifles
+						{
+							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_3] > 0)
+							{
+								ResyncWeapon(playerid, actual_weapon);
+								PLAYER_MISC[playerid][MISC_CARTRIDGE_3] --;
+								return 1;
+							}
+						}
+						case 28..32: // Subfusiles
+						{
+							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_4] > 0)
+							{
+								ResyncWeapon(playerid, actual_weapon);
+								PLAYER_MISC[playerid][MISC_CARTRIDGE_4] --;
+								return 1;
+							}
+						}
 					}
-					//pistolas
-				}
-				case 25..27:
-				{
-					if (PLAYER_MISC[playerid][MISC_CARTRIDGE_2] > 0)
-					{
-						ResyncWeapon(playerid, actual_weapon);
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_2] --;
-						return 1;
-					}
-					//escopetas
-				}
-				case 33, 34:
-				{
-					if (PLAYER_MISC[playerid][MISC_CARTRIDGE_3] > 0)
-					{
-						ResyncWeapon(playerid, actual_weapon);
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_3] --;
-						return 1;
-					}
-					//rifle
-				}
-				case 28..32:
-				{
-					if (PLAYER_MISC[playerid][MISC_CARTRIDGE_4] > 0)
-					{
-						ResyncWeapon(playerid, actual_weapon);
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_4] --;
-						return 1;
-					}
-					//subfusil
 				}
 			}
 		}
 	}
 	return 1;
-}*/
+}
 
 ShowTuningMenu(playerid)
 {
@@ -29784,14 +29788,23 @@ RegisterNewPlayerWeapon(playerid, weapon_slot)
 	return 1;
 }
 
-GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7)
+GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7, bool:equip = false)
 {
 	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
 	else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;
 
+	PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY] = gettime() + 3;
+
 	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_VALID] = true;
 	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
 	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_COLOR] = color;
+
+	if (equip)
+	{
+		ResetPlayerWeapons(playerid);
+		GivePlayerWeapon(playerid, weapon_id, ammo);
+	}
 
     SavePlayerWeaponsData(playerid);
 	return 1;

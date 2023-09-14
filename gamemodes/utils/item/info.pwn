@@ -13,9 +13,9 @@ GetItemNameByType(type)
 		case 6: name = "Semillas de aloe vera";
 		case 7: name = "Semillas de marihuana";
 		case 8: name = "Semillas de coca";
-		case 9: name = "Balas";
-		case 10: name = "Balas";
-		case 11: name = "Balas";
+		case 9: name = "Balas (Pistola)";
+		case 10: name = "Balas (Escopeta)";
+		case 11: name = "Balas (Rifle)";
 		case 12: name = "Bate";
 		case 13: name = "Porra";
 		case 14: name = "Cuchillo";
@@ -43,6 +43,7 @@ GetItemNameByType(type)
 		case 52: name = "Mazo";
 		case 53: name = "Kit de reparación";
 		case 54: name = "Porro";
+		case 55: name = "Balas (Subfusil)";
 	}
 	return name;
 }
@@ -92,6 +93,7 @@ GetItemObjectByType(type)
 		case 52: modelid = 19631;
 		case 53: modelid = 19921;
 		case 54: modelid = 3027;
+		case 55: modelid = 19832;
 	}
 	return modelid;
 }
@@ -108,7 +110,7 @@ SetItemToBody(playerid, type)
 		case 3, 4: SetPlayerAttachedObject(playerid, 9, GetItemObjectByType(type), 6, 0.0850, 0.0389, 0.0069, -81.2000, 175.6999, 7.3000, 0.3079, 0.3089, 0.2209, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 5: SetPlayerAttachedObject(playerid, 9, 1650, 6, 0.1430, 0.0249, 0.0149, -81.2000, -88.4000, 7.3000, 0.4980, 1.6589, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 6..8: SetPlayerAttachedObject(playerid, 9, 11739, 6, 0.1430, 0.0249, 0.0149, -81.2000, -88.4000, 7.3000, 0.4980, 0.5799, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 9..11: SetPlayerAttachedObject(playerid, 9, 19832, 6, 0.2910, -0.0060, 0.0149, -81.2000, -88.4000, 95.5000, 0.6470, 0.5799, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 9, 10, 11, 55: SetPlayerAttachedObject(playerid, 9, 19832, 6, 0.2910, -0.0060, 0.0149, -81.2000, -88.4000, 95.5000, 0.6470, 0.5799, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 12..43: SetPlayerAttachedObject(playerid, 9, GetItemObjectByType(type), 6, 0.0040, -0.0000, -0.0000, 0.5999, -0.2000, 0.4000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 50: SetPlayerAttachedObject(playerid, 9, 18866, 6, 0.0970, 0.0429, 0.0149, 2.7999, -83.7000, -81.7000, 1.0330, 1.1429, 0.8569, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 51: SetPlayerAttachedObject(playerid, 9, 18632, 6, 0.0620, 0.0199, 0.0149, 9.1999, 171.9999, 103.0999, 0.8920, 0.9029, 1.0589, 0xFFFFFFFF, 0xFFFFFFFF);
