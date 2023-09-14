@@ -23,9 +23,6 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#include <ColAndreas>
-#include <YSF>
-
 #define SERVER_VERSION 			"v0.7 Build 1"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
@@ -47,16 +44,9 @@
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
 
-/*
-* I am world champion pawno scripta, Y_less jealous of me
-* A Y_less screenshot more rare than a hot gurl on discord
-* Y_less on the ruski face book? I dont need to don the fur hat
-*/
-#define YSI_NO_HEAP_MALLOC
-#define YSI_NO_MODE_CACHE	
-#define YSI_NO_OPTIMISATION_MESSAGE	
-#define YSI_NO_VERSION_CHECK
-#define NO_SUSPICION_LOGS
+#include <streamer>
+#include <ColAndreas>
+#include <YSF>
 
 // Other Library
 #include <physics>
@@ -79,8 +69,6 @@
 #include <strlib>
 #include <ExtendedActorFunctions>
 #include <gmenu>
-
-#include <streamer>
 
 #define safe_db_query(%0) db_free_result(db_query(Database, %0))
 
