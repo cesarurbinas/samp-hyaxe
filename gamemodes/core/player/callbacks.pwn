@@ -1416,7 +1416,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		            if (!IsPlayerInAnyVehicle(playerid))
 		            {
-		            	
+		            	Anticheat_Ban(playerid, "Fly #0");
 						return 0;
 		            }
 		        }
@@ -1424,12 +1424,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		        	if (onFootData[PR_weaponId] != WEAPON_PARACHUTE)
 					{
-						new str_text[144];
-						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (2)", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
-					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (2)");
-						KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+						Anticheat_Ban(playerid, "Fly #1");
 						return 0;
 					}
 		        }
