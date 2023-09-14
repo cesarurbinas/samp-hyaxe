@@ -13084,7 +13084,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (listitem == 0) PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_1] = 0;
-				else PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_1] = hy_RGBAToARGB(RandomColors[listitem]);
+				else PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_1] = hy_RGBAToARGB(CrewNameColors[listitem]);
 
 				if (PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ATTACHED]) UpdatePlayerToy(playerid, PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]);
 				ShowPlayerMessage(playerid, "Color del accesorio actualizado.", 2);
@@ -13097,7 +13097,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (listitem == 0) PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_2] = 0;
-				else PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_2] = hy_RGBAToARGB(RandomColors[listitem]);
+				else PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_2] = hy_RGBAToARGB(CrewNameColors[listitem]);
 
 				if (PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ATTACHED]) UpdatePlayerToy(playerid, PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]);
 				ShowPlayerMessage(playerid, "Color del accesorio actualizado.", 2);
