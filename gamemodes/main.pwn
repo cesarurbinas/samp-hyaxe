@@ -13200,6 +13200,11 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Cambiar", "Cerrar");
 			return 1;
     	}
+    	case DIALOG_BOX_CLUB:
+    	{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_YELLOW"Club de la pelea", "Reglas\nParticipar\nParticipantes\n", "Ver", "Cerrar");
+			return 1;
+    	}
 		default: return 0;
 	}
 	return 1;
@@ -21337,6 +21342,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
+		case DIALOG_BOX_CLUB:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0: ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Reglas del club", ""COL_WHITE"Caballeros, bienvenidos al Club de la pelea, reglas:\n1) No hables del Club de la pelea\n2) Nunca hables del Club de la pelea", "Cerrar", "");
+					case 1:
+					{
+						PLAYER_TEMP[playerid][py_BOXING] = true;
+						SetPlayerPosEx(playerid, -25.222457, 88.172157, 1098.070190, 357.011596, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid), false);
+						ShowPlayerMessage(playerid, "Entra al ~y~ring~w~ para desmostrar quien manda", 5);
+					}
+				}
+			}
+		}
 	}
 	return 0;
 }
@@ -25997,6 +26018,8 @@ public OnPlayerUpdate(playerid)
 			}
 		}
     }
+
+    
 
     UpdatePlayerZoneMessages(playerid);
     CheckRobActor(playerid);

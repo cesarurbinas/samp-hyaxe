@@ -266,7 +266,11 @@ enum Temp_Enum
 	py_LIMIT_AMBULANCE,
 	bool:py_VOICE_CHAT,
 	py_FIX_VALUE,
-	py_JOINT_USES
+	py_JOINT_USES,
+	bool:py_BOXING,
+	py_BOX_BET,
+	py_BOX_PLAYER,
+	py_BOX_PAY
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
