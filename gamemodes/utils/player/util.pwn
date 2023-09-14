@@ -3565,11 +3565,135 @@ Menu:MENU_247(playerid, response, listitem)
     return 1; 
 }
 
+ShowBurdelMenu(playerid)
+{
+	HidePlayerMenu(playerid);
+
+	ShowPlayerMenu(playerid, MENU_BURDEL, "Burdel");
+	AddPlayerMenuItem(playerid, TextToSpanish("Hamburguesa"), "Precio: ~g~300$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Wisky"), "Precio: ~g~500$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Cerveza normal"), "Precio: ~g~80$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Cerveza artesanal"), "Precio: ~g~100$");
+	AddPlayerMenuItem(playerid, TextToSpanish("Champagne"), "Precio: ~g~150$");
+	return 1;
+}
+
+Menu:MENU_BURDEL(playerid, response, listitem)
+{
+    if (response == MENU_RESPONSE_SELECT)
+    {
+		if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno", 4);
+
+		switch(listitem)
+		{
+			case 0:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 300)
+				{
+					GivePlayerCash(playerid, -300);
+					AddPlayerItem(playerid, 49);
+					ShowPlayerNotification(playerid, "Compraste una hamburguesa.", 3);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 1:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 500)
+				{
+					GivePlayerCash(playerid, -500);
+					AddPlayerItem(playerid, 64);
+					ShowPlayerNotification(playerid, "Compraste un wisky.", 3);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 2:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 80)
+				{
+					GivePlayerCash(playerid, -80);
+					AddPlayerItem(playerid, 63);
+					ShowPlayerNotification(playerid, "Compraste una cerveza normal.", 3);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 3:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 100)
+				{
+					GivePlayerCash(playerid, -100);
+					AddPlayerItem(playerid, 66);
+					ShowPlayerNotification(playerid, "Compraste una cerveza artesanal.", 3);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+
+			case 4:
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] >= 150)
+				{
+					GivePlayerCash(playerid, -150);
+					AddPlayerItem(playerid, 65);
+					ShowPlayerNotification(playerid, "Compraste un champagne.", 3);
+					
+					ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+				}
+				else
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+CheckBurdelShop(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 1.8, 1207.3176, -29.0368, 1000.9531))
+	{
+		ShowBurdelMenu(playerid);
+	}
+
+	return 1;
+}
+
 CheckFoodShop(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_INTERIOR_INDEX] == -1) return 0;
 	if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_NO_INFO) return 0;
-
 
 	new index = GetFastFoodLocalIndexByIntType(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE]);
 	if (index == -1) return 0;

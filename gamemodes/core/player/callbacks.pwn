@@ -3756,6 +3756,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			return 1;
 		}
 
+		CheckBurdelShop(playerid);
     	CheckRodShop(playerid);
     	CheckFixKitShop(playerid);
     	CheckMinerShop(playerid);

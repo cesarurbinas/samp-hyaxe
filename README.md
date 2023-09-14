@@ -14,7 +14,7 @@ Listado de cosas para hacer
 
 ❌ Actualizar el menu de ayuda
 
-❌ Cambiar el inventario
+✅ Cambiar el inventario
 
 ❌ Agregar mochilas
 
@@ -32,7 +32,7 @@ Listado de cosas para hacer
 
 ✅ Arreglar global alias
 
-❌ Agregar tiendas en los burdeles
+✅ Agregar tiendas en los burdeles
 
 ❌ Cambiar apariencia de los concecionarios 
 
@@ -46,7 +46,7 @@ Listado de cosas para hacer
 
 ❌ Agregar logros
 
-🕐 Cambiar colores del selective dialog
+✅ Cambiar colores del selective dialog
 
 ❌ Acortar el nombre de los toys
 

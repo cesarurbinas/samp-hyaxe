@@ -29,7 +29,7 @@
 #define DIALOG_PREVIEW_HORIZONTAL_GAP 56.5
 #define DIALOG_PREVIEW_VERTICAL_GAP 63.5
 
-#define DIALOG_PREVIEW_SELECT_COLOR 0xFF0000FF
+#define DIALOG_PREVIEW_SELECT_COLOR 0xC33D33FF
 #define DIALOG_PREVIEW_UNSELECT_COLOR 0x464646FF
 
 #define SCROLL_BAR_UP_TEXTDRAW Prev@FrameTD[4]
@@ -291,7 +291,7 @@ static Prev_CreateTextDraws() {
 			Prev@ModelTD[textdrawid][0] = TextDrawCreate((148.5000 + (b * DIALOG_PREVIEW_HORIZONTAL_GAP)), (157.5000 + (a * DIALOG_PREVIEW_VERTICAL_GAP)), "LD_SPAC:WHITE");
 			TextDrawFont(Prev@ModelTD[textdrawid][0], 4);
 			TextDrawLetterSize(Prev@ModelTD[textdrawid][0], 0.5000, 1.0000);
-			TextDrawColor(Prev@ModelTD[textdrawid][0], -16776961);
+			TextDrawColor(Prev@ModelTD[textdrawid][0], 0xC33D33FF);
 			TextDrawSetShadow(Prev@ModelTD[textdrawid][0], 0);
 			TextDrawSetOutline(Prev@ModelTD[textdrawid][0], 0);
 			TextDrawBackgroundColor(Prev@ModelTD[textdrawid][0], 255);
@@ -604,7 +604,7 @@ static Prev_UpdateScrollBar(playerid, page, totalPages) {
     Prev@ScrollBarPTD[playerid] = CreatePlayerTextDraw(playerid, 489.0000, y, "LD_SPAC:WHITE");
 	PlayerTextDrawFont(playerid, Prev@ScrollBarPTD[playerid], 4);
 	PlayerTextDrawLetterSize(playerid, Prev@ScrollBarPTD[playerid], 0.0000, 18.2000);
-	PlayerTextDrawColor(playerid, Prev@ScrollBarPTD[playerid], -16776961);
+	PlayerTextDrawColor(playerid, Prev@ScrollBarPTD[playerid], 0xC33D33FF);
 	PlayerTextDrawSetShadow(playerid, Prev@ScrollBarPTD[playerid], 0);
 	PlayerTextDrawSetOutline(playerid, Prev@ScrollBarPTD[playerid], 0);
 	PlayerTextDrawBackgroundColor(playerid, Prev@ScrollBarPTD[playerid], 255);
@@ -691,7 +691,7 @@ static Prev_UpdateListitems(playerid, page, selected, totalItems) {
 	}
 
 	new string[16];
- 	format(string, sizeof string, "PAGE: %i/%i", (page + 1), Prev_GetNumPages(playerid));
+ 	format(string, sizeof string, "PAGINA: %i/%i", (page + 1), Prev_GetNumPages(playerid));
 	PlayerTextDrawSetString(playerid, Prev@PageNumberPTD[playerid], string);
 }
 
