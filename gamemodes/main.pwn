@@ -7332,20 +7332,20 @@ FormatDialogStrings()
 	new city[45], zone[45];
 
 	//GPS Hospitales
-	format(DIALOG_PLAYER_GPS_SITE_0_String, sizeof DIALOG_PLAYER_GPS_SITE_0_String, ""COL_WHITE"Lugar\t"COL_RED"Zona\n");
+	format(DIALOG_PLAYER_GPS_SITE_0_String, sizeof DIALOG_PLAYER_GPS_SITE_0_String, ""COL_WHITE"Lugar\t"COL_WHITE"Zona\n");
 	for(new i = 0; i != sizeof(Hospital_Spawn_Positions); i++ )
 	{
 		GetPointZone(Hospital_Spawn_Positions[i][0], Hospital_Spawn_Positions[i][1], city, zone);
-		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"Hospital %d\t"COL_RED"%s, %s\n", i + 1, city, zone);
+		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"Hospital %d\t"COL_WHITE"%s, %s\n", i + 1, city, zone);
 		strcat(DIALOG_PLAYER_GPS_SITE_0_String, Dialog_Lines_String);
 	}
 
 	//GPS CONCES
-	format(DIALOG_PLAYER_GPS_SITE_7_String, sizeof DIALOG_PLAYER_GPS_SITE_7_String, ""COL_WHITE"Lugar\t"COL_RED"Zona\n");
+	format(DIALOG_PLAYER_GPS_SITE_7_String, sizeof DIALOG_PLAYER_GPS_SITE_7_String, ""COL_WHITE"Lugar\t"COL_WHITE"Zona\n");
 	for(new i = 0; i != sizeof(SELL_VEHICLES_SHOPS_SPAWN); i++ )
 	{
 		GetPointZone(SELL_VEHICLES_SHOPS_SPAWN[i][0], SELL_VEHICLES_SHOPS_SPAWN[i][1], city, zone);
-		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"Concesionario %d\t"COL_RED"%s, %s\n", i + 1, city, zone);
+		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"Concesionario %d\t"COL_WHITE"%s, %s\n", i + 1, city, zone);
 		strcat(DIALOG_PLAYER_GPS_SITE_7_String, Dialog_Lines_String);
 	}
 
@@ -9808,7 +9808,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[90 * (MAX_LISTITEMS + 1)];
-			format(dialog, sizeof dialog, "Lugar\tDistancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Lugar\t"COL_WHITE"Distancia\n");
 
 			new line_str[90], sites;
 			for(new i = 0; i != sizeof(ENTER_EXIT); i++ )
@@ -9831,7 +9831,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[90 * (MAX_LISTITEMS + 1)];
-			format(dialog, sizeof dialog, "Lugar\tDistancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Lugar\t"COL_WHITE"Distancia\n");
 
 			new line_str[90], sites;
 			for(new i = 0; i != sizeof(ENTER_EXIT); i++ )
@@ -9854,7 +9854,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[90 * (MAX_LISTITEMS + 1)];
-			format(dialog, sizeof dialog, "Lugar\tDistancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Lugar\t"COL_WHITE"Distancia\n");
 
 			new line_str[90], sites;
 			for(new i = 0; i != sizeof(ENTER_EXIT); i++ )
@@ -9877,7 +9877,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[90 * (MAX_LISTITEMS + 1)];
-			format(dialog, sizeof dialog, "Lugar\tDistancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Lugar\t"COL_WHITE"Distancia\n");
 
 			new line_str[90], sites;
 			for(new i = 0; i != sizeof(ENTER_EXIT); i++ )
@@ -9898,7 +9898,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_PLAYER_GPS_SITE_5: //Cajeros
 		{
 			new dialog[90 * (sizeof(ATM_BANK) + 1)];
-			format(dialog, sizeof dialog, "Lugar\tDistancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Lugar\t"COL_WHITE"Distancia\n");
 
 			new line_str[90], sites;
 			for(new i = 0; i != sizeof(ATM_BANK); i++ )
@@ -9915,7 +9915,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_PLAYER_GPS_SITE_6: //Gasolineras
 		{
 			new dialog[90 * (sizeof(Fuel_Stations) + 1)];
-			format(dialog, sizeof dialog, "Lugar\tDistancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Lugar\t"COL_WHITE"Distancia\n");
 
 			new line_str[90], sites;
 			for(new i = 0; i != sizeof(Fuel_Stations); i++ )
@@ -9939,7 +9939,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[90 * (MAX_LISTITEMS + 1)];
-			format(dialog, sizeof dialog, "Lugar\tDistancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Lugar\t"COL_WHITE"Distancia\n");
 
 			new line_str[90], sites;
 			for(new i = 0; i != sizeof(ENTER_EXIT); i++ )
@@ -14908,10 +14908,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 5: ShowDialog(playerid, DIALOG_PLAYER_GPS_SITE_5);
 					case 6: ShowDialog(playerid, DIALOG_PLAYER_GPS_SITE_6);
 					case 7: ShowDialog(playerid, DIALOG_PLAYER_GPS_SITE_7);
-					case 8: SetPlayer_GPS_Checkpoint(playerid, 1571.468627, -1336.893188, 16.484375, 0, 0);
-					case 9: SetPlayer_GPS_Checkpoint(playerid, 1555.400390, -1675.611694, 16.195312, 0, 0);
-					case 10: SetPlayer_GPS_Checkpoint(playerid, -112.182266, -1188.457275, 2.766866, 0, 0);
-					case 11: SetPlayer_GPS_Checkpoint(playerid, 1876.87915, -2286.58911, 1.16550 + 15, 0, 0);
+					case 8: SetPlayer_GPS_Checkpoint(playerid, 1571.468627, -1336.893188, 16.484375, 0, 0); // Banco
+					case 9: SetPlayer_GPS_Checkpoint(playerid, 1545.472778, -1675.525024, 13.560430, 0, 0); // LSPD
+					case 10: SetPlayer_GPS_Checkpoint(playerid, 1049.747680, -938.670715, 42.861778, 0, 0); // Taller
+					case 11: SetPlayer_GPS_Checkpoint(playerid, 1876.87915, -2286.58911, 1.16550 + 15, 0, 0); // Helipuerto
 				}
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_GPS);
