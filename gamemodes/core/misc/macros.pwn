@@ -2,7 +2,7 @@
 
 // Misc config
 #define MAX_BAD_LOGIN_ATTEMPS 	3
-#define REP_MULTIPLIER 			64 // Original: 12
+#define REP_MULTIPLIER 			32 // Original: 12
 #define TIME_FOR_REP 			1020000
 #define REP_FOR_PAYDAY 			3 // Original: 3
 
