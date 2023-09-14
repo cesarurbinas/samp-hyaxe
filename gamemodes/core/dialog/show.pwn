@@ -32,7 +32,7 @@ ShowDialog(playerid, dialogid)
 			\t{5c5c5c}1. Contraseña\n\
 			\t{E3E3E3}2. Correo\n\
 			\t{5c5c5c}3. Sexo"COL_WHITE"\n\n\
-			Esto le va a servir para poder recuperar su contraseña\nen caso que se la olvide.","Aceptar", "Cerrar");
+			Esto le va a servir para poder recuperar su contraseña\nen caso que se la olvide.", "Aceptar", "Cerrar");
         case DIALOG_REGISTER_SEX: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"[3/3] Sexo", ""COL_WHITE"Selecciona un sexo.\n\n\
         	\t{5c5c5c}1. Contraseña\n\
 			\t{5c5c5c}2. Correo\n\
