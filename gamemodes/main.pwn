@@ -1747,33 +1747,6 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
-enum Doubt_Enum
-{
-	d_QUESTION[144],
-	d_RESPONSE[144]
-};
-
-new DOUBT_RESPONSES[][Doubt_Enum] = // EE = EnterExits
-{
-	{"como veo el numero de alguien", "use /guia id"},
-	{"como pico", "con alt, si no te anda usa /minero"},
-	{"como se pica", "con alt, si no te anda usa /minero"},
-	{"como soy policia", "postulandote en foro.hyaxe.com si es que estan abiertas"},
-	{"cual es el foro", "foro.hyaxe.com"},
-	{"donde compro armas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
-	{"donde compro las armas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
-	{"donde compro drogas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
-	{"donde compro una arma", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
-	{"a que nivel puedo usar armas", "a nivel 2"},
-	{"estoy bug necesito un staff", "/reportar tu id"},
-	{"quien es el dueño del sv", "atom alias yahir_kozer"},
-	{"como acepto muerte", "con la c"},
-	{"como guardo un arma en mi maletero", "/guardar arma usa /armas para ver el slot"},
-	{"cual es el mejor trabajo", "averigua ic"},
-	{"como veo el inventario", "presiona la tecla N"},
-	{"como contacto a un staff", "/reportar tu id"}
-};
-
 enum enum_JAIL_POSITIONS
 {
 	jail_INT,
