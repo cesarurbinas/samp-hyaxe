@@ -290,8 +290,8 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 					}
 					else
 					{
-						AddItemToProperty(
-							PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],
+						AddItemToVehicle(
+							PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID],
 							PLAYER_VISUAL_INV[playerid][slot_TYPE][slot],
 							1
 						);		
