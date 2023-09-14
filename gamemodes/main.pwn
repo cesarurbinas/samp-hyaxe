@@ -8124,6 +8124,7 @@ CMD:vender(playerid, params[])
 
 	if (price <= 0 || price > 10000000) return ShowPlayerMessage(playerid, "~r~El precio no es válido.", 3);
 	if (!IsPlayerConnected(to_playerid)) return ShowPlayerMessage(playerid, "~r~El jugador no está conectado", 3);
+	if (playerid == to_playerid)) return ShowPlayerMessage(playerid, "~r~No puedes venderte a ti mismo.", 3);
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_playerid, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Este jugador no está cerca tuya.", 3);
 	if (PLAYER_TEMP[to_playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No le puedes vender nada a este jugador por ahora.", 3);
