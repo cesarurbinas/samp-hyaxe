@@ -25282,7 +25282,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
 				{
 					PLAYER_TEMP[playerid][py_JOINT_USES] = 0;
-					PLAYER_MISC[playerid][MISC_JOINT] -= 1;
+					PLAYER_MISC[playerid][MISC_JOINT] --;
 					ResetItemBody(playerid);
 					ShowPlayerMessage(playerid, "~r~Porro acabado", 3);
 				}

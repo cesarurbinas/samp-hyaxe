@@ -158,7 +158,7 @@ UseItemSlot(playerid)
 			PLAYER_MISC[playerid][MISC_JOINT] ++;
 			SavePlayerMisc(playerid);
 			SetPlayerChatBubble(playerid, "\n\n\n\n* Crea un porro.", 0xffcb90FF, 20.0, 2000);
-			ShowPlayerMessage(playerid, "Creaste un porro.", 3);
+			ShowPlayerMessage(playerid, "Creaste un porro", 3);
 			ResetItemBody(playerid);
 			return 1;
 		}

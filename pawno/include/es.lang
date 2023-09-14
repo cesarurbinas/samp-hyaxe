@@ -17,7 +17,7 @@ new
 	DEBUG_CODE_5[] =		"[ANTI-CHEAT] ID %d usado NOP %s",
 #endif
 
-	KICK_MSG[] =			"[ANTI-CHEAT]{F7F7F7} Fuiste expulsado - Razón: Cheats (#%03d)",
+	KICK_MSG[] =			"{e76f51}[ANTI-CHEAT]{F7F7F7} Fuiste expulsado - Razón: Cheats (#%03d)",
 	MAX_CONNECTS_MSG[] =		"[ANTI-CHEAT] Se ha superado el numero maximo de conexiones desde el 1 de direcciones IP.",
 	UNKNOWN_CLIENT_MSG[] =		"[ANTI-CHEAT] Esta version del cliente no es adecuada para jugar en el servidor.",
 

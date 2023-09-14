@@ -1473,6 +1473,10 @@ stock WC_SetPlayerHealth(playerid, Float:health, Float:armour = -1.0)
 			health = s_PlayerMaxHealth[playerid];
 		}
 		s_PlayerHealth[playerid] = health;
+
+		SetPlayerHealth(playerid, health);
+		SetPlayerArmour(playerid, armour);
+
 		UpdateHealthBar(playerid, true);
 	}
 
@@ -1502,6 +1506,7 @@ stock WC_SetPlayerArmour(playerid, Float:armour)
 		armour = s_PlayerMaxArmour[playerid];
 	}
 	s_PlayerArmour[playerid] = armour;
+	SetPlayerArmour(playerid, armour);
 	UpdateHealthBar(playerid, true);
 
 	return 1;
@@ -3368,8 +3373,6 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 
 			WC_OnPlayerDeath(playerid, issuerid, weaponid);
 
-			SetPlayerHealth(playerid, Float:0x7f7fffff);
-
 			DebugMessage(playerid, "being knifed by %d", issuerid);
 			DebugMessage(issuerid, "knifing %d", playerid);
 
@@ -4075,8 +4078,6 @@ static UpdateHealthBar(playerid, bool:force = false)
 
 	if (health != s_LastSentHealth[playerid]) {
 		s_LastSentHealth[playerid] = health;
-
-		SetPlayerHealth(playerid, 8000000.0 + float(health));
 
 		if (s_HealthBarVisible[playerid] && !s_IsDying[playerid]) {
 			if (s_HealthBarForeground[playerid] == PlayerText:INVALID_TEXT_DRAW) {
@@ -4973,7 +4974,7 @@ public OnPlayerDeathFinished(playerid, bool:cancelable)
 				health = s_PlayerMaxHealth[playerid];
 			}
 
-			WC_SetPlayerHealth(playerid, health);
+			//WC_SetPlayerHealth(playerid, health);
 		}
 	}
 #endif
