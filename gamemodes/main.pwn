@@ -34890,6 +34890,23 @@ CALLBACK: StandUpBotikin(medic, playerid)
 
 	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 	ClearAnimations(playerid);
+
+	if (PLAYER_WORKS[medic][WORK_MEDIC] && PLAYER_TEMP[medic][py_WORKING_IN] == WORK_MEDIC)
+	{
+		new 
+			str_text[64],
+			pay = (1000 + PLAYER_SKILLS[medic][WORK_MEDIC])
+		;
+
+		if (ACCOUNT_INFO[medic][ac_SU]) pay += minrand(200, 500);
+
+		GivePlayerCash(medic, pay);
+		format(str_text, sizeof(str_text), "~g~+%d$", pay);
+		GameTextForPlayer(medic, str_text, 5000, 1);
+
+		PLAYER_SKILLS[medic][WORK_MEDIC] ++;
+		SavePlayerSkills(medic);
+	}
 	return 1;
 }
 
