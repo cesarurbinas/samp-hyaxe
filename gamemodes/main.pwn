@@ -2681,6 +2681,7 @@ new RADIO_STATIONS[][radio_enum] =
 	{"Soma FM", "Techno", "http://somafm.com/tags.pls"},
 	{"Dubatek", "Drum'N'Bass", "http://web.zionsound.fr:8010/stream/1/"},
 	{"Country NY", "Country", "https://streaming.radiostreamlive.com/radiocountrylive_devices"},
+	{"BadRadio", "Phonk", "https://s2.radio.co/s2b2b68744/listen"},
 	{"Hyaxe Radio (En construcción)", "Variadas", "http://radio.hyaxe.com/stream.pls"}
 };
 
@@ -13438,6 +13439,10 @@ ShowDialog(playerid, dialogid)
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre", ""COL_WHITE"Ingrese un nombre para su negocio (max. 32).", "Cambiar", "Atrás");
 		}
+		case DIALOG_CLUB_PRODUCTS:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Productos", "Crear\nEliminar\n", "Ver", "Atrás");
+		}
 		case DIALOG_CLUB_WELCOME:
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar bienvenida", ""COL_WHITE"Ingrese un mensaje para la bienvenida (max. 64).", "Cambiar", "Atrás");
@@ -13459,6 +13464,69 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_CLUB_PRICE:
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Precio de entrada", ""COL_WHITE"Ingrese un precio de entrada (ponga 0 para dejarlo gratis).", "Cambiar", "Atrás");
+		}
+		case DIALOG_PRODUCT_NAME:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Nombre del producto", ""COL_WHITE"Ingrese un nombre para el producto (max. 32).", "Seguir", "Atrás");
+		}
+		case DIALOG_PRODUCT_PRICE:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Precio del producto", ""COL_WHITE"Ingrese un precio para el producto (max. 32).", "Seguir", "Atrás");
+		}
+		case DIALOG_PRODUCT_TYPE:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Tipo del producto", "Para tomar\nPara comer\n", "Seguir", "Atrás");
+		}
+		case DIALOG_PRODUCT_EXTRA:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Calidad del producto", ""COL_WHITE"Ingrese lo que va a subir al consumirlo (max. 25).", "Seguir", "Atrás");
+		}
+		case DIALOG_PRODUCT_DELETE:
+		{
+			if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+			{
+				for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
+
+				new
+					dialog[11 * 64],
+					DBResult:Result,
+					DB_Query[128],
+					club = PLAYER_TEMP[playerid][py_CLUB_INDEX],
+					total_products
+				;
+
+				format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
+
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '0' LIMIT 10;", CLUBS_INFO[club][club_ID]);
+				Result = db_query(Database, DB_Query);
+
+				if (db_num_rows(Result))
+				{
+					for(new i; i < db_num_rows(Result); i++ )
+					{
+						new 
+							name[32],
+							line[64],
+							price,
+							id
+						;
+
+						id = db_get_field_assoc_int(Result, "ID");
+						price = db_get_field_assoc_int(Result, "PRICE");
+						db_get_field_assoc(Result, "NAME", name, 32);
+
+						PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_products] = id;
+
+						format(line, sizeof(line), "%s\t"COL_GREEN"%d$\n", name, price);
+						strcat(dialog, line);
+						total_products ++;
+					}
+				}
+				db_free_result(Result);
+
+				if (total_products == 0) return ShowPlayerMessage(playerid, "~r~No hay productos disponibles", 4);
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Seleccione para borrar", dialog, "Borrar", "Atrás");
+			}
 		}
 		default: return 0;
 	}
@@ -21890,6 +21958,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else CheckClubOptions(playerid);
 		}
+		case DIALOG_CLUB_PRODUCTS:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0: ShowDialog(DIALOG_PRODUCT_NAME);
+					case 1: ShowDialog(DIALOG_PRODUCT_DELETE);
+				}
+			}
+			else CheckClubOptions(playerid);
+		}
 		case DIALOG_CLUB_RADIO:
 		{
 			if (response)
@@ -21963,7 +22043,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						ShowDialog(playerid, dialogid);
 						return 1;
 					}
-					if (inputtext[0] <= 0)
+					if (inputtext[0] < 0)
 					{
 						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
 						ShowPlayerMessage(playerid, "Introduce un valor positivo.", 2);
@@ -21991,6 +22071,114 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 			else CheckClubOptions(playerid);
+		}
+		case DIALOG_PRODUCT_NAME:
+		{
+			if (response)
+			{
+				if (strlen(inputtext) >= 32)
+				{
+					ShowPlayerMessage(playerid, "~r~Como máximo puedes introducir 32 caracteres.", 3);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+
+				if (sscanf(inputtext, "s[32]", PLAYER_TEMP[playerid][py_PRODUCT_NAME]))
+				{
+					ShowPlayerMessage(playerid, "~r~Tienes que introducir algo.", 3);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+
+				ShowDialog(playerid, DIALOG_PRODUCT_PRICE);
+			}
+			else ShowDialog(playerid, DIALOG_CLUB_PRODUCTS);
+		}
+		case DIALOG_PRODUCT_PRICE:
+		{
+			if (response)
+			{
+				if (sscanf(inputtext, "d", inputtext[0]))
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "Introduce un valor numérico.", 2);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+				if (inputtext[0] <= 0)
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "Introduce un valor positivo.", 2);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+
+				PLAYER_TEMP[playerid][py_PRODUCT_PRICE] = inputtext[0];
+				ShowDialog(playerid, DIALOG_PRODUCT_TYPE)
+			}
+			else ShowDialog(playerid, DIALOG_PRODUCT_NAME);
+		}
+		case DIALOG_PRODUCT_TYPE:
+		{
+			if (response)
+			{
+				PLAYER_TEMP[playerid][py_PRODUCT_TYPE] = listitem;
+				ShowDialog(playerid, DIALOG_PRODUCT_EXTRA)
+			}
+			else ShowDialog(playerid, DIALOG_CLUB_PRICE);
+		}
+		case DIALOG_PRODUCT_EXTRA:
+		{
+			if (response)
+			{
+				if (sscanf(inputtext, "d", inputtext[0]))
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "Introduce un valor numérico.", 2);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+				if (inputtext[0] <= 0)
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "Introduce un valor positivo.", 2);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+				if (inputtext[0] > 25)
+				{
+					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+					ShowPlayerMessage(playerid, "~r~Tiene que ser menor a 25.", 2);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+
+				PLAYER_TEMP[playerid][py_PRODUCT_EXTRA] = inputtext[0];
+
+				AddClubProduct(
+					PLAYER_TEMP[playerid][py_CLUB_INDEX],
+					PLAYER_TEMP[playerid][py_PRODUCT_NAME],
+					PLAYER_TEMP[playerid][py_PRODUCT_TYPE],
+					PLAYER_TEMP[playerid][py_PRODUCT_EXTRA],
+					PLAYER_TEMP[playerid][py_PRODUCT_PRICE]
+				);
+
+				ShowPlayerMessage(playerid, "Producto ~g~agregado", 3);
+				ShowDialog(playerid, DIALOG_CLUB_PRODUCTS);
+			}
+			else ShowDialog(playerid, DIALOG_CLUB_PRICE);
+		}
+		case DIALOG_PRODUCT_DELETE:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
+				DeleteClubProduct(PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]);
+
+				ShowPlayerMessage(playerid, "Producto ~r~eliminado", 3);
+				ShowDialog(playerid, DIALOG_CLUB_PRODUCTS);
+			}
+			else ShowDialog(playerid, DIALOG_CLUB_PRODUCTS);
 		}
 	}
 	return 0;

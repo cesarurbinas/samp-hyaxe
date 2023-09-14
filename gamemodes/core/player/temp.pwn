@@ -317,8 +317,16 @@ enum Temp_Enum
 >>>>>>> 93ee930 (Arreglos)
 =======
 	py_LAST_GEO_USE,
+<<<<<<< HEAD
 	py_CLUB_INDEX
 >>>>>>> 119039e (oooo chad on da house)
+=======
+	py_CLUB_INDEX,
+	py_PRODUCT_NAME[32],
+	py_PRODUCT_TYPE,
+	py_PRODUCT_EXTRA,
+	py_PRODUCT_PRICE
+>>>>>>> 137a817 (Eliminar productos)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
