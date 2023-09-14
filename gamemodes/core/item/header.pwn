@@ -73,7 +73,7 @@ new ITEM_INFO[][Item_Info_Enum] = {
     {"Champagne",               19824,     false}, // 65
     {"Cerveza artesanal",       1544,      false}, // 66
     {"Pollo",                   2768,      false}, // 67
-    {"Cafe",                    19835,     false} // 68
+    {"Cafe",                    19835,     false}  // 68
 };
 
 #define MAX_DROP_ITEMS 600

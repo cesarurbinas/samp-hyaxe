@@ -176,90 +176,24 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (CHARACTER_INFO[playerid][ch_CASH] >= PIZZA_FOOD[listitem][food_PRICE])
-				{
-					if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir más.", 2);
-
-					GivePlayerCash(playerid, -PIZZA_FOOD[listitem][food_PRICE]);
-					Add_Hungry_Thirst(playerid, PIZZA_FOOD[listitem][food_HUNGRY], PIZZA_FOOD[listitem][food_THIRST]);
-
-					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-
-					SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
-					ShowPlayerNotification(playerid, "Consumiendo...", 3);
-
-					ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
-					ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
-
-					ShowDialog(playerid, dialogid);
-				}
-				else
-				{
-					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-				    ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-				}
+				// aki ba la comida
 			}
-			else ShowPlayerMessage(playerid, "Gracias por su visita, vuelva pronto.", 3);
 			return 1;
 		}
 		case DIALOG_FOOD_BURGER:
 		{
 			if (response)
 			{
-				if (CHARACTER_INFO[playerid][ch_CASH] >= BURGER_SHOT_FOOD[listitem][food_PRICE])
-				{
-					if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir más.", 2);
-
-					GivePlayerCash(playerid, -BURGER_SHOT_FOOD[listitem][food_PRICE]);
-					Add_Hungry_Thirst(playerid, BURGER_SHOT_FOOD[listitem][food_HUNGRY], BURGER_SHOT_FOOD[listitem][food_THIRST]);
-
-					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-
-					SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
-					ShowPlayerNotification(playerid, "Consumiendo...", 3);
-
-					ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
-					ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
-
-					ShowDialog(playerid, dialogid);
-				}
-				else
-				{
-					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-				}
+				// aki ba la comida
 			}
-			else ShowPlayerMessage(playerid, "Gracias por su visita, vuelva pronto.", 3);
 			return 1;
 		}
 		case DIALOG_FOOD_CLUCKIN:
 		{
 			if (response)
 			{
-				if (CHARACTER_INFO[playerid][ch_CASH] >= CLUCKIN_BELL_FOOD[listitem][food_PRICE])
-				{
-					if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir más.", 2);
-
-					GivePlayerCash(playerid, -CLUCKIN_BELL_FOOD[listitem][food_PRICE]);
-					Add_Hungry_Thirst(playerid, CLUCKIN_BELL_FOOD[listitem][food_HUNGRY], CLUCKIN_BELL_FOOD[listitem][food_THIRST]);
-
-					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-
-					SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
-					ShowPlayerNotification(playerid, "Consumiendo...", 3);
-
-					ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
-					ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
-
-					ShowDialog(playerid, dialogid);
-				}
-				else
-				{
-					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-				}
+				// aki ba la comida
 			}
-			else ShowPlayerMessage(playerid, "Gracias por su visita, vuelva pronto.", 3);
 			return 1;
 		}
 		case DIALOG_PLAYER_TOYS:
@@ -779,97 +713,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				switch(Supermarket_Product_List[listitem][product_TYPE])
+				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno", 4);
+
+				switch(listitem)
 				{
-					case PRODUCT_TYPE_FOOD:
+					case 0:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] >= Supermarket_Product_List[listitem][product_PRICE])
-						{
-							GivePlayerCash(playerid, -Supermarket_Product_List[listitem][product_PRICE]);
-							Add_Hungry_Thirst(playerid, Supermarket_Product_List[listitem][product_HUNGRY], Supermarket_Product_List[listitem][product_THIRST]);
-
-							SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
-							ShowPlayerNotification(playerid, "Consumiendo...", 3);
-
-							ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
-							ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
-							PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-						}
-						else
-						{
-							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						}
-					}
-					case PRODUCT_TYPE_PHONE:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] >= Supermarket_Product_List[listitem][product_PRICE])
-						{
-							if (PLAYER_PHONE[playerid][player_phone_VALID])
-							{
-							    ShowPlayerMessage(playerid, "~r~Ya tienes un teléfono.", 2);
-								PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-								return 1;
-							}
-
-							new DBResult:Result_pnumber, phone_number;
-							Result_pnumber = db_query(Database, "SELECT ABS(RANDOM() % 10000000) AS `NUM` WHERE `NUM` NOT IN (SELECT `PHONE_NUMBER` FROM `PHONE`) LIMIT 1;");
-							if (db_num_rows(Result_pnumber)) phone_number = db_get_field_int(Result_pnumber, 0);
-							db_free_result(Result_pnumber);
-
-							if (phone_number)
-							{
-								PLAYER_PHONE[playerid][player_phone_VALID] = true;
-								PLAYER_PHONE[playerid][player_phone_NUMBER] = phone_number;
-								PLAYER_PHONE[playerid][player_phone_STATE] = PHONE_STATE_ON;
-								PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] = true;
-								RegisterNewPlayerPhone(playerid);
-								GivePlayerCash(playerid, -Supermarket_Product_List[listitem][product_PRICE]);
-
-								SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"tu número es {c5e03e}%d.", Supermarket_Product_List[listitem][product_NAME], Supermarket_Product_List[listitem][product_PRICE], PLAYER_PHONE[playerid][player_phone_NUMBER]);
-								ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
-								PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-							}
-							else
-							{
-								PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-						        ShowPlayerMessage(playerid, "~r~No se ha podido encontrar un número de teléfono libre.", 3);
-							}
-						}
-						else
-						{
-							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						}
-
-					}
-					case PRODUCT_TYPE_GPS:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] >= Supermarket_Product_List[listitem][product_PRICE])
-						{
-							if (PLAYER_OBJECT[playerid][po_GPS])
-							{
-								ShowPlayerMessage(playerid, "~r~Ya tienes un GPS", 2);
-								PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-								return 1;
-							}
-
-							GivePlayerCash(playerid, -Supermarket_Product_List[listitem][product_PRICE]);
-
-							PLAYER_OBJECT[playerid][po_GPS] = true;
-							ShowPlayerNotification(playerid, "Compraste un GPS.", 3);
-							ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
-							PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-						}
-						else
-						{
-							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						}
-					}
-					case PRODUCT_TYPE_PHONE_RESOLVER:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] >= Supermarket_Product_List[listitem][product_PRICE])
+						if (CHARACTER_INFO[playerid][ch_CASH] >= 500)
 						{
 							if (PLAYER_OBJECT[playerid][po_PHONE_RESOLVER])
 							{
@@ -878,7 +728,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								return 1;
 							}
 
-							GivePlayerCash(playerid, -Supermarket_Product_List[listitem][product_PRICE]);
+							GivePlayerCash(playerid, -500);
 
 							PLAYER_OBJECT[playerid][po_PHONE_RESOLVER] = true;
 							ShowPlayerNotification(playerid, "Compraste una guía telefónica.", 3);
@@ -891,6 +741,86 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
 						}
 					}
+
+					case 1:
+					{
+						if (CHARACTER_INFO[playerid][ch_CASH] >= 500)
+						{
+							if (PLAYER_OBJECT[playerid][po_GPS])
+							{
+								ShowPlayerMessage(playerid, "~r~Ya tienes un GPS", 2);
+								PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+								return 1;
+							}
+
+							GivePlayerCash(playerid, -500);
+
+							PLAYER_OBJECT[playerid][po_GPS] = true;
+							ShowPlayerNotification(playerid, "Compraste un GPS.", 3);
+							ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+							PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+						}
+						else
+						{
+							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						}
+					}
+
+					case 2:
+					{
+						if (CHARACTER_INFO[playerid][ch_CASH] >= 10)
+						{
+							AddPlayerItem(playerid, 54);
+							ShowPlayerNotification(playerid, "Compraste una tostada.", 3);
+							GivePlayerCash(playerid, -10);
+							
+							ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+							PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+						}
+						else
+						{
+							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						}
+					}
+
+					case 3:
+					{
+						if (CHARACTER_INFO[playerid][ch_CASH] >= 70)
+						{
+							AddPlayerItem(playerid, 56);
+							ShowPlayerNotification(playerid, "Compraste un jugo de naranja.", 3);
+							GivePlayerCash(playerid, -70);
+							
+							ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+							PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+						}
+						else
+						{
+							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						}
+					}
+
+					case 4:
+					{
+						if (CHARACTER_INFO[playerid][ch_CASH] >= 70)
+						{
+							AddPlayerItem(playerid, 57);
+							ShowPlayerNotification(playerid, "Compraste un jugo de manzana.", 3);
+							GivePlayerCash(playerid, -70);
+							
+							ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
+							PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+						}
+						else
+						{
+							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
+							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						}
+					}
+					
 				}
 			}
 			return 1;

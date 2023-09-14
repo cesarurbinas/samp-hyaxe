@@ -313,23 +313,6 @@ new Supermarket_Product_List[][Supermarket_Enum] =
 	{PRODUCT_TYPE_PHONE, NAME_PHONE, 350, 0.0, 0.0, 0},
 	{PRODUCT_TYPE_PHONE_RESOLVER, NAME_PHONE_R, 200, 0.0, 0.0, 0},
 	{PRODUCT_TYPE_GPS, "GPS", 300, 0.0, 0.0, 0},
-	{PRODUCT_TYPE_FOOD, "Botella de agua", 80, 0.0, 25.0, 0},
-	{PRODUCT_TYPE_FOOD, "Sprunk", 40, 0.0, 12.0, 0},
-	//{PRODUCT_TYPE_FOOD, "Lata de refresco cola", 30, 0.0, 10.0, 0},
-	{PRODUCT_TYPE_FOOD, "Barrita energética", 80, 15.0, 0.0, 0},
-	//{PRODUCT_TYPE_FOOD, "Porción de pizza", 60, 20.0, 0.0, 0},
-	//{PRODUCT_TYPE_FOOD, "Ensalada", 50, 15.0, 2.0, 0},
-	{PRODUCT_TYPE_FOOD, "Leche", 70, 25.0, 25.0, 0},
-	//{PRODUCT_TYPE_FOOD, "Sándwich de milanesa", 45, 10.0, 2.0, 0},
-	//{PRODUCT_TYPE_FOOD, "Choripan", 45, 10.0, 2.0, 0},
-	{PRODUCT_TYPE_FOOD, "Galletas", 20, 8.0, 2.0, 0},
-	{PRODUCT_TYPE_FOOD, "Caramelos masticables", 1, 2.0, 0.0, 0},
-	{PRODUCT_TYPE_FOOD, "Chicle bubbaloo", 3, 2.0, 0.0, 0},
-	{PRODUCT_TYPE_FOOD, "Cerveza", 40, 0.0, 3.0, 1000},
-	//{PRODUCT_TYPE_FOOD, "Vodka", 80, 0.0, 3.0, 2500},
-	{PRODUCT_TYPE_FOOD, "Vino", 80, 0.0, 3.0, 2500}
-	//{PRODUCT_TYPE_FOOD, "Orina de toro", 3000, 0.0, 40.0, 9500},
-	//{PRODUCT_TYPE_FOOD, "Whisky", 200, 0.0, 3.0, 3000}
 };
 
 // Food
@@ -6225,10 +6208,6 @@ EndPlayerJob(playerid, changeskin = true)
 }
 
 new
-	DIALOG_FOOD_PIZZA_String[400],
-	DIALOG_FOOD_CLUCKIN_String[400],
-	DIALOG_FOOD_BURGER_String[400],
-	DIALOG_247_LIST_String[34 + 55 * sizeof Supermarket_Product_List],
 	DIALOG_PLAYER_GPS_SITE_0_String[90 * (sizeof(Hospital_Spawn_Positions) + 1)],
 	DIALOG_PLAYER_GPS_SITE_7_String[90 * (sizeof(SELL_VEHICLES_SHOPS_SPAWN) + 1)],
 	DIALOG_CREATE_CREW_COLOR_String[164];
@@ -6469,38 +6448,6 @@ stock RemoveObjectCollisions()
 FormatDialogStrings()
 {
 	new Dialog_Lines_String[256];
-
-		/* PIZZA FOOD */
-	format(DIALOG_FOOD_PIZZA_String, sizeof DIALOG_FOOD_PIZZA_String, ""COL_WHITE"Producto\tPrecio\n");
-	for(new i; i != sizeof PIZZA_FOOD; i ++)
-	{
-		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"%d. %s\t"COL_RED""COL_GREEN"%d$\n", i + 1, PIZZA_FOOD[i][food_NAME], PIZZA_FOOD[i][food_PRICE]);
-		strcat(DIALOG_FOOD_PIZZA_String, Dialog_Lines_String);
-	}
-
-		/* CLUCKIN FOOD */
-	format(DIALOG_FOOD_CLUCKIN_String, sizeof DIALOG_FOOD_CLUCKIN_String, ""COL_WHITE"Producto\t"COL_WHITE"Precio\n");
-	for(new i; i != sizeof CLUCKIN_BELL_FOOD; i ++)
-	{
-		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"%d. %s\t"COL_RED""COL_GREEN"%d$\n", i + 1, CLUCKIN_BELL_FOOD[i][food_NAME], CLUCKIN_BELL_FOOD[i][food_PRICE]);
-		strcat(DIALOG_FOOD_CLUCKIN_String, Dialog_Lines_String);
-	}
-
-		/* BURGER_SHOT FOOD */
-	format(DIALOG_FOOD_BURGER_String, sizeof DIALOG_FOOD_BURGER_String, ""COL_WHITE"Producto\t"COL_WHITE"Precio\n");
-	for(new i; i != sizeof BURGER_SHOT_FOOD; i ++)
-	{
-		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"%d. %s\t"COL_RED""COL_GREEN"%d$\n", i + 1, BURGER_SHOT_FOOD[i][food_NAME], BURGER_SHOT_FOOD[i][food_PRICE]);
-		strcat(DIALOG_FOOD_BURGER_String, Dialog_Lines_String);
-	}
-
-		/* 24/7 LIST */
-	format(DIALOG_247_LIST_String, sizeof DIALOG_247_LIST_String, ""COL_WHITE"Producto\t"COL_WHITE"Precio\n");
-	for(new i = 0; i != sizeof Supermarket_Product_List; i ++)
-	{
-		format(Dialog_Lines_String, sizeof(Dialog_Lines_String), ""COL_WHITE"%d. %s\t"COL_RED""COL_GREEN"%d$\n", i + 1, Supermarket_Product_List[i][product_NAME], Supermarket_Product_List[i][product_PRICE]);
-		strcat(DIALOG_247_LIST_String, Dialog_Lines_String);
-	}
 
 	//GPS
 	new city[45], zone[45];

@@ -38,9 +38,9 @@ ShowDialog(playerid, dialogid)
 			\t{5c5c5c}2. Correo\n\
 			\t{E3E3E3}3. Sexo"COL_WHITE"\n\n\
 			Este va a ser el sexo inicial de su personaje.", "Hombre", "Mujer");
-		case DIALOG_FOOD_PIZZA: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", DIALOG_FOOD_PIZZA_String, "Pedir", "Salir");
-		case DIALOG_FOOD_CLUCKIN: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", DIALOG_FOOD_CLUCKIN_String, "Pedir", "Salir");
-		case DIALOG_FOOD_BURGER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", DIALOG_FOOD_BURGER_String, "Pedir", "Salir");
+		case DIALOG_FOOD_PIZZA: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", "AKI VA LA COMIDA", "Pedir", "Salir");
+		case DIALOG_FOOD_CLUCKIN: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", "AKI VA LA COMIDA", "Pedir", "Salir");
+		case DIALOG_FOOD_BURGER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", "AKI VA LA COMIDA", "Pedir", "Salir");
 		case DIALOG_PLAYER_TOYS:
 		{
 			new dialog[96 * (MAX_PLAYER_ATTACHED_OBJECTS + 2)], line_str[64];
@@ -290,7 +290,17 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Salir", "Atrás");
 			return 1;
 		}
-		case DIALOG_247_LIST: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"24/7", DIALOG_247_LIST_String, "Selecc.", "Cerrar");
+		case DIALOG_247_LIST:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"24/7", "\
+				"COL_WHITE"Guía telefónica\t"COL_GREEN"$500\n\
+				"COL_WHITE"GPS\t"COL_GREEN"$500\n\
+				"COL_WHITE"Tostada\t"COL_GREEN"$10\n\
+				"COL_WHITE"Jugo de naranja\t"COL_GREEN"$70\n\
+				"COL_WHITE"Jugo de manzana\t"COL_GREEN"$70\n,
+			"Comprar", "Cerrar");
+			return 1;
+		}
 		case DIALOG_HOSPITAL_SHOP:
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Farmacia", ""COL_WHITE"Producto\t"COL_WHITE"Precio\n\
