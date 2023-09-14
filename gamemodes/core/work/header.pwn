@@ -35,8 +35,13 @@ enum
 >>>>>>> 583efcd (the family connor)
 =======
 	WORK_CONNOR,
+<<<<<<< HEAD
 	WORK_DIVISO
 >>>>>>> b35a666 (arreglos en el anti aimbot)
+=======
+	WORK_DIVISO,
+	WORK_SINDACCO
+>>>>>>> e76ea2e (anti pg removido)
 };
 enum work_info_info
 {
@@ -79,8 +84,13 @@ new work_info[][work_info_info] =
 >>>>>>> 583efcd (the family connor)
 =======
 	{WORK_TYPE_FAMILY, 0, "The Family Connor",		        	false, 1000, 1, 0},
+<<<<<<< HEAD
 	{WORK_TYPE_FAMILY, 0, "Diviso Per Tutti",		        	false, 1000, 1, 0}
 >>>>>>> b35a666 (arreglos en el anti aimbot)
+=======
+	{WORK_TYPE_FAMILY, 0, "Diviso Per Tutti",		        	false, 1000, 1, 0},
+	{WORK_TYPE_FAMILY, 0, "The Family Sindacco",		        	false, 1000, 1, 0}
+>>>>>>> e76ea2e (anti pg removido)
 };
 
 new PLAYER_WORKS[MAX_PLAYERS][sizeof(work_info)];
@@ -129,10 +139,15 @@ new Float:obtain_work_coords[][obtain_work_coords_info] =
 >>>>>>> 583efcd (the family connor)
 =======
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //connor
+<<<<<<< HEAD
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755} //diviso
 <<<<<<< HEAD
 >>>>>>> b35a666 (arreglos en el anti aimbot)
 =======
+=======
+	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //diviso
+	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755} //sindacco
+>>>>>>> e76ea2e (anti pg removido)
 };
 
 // Basurero

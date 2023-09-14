@@ -1272,6 +1272,7 @@ PlayerIsInMafia(playerid)
 	if (PLAYER_WORKS[playerid][WORK_OSBORN]) return true;
 	if (PLAYER_WORKS[playerid][WORK_CONNOR]) return true;
 	if (PLAYER_WORKS[playerid][WORK_DIVISO]) return true;
+	if (PLAYER_WORKS[playerid][WORK_SINDACCO]) return true;
 	return false;
 }
 
@@ -1282,6 +1283,7 @@ GetPlayerMafia(playerid)
 	if (PLAYER_WORKS[playerid][WORK_OSBORN]) return WORK_OSBORN;
 	if (PLAYER_WORKS[playerid][WORK_CONNOR]) return WORK_CONNOR;
 	if (PLAYER_WORKS[playerid][WORK_DIVISO]) return WORK_DIVISO;
+	if (PLAYER_WORKS[playerid][WORK_SINDACCO]) return WORK_SINDACCO;
 	return -1;
 }
 
@@ -1295,6 +1297,7 @@ GetMafiaColor(mafia)
 		case WORK_OSBORN: color = 0x3a3eabFF;
 		case WORK_CONNOR: color = 0xFFFFFFFF;
 		case WORK_DIVISO: color = 0xa9ee70FF;
+		case WORK_SINDACCO: color = 0xFFFFFFFF;
 	}
 	return color;
 }
@@ -1947,6 +1950,47 @@ InviteToDS(playerid, to_player)
 	return 1;
 }
 
+InviteToSindacco(playerid, to_player)
+{
+	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
+	if (to_player == playerid) return 1;
+
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
+
+	new player_jobs = CountPlayerJobs(to_player);
+	if (ACCOUNT_INFO[to_player][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+
+	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
+
+	PLAYER_WORKS[to_player][WORK_SINDACCO] = true;
+	PLAYER_SKILLS[to_player][WORK_SINDACCO] = 1;
+	SavePlayerWorks(to_player);
+	SavePlayerSkills(to_player);
+
+	SendClientMessageEx(playerid, 0xa9ee70FF, "[DPT] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
+	return 1;
+}
+
 CountPlayerJobs(playerid)
 {
 	new count;
@@ -2165,6 +2209,21 @@ SendDivisoMafiaMessage(color, const message[])
 		if (IsPlayerConnected(i))
 		{
 			if (PLAYER_WORKS[i][WORK_DIVISO])
+			{
+				SendResponsiveMessage(i, color, message, 135);
+			}
+		}
+	}
+	return 1;
+}
+
+SendSindaccoMafiaMessage(color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_WORKS[i][WORK_SINDACCO])
 			{
 				SendResponsiveMessage(i, color, message, 135);
 			}
@@ -3171,6 +3230,14 @@ CheckMafiaEquipeSite(playerid)
 	if (PLAYER_WORKS[playerid][WORK_DIVISO])
 	{
 		if (IsPlayerInRangeOfPoint(playerid, 1.3, 1141.0912, -2064.0176, 69.0259))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_SINDACCO])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 727.9929, -1276.1163, 13.6484))
 		{
 			ShowDialog(playerid, DIALOG_POLICE_SHOP);
 		}

@@ -1348,7 +1348,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
                 return 0;
             }
 
-            if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+            /*if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 			{
 	            new modelid = GetVehicleModel(onFootData[PR_surfingVehicleId]);
 
@@ -1370,7 +1370,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				        }
 				    }
 			    }
-			}
+			}*/
         }
         else
         {
@@ -2691,6 +2691,15 @@ public OnPlayerText(playerid, text[])
 					else format(str_text, sizeof str_text, "[DPT] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], text[1]);
 
 					SendDivisoMafiaMessage(0xa9ee70FF, str_text);
+					return 0;
+				}
+
+				if (PLAYER_WORKS[playerid][WORK_SINDACCO])
+				{
+					if (text[1] == '!') format(str_text, sizeof str_text, "[TFS] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
+					else format(str_text, sizeof str_text, "[TFS] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], SINDACCO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], text[1]);
+
+					SendSindaccoMafiaMessage(0xFFFFFFFF, str_text);
 					return 0;
 				}
 

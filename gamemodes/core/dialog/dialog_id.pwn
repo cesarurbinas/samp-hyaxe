@@ -347,6 +347,12 @@ enum
 >>>>>>> e78b0f6 (tienda de cuetes)
 =======
 	DIALOG_BUY_ROCKET,
+<<<<<<< HEAD
 	DIALOG_CHANGE_ACCOUNT
 >>>>>>> a6b61b6 (cambio de cuenta)
+=======
+	DIALOG_CHANGE_ACCOUNT,
+	DIALOG_SINDACCO_MAFIA_LIST,
+	DIALOG_SINDACCO_MAFIA_MODIFY
+>>>>>>> e76ea2e (anti pg removido)
 };

@@ -2306,6 +2306,99 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
+		case DIALOG_SINDACCO_MAFIA_LIST:
+		{
+			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
+
+			new dialog[128 * 15],
+				listitem,
+				start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
+
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
+
+			new DBResult:Result, DB_Query[600];
+			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_SINDACCO, WORK_SINDACCO, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			Result = db_query(Database, DB_Query);
+
+			for(new i; i < db_num_rows(Result); i++ )
+			{
+				new name[24],
+					last_connection[24],
+					connected,
+					rank;
+
+				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = db_get_field_assoc_int(Result, "ID");	
+				db_get_field_assoc(Result, "NAME", name, 24);
+				db_get_field_assoc(Result, "LAST_CONNECTION", last_connection, 24);
+				connected = db_get_field_assoc_int(Result, "CONNECTED");
+				rank = db_get_field_assoc_int(Result, "TOTAL");
+
+				new line_str[128];
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, SINDACCO_RANKS[rank]);
+				else format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, SINDACCO_RANKS[rank], last_connection);
+
+				strcat(dialog, line_str);
+				listitem ++;
+				db_next_row(Result);
+			}
+			
+			db_free_result(Result);
+			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -2;
+
+			strcat(dialog, "{c9c9c9}- Siguiente\n"); listitem ++;
+			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
+
+			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{FFFFFF}The Family Sindacco", dialog, "Selecc.", "Cerrar");
+			return 1;
+		}
+		case DIALOG_SINDACCO_MAFIA_MODIFY:
+		{
+			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
+			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
+			Result = db_query(Database, DB_Query);
+
+			if (db_num_rows(Result))
+			{
+				db_get_field_assoc(Result, "NAME", name, 24);
+				current_rank = db_get_field_assoc_int(Result, "TOTAL");
+				found = true;
+			}
+			else found = false;
+			db_free_result(Result);
+
+			if (!found) return 1;
+			if (current_rank > PLAYER_SKILLS[playerid][WORK_SINDACCO])
+			{
+				ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
+				return 1;
+			}
+
+			new caption[45];
+			format(caption, sizeof caption, ""COL_RED"%s", name);
+
+			new dialog[45 * sizeof(SINDACCO_RANKS)], line_str[45];
+			format(dialog, sizeof dialog, ""COL_WHITE"Civil (eliminar)\n");
+
+			for(new i = 1; i != sizeof SINDACCO_RANKS; i ++)
+			{
+				if (i > PLAYER_SKILLS[playerid][WORK_SINDACCO])
+				{
+					if (current_rank == i) format(line_str, sizeof line_str, "{666666}%s (actual)\n", SINDACCO_RANKS[i]);
+					else format(line_str, sizeof line_str, "{666666}%s\n", SINDACCO_RANKS[i]);
+				}
+				else
+				{
+					if (current_rank == i) format(line_str, sizeof line_str, ""COL_WHITE"%s (actual)\n", SINDACCO_RANKS[i]);
+					else format(line_str, sizeof line_str, ""COL_WHITE"%s\n", SINDACCO_RANKS[i]);
+				}
+				strcat(dialog, line_str);
+			}
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
+			return 1;
+		}
 		case DIALOG_POLICE_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
@@ -3100,6 +3193,16 @@ ShowDialog(playerid, dialogid)
 				{
 					strcat(dialog, "Invitar a DPT\n");
 					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 11;
+					listitem ++;
+				}
+			}
+
+			if (PLAYER_WORKS[playerid][WORK_SINDACCO])
+			{
+				if (PLAYER_SKILLS[playerid][WORK_SINDACCO] >= 22)
+				{
+					strcat(dialog, "Invitar a TFS\n");
+					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 12;
 					listitem ++;
 				}
 			}

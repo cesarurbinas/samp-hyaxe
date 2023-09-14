@@ -168,6 +168,35 @@ new const DIVISO_RANKS[][] =
 	"Jefes Altos" // $100.000
 };
 
+new const SINDACCO_RANKS[][] =
+{
+	"Civil",
+	"nova recluta",
+	"guardia I",
+	"guardia II",
+	"asociado",
+	"soldato I",
+	"soldato II",
+	"Raccoglitrice di droga",
+	"sicari I",
+	"sicari II",
+	"trafficanti I",
+	"trafficanti II",
+	"armaiolo I",
+	"armaiolo II",
+	"Capo guardia",
+	"Caporegime",
+	"Capo di sicari",
+	"Capo di trafficanti",
+	"Capo armaiolo",
+	"consigliere",
+	"il Boss",
+	"Sottocapo",
+	"il capo ",
+	"representantev",
+	"leity"
+};
+
 TextToSpanish(const base[])
 {
 	new result[1024];

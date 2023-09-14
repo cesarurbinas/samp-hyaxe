@@ -4773,6 +4773,99 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else ShowDialog(playerid, DIALOG_DIVISO_MAFIA_LIST);
 			return 1;
 		}
+		case DIALOG_SINDACCO_MAFIA_LIST:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
+				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -2) // Siguiente
+				{
+					new the_query[128];
+					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_SINDACCO);
+
+					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
+					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
+					ShowDialog(playerid, dialogid);
+				}
+				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -3) //Anterior
+				{
+					new the_query[128];
+					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_SINDACCO);
+
+					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
+					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
+					ShowDialog(playerid, dialogid);
+				}
+				else
+				{
+					if (PLAYER_SKILLS[playerid][WORK_SINDACCO] >= 22)
+					{
+						PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
+						ShowDialog(playerid, DIALOG_SINDACCO_MAFIA_MODIFY);
+					}
+				}
+			}
+			return 1;
+		}
+		case DIALOG_SINDACCO_MAFIA_MODIFY:
+		{
+			if (response)
+			{
+				if (listitem > PLAYER_SKILLS[playerid][WORK_SINDACCO])
+				{
+				    ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
+
+					return 1;
+				}
+
+				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
+				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
+				Result = db_query(Database, DB_Query);
+
+				if (db_num_rows(Result))
+				{
+					db_get_field_assoc(Result, "NAME", name, 24);
+					connected = db_get_field_assoc_int(Result, "CONNECTED");
+					player_id = db_get_field_assoc_int(Result, "PLAYERID");
+					current_rank = db_get_field_assoc_int(Result, "TOTAL");
+					found = true;
+				}
+				else found = false;
+				db_free_result(Result);
+
+				if (!found) return 1;
+				if (current_rank > PLAYER_SKILLS[playerid][WORK_SINDACCO])
+				{
+				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este jugador porque es un rango superior al tuyo.", 3);
+					return 1;
+				}
+
+				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
+				db_free_result(db_query(Database, DB_Query));
+				SendClientMessageEx(playerid, 0xFFFFFFFF, "[TFS] "COL_WHITE" El nuevo rango de %s es: %s.", name, SINDACCO_RANKS[listitem]);
+
+				if (listitem == 0)
+				{
+					format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
+					db_free_result(db_query(Database, DB_Query));
+				}
+
+				if (connected)
+				{
+					PLAYER_SKILLS[player_id][WORK_SINDACCO] = listitem;
+
+					if (listitem == 0)
+					{
+						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_SINDACCO) EndPlayerJob(player_id);
+						PLAYER_WORKS[player_id][WORK_SINDACCO] = false;
+						SendClientMessageEx(player_id, 0xFFFFFFFF, "[TFS] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", SINDACCO_RANKS[ PLAYER_SKILLS[playerid][WORK_SINDACCO] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+					}
+					else SendClientMessageEx(player_id, 0xFFFFFFFF, "[TFS] "COL_WHITE" El %s %s ha modificado tu rango a %s.", SINDACCO_RANKS[ PLAYER_SKILLS[playerid][WORK_SINDACCO] ], PLAYER_TEMP[playerid][py_RP_NAME], SINDACCO_RANKS[listitem]);
+				}
+			}
+			else ShowDialog(playerid, DIALOG_SINDACCO_MAFIA_LIST);
+			return 1;
+		}
 		case DIALOG_POLICE_SHOP:
 		{
 			if (response)
@@ -5499,6 +5592,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 11:
 					{
 						InviteToDS(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
+						return 1;
+					}
+					case 12:
+					{
+						InviteToSindacco(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
 						return 1;
 					}
 				}

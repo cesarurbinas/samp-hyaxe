@@ -7,7 +7,7 @@ from discord.ext import commands
 
 
 ## INIT ##
-client = commands.Bot(command_prefix = '!')
+client = commands.Bot(command_prefix = '!', help_command = None)
 
 
 ## EVENTS ##

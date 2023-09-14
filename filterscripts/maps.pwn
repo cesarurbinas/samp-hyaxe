@@ -24,8 +24,18 @@ public OnFilterScriptInit()
 	new minero_Actor[1];
 	new payaso_object[51];
 	new payaso[12];
-	//new Actor_LCN[15];
+	new Actor_LCN[15];
     new object;
+
+    // sindacco
+    /*CreateDynamicObject(5154, 765.18347, -1181.18372, 22.05440,   -0.02000, 0.00000, 80.00000);
+    CreateDynamicObject(8613, 743.88922, -1190.20984, 23.41540,   0.00000, 0.00000, -25.00000);
+    CreateDynamicObject(14791, 774.51141, -1259.23291, 14.59650,   0.00000, 0.00000, 0.00000);
+    CreateDynamicObject(14449, 764.52777, -1259.50940, 13.75530,   0.00000, 0.00000, 0.00000);
+    CreateDynamicObject(4726, 763.96887, -1182.21313, 25.89720,   0.00000, 0.00000, 0.00000);*/
+
+    // Nahuel
+    CreateDynamicObject(1593, 9928.12305, -6055.09424, 2177.82275,   0.00000, 0.00000, 0.00000);
 
     // cyber
     tmpobjid = CreateDynamicObject(19358, 1949.982788, -1815.597290, 12.286856, 0.000000, 0.000000, 0.000000, -1, -1, -1, 500.00, 500.00); 
@@ -10315,7 +10325,7 @@ public OnFilterScriptInit()
     CreateDynamicObject(1645, 231.27141, -1856.30371, 2.30417,   0.00000, 0.00000, 0.00000);
     CreateDynamicObject(14820, 221.39044, -1792.39343, 4.98263,   0.00000, 0.00000, 0.00000);  
 
-	/*//HQ La Cosa Nostra + Finca
+	//HQ La Cosa Nostra + Finca
     tmpobjid = CreateDynamicObject(19379, 680.3571, -1274.1031, 12.6069, 0.0000, 90.0000, -0.2998); //wall027
     SetDynamicObjectMaterial(tmpobjid, 0, 1407, "break_f_w", "CJ_GREENWOOD", 0x00000000);
     tmpobjid = CreateDynamicObject(8613, -1101.3530, -946.3820, 131.3188, 0.0000, 0.0000, 91.4000); //vgsSstairs03_lvs
@@ -10940,7 +10950,7 @@ public OnFilterScriptInit()
     Actor_LCN[11] = CreateActor(81, 772.4558, -1290.5373, 13.9903, 41.7999); //Boxer
     Actor_LCN[12] = CreateActor(125, 653.3991, -1231.6910, 17.4157, 69.9999); //The Mafia
     Actor_LCN[13] = CreateActor(164, 679.2631, -1259.1573, 14.4573, 55.5998); //White Bouncer
-    Actor_LCN[14] = CreateActor(179, 767.9744, -1290.1274, 15.6503, 0.0000); //Ammunation Salesman*/
+    Actor_LCN[14] = CreateActor(179, 767.9744, -1290.1274, 15.6503, 0.0000); //Ammunation Salesman
 
 	// heix
 	CreateDynamicObject(3578, 2525.36646, -2575.11523, 13.17190,   0.00000, 0.00000, 90.62000);
@@ -23788,6 +23798,16 @@ public OnFilterScriptInit()
 
 public OnPlayerConnect(playerid)
 {
+    // sindacco
+    // RemoveBuildingForPlayer(playerid, 733, 778.2109, -1207.2031, 13.5391, 0.25);
+
+    // nahuel
+    RemoveBuildingForPlayer(playerid, 3737, 169.2969, -1332.3438, 71.5938, 0.25);
+    RemoveBuildingForPlayer(playerid, 3604, 169.2969, -1332.3438, 71.5938, 0.25);
+    RemoveBuildingForPlayer(playerid, 700, 223.2656, -1369.0938, 52.3438, 0.25);
+    RemoveBuildingForPlayer(playerid, 762, 209.5547, -1318.4922, 74.6016, 0.25);
+    RemoveBuildingForPlayer(playerid, 671, 160.0703, -1283.3281, 69.3203, 0.25);
+    
     // cyber
     RemoveBuildingForPlayer(playerid, 1412, 1906.770, -1797.420, 13.812, 0.250);
     RemoveBuildingForPlayer(playerid, 1412, 1912.050, -1797.420, 13.812, 0.250);

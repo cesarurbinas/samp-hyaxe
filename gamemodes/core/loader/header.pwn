@@ -108,8 +108,8 @@ SanAndreas()
 	//24/7
 	CreateDynamic3DTextLabel(""COL_RED"Tienda 24/7\n"COL_WHITE"12 productos disponibles", 0xF7F7F7FF, -27.964675, -89.948631, 1003.546875, 10.0, .testlos = true, .interiorid = 18);
 
-	// ElectrÃ³nica
-	CreateDynamic3DTextLabel(""COL_RED"Tienda ElectrÃ³nica\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 1722.2310, -1253.8021, 471.1665, 10.0, .testlos = true, .interiorid = 17);
+	// Electrónica
+	CreateDynamic3DTextLabel(""COL_RED"Tienda Electrónica\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 1722.2310, -1253.8021, 471.1665, 10.0, .testlos = true, .interiorid = 17);
 	
 	// Farmacia
 	CreateDynamic3DTextLabel(""COL_RED"Farmacia\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, -198.002197, -1762.759643, 675.768737, 10.0, .testlos = true, .interiorid = 3);
@@ -240,9 +240,9 @@ SanAndreas()
 	}
 
 	//Notario
-	CreateDynamic3DTextLabel(""COL_WHITE"Vender una propiedad o vehÃ­culo", 0xF7F7F700, 1796.071655, -1414.565307, 2770.660156, 10.0, .testlos = true, .worldid = 20, .interiorid = 20);
+	CreateDynamic3DTextLabel(""COL_WHITE"Vender una propiedad o vehículo", 0xF7F7F700, 1796.071655, -1414.565307, 2770.660156, 10.0, .testlos = true, .worldid = 20, .interiorid = 20);
 	//Grua
-	CreateDynamic3DTextLabel(""COL_WHITE"Servicio de grÃºa", 0xF7F7F700,  1795.293823,-1407.773681,2770.660156, 10.0, .testlos = true, .worldid = 20, .interiorid = 20);
+	CreateDynamic3DTextLabel(""COL_WHITE"Servicio de grúa", 0xF7F7F700,  1795.293823,-1407.773681,2770.660156, 10.0, .testlos = true, .worldid = 20, .interiorid = 20);
 	
 	//San Andreas Vehicles
 	for(new i = 0; i != sizeof San_Andreas_Vehicles; i ++)
@@ -334,9 +334,9 @@ SanAndreas()
 		AddKeyArea(HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], 0.8, KEY_TYPE_Y);
 	}
 
-	CreateDynamic3DTextLabel(""COL_RED"Balloon Express\n"COL_WHITE"Viaje en globo aerostÃ¡tico (200$)", 0xF7F7F7FF, -370.339721, -1634.205932, 25.057666, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Balloon Express\n"COL_WHITE"Viaje en globo aerostático (200$)", 0xF7F7F7FF, -370.339721, -1634.205932, 25.057666, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
-	CreateDynamic3DTextLabel(""COL_WHITE"Armamento para policÃ­as", 0xF7F7F700, 1867.665283, -1712.853515, 5216.709960, 5.0, .testlos = true, .worldid = 0, .interiorid = 6);
+	CreateDynamic3DTextLabel(""COL_WHITE"Armamento para policías", 0xF7F7F700, 1867.665283, -1712.853515, 5216.709960, 5.0, .testlos = true, .worldid = 0, .interiorid = 6);
 
 	//Safe Zones
 	for(new i = 0; i != sizeof SAFE_ZONES; i ++)
@@ -371,7 +371,7 @@ SanAndreas()
 		AddKeyArea(LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], 1.8, KEY_TYPE_H);
 	}
 
-	//MecÃ¡nico
+	//Mecánico
 	//Mechanic_Area = CreateDynamicRectangle(-915.255050, -1911.812377, -500.539089, -1979.635253, 0, 0);
 	Mechanic_Area = CreateDynamicCircle(-89.0, -1170.0, 50,0);
 
@@ -395,37 +395,38 @@ SanAndreas()
 	CreateDynamic3DTextLabel("{FFFFFF}The Family Connor\n"COL_WHITE"Equipamiento", 0xF7F7F700, 419.4871, -1001.7376, 92.8918, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel("{a9ee70}Diviso Per Tutti\n"COL_WHITE"Equipamiento", 0xF7F7F700, 1141.0912, -2064.0176, 69.0259, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 1298.5734, -799.0347, 84.1406, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{FFFFFF}The Family Sindacco\n"COL_WHITE"Equipamiento", 0xF7F7F700, 1298.5734, -799.0347, 84.1406, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF7F7F700, -187.830596, -2249.291503, 24.332202, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF7F7F700, 727.9929, -1276.1163, 13.6484, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	//meca
 	for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
 	{
 		new str_text[128];
-		format(str_text, sizeof(str_text), ""COL_RED"Levantador nÂº %d\n"COL_WHITE"AcÃ©rcate para usar", i + 1);
+		format(str_text, sizeof(str_text), ""COL_RED"Levantador nº %d\n"COL_WHITE"Acércate para usar", i + 1);
 		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2] + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 		AddKeyArea(MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], 1.5, KEY_TYPE_H);
 	}
 
-	CreateDynamic3DTextLabel(""COL_RED"Taller mecÃ¡nico\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 1060.838256, -917.609741, 43.124679, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Taller mecánico\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 1060.838256, -917.609741, 43.124679, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	//pescador
-	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nÂº 1", 0xF7F7F7FF, 1955.022094, -189.402023, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nÂº 2", 0xF7F7F7FF, 2209.482421, -231.312026, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nÂº 3", 0xF7F7F7FF, 2209.482421, -231.312026, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nÂº 4", 0xF7F7F7FF, 1858.291503, -69.229499, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Comprar caÃ±a de pescar\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 2125.901123, -65.776679, 1.585963, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Vender pescados\n"COL_WHITE"Venga aquÃ­ para vender sus peces", 0xF7F7F7FF, 2157.049560, -92.550987, 2.798943, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nº 1", 0xF7F7F7FF, 1955.022094, -189.402023, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nº 2", 0xF7F7F7FF, 2209.482421, -231.312026, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nº 3", 0xF7F7F7FF, 2209.482421, -231.312026, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nº 4", 0xF7F7F7FF, 1858.291503, -69.229499, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Comprar caña de pescar\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 2125.901123, -65.776679, 1.585963, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Vender pescados\n"COL_WHITE"Venga aquí para vender sus peces", 0xF7F7F7FF, 2157.049560, -92.550987, 2.798943, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	// Minero
 	CreateDynamic3DTextLabel(""COL_RED"Puesto para mineros\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 509.910125, -708.205383, 19.242210, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	
 	//heliport
-	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nÂº 1\n"COL_WHITE"AcÃ©rcate para usar", 0xF7F7F700, 1876.87915, -2286.58911, 1.16550 + 15, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nÂº 2\n"COL_WHITE"AcÃ©rcate para usar", 0xF7F7F700, 1055.9615, -910.1790, 49.1911 + 1, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nÂº 3\n"COL_WHITE"AcÃ©rcate para usar", 0xF7F7F700, 1037.1727, -911.3947, 49.1911 + 1, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 1\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1876.87915, -2286.58911, 1.16550 + 15, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 2\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1055.9615, -910.1790, 49.1911 + 1, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 3\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1037.1727, -911.3947, 49.1911 + 1, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	
-	CreateDynamic3DTextLabel(""COL_RED"Muelle nÂº 1\n"COL_WHITE"AcÃ©rcate para usar", 0xF7F7F700, 729.8204, -1512.3397, -0.5818 + 1, 40.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Muelle nº 1\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 729.8204, -1512.3397, -0.5818 + 1, 40.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	
 	//Ruta 0
 	CreateTrashCheckpoint(0, 1440, 1576.18823, -1881.10181, 13.07472, 0.00000, 0.00000, 34.68000);

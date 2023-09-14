@@ -1662,6 +1662,14 @@ CMD:mafia(playerid, params[])
 		ShowDialog(playerid, DIALOG_DIVISO_MAFIA_LIST);
 		return 1;
 	}
+
+	if (PLAYER_WORKS[playerid][WORK_SINDACCO])
+	{
+		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
+		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
+		ShowDialog(playerid, DIALOG_SINDACCO_MAFIA_LIST);
+		return 1;
+	}
 	
 	ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
 	return 1;
