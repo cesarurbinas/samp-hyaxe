@@ -1837,36 +1837,9 @@ CMD:setinterior(playerid, params[])
 CMD:lpos(playerid, params[])
 {
 	new Float:p[4], interior, vw;
-	if (sscanf(params, "p<,>ffffdd", p[0], p[1], p[2], p[3], interior, vw)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /spos [X], [Y], [Z], [ANGLE], [INTERIOR], [VIRTUAL WORLD]");
+	if (sscanf(params, "p<,>ffffdd", p[0], p[1], p[2], p[3], interior, vw)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /lpos [X], [Y], [Z], [ANGLE], [INTERIOR], [VIRTUAL WORLD]");
 
 	SetPlayerPosEx(playerid, p[0], p[1], p[2], p[3], interior, vw);
-	return 1;
-}
-
-CMD:spos(playerid, params[])
-{
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /spos <tag>");
-
-	new 
-		Float:x,
-		Float:y,
-		Float:z,
-		Float:angle,
-		str[144];
-
-	GetPlayerPos(playerid,x,y,z);
-	GetPlayerFacingAngle(playerid,angle);
-
-	SendClientMessage(playerid,-1,"Posición guardada.");
-
-	new File:spawn = fopen("spos-codes.txt", io_append);
-
- 	format(str, 256, ",\r\n{%f, %f, %f, %f} /*%s*/", x, y, z, angle, params);
-
-  	fwrite(spawn, str);
-    fclose(spawn);
-
-    SendCmdLogToAdmins(playerid, "spos", params);
 	return 1;
 }
 
