@@ -30039,6 +30039,43 @@ UpdatePlayerTrashRecycleSize(playerid)
 	return 1;
 }
 
+CALLBACK: FixVehicleUpdate(playerid, vehicleid)
+{
+	if (vehicleid == INVALID_VEHICLE_ID)
+	{
+		ShowPlayerMessage(playerid, "~r~Cancelado", 3);
+		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
+		ClearAnimations(playerid);
+		return 0;
+	}
+
+	if (PLAYER_TEMP[playerid][py_FIX_VALUE] < 100)
+	{
+		PLAYER_TEMP[playerid][py_FIX_VALUE] += (15 + minrand(1, 8));
+		if (PLAYER_TEMP[playerid][py_FIX_VALUE] > 100) PLAYER_TEMP[playerid][py_FIX_VALUE] = 100;
+
+		ApplyAnimation(playerid, "COP_AMBIENT", "COPBROWSE_NOD", 4.1, true, false, false, false, 0, false);
+		
+		new str_text[64];
+		format(str_text, sizeof(str_text), "Reparando ~r~%d%", PLAYER_TEMP[playerid][py_FIX_VALUE]);
+		ShowPlayerMessage(playerid, str_text, 2);
+
+		if (PLAYER_TEMP[playerid][py_FIX_VALUE] > 99)
+		{
+			ShowPlayerMessage(playerid, "Reparando ~r~100%", 2);
+			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
+			ClearAnimations(playerid);
+			PLAYER_MISC[playerid][MISC_FIXKIT] -= 1;
+
+			new Float:health;
+			health = GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] + 150.0;
+			if (health > 1000.0) health = 1000.0;
+			SetVehicleHealthEx(vehicleid, health);
+		}
+	}
+	return 1;
+}
+
 CALLBACK: RecycleUp(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_RECYCLE_BIN_VALUE] < 100)

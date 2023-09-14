@@ -196,6 +196,20 @@ inv_AccommodateItems(playerid)
 		}
 	}
 
+	if(PLAYER_MISC[playerid][MISC_FIXKIT] > 0)
+	{
+		for(new i; i != PLAYER_MISC[playerid][MISC_FIXKIT]; i ++)
+		{
+			free_slot = inv_GetFreeSlot(playerid);
+			if(!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
+			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 53;
+			PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = 1;
+			inv_ItemToTextdraw(playerid, free_slot, 0);
+		}
+	}
+
 	if(PLAYER_MISC[playerid][MISC_MEDICINE] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);

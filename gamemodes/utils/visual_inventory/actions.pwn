@@ -92,166 +92,192 @@ UseItemSlot(playerid)
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 	new slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
 	
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 0)
-	{
-		new 
-			target_player = GetPlayerCameraTargetPlayer(playerid),
-			Float:pos[4];
-	
-		PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] = target_player;
-		GetPlayerPos(target_player, pos[0], pos[1], pos[2]);
 
-		if(IsPlayerInRangeOfPoint(playerid, 1.2, pos[0], pos[1], pos[2]))
+	switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
+	{
+		case 0:
 		{
-			KillTimer(PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16]);
-			PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16] = SetTimerEx("StandUpBotikin", 5000, false, "ii", playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
-
-			ApplyAnimation(playerid, "MEDIC", "CPR", 4.1, false, 0, 0, 0, 0, 1);
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Usa un botiquín.", 0xffcb90FF, 20.0, 2000);
-		}
-		return 1;
-	}
-
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 1)
-	{
-		if(PLAYER_MISC[playerid][MISC_MEDICINE] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes medicamentos.", 3);
-		if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_REMEDY]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir medicamentos.", 3);
-		//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
-
-		PLAYER_MISC[playerid][MISC_MEDICINE] --;
-		SavePlayerMisc(playerid);
-		GivePlayerHealthEx(playerid, 10.0);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Se toma un medicamento.", 0xffcb90FF, 20.0, 2000);
-		ShowPlayerMessage(playerid, "Consumiste un medicamento.", 2);
-		ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
-		ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
-		PLAYER_TEMP[playerid][py_LIMIT_REMEDY] = gettime();
-		ResetItemBody(playerid);
-		return 1;
-	}
-
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 2)
-	{
-		if(PLAYER_MISC[playerid][MISC_VENDAS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes vendas.", 3);
-		if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_BAND]) < 10) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 10 segundos para volver a usar vendas.", 3);
-		//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
-
-		PLAYER_MISC[playerid][MISC_VENDAS] --;
-		SavePlayerMisc(playerid);
-		GivePlayerHealthEx(playerid, 5.0);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Usa una venda.", 0xffcb90FF, 20.0, 2000);
-		ShowPlayerMessage(playerid, "Usaste una venda.", 2);
-		PLAYER_TEMP[playerid][py_LIMIT_BAND] = gettime();
-		ResetItemBody(playerid);
-		return 1;
-	}
-
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 3)
-	{
-		if(PLAYER_MISC[playerid][MISC_CANNABIS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes marihuana.", 3);
-		if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_WEED]) < 30) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 30 segundos para volver a consumir marihuana.", 3);
-		//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
-
-		PLAYER_MISC[playerid][MISC_CANNABIS] --;
-		SavePlayerMisc(playerid);
-		GivePlayerHealthEx(playerid, 10.0);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Consume marihuana.", 0xffcb90FF, 20.0, 2000);
-		ShowPlayerMessage(playerid, "Consumiste marihuana.", 2);
-		GivePlayerDrunkLevel(playerid, 9000);
-		ApplyAnimation(playerid,"ped","Smoke_in_car",4.1,1,1,1,1,1);
-		SetTimerEx("StopDrugEffect", 15000, false, "i", playerid);
-		PLAYER_TEMP[playerid][py_LIMIT_WEED] = gettime();
-		ResetItemBody(playerid);
-		return 1;
-	}
-
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 4)
-	{
-		if(PLAYER_MISC[playerid][MISC_CRACK] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes crack.", 3);
-		if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_CRACK]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir crack.", 3);
-		//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
+			new 
+				target_player = GetPlayerCameraTargetPlayer(playerid),
+				Float:pos[4];
 		
-		PLAYER_MISC[playerid][MISC_CRACK] --;
-		SavePlayerMisc(playerid);
-		GivePlayerHealthEx(playerid, 25.0);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Consume crack", 0xffcb90FF, 20.0, 2000);
-		ShowPlayerMessage(playerid, "Consumiste crack.", 2);
-		GivePlayerDrunkLevel(playerid, 10000);
-		ApplyAnimation(playerid,"ped","Smoke_in_car",4.1,1,1,1,1,1);
-		SetTimerEx("StopDrugEffect", 15000, false, "i", playerid);
-		PLAYER_TEMP[playerid][py_LIMIT_CRACK] = gettime();
-		ResetItemBody(playerid);
-		return 1;
-	}
+			PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] = target_player;
+			GetPlayerPos(target_player, pos[0], pos[1], pos[2]);
 
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 5)
-	{
-		if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del vehículo para vertir el bidón.", 3);
+			if(IsPlayerInRangeOfPoint(playerid, 1.2, pos[0], pos[1], pos[2]))
+			{
+				KillTimer(PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16]);
+				PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16] = SetTimerEx("StandUpBotikin", 5000, false, "ii", playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
 
-		new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-		if(vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No estás cerca de ningún vehículo.", 3);
-
-		if(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
-		{
-			ShowPlayerNotification(playerid, "Por favor, para primero el motor del vehículo.", 3);
+				ApplyAnimation(playerid, "MEDIC", "CPR", 4.1, false, 0, 0, 0, 0, 1);
+				SetPlayerChatBubble(playerid, "\n\n\n\n* Usa un botiquín.", 0xffcb90FF, 20.0, 2000);
+			}
 			return 1;
 		}
 
-		ShowDialog(playerid, DIALOG_FUEL_DRUM);
-		ResetItemBody(playerid);
-		return 1;
-	}
-
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50)
-	{
-		ShowPhone(playerid);
-		return 1;
-	}
-
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 51)
-	{
-		if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
-
-		if(PLAYER_WORKS[playerid][WORK_FISHER])
+		case 1:
 		{
-			if(!IsPlayerInWater(playerid))
+			if(PLAYER_MISC[playerid][MISC_MEDICINE] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes medicamentos.", 3);
+			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_REMEDY]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir medicamentos.", 3);
+			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
+
+			PLAYER_MISC[playerid][MISC_MEDICINE] --;
+			SavePlayerMisc(playerid);
+			GivePlayerHealthEx(playerid, 10.0);
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Se toma un medicamento.", 0xffcb90FF, 20.0, 2000);
+			ShowPlayerMessage(playerid, "Consumiste un medicamento.", 2);
+			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
+			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
+			PLAYER_TEMP[playerid][py_LIMIT_REMEDY] = gettime();
+			ResetItemBody(playerid);
+			return 1;
+		}
+
+		case 2:
+		{
+			if(PLAYER_MISC[playerid][MISC_VENDAS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes vendas.", 3);
+			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_BAND]) < 10) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 10 segundos para volver a usar vendas.", 3);
+			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
+
+			PLAYER_MISC[playerid][MISC_VENDAS] --;
+			SavePlayerMisc(playerid);
+			GivePlayerHealthEx(playerid, 5.0);
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Usa una venda.", 0xffcb90FF, 20.0, 2000);
+			ShowPlayerMessage(playerid, "Usaste una venda.", 2);
+			PLAYER_TEMP[playerid][py_LIMIT_BAND] = gettime();
+			ResetItemBody(playerid);
+			return 1;
+		}
+
+		case 3:
+		{
+			if(PLAYER_MISC[playerid][MISC_CANNABIS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes marihuana.", 3);
+			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_WEED]) < 30) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 30 segundos para volver a consumir marihuana.", 3);
+			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
+
+			PLAYER_MISC[playerid][MISC_CANNABIS] --;
+			SavePlayerMisc(playerid);
+			GivePlayerHealthEx(playerid, 10.0);
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Consume marihuana.", 0xffcb90FF, 20.0, 2000);
+			ShowPlayerMessage(playerid, "Consumiste marihuana.", 2);
+			GivePlayerDrunkLevel(playerid, 9000);
+			ApplyAnimation(playerid,"ped","Smoke_in_car",4.1,1,1,1,1,1);
+			SetTimerEx("StopDrugEffect", 15000, false, "i", playerid);
+			PLAYER_TEMP[playerid][py_LIMIT_WEED] = gettime();
+			ResetItemBody(playerid);
+			return 1;
+		}
+
+		case 4:
+		{
+			if(PLAYER_MISC[playerid][MISC_CRACK] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes crack.", 3);
+			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_CRACK]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir crack.", 3);
+			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
+			
+			PLAYER_MISC[playerid][MISC_CRACK] --;
+			SavePlayerMisc(playerid);
+			GivePlayerHealthEx(playerid, 25.0);
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Consume crack", 0xffcb90FF, 20.0, 2000);
+			ShowPlayerMessage(playerid, "Consumiste crack.", 2);
+			GivePlayerDrunkLevel(playerid, 10000);
+			ApplyAnimation(playerid,"ped","Smoke_in_car",4.1,1,1,1,1,1);
+			SetTimerEx("StopDrugEffect", 15000, false, "i", playerid);
+			PLAYER_TEMP[playerid][py_LIMIT_CRACK] = gettime();
+			ResetItemBody(playerid);
+			return 1;
+		}
+
+		case 5:
+		{
+			if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del vehículo para vertir el bidón.", 3);
+
+			new vehicleid = GetPlayerCameraTargetVehicle(playerid);
+			if(vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No estás cerca de ningún vehículo.", 3);
+
+			if(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
 			{
-				if(PLAYER_TEMP[playerid][py_FISHING] == false)
+				ShowPlayerNotification(playerid, "Por favor, para primero el motor del vehículo.", 3);
+				return 1;
+			}
+
+			ShowDialog(playerid, DIALOG_FUEL_DRUM);
+			ResetItemBody(playerid);
+			return 1;
+		}
+
+		case 50:
+		{
+			ShowPhone(playerid);
+			return 1;
+		}
+
+		case 51:
+		{
+			if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
+
+			if(PLAYER_WORKS[playerid][WORK_FISHER])
+			{
+				if(!IsPlayerInWater(playerid))
 				{
-					if(IsPlayerInRangeOfPoint(playerid, 30.0, 1955.022094, -189.402023, -2.332746) || IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 1858.291503, -69.229499, -2.332746))
+					if(PLAYER_TEMP[playerid][py_FISHING] == false)
 					{
-						PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2], "Espera a que muerdan el anzuelo...");
-						TextDrawShowForPlayer(playerid, Textdraws[textdraw_PROGRESS_BG]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2]);
-						PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][3]);
-						PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
-						ApplyAnimation(playerid, "SWORD", "SWORD_IDLE", 4.1, true, false, false, false, 0, true);
-						SetTimerEx("StartFishing", minrand(6000, 30000), false, "i", playerid);
-						PLAYER_TEMP[playerid][py_FISHING] = true;
+						if(IsPlayerInRangeOfPoint(playerid, 30.0, 1955.022094, -189.402023, -2.332746) || IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 1858.291503, -69.229499, -2.332746))
+						{
+							PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2], "Espera a que muerdan el anzuelo...");
+							TextDrawShowForPlayer(playerid, Textdraws[textdraw_PROGRESS_BG]);
+							PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0]);
+							PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1]);
+							PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2]);
+							PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][3]);
+							PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
+							ApplyAnimation(playerid, "SWORD", "SWORD_IDLE", 4.1, true, false, false, false, 0, true);
+							SetTimerEx("StartFishing", minrand(6000, 30000), false, "i", playerid);
+							PLAYER_TEMP[playerid][py_FISHING] = true;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 6)
-	{
-		StartPlanting(playerid, 0);
-		return 1;
-	}
+		case 6:
+		{
+			StartPlanting(playerid, 0);
+			return 1;
+		}
 
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 7)
-	{
-		StartPlanting(playerid, 1);
-		return 1;
-	}
+		case 7:
+		{
+			StartPlanting(playerid, 1);
+			return 1;
+		}
 
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 8)
-	{
-		StartPlanting(playerid, 2);
-		return 1;
+		case 8:
+		{
+			StartPlanting(playerid, 2);
+			return 1;
+		}
+
+		case 53:
+		{
+			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
+			{
+				if (PLAYER_TEMP[playerid][py_FIX_VALUE] > 0) return ShowPlayerNotification(playerid, "Espere hasta terminar.", 4);
+
+				new vehicleid = INVALID_VEHICLE_ID;
+				vehicleid = GetPlayerCameraTargetVehicle(playerid);
+
+				if (vehicleid != INVALID_VEHICLE_ID)
+				{
+					if (PLAYER_MISC[playerid][MISC_FIXKIT])
+					{
+						PLAYER_TEMP[playerid][py_FIX_VALUE] = 0;
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
+						PLAYER_TEMP[playerid][py_TIMERS][32] = SetTimerEx("FixVehicleUpdate", 1000, true, "ii", playerid, vehicleid);
+					}
+				}
+			}
+			return 1;
+		}
 	}
 	return 1;
 }
