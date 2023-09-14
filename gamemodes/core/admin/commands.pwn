@@ -1381,29 +1381,6 @@ CMD:closeserver(playerid, params[])
 	return 1;
 }
 
-#if defined PROFILER_PROFILER_INC
-	CMD:profilerstart(playerid, params[])
-	{
-		Profiler_Start();
-		SendClientMessage(playerid, COLOR_WHITE, "Profiler iniciado");
-		return 1;
-	}
-
-	CMD:profilerstop(playerid, params[])
-	{
-		Profiler_Stop();
-		SendClientMessage(playerid, COLOR_WHITE, "Profiler detenido");
-		return 1;
-	}
-
-	CMD:profilerdump(playerid, params[])
-	{
-		Profiler_Dump();
-		SendClientMessage(playerid, COLOR_WHITE, "Profiler dump");
-		return 1;
-	}
-#endif
-
 CMD:a(playerid, params[])
 {
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /a <texto>");
@@ -1476,7 +1453,6 @@ CMD:setkicks(playerid, params[])
 
 CMD:accsaveall(playerid, params[])
 {
-	SendClientMessageEx(playerid, COLOR_WHITE, "Datos de usuarios guardados.");
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if(!IsPlayerConnected(i)) continue;
@@ -1488,6 +1464,8 @@ CMD:accsaveall(playerid, params[])
 		SavePlayerWorks(i);
 		SavePlayerMisc(i);
 	}
+
+	SendClientMessage(playerid, COLOR_WHITE, "Datos de usuarios guardados.");
 
 	return 1;
 }
@@ -1506,17 +1484,10 @@ CMD:dropitem(playerid, params[])
 	new type, ammount;
 	if (sscanf(params, "dd", type, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dropitem <tipo> <cantidad>");
 
-	new Float:pos[3];
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(playerid, x, y, z);
 	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000);
-	CreateDropItem(GetItemObjectByType(type), pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), GetItemNameByType(type), PLAYER_TEMP[playerid][py_NAME], type, ammount);
-	return 1;
-}
-
-CMD:testeasing(playerid, params[])
-{
-	initial_ease_pos = 0.500000;
-	PLAYER_TEMP[playerid][py_TIMERS][44] = SetTimerEx("UpdateEasing", 50, true, "i", playerid);
+	CreateDropItem(GetItemObjectByType(type), x, y, z - 1.0, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), GetItemNameByType(type), PLAYER_TEMP[playerid][py_NAME], type, ammount);
 	return 1;
 }
 
@@ -1529,50 +1500,6 @@ CMD:enablefps(playerid, params[])
 CMD:disablefps(playerid, params[])
 {
 	SetFirstPerson(playerid, false);
-	return 1;
-}
-
-CMD:testexit(playerid, params[])
-{
-	ExitSite(playerid);
-	return 1;
-}
-
-CMD:testbaul(playerid)
-{
-	ShowSecondaryInventory(playerid);
-	return 1;
-}
-
-CMD:testphone(playerid, params[])
-{
-	ShowPhone(playerid);
-	return 1;
-}
-
-CMD:testno(playerid, params[])
-{
-	ShowPlayerNotification(playerid, "Testttt", 5);
-	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-	return 1;
-}
-
-CMD:testno1(playerid, params[])
-{
-	ShowPlayerNotification(playerid, TextToSpanish("Masoquismo: Conducta sexual en la que se obtiene la excitación y la satisfacción sexual a través del propio dolor físico o psíquico, la humillación, la dominación y el sometimiento."), 4);
-	return 1;
-}
-
-CMD:testno2(playerid, params[])
-{
-	ShowPlayerNotification(playerid, "~r~Encarcelado~n~~w~5:40 minutos", 5);
-	return 1;
-}
-
-CMD:testno3(playerid, params[])
-{
-	ShowPlayerNotification(playerid, "Hola bienvenido yahir kozel a hyaxe", 5);
-	PlayerPlaySound(playerid, 1085, 0.0, 0.0, 0.0);
 	return 1;
 }
 
@@ -1759,7 +1686,7 @@ CMD:jailtime(playerid, params[])
 
 CMD:gpci(playerid, params[])
 {
-	new serial[41];
+	new serial[50];
 	gpci(playerid, serial, sizeof(serial));
 	SendClientMessageEx(playerid, COLOR_RED, "GPCI:"COL_WHITE" %s", serial);
 	return 1;

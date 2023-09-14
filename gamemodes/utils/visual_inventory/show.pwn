@@ -250,7 +250,7 @@ HideInventory(playerid)
 	return 1;
 }
 
-ShowSecondaryInventory(playerid)
+stock ShowSecondaryInventory(playerid)
 {
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 	HidePhone(playerid);
