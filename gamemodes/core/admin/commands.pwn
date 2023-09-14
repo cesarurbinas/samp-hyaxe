@@ -1,6 +1,6 @@
 new ADMIN_LEVEL_AC_IMMUNITY = 2;
 
-new pepe;
+/*new pepe;
 
 CMD:spawn(playerid, params[])
 {
@@ -36,7 +36,7 @@ public FCNPC_OnSpawn(npcid)
 	FCNPC_SetAmmo(npcid, 500);
 	printf("spanwed");
 	return 1;
-}
+}*/
 
 SendCommandAlert(playerid, to_player, const command[])
 {

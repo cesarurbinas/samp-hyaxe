@@ -107,9 +107,9 @@
 #include <discord-command>
 
 // Npcs
-//#include "core/npc/header.pwn"
-//#include "core/npc/functions.pwn"
-//#include "core/npc/callbacks.pwn"
+#include "core/npc/header.pwn"
+#include "core/npc/functions.pwn"
+#include "core/npc/callbacks.pwn"
 
 // Anticheat
 #include "core/anticheat/header.pwn"
@@ -2522,7 +2522,7 @@ public OnGameModeInit()
 	lgbt_map_index = random(sizeof(LGBT_MAPS));*/
 
 	// Npcs
-	//InitPilotsNpc();
+	InitPilotsNpc();
 
 	Log("status", "Servidor iniciado ("SERVER_VERSION").");
 	SendDiscordWebhook(":fire: Servidor iniciado ("SERVER_VERSION").", 1);
@@ -2534,7 +2534,7 @@ public OnGameModeExit()
 {
 	SendDiscordWebhook(":grey_exclamation: Servidor detenido.", 1);
 
-	//ExitPilotsNpc();
+	ExitPilotsNpc();
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
