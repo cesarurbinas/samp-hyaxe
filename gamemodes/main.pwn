@@ -259,7 +259,8 @@
 
 /* v1.0 Features */
 
-
+// Stall
+#include "core/stall/header.pwn"
 
 // Special maps
 #if defined HALLOWEEN_MODE
