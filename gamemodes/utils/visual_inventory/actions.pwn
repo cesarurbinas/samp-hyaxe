@@ -269,7 +269,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
 				{
-					AddItemToProperty(
+					AddItemToVehicle(
 						PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],
 						PLAYER_VISUAL_INV[playerid][slot_TYPE][slot],
 						PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]
