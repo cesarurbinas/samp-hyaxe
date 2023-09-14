@@ -6457,8 +6457,8 @@ CALLBACK: SendGift()
 
 		GenString(code, 8);
 
-		//AddGiftCode(code, type, extra);
-		//HTTP(0, HTTP_GET, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "GiftResponse");
+		AddGiftCode(code, type, extra);
+		HTTP(0, HTTP_GET, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "GiftResponse");
 	}
 	return 1;
 }
@@ -6628,7 +6628,10 @@ FormatDialogStrings()
 		format(Dialog_Lines_String, sizeof(Dialog_Lines_String), "{%06x}%s\n", CrewColors[i] >>> 8, CrewNameColors[i]);
 		strcat(DIALOG_CREATE_CREW_COLOR_String, Dialog_Lines_String);
 	}
+<<<<<<< HEAD
+=======
 
+>>>>>>> refs/rewritten/hmsai
 	return 1;
 }
 
