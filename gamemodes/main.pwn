@@ -36498,6 +36498,9 @@ CMD:c(playerid, params[])
 	if (to_player == playerid) return ShowPlayerMessage(playerid, "~r~No puedes darte cargos a tu mismo");
 	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
 	if (level > 6) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /c <ID o nombre> <1/6> <razon>");
+	if (strlen(inputtext) >= 24) return ShowPlayerMessage(playerid, "~r~Como máximo puedes introducir una razón de 32 caracteres.", 3);
+
+	PLAYER_TEMP[to_player][py_POLICE_REASON] = reason;
 
 	new str_text[128];
 	format(str_text, sizeof(str_text), "%s le puso %d cargos a ~r~%s~w~ (%s).", PLAYER_TEMP[playerid][py_NAME], level, PLAYER_TEMP[to_player][py_NAME], reason);

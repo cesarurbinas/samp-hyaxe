@@ -240,7 +240,8 @@ enum Temp_Enum
 	bool:py_EDITING_MODE,
 	py_EDITING_MODE_TYPE,
 	py_EDITING_OBJ,
-	bool:py_IN_TELE
+	bool:py_IN_TELE,
+	py_POLICE_REASON[32]
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
