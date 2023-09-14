@@ -11247,3 +11247,174 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [15:41:54] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
 [15:42:42] [part] Yahir_Kozel has left the server (0:0)
 [15:45:18] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[16:00:36] 
+[16:00:36] Server Plugins
+[16:00:36] --------------
+[16:00:36]  Loading plugin: crashdetect.dll
+[16:00:37]   CrashDetect v4.18.1 is OK.
+[16:00:37]   Loaded.
+[16:00:37]  Loading plugin: streamer.dll
+[16:00:37] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[16:00:37]   Loaded.
+[16:00:37]  Loading plugin: sscanf.dll
+[16:00:38] 
+
+[16:00:38]  ===============================
+
+[16:00:38]       sscanf plugin loaded.     
+
+[16:00:38]          Version:  2.8.3        
+
+[16:00:38]   (c) 2018 Alex "Y_Less" Cole  
+
+[16:00:38]  ===============================
+
+[16:00:38]   Loaded.
+[16:00:38]  Loading plugin: pawnraknet.dll
+[16:00:38] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[16:00:38]   Loaded.
+[16:00:38]  Loading plugin: SKY.dll
+[16:00:39] 
+[16:00:39]  ===============================
+[16:00:39]    
+[16:00:39]    ## SKY - 2.1.1 ## 
+[16:00:39]    
+[16:00:39]    (c) 2008 - Present | YSF Maintainers
+[16:00:39]    (c) 2015 | Oscar "Slice" Broman
+[16:00:39]    
+[16:00:39]    Server Version: 0.3.7 R2
+[16:00:39]    Operating System: Windows
+[16:00:39]    Built on: Dec 12 2019 at 12:21:36
+[16:00:39]    
+[16:00:39]  ===============================
+[16:00:39] 
+[16:00:39]   Loaded.
+[16:00:39]  Loading plugin: pawncmd.dll
+[16:00:40] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[16:00:40]   Loaded.
+[16:00:40]  Loading plugin: pawnregex.dll
+[16:00:40] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[16:00:40]   Loaded.
+[16:00:40]  Loading plugin: GPS.dll
+[16:00:42] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[16:00:42]   Loaded.
+[16:00:42]  Loading plugin: profiler.dll
+[16:00:42]   Profiler plugin 2.15.3
+[16:00:42]   Loaded.
+[16:00:42]  Loaded 9 plugins.
+
+[16:00:42] 
+[16:00:42] Filterscripts
+[16:00:42] ---------------
+[16:00:42]   Loading filterscript 'maps.amx'...
+[16:00:45]   Loaded 1 filterscripts.
+
+[16:00:47] [debug] Run time error 19: "File or function is not found"
+[16:00:47] [debug]  sv_init
+[16:00:47] [debug] Run time error 19: "File or function is not found"
+[16:00:47] [debug]  sv_init
+[16:00:47] Script[gamemodes/main.amx]: Run time error 19: "File or function is not found"
+[16:00:47] Number of vehicle models: 1
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[16:01:56] 
+[16:01:56] Server Plugins
+[16:01:56] --------------
+[16:01:56]  Loading plugin: crashdetect.dll
+[16:01:57]   CrashDetect v4.18.1 is OK.
+[16:01:57]   Loaded.
+[16:01:57]  Loading plugin: streamer.dll
+[16:01:57] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[16:01:57]   Loaded.
+[16:01:57]  Loading plugin: sscanf.dll
+[16:01:57] 
+
+[16:01:57]  ===============================
+
+[16:01:57]       sscanf plugin loaded.     
+
+[16:01:57]          Version:  2.8.3        
+
+[16:01:57]   (c) 2018 Alex "Y_Less" Cole  
+
+[16:01:57]  ===============================
+
+[16:01:57]   Loaded.
+[16:01:57]  Loading plugin: pawnraknet.dll
+[16:01:57] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[16:01:57]   Loaded.
+[16:01:57]  Loading plugin: SKY.dll
+[16:01:57] 
+[16:01:57]  ===============================
+[16:01:57]    
+[16:01:57]    ## SKY - 2.1.1 ## 
+[16:01:57]    
+[16:01:57]    (c) 2008 - Present | YSF Maintainers
+[16:01:57]    (c) 2015 | Oscar "Slice" Broman
+[16:01:57]    
+[16:01:57]    Server Version: 0.3.7 R2
+[16:01:57]    Operating System: Windows
+[16:01:57]    Built on: Dec 12 2019 at 12:21:36
+[16:01:57]    
+[16:01:57]  ===============================
+[16:01:57] 
+[16:01:57]   Loaded.
+[16:01:57]  Loading plugin: pawncmd.dll
+[16:01:57] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[16:01:57]   Loaded.
+[16:01:57]  Loading plugin: pawnregex.dll
+[16:01:57] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[16:01:57]   Loaded.
+[16:01:57]  Loading plugin: GPS.dll
+[16:01:59] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[16:01:59]   Loaded.
+[16:01:59]  Loading plugin: profiler.dll
+[16:01:59]   Profiler plugin 2.15.3
+[16:01:59]   Loaded.
+[16:01:59]  Loaded 9 plugins.
+
+[16:01:59] 
+[16:01:59] Filterscripts
+[16:01:59] ---------------
+[16:01:59]   Loading filterscript 'maps.amx'...
+[16:02:00]   Loaded 1 filterscripts.
+
+[16:02:03] [ANTI-CHEAT] Cargado
+[16:02:03] [ANTI-CHEAT] Version: 1.9.46
+[16:02:03] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[16:02:03] [debug] Base de datos conectada
+[16:02:21] [debug] Lugares cargados: 38
+[16:02:24] [debug] Propiedades libres: 1681.
+[16:02:24] [debug] Propiedades totales: 1775.
+[16:02:27] [debug] Bandas cargadas: 158
+[16:02:27] [debug] Territorios totales: 13
+[16:02:28] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[16:02:28] [info: language] Español - Spanish
+[16:02:28] [info: website] www.hyaxe.com
+[16:02:28] [info: discord] www.hyaxe.com/discord
+[16:02:28] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 107
+
+[16:02:28] Number of vehicle models: 121

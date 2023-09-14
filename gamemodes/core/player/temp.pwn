@@ -263,6 +263,11 @@ enum Temp_Enum
 	bool:py_IN_TELE,
 	py_POLICE_REASON[32],
 	bool:py_WANT_MEDIC,
-	py_LIMIT_AMBULANCE
+	py_LIMIT_AMBULANCE,
+	bool:py_VOICE_CHAT
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
+
+#if defined VOICE_CHAT
+	new SV_PTR:PLAYER_STREAM[MAX_PLAYERS], bool:VALID_CLIENT[MAX_PLAYERS];
+#endif

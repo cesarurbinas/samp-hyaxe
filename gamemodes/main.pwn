@@ -23,7 +23,7 @@
 #define MAX_SU_PROPERTIES 		4
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
-#define VOICE_CHAT
+//#define VOICE_CHAT
 
 // Other Library 
 #include <a_http>
@@ -43,6 +43,10 @@
 #include <hy_actor>
 #include <hy_selection>
 #include <profiler>
+
+#if defined VOICE_CHAT
+    #include <sampvoice>
+#endif
 
 // Lang
 #include <../../gamemodes/core/languages/es.pwn>
@@ -3922,6 +3926,31 @@ public OnPlayerConnect(playerid)
 		return 1;
 	}
 
+	#if defined VOICE_CHAT
+		if (sv_get_version(playerid) == SV_VERSION)
+		{
+			SendClientMessage(playerid, 0xec4134FF, "[DEBUG]{FFFFFF} Hyaxe Client detectado");
+
+			if (!sv_has_micro(playerid))
+		    {
+		        SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} No tienes un micrófono conectado");
+		    }
+
+		    PLAYER_STREAM[playerid] = sv_sgstream_create();
+		    sv_stream_player_attach(PLAYER_STREAM[playerid], playerid);
+		    sv_set_key(playerid, 0x5A);
+		    sv_record_volume(playerid, 9000.0);
+		    VALID_CLIENT[playerid] = true;
+
+		    SendClientMessage(playerid, 0xec4134FF, "[DEBUG]{FFFFFF} Sesión creada");
+		}
+		else
+		{
+			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} Instale/Actualice Hyaxe Client en {ec4134}www.hyaxe.com/client");
+			KickEx(playerid, 500);	
+		}
+	#endif
+
 	if (GetPlayersInIP(PLAYER_TEMP[playerid][py_IP]) > 5)
 	{
 		GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
@@ -4195,6 +4224,10 @@ public OnPlayerDisconnect(playerid, reason)
 		db_query(Database, DB_Query);
 	}
 
+	#if defined VOICE_CHAT
+		if (VALID_CLIENT[playerid]) sv_stream_delete(PLAYER_STREAM[playerid]);
+	#endif
+
   	if (PLAYER_TEMP[playerid][py_USER_LOGGED]) // ha pasado la pantalla de registro/login y ha estado jugando
   	{
   		ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
@@ -4289,6 +4322,37 @@ public OnPlayerDisconnect(playerid, reason)
   	return 1;
 }
 
+#if defined VOICE_CHAT
+	public SV_BOOL:OnPlayerVoice(SV_UINT:playerid, SV_PACKET:packet, SV_UINT:volume)
+	{
+		if (GetPlayerState(playerid) != PLAYER_STATE_SPECTATING)
+		{
+			new Float:pos[3];
+			GetPlayerPos(playerid, pos[0], pos[1], pos[2]); 
+
+			SetPlayerChatBubble(playerid, "Hablando...", 0x67DA5BFF, 10.00, 1000);
+
+			for(new i = 0; i < MAX_PLAYERS; i++)
+			{
+				if (PLAYER_TEMP[playerid][py_VOICE_TEST] == false)
+				{
+					if (playerid == i) continue;
+				}
+
+				if (!IsPlayerConnected(i)) continue; 
+				if (GetPlayerState(i) == PLAYER_STATE_SPECTATING) continue;
+				if (VALID_CLIENT[i] == false) continue;
+
+				if (IsPlayerInRangeOfPoint(i, 20.00, pos[0], pos[1], pos[2]))
+				{
+					sv_send_packet(packet, PLAYER_STREAM[i]);
+				}
+			}
+		}
+		return SV_TRUE;
+	}
+#endif
+
 ResetPlayerVariables(playerid)
 {
 	if (BOTS[playerid][b_ACTIVE])
@@ -4297,6 +4361,10 @@ ResetPlayerVariables(playerid)
 		KillTimer(BOTS[playerid][b_TIMER][1]);
 		BOTS[playerid][b_ACTIVE] = false;
 	}
+
+	#if defined VOICE_CHAT
+		VALID_CLIENT[playerid] = false;
+	#endif
 
 	new temp_PLAYER_TEMP[Temp_Enum]; PLAYER_TEMP[playerid] = temp_PLAYER_TEMP;
 	new temp_ACCOUNT_INFO[Account_Enum]; ACCOUNT_INFO[playerid] = temp_ACCOUNT_INFO;
@@ -7124,6 +7192,11 @@ CALLBACK: GiveAutoGift()
 public OnGameModeInit()
 {
 	//printf("ongamemodeini"); // debug juju
+	#if defined VOICE_CHAT
+		sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
+		printf("[VOICE] Frecuency: 24000, Rate: 60");
+	#endif
+
     SetWeaponDamage(WEAPON_SNIPER, DAMAGE_TYPE_RANGE, 7.0, 10.0, 25.0, 40.0, 30.0); //sniper
     SetWeaponDamage(WEAPON_VEHICLE, DAMAGE_TYPE_RANGE, 50.0, 10.0, 50.0, 40.0, 50.0); //vehiculo
     SetWeaponDamage(WEAPON_RIFLE, DAMAGE_TYPE_RANGE, 35.0, 30.0, 25.0, 320.0, 15.0); //rifle
