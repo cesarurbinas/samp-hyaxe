@@ -47,38 +47,6 @@ GetItemNameByType(type)
 	return name;
 }
 
-/*GetItemAmmount(playerid, type)
-{
-	new ammount;
-
-	switch(type)
-	{
-		case 0: ammount = PLAYER_MISC[playerid][MISC_BOTIKIN];
-		case 1: ammount = PLAYER_MISC[playerid][MISC_MEDICINE];
-		case 2: ammount = PLAYER_MISC[playerid][MISC_VENDAS];
-		case 3: ammount = PLAYER_MISC[playerid][MISC_CANNABIS];
-		case 4: ammount = PLAYER_MISC[playerid][MISC_CRACK];
-		case 5: ammount = PLAYER_MISC[playerid][MISC_FUEL_DRUM];
-		case 6: ammount = PLAYER_MISC[playerid][MISC_SEED_MEDICINE];
-		case 7: ammount = PLAYER_MISC[playerid][MISC_SEED_CANNABIS];
-		case 8: ammount = PLAYER_MISC[playerid][MISC_SEED_CRACK];
-		case 9: ammount = PLAYER_MISC[playerid][MISC_CARTRIDGE_1];
-		case 10: ammount = PLAYER_MISC[playerid][MISC_CARTRIDGE_2];
-		case 11: ammount = PLAYER_MISC[playerid][MISC_CARTRIDGE_3];
-	}
-	return ammount;
-}*/
-
-/*GetNoUseItem(type)
-{
-	new valid;
-	switch(type)
-	{
-		case 12..43: valid = true;
-	}
-	return valid;
-}*/
-
 GetItemObjectByType(type)
 {
 	new modelid;

@@ -172,7 +172,7 @@ bool:PlayerHasBoombox(playerid)
 CMD:parlante(playerid, params[])
 {	
 	new options[12];
-	if(sscanf(params, "s[12]", options)) return SendClientMessage(playerid, COLOR_WHITE, "USO: /parlante (colocar/reproducir/recoger/parar/opciones)");
+	if(sscanf(params, "s[12]", options)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /parlante (colocar/reproducir/recoger/parar/opciones)");
 
 	if(isequal(options, "colocar", true))
 	{
