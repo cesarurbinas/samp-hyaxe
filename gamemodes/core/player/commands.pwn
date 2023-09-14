@@ -15,10 +15,6 @@ CMD:reportar(playerid, params[])
 	SendMessageToAdmins(COLOR_ORANGE, str);
 	Log("reports", str);
 
-	new DCC_Channel:channelid;
-	channelid = DCC_FindChannelById("790742732829491230");
-	SendDiscordMessage(channelid, "[REPORTE] %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[params[0]][py_NAME], params[0], reason);
-
 	PLAYER_TEMP[ params[0] ][py_TOTAL_REPORTS] ++;
 	return 1;
 }
@@ -81,15 +77,16 @@ CMD:id(playerid, params[])
 	if (GetPlayerPing(to_player) < 80) ping = minrand(100, 300);
 	else ping = GetPlayerPing(to_player);
 
-	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Nombre: %s (%d) [Nivel %d] "COL_RED"|"COL_WHITE" ID de cuenta: %d",
+	SendClientMessageEx(playerid, COLOR_YELLOW, "• "COL_WHITE"Nombre: %s (%d) [Nivel %d] "COL_YELLOW"|"COL_WHITE" ID de cuenta: %d",
 		PLAYER_TEMP[to_player][py_NAME],
 		to_player,
 		GetPlayerScore(to_player),
 		acid
 	);
 	
-	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Versión: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f "COL_RED"|"COL_WHITE" Ping: %d",
+	SendClientMessageEx(playerid, COLOR_YELLOW, "• "COL_WHITE"Versión: %s (%s) "COL_YELLOW"|"COL_WHITE" PacketLoss: %.2f "COL_YELLOW"|"COL_WHITE" Ping: %d",
 		player_version,
+		(PLAYER_TEMP[to_player][py_ANDROID] ? "Android" : "PC"),
 		NetStats_PacketLossPercent(to_player),
 		ping
 	);
@@ -109,7 +106,7 @@ CMD:hora(playerid, params[])
 	gettime(time[0], time[1], time[2]);
 	getdate(time[3], time[4], time[5]);
 
-	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Hora: %02d:%02d:%02d "COL_RED"|"COL_WHITE" Fecha: %02d/%02d/%d",
+	SendClientMessageEx(playerid, COLOR_YELLOW, "• "COL_WHITE"Hora: %02d:%02d:%02d "COL_YELLOW"|"COL_WHITE" Fecha: %02d/%02d/%d",
 		time[0], time[1], time[2],
 		time[3], time[4], time[5]
 	);
@@ -185,7 +182,7 @@ CMD:pos(playerid, params[])
 	new Float:x, Float:y, Float:z, Float:angle;
 	GetPlayerPos(playerid, x, y, z);
 	GetPlayerFacingAngle(playerid, angle);
-	SendClientMessageEx(playerid, COLOR_WHITE, "X: %f Y: %f Z: %f ANGLE: %f "COL_RED"|"COL_WHITE" Virtual World: %d "COL_RED"|"COL_WHITE" Interior: %d", x, y, z, angle, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+	SendClientMessageEx(playerid, COLOR_WHITE, "X: %f Y: %f Z: %f ANGLE: %f "COL_YELLOW"|"COL_WHITE" Virtual World: %d "COL_YELLOW"|"COL_WHITE" Interior: %d", x, y, z, angle, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 	return 1;
 }
 
@@ -264,13 +261,13 @@ alias:cuenta("est")
 
 CMD:web(playerid, params[])
 {
-	SendClientMessage(playerid, COLOR_WHITE, "Web: "COL_RED""SERVER_WEBSITE"");
+	SendClientMessage(playerid, COLOR_WHITE, "Web: "COL_YELLOW""SERVER_WEBSITE"");
 	return 1;
 }
 
 CMD:discord(playerid, params[])
 {
-	SendClientMessage(playerid, COLOR_WHITE, "Discord: "COL_RED""SERVER_DISCORD"");
+	SendClientMessage(playerid, COLOR_WHITE, "Discord: "COL_YELLOW""SERVER_DISCORD"");
 	return 1;
 }
 
@@ -526,7 +523,7 @@ cmd:aim(playerid, params[])
 
 CMD:creditos(playerid, params[])
 {
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Colaboradores", ""COL_WHITE"Hyaxe es posible gracias a:\n\
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Colaboradores", ""COL_WHITE"Hyaxe es posible gracias a:\n\
 		Muphy, Atom, Kitis, Arkerooz, Heix, Cokito99\n\
 		Mitt, Alper, Deru, Blade, Nahuel37.", "Cerrar", "");
 	return 1;
@@ -535,10 +532,10 @@ CMD:creditos(playerid, params[])
 CMD:vincular(playerid, params[])
 {
 	new code = (ACCOUNT_INFO[playerid][ac_ID] + 5) * 2;
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Vincular", sprintf(""COL_WHITE"Código de vinculación: "COL_RED"%d", code), "Cerrar", "");
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Vincular", sprintf(""COL_WHITE"Código de vinculación: "COL_YELLOW"%d", code), "Cerrar", "");
 	
 	new str_text[200];
-	format(str_text, sizeof(str_text), "server.hyaxe.com:10500/B987Tbt97BTb9SAF9B8Ttasbfdf6/register/%s:%d:%d",
+	format(str_text, sizeof(str_text), "vulcan.hyaxe.com:10500/B987Tbt97BTb9SAF9B8Ttasbfdf6/register/%s:%d:%d",
 		PLAYER_TEMP[playerid][py_NAME],
 		code,
 		ACCOUNT_INFO[playerid][ac_SU]
@@ -613,7 +610,7 @@ CMD:guia(playerid, params[])
 	if (!PLAYER_PHONE[params[0]][player_phone_VALID]) return ShowPlayerMessage(playerid, "~r~Este jugador no tiene teléfono.", 2);
 	if (!PLAYER_PHONE[params[0]][player_phone_VISIBLE_NUMBER]) return ShowPlayerMessage(playerid, "~r~Este jugador ha decidido no mostrar su número en la guía.", 3);
 
-	SendClientMessageEx(playerid, COLOR_WHITE, "Teléfono de %s: "COL_RED"%d", PLAYER_TEMP[params[0]][py_RP_NAME], PLAYER_PHONE[params[0]][player_phone_NUMBER]);
+	SendClientMessageEx(playerid, COLOR_WHITE, "Teléfono de %s: "COL_YELLOW"%d", PLAYER_TEMP[params[0]][py_RP_NAME], PLAYER_PHONE[params[0]][player_phone_NUMBER]);
 	return 1;
 }
 
@@ -1033,71 +1030,6 @@ CMD:motor(playerid, params[])
 	return 1;
 }
 
-CMD:mecanico(playerid, params[])
-{
-	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mecánico.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_MECHANIC)
-	{
-		//ShowPlayerMessage(playerid, "~r~Ya estas en servicio en otro trabajo.", 3);
-		return 1;
-	}
-
-	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0,-69.941520, -1181.400634, 1.750000)) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-	if (!PLAYER_TEMP[playerid][py_WORKING_IN]) StartPlayerJob(playerid, WORK_MECHANIC);
-	else EndPlayerJob(playerid);
-	return 1;
-}
-
-/*CMD:menu(playerid, params[])
-{
-	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	ShowRangeUser(playerid);
-	SendClientMessage(playerid, COLOR_RED, "AVISO:"COL_WHITE" Esto es viejo, presione la tecla N para abrir el nuevo inventario.");
-	return 1;
-}*/
-
-/*CMD:plantar(playerid, params[])
-{
-	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-	if (PLAYER_TEMP[playerid][py_PLANTING]) return ShowPlayerMessage(playerid, "~r~Ya estas plantado algo.", 3);
-
-	new str_text[128];
-
-	if (gettime() < PLAYER_TEMP[playerid][py_LAST_PLANT_TIME] + 5)
-	{
-		new time = (60-(gettime()-PLAYER_TEMP[playerid][py_LAST_PLANT_TIME]));
-		format(str_text, sizeof(str_text), "Tienes que esperar %s minutos para volver a plantar.", TimeConvert(time));
-		ShowPlayerMessage(playerid, str_text, 4);
-		return 1;
-	}
-
-	if (GetPlayerPlantedPlants(playerid) > 25) return ShowPlayerMessage(playerid, "~r~Tienes muchas plantas, recógelas para seguir", 4);
-
-	for(new i = 0; i != MAX_PLANTS; i ++)
-	{
-		if (!PLANTS[i][plant_VALID]) continue;
-
-		new Float:x, Float:y, Float:z;
-		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], x, y, z);
-		if (IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
-		{
-			ShowPlayerMessage(playerid, "Aquí ya hay una planta, aléjate un poco para plantar.", 4);
-			return 1;
-		}
-	}
-
-	ShowDialog(playerid, DIALOG_PLANT_PLANTS);
-	return 1;
-}*/
-
 CMD:no(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
@@ -1427,82 +1359,6 @@ CMD:hablar(playerid, params[])
 	return 1;
 }
 
-/*CMD:clickslot(playerid, params[])
-{
-	new slot;
-	if (sscanf(params, "d", slot)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /clickslot <slot>");
-	if (slot < 0) return 0;
-	if (slot > 11) return 0;
-
-	PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = 0;
-	ClickInventorySlot(playerid, slot, true);
-	return 1;
-}
-
-CMD:equipitem(playerid, params[])
-{
-	new type;
-	if (sscanf(params, "d", type)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /equipitem <tipo>");
-	if (type < 0) return 0;
-
-	EquipItemByType(playerid, type);
-	return 1;
-}*/
-
-CMD:mafia(playerid, params[])
-{
-	if (PLAYER_WORKS[playerid][WORK_MAFIA])
-	{
-		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
-		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-		ShowDialog(playerid, DIALOG_MAFIA_LIST);
-		return 1;
-	}
-	
-	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
-	{
-		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
-		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-		ShowDialog(playerid, DIALOG_ENEMY_MAFIA_LIST);
-		return 1;
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_OSBORN])
-	{
-		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
-		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-		ShowDialog(playerid, DIALOG_OSBORN_MAFIA_LIST);
-		return 1;
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_CONNOR])
-	{
-		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
-		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-		ShowDialog(playerid, DIALOG_CONNOR_MAFIA_LIST);
-		return 1;
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_DIVISO])
-	{
-		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
-		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-		ShowDialog(playerid, DIALOG_DIVISO_MAFIA_LIST);
-		return 1;
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_SINDACCO])
-	{
-		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
-		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-		ShowDialog(playerid, DIALOG_SINDACCO_MAFIA_LIST);
-		return 1;
-	}
-	
-	ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
-	return 1;
-}
-
 CMD:vip(playerid, params[])
 {
 	if (ACCOUNT_INFO[playerid][ac_SU]) ShowDialog(playerid, DIALOG_SU);
@@ -1624,7 +1480,9 @@ public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags)
 	Logger_Info("%s (%d): /%s %s", PLAYER_TEMP[playerid][py_NAME], playerid, cmd, params);
     if (result == -1) 
     { 
-		SendClientMessageEx(playerid, COLOR_WHITE, "El comando "COL_RED"/%s "COL_WHITE"no existe, usa "COL_RED"/ayuda"COL_WHITE".", cmd);
+		new str_text[144];
+		format(str_text, sizeof(str_text), "El comando ~r~/%s~w~ no existe, usa ~r~/ayuda~w~ .", cmd);
+		ShowPlayerNotification(playerid, str_text, 4);
         return 0; 
     }
     return 1; 

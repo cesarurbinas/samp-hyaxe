@@ -109,7 +109,7 @@ ChristmasMap()
     party[24] = CreateDynamicObject(19076, 275.1376, -1778.7523, 3.2678, 0.0000, 0.0000, 0.0000); //XmasTree1
     party[25] = CreateDynamicObject(19076, 252.8477, -1777.6315, 3.2678, 0.0000, 0.0000, 0.0000); //XmasTree1
 	
-    CreateDynamic3DTextLabel(""COL_RED"Comprar fuegos artificiales"COL_WHITE"\n6 Productos disponibles", 0xF0F0F0FF, 1537.7760, -1658.0721, 13.5469, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+    CreateDynamic3DTextLabel(""COL_YELLOW"Comprar fuegos artificiales"COL_WHITE"\n6 Productos disponibles", 0xF0F0F0FF, 1537.7760, -1658.0721, 13.5469, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
     AddKeyArea(1537.7760, -1658.0721, 1.5, KEY_TYPE_Y);
 
     SetTimer("SpawnGift", 600000, true);

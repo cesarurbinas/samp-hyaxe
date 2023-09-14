@@ -88,7 +88,7 @@ CMD:cargos(playerid, params[])
 	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
 	if (!PLAYER_TEMP[to_player][py_POLICE_REASON]) return ShowPlayerMessage(playerid, "~r~Este jugador no tiene razones de cargos.", 3);
 
-	SendClientMessageEx(playerid, COLOR_WHITE, "%s tiene cargos por "COL_RED"%s", PLAYER_TEMP[to_player][py_NAME], PLAYER_TEMP[to_player][py_POLICE_REASON]);
+	SendClientMessageEx(playerid, COLOR_WHITE, "%s tiene cargos por "COL_YELLOW"%s", PLAYER_TEMP[to_player][py_NAME], PLAYER_TEMP[to_player][py_POLICE_REASON]);
 	return 1;
 }
 
@@ -122,7 +122,7 @@ CMD:documento(playerid, params[])
 	if (PLAYER_MISC[to_player][MISC_DNI]) format(dni, sizeof(dni), "%d", PLAYER_MISC[to_player][MISC_DNI]);
 	else dni = "No";
 
-	format(caption, sizeof(caption), ""COL_RED"%s", PLAYER_TEMP[to_player][py_NAME]);
+	format(caption, sizeof(caption), ""COL_YELLOW"%s", PLAYER_TEMP[to_player][py_NAME]);
 	format(dialog, sizeof(dialog), ""COL_WHITE"Documento: %s\nLicencia de conducir: %s", dni, drive);
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");

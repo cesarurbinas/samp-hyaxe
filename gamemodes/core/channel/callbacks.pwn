@@ -27,15 +27,11 @@ public neuroadmin_BotGetResponse(index, response_code, const data[])
 					}
 				}
 			}
-
-			new DCC_Channel:channelid;
-			channelid = DCC_FindChannelById("790742732829491230");
-			SendDiscordMessage(channelid, "%s", str_text);
 	    }
 	    else
 	    {
 			format(str_text, sizeof(str_text), "{\"author\": \"%s\", \"playerid\": %d, \"message\": \"%s\"}", PLAYER_TEMP[index][py_NAME], index, PLAYER_TEMP[index][py_LAST_DOUBT]);
-			HTTP(index, HTTP_POST, "server.hyaxe.com:6666/check_bad_use", str_text, "neuroadmin_BotCheckBadUse");
+			HTTP(index, HTTP_POST, "vulcan.hyaxe.com:6666/check_bad_use", str_text, "neuroadmin_BotCheckBadUse");
 	    }
 	}
 	return 1;
@@ -78,10 +74,6 @@ public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 
 				format(str_text, 145, "NeuroAdmin silencio a %s (%d) del canal de dudas/anuncios: Mal uso", ACCOUNT_INFO[index][ac_NAME], index);
 			    SendDiscordWebhook(str_text, 1);
-
-			    new DCC_Channel:channelid;
-				channelid = DCC_FindChannelById("790742732829491230");
-				SendDiscordMessage(channelid, "%s", str_text);
 			}
 	    }
 	}

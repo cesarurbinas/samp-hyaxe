@@ -36,16 +36,6 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 				for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
 			}
 		}
-		case WORK_MECHANIC:
-		{
-			if (CHARACTER_INFO[playerid][ch_SEX] == SEX_MALE)
-			{
-				SetPlayerSkin(playerid, 50);
-				PLAYER_TEMP[playerid][py_SKIN] = 50;
-				for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
-			}
-			SetMechanicPlayerMarkers(playerid);
-		}
 		case WORK_POLICE:
 		{
 			new label_str[128];

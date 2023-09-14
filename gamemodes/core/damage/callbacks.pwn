@@ -222,7 +222,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 	if (IsPlayerConnected(issuerid))
 	{
 		// Anti damager
-		if (ACCOUNT_INFO[issuerid][ac_ADMIN_LEVEL] < 2)
+		/*if (ACCOUNT_INFO[issuerid][ac_ADMIN_LEVEL] < 2)
 		{
 			new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[issuerid][py_LAST_DAMAGE]);
 			//printf("interval: %d, normal: %d, name: %s", interval, WEAPON_INFO[weaponid][weapon_info_SHOT_TIME], PLAYER_TEMP[issuerid][py_NAME]);
@@ -235,7 +235,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 					Anticheat_Ban(issuerid, "Damager");
 				}
 			}
-		}
+		}*/
 
 		/*if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 2)
 		{
@@ -330,7 +330,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 						{
 							new dialog[250];
 							format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Aimbot");
-							ShowPlayerDialog(issuerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+							ShowPlayerDialog(issuerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Cerrar", "");
 							
 							KickEx(issuerid, 500);
 							PLAYER_MISC[issuerid][MISC_BANS] ++;

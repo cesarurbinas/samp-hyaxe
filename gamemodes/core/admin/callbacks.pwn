@@ -10,8 +10,8 @@ public OnFreezeCheckEnd(playerid, adminid, vehicleid)
 
 	new Float:health;
 	GetVehicleHealth(vehicleid, health);
-	if(health >= PLAYER_TEMP[playerid][py_CHECK_VEHICLE_HEALTH]) SendClientMessage(adminid, COLOR_RED, "Chequeo finalizado. "COL_WHITE"Este jugador "COL_RED"puede estar usando FreezeCollisions"COL_WHITE".");
-	else SendClientMessage(adminid, COLOR_RED, "Chequeo finalizado. "COL_WHITE"Es "COL_RED"improbable "COL_WHITE"que este jugador este usando FreezeCollisions.");
+	if(health >= PLAYER_TEMP[playerid][py_CHECK_VEHICLE_HEALTH]) SendClientMessage(adminid, COLOR_YELLOW, "Chequeo finalizado. "COL_WHITE"Este jugador "COL_YELLOW"puede estar usando FreezeCollisions"COL_WHITE".");
+	else SendClientMessage(adminid, COLOR_YELLOW, "Chequeo finalizado. "COL_WHITE"Es "COL_YELLOW"improbable "COL_WHITE"que este jugador este usando FreezeCollisions.");
 
 	DestroyPlayerObject(playerid, PLAYER_TEMP[playerid][py_CHECK_OBJECT]);
 	PLAYER_TEMP[playerid][py_CHECK_OBJECT] = INVALID_OBJECT_ID;
@@ -39,7 +39,7 @@ public UpdateLabel(playerid, adminid)
 	GetPlayerPos(playerid, x, y, z);
 
 	new string[250];
-	format(string, sizeof(string), ""COL_RED"Velocidad: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_RED"Posición: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_RED"Ping: "COL_WHITE"%d\n"COL_RED"PacketLoss: "COL_WHITE"%0.2f", vx, vy, vz, x, y, z, GetPlayerPing(playerid), NetStats_PacketLossPercent(playerid));
+	format(string, sizeof(string), ""COL_YELLOW"Velocidad: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_YELLOW"Posición: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_YELLOW"Ping: "COL_WHITE"%d\n"COL_YELLOW"PacketLoss: "COL_WHITE"%0.2f", vx, vy, vz, x, y, z, GetPlayerPing(playerid), NetStats_PacketLossPercent(playerid));
 	UpdateDynamic3DTextLabelText(PLAYER_TEMP[adminid][py_DL_LABEL], 0xFFFFFFFF, string);
 
 	return 1;

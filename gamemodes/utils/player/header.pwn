@@ -177,7 +177,6 @@ new INVALID_NAMES[][100] =
 	"Chupador",
 	"Play",
 	"El_Vaginon",
-	"El_",
 	"Vaginon",
 	"Elva_",
 	"_Ginon",
@@ -316,8 +315,7 @@ new RADIO_STATIONS[][radio_enum] =
 	{"Soma FM", "Techno", "http://somafm.com/tags.pls"},
 	{"Dubatek", "Drum'N'Bass", "http://web.zionsound.fr:8010/stream/1/"},
 	{"Country NY", "Country", "https://streaming.radiostreamlive.com/radiocountrylive_devices"},
-	{"BadRadio", "Phonk", "https://s2.radio.co/s2b2b68744/listen"},
-	{"Hyaxe Radio", "Variadas", "http://boombox.hyaxe.com:8000/;?type=http&nocache=1"}
+	{"BadRadio", "Phonk", "https://s2.radio.co/s2b2b68744/listen"}
 };
 
 /*enum

@@ -52,7 +52,7 @@ RecalculeCrewMarkets(crew_id)
 	format(DB_Query, sizeof DB_Query, "SELECT * FROM `BLACK_MARKETS` WHERE `ID_CREW` = '%d'", CREW_INFO[crew_id][crew_ID]);
 	Result = db_query(Database, DB_Query);
 
-	if (db_num_rows(Result) == 0) CREW_INFO[crew_id][crew_MARKET_COUNT] = 0;
+	if (!db_num_rows(Result)) CREW_INFO[crew_id][crew_MARKET_COUNT] = 0;
 	else
 	{
 		CREW_INFO[crew_id][crew_MARKET_COUNT] = db_num_rows(Result);

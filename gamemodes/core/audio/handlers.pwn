@@ -63,7 +63,7 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 	}
 
 	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
-	ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", i), dialog, "Selecc.", "Cancelar");
+	ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_YELLOW"%d resultados", i), dialog, "Selecc.", "Cancelar");
 
 	return 1;
 }

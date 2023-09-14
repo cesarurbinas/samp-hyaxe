@@ -33,7 +33,7 @@ new ADMIN_LEVELS[][] =
 	"Operador",
 	"Administrador",
 	"Administrador II",
-	"Lord"
+	"Owner"
 };
 
 new ServerInitTime;

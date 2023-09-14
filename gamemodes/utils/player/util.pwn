@@ -504,7 +504,7 @@ EnterSite(playerid)
                 	}
 
                 	PLAYER_TEMP[playerid][py_ACTUAL_PROPERTY] = PROPERTY_INFO[info[1]][property_ID];
-					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad", str_text, "Cerrar", "");
+					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Propiedad", str_text, "Cerrar", "");
 
 					new Float:apos[3];
                     GetPlayerPos(playerid, apos[0], apos[1], apos[2]);
@@ -635,11 +635,7 @@ EnterSite(playerid)
 CheckFarmerShop(playerid)
 {
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, -382.580657, -1426.404296, 26.219505)) return 0;
-	if (PlayerIsInMafia(playerid))
-	{
-		ShowDialog(playerid, DIALOG_SEED_LIST);
-	}
-	else return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
+	ShowDialog(playerid, DIALOG_SEED_LIST);
 	return 1;
 }
 
@@ -1020,7 +1016,7 @@ CheckProxy(playerid)
     }
 
 	new str_text[128];
-	format(str_text, sizeof(str_text), "server.hyaxe.com:9991/proxycheck/%s,%s", PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_NAME]);
+	format(str_text, sizeof(str_text), "vulcan.hyaxe.com:9991/proxycheck/%s,%s", PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_NAME]);
 	HTTP(playerid, HTTP_GET, str_text, "", "OnPlayerProxyFound");
 	return 1;
 }
@@ -1037,7 +1033,7 @@ public OnPlayerProxyFound(index, response_code, data[])
 
 		if (data[0] == 'B')
 		{
-			ShowPlayerDialog(index, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"País bloqueado", ""COL_WHITE"Su país esta bloqueado, para verificar su cuenta\n\
+			ShowPlayerDialog(index, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"País bloqueado", ""COL_WHITE"Su país esta bloqueado, para verificar su cuenta\n\
 				ingrese a https://www.hyaxe.com/samp", "Cerrar", "");
 			KickEx(index, 500);
 		}
@@ -1091,7 +1087,7 @@ SendEmail(const email[], const title[], const content[])
 {
 	new payload[1024];
 	format(payload, sizeof(payload), "{\"email\": \"%s\", \"title\": \"%s\", \"content\": \"%s\"}", email, title, content);
-	HTTP(0, HTTP_POST, "server.hyaxe.com:9991/send_email", payload, "response_SendEmail");
+	HTTP(0, HTTP_POST, "vulcan.hyaxe.com:9991/send_email", payload, "response_SendEmail");
 	return 1;
 }
 
@@ -1100,43 +1096,6 @@ public response_SendEmail(index, response_code, const data[])
 {
 	//printf("[EMAIL_DEBUG] Data: %s", data);
 	return 1;
-}
-
-PlayerIsInMafia(playerid)
-{
-	if (PLAYER_WORKS[playerid][WORK_MAFIA]) return true;
-	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA]) return true;
-	if (PLAYER_WORKS[playerid][WORK_OSBORN]) return true;
-	if (PLAYER_WORKS[playerid][WORK_CONNOR]) return true;
-	if (PLAYER_WORKS[playerid][WORK_DIVISO]) return true;
-	if (PLAYER_WORKS[playerid][WORK_SINDACCO]) return true;
-	return false;
-}
-
-GetPlayerMafia(playerid)
-{
-	if (PLAYER_WORKS[playerid][WORK_MAFIA]) return WORK_MAFIA;
-	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA]) return WORK_ENEMY_MAFIA;
-	if (PLAYER_WORKS[playerid][WORK_OSBORN]) return WORK_OSBORN;
-	if (PLAYER_WORKS[playerid][WORK_CONNOR]) return WORK_CONNOR;
-	if (PLAYER_WORKS[playerid][WORK_DIVISO]) return WORK_DIVISO;
-	if (PLAYER_WORKS[playerid][WORK_SINDACCO]) return WORK_SINDACCO;
-	return -1;
-}
-
-GetMafiaColor(mafia)
-{
-	new color = 0xFFFFFFFF;
-	switch(mafia)
-	{
-		case WORK_MAFIA: color = 0xa912e2FF;
-		case WORK_ENEMY_MAFIA: color = 0xf5e30aFF;
-		case WORK_OSBORN: color = 0x3a3eabFF;
-		case WORK_CONNOR: color = 0xFFFFFFFF;
-		case WORK_DIVISO: color = 0xE55B5BFF;
-		case WORK_SINDACCO: color = 0xFFFFFFFF;
-	}
-	return color;
 }
 
 /*ValidSurfingVehicle(modelid)
@@ -1235,7 +1194,7 @@ GetAccountStatusName(playerid)
 		format(name, sizeof(name), ""COL_YELLOW"Medio"COL_WHITE"");
 
 	if (value >= 5)
-		format(name, sizeof(name), ""COL_RED"Desconfiable"COL_WHITE"");
+		format(name, sizeof(name), ""COL_YELLOW"Desconfiable"COL_WHITE"");
 	
 	return name;
 }
@@ -1344,7 +1303,7 @@ SetPlayerVip(playerid, vip_level, price_coin = 0, days = 30)
 	if (db_num_rows(Result)) db_get_field(Result, 0, ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE], 24);
 	db_free_result(Result);
 
-	SendClientMessageEx(playerid, COLOR_RED, "VIP %d:"COL_WHITE" %d días, fecha de caducidad: %s.", ACCOUNT_INFO[playerid][ac_SU], days, ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE]);
+	SendClientMessageEx(playerid, COLOR_YELLOW, "VIP %d:"COL_WHITE" %d días, fecha de caducidad: %s.", ACCOUNT_INFO[playerid][ac_SU], days, ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE]);
 	ShowPlayerNotification(playerid, "Ahora tienes VIP, felicidades.", 3);
 	ShowPlayerMessage(playerid, "Puedes utilizar ~p~/vip ~w~para ver el tiempo restante o renovar.", 5);
 
@@ -1603,252 +1562,6 @@ InviteToSAPD(playerid, to_player)
 	return 1;
 }
 
-InviteToLCN(playerid, to_player)
-{
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
-	if (to_player == playerid) return 1;
-
-	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
-	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
-
-	new player_jobs = CountPlayerJobs(to_player);
-	if (ACCOUNT_INFO[to_player][ac_SU])
-	{
-		if (player_jobs >= MAX_SU_WORKS)
-		{
-		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-	else
-	{
-		if (player_jobs >= MAX_NU_WORKS)
-		{
-			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-
-	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
-
-	PLAYER_WORKS[to_player][WORK_MAFIA] = true;
-	PLAYER_SKILLS[to_player][WORK_MAFIA] = 1;
-	SavePlayerWorks(to_player);
-	SavePlayerSkills(to_player);
-
-	SendClientMessageEx(playerid, 0xa912e2FF, "[FSB] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
-	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
-	return 1;
-}
-
-InviteToTCC(playerid, to_player)
-{
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
-	if (to_player == playerid) return 1;
-
-	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
-	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
-
-	new player_jobs = CountPlayerJobs(to_player);
-	if (ACCOUNT_INFO[to_player][ac_SU])
-	{
-		if (player_jobs >= MAX_SU_WORKS)
-		{
-		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-	else
-	{
-		if (player_jobs >= MAX_NU_WORKS)
-		{
-			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-
-	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
-
-	PLAYER_WORKS[to_player][WORK_ENEMY_MAFIA] = true;
-	PLAYER_SKILLS[to_player][WORK_ENEMY_MAFIA] = 1;
-	SavePlayerWorks(to_player);
-	SavePlayerSkills(to_player);
-
-	SendClientMessageEx(playerid, 0xa912e2FF, "[FSB] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
-	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso enemigo.", 3);
-	return 1;
-}
-
-InviteToFO(playerid, to_player)
-{
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
-	if (to_player == playerid) return 1;
-
-	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
-	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
-
-	new player_jobs = CountPlayerJobs(to_player);
-	if (ACCOUNT_INFO[to_player][ac_SU])
-	{
-		if (player_jobs >= MAX_SU_WORKS)
-		{
-		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-	else
-	{
-		if (player_jobs >= MAX_NU_WORKS)
-		{
-			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-
-	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
-
-	PLAYER_WORKS[to_player][WORK_OSBORN] = true;
-	PLAYER_SKILLS[to_player][WORK_OSBORN] = 1;
-	SavePlayerWorks(to_player);
-	SavePlayerSkills(to_player);
-
-	SendClientMessageEx(playerid, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
-	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
-	return 1;
-}
-
-InviteToFC(playerid, to_player)
-{
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
-	if (to_player == playerid) return 1;
-
-	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
-	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
-
-	new player_jobs = CountPlayerJobs(to_player);
-	if (ACCOUNT_INFO[to_player][ac_SU])
-	{
-		if (player_jobs >= MAX_SU_WORKS)
-		{
-		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-	else
-	{
-		if (player_jobs >= MAX_NU_WORKS)
-		{
-			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-
-	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
-
-	PLAYER_WORKS[to_player][WORK_CONNOR] = true;
-	PLAYER_SKILLS[to_player][WORK_CONNOR] = 1;
-	SavePlayerWorks(to_player);
-	SavePlayerSkills(to_player);
-
-	SendClientMessageEx(playerid, 0xc33d3dFF, "[TFC] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
-	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
-	return 1;
-}
-
-InviteToDS(playerid, to_player)
-{
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
-	if (to_player == playerid) return 1;
-
-	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
-	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
-
-	new player_jobs = CountPlayerJobs(to_player);
-	if (ACCOUNT_INFO[to_player][ac_SU])
-	{
-		if (player_jobs >= MAX_SU_WORKS)
-		{
-		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-	else
-	{
-		if (player_jobs >= MAX_NU_WORKS)
-		{
-			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-
-	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
-
-	PLAYER_WORKS[to_player][WORK_DIVISO] = true;
-	PLAYER_SKILLS[to_player][WORK_DIVISO] = 1;
-	SavePlayerWorks(to_player);
-	SavePlayerSkills(to_player);
-
-	SendClientMessageEx(playerid, 0xE55B5BFF, "[GNR] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
-	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
-	return 1;
-}
-
-InviteToSindacco(playerid, to_player)
-{
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
-	if (to_player == playerid) return 1;
-
-	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
-	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
-
-	new player_jobs = CountPlayerJobs(to_player);
-	if (ACCOUNT_INFO[to_player][ac_SU])
-	{
-		if (player_jobs >= MAX_SU_WORKS)
-		{
-		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-	else
-	{
-		if (player_jobs >= MAX_NU_WORKS)
-		{
-			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
-			return 1;
-		}
-	}
-
-	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
-
-	PLAYER_WORKS[to_player][WORK_SINDACCO] = true;
-	PLAYER_SKILLS[to_player][WORK_SINDACCO] = 1;
-	SavePlayerWorks(to_player);
-	SavePlayerSkills(to_player);
-
-	SendClientMessageEx(playerid, 0xE55B5BFF, "[SNC] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
-	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
-	return 1;
-}
-
 CountPlayerJobs(playerid)
 {
 	new count;
@@ -1989,99 +1702,13 @@ CheckNameFilterViolation(const str_text[])
 {
 	for(new x = 0; x < sizeof(INVALID_NAMES); x ++)
     {
-        if (strfind(str_text, INVALID_NAMES[x], true) != -1) return true;
+        if (strfind(str_text, INVALID_NAMES[x], true) != -1)
+		{
+			printf("[Name filter] %s - %s", str_text, INVALID_NAMES[x]);
+			return true;
+		}
     }
 	return false;
-}
-
-SendMafiaMessage(color, const message[])
-{
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_WORKS[i][WORK_MAFIA])
-			{
-				SendResponsiveMessage(i, color, message, 135);
-			}
-		}
-	}
-	return 1;
-}
-
-SendEnemyMafiaMessage(color, const message[])
-{
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_WORKS[i][WORK_ENEMY_MAFIA])
-			{
-				SendResponsiveMessage(i, color, message, 135);
-			}
-		}
-	}
-	return 1;
-}
-
-SendOsbornMafiaMessage(color, const message[])
-{
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_WORKS[i][WORK_OSBORN])
-			{
-				SendResponsiveMessage(i, color, message, 135);
-			}
-		}
-	}
-	return 1;
-}
-
-SendConnorMafiaMessage(color, const message[])
-{
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_WORKS[i][WORK_CONNOR])
-			{
-				SendResponsiveMessage(i, color, message, 135);
-			}
-		}
-	}
-	return 1;
-}
-
-SendDivisoMafiaMessage(color, const message[])
-{
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_WORKS[i][WORK_DIVISO])
-			{
-				SendResponsiveMessage(i, color, message, 135);
-			}
-		}
-	}
-	return 1;
-}
-
-SendSindaccoMafiaMessage(color, const message[])
-{
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_WORKS[i][WORK_SINDACCO])
-			{
-				SendResponsiveMessage(i, color, message, 135);
-			}
-		}
-	}
-	return 1;
 }
 
 PutPlayerInVehicleEx(playerid, vehicleid, seat)
@@ -2258,7 +1885,7 @@ ShowPlayerStats(playerid, pid)
 	else format(next_rep, sizeof next_rep, "/comprarnivel");
 
 	new caption[48], dialog[600 + (27 * sizeof(work_info))];
-	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
+	format(caption, sizeof caption, ""COL_YELLOW"%s", PLAYER_TEMP[pid][py_RP_NAME]);
 
 	new
 		drive[3],
@@ -2274,20 +1901,20 @@ ShowPlayerStats(playerid, pid)
 	format(dialog, sizeof dialog,
 
 		"\
-		"COL_WHITE"  ID de cuenta: "COL_RED"%d\n\
-		"COL_WHITE"  Fecha de registro: "COL_RED"%s\n\
+		"COL_WHITE"  ID de cuenta: "COL_YELLOW"%d\n\
+		"COL_WHITE"  Fecha de registro: "COL_YELLOW"%s\n\
 		"COL_WHITE"  Tiempo jugando: "COL_GREEN"%.1f horas\n\
 		"COL_WHITE"  Nivel: "COL_YELLOW"%d\n\
 		"COL_WHITE"  Reputación: "COL_ORANGE"%d/%d\n\
 		"COL_WHITE"  Siguiente reputación: "COL_ORANGE"%s\n\
-		"COL_WHITE"  Banda: "COL_RED"%s\n\
+		"COL_WHITE"  Banda: "COL_YELLOW"%s\n\
 		"COL_WHITE"  Trabajo: "COL_GREEN"%s\n\
 		"COL_WHITE"  "SERVER_COIN": "COL_GREEN"%d\n\
-	    "COL_WHITE"  Muteos: "COL_RED"%d\n\
-	    "COL_WHITE"  Kicks: "COL_RED"%d\n\
-	    "COL_WHITE"  Baneos: "COL_RED"%d\n\
-	    "COL_WHITE"  Advertencias: "COL_RED"%d\n\
-	    "COL_WHITE"  Jails: "COL_RED"%d\n\
+	    "COL_WHITE"  Muteos: "COL_YELLOW"%d\n\
+	    "COL_WHITE"  Kicks: "COL_YELLOW"%d\n\
+	    "COL_WHITE"  Baneos: "COL_YELLOW"%d\n\
+	    "COL_WHITE"  Advertencias: "COL_YELLOW"%d\n\
+	    "COL_WHITE"  Jails: "COL_YELLOW"%d\n\
 	    "COL_WHITE"  Dudas enviadas: "COL_GREEN"%d\n\
 		"COL_WHITE"  VIP: "COL_YELLOW"%s\n\
 		"COL_WHITE"  DNI: %s\n\
@@ -3830,86 +3457,6 @@ CheckPoliceEquipeSite(playerid)
 	return 1;
 }
 
-CheckMafiaEquipeSite(playerid)
-{
-	if (PLAYER_WORKS[playerid][WORK_MAFIA])
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.3, 1475.4032, 2773.5891, 10.8203))
-		{
-			ShowDialog(playerid, DIALOG_POLICE_SHOP);
-		}
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_MAFIA])
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.3, -1387.1334, 492.8735, 2.1851))
-		{
-			ShowDialog(playerid, DIALOG_POLICE_SHOP);
-		}
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.3, 3855.066162, -1290.975585, 7547.983398))
-		{
-			ShowDialog(playerid, DIALOG_POLICE_SHOP);
-		}
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_OSBORN])
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.3, 882.789611, 1896.002319, -93.898712))
-		{
-			ShowDialog(playerid, DIALOG_POLICE_SHOP);
-		}
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_OSBORN])
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.3, 1298.5734, -799.0347, 84.1406))
-		{
-			ShowDialog(playerid, DIALOG_POLICE_SHOP);
-		}
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_CONNOR])
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.3, 419.4871, -1001.7376, 92.8918))
-		{
-			ShowDialog(playerid, DIALOG_POLICE_SHOP);
-		}
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_DIVISO])
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.3, 1141.0912, -2064.0176, 69.0259))
-		{
-			ShowDialog(playerid, DIALOG_POLICE_SHOP);
-		}
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_SINDACCO])
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.3, 727.9929, -1276.1163, 13.6484))
-		{
-			ShowDialog(playerid, DIALOG_POLICE_SHOP);
-		}
-	}
-	return 1;
-}
-
-/*SpaceFix(text[])
-{
-	new str[100 + 1];
-	format(str, sizeof str, "%s", text);
-
-    for(new i = 0; i < strlen(str); i++)
-	{
-		if (str[i] == ' ') str[i] = '%20';
-	}
-	return str;
-}*/
-
 GivePlayerDrunkLevel(playerid, ammount)
 {
 	return SetPlayerDrunkLevel(playerid, GetPlayerDrunkLevel(playerid) + ammount);
@@ -4162,7 +3709,7 @@ CheckWorkSite(playerid)
 				{
 					case WORK_TRUCK:
 					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de camionero", ""COL_WHITE"\
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Empleo de camionero", ""COL_WHITE"\
 							Ante todo, bienvenido a la empresa.\n\n\
 							Tu trabajo será transportar productos entre diferentes\n\
 							puntos de la ciudad y los pueblos que la rodean.\n\n\
@@ -4170,17 +3717,9 @@ CheckWorkSite(playerid)
 							comida o tiendas de ropa o hasta productos industriales.", "Cerrar", "");
 						return 1;
 					}
-					case WORK_MECHANIC:
-					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de mecánico", ""COL_WHITE"Bienvenido\n\
-							Aquí nos encargamos de arreglar los vehículos de la gente y modificarlos, para eso necesitas\n\
-							tener piezas, puedes comprarlas en el almacén de atrás.\n\n\
-							Para ponerte en servicio presiona H en este mismo lugar.", "Cerrar", "");
-						return 1;
-					}
 					case WORK_HARVESTER:
 					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de cosechador", ""COL_WHITE"\
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Empleo de cosechador", ""COL_WHITE"\
 							Bienvenido al mundo agrícola.\n\n\
 							Aquí nos encargamos de recolectar todos los cultivos de la\n\
 							temporada, usando nuestras cosechadoras, súbete a alguna\n\
@@ -4189,22 +3728,15 @@ CheckWorkSite(playerid)
 					}
 					case WORK_TRASH:
 					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de basurero", ""COL_WHITE"\
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Empleo de basurero", ""COL_WHITE"\
 							En este trabajo deberás andar en un camión de basura\n\
 							para limpiar la ciudad. Puedes ser tanto el conductor\n\
 							del camión, o como un recolector de basura.", "Cerrar", "");
 						return 1;
 					}
-					case WORK_FARMER:
-					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de granjero", ""COL_WHITE"Bienvenido al campo, compadre.\nNosotros no encargamos de cultivar, solamente plantas y ya\n\
-							Puedes hacerlo en cualquier lugar, donde quieras pero que no se te vaya el tiempo o\n\
-							tu planta se va a expirar.", "Cerrar", "");
-						return 1;
-					}
 					case WORK_MINER:
 					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de minero", ""COL_WHITE"\
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Empleo de minero", ""COL_WHITE"\
 							Ante todo, bienvenido a la empresa.\n\n\
 							Tu principal función será la búsqueda y extracción de minerales.\n\n\
 							Encontramos todo tipo de minerales. Desde diamantes, hasta un simple carbón.\n\
@@ -4215,7 +3747,7 @@ CheckWorkSite(playerid)
 					}
 					case WORK_FISHER:
 					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de pescador", ""COL_WHITE"\
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Empleo de pescador", ""COL_WHITE"\
 							Ante todo, bienvenido a las aguas camarada.\n\n\
 							Aquí nos encargamos de administrar los pescados\n\
 							mas frescos de todo San Andreas. Súbete a un barco\n\
@@ -4225,7 +3757,7 @@ CheckWorkSite(playerid)
 					}
 					case WORK_MEDIC:
 					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de médico", ""COL_WHITE"\
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Empleo de médico", ""COL_WHITE"\
 							Bienvenido al equipo de paramédicos.\n\n\
 							Sube a una ambulancia y ve a salvar gente herida\n\
 							usando los botiquines que hay atrás de la ambula-\n\
@@ -4235,26 +3767,16 @@ CheckWorkSite(playerid)
 					}
 					case WORK_BOX:
 					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de boxeador", ""COL_WHITE"\
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Empleo de boxeador", ""COL_WHITE"\
 							Bienvenido al ring.\n\n\
 							Entra al ring y pelea hasta que alguien\n\
 							apueste por ti, si matas a alguien con\n\
 							apuestas te llevas su dinero.", "Cerrar", "");
 						return 1;
 					}
-					case WORK_SOCCER:
-					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de futbolista", ""COL_WHITE"\
-							Bienvenido a la cancha.\n\n\
-							Teclas:\n\
-							* Agarrar pelota: Click Izq.\n\
-							* Patear en globo: ALT\n\
-							* Patear derecho: Click Der.", "Cerrar", "");
-						return 1;
-					}
 					case WORK_WOODCUTTER:
 					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de leñador", ""COL_WHITE"\
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Empleo de leñador", ""COL_WHITE"\
 							Bienvenido al aserradero.\n\n\
 							Ponte en servicio y agarra tu carrito\n\
 							para ir a buscar arboles (ALT + CLICK)\n\
@@ -4388,18 +3910,6 @@ PlayerPayday(playerid)
 		}
 
 		format(str_temp, sizeof(str_temp), "~n~SAPD: ~g~%s$~w~", number_format_thousand(money));
-		strcat(str_payday, str_temp);
-	}
-
-	if (PlayerIsInMafia(playerid))
-	{
-		new mafia = GetPlayerMafia(playerid);
-
-		new work_payment = (2000 * PLAYER_SKILLS[playerid][mafia]);
-
-		money += work_payment;
-
-		format(str_temp, sizeof(str_temp), "~n~Mafia: ~g~%s$~w~", number_format_thousand(work_payment));
 		strcat(str_payday, str_temp);
 	}
 
@@ -4556,7 +4066,7 @@ ShowPlayerInventory(playerid, pid)
 	if (ACCOUNT_INFO[pid][ac_ID] == 0) return 0;
 
 	new caption[48];
-	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
+	format(caption, sizeof caption, ""COL_YELLOW"%s", PLAYER_TEMP[pid][py_RP_NAME]);
 
 	new dialog[564], line_str[128];
 
@@ -4602,7 +4112,7 @@ ShowPlayerSkills(playerid, pid)
 	if (ACCOUNT_INFO[pid][ac_ID] == 0) return 0;
 
 	new caption[48], line_str[80], dialog[sizeof line_str * (sizeof(work_info) + 5)];
-	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
+	format(caption, sizeof caption, ""COL_YELLOW"%s", PLAYER_TEMP[pid][py_RP_NAME]);
 
 	for(new i = 1; i != sizeof work_info; i ++)
 	{
@@ -4669,56 +4179,8 @@ ActiveGeolocation(playerid)
 			PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
 			return 1;
 		}
-
-		if (PlayerIsInMafia(playerid))
-		{
-			new 
-				city[45],
-				zone[45],
-				message[144],
-				mafia = GetPlayerMafia(playerid)
-			;
-
-			GetPlayerZones(playerid, city, zone);
-			format(message, sizeof message, "~r~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
-
-		 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-			{
-				if (IsPlayerConnected(i))
-				{
-					if (PLAYER_WORKS[i][mafia])
-					{
-						SetPlayerMarkerForPlayer(i, playerid, GetMafiaColor(mafia));
-						ShowPlayerNotification(i, message, 4);
-					}
-				}
-			}
-
-		 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
-			PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableMafiaRefMark", 120000, false, "i", playerid);
-			PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
-			return 1;
-		}
 	}
 	else ShowPlayerMessage(playerid, "~r~No tienes un geolocalizador.", 4);
-	return 1;
-}
-
-SetMechanicPlayerMarkers(playerid)
-{
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
-			{
-				if (PLAYER_TEMP[i][py_WANT_MECHANIC])
-				{
-					SetPlayerMarkerForPlayer(playerid, i, 0xf4c242FF);
-				}
-			}
-		}
-	}
 	return 1;
 }
 
@@ -4769,49 +4231,6 @@ SendAlertToMedics(playerid)
 	ShowPlayerMessage(playerid, str_text, 5);
 	PLAYER_TEMP[playerid][py_WANT_MEDIC] = true;
 	PLAYER_TEMP[playerid][py_LIMIT_AMBULANCE] = gettime();
-	return 1;
-}
-
-SendAlertToMechanic(playerid)
-{
-	new Float:x, Float:y, Float:z;
-	GetPlayerPos(playerid, x, y, z);
-
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
-			{
-				if (i == playerid) continue;
-				if (!PLAYER_WORKS[i][WORK_MECHANIC]) continue;
-				if (PLAYER_TEMP[i][py_WORKING_IN] != WORK_MECHANIC) continue;
-
-				SetPlayerMarkerForPlayer(i, playerid, 0xf4c242FF);
-				ShowPlayerMessage(i, "~y~Hay un nuevo cliente solicitando un mecánico.", 2);
-				SendClientMessageEx(i, COLOR_WHITE, "Hay un nuevo cliente solicitando un mecánico, distancia: "COL_RED"%.2f Km.", (GetPlayerDistanceFromPoint(i, x, y, z) * 0.01));
-			}
-		}
-	}
-	return 1;
-}
-
-DisablePlayerMechanicMark(playerid)
-{
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
-			{
-				if (i == playerid) continue;
-				if (!PLAYER_WORKS[i][WORK_MECHANIC]) continue;
-				if (PLAYER_TEMP[i][py_WORKING_IN] != WORK_MECHANIC) continue;
-
-				SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
-			}
-		}
-	}
 	return 1;
 }
 
@@ -5052,10 +4471,10 @@ ResetGraffitiTextdraw()
 	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
 	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][1], -1);
 	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
-	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x000000EE);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x1C1C1CEE);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
 	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
-	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x000000EE);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x1C1C1CEE);
 	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
 	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
@@ -5066,10 +4485,10 @@ ResetGraffitiTextdraw()
 	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
 	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][3], -1);
 	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
-	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x000000EE);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x1C1C1CEE);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
 	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
-	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x000000EE);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x1C1C1CEE);
 	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
 	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
@@ -5080,10 +4499,10 @@ ResetGraffitiTextdraw()
 	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
 	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][4], -1);
 	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
-	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x000000EE);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x1C1C1CEE);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
 	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
-	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x000000EE);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x1C1C1CEE);
 	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
 	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
@@ -5102,10 +4521,10 @@ SetMarketTextdraw()
 	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
 	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][1], -1);
 	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
-	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x000000EE);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x1C1C1CEE);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
 	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
-	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x000000EE);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x1C1C1CEE);
 	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
 	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
@@ -5116,10 +4535,10 @@ SetMarketTextdraw()
 	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
 	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][3], -1);
 	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
-	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x000000EE);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x1C1C1CEE);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
 	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
-	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x000000EE);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x1C1C1CEE);
 	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
 	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
@@ -5130,10 +4549,10 @@ SetMarketTextdraw()
 	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
 	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][4], -1);
 	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
-	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x000000EE);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x1C1C1CEE);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
 	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
-	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x000000EE);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x1C1C1CEE);
 	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
 	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
 	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
@@ -5335,42 +4754,87 @@ SetIntroCamera(playerid)
 			InterpolateCameraPos(playerid, 1828.665893, -1103.566162, 24.149976, 1781.768066, -1075.379638, 26.545591, 60000);
 			InterpolateCameraLookAt(playerid, 1824.796386, -1100.408447, 24.385477, 1776.871459, -1074.370727, 26.617115, 60000);
 		}
+		/*case 16: 
+		{
+			InterpolateCameraPos(playerid, 1218.375000, 41.952545, 53.793827, 1292.236938, 551.113403, 50.162090);
+			InterpolateCameraLookAt(playerid, 1220.134765, 46.629997, 53.636821, 1293.400634, 546.286987, 49.568958);
+		}
+		case 17:
+		{
+			InterpolateCameraPos(playerid, 2151.651855, 239.409271, 57.955532, 2537.218017, -119.604583, 54.628868);
+			InterpolateCameraLookAt(playerid, 2155.495849, 236.222564, 57.694713, 2533.810302, -116.043853, 53.786808);
+		}
+		case 18:
+		{
+			InterpolateCameraPos(playerid, 2946.871582, -1082.254272, 97.503814, 1814.634155, -1673.449951, 62.104537);
+			InterpolateCameraLookAt(playerid, 2942.474121, -1084.633789, 97.516311, 1810.181274, -1675.722656, 62.024070);
+		}
+		case 19:
+		{
+			InterpolateCameraPos(playerid, 2186.066162, -1567.499267, 72.890304, 2262.835205, -974.680725, 90.204200);
+			InterpolateCameraLookAt(playerid, 2185.760498, -1562.516967, 72.602180, 2258.614990, -977.186218, 89.249168);
+		}
+		case 20:
+		{
+			InterpolateCameraPos(playerid, 1061.190429, -1914.667602, 50.978973, 389.893005, -1481.342651, 59.444122);
+			InterpolateCameraLookAt(playerid, 1056.981811, -1911.969848, 50.882102, 390.160034, -1485.916381, 57.441764);
+		}
+		case 21:
+		{
+			InterpolateCameraPos(playerid, 359.655944, -1435.522705, 60.102863, 1393.395385, -1048.552246, 72.592231);
+			InterpolateCameraLookAt(playerid, 364.222900, -1433.488281, 60.038803, 1392.754028, -1043.610839, 72.178642);
+		}
+		case 22:
+		{
+			InterpolateCameraPos(playerid, 1658.509521, -880.208679, 86.505210, 2447.708740, -2086.098144, 67.963890);
+			InterpolateCameraLookAt(playerid, 1659.766235, -885.047790, 86.566925, 2451.648437, -2083.542236, 66.247497);
+		}
+		case 23:
+		{
+			InterpolateCameraPos(playerid, 940.270324, 1046.711181, 76.254302, 1723.766479, 1850.992675, 75.139503);
+			InterpolateCameraLookAt(playerid, 943.707397, 1050.334228, 76.009872, 1719.630004, 1848.561279, 73.732963);
+		}
+		case 24:
+		{
+			InterpolateCameraPos(playerid, -2192.615966, 78.170722, 79.047744, -2538.517089, 825.506408, 88.356307);	
+			InterpolateCameraLookAt(playerid, -2189.883056, 82.354881, 79.202407, -2535.217773, 821.875183, 87.392379);
+		}
+		case 25:
+		{
+			InterpolateCameraPos(playerid, 1700.367919, 1957.649658, 66.073768, 2661.445068, 2754.281738, 56.004425);
+			InterpolateCameraLookAt(playerid, 1704.322143, 1960.695922, 66.365013, 2657.148681, 2751.917968, 55.027931);
+		}
+		case 26:
+		{
+			InterpolateCameraPos(playerid, 2146.678222, 2273.883544, 49.391544, 2042.727539, 1108.088989, 51.940769);
+			InterpolateCameraLookAt(playerid, 2146.368896, 2268.900878, 49.671867, 2046.389282, 1111.371215, 51.035942);
+		}
+		case 27:
+		{
+			InterpolateCameraPos(playerid, 2094.669677, 2143.357910, 41.610046, 2535.972412, 2143.179443, 36.143642);
+			InterpolateCameraLookAt(playerid, 2099.667724, 2143.411376, 41.737377, 2531.010498, 2142.912597, 35.588539);
+		}
+		case 28:
+		{
+			InterpolateCameraPos(playerid, -1975.248168, -2557.641845, 78.867881, -2329.437744, -2408.106445, 64.128623);
+			InterpolateCameraLookAt(playerid, -1979.774658, -2555.775634, 77.853874, -2324.481689, -2407.645507, 63.655117);
+		}
+		case 29:
+		{
+			InterpolateCameraPos(playerid, -1472.227539, 920.218383, 77.018661, -2149.734375, 909.321838, 88.602775);
+			InterpolateCameraLookAt(playerid, -1477.219604, 920.262939, 76.741462, -2145.109863, 911.039489, 87.787681);
+		}
+		case 30:
+		{
+			InterpolateCameraPos(playerid, -1875.386596, 389.165252, 85.783790, -2246.967529, -237.380676, 73.113235);
+			InterpolateCameraLookAt(playerid, -1878.040405, 384.929046, 85.675987, -2250.230224, -233.655349, 72.422485);
+		}*/
     }
 
     SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
 	SetPlayerWeather(playerid, SERVER_WEATHER);
     return 1;
 }
-
-/*CheckBlockedWeapon(playerid, weapon_ip)
-{
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
-	{
-		if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PlayerIsInMafia(playerid) && !ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
-	  	{
-			new bool:blocked = false;
-			switch(weapon_ip)
-			{
-				case 31, 29, 23, 34, 24, 27, 30: blocked = true;
-			}
-
-			if (blocked)
-			{
-				ResetPlayerWeaponsEx(playerid);
-
-		    	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
-
-		    	new str[144];
-		    	SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-		    	SendDiscordWebhook(str, 1);
-		    
-		    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
-		    	KickEx (playerid, 500);
-		  	}
-		}
-	}
- 	return 1;
-}*/
 
 RegisterBankAccountTransaction(account_id, transaction_type, ammount, extra = -1)
 {
@@ -6006,7 +5470,7 @@ NeuroJail(playerid, time, const reason[])
 
 	new dialog[250];
 	format(dialog, sizeof dialog, ""COL_WHITE"NeuroAdmin te jaileó, razón: %s.\nRecuerde que a los 50 jails sera baneado permanentemente.", reason);
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Entiendo", "");
 	return 1;
 }
 
@@ -6505,7 +5969,7 @@ ShowTuningMenu(playerid)
 	format(DB_Query, sizeof DB_Query, "SELECT `COMPONENTS_INFO`.`PART`, `COMPONENTS_INFO`.`PIECES` FROM `COMPONENTS_INFO`, `VEHICLE_COMPONENTS` WHERE `VEHICLE_COMPONENTS`.`MODELID` = '%d' AND `VEHICLE_COMPONENTS`.`COMPONENT_ID` = `COMPONENTS_INFO`.`ID` GROUP BY `COMPONENTS_INFO`.`PART`;", GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID]);
 	Result = db_query(Database, DB_Query);
 
-	if (db_num_rows(Result) == 0)
+	if (!db_num_rows(Result))
 	{
 		printf("[ERROR] No hay componentes asignados en la base de datos");
 	}
@@ -6780,7 +6244,7 @@ public SendGift()
 		GenString(code, 8);
 
 		AddGiftCode(code, type, extra);
-		HTTP(0, HTTP_HEAD, sprintf("server.hyaxe.com:1337/add_gift_from_server/%s", code), "", "");
+		HTTP(0, HTTP_HEAD, sprintf("vulcan.hyaxe.com:1337/add_gift_from_server/%s", code), "", "");
 	}
 	return 1;
 }*/
@@ -6796,8 +6260,8 @@ public GiveAutoGift()
 		{
 			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
 			{
-				GivePlayerCash(i, 10000, false);
-				ShowPlayerMessage(i, "~r~[REGALO]~w~ Te han dado 10.000$", 4);
+				GivePlayerCash(i, 5000, false);
+				ShowPlayerMessage(i, "~r~[REGALO]~w~ Te han dado 5.000$", 4);
 			}
 		}
 	}
@@ -6841,16 +6305,6 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 				PLAYER_TEMP[playerid][py_SKIN] = 16;
 				for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
 			}
-		}
-		case WORK_MECHANIC:
-		{
-			if (CHARACTER_INFO[playerid][ch_SEX] == SEX_MALE)
-			{
-				SetPlayerSkin(playerid, 50);
-				PLAYER_TEMP[playerid][py_SKIN] = 50;
-				for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
-			}
-			SetMechanicPlayerMarkers(playerid);
 		}
 		case WORK_POLICE:
 		{
@@ -6936,7 +6390,6 @@ EndPlayerJob(playerid, changeskin = true)
 				if (WORK_VEHICLES[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][work_vehicle_WORK] == WORK_HARVESTER) SetVehicleToRespawnEx(PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID]);
 			}
 		}
-		case WORK_FARMER: CancelPlayerPlanting(playerid);
 		case WORK_TRASH:
 		{
 			if (changeskin)
@@ -6980,16 +6433,6 @@ EndPlayerJob(playerid, changeskin = true)
 			}
 
 			SetPlayerColorEx(playerid, PLAYER_COLOR);
-			SetNormalPlayerMarkers(playerid);
-		}
-		case WORK_MECHANIC:
-		{
-			if (changeskin)
-			{
-				SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
-				PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
-				SetPlayerToys(playerid);
-			}
 			SetNormalPlayerMarkers(playerid);
 		}
 		case WORK_MEDIC:

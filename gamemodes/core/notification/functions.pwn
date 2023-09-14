@@ -2,6 +2,7 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 {
 	static
 		free_pos,
+		Float:pos_x = 24.000000,
 		Float:pos_y,
 		PlayerText:temp_td
 	;
@@ -9,7 +10,12 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 	free_pos = GetFreeNotificationSlot(playerid);
 	if (free_pos == -1) return 0;
 
+	// Offset Y
 	pos_y = 141.000000;
+	if (PLAYER_TEMP[playerid][py_ANDROID]) pos_y += 45.0;
+
+	// Offset X
+	if (PLAYER_TEMP[playerid][py_ANDROID]) pos_x = 12.0;
 
 	// Top spacing
 	for(new i; i < free_pos; i++)
@@ -29,7 +35,7 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 				new word[128], length;
 				if (!Match_GetGroup(match, 0, word, length)) break;
 				
-				Logger_Debug("word: %s, length: %d", word, length);
+				//Logger_Debug("word: %s, length: %d", word, length);
 				
 				pos_y -= (length * 0.4);
 				startpos += pos + length;
@@ -56,7 +62,7 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 	PlayerTextDrawSetProportional(playerid, notification_bg, 1);
 	PlayerTextDrawShow(playerid, notification_bg);*/
 
-	temp_td = CreatePlayerTextDraw(playerid, 24.000000, pos_y + 6.0, NotificationData[playerid][free_pos][nt_TEXT]);
+	temp_td = CreatePlayerTextDraw(playerid, pos_x, pos_y + 6.0, NotificationData[playerid][free_pos][nt_TEXT]);
 	PlayerTextDrawFont(playerid, temp_td, 1);
 	PlayerTextDrawLetterSize(playerid, temp_td, 0.237499, 1.299999);
 	PlayerTextDrawTextSize(playerid, temp_td, 166.000000, 17.000000);

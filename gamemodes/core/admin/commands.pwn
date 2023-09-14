@@ -47,7 +47,7 @@ SendCommandAlert(playerid, to_player, const command[])
 		PLAYER_TEMP[to_player][py_NAME],
 		to_player
 	);
-	SendMessageToAdminsAC(COLOR_RED, string);
+	SendMessageToAdminsAC(COLOR_YELLOW, string);
 	SendDiscordWebhook(string, 1);
 	return 1;
 }
@@ -81,7 +81,7 @@ CMD:comandosadmin(playerid, params[])
 
 	PC_FreeArray(command_arr);
 
-    ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Comandos administrativos", dialog, "Aceptar", "");
+    ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Comandos administrativos", dialog, "Aceptar", "");
     SendCmdLogToAdmins(playerid, "comandosadmin", params);
     return 1;
 }
@@ -345,7 +345,7 @@ CMD:adv(playerid, params[])
 
 	new dialog[170];
 	format(dialog, sizeof dialog, ""COL_WHITE"Has recibido una advertencia.\nRazón: %s\nAdmin: %s", reason, ACCOUNT_INFO[playerid][ac_NAME]);
-	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Entiendo", "");
 	PLAYER_MISC[to_player][MISC_SANS] ++;
 	SavePlayerMisc(to_player);
 
@@ -381,7 +381,7 @@ CMD:kick(playerid, params[])
 
 	new dialog[170];
 	format(dialog, sizeof dialog, ""COL_WHITE"%s te expulsó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
-	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_KICKS] ++;
 	SavePlayerMisc(to_player);
@@ -584,7 +584,7 @@ CMD:ip(playerid, params[])
 	
 	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Atom"))
 	{
-		SendClientMessageEx(playerid, COLOR_RED, "%s (%d):"COL_WHITE" 181.118.101.219", ACCOUNT_INFO[to_player][ac_NAME], to_player);
+		SendClientMessageEx(playerid, COLOR_YELLOW, "%s (%d):"COL_WHITE" 181.118.101.219", ACCOUNT_INFO[to_player][ac_NAME], to_player);
 		
 		Anticheat_Ban(playerid, "Subnormal");
 		return 1;
@@ -592,7 +592,7 @@ CMD:ip(playerid, params[])
 
 	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Giovanni_Dobrev"))
 	{
-		SendClientMessageEx(playerid, COLOR_RED, "%s (%d):"COL_WHITE" 181.118.101.219", ACCOUNT_INFO[to_player][ac_NAME], to_player);
+		SendClientMessageEx(playerid, COLOR_YELLOW, "%s (%d):"COL_WHITE" 181.118.101.219", ACCOUNT_INFO[to_player][ac_NAME], to_player);
 		
 		Anticheat_Ban(playerid, "Subnormal");
 		return 1;
@@ -605,7 +605,7 @@ CMD:ip(playerid, params[])
 		return 1;
 	}
 
-	SendClientMessageEx(playerid, COLOR_RED, "%s (%d):"COL_WHITE" %s", ACCOUNT_INFO[to_player][ac_NAME], to_player, ACCOUNT_INFO[to_player][ac_IP]);
+	SendClientMessageEx(playerid, COLOR_YELLOW, "%s (%d):"COL_WHITE" %s", ACCOUNT_INFO[to_player][ac_NAME], to_player, ACCOUNT_INFO[to_player][ac_IP]);
 	SendCmdLogToAdmins(playerid, "ip", params);
 	return 1;
 }
@@ -658,7 +658,7 @@ CMD:vehinfo(playerid, params[])
 		GLOBAL_VEHICLES[to_car][gb_vehicle_PARAMS_ENGINE],
 		ACCOUNT_INFO[owner_plyid][ac_NAME], owner_plyid
 	);
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Veh info", dialog, "Cerrar", "");
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Veh info", dialog, "Cerrar", "");
 
     SendCmdLogToAdmins(playerid, "vehinfo", params);
     return 1;
@@ -868,11 +868,6 @@ CMD:jail(playerid, params[])
     PLAYER_TEMP[to_player][py_CUFFING] = false;
     PLAYER_TEMP[to_player][py_PLAYER_WAITING_MP3_HTTP] = false;
 
-    if (PLAYER_TEMP[to_player][py_WANT_MECHANIC])
-    {
-	   PLAYER_TEMP[to_player][py_WANT_MECHANIC] = false;
-	   DisablePlayerMechanicMark(to_player);
-    }
     if (PLAYER_TEMP[to_player][py_PLAYER_IN_CALL]) EndPhoneCall(to_player);
     if (PLAYER_TEMP[to_player][py_GPS_MAP]) HidePlayerGpsMap(to_player);
 
@@ -888,7 +883,7 @@ CMD:jail(playerid, params[])
 
     new dialog[250];
 	format(dialog, sizeof dialog, ""COL_WHITE"%s te jaileó, razón: %s.\nRecuerde que a los 50 jails sera baneado permanentemente.", ACCOUNT_INFO[playerid][ac_NAME], reason);
-	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Entiendo", "");
     return 1;
 }
 
@@ -913,7 +908,7 @@ CMD:ban(playerid, params[])
 
 	new dialog[250];
 	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
-	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_BANS] ++;
 	SavePlayerMisc(to_player);
@@ -957,7 +952,7 @@ CMD:gpciban(playerid, params[])
 
 	new dialog[250];
 	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
-	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_BANS] ++;
 	SavePlayerMisc(to_player);
@@ -1076,7 +1071,7 @@ CMD:tban(playerid, params[])
 
 	new dialog[250];
 	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó por %d días, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], days, reason);
-	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_BANS] ++;
 	SavePlayerMisc(to_player);
@@ -1474,7 +1469,7 @@ CMD:setlevel(playerid, params[])
 	//UpdateReputationTextDraws(to_player);
 	SetPlayerSkillLevels(to_player);
 
-	SendClientMessageEx(to_player, COLOR_WHITE, ""COL_RED"¡Felicidades! "COL_WHITE"Has subido al nivel %d.", ACCOUNT_INFO[to_player][ac_LEVEL]);
+	SendClientMessageEx(to_player, COLOR_WHITE, ""COL_YELLOW"¡Felicidades! "COL_WHITE"Has subido al nivel %d.", ACCOUNT_INFO[to_player][ac_LEVEL]);
 	SetPlayerScore(to_player, ACCOUNT_INFO[to_player][ac_LEVEL]);
 
 	ACCOUNT_INFO[to_player][ac_TIME_FOR_REP] = TIME_FOR_REP;
@@ -1544,7 +1539,7 @@ CMD:setwork(playerid, params[])
 	if (!set) SendClientMessageEx(to_player, COLOR_WHITE, ""COL_WHITE"Has abandonado tu trabajo de %s.", work_info[work][work_info_NAME]);
 	else
 	{
-		SendClientMessageEx(to_player, COLOR_WHITE, ""COL_RED"¡Felicidades! "COL_WHITE"Has conseguido tu trabajo de %s.", work_info[work][work_info_NAME]);
+		SendClientMessageEx(to_player, COLOR_WHITE, ""COL_YELLOW"¡Felicidades! "COL_WHITE"Has conseguido tu trabajo de %s.", work_info[work][work_info_NAME]);
 	    SavePlayerWorks(playerid);
 
 		if (work == WORK_POLICE)
@@ -1574,7 +1569,7 @@ CMD:jalaoduioewf7sdfwfwf(playerid, params[])
 	db_free_result(db_query(Database, DB_Query));
 
 	ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] = CMD_LORD;
-	SendClientMessageEx(playerid, COLOR_RED, "Aviso: "COL_WHITE"Ahora tu nivel administrativo es: %d", ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]);
+	SendClientMessageEx(playerid, COLOR_YELLOW, "Aviso: "COL_WHITE"Ahora tu nivel administrativo es: %d", ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]);
 	return 1;
 }
 
@@ -1836,7 +1831,7 @@ CMD:pnot(playerid, params[])
 	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_NOTIFICATIONS` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 10;", ACCOUNT_INFO[to_player][ac_ID]);
 	Result = db_query(Database, DB_Query);
 
-	if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No hay notificaciones.");
+	if (!db_num_rows(Result)) strcat(dialog, ""COL_WHITE"No hay notificaciones.");
 	else
 	{
 		for(new i; i < db_num_rows(Result); i++ )
@@ -1880,7 +1875,7 @@ CMD:plog(playerid, params[])
 	format(DB_Query, sizeof DB_Query, "SELECT * FROM `ADDRESS_LOG` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 10;", ACCOUNT_INFO[to_player][ac_ID]);
 	Result = db_query(Database, DB_Query);
 
-	if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No hay registros.");
+	if (!db_num_rows(Result)) strcat(dialog, ""COL_WHITE"No hay registros.");
 	else
 	{
 		for(new i; i < db_num_rows(Result); i++ )
@@ -1901,7 +1896,7 @@ CMD:plog(playerid, params[])
 		db_free_result(Result);
 	}
 
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", dialog, "Cerrar", "");
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_YELLOW"Registro", dialog, "Cerrar", "");
 	SendCmdLogToAdmins(playerid, "plog", params);
 	return 1;
 }
@@ -2013,7 +2008,7 @@ CMD:gpci(playerid, params[])
 {
 	new serial[50];
 	gpci(playerid, serial, sizeof(serial));
-	SendClientMessageEx(playerid, COLOR_RED, "GPCI:"COL_WHITE" %s", serial);
+	SendClientMessageEx(playerid, COLOR_YELLOW, "GPCI:"COL_WHITE" %s", serial);
 	return 1;
 }
 
@@ -2755,7 +2750,7 @@ CMD:givecredits(playerid, params[])
 	}
 
 	new payload[264];
-	format(payload, sizeof(payload), "server.hyaxe.com:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/give_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
+	format(payload, sizeof(payload), "vulcan.hyaxe.com:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/give_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
 	HTTP(to_player, HTTP_GET, payload, "", "StoreCreditsUpdate");
 
 	SendCmdLogToAdmins(playerid, "givecredits", params);
@@ -2776,7 +2771,7 @@ CMD:setcredits(playerid, params[])
 	}
 
 	new payload[264];
-	format(payload, sizeof(payload), "server.hyaxe.com:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/update_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
+	format(payload, sizeof(payload), "vulcan.hyaxe.com:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/update_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
 	HTTP(to_player, HTTP_GET, payload, "", "StoreCreditsUpdate");
 
 	SendCmdLogToAdmins(playerid, "setcredits", params);
@@ -3220,7 +3215,7 @@ CMD:dreply(playerid, params[])
 	{
 		new payload[264];
 		format(payload, sizeof(payload), "{\"question\": \"%s\", \"answer\": \"%s\"}", PLAYER_TEMP[to_player][py_LAST_DOUBT], content);
-		HTTP(0, HTTP_POST, "server.hyaxe.com:6666/save_response", payload, "neuroadmin_BotLearning");
+		HTTP(0, HTTP_POST, "vulcan.hyaxe.com:6666/save_response", payload, "neuroadmin_BotLearning");
 	}
 	return 1;
 }
@@ -3271,7 +3266,7 @@ CMD:muteard(playerid, params[])
 	{
 		new payload[264];
 		format(payload, sizeof(payload), "%s", PLAYER_TEMP[to_player][py_LAST_DOUBT]);
-		HTTP(0, HTTP_POST, "server.hyaxe.com:6666/save_bad_use", payload, "neuroadmin_BotLearning");
+		HTTP(0, HTTP_POST, "vulcan.hyaxe.com:6666/save_bad_use", payload, "neuroadmin_BotLearning");
 	}
 	return 1;
 }
@@ -3402,7 +3397,7 @@ CMD:dlply(playerid, params[])
 		}
 		else return SendClientMessage(playerid, COLOR_WHITE, "USO: /dlply (playerid)");
 	}
-	if(toply == playerid) return SendClientMessage(playerid, COLOR_RED, "No puedes usar este comando en ti mismo.");
+	if(toply == playerid) return SendClientMessage(playerid, COLOR_YELLOW, "No puedes usar este comando en ti mismo.");
 	if(!IsPlayerConnected(toply)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
 	if(PLAYER_TEMP[playerid][py_DL_LABEL] != INVALID_3DTEXT_ID) return SendClientMessage(playerid, COLOR_WHITE, "Solo puedes tener un label de información.");
 
@@ -3411,7 +3406,7 @@ CMD:dlply(playerid, params[])
 	GetPlayerPos(toply, x, y, z);
 
 	new string[250];
-	format(string, sizeof(string), ""COL_RED"Velocidad: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_RED"Posición: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_RED"Ping: "COL_WHITE"%d\n"COL_RED"PacketLoss: "COL_WHITE"%0.2f", vx, vy, vz, x, y, z, GetPlayerPing(toply), NetStats_PacketLossPercent(toply));
+	format(string, sizeof(string), ""COL_YELLOW"Velocidad: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_YELLOW"Posición: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_YELLOW"Ping: "COL_WHITE"%d\n"COL_YELLOW"PacketLoss: "COL_WHITE"%0.2f", vx, vy, vz, x, y, z, GetPlayerPing(toply), NetStats_PacketLossPercent(toply));
 	PLAYER_TEMP[playerid][py_DL_LABEL] = CreateDynamic3DTextLabel(string, 0xFFFFFFFF, 0.0, 0.0, -0.5, 15.0, .attachedplayer = toply, .testlos = 1, .playerid = playerid);
 	PLAYER_TEMP[playerid][py_DL_TIMER] = SetTimerEx("UpdateLabel", 1000, true, "dd", playerid, toply);
 	Streamer_Update(playerid);
@@ -3436,8 +3431,8 @@ CMD:destroypveh(playerid, params[])
 	format(DB_Query_update, sizeof(DB_Query_update), "DELETE FROM `PLAYER_VEHICLES` WHERE `ID` = %d;", PLAYER_VEHICLES[vehicleid][player_vehicle_ID]);
 	db_free_result(db_query(Database, DB_Query_update));
 
-	SendClientMessageEx(ownerid, COLOR_WHITE, "El administrador "COL_RED"%s "COL_WHITE"eliminó tu "COL_RED"%s "COL_WHITE"(NP "COL_RED"%s"COL_WHITE").", ACCOUNT_INFO[playerid][ac_NAME], VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], GLOBAL_VEHICLES[vehicleid][gb_vehicle_NUMBER_PLATE]);
-	SendClientMessageEx(playerid, COLOR_WHITE, "Eliminaste el "COL_RED"%s "COL_WHITE"(NP "COL_RED"%s"COL_WHITE") de "COL_RED"%s"COL_WHITE".", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], GLOBAL_VEHICLES[vehicleid][gb_vehicle_NUMBER_PLATE], ACCOUNT_INFO[ownerid][ac_NAME]);
+	SendClientMessageEx(ownerid, COLOR_WHITE, "El administrador "COL_YELLOW"%s "COL_WHITE"eliminó tu "COL_YELLOW"%s "COL_WHITE"(NP "COL_YELLOW"%s"COL_WHITE").", ACCOUNT_INFO[playerid][ac_NAME], VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], GLOBAL_VEHICLES[vehicleid][gb_vehicle_NUMBER_PLATE]);
+	SendClientMessageEx(playerid, COLOR_WHITE, "Eliminaste el "COL_YELLOW"%s "COL_WHITE"(NP "COL_YELLOW"%s"COL_WHITE") de "COL_YELLOW"%s"COL_WHITE".", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], GLOBAL_VEHICLES[vehicleid][gb_vehicle_NUMBER_PLATE], ACCOUNT_INFO[ownerid][ac_NAME]);
 
 	if(PLAYER_PHONE[ownerid][player_phone_VALID])
 	{
@@ -3475,7 +3470,7 @@ CMD:setbankcash(playerid, params[])
 	BANK_ACCOUNT[to_player][bank_account_BALANCE] = amount;
 
 	ShowPlayerNotification(to_player, sprintf("Un administrador establecio tu dinero en el banco a ~r~$%d~w~.", amount), 5);
-	SendClientMessage(playerid, COLOR_WHITE, sprintf("Estableciste el dinero en el banco de "COL_RED"%s"COL_WHITE" a "COL_RED"%d"COL_WHITE".", ACCOUNT_INFO[to_player][ac_NAME], amount));
+	SendClientMessage(playerid, COLOR_WHITE, sprintf("Estableciste el dinero en el banco de "COL_YELLOW"%s"COL_WHITE" a "COL_YELLOW"%d"COL_WHITE".", ACCOUNT_INFO[to_player][ac_NAME], amount));
 
 	SaveUserData(to_player);
 	return 1;

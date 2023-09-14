@@ -6,7 +6,7 @@ SendMessageToDoubtChannel(playerid, const message[])
 	else
 	{
 		format(str, sizeof(str), "[Dudas] "COL_WHITE"Jugador %s (%d): (( %s ))", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Recordatorio", ""COL_WHITE"Recuerde que si dice cosas sarcásticas, insultos, anuncios o\n\
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Recordatorio", ""COL_WHITE"Recuerde que si dice cosas sarcásticas, insultos, anuncios o\n\
 			cualquier cosa que no sea relacionada al tema del canal\n\
 			puede ser muteado y a los 4 muteos no va a poder enviar\n\
 			dudas ni anuncios.", "Cerrar", "");
@@ -32,10 +32,6 @@ SendMessageToDoubtChannel(playerid, const message[])
 		}
 	}
 
-	new DCC_Channel:channelid;
-	channelid = DCC_FindChannelById("790742732829491230");
-	SendDiscordMessage(channelid, "%s", str);
-
 	#if defined FINAL_BUILD
 		if (!ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) ScanDoubt(playerid, message);
 	#endif
@@ -47,7 +43,7 @@ ScanDoubt(playerid, const doubt[])
 {
 	new payload[264];
 	format(payload, sizeof(payload), "{\"author\": \"%s\", \"playerid\": %d, \"question\": \"%s\"}", PLAYER_TEMP[playerid][py_NAME], playerid, doubt);
-	HTTP(playerid, HTTP_POST, "server.hyaxe.com:6666/get_response", payload, "neuroadmin_BotGetResponse");
+	HTTP(playerid, HTTP_POST, "vulcan.hyaxe.com:6666/get_response", payload, "neuroadmin_BotGetResponse");
 	return 1;
 }
 #endif
@@ -79,9 +75,5 @@ SendMessageToGlobalChannel(playerid, const message[])
 			}
 		}
 	}
-
-	new DCC_Channel:channelid;
-	channelid = DCC_FindChannelById("790742732829491230");
-	SendDiscordMessage(channelid, "%s", str);
 	return 1;
 }

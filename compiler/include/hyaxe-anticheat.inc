@@ -1,8 +1,8 @@
 /*
- *      Nex Anticheat - Hyaxe edition
+ *      Nex Anticheat - Vulcan edition
  * 		Creditos:
  *			Programador inicial: Nexius
- *			Hyaxe edition: Atom
+ *			Vulcan edition: Atom
 */
 
 #if defined _nex_ac_included

@@ -1,12 +1,12 @@
 // Server
-#define SERVER_HOSTNAME "Hyaxe Role Play [hyaxe.com]"
+#define SERVER_HOSTNAME "Vulcan Roleplay | Android/PC (0.3.7)"
 #define SERVER_LANGUAGE "Español / Spanish"
 #define SERVER_MODE "Roleplay"
 
 // Special hostnames
-#define HALLOWEEN_HOSTNAME "Hyaxe | Evento de Halloween"
-#define CHRISTMAS_HOSTNAME "Hyaxe | Feliz Navidad"
-#define EASTER_HOSTNAME "Hyaxe | Evento de Pascuas"
+#define HALLOWEEN_HOSTNAME "Vulcan | Evento de Halloween"
+#define CHRISTMAS_HOSTNAME "Vulcan | Feliz Navidad"
+#define EASTER_HOSTNAME "Vulcan | Evento de Pascuas"
 
 // Item names
 #define NAME_MEDICINE "Medicamento"
@@ -53,149 +53,6 @@ new const POLICE_RANKS[][] =
 	/* 13 */ "Teniente",
 	/* 14 */ "General",
 	/* 15 */ "Jefe Policíal"
-};
-
-// Mafia Ranks
-new const MAFIA_RANKS[][] =
-{
-	"Civil",
-	"Nuevo Recluta",
-	"Personal de Seguridad",
-	"Sicario Experimentado",
-	"Vendedor de armas",
-	"Cosechador de Droga",
-	"Vendedor de droga",
-	"Jefe de seguridad",
-	"Jefe de sicarios",
-	"Jefe de armeros",
-	"Jefe de Traficantes",
-	"Jefe de negociantes",
-	"Jefe de tropas",
-	"Representante",
-	"Segundo Jefe",
-	"Jefe General"
-};
-
-// enemy mafia
-new const ENEMY_MAFIA_RANKS[][] =
-{
-	"Civil",
-	"Bartender",
-	"Seguridad I",
-	"Seguridad II",
-	"Seguridad III",
-	"Seguridad IIII",
-	"Traficante I",
-	"Traficante II",
-	"Armero I",
-	"Armero II",
-	"Negociante I",
-	"Negociante II",
-	"Supervisor",
-	"Jefe de bartender",
-	"Jefe de seguridad",
-	"Jefe de traficantes",
-	"Jefe de armeros",
-	"Jefe de negociantes",
-	"Gerente",
-	"Representante",
-	"Lider"
-};
-
-new const OSBORN_RANKS[][] =
-{
-	"Civil",
-	"ASOCCIATO",
-	"FIDUCCIA",
-	"SOLDATO 1",
-	"SOLDATO 2", 
-	"SOLDATO 3",
-	"GRAN SOLDATO",
-	"MASTER SOLDATO",
-	"CAPODECIME 1",
-	"CAPODECIME 2",
-	"CAPODECIME 3",
-	"CAPOREGIME 1",
-	"CAPOREGIME 2",
-	"CAPOREGIME 3",
-	"AVVOCTO",
-	"NUMERALE",
-	"CASETTO",
-	"SOTTOCAPO",
-	"CONSIGLIERE",
-	"DON / DONA",
-	"THE VENDETTA",
-	"CAPO DI TUTI CAPI"
-};
-
-new const CONNOR_RANKS[][] =
-{
-	"Civil",
-	"Novice Connor",
-	"Security Connor",
-	"White Selling Connor",
-	"Assasins Connor",
-	"Black Security Connor",
-	"Red Assasins Connor",
-	"Red Selling connor",
-	"Doctor Connor",
-	"Spy Connor",
-	"Negotiating Connor",
-	"Leader Spy Connor",
-	"Leader Security Connor",
-	"Leader Assasin Connor",
-	"The Black Connor",
-	"The Real Connor"
-};
-
-new const DIVISO_RANKS[][] =
-{
-	"Civil",
-	"Recluta en Pruebas",
-	"Recluta",
-	"Traficantes l",
-	"Traficantes ll",
-	"Jefe de traficantes",
-	"Vigilante ll",
-	"Vigilante lll",
-	"Jefe de vigilantes",
-	"Sicario l",
-	"Sicario ll",
-	"Jefe de sicarios",
-	"Supervisor de jefes",
-	"Gerente",
-	"Mano Derecha",
-	"Jefe",
-	"Fundador"
-};
-
-new const SINDACCO_RANKS[][] =
-{
-	"Civil",
-	"nova recluta",
-	"guardia I",
-	"guardia II",
-	"asociado",
-	"soldato I",
-	"soldato II",
-	"Raccoglitrice di droga",
-	"sicari I",
-	"sicari II",
-	"trafficanti I",
-	"trafficanti II",
-	"armaiolo I",
-	"armaiolo II",
-	"Capo guardia",
-	"Caporegime",
-	"Capo di sicari",
-	"Capo di trafficanti",
-	"Capo armaiolo",
-	"consigliere",
-	"il Boss",
-	"Sottocapo",
-	"il capo ",
-	"representantev",
-	"leity"
 };
 
 TextToSpanish(const base[])

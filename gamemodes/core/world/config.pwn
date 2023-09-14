@@ -86,9 +86,9 @@ UpdateEconomy(type = -1)
 							"\
 								{F4DC42}Se requiere VIP (%d)\n\
 								\n\
-								"COL_RED"%s\n\n\
-								"COL_WHITE"Coste: "COL_RED"%d "SERVER_COIN"\n\
-								"COL_WHITE"Nivel: "COL_RED"%d\
+								"COL_YELLOW"%s\n\n\
+								"COL_WHITE"Coste: "COL_YELLOW"%d "SERVER_COIN"\n\
+								"COL_WHITE"Nivel: "COL_YELLOW"%d\
 							", SELL_VEHICLES[i][sell_vehicle_VIP_LEVEL], VEHICLE_INFO[GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400][vehicle_info_NAME], SELL_VEHICLES[i][sell_vehicle_EXTRA], SELL_VEHICLES[i][sell_vehicle_LEVEL]
 					);
 				}
@@ -101,9 +101,9 @@ UpdateEconomy(type = -1)
 							"\
 								{F4DC42}Se requiere VIP (%d)\n\
 								\n\
-								"COL_RED"%s\n\n\
-								"COL_WHITE"Precio: "COL_RED"%s$\n\
-								"COL_WHITE"Nivel: "COL_RED"%d\
+								"COL_YELLOW"%s\n\n\
+								"COL_WHITE"Precio: "COL_YELLOW"%s$\n\
+								"COL_WHITE"Nivel: "COL_YELLOW"%d\
 							", SELL_VEHICLES[i][sell_vehicle_VIP_LEVEL], VEHICLE_INFO[GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400][vehicle_info_NAME], number_format_thousand(SELL_VEHICLES[i][sell_vehicle_PRICE]), SELL_VEHICLES[i][sell_vehicle_LEVEL]
 					);
 				}
@@ -117,9 +117,9 @@ UpdateEconomy(type = -1)
 						label_str,
 							sizeof label_str,
 							"\
-								"COL_RED"%s\n\n\
-								"COL_WHITE"Coste: "COL_RED"%d "SERVER_COIN"\n\
-								"COL_WHITE"Nivel: "COL_RED"%d\
+								"COL_YELLOW"%s\n\n\
+								"COL_WHITE"Coste: "COL_YELLOW"%d "SERVER_COIN"\n\
+								"COL_WHITE"Nivel: "COL_YELLOW"%d\
 							", VEHICLE_INFO[GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400][vehicle_info_NAME], SELL_VEHICLES[i][sell_vehicle_EXTRA], SELL_VEHICLES[i][sell_vehicle_LEVEL]
 					);
 				}
@@ -130,9 +130,9 @@ UpdateEconomy(type = -1)
 						label_str,
 							sizeof label_str,
 							"\
-								"COL_RED"%s\n\n\
-								"COL_WHITE"Precio: "COL_RED"%s$\n\
-								"COL_WHITE"Nivel: "COL_RED"%d\
+								"COL_YELLOW"%s\n\n\
+								"COL_WHITE"Precio: "COL_YELLOW"%s$\n\
+								"COL_WHITE"Nivel: "COL_YELLOW"%d\
 							", VEHICLE_INFO[GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400][vehicle_info_NAME], number_format_thousand(SELL_VEHICLES[i][sell_vehicle_PRICE]), SELL_VEHICLES[i][sell_vehicle_LEVEL]
 					);
 				}
@@ -194,9 +194,9 @@ UpdateEconomy(type = -1)
 									"\
 										{F4DC42}Se requiere VIP (%d)\n\
 										\n\
-										"COL_RED"%s\n\n\
-										"COL_WHITE"Coste: "COL_RED"%d "SERVER_COIN"\n\
-										"COL_WHITE"Nivel: "COL_RED"%d\
+										"COL_YELLOW"%s\n\n\
+										"COL_WHITE"Coste: "COL_YELLOW"%d "SERVER_COIN"\n\
+										"COL_WHITE"Nivel: "COL_YELLOW"%d\
 									", SELL_VEHICLES[i][sell_vehicle_VIP_LEVEL], VEHICLE_INFO[GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400][vehicle_info_NAME], SELL_VEHICLES[i][sell_vehicle_EXTRA], SELL_VEHICLES[i][sell_vehicle_LEVEL]
 							);
 						}
@@ -209,9 +209,9 @@ UpdateEconomy(type = -1)
 									"\
 										{F4DC42}Se requiere VIP (%d)\n\
 										\n\
-										"COL_RED"%s\n\n\
-										"COL_WHITE"Precio: "COL_RED"%s$\n\
-										"COL_WHITE"Nivel: "COL_RED"%d\
+										"COL_YELLOW"%s\n\n\
+										"COL_WHITE"Precio: "COL_YELLOW"%s$\n\
+										"COL_WHITE"Nivel: "COL_YELLOW"%d\
 									", SELL_VEHICLES[i][sell_vehicle_VIP_LEVEL], VEHICLE_INFO[GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400][vehicle_info_NAME], number_format_thousand(SELL_VEHICLES[i][sell_vehicle_PRICE]), SELL_VEHICLES[i][sell_vehicle_LEVEL]
 							);
 						}
@@ -225,9 +225,9 @@ UpdateEconomy(type = -1)
 								label_str,
 									sizeof label_str,
 									"\
-										"COL_RED"%s\n\n\
-										"COL_WHITE"Coste: "COL_RED"%d "SERVER_COIN"\n\
-										"COL_WHITE"Nivel: "COL_RED"%d\
+										"COL_YELLOW"%s\n\n\
+										"COL_WHITE"Coste: "COL_YELLOW"%d "SERVER_COIN"\n\
+										"COL_WHITE"Nivel: "COL_YELLOW"%d\
 									", VEHICLE_INFO[GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400][vehicle_info_NAME], SELL_VEHICLES[i][sell_vehicle_EXTRA], SELL_VEHICLES[i][sell_vehicle_LEVEL]
 							);
 						}
@@ -238,9 +238,9 @@ UpdateEconomy(type = -1)
 								label_str,
 									sizeof label_str,
 									"\
-										"COL_RED"%s\n\n\
-										"COL_WHITE"Precio: "COL_RED"%s$\n\
-										"COL_WHITE"Nivel: "COL_RED"%d\
+										"COL_YELLOW"%s\n\n\
+										"COL_WHITE"Precio: "COL_YELLOW"%s$\n\
+										"COL_WHITE"Nivel: "COL_YELLOW"%d\
 									", VEHICLE_INFO[GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400][vehicle_info_NAME], number_format_thousand(SELL_VEHICLES[i][sell_vehicle_PRICE]), SELL_VEHICLES[i][sell_vehicle_LEVEL]
 							);
 						}

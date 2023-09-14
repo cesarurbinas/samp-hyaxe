@@ -51,8 +51,6 @@ enum Temp_Enum
 	py_INTERIOR_INDEX,
 	bool:py_SELECT_TEXTDRAW,
 	bool:py_HUD_TEXTDRAWS,
-	bool:py_REGISTER_SELECTING_STYLE,
-	py_REGISTER_SELECTED_STYLE,
 	bool:py_THIRST_MESSAGE,
 	bool:py_HUNGRY_MESSAGE,
 	py_SELECTED_TOY_SLOT,
@@ -95,7 +93,6 @@ enum Temp_Enum
 	py_WORKING_IN,
 	py_SELECTED_MECHANIC_VEHICLE_ID,
 	py_MECHANIC_COLOR_SLOT,
-	bool:py_WANT_MECHANIC,
 	py_HARVERT_CHECKPOINT,
 	py_HARVERT_PROCCESS,
 	bool:py_TRASH_DRIVER,
@@ -263,7 +260,6 @@ enum Temp_Enum
 	py_POLICE_REASON[32],
 	bool:py_WANT_MEDIC,
 	py_LIMIT_AMBULANCE,
-	bool:py_VOICE_CHAT,
 	py_FIX_VALUE,
 	py_JOINT_USES,
 	bool:py_BOXING,
@@ -492,7 +488,3 @@ enum Temp_Enum
 >>>>>>> 81198a54 (me olvide de hacer commit otra vez)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
-
-#if defined VOICE_CHAT
-	new SV_LSTREAM:lstream[MAX_PLAYERS] = { SV_NULL, ... };
-#endif

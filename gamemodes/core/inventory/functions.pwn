@@ -862,14 +862,14 @@ ShowHelpMenu(playerid)
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][43]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][44]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][45]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][46]);
+	//PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][46]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
 
 	/* Header */
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Hyaxe");
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Vulcan");
 	/* Body */
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgió en 2018, pero no fue hasta mediados de 2019 que comenzó a desarrollarse, con tiempos más activos y otros no tanto, pasó por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opción porque la encontramos más rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el número de miembros del equipo."));
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Vulcan surgió en 2018, pero no fue hasta mediados de 2019 que comenzó a desarrollarse, con tiempos más activos y otros no tanto, pasó por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opción porque la encontramos más rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el número de miembros del equipo."));
 
 	SelectTextDrawEx(playerid, COLOR_INV_RED);
 	return 1;
@@ -1188,7 +1188,7 @@ ShowPhone(playerid)
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_PHONE_MENU][19]);
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_PHONE_MENU][21]);
 
-	SelectTextDrawEx(playerid, COLOR_RED);
+	SelectTextDrawEx(playerid, COLOR_YELLOW);
 	PLAYER_TEMP[playerid][py_PLAYER_IN_PHONE] = true;
 	return 1;
 }
@@ -1281,7 +1281,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 								true
 							);
 						}
-						else if (PLAYER_WORKS[playerid][WORK_POLICE] || PlayerIsInMafia(playerid))
+						else if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
 							GivePlayerWeaponEx(
 								playerid,

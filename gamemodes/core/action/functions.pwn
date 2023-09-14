@@ -95,7 +95,7 @@ stock Internal_ShowActionForPlayer(playerid, tda_callback[], tda_description[], 
 	PlayerTextDrawSetProportional(playerid, g_PlayerActionsTD[playerid][6], 1);
 	PlayerTextDrawSetShadow(playerid, g_PlayerActionsTD[playerid][6], 1);
 	PlayerTextDrawUseBox(playerid, g_PlayerActionsTD[playerid][6], 1);
-	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][6], COLOR_RED);
+	PlayerTextDrawBoxColor(playerid, g_PlayerActionsTD[playerid][6], COLOR_YELLOW);
 	PlayerTextDrawTextSize(playerid, g_PlayerActionsTD[playerid][6], 395.400024, 0.000000);
 	PlayerTextDrawShow(playerid, g_PlayerActionsTD[playerid][6]);
 

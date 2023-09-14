@@ -51,14 +51,14 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 }
 
 // Color pallete
-#define COLOR_WHITE 0xF0F0F0FF
-#define COL_WHITE "{F0F0F0}"
-
-#define COLOR_RED 0xC33D33FF
-#define COL_RED "{C33D33}"
+#define COLOR_WHITE 0xD3D3D3FF
+#define COL_WHITE "{D3D3D3}"
 
 #define COLOR_ORANGE 0xDD6A4DFF
 #define COL_ORANGE "{DD6A4D}"
+
+#define COLOR_RED 0xC33D33FF
+#define COL_RED "{C33D33}"
 
 #define COLOR_DARK_GREEN 0x2a9d8fFF
 #define COL_DARK_GREEN "{2a9d8f}"
@@ -66,8 +66,8 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 #define COLOR_GREEN 0x64A752FF
 #define COL_GREEN "{64A752}"
 
-#define COLOR_YELLOW 0xe9c46aFF
-#define COL_YELLOW "{e9c46a}"
+#define COLOR_YELLOW 0xDAA838FF
+#define COL_YELLOW "{DAA838}"
 
 #define COLOR_LIGHT_ORANGE 0xf4a261FF
 #define COL_LIGHT_ORANGE "{f4a261}"
@@ -96,7 +96,7 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 
 #define COLOR_INV_ITEM 0x424242FF
 #define COLOR_INV_STOCK 0xC7C7C7FF
-#define COLOR_INV_RED 0xCB3F3FFF
+#define COLOR_INV_RED 0xDAA838FF
 #define COLOR_INV_BTN 0x333333FF
 #define COLOR_INV_INFO 0x93A0B3FF
 

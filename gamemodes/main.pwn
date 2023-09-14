@@ -1,14 +1,11 @@
 /*
- *      Hyaxe - San Andreas Multiplayer
- * 		Créditos/Autores: Atom, Heix, Wurty, Zeint, Boorz, Vinter
- *		Ideas: Comunidad de Hyaxe, blade (sacar este ultimo por sobrepeso)
+ *      Vulcan Roleplay (Hyaxe based)
+ * 		Créditos/Autores: Atom, Heix, Wurty, Zeint, Boorz, Vinter, Blade, Deru
 */
 
 // Compilación
 #pragma option -(+
 #pragma option -;+
-//#pragma option -O1
-#pragma option -d3
 
 // Anti-DeAMX creado por Daniel-Cortez
 @___ww___@();
@@ -43,11 +40,12 @@ L1:
 */
 #define DEBUG_MODE 1
 
-/*#if DEBUG_MODE != 0
+#if DEBUG_MODE != 0
 	#pragma option -d3
+	#include <crashdetect>
 #else
-	#pragma option -d0
-#endif*/
+	#pragma option -O1
+#endif
 
 #pragma warning disable 239
 #pragma warning disable 214
@@ -58,18 +56,16 @@ L1:
 #include <a_samp>
 
 #undef MAX_PLAYERS
-#define MAX_PLAYERS 1000
+#define MAX_PLAYERS 100
 
 // Server information
-#define SERVER_VERSION 			"Experimental v2.0" // Old: Legacy v0.9 Build 10
-#define SERVER_NAME 			"Hyaxe"
-#define SERVER_WEBSITE 			"www.hyaxe.com"
-#define SERVER_DISCORD 			"www.hyaxe.com/discord"
+#define SERVER_VERSION 			"Alpha 1"
+#define SERVER_NAME 			"Vulcan"
+#define SERVER_WEBSITE 			"www.vulcan-roleplay.com"
+#define SERVER_DISCORD 			"www.vulcan-roleplay.com/discord"
 
 // Features
-//#define VOICE_CHAT
 #define FINAL_BUILD
-//#define DM_MODE
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -122,16 +118,9 @@ L1:
 #include <strlib>
 #include <extended-actor>
 #include <hyaxe-select>
-#include <discord-connector>
-#include <discord-command>
 
 // Anticheat
 #include "core/anticheat/header.pwn"
-
-// Voice Chat
-#if defined VOICE_CHAT
-	#include <hyaxe>
-#endif
 
 // Logger and flags
 #include "core/logger/header.pwn"
@@ -260,9 +249,6 @@ L1:
 #include "core/police/functions.pwn"
 #include "core/police/commands.pwn"
 
-// Transitions
-#include "core/transitions/header.pwn"
-
 // Animation preloading
 #include "utils/animations/preload.pwn"
 
@@ -322,11 +308,6 @@ L1:
 #include "core/anticheat/callbacks.pwn"
 #include "core/anticheat/main.pwn"
 
-// Soccer
-#include "core/soccer/header.pwn"
-#include "core/soccer/functions.pwn"
-#include "core/soccer/callbacks.pwn"
-
 // Stall
 #include "core/stall/header.pwn"
 #include "core/stall/functions.pwn"
@@ -336,9 +317,6 @@ L1:
 
 // Fireworks
 #include "core/fireworks/functions.pwn"
-
-// Discord integration
-#include "core/admin/discord.pwn"
 
 // Channels
 #include "core/channel/callbacks.pwn"
@@ -404,7 +382,7 @@ main()
 	Logger_Info("language > "SERVER_LANGUAGE"");
 	Logger_Info("website > "SERVER_WEBSITE"");
 	Logger_Info("discord > "SERVER_DISCORD"");
-	Logger_Info("build: Hyaxe SA-MP "SERVER_VERSION"\n");
+	Logger_Info("build: Vulcan "SERVER_VERSION"\n");
 }
 
 <<<<<<< HEAD
@@ -2467,7 +2445,7 @@ public OnGameModeInit()
 	// Server
 	SetGameModeText(SERVER_VERSION);
 
-	SendRconCommand("hostname Hyaxe Role Play [dev]");
+	SendRconCommand("hostname Vulcan [test]");
 	SetTimer("UpdateMoneyPrinters", 40000, true);
 
 	#if defined FINAL_BUILD
@@ -2488,10 +2466,6 @@ public OnGameModeInit()
 	#if defined EASTER_MODE
 		SendRconCommand("hostname "EASTER_HOSTNAME"");
 		EasterMap();
-	#endif
-
-	#if defined DM_MODE
-		SendRconCommand("hostname Hyaxe DM | MAMAGUEBOS VS MAMAGUEBOS");
 	#endif
 
 	SendRconCommand("language "SERVER_LANGUAGE"");

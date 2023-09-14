@@ -8,14 +8,14 @@ public OnGameModeInit()
 
 	// Información
 	CreateDynamicPickup(1275, 1, -1932.7006, -2454.7651, 30.7005);
-	CreateDynamic3DTextLabel(""COL_RED"Armario del aserradero\n"COL_WHITE"Usa "COL_RED"Y"COL_WHITE" para ponerte en servicio.", 0xFFFFFFFF, -1932.7006, -2454.7651, 30.7005, 10.0, .testlos = true);
+	CreateDynamic3DTextLabel(""COL_YELLOW"Armario del aserradero\n"COL_WHITE"Usa "COL_YELLOW"Y"COL_WHITE" para ponerte en servicio.", 0xFFFFFFFF, -1932.7006, -2454.7651, 30.7005, 10.0, .testlos = true);
 
 	// Cinta transportadora
 	CreateDynamicPickup(1318, 1, -1989.2733, -2383.7856, 30.6250);
-	CreateDynamic3DTextLabel(""COL_RED"Cinta transportadora\n"COL_WHITE"Usa "COL_RED"Y"COL_WHITE" para soltar tus troncos y recibir tu paga", 0xFFFFFFFF, -1989.2733, -2383.7856, 30.6250, 10.0, .testlos = true);
+	CreateDynamic3DTextLabel(""COL_YELLOW"Cinta transportadora\n"COL_WHITE"Usa "COL_YELLOW"Y"COL_WHITE" para soltar tus troncos y recibir tu paga", 0xFFFFFFFF, -1989.2733, -2383.7856, 30.6250, 10.0, .testlos = true);
 
 	// Stock del aserradero
-	SawmillLabel = CreateDynamic3DTextLabel(sprintf(""COL_RED"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock), 0xFFFFFFFF, -1942.0737, -2453.7593, 30.6734, 5.0);
+	SawmillLabel = CreateDynamic3DTextLabel(sprintf(""COL_YELLOW"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock), 0xFFFFFFFF, -1942.0737, -2453.7593, 30.6734, 5.0);
 	
 	new label[100];
 	for(new i = 0; i != sizeof(Trees); ++i)
@@ -25,19 +25,19 @@ public OnGameModeInit()
 			case TREE_TYPE_NORMAL:
 			{
 				Trees[i][tree_OBJECT] = CreateDynamicObject(696, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z], 0.0, 0.0, 0.0);
-				format(label, sizeof(label), ""COL_RED"Árbol\n"COL_WHITE"Usa "COL_RED"ALT "COL_WHITE"para talarlo.");
+				format(label, sizeof(label), ""COL_YELLOW"Árbol\n"COL_WHITE"Usa "COL_YELLOW"ALT "COL_WHITE"para talarlo.");
 				Trees[i][tree_LABEL] = CreateDynamic3DTextLabel(label, 0xFFFFFF00, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z] - 1.8, 10.0, .testlos = 0);
 			}
 			case TREE_TYPE_UNCOMMON:
 			{
 				Trees[i][tree_OBJECT] = CreateDynamicObject(655, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z], 0.0, 0.0, 0.0);
-				format(label, sizeof(label), ""COL_RED"Árbol poco común\n"COL_WHITE"Usa "COL_RED"ALT "COL_WHITE"para talarlo.");
+				format(label, sizeof(label), ""COL_YELLOW"Árbol poco común\n"COL_WHITE"Usa "COL_YELLOW"ALT "COL_WHITE"para talarlo.");
 				Trees[i][tree_LABEL] = CreateDynamic3DTextLabel(label, 0xFFFFFF00, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z] + 0.5, 10.0, .testlos = 0);
 			}
 			case TREE_TYPE_RARE:
 			{
 				Trees[i][tree_OBJECT] = CreateDynamicObject(886, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z], 0.0, 0.0, 0.0);
-				format(label, sizeof(label), ""COL_RED"Árbol raro\n"COL_WHITE"Usa "COL_RED"ALT "COL_WHITE"para talarlo.");
+				format(label, sizeof(label), ""COL_YELLOW"Árbol raro\n"COL_WHITE"Usa "COL_YELLOW"ALT "COL_WHITE"para talarlo.");
 				Trees[i][tree_LABEL] = CreateDynamic3DTextLabel(label, 0xFFFFFF00, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z] + 0.5, 10.0, .testlos = 0);
 			}
 		}
@@ -67,17 +67,17 @@ public RegenerateTree(treeid)
 		case TREE_TYPE_NORMAL:
 		{
 			Trees[treeid][tree_OBJECT] = CreateDynamicObject(696, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z], 0.0, 0.0, 0.0);
-			format(label, sizeof(label), ""COL_RED"Árbol\n"COL_WHITE"Usa "COL_RED"ALT "COL_WHITE"para talarlo.");
+			format(label, sizeof(label), ""COL_YELLOW"Árbol\n"COL_WHITE"Usa "COL_YELLOW"ALT "COL_WHITE"para talarlo.");
 		}
 		case TREE_TYPE_UNCOMMON:
 		{
 			Trees[treeid][tree_OBJECT] = CreateDynamicObject(655, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z], 0.0, 0.0, 0.0);
-			format(label, sizeof(label), ""COL_RED"Árbol poco común\n"COL_WHITE"Usa "COL_RED"ALT "COL_WHITE"para talarlo.");
+			format(label, sizeof(label), ""COL_YELLOW"Árbol poco común\n"COL_WHITE"Usa "COL_YELLOW"ALT "COL_WHITE"para talarlo.");
 		}
 		case TREE_TYPE_RARE:
 		{
 			Trees[treeid][tree_OBJECT] = CreateDynamicObject(886, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z], 0.0, 0.0, 0.0);
-			format(label, sizeof(label), ""COL_RED"Árbol raro\n"COL_WHITE"Usa "COL_RED"ALT "COL_WHITE"para talarlo.");
+			format(label, sizeof(label), ""COL_YELLOW"Árbol raro\n"COL_WHITE"Usa "COL_YELLOW"ALT "COL_WHITE"para talarlo.");
 		}
 	}
 
@@ -112,7 +112,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					CA_FindZ_For2DCoord(x, y, z);
 
 					LogCarts[playerid][cart_OBJECT] = CreateDynamicObject(1458, x, y, z, 0.0, 0.0, 0.0);
-					LogCarts[playerid][cart_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_RED"Carrito de %s\n"COL_WHITE"Usa "COL_RED"ALT + CLICK "COL_WHITE"para agarrarlo.", ACCOUNT_INFO[playerid][ac_NAME]), 0xFFFFFFFF, x, y, z + 0.5, 5.0);
+					LogCarts[playerid][cart_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_YELLOW"Carrito de %s\n"COL_WHITE"Usa "COL_YELLOW"ALT + CLICK "COL_WHITE"para agarrarlo.", ACCOUNT_INFO[playerid][ac_NAME]), 0xFFFFFFFF, x, y, z + 0.5, 5.0);
 			
 					SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 					RemovePlayerAttachedObject(playerid, 1);
@@ -233,7 +233,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 					g_iSawmillStock += LogCarts[playerid][cart_AMOUNT];
 					safe_db_query(sprintf("UPDATE `SERVER_PROPERTIES` SET `SAWMILL_STOCK` = %d;", g_iSawmillStock));
-					UpdateDynamic3DTextLabelText(SawmillLabel, 0xFFFFFFFF, sprintf(""COL_RED"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock));
+					UpdateDynamic3DTextLabelText(SawmillLabel, 0xFFFFFFFF, sprintf(""COL_YELLOW"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock));
 
 					GivePlayerCash(playerid, 150 * LogCarts[playerid][cart_AMOUNT]);
 					ShowPlayerNotification(playerid, sprintf("Procesaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 150 * LogCarts[playerid][cart_AMOUNT]), 3);
@@ -327,7 +327,7 @@ public FinishTreeCutting(playerid, treeid)
 
 	new label[100], Float:z;
 	DestroyDynamicObject(Trees[treeid][tree_OBJECT]);
-	format(label, sizeof(label), ""COL_RED"Ramas de un arbol\n"COL_WHITE"Este árbol fue cortado hace poco. Crecera en unos minutos.");
+	format(label, sizeof(label), ""COL_YELLOW"Ramas de un arbol\n"COL_WHITE"Este árbol fue cortado hace poco. Crecera en unos minutos.");
 
 	CA_FindZ_For2DCoord(Trees[treeid][tree_X], Trees[treeid][tree_Y], z);
 	UpdateDynamic3DTextLabelText(Trees[treeid][tree_LABEL], 0xFFFFFF00, label);

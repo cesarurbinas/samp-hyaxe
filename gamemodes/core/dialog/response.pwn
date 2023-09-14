@@ -133,7 +133,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL]);
 
 				new str_text[128];
-				format(str_text, sizeof str_text, "Bienvenido %s a Hyaxe RolePlay.", PLAYER_TEMP[playerid][py_RP_NAME]);
+				format(str_text, sizeof str_text, "Bienvenido %s a Vulcan RolePlay.", PLAYER_TEMP[playerid][py_RP_NAME]);
 				ShowPlayerNotification(playerid, str_text);
 
 				if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
@@ -622,7 +622,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_TRANSFER_SENT, inputtext[0], PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT]);
 				RegisterBankAccountTransaction(PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT], BANK_TRANSACTION_TRANSFER_RECE, inputtext[0], BANK_ACCOUNT[playerid][bank_account_ID]);
 
-				SendClientMessageEx(playerid, COLOR_WHITE, "Operación realizada con éxito, has transferido "COL_RED"%s$ "COL_WHITE"al número de cuenta "COL_RED"%s.", number_format_thousand(inputtext[0]), number_format_thousand(PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT]));
+				SendClientMessageEx(playerid, COLOR_WHITE, "Operación realizada con éxito, has transferido "COL_YELLOW"%s$ "COL_WHITE"al número de cuenta "COL_YELLOW"%s.", number_format_thousand(inputtext[0]), number_format_thousand(PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT]));
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 				PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT] = 0;
 				PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = false;
@@ -836,7 +836,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 				ShowPlayerMessage(playerid, "~g~Nuevo contacto añadido a la agenda.", 3);
-				SendClientMessageEx(playerid, COLOR_WHITE, "Nuevo contacto añadido a la agenda: Nombre: "COL_RED"%s "COL_WHITE"Teléfono: "COL_RED"%d.", PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_PHONE_NUMBER]);
+				SendClientMessageEx(playerid, COLOR_WHITE, "Nuevo contacto añadido a la agenda: Nombre: "COL_YELLOW"%s "COL_WHITE"Teléfono: "COL_YELLOW"%d.", PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_PHONE_NUMBER]);
 				ShowDialog(playerid, DIALOG_PHONE_BOOK);
 			}
 			else ShowDialog(playerid, DIALOG_PHONE_BOOK_ADD_NUMBER);
@@ -862,23 +862,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								PLAYER_TEMP[playerid][py_POLICE_CALL_DESCRIPTION] = false;
 
 								SendClientMessage(playerid, COLOR_YELLOW, "Operadora:"COL_WHITE" Ha llamado a la central de policía, indícanos su nombre por favor.");
-								return 1;
-							}
-							case 570: //Mecanico
-							{
-								if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-								{
-									PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-									DisablePlayerMechanicMark(playerid);
-							        ShowPlayerMessage(playerid, "Has cancelado el llamado a un mecánico.", 3);
-								}
-								else
-								{
-									PLAYER_TEMP[playerid][py_WANT_MECHANIC] = true;
-									ShowPlayerMessage(playerid, "Tu llamada se ha enviado a los mecánicos disponibles, espera a que llegue un mecánico.", 3);
-									//SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Vuelve a llamar a este número si ya no necesitas un mecánico.");
-									SendAlertToMechanic(playerid);
-								}
 								return 1;
 							}
 							case 6740: return ShowDialog(playerid, DIALOG_BANK_TRANSACTIONS);
@@ -963,7 +946,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PHONE_BOOK` WHERE `PHONE_ID` = '%d' AND `CONTACT_ID` = '%d';", PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_ID]);
 				db_free_result(db_query(Database, DB_Query));
 
-				SendClientMessageEx(playerid, COLOR_WHITE, "Contacto "COL_RED"\"%s\" "COL_WHITE"eliminado de tu agenda.", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME]);
+				SendClientMessageEx(playerid, COLOR_WHITE, "Contacto "COL_YELLOW"\"%s\" "COL_WHITE"eliminado de tu agenda.", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME]);
 			    ShowPlayerMessage(playerid, "Contacto eliminado.", 2);
 
 				PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_VALID] = false;
@@ -1022,22 +1005,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PLAYER_TEMP[playerid][py_POLICE_CALL_DESCRIPTION] = false;
 
 						SendClientMessage(playerid, COLOR_YELLOW, "Operadora:"COL_WHITE" Ha llamado a la central de policía, indícanos su nombre por favor.");
-						return 1;
-					}
-					case 570: //Mecanico
-					{
-						if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-						{
-							PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-							DisablePlayerMechanicMark(playerid);
-							ShowPlayerMessage(playerid, "Has cancelado el llamado de mecánico.", 2);
-						}
-						else
-						{
-							PLAYER_TEMP[playerid][py_WANT_MECHANIC] = true;
-							ShowPlayerMessage(playerid, "Tu llamada se ha enviado a los mecánicos disponibles, espera a que llegue un mecánico.", 2);
-							SendAlertToMechanic(playerid);
-						}
 						return 1;
 					}
 					case 6740: return ShowDialog(playerid, DIALOG_BANK_TRANSACTIONS);
@@ -1354,7 +1321,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				RegisterNewPlayer_GPS_Site(playerid, slot);
 
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-				SendClientMessageEx(playerid, COLOR_WHITE, "Nuevo sitio añadido al GPS con el nombre: "COL_RED"%s.", PLAYER_GPS[playerid][slot][player_gps_NAME]);
+				SendClientMessageEx(playerid, COLOR_WHITE, "Nuevo sitio añadido al GPS con el nombre: "COL_YELLOW"%s.", PLAYER_GPS[playerid][slot][player_gps_NAME]);
 				ShowPlayerMessage(playerid, "Nuevo sitio añadido al GPS.", 2);
 				ShowDialog(playerid, DIALOG_PLAYER_GPS_PLAYER);
 			}
@@ -1718,7 +1685,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (isnull(inputtext)) return ShowDialog(playerid, dialogid);
 
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Espere", ""COL_WHITE"Buscando resultados para su búsqueda...", "Cerrar", "");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Espere", ""COL_WHITE"Buscando resultados para su búsqueda...", "Cerrar", "");
 
 				for(new i = 0; i < strlen(inputtext); i++)
 				{
@@ -2259,8 +2226,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 
 				ShowPlayerMessage(playerid, "¡Vehículo comprado! Utiliza /GPS para localizarlo.", 3);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_RED"¡Vehículo %s comprado!", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-				SendClientMessageEx(seller, COLOR_WHITE, ""COL_RED"¡Vehículo vendido! "COL_WHITE"Has recibido {d1f442}%s$ "COL_WHITE"en tu cuenta bancaria.", number_format_thousand(price));
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_YELLOW"¡Vehículo %s comprado!", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
+				SendClientMessageEx(seller, COLOR_WHITE, ""COL_YELLOW"¡Vehículo vendido! "COL_WHITE"Has recibido {d1f442}%s$ "COL_WHITE"en tu cuenta bancaria.", number_format_thousand(price));
 				PlayerPlaySoundEx(seller, 1058, 0.0, 0.0, 0.0);
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
@@ -2551,69 +2518,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
 			return 1;
 		}
-		/*case DIALOG_BLACK_MARKET_AMMO_STOCK:
-		{
-			if (response)
-			{
-				switch(listitem)
-				{
-					case 0:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_1]++;
-						SavePlayerMisc(playerid);
-
-						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
-						{
-							GivePlayerCash(playerid, -50, false);
-						}
-						return 1;
-					}
-					case 1:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 100) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_4]++;
-						SavePlayerMisc(playerid);
-
-						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
-						{
-							GivePlayerCash(playerid, -100, false);
-						}
-						return 1;
-					}
-					case 2:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 400) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_3]++;
-						SavePlayerMisc(playerid);
-
-						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
-						{
-							GivePlayerCash(playerid, -400, false);
-						}
-						return 1;
-					}
-					case 3:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 250) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-
-						PLAYER_MISC[playerid][MISC_CARTRIDGE_2] += 5;
-						SavePlayerMisc(playerid);
-
-						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
-						{
-							GivePlayerCash(playerid, -250, false);
-						}
-						return 1;
-					}
-				}
-			}
-			else ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO);
-			return 1;
-		}*/
 		case DIALOG_BLACK_MARKET_SELECT_WEA:
 		{
 			if (response)
@@ -2858,564 +2762,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else ShowDialog(playerid, DIALOG_POLICE_LIST);
 			return 1;
 		}
-		case DIALOG_MAFIA_LIST:
-		{
-			if (response)
-			{
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -2) // Siguiente
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_MAFIA);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
-					ShowDialog(playerid, dialogid);
-				}
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -3) //Anterior
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_MAFIA);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
-					ShowDialog(playerid, dialogid);
-				}
-				else
-				{
-					if (PLAYER_SKILLS[playerid][WORK_MAFIA] >= 15)
-					{
-						PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
-						ShowDialog(playerid, DIALOG_MAFIA_MODIFY);
-					}
-				}
-			}
-			return 1;
-		}
-		case DIALOG_MAFIA_MODIFY:
-		{
-			if (response)
-			{
-				if (listitem > PLAYER_SKILLS[playerid][WORK_MAFIA])
-				{
-				    ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
-
-					return 1;
-				}
-
-				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_MAFIA);
-				Result = db_query(Database, DB_Query);
-
-				if (db_num_rows(Result))
-				{
-					db_get_field_assoc(Result, "NAME", name, 24);
-					connected = db_get_field_assoc_int(Result, "CONNECTED");
-					player_id = db_get_field_assoc_int(Result, "PLAYERID");
-					current_rank = db_get_field_assoc_int(Result, "TOTAL");
-					found = true;
-				}
-				else found = false;
-				db_free_result(Result);
-
-				if (!found) return 1;
-				if (current_rank > PLAYER_SKILLS[playerid][WORK_MAFIA])
-				{
-				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este jugador porque es un rango superior al tuyo.", 3);
-					return 1;
-				}
-
-				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_MAFIA);
-				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0xa912e2FF, "[FSB] "COL_WHITE" El nuevo rango de %s es: %s.", name, MAFIA_RANKS[listitem]);
-
-				if (listitem == 0)
-				{
-					format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_MAFIA);
-					db_free_result(db_query(Database, DB_Query));
-				}
-
-				if (connected)
-				{
-					PLAYER_SKILLS[player_id][WORK_MAFIA] = listitem;
-
-					if (listitem == 0)
-					{
-						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_MAFIA) EndPlayerJob(player_id);
-						PLAYER_WORKS[player_id][WORK_MAFIA] = false;
-						SendClientMessageEx(player_id, 0xa912e2FF, "[FSB] "COL_WHITE" El %s %s te ha expulsado de Family SaintBlood'S.", MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME]);
-					}
-					else SendClientMessageEx(player_id, 0xa912e2FF, "[FSB] "COL_WHITE" El %s %s ha modificado tu rango a %s.", MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME], MAFIA_RANKS[listitem]);
-				}
-			}
-			else ShowDialog(playerid, DIALOG_MAFIA_LIST);
-			return 1;
-		}
-		case DIALOG_ENEMY_MAFIA_LIST:
-		{
-			if (response)
-			{
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -2) // Siguiente
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_ENEMY_MAFIA);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
-					ShowDialog(playerid, dialogid);
-				}
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -3) //Anterior
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_ENEMY_MAFIA);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
-					ShowDialog(playerid, dialogid);
-				}
-				else
-				{
-					if (PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] >= 5)
-					{
-						PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
-						ShowDialog(playerid, DIALOG_ENEMY_MAFIA_MODIFY);
-					}
-				}
-			}
-			return 1;
-		}
-		case DIALOG_ENEMY_MAFIA_MODIFY:
-		{
-			if (response)
-			{
-				if (listitem > PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA])
-				{
-				    ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
-
-					return 1;
-				}
-
-				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_ENEMY_MAFIA);
-				Result = db_query(Database, DB_Query);
-
-				if (db_num_rows(Result))
-				{
-					db_get_field_assoc(Result, "NAME", name, 24);
-					connected = db_get_field_assoc_int(Result, "CONNECTED");
-					player_id = db_get_field_assoc_int(Result, "PLAYERID");
-					current_rank = db_get_field_assoc_int(Result, "TOTAL");
-					found = true;
-				}
-				else found = false;
-				db_free_result(Result);
-
-				if (!found) return 1;
-				if (current_rank > PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA])
-				{
-				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este jugador porque es un rango superior al tuyo.", 3);
-					return 1;
-				}
-
-				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_ENEMY_MAFIA);
-				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0xf5e30aFF, "[TSA] "COL_WHITE" El nuevo rango de %s es: %s.", name, ENEMY_MAFIA_RANKS[listitem]);
-
-				if (listitem == 0)
-				{
-					format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_ENEMY_MAFIA);
-					db_free_result(db_query(Database, DB_Query));
-				}
-
-				if (connected)
-				{
-					PLAYER_SKILLS[player_id][WORK_ENEMY_MAFIA] = listitem;
-
-					if (listitem == 0)
-					{
-						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_ENEMY_MAFIA) EndPlayerJob(player_id);
-						PLAYER_WORKS[player_id][WORK_ENEMY_MAFIA] = false;
-						SendClientMessageEx(player_id, 0xf5e30aFF, "[TSA] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME]);
-					}
-					else SendClientMessageEx(player_id, 0xf5e30aFF, "[TSA] "COL_WHITE" El %s %s ha modificado tu rango a %s.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[listitem]);
-				}
-			}
-			else ShowDialog(playerid, DIALOG_ENEMY_MAFIA_LIST);
-			return 1;
-		}
-		case DIALOG_OSBORN_MAFIA_LIST:
-		{
-			if (response)
-			{
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -2) // Siguiente
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_OSBORN);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
-					ShowDialog(playerid, dialogid);
-				}
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -3) //Anterior
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_OSBORN);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
-					ShowDialog(playerid, dialogid);
-				}
-				else
-				{
-					if (PLAYER_SKILLS[playerid][WORK_OSBORN] >= 19)
-					{
-						PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
-						ShowDialog(playerid, DIALOG_OSBORN_MAFIA_MODIFY);
-					}
-				}
-			}
-			return 1;
-		}
-		case DIALOG_OSBORN_MAFIA_MODIFY:
-		{
-			if (response)
-			{
-				if (listitem > PLAYER_SKILLS[playerid][WORK_OSBORN])
-				{
-				    ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
-
-					return 1;
-				}
-
-				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_OSBORN);
-				Result = db_query(Database, DB_Query);
-
-				if (db_num_rows(Result))
-				{
-					db_get_field_assoc(Result, "NAME", name, 24);
-					connected = db_get_field_assoc_int(Result, "CONNECTED");
-					player_id = db_get_field_assoc_int(Result, "PLAYERID");
-					current_rank = db_get_field_assoc_int(Result, "TOTAL");
-					found = true;
-				}
-				else found = false;
-				db_free_result(Result);
-
-				if (!found) return 1;
-				if (current_rank > PLAYER_SKILLS[playerid][WORK_OSBORN])
-				{
-				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este jugador porque es un rango superior al tuyo.", 3);
-					return 1;
-				}
-
-				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_OSBORN);
-				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" El nuevo rango de %s es: %s.", name, OSBORN_RANKS[listitem]);
-
-				if (listitem == 0)
-				{
-					format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_OSBORN);
-					db_free_result(db_query(Database, DB_Query));
-				}
-
-				if (connected)
-				{
-					PLAYER_SKILLS[player_id][WORK_OSBORN] = listitem;
-
-					if (listitem == 0)
-					{
-						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_OSBORN) EndPlayerJob(player_id);
-						PLAYER_WORKS[player_id][WORK_OSBORN] = false;
-						SendClientMessageEx(player_id, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", OSBORN_RANKS[ PLAYER_SKILLS[playerid][WORK_OSBORN] ], PLAYER_TEMP[playerid][py_RP_NAME]);
-					}
-					else SendClientMessageEx(player_id, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" El %s %s ha modificado tu rango a %s.", OSBORN_RANKS[ PLAYER_SKILLS[playerid][WORK_OSBORN] ], PLAYER_TEMP[playerid][py_RP_NAME], OSBORN_RANKS[listitem]);
-				}
-			}
-			else ShowDialog(playerid, DIALOG_OSBORN_MAFIA_LIST);
-			return 1;
-		}
-		case DIALOG_CONNOR_MAFIA_LIST:
-		{
-			if (response)
-			{
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -2) // Siguiente
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_CONNOR);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
-					ShowDialog(playerid, dialogid);
-				}
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -3) //Anterior
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_CONNOR);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
-					ShowDialog(playerid, dialogid);
-				}
-				else
-				{
-					if (PLAYER_SKILLS[playerid][WORK_CONNOR] >= 11)
-					{
-						PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
-						ShowDialog(playerid, DIALOG_CONNOR_MAFIA_MODIFY);
-					}
-				}
-			}
-			return 1;
-		}
-		case DIALOG_CONNOR_MAFIA_MODIFY:
-		{
-			if (response)
-			{
-				if (listitem > PLAYER_SKILLS[playerid][WORK_CONNOR])
-				{
-				    ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
-
-					return 1;
-				}
-
-				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_CONNOR);
-				Result = db_query(Database, DB_Query);
-
-				if (db_num_rows(Result))
-				{
-					db_get_field_assoc(Result, "NAME", name, 24);
-					connected = db_get_field_assoc_int(Result, "CONNECTED");
-					player_id = db_get_field_assoc_int(Result, "PLAYERID");
-					current_rank = db_get_field_assoc_int(Result, "TOTAL");
-					found = true;
-				}
-				else found = false;
-				db_free_result(Result);
-
-				if (!found) return 1;
-				if (current_rank > PLAYER_SKILLS[playerid][WORK_CONNOR])
-				{
-				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este jugador porque es un rango superior al tuyo.", 3);
-					return 1;
-				}
-
-				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_CONNOR);
-				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0xc33d3dFF, "[TFC] "COL_WHITE" El nuevo rango de %s es: %s.", name, CONNOR_RANKS[listitem]);
-
-				if (listitem == 0)
-				{
-					format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_CONNOR);
-					db_free_result(db_query(Database, DB_Query));
-				}
-
-				if (connected)
-				{
-					PLAYER_SKILLS[player_id][WORK_CONNOR] = listitem;
-
-					if (listitem == 0)
-					{
-						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_CONNOR) EndPlayerJob(player_id);
-						PLAYER_WORKS[player_id][WORK_CONNOR] = false;
-						SendClientMessageEx(player_id, 0xc33d3dFF, "[TFC] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", CONNOR_RANKS[ PLAYER_SKILLS[playerid][WORK_CONNOR] ], PLAYER_TEMP[playerid][py_RP_NAME]);
-					}
-					else SendClientMessageEx(player_id, 0xc33d3dFF, "[TFC] "COL_WHITE" El %s %s ha modificado tu rango a %s.", CONNOR_RANKS[ PLAYER_SKILLS[playerid][WORK_CONNOR] ], PLAYER_TEMP[playerid][py_RP_NAME], CONNOR_RANKS[listitem]);
-				}
-			}
-			else ShowDialog(playerid, DIALOG_CONNOR_MAFIA_LIST);
-			return 1;
-		}
-		case DIALOG_DIVISO_MAFIA_LIST:
-		{
-			if (response)
-			{
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -2) // Siguiente
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_DIVISO);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
-					ShowDialog(playerid, dialogid);
-				}
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -3) //Anterior
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_DIVISO);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
-					ShowDialog(playerid, dialogid);
-				}
-				else
-				{
-					if (PLAYER_SKILLS[playerid][WORK_DIVISO] >= 11)
-					{
-						PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
-						ShowDialog(playerid, DIALOG_DIVISO_MAFIA_MODIFY);
-					}
-				}
-			}
-			return 1;
-		}
-		case DIALOG_DIVISO_MAFIA_MODIFY:
-		{
-			if (response)
-			{
-				if (listitem > PLAYER_SKILLS[playerid][WORK_DIVISO])
-				{
-				    ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
-
-					return 1;
-				}
-
-				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
-				Result = db_query(Database, DB_Query);
-
-				if (db_num_rows(Result))
-				{
-					db_get_field_assoc(Result, "NAME", name, 24);
-					connected = db_get_field_assoc_int(Result, "CONNECTED");
-					player_id = db_get_field_assoc_int(Result, "PLAYERID");
-					current_rank = db_get_field_assoc_int(Result, "TOTAL");
-					found = true;
-				}
-				else found = false;
-				db_free_result(Result);
-
-				if (!found) return 1;
-				if (current_rank > PLAYER_SKILLS[playerid][WORK_DIVISO])
-				{
-				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este jugador porque es un rango superior al tuyo.", 3);
-					return 1;
-				}
-
-				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
-				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0xE55B5BFF, "[GNR] "COL_WHITE" El nuevo rango de %s es: %s.", name, DIVISO_RANKS[listitem]);
-
-				if (listitem == 0)
-				{
-					format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
-					db_free_result(db_query(Database, DB_Query));
-				}
-
-				if (connected)
-				{
-					PLAYER_SKILLS[player_id][WORK_DIVISO] = listitem;
-
-					if (listitem == 0)
-					{
-						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_DIVISO) EndPlayerJob(player_id);
-						PLAYER_WORKS[player_id][WORK_DIVISO] = false;
-						SendClientMessageEx(player_id, 0xE55B5BFF, "[GNR] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], PLAYER_TEMP[playerid][py_RP_NAME]);
-					}
-					else SendClientMessageEx(player_id, 0xE55B5BFF, "[GNR] "COL_WHITE" El %s %s ha modificado tu rango a %s.", DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], PLAYER_TEMP[playerid][py_RP_NAME], DIVISO_RANKS[listitem]);
-				}
-			}
-			else ShowDialog(playerid, DIALOG_DIVISO_MAFIA_LIST);
-			return 1;
-		}
-		case DIALOG_SINDACCO_MAFIA_LIST:
-		{
-			if (response)
-			{
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -2) // Siguiente
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_SINDACCO);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
-					ShowDialog(playerid, dialogid);
-				}
-				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -3) //Anterior
-				{
-					new the_query[128];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_SINDACCO);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
-					ShowDialog(playerid, dialogid);
-				}
-				else
-				{
-					if (PLAYER_SKILLS[playerid][WORK_SINDACCO] >= 22)
-					{
-						PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
-						ShowDialog(playerid, DIALOG_SINDACCO_MAFIA_MODIFY);
-					}
-				}
-			}
-			return 1;
-		}
-		case DIALOG_SINDACCO_MAFIA_MODIFY:
-		{
-			if (response)
-			{
-				if (listitem > PLAYER_SKILLS[playerid][WORK_SINDACCO])
-				{
-				    ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
-
-					return 1;
-				}
-
-				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `ACCOUNTS`.`NAME`, `ACCOUNTS`.`CONNECTED`, `ACCOUNTS`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `ACCOUNTS`, `PLAYER_SKILLS` WHERE `ACCOUNTS`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `ACCOUNTS`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
-				Result = db_query(Database, DB_Query);
-
-				if (db_num_rows(Result))
-				{
-					db_get_field_assoc(Result, "NAME", name, 24);
-					connected = db_get_field_assoc_int(Result, "CONNECTED");
-					player_id = db_get_field_assoc_int(Result, "PLAYERID");
-					current_rank = db_get_field_assoc_int(Result, "TOTAL");
-					found = true;
-				}
-				else found = false;
-				db_free_result(Result);
-
-				if (!found) return 1;
-				if (current_rank > PLAYER_SKILLS[playerid][WORK_SINDACCO])
-				{
-				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este jugador porque es un rango superior al tuyo.", 3);
-					return 1;
-				}
-
-				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
-				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0xFFFFFFFF, "[TFS] "COL_WHITE" El nuevo rango de %s es: %s.", name, SINDACCO_RANKS[listitem]);
-
-				if (listitem == 0)
-				{
-					format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_SINDACCO);
-					db_free_result(db_query(Database, DB_Query));
-				}
-
-				if (connected)
-				{
-					PLAYER_SKILLS[player_id][WORK_SINDACCO] = listitem;
-
-					if (listitem == 0)
-					{
-						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_SINDACCO) EndPlayerJob(player_id);
-						PLAYER_WORKS[player_id][WORK_SINDACCO] = false;
-						SendClientMessageEx(player_id, 0xFFFFFFFF, "[TFS] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", SINDACCO_RANKS[ PLAYER_SKILLS[playerid][WORK_SINDACCO] ], PLAYER_TEMP[playerid][py_RP_NAME]);
-					}
-					else SendClientMessageEx(player_id, 0xFFFFFFFF, "[TFS] "COL_WHITE" El %s %s ha modificado tu rango a %s.", SINDACCO_RANKS[ PLAYER_SKILLS[playerid][WORK_SINDACCO] ], PLAYER_TEMP[playerid][py_RP_NAME], SINDACCO_RANKS[listitem]);
-				}
-			}
-			else ShowDialog(playerid, DIALOG_SINDACCO_MAFIA_LIST);
-			return 1;
-		}
 		case DIALOG_POLICE_SHOP:
 		{
 			if (response)
@@ -3466,7 +2812,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GivePlayerCash(playerid, -price);
 				GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], inputtext[0]);
 
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has comprado "COL_RED"%s "COL_WHITE"de munición para tu "COL_RED"'%s' "COL_WHITE"por %s$.", number_format_thousand(inputtext[0]), WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(price));
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has comprado "COL_YELLOW"%s "COL_WHITE"de munición para tu "COL_YELLOW"'%s' "COL_WHITE"por %s$.", number_format_thousand(inputtext[0]), WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(price));
 				ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
 			}
 			return 1;
@@ -4111,36 +3457,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						InviteToSAPD(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
 						return 1;
 					}
-					case 7:
-					{
-						InviteToLCN(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
-						return 1;
-					}
-					case 8:
-					{
-						InviteToTCC(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
-						return 1;
-					}
-					case 9:
-					{
-						InviteToFO(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
-						return 1;
-					}
-					case 10:
-					{
-						InviteToFC(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
-						return 1;
-					}
-					case 11:
-					{
-						InviteToDS(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
-						return 1;
-					}
-					case 12:
-					{
-						InviteToSindacco(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
-						return 1;
-					}
 				}
 			}
 			return 1;
@@ -4209,7 +3525,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GivePlayerCash(playerid, -100000);
 				CREW_INFO[index][crew_VALID] = true;
 				format(CREW_INFO[index][crew_NAME], 32, "%s", PLAYER_TEMP[playerid][py_CREATE_CREW_NAME]);
-				format(CREW_INFO[index][crew_DESCRIPTION], 32, "Banda de Hyaxe");
+				format(CREW_INFO[index][crew_DESCRIPTION], 32, "Banda de Vulcan");
 				CREW_INFO[index][crew_COLOR] = CrewColors[ PLAYER_TEMP[playerid][py_CREATE_CREW_COLOR] ];
 
 				CREW_RANK_INFO[index][0][crew_rank_VALID] = true;
@@ -6204,7 +5520,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						format(DB_Query, sizeof DB_Query, "SELECT * FROM `ADDRESS_LOG` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 10;", ACCOUNT_INFO[playerid][ac_ID]);
 						Result = db_query(Database, DB_Query);
 
-						if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No hay registros.");
+						if (!db_num_rows(Result)) strcat(dialog, ""COL_WHITE"No hay registros.");
 						else
 						{
 							for(new i; i < db_num_rows(Result); i++ )
@@ -6225,7 +5541,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							db_free_result(Result);
 						}
 
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", dialog, "Cerrar", "");
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_YELLOW"Registro", dialog, "Cerrar", "");
 					}
 					case 11: ShowDialog(playerid, DIALOG_BUY_NAME_COLOR);
 					case 12: ShowDialog(playerid, DIALOG_BUY_CHAT_COLOR);
@@ -6367,7 +5683,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(DB_Query, sizeof DB_Query, "SELECT * FROM `GIFTS_CODES` WHERE `CODE` = '%q';", inputtext);
 				Result = db_query(Database, DB_Query);
 
-				if (db_num_rows(Result) == 0) ShowPlayerMessage(playerid, "~r~El código no existe.", 4);
+				if (!db_num_rows(Result)) ShowPlayerMessage(playerid, "~r~El código no existe.", 4);
 				else
 				{
 					new 
@@ -7073,8 +6389,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				else
 				{
 					new str_text[264];
-					format(str_text, sizeof(str_text), ""COL_WHITE"La repuesta "COL_RED"%s"COL_WHITE" es incorrecta, te hemos\nenviado un correo en caso que te hayas olvidado.", inputtext);
-					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Respuesta incorrecta", str_text, "Cerrar", "");
+					format(str_text, sizeof(str_text), ""COL_WHITE"La repuesta "COL_YELLOW"%s"COL_WHITE" es incorrecta, te hemos\nenviado un correo en caso que te hayas olvidado.", inputtext);
+					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Respuesta incorrecta", str_text, "Cerrar", "");
 
 					format(str_text, sizeof(str_text), "Hola <b>%s</b>, alguien ha intentado acceder a tu cuenta desde la IP <code>%s</code>. En el caso que eras tu y te hayas olvidado la respuesta a la pregunta de seguridad, es la siguiente (respete las mayusculas y minusculas): <code>%s</code>",
 						PLAYER_TEMP[playerid][py_NAME],
@@ -7282,7 +6598,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					db_free_result(db_query(Database, DB_Query));
 
 					new str_text[264];
-					format(str_text, 264, ""COL_WHITE"%s (%s)\nEntrada: %s\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(club), PLAYER_TEMP[playerid][py_NAME]);
+					format(str_text, 264, ""COL_WHITE"%s (%s)\nEntrada: %s\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_YELLOW"Cerrado"COL_WHITE""), GetClubEnterPrice(club), PLAYER_TEMP[playerid][py_NAME]);
 					UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF0F0F000, str_text);
 
 					CheckClubOptions(playerid);
@@ -7446,7 +6762,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					db_free_result(db_query(Database, DB_Query));				
 
 					new str_text[264];
-					format(str_text, 264, ""COL_WHITE"%s (%s)\nEntrada: %s\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(club), PLAYER_TEMP[playerid][py_NAME]);
+					format(str_text, 264, ""COL_WHITE"%s (%s)\nEntrada: %s\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_YELLOW"Cerrado"COL_WHITE""), GetClubEnterPrice(club), PLAYER_TEMP[playerid][py_NAME]);
 					UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF0F0F000, str_text);
 
 					ShowPlayerMessage(playerid, "Valor de entrada cambiado.", 3);
@@ -7820,7 +7136,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (!PLAYER_TEMP[playerid][py_USER_VALID_NAME])
 				{
-					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
+					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_YELLOW"N"COL_WHITE"ombre_"COL_YELLOW"A"COL_WHITE"pellido.\n\
 						Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
 						no están permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
 					return 0;

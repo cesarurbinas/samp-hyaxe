@@ -123,42 +123,5 @@ public UpdatePlayer_GPS_Map(playerid)
 	}
 
 	if (cp_counts >= MAX_PLAYER_MAP_GPS_POINTS) return 1;
-	switch(PLAYER_TEMP[playerid][py_WORKING_IN])
-	{
-		case WORK_MECHANIC:
-		{
-			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-			{
-				if (IsPlayerConnected(i))
-				{
-					if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
-					{
-						if (PLAYER_TEMP[i][py_WANT_MECHANIC])
-						{
-							if (cp_counts >= MAX_PLAYER_MAP_GPS_POINTS) break;
-
-							new Float:player_pos[3];
-							switch(CHARACTER_INFO[i][ch_STATE])
-							{
-								case ROLEPLAY_STATE_INTERIOR:
-								{
-									player_pos[0] = ENTER_EXIT[ PLAYER_TEMP[i][py_INTERIOR_INDEX] ][ee_EXT_X];
-									player_pos[1] = ENTER_EXIT[ PLAYER_TEMP[i][py_INTERIOR_INDEX] ][ee_EXT_Y];
-								}
-								case ROLEPLAY_STATE_OWN_PROPERTY, ROLEPLAY_STATE_GUEST_PROPERTY:
-								{
-									player_pos[0] = PROPERTY_INFO[ PLAYER_TEMP[i][py_PROPERTY_INDEX] ][property_EXT_X];
-									player_pos[1] = PROPERTY_INFO[ PLAYER_TEMP[i][py_PROPERTY_INDEX] ][property_EXT_Y];
-								}
-								default: GetPlayerPos(i, player_pos[0], player_pos[1], player_pos[2]);
-							}
-							SetPlayerPoint_GPS_Map(cp_counts, playerid, "LD_SPAC:white", 0xf4c242FF, 3.0, 3.0, player_pos[0], player_pos[1]);
-							cp_counts ++;
-						}
-					}
-				}
-			}
-		}
-	}
 	return 1;
 }

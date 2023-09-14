@@ -36,7 +36,7 @@ public OnPlayerStreamIn(playerid, forplayerid)
 	{
 		if (!PLAYER_WORKS[forplayerid][WORK_POLICE]) return 1;
 		if (PLAYER_TEMP[forplayerid][py_WORKING_IN] != WORK_POLICE) return 1;
-		SetPlayerMarkerForPlayer(forplayerid, playerid, COLOR_RED);
+		SetPlayerMarkerForPlayer(forplayerid, playerid, COLOR_YELLOW);
 	}
     return 1;
 }
@@ -137,9 +137,8 @@ public OnPlayerConnect(playerid)
 		Logger_Debug("[npc] NPC Joined: %d", playerid);
 	}
 
-	//printf("[%d] OnPlayerConnect 1", playerid);
 	SetPlayerColor(playerid, PLAYER_COLOR);
-	//printf("[%d] OnPlayerConnect 2", playerid);
+
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
 	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = 0;
 	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = 0;
@@ -162,36 +161,17 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_CHECK_OBJECT] = 0;
 	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = INVALID_OBJECT_ID;
 	PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
-	//printf("[%d] OnPlayerConnect 2", playerid);
+
 	for(new i = 0; i != MAX_OBJECTS_PER_ROUTE; i ++) TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
-	//printf("[%d] OnPlayerConnect 3", playerid);
+
 	PLAYER_TEMP[playerid][py_SERIAL] = EOS;
-	//printf("[%d] OnPlayerConnect 4", playerid);
+
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
 	GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 	gpci(playerid, PLAYER_TEMP[playerid][py_SERIAL], 50);
+	PLAYER_TEMP[playerid][py_ANDROID] = true;
 	SendClientCheck(playerid, 0x48, 0, 0, 2);
-	//printf("[%d] OnPlayerConnect 5", playerid);
-	#if defined VOICE_CHAT
-		if (!SvGetVersion(playerid))
-		{
-			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} Instale/Actualize Hyaxe Client en {ec4134}www.hyaxe.com/client");
-		}
-		
-		if (!SvHasMicro(playerid))
-		{
-			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} No tienes un micrófono conectado");
-		}
-		
-		lstream[playerid] = SvCreateDLStreamAtPlayer(40.0, SV_INFINITY, playerid, 0x81df79ff, "E");
-		if (lstream[playerid])
-		{
-			SendClientMessage(playerid, 0xec4134FF, "[Client]{FFFFFF} Streaming iniciado");
-			SvAddKey(playerid, 0x5A);
-		}
-	#endif
 
-	//printf("[%d] OnPlayerConnect 5", playerid);
 	if (isBotConnection(playerid))
 	{
 		RegisterBot(playerid);
@@ -259,7 +239,7 @@ public OnPlayerConnect(playerid)
 				name, GetDatabaseUserName(by), date, text
 			);
 
-			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Cerrar", "");
 			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		}
 		else if (type == TYPE_TEMP_BAN)
@@ -298,7 +278,7 @@ public OnPlayerConnect(playerid)
 					name, GetDatabaseUserName(by), date, text, now, expire_date
 				);
 
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", dialog, "Cerrar", "");
 				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			}
 			db_free_result(still_banned_Result);
@@ -506,14 +486,6 @@ public OnPlayerDisconnect(playerid, reason)
 		db_free_result(db_query(Database, DB_Query));
 	}
 
-	#if defined VOICE_CHAT
-		if (lstream[playerid])
-		{
-			SvDeleteStream(lstream[playerid]);
-			lstream[playerid] = SV_NULL;
-		}
-	#endif
-
   	if (PLAYER_TEMP[playerid][py_USER_LOGGED]) // ha pasado la pantalla de registro/login y ha estado jugando
   	{
   		ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
@@ -710,14 +682,6 @@ public AddPlayerReputation(playerid)
 		ACCOUNT_INFO[playerid][ac_PAYDAY_REP] ++;
 		if (ACCOUNT_INFO[playerid][ac_PAYDAY_REP] >= REP_FOR_PAYDAY)
 		{
-			#if defined VOICE_CHAT
-			if (SvGetVersion(playerid))
-			{
-				PlayerPayday(playerid);
-			}
-			else ShowPlayerNotification(playerid, "Instale el cliente de Hyaxe en www.hyaxe.com/client");
-			#endif
-
 			PlayerPayday(playerid);
 			ACCOUNT_INFO[playerid][ac_PAYDAY_REP] = 0;
 		}
@@ -1169,42 +1133,6 @@ public DisableGangRefMark(playerid)
     return 1;
 }
 
-forward DisableMafiaRefMark(playerid);
-public DisableMafiaRefMark(playerid)
-{
-	Logger_Debug("DisableMafiaRefMark"); // This is a debug line!
-
-	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
-
-    new 
-		city[45],
-		zone[45],
-		message[144],
-		mafia = GetPlayerMafia(playerid)
-	;
-
-    GetPlayerZones(playerid, city, zone);
-    format(message, sizeof message, "~r~%s~w~ se perdió (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
-    SetPlayerColorEx(playerid, PLAYER_COLOR);
-
-    if (PlayerIsInMafia(playerid))
-	{
-	    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-		{
-			if (IsPlayerConnected(i))
-			{
-				if (PLAYER_WORKS[i][mafia])
-				{
-					SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
-                    SetPlayerColorEx(playerid, PLAYER_COLOR);
-                    ShowPlayerNotification(i, message, 4);
-				}
-			}
-		}
-	}
-    return 1;
-}
-
 forward DisableCombatMode(playerid);
 public DisableCombatMode(playerid)
 {
@@ -1232,12 +1160,6 @@ public CuffPlayer(playerid)
 	PLAYER_TEMP[playerid][py_CUFFED] = false;
 	PLAYER_TEMP[playerid][py_CUFFING] = false;
 	PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
-
-	if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-	{
-		PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-		DisablePlayerMechanicMark(playerid);
-	}
 
 	if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
 	if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
@@ -1488,11 +1410,6 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 public OnPlayerSpawn(playerid)
 {
 	Logger_Debug("OnPlayerSpawn",playerid); // This is a debug line!
-
-	// Show server logo
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO][0]);
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO][1]);
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO][2]);
 
 	SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 	StopAudioStreamForPlayer(playerid);
@@ -1898,7 +1815,7 @@ public OnPlayerSpawn(playerid)
 			SetPlayerToys(playerid);
 			SetPlayerArmedWeapon(playerid, 0);
 			SetPlayerNormalColor(playerid);
-			SetTracingColor(playerid, COLOR_RED);
+			SetTracingColor(playerid, COLOR_YELLOW);
 			PreloadAnims(playerid);
 
 			if (PLAYER_CREW[playerid][player_crew_VALID])
@@ -2061,12 +1978,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 			PLAYER_TEMP[playerid][py_CUFFED] = false;
 			PLAYER_TEMP[playerid][py_CUFFING] = false;
 			PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
-
-			if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-			{
-				PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-				DisablePlayerMechanicMark(playerid);
-			}
 
 			if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
 			if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
@@ -2379,7 +2290,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 			if (!PLAYER_TEMP[playerid][py_USER_VALID_NAME])
 			{
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_YELLOW"N"COL_WHITE"ombre_"COL_YELLOW"A"COL_WHITE"pellido.\n\
 					Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
 					no están permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
 				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
@@ -2450,7 +2361,7 @@ public OnPlayerText(playerid, text[])
 
 		if (!PLAYER_WORKS[playerid][WORK_POLICE])
 		{
-			SendClientMessage(playerid, COLOR_RED, "Aviso:"COL_WHITE" Estás enviando mensajes demasiado rápido.");
+			SendClientMessage(playerid, COLOR_YELLOW, "Aviso:"COL_WHITE" Estás enviando mensajes demasiado rápido.");
 			return 0;
 		}
 	}
@@ -2516,60 +2427,6 @@ public OnPlayerText(playerid, text[])
 					return 0;
 				}
 
-				if (PLAYER_WORKS[playerid][WORK_MAFIA])
-				{
-					if (text[1] == '!') format(str_text, sizeof str_text, "[FSB] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-					else format(str_text, sizeof str_text, "[FSB] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], text[1]);
-
-					SendMafiaMessage(0xa912e2FF, str_text);
-					return 0;
-				}
-
-				if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
-				{
-					if (text[1] == '!') format(str_text, sizeof str_text, "[TSA] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-					else format(str_text, sizeof str_text, "[TSA] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], text[1]);
-
-					SendEnemyMafiaMessage(0xf5e30aFF, str_text);
-					return 0;
-				}
-
-				if (PLAYER_WORKS[playerid][WORK_OSBORN])
-				{
-					if (text[1] == '!') format(str_text, sizeof str_text, "[Familia Osborn] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-					else format(str_text, sizeof str_text, "[Familia Osborn] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], OSBORN_RANKS[ PLAYER_SKILLS[playerid][WORK_OSBORN] ], text[1]);
-
-					SendOsbornMafiaMessage(0x3a3eabFF, str_text);
-					return 0;
-				}
-
-				if (PLAYER_WORKS[playerid][WORK_CONNOR])
-				{
-					if (text[1] == '!') format(str_text, sizeof str_text, "[TFC] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-					else format(str_text, sizeof str_text, "[TFC] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], CONNOR_RANKS[ PLAYER_SKILLS[playerid][WORK_CONNOR] ], text[1]);
-
-					SendConnorMafiaMessage(0xc33d3dFF, str_text);
-					return 0;
-				}
-
-				if (PLAYER_WORKS[playerid][WORK_DIVISO])
-				{
-					if (text[1] == '!') format(str_text, sizeof str_text, "[GNR] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-					else format(str_text, sizeof str_text, "[GNR] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], text[1]);
-
-					SendDivisoMafiaMessage(0xE55B5BFF, str_text);
-					return 0;
-				}
-
-				if (PLAYER_WORKS[playerid][WORK_SINDACCO])
-				{
-					if (text[1] == '!') format(str_text, sizeof str_text, "[TFS] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-					else format(str_text, sizeof str_text, "[TFS] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], SINDACCO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], text[1]);
-
-					SendSindaccoMafiaMessage(0xFFFFFFFF, str_text);
-					return 0;
-				}
-
 				if (PLAYER_CREW[playerid][player_crew_VALID])
 				{
 					if (text[1] == '!') format(str_text, sizeof str_text, "[%s] "COL_WHITE"%s - %s: (( %s ))", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
@@ -2582,8 +2439,8 @@ public OnPlayerText(playerid, text[])
 
 			if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_STATE] == CALL_STATE_ESTABLISHED)
 			{
-				format(str_text, 144, "%s "COL_RED"(teléfono){E6E6E6}: %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], COLOR_WHITE, ""COL_RED"Teléfono (%s):"COL_WHITE" %s", convertPhoneNumber(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], PLAYER_PHONE[playerid][player_phone_NUMBER]), text);
+				format(str_text, 144, "%s "COL_YELLOW"(teléfono){E6E6E6}: %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
+				SendClientMessageEx(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], COLOR_WHITE, ""COL_YELLOW"Teléfono (%s):"COL_WHITE" %s", convertPhoneNumber(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], PLAYER_PHONE[playerid][player_phone_NUMBER]), text);
 			}
 			else
 			{
@@ -2603,7 +2460,7 @@ public OnPlayerText(playerid, text[])
 				if (CheckKillEvadeAttemp(text))
 				{
 					if (CHARACTER_INFO[playerid][ch_CASH] >= 5000) GivePlayerCash(playerid, -5000, false);
-					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Te sacamos 5.000$ por intentar evadir muerte.", "Cerrar", "");
+					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Aviso", ""COL_WHITE"Te sacamos 5.000$ por intentar evadir muerte.", "Cerrar", "");
 				}
 			}
 		}
@@ -2643,17 +2500,6 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 	switch(info[0])
 	{
-		case AREA_TYPE_NONE:
-		{
-			if (areaid == Mechanic_Area)
-			{
-				if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-				{
-					PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-					DisablePlayerMechanicMark(playerid);
-				}
-			}
-		}
 		case AREA_TYPE_GANGZONE:
 		{
 			new index = info[1];
@@ -2990,7 +2836,7 @@ public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Fl
 
 		if (!PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ATTACHED]) PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ATTACHED] = true;
 
-		SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Accesorio "COL_RED"'%s' "COL_WHITE"actualizado.", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
+		SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Accesorio "COL_YELLOW"'%s' "COL_WHITE"actualizado.", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
 		ShowPlayerMessage(playerid, "Accesorio actualizado", 2);
 	}
 	else
@@ -3409,7 +3255,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			gettime(.minute = minute);
 			format(dialog, sizeof dialog, ""COL_WHITE"Faltan %d minutos para la próxima disputa.", 45 - minute);
 
-			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Disputas", dialog, "Cerrar", "");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Disputas", dialog, "Cerrar", "");
 			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 			return 1;
 		}
@@ -3417,10 +3263,10 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][41])
 		{
 			/* Header */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Hyaxe");
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Vulcan");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgió en 2018, pero no fue hasta mediados de 2019 que comenzó a desarrollarse, con tiempos más activos y otros no tanto, pasó por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opción porque la encontramos más rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el número de miembros del equipo."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Vulcan surgió en 2018, pero no fue hasta mediados de 2019 que comenzó a desarrollarse, con tiempos más activos y otros no tanto, pasó por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opción porque la encontramos más rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el número de miembros del equipo."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3435,7 +3281,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Trabajos");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Los trabajos es un sistema en el que los jugadores pueden obtener recompensas, como dinero, hycoins, entre otros. Llevando a cabo diversas tareas, como picar, recoger basura, transportar cargas, etc. Esto dependerá del trabajo que elija, puede ser basurero, cosechador, pescador, minero o un trabajo especial como la policía, pero para esto debe postularse en ~r~foro.hyaxe.com~w~, solo cuando las aplicaciones estén abiertas. Cuando consigas un trabajo, renunciarás automáticamente a todos los otros, a menos que sean especiales (como policía), cuanto más trabajes, más experiencia tendrás, con más experiencia podrás desbloquear pagos más altos. También puedes comprar una membresía VIP en ~r~www.hyaxe.com/store~w~ con la cual vas a desbloquear pagas extras."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Los trabajos es un sistema en el que los jugadores pueden obtener recompensas, como dinero, hycoins, entre otros. Llevando a cabo diversas tareas, como picar, recoger basura, transportar cargas, etc. Esto dependerá del trabajo que elija, puede ser basurero, cosechador, pescador, minero o un trabajo especial como la policía, pero para esto debe postularse en ~y~foro.vulcan-roleplay.com~w~, solo cuando las aplicaciones estén abiertas. Cuando consigas un trabajo, renunciarás automáticamente a todos los otros, a menos que sean especiales (como policía), cuanto más trabajes, más experiencia tendrás, con más experiencia podrás desbloquear pagos más altos. También puedes comprar una membresía VIP en ~y~www.vulcan-roleplay.com/store~w~ con la cual vas a desbloquear pagas extras."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3450,7 +3296,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Las bandas");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Las bandas son una forma para que los jugadores formen grupos sociales con sistemas del servidor, lo que también brinda nuevas posibilidades de rol y nuevas formas de obtener ganancias. Para las bandas hemos desarrollado un sistema de particular, Las Disputas, hay dos tipos, la disputa de graffiti, donde las pandillas luchan por quien pinta primero el graffiti, y las disputas de Mercados Negros, que es casi lo mismo, solo que es un poco más complicado para ganarlos. Para crear una banda, haga clic en ~r~Banda~w~, debe tener el nivel 2 y tener 10,000. Puede poner una descripción, administrar, crear roles y configurar sus permisos, todo a través de una interfaz fácil de entender."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Las bandas son una forma para que los jugadores formen grupos sociales con sistemas del servidor, lo que también brinda nuevas posibilidades de rol y nuevas formas de obtener ganancias. Para las bandas hemos desarrollado un sistema de particular, Las Disputas, hay dos tipos, la disputa de graffiti, donde las pandillas luchan por quien pinta primero el graffiti, y las disputas de Mercados Negros, que es casi lo mismo, solo que es un poco más complicado para ganarlos. Para crear una banda, haga clic en ~y~Banda~w~, debe tener el nivel 2 y tener 10,000. Puede poner una descripción, administrar, crear roles y configurar sus permisos, todo a través de una interfaz fácil de entender."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3465,7 +3311,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Vehiculos");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Puede comprar un vehículo en cualquier concesionario, puede ubicar uno haciendo click en ~r~Mapa~w~ o usar uno gratuito como los que aparecen en el lobby.~n~~n~Teclas:~n~Abrir puertas ~r~>~w~ Espacio + Y~n~Encender/apagar luces ~r~>~w~ Espacio + N~n~Administrar ~r~>~w~ 2"));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Puede comprar un vehículo en cualquier concesionario, puede ubicar uno haciendo click en ~y~Mapa~w~ o usar uno gratuito como los que aparecen en el lobby.~n~~n~Teclas:~n~Abrir puertas ~y~>~w~ Espacio + Y~n~Encender/apagar luces ~y~>~w~ Espacio + N~n~Administrar ~y~>~w~ 2"));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3491,10 +3337,10 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][46])
 		{
 			/* Header */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Hyaxe Client");
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Vulcan Client");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Hyaxe Client es un cliente personalizado que incluye nuevas características al servidor, como por ejemplo, un chat de voz. Es muy fácil instalarlo, solo visite ~r~www.hyaxe.com/client~w~, si se le dificulta busque en YouTube: ~r~Chat de voz Hyaxe tutorial~w~. Muchos usuarios hicieron tutoriales, aprovéchelo."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Hyaxe Client es un cliente personalizado que incluye nuevas características al servidor, como por ejemplo, un chat de voz. Es muy fácil instalarlo, solo visite ~y~www.hyaxe.com/client~w~, si se le dificulta busque en YouTube: ~y~Chat de voz Hyaxe tutorial~w~. Muchos usuarios hicieron tutoriales, aprovéchelo."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3707,7 +3553,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckAndExecuteGasoline(playerid);
         CheckFoodShop(playerid);
         CheckPoliceEquipeSite(playerid);
-        CheckMafiaEquipeSite(playerid);
         CheckPlayerHouseDoor(playerid);
         CheckFarmerShop(playerid);
         CheckBallonAction(playerid);
@@ -4830,17 +4675,6 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			ShowPlayerNotification(playerid, "Presione ~y~2~w~ para abrir el panel vehicular");
 		}
 
-		if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-		{
-			if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] == VEHICLE_STATE_NORMAL)
-			{
-				PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-				DisablePlayerMechanicMark(playerid);
-
-				ShowPlayerMessage(playerid, "Tu mecánico se ha cancelado porque te has subido a un vehículo.", 3);
-			}
-		}
-
 		if (PLAYER_MISC[playerid][MISC_CONFIG_FP]) SetFirstPerson(playerid, false);
     }
 	else if (newstate == PLAYER_STATE_PASSENGER)
@@ -4948,17 +4782,6 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 						}
 					}
 				}
-			}
-		}
-
-		if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-		{
-			if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] == VEHICLE_STATE_NORMAL)
-			{
-				PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-				DisablePlayerMechanicMark(playerid);
-
-				ShowPlayerMessage(playerid, "Tu mecánico se ha cancelado porque te has subido a un vehículo.", 3);
 			}
 		}
 
@@ -5772,37 +5595,6 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
     return 1;
 }
 
-#if defined VOICE_CHAT
-	public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
-	{
-		if (keyid == 0x5A && lstream[playerid]) SvAttachSpeakerToStream(lstream[playerid], playerid);
-
-		if (in_gamemode_menu[playerid])
-	    {
-	    	switch(keyid)
-	    	{
-	    		case 0x41:
-	    		{
-	    			minigames_page[playerid] -= 1;
-	    			UpdateGamemodesMenu(playerid);
-	    		}
-	    		case 0x44:
-	    		{
-	    			minigames_page[playerid] ++;
-	    			UpdateGamemodesMenu(playerid);
-	    		}
-	    		case 0x57: ShowMainMenu(playerid);
-	    		case 0x53: PlayerJoinGamemode(playerid);
-	    	}
-	    }
-	}
-
-	public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid, SV_UINT:keyid)
-	{
-		if (keyid == 0x5A && lstream[playerid]) SvDetachSpeakerFromStream(lstream[playerid], playerid);
-	}
-#endif
-
 #if defined FINAL_BUILD
 	public OnRconLoginAttempt(ip[], password[], success)
 	{
@@ -6013,9 +5805,6 @@ public ContinuePlayerIntro(playerid, step)
 			ClearPlayerChatBox(playerid);
 
 			CHARACTER_INFO[playerid][ch_CASH] = 15000;
-			#if defined DM_MODE
-            	CHARACTER_INFO[playerid][ch_CASH] = 200000;
-			#endif
 
 			new index_pos = minrand(0, sizeof(NewUserPos));
 			CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
@@ -6061,19 +5850,19 @@ public ContinuePlayerIntro(playerid, step)
 			//SetPlayerScreenColour(playerid, 0x000000FF);
 			//FadePlayerScreenColour(playerid, 0x00000000, 4000, 50);
 
-			SavePlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay");
+			SavePlayerNotification(playerid, "Bienvenido a Vulcan Roleplay");
 
 			StopAudioStreamForPlayer(playerid);
 			PLAYER_MISC[playerid][MISC_CONFIG_HUD] = true;
 			SetPlayerHud(playerid);
 			PLAYER_TEMP[playerid][py_NEW_USER] = false;
 			PLAYER_TEMP[playerid][py_TUTORIAL] = true;
-			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 1;
+			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 422; // 1
 			SetPlayerVirtualWorld(playerid, 0);
 			SetCameraBehindPlayer(playerid);
 
 			TogglePlayerControllableEx(playerid, true);
-			ShowPlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay, version experimental.", 12);
+			ShowPlayerNotification(playerid, "Bienvenido a Vulcan Roleplay ("SERVER_VERSION").", 12);
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 
 			SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0);
@@ -6166,13 +5955,15 @@ public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
 	return 1;
 }
 
-public OnClientCheckResponse(playerid, actionid, memaddr, retndata)
+public OnIncomingRPC(playerid, rpcid, BitStream:bs)
 {
-    switch(actionid)
-    {       
-        case 0x48: PLAYER_TEMP[playerid][py_ANDROID] = true;
-    }
-    return 1;
+	if(rpcid == 0x67) // RPC_ClientCheck
+	{
+		printf("id %d no es android che", playerid);
+		PLAYER_TEMP[playerid][py_ANDROID] = false;
+	}
+
+	return 1;
 }
 
 CMD:alerttest(playerid, params[])

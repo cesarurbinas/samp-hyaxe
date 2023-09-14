@@ -28,9 +28,9 @@ Anticheat_Ban(playerid, reason[], days = 0)
 		"COL_WHITE"Has sido baneado del servidor por el anticheat.\n\
 		Razón: %s\n\
 		Duración: %s\n\n\
-		¿Fue un error? Si es así, apele el baneo en nuestro foro: foro.hyaxe.com\
+		¿Fue un error? Si es así, apele el baneo en nuestro foro: foro.vulcan-roleplay.com\
 	", reason, days_string);
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Octa Anticheat", dialog, "Cerrar", "");
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Vulcan Anticheat", dialog, "Cerrar", "");
 	
 	// Add ban
 	AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, reason, days);
@@ -66,9 +66,9 @@ Anticheat_Kick(playerid, reason[])
 	format(dialog, sizeof dialog, "\
 		"COL_WHITE"Has sido expulsado del servidor por el anticheat.\n\
 		Razón: %s\n\n\
-		¿Fue un error? Si es así, reporte en nuestro foro: foro.hyaxe.com\
+		¿Fue un error? Si es así, reporte en nuestro foro: foro.vulcan-roleplay.com\
 	", reason);
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Octa Anticheat", dialog, "Cerrar", "");
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Vulcan Anticheat", dialog, "Cerrar", "");
 	
 	// Send alert to admins/discord
 	new str_text[144];

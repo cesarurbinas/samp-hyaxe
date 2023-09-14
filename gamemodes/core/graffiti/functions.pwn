@@ -9,7 +9,7 @@ CreateGraffitis()
 		format(DB_Query, sizeof DB_Query, "SELECT * FROM `GRAFFITIS` WHERE `GRAFF_ID` = '%d'", i);
 		Result = db_query(Database, DB_Query);
 
-		if (db_num_rows(Result) == 0) printf("[ERROR] No hay registro para el graffiti %d", i);
+		if (!db_num_rows(Result)) printf("[ERROR] No hay registro para el graffiti %d", i);
 		else
 		{
 			for(new x; x < db_num_rows(Result); x++ )
@@ -95,7 +95,7 @@ RecalculeCrewGraffitis(crew_id)
 	format(DB_Query, sizeof DB_Query, "SELECT * FROM `GRAFFITIS` WHERE `ID_CREW` = '%d'", CREW_INFO[crew_id][crew_ID]);
 	Result = db_query(Database, DB_Query);
 
-	if (db_num_rows(Result) == 0) CREW_INFO[crew_id][crew_GRAFFITIS_COUNT] = 0;
+	if (!db_num_rows(Result)) CREW_INFO[crew_id][crew_GRAFFITIS_COUNT] = 0;
 	else
 	{
 		CREW_INFO[crew_id][crew_GRAFFITIS_COUNT] = db_num_rows(Result);
