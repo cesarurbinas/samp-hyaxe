@@ -327,6 +327,11 @@ enum
 >>>>>>> 583efcd (the family connor)
 =======
 	DIALOG_CONNOR_MAFIA_MODIFY,
+<<<<<<< HEAD
 	DIALOG_CLUB_SELL
 >>>>>>> 9cb7ac2 (arreglos en el /r)
+=======
+	DIALOG_CLUB_SELL,
+	DIALOG_STORE
+>>>>>>> 6a4c3ab (store module)
 };

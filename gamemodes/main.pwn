@@ -29,7 +29,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"v0.9 Build 6"
+#define SERVER_VERSION 			"v0.9 Build 7"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -271,6 +271,9 @@
 
 // Particles
 #include "core/particles/functions.pwn"
+
+// Store
+#include "core/store/header.pwn"
 
 /* Special Features */
 
@@ -14718,6 +14721,24 @@ ShowDialog(playerid, dialogid)
 			format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender el local por %d "SERVER_COIN"?", CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender local", str_text, "Si", "No");
 		}
+		case DIALOG_STORE:
+		{
+			new
+				dialog[564]
+				caption[128]
+			;
+
+			format(caption, sizeof(caption), ""COL_RED"Tienda | Crédito: %s$", PLAYER_TEMP[playerid][py_CREDIT])
+
+    		for(new i = 0; i != sizeof STORE_PRODUCTS; i ++)
+    		{
+    			new line[164];
+    			format(line, sizeof(line), ""COL_WHITE"%s\t"COL_GREEN"%s$\n", STORE_PRODUCTS[i][st_NAME], STORE_PRODUCTS[i][st_PRICE]);
+    			strcat(dialog, line);
+    		}
+
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Comprar", "Cerrar");
+		}
 		default: return 0;
 	}
 	return 1;
@@ -26115,6 +26136,66 @@ NextLevel(playerid)
 CMD:comprar(playerid, params[])
 {
 	CheckAndBuyProperty(playerid);
+	return 1;
+}
+
+CMD:tienda(playerid, params[])
+{
+	ShowStore(playerid);
+	return 1;
+}
+
+ShowStore(playerid)
+{
+	ShowPlayerMessage(playerid, "Conectando...", 10);
+	
+	new payload[264];
+	format(payload, sizeof(payload), "{\"author\": \"%s\", \"playerid\": %d, \"question\": \"%s\"}", PLAYER_TEMP[playerid][py_NAME], playerid, doubt);
+	HTTP(playerid, HTTP_POST, "51.161.31.157:6666/get_response", payload, "neuroadmin_BotGetResponse");
+	return 1;
+}
+
+forward neuroadmin_BotGetResponse(index, response_code, const data[]);
+public neuroadmin_BotGetResponse(index, response_code, const data[])
+{
+	#if DEBUG_MODE == 1
+		printf("neuroadmin_BotGetResponse %d %d %s", index, response_code, data);
+	#endif
+
+	if (IsPlayerConnected(index))
+	{
+		new str_text[264];
+	    if (response_code == 200)
+	    {
+	    	printf("[NEUROADMIN] Data: %s", data);
+
+	    	format(str_text, sizeof(str_text), 
+	    		"[Dudas] "COL_WHITE"Jugador %s_%s (%d): (( @%d %s ))",
+	    		names[random(sizeof(names))],
+	    		surnames[random(sizeof(surnames))],
+	    		minrand(1, 100),
+	    		index,
+	    		data
+	    	);
+
+	    	printf("[NEUROADMIN] Doubt: %s", str_text);
+	    	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			{
+				if (IsPlayerConnected(i))
+				{
+					if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL])
+					{
+						SendResponsiveMessage(i, COLOR_DARK_GREEN, str_text, 135);
+					}
+				}
+			}
+	    }
+	    else
+	    {
+			format(str_text, sizeof(str_text), "{\"author\": \"%s\", \"playerid\": %d, \"message\": \"%s\"}", PLAYER_TEMP[index][py_NAME], index, PLAYER_TEMP[index][py_LAST_DOUBT]);
+			HTTP(index, HTTP_POST, "51.161.31.157:6666/check_bad_use", str_text, "neuroadmin_BotCheckBadUse");
+	    }
+	}
 	return 1;
 }
 
