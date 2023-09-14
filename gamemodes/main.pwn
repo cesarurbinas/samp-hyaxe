@@ -5560,6 +5560,14 @@ public OnPlayerSpawn(playerid)
 				TogglePlayerControllableEx(playerid, false);
 				SetPlayerColorEx(playerid, PLAYER_COLOR);
 			}
+			case ROLEPLAY_STATE_BOX:
+			{
+				SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
+				CHARACTER_INFO[playerid][ch_INTERIOR] = 16;
+				SetCameraBehindPlayer(playerid);
+				SetPlayerPosEx(playerid, -25.157732, 87.987953, 1098.070190, 0.481732, 16, 0, false);
+				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+			}
 		}
 
 		new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
@@ -5925,12 +5933,18 @@ public OnPlayerDeath(playerid, killerid, reason)
 			SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
 			CHARACTER_INFO[playerid][ch_INTERIOR] = 16;
 
-			new str_text[128];
+			new 
+				str_text[128],
+				final_pay = 100
+			;
+
 			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 			{
 				if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid)
 				{
 					ShowPlayerNotification(i, "EL jugador que apostaste ha perdido, ya puedes apostar nuevamente.", 5);
+					final_pay += PLAYER_TEMP[i][py_BOX_BET];
+
 					PLAYER_TEMP[i][py_BOX_PLAYER] = INVALID_PLAYER_ID;
 					PLAYER_TEMP[i][py_BOX_BET] = 0;
 					PLAYER_TEMP[i][py_BOX_BETTING] = false;
@@ -5939,12 +5953,13 @@ public OnPlayerDeath(playerid, killerid, reason)
 				if (PLAYER_TEMP[i][py_BOX_PLAYER] == killerid)
 				{
 					ShowPlayerNotification(i, "EL jugador que apostaste ha ganado, ya puedes apostar nuevamente.", 5);
+					final_pay += PLAYER_TEMP[i][py_BOX_BET];
 					PLAYER_TEMP[i][py_BOX_PLAYER] = INVALID_PLAYER_ID;
 					PLAYER_TEMP[i][py_BOX_BET] = 0;
 					PLAYER_TEMP[i][py_BOX_BETTING] = false;
 
-					GivePlayerCash(i, PLAYER_TEMP[killerid][py_BOX_PAY], false);
-					format(str_text, sizeof(str_text), "~g~+%d$", PLAYER_TEMP[killerid][py_BOX_PAY]);
+					GivePlayerCash(i, final_pay, false);
+					format(str_text, sizeof(str_text), "~g~+%d$", final_pay);
 					GameTextForPlayer(i, str_text, 5000, 1);
 				}
 			}
@@ -5954,6 +5969,10 @@ public OnPlayerDeath(playerid, killerid, reason)
 			GameTextForPlayer(killerid, str_text, 5000, 1);
 			ShowPlayerNotification(killerid, "Pelea ganada, espera a que alguien vuelva a apostar por ti.", 4);
 			PLAYER_TEMP[killerid][py_BOX_PAY] = 0;
+
+			PLAYER_TEMP[playerid][py_BOXING] = false;
+			PLAYER_TEMP[playerid][py_BOX_PAY] = 0;
+			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_BOX;
 		}
 	}
 
@@ -12818,7 +12837,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_WITHDRAW, inputtext[0]);
 
 				new message[145];
-				format(message, sizeof message, "~w~Has retirado ~g~%s$", number_format_thousand(inputtext[0]));
+				format(message, sizeof message, "Has retirado ~g~%s$", number_format_thousand(inputtext[0]));
 				ShowPlayerNotification(playerid, message, 3);
 
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
@@ -12869,7 +12888,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_DEPOSIT, inputtext[0]);
 
 				new message[145];
-				format(message, sizeof message, "~w~Has depositado ~g~%s$", number_format_thousand(inputtext[0]));
+				format(message, sizeof message, "Has depositado ~g~%s$", number_format_thousand(inputtext[0]));
 				ShowPlayerNotification(playerid, message, 3);
 
 				ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
@@ -20474,6 +20493,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
+				if (inputtext[0] > 10000)
+				{
+					ShowPlayerMessage(playerid, "~r~Demasiado, tampoco te pases.", 4);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+
 				if (inputtext[0] > CHARACTER_INFO[playerid][ch_CASH])
 				{
 					ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 2);
@@ -26687,118 +26713,118 @@ LoadPlayerVehicles(playerid)
 
 SavePlayerVehicles(playerid, destroy = false)
 {
-  if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
 
-  for(new i = 0; i != MAX_VEHICLES; i ++)
-  {
-    if (!PLAYER_VEHICLES[i][player_vehicle_VALID]) continue;
-    if (PLAYER_VEHICLES[i][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) continue;
+	for(new i = 0; i != MAX_VEHICLES; i ++)
+	{
+		if (!PLAYER_VEHICLES[i][player_vehicle_VALID]) continue;
+		if (PLAYER_VEHICLES[i][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) continue;
 
-    GetVehiclePos(i, GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_X], GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_Y], GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_Z]);
-    GetVehicleZAngle(i, GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_ANGLE]);
-    GetVehicleHealth(i, GLOBAL_VEHICLES[i][gb_vehicle_HEALTH]);
-    if (GLOBAL_VEHICLES[i][gb_vehicle_HEALTH] > 1000.0) GLOBAL_VEHICLES[i][gb_vehicle_HEALTH] = 1000.0;
-    if (GLOBAL_VEHICLES[i][gb_vehicle_HEALTH] < MIN_VEHICLE_HEALTH) GLOBAL_VEHICLES[i][gb_vehicle_HEALTH] = MIN_VEHICLE_HEALTH;
-    GetVehicleDamageStatus(i, GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_PANELS], GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_DOORS], GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_LIGHTS], GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_TIRES]);
-    GLOBAL_VEHICLES[i][gb_vehicle_WORLD] = 0; /*GetVehicleVirtualWorld(i);*/
+		GetVehiclePos(i, GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_X], GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_Y], GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_Z]);
+		GetVehicleZAngle(i, GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_ANGLE]);
+		GetVehicleHealth(i, GLOBAL_VEHICLES[i][gb_vehicle_HEALTH]);
+		if (GLOBAL_VEHICLES[i][gb_vehicle_HEALTH] > 1000.0) GLOBAL_VEHICLES[i][gb_vehicle_HEALTH] = 1000.0;
+		if (GLOBAL_VEHICLES[i][gb_vehicle_HEALTH] < MIN_VEHICLE_HEALTH) GLOBAL_VEHICLES[i][gb_vehicle_HEALTH] = MIN_VEHICLE_HEALTH;
+		GetVehicleDamageStatus(i, GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_PANELS], GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_DOORS], GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_LIGHTS], GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_TIRES]);
+    	GLOBAL_VEHICLES[i][gb_vehicle_WORLD] = 0; /*GetVehicleVirtualWorld(i);*/
 
-    new DB_Query[1800];
-    format(DB_Query, sizeof DB_Query,
-    "\
-	 UPDATE `PLAYER_VEHICLES` SET \
-	   `PLATE` = '%q',\
-	   `MODELID` = '%d',\
-	   `SPAWN_X` = '%f',\
-	   `SPAWN_Y` = '%f',\
-	   `SPAWN_Z` = '%f',\
-	   `SPAWN_ANGLE` = '%f',\
-	   `HEALTH` = '%f',\
-	   `DAMAGE_PANELS` = '%d',\
-	   `DAMAGE_DOORS` = '%d',\
-	   `DAMAGE_LIGHTS` = '%d',\
-	   `DAMAGE_TIRES` = '%d',\
-	   `COLOR_1` = '%d',\
-	   `COLOR_2` = '%d',\
-	   `PAINTJOB` = '%d',\
-	   `GAS` = '%f',\
-	   `MAX_GAS` = '%f',\
-	   `CLOSED` = '%d',\
-	   `INTERIOR` = '%d',\
-	   `WORLD` = '%d',\
-	   `STATE` = '%d' \
-	 WHERE `ID` = '%d';\
-    ",
-	 GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE],
-	 GLOBAL_VEHICLES[i][gb_vehicle_MODELID],
-	 GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_X],
-	 GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_Y],
-	 GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_Z],
-	 GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_ANGLE],
-	 GLOBAL_VEHICLES[i][gb_vehicle_HEALTH],
-	 GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_PANELS],
-	 GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_DOORS],
-	 GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_LIGHTS],
-	 GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_TIRES],
-	 GLOBAL_VEHICLES[i][gb_vehicle_COLOR_1],
-	 GLOBAL_VEHICLES[i][gb_vehicle_COLOR_2],
-	 GLOBAL_VEHICLES[i][gb_vehicle_PAINTJOB],
-	 GLOBAL_VEHICLES[i][gb_vehicle_GAS],
-	 GLOBAL_VEHICLES[i][gb_vehicle_MAX_GAS],
-	 GLOBAL_VEHICLES[i][gb_vehicle_PARAMS_DOORS],
-	 GLOBAL_VEHICLES[i][gb_vehicle_INTERIOR],
-	 GLOBAL_VEHICLES[i][gb_vehicle_WORLD],
-	 GLOBAL_VEHICLES[i][gb_vehicle_STATE],
+		new DB_Query[1800];
+		format(DB_Query, sizeof DB_Query,
+			"\
+			UPDATE `PLAYER_VEHICLES` SET \
+			`PLATE` = '%q',\
+			`MODELID` = '%d',\
+			`SPAWN_X` = '%f',\
+			`SPAWN_Y` = '%f',\
+			`SPAWN_Z` = '%f',\
+			`SPAWN_ANGLE` = '%f',\
+			`HEALTH` = '%f',\
+			`DAMAGE_PANELS` = '%d',\
+			`DAMAGE_DOORS` = '%d',\
+			`DAMAGE_LIGHTS` = '%d',\
+			`DAMAGE_TIRES` = '%d',\
+			`COLOR_1` = '%d',\
+			`COLOR_2` = '%d',\
+			`PAINTJOB` = '%d',\
+			`GAS` = '%f',\
+			`MAX_GAS` = '%f',\
+			`CLOSED` = '%d',\
+			`INTERIOR` = '%d',\
+			`WORLD` = '%d',\
+			`STATE` = '%d' \
+			WHERE `ID` = '%d';\
+			",
+			GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE],
+			GLOBAL_VEHICLES[i][gb_vehicle_MODELID],
+			GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_X],
+			GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_Y],
+			GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_Z],
+			GLOBAL_VEHICLES[i][gb_vehicle_SPAWN_ANGLE],
+			GLOBAL_VEHICLES[i][gb_vehicle_HEALTH],
+			GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_PANELS],
+			GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_DOORS],
+			GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_LIGHTS],
+			GLOBAL_VEHICLES[i][gb_vehicle_DAMAGE_TIRES],
+			GLOBAL_VEHICLES[i][gb_vehicle_COLOR_1],
+			GLOBAL_VEHICLES[i][gb_vehicle_COLOR_2],
+			GLOBAL_VEHICLES[i][gb_vehicle_PAINTJOB],
+			GLOBAL_VEHICLES[i][gb_vehicle_GAS],
+			GLOBAL_VEHICLES[i][gb_vehicle_MAX_GAS],
+			GLOBAL_VEHICLES[i][gb_vehicle_PARAMS_DOORS],
+			GLOBAL_VEHICLES[i][gb_vehicle_INTERIOR],
+			GLOBAL_VEHICLES[i][gb_vehicle_WORLD],
+			GLOBAL_VEHICLES[i][gb_vehicle_STATE],
 
-	 PLAYER_VEHICLES[i][player_vehicle_ID]
-    );
-    db_free_result(db_query(Database, DB_Query));
+			PLAYER_VEHICLES[i][player_vehicle_ID]
+			);
+		db_free_result(db_query(Database, DB_Query));
 
-    for(new x = 0; x != MAX_VEHICLE_COMPONENTS; x ++)
-    {
-	 DB_Query[0] = EOS;
+		for(new x = 0; x != MAX_VEHICLE_COMPONENTS; x ++)
+		{
+			DB_Query[0] = EOS;
 
-	 format(DB_Query, sizeof DB_Query,
-	 "\
-	   UPDATE `PLAYER_VEHICLE_COMPONENTS` SET \
-		`SLOT_0` = '%d',\
-		`SLOT_1` = '%d',\
-		`SLOT_2` = '%d',\
-		`SLOT_3` = '%d',\
-		`SLOT_4` = '%d',\
-		`SLOT_5` = '%d',\
-		`SLOT_6` = '%d',\
-		`SLOT_7` = '%d',\
-		`SLOT_8` = '%d',\
-		`SLOT_9` = '%d',\
-		`SLOT_10` = '%d',\
-		`SLOT_11` = '%d',\
-		`SLOT_12` = '%d',\
-		`SLOT_13` = '%d' \
-	   WHERE `ID_VEHICLE` = '%d';\
-	 ",
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][0],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][1],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][2],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][3],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][4],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][5],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][6],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][7],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][8],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][9],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][10],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][11],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][12],
-	   GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][13],
+			format(DB_Query, sizeof DB_Query,
+				"\
+				UPDATE `PLAYER_VEHICLE_COMPONENTS` SET \
+				`SLOT_0` = '%d',\
+				`SLOT_1` = '%d',\
+				`SLOT_2` = '%d',\
+				`SLOT_3` = '%d',\
+				`SLOT_4` = '%d',\
+				`SLOT_5` = '%d',\
+				`SLOT_6` = '%d',\
+				`SLOT_7` = '%d',\
+				`SLOT_8` = '%d',\
+				`SLOT_9` = '%d',\
+				`SLOT_10` = '%d',\
+				`SLOT_11` = '%d',\
+				`SLOT_12` = '%d',\
+				`SLOT_13` = '%d' \
+				WHERE `ID_VEHICLE` = '%d';\
+				",
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][0],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][1],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][2],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][3],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][4],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][5],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][6],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][7],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][8],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][9],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][10],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][11],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][12],
+				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][13],
 
-	   PLAYER_VEHICLES[i][player_vehicle_ID]
-	 );
-	 db_free_result(db_query(Database, DB_Query));
-    }
+				PLAYER_VEHICLES[i][player_vehicle_ID]
+				);
+			db_free_result(db_query(Database, DB_Query));
+		}
 
-    if (destroy) DestroyVehicleEx(i);
-  }
-  return 1;
+		if (destroy) DestroyVehicleEx(i);
+	}
+	return 1;
 }
 
 public OnVehicleSpawn(vehicleid)
