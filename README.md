@@ -162,3 +162,4 @@ Listado de cosas para hacer
 * Nuevo velocimetro
 	- Ahora este marca el estado de las puertas y las luces
 * Ahora las disputas de graffiti inician cada hora a los 45 minutos, el primer aviso sale a las xx:30
+* Ahora automaticamente todos los sabados a las 5 hay una disputa de mercado

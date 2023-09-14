@@ -6677,22 +6677,21 @@ public InitRandomGangEvent()
 		printf("InitRandomGangEvent"); // debug juju
 	#endif
 
-	/*new event = minrand(0, 6);
-	switch(event)
+	new year, month, day, hour, weekday;
+	getdate(year, month, day);
+	
+	weekday = GetWeekDay(year, month, day);
+	gettime(.hour = hour);
+	if (weekday == 7 && hour == 5)
 	{
-		case 3:
-		{
-			new market_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
-			InitBlackMarket(market_id);
-		}
-		default:
-		{
-			new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
-			InitGraffiti(graff_id);
-		}
-	}*/
-	new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
-	InitGraffiti(graff_id);
+		new market_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
+		InitBlackMarket(market_id);
+	}
+	else
+	{
+		new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
+		InitGraffiti(graff_id);
+	}
 	return 1;
 }
 

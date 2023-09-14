@@ -29,7 +29,7 @@
 #include <a_samp>
 
 #undef MAX_PLAYERS
-#define MAX_PLAYERS 32
+#define MAX_PLAYERS 150
 
 // Server information
 #define SERVER_VERSION 			"Experimental v1.0" // Old: Legacy v0.9 Build 10
@@ -60,6 +60,7 @@
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
+#include <calendar>
 //#tryinclude <profiler>
 
 // Math
