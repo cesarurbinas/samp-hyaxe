@@ -1572,7 +1572,9 @@ new MAFIA_DOORS[][enum_MAFIA_DOORS] =
     // Osborn
 	{19912, -2350.201416, -662.360290, 120.741500, 30.000000, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1},
 	{19912, -2464.229003, -488.837310, 105.451400, 30.000000, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1},
-	{8378, -1166.879516, -202.562149, 23.027000, -65.000000, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1}
+	{8378, -1166.879516, -202.562149, 23.027000, -65.000000, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1},
+	// Maik santander
+	{980, -272.37585, -2170.65015, 30.38364, 12.69130, 0, 0, true, DOOR_TYPE_USER, 8035, INVALID_STREAMER_ID, -1}
 };
 
 // Barredor
@@ -1820,6 +1822,47 @@ static const INVALID_NAMES[][100] =
 	"Whatsapp",
 	"Facebook",
 	"Instagram"
+};
+
+static const BAN_KEYWORDS[][100] =
+{
+	"fenixzone",
+	"goldenstate",
+	"golden state",
+	"golden states",
+	"unplayer",
+	"z.o.n.e",
+	"f.e.n.i.x",
+	"samphub",
+	"s4mp hub",
+	"samp hub",
+	"github",
+	"b0tnet",
+	"botn3t",
+	"b o t n e t",
+	"botonet",
+	"bot n3t",
+	"b0t net",
+	"b0t n3t",
+	"world champion pawno scripta",
+	"sampvoice",
+	"adobe",
+	"ad0be",
+	"ad0b3",
+	"a.d.o.b.e",
+	"b0ts",
+	".net",
+	".xyz",
+	".ml",
+	".tk",
+	"bots",
+	"omegazone",
+	"ecuazone",
+	"lexerzone",
+	"sampdroid",
+	"samp droid",
+	"samp_droid",
+	"sls"
 };
 
 enum
@@ -8570,21 +8613,51 @@ CMD:duda(playerid, params[])
 		}
 	}
 
-	if(ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] <= 1)
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] <= 1)
 	{
-		if(CheckFilterViolation(params))
+		if (CheckSpamViolation(params))
+		{
+			new dialog[250];
+			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (Dudas)");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+			
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Dudas)");
+
+			KickEx(playerid, 500);
+			PLAYER_MISC[playerid][MISC_BANEOS] ++;
+			SavePlayerMisc(playerid);
+
+			new str[144];
+			format(str, 145, "[ADMIN] %s (%d) fue baneado: Spam (Dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			new webhook[144];
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+			return 0;
+		}
+
+		if (CheckFilterViolation(params))
 			return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu duda tiene palabras inapropiadas.");
 	}
 
 	if (StringContainsIP(params))
 	{
-		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu duda tiene direcciones IP.");
-			
-		new str[144];
-		format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): Spam (%s)", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
-    	SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+		new dialog[250];
+		format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (IP en el dudas)");
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+		
+		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el dudas)");
 
-    	new webhook[144];
+		KickEx(playerid, 500);
+		PLAYER_MISC[playerid][MISC_BANEOS] ++;
+		SavePlayerMisc(playerid);
+
+		new str[144];
+		format(str, 145, "[ADMIN] %s (%d) fue baneado: Spam (IP en el dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+		new webhook[144];
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 		return 1;
@@ -8635,21 +8708,51 @@ CMD:anuncio(playerid, params[])
 		return 1;
 	}
 
-	if(ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] <= 1)
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] <= 1)
 	{
-		if(CheckFilterViolation(params))
+		if (CheckSpamViolation(params))
+		{
+			new dialog[250];
+			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (Anuncios)");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+			
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Anuncios)");
+
+			KickEx(playerid, 500);
+			PLAYER_MISC[playerid][MISC_BANEOS] ++;
+			SavePlayerMisc(playerid);
+
+			new str[144];
+			format(str, 145, "[ADMIN] %s (%d) fue baneado: Spam (Anuncios).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			new webhook[144];
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+			return 0;
+		}
+
+		if (CheckFilterViolation(params))
 			return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu anuncio tiene palabras inapropiadas.");
 	}
 
 	if (StringContainsIP(params))
 	{
-		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu anuncio tiene direcciones IP.");
-			
-		new str[144];
-		format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): Spam (%s)", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
-    	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+		new dialog[250];
+		format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (IP en el anuncio)");
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+		
+		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el anuncio)");
 
-    	new webhook[144];
+		KickEx(playerid, 500);
+		PLAYER_MISC[playerid][MISC_BANEOS] ++;
+		SavePlayerMisc(playerid);
+
+		new str[144];
+		format(str, 145, "[ADMIN] %s (%d) fue baneado: Spam (IP en el anuncio).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+		new webhook[144];
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 		return 1;
@@ -30654,28 +30757,38 @@ CMD:policia(playerid, params[])
 
 OpenMafiaDoor(playerid)
 {
+	new bool:open;
 	for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
 	{
-		if (MAFIA_DOORS[i][mafia_door_TYPE] == DOOR_TYPE_MAFIA)
+		switch(MAFIA_DOORS[i][mafia_door_TYPE])
 		{
-			if (PLAYER_SKILLS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ] > 0)
+			case DOOR_TYPE_MAFIA:
 			{
-				if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-				if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
+				if (PLAYER_SKILLS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ] > 0) open = true;
+			}
+			case DOOR_TYPE_USER:
+			{
+				if (ACCOUNT_INFO[playerid][ac_ID] == MAFIA_DOORS[i][mafia_door_MAFIA]) open = true;
+			}
+		}
 
-				if (IsPlayerInRangeOfPoint(playerid, 33.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
-				{
-					KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-					MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
+		if (open)
+		{
+			if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
+			if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
 
-					new Float:distance = 15.0;
-					if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
-						distance = 50.0;
+			if (IsPlayerInRangeOfPoint(playerid, 33.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+			{
+				KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
+				MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
 
-					MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-					MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-					break;
-				}
+				new Float:distance = 15.0;
+				if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
+					distance = 50.0;
+
+				MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
+				MAFIA_DOORS[i][mafia_door_CLOSED] = false;
+				break;
 			}
 		}
 	}
@@ -36584,6 +36697,15 @@ public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags)
         return 0; 
     }
     return 1; 
+}
+
+CheckSpamViolation(const str_text[])
+{
+	for(new x = 0; x < sizeof(BAN_KEYWORDS); x ++)
+    {
+        if (strfind(str_text, BAN_KEYWORDS[x], true) != -1) return true;
+    }
+	return false;
 }
 
 CheckFilterViolation(const str_text[])
