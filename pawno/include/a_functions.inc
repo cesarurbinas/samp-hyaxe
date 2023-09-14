@@ -6,14 +6,13 @@
 #define _anotitications_included
 
 #include <a_samp>
-#include <YSI_Coding\y_hooks>
 
 static
     PlayerText:NOTIFICATION_MESSAGE[MAX_PLAYERS][4],
     NotificationSlot[MAX_PLAYERS][3],
     NotificationTime[MAX_PLAYERS][3];
 
-hook OnPlayerConnect(playerid)
+public OnPlayerConnect(playerid)
 {
     NOTIFICATION_MESSAGE[playerid][0] = CreatePlayerTextDraw(playerid,15.000000, 295.000000, "_");
     PlayerTextDrawBackgroundColor(playerid,NOTIFICATION_MESSAGE[playerid][0], 0x00000088);
@@ -64,16 +63,26 @@ hook OnPlayerConnect(playerid)
     PlayerTextDrawFont(playerid, NOTIFICATION_MESSAGE[playerid][3], 1);
     PlayerTextDrawSetProportional(playerid, NOTIFICATION_MESSAGE[playerid][3], 1);
     PlayerTextDrawSetShadow(playerid, NOTIFICATION_MESSAGE[playerid][3], 0); 
-    return Y_HOOKS_CONTINUE_RETURN_1;
+    
+    #if defined NOT_OnPlayerConnect
+        return NOT_OnPlayerConnect(playerid);
+    #else
+        return 1;
+    #endif
 }
 
-hook OnPlayerDisconnect(playerid, reason)
+public OnPlayerDisconnect(playerid, reason)
 {
     PlayerTextDrawDestroy(playerid, NOTIFICATION_MESSAGE[playerid][0]);
     PlayerTextDrawDestroy(playerid, NOTIFICATION_MESSAGE[playerid][1]);
     PlayerTextDrawDestroy(playerid, NOTIFICATION_MESSAGE[playerid][2]);
     PlayerTextDrawDestroy(playerid, NOTIFICATION_MESSAGE[playerid][3]);
-    return Y_HOOKS_CONTINUE_RETURN_1;
+    
+    #if defined NOT_OnPlayerDisconnect
+        return NOT_OnPlayerDisconnect(playerid, reason);
+    #else
+        return 1;
+    #endif
 }
 
 stock SendPlayerNotification(playerid,text_[])
@@ -140,3 +149,23 @@ public hideNotificationInSlot4(playerid)
     NotificationSlot[playerid][2] = 0; 
     return 1;
 }
+
+#if defined _ALS_OnPlayerConnect
+    #undef OnPlayerConnect
+#else
+    #define _ALS_OnPlayerConnect
+#endif
+#define OnPlayerConnect NOT_OnPlayerConnect
+#if defined NOT_OnPlayerConnect
+    forward NOT_OnPlayerConnect(playerid);
+#endif
+
+#if defined _ALS_OnPlayerDisconnect
+    #undef OnPlayerDisconnect
+#else
+    #define _ALS_OnPlayerDisconnect
+#endif
+#define OnPlayerDisconnect NOT_OnPlayerDisconnect
+#if defined NOT_OnPlayerDisconnect
+    forward NOT_OnPlayerDisconnect(playerid, reason);
+#endif

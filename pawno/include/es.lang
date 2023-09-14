@@ -23,6 +23,7 @@ new
 
 	LOADED_MSG_1[] =		"[ANTI-CHEAT] Cargado",
 	LOADED_MSG_2[] =		"[ANTI-CHEAT] Version: %s",
+	LOADED_MSG_3[] =		"[ANTI-CHEAT] Basado en Nex-AC",
 
 	STATS_STRING_1[] =		" Estadisticas ANTI-CHEAT",
 	STATS_STRING_2[] =		" Detectado y evitado:",
