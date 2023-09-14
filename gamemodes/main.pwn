@@ -256,7 +256,110 @@ new const Float:NewUserPos[][] =
 	{1084.961181, -1795.690673, 13.670027, 359.768463}
 };
 
-//Raknet
+// Bot response
+new static const BOT_RESPONSE[][] =
+{
+		{"Donde quedan los trabajos", "buscalo en GPS"},
+	{"Puedo trabajar como sicario", "No puedes trabajar como sicario"},
+	{"Puedo tener 2 trabajos a la vez", "No"},
+	{"Como creo una banda", "Presiona N y dale a el apartado de BANDA"},
+	{"Puedo trabajar como sicario", "No puedes trabajar como sicario"},
+	{"donde vendo un coche a una persona", "banco"},
+	{"como invito gente a mi banda", "interactuar-invitar banda"},
+	{"me atropellaron sin razón ", "ck reporta"},
+	{"a qué nivel puedo comprar armas", "2 3 horas"},
+	{"como puedo ver dónde toca Graff", "entra en una banda"},
+	{"donde compro un boombox", "tienda tecno"},
+	{"me mataron sin razón cómo se le dice", "dm"},
+	{"Cuánto tengo que picar para subir a nivel 2 de minero ", "120 materiales(level 1 Minero)"},
+	{"como veo el ping de alguien", "/ID [ID]"},
+	{"Como recojo algo que me regalan o venden ", "Shitf o alt."},
+	{"cuánto tarda en cargar el camión", "40seg"},
+	{"como veo el ID de una persona", "[tabulador]"},
+	{"Donde puedo ver mis niveles de trabajo ", "/skills"},
+	{"Donde veo , mi info (que nivel soy y cuánto me falta)", "/est"},
+	{"Si soy level 1 que trabajan me recomiendan", "Minero o Camionero(más paga)"},
+	{"Dónde puedo comprar un auto", "Repuesta: /GPS - Consecionarios."},
+	{"donde se compran los coches ", "consecionsria"},
+	{"cómo se quién me dispara", "/configuracion-damager-cambiar"},
+	{"Si hago Dm , habrá jail o baneo por días ", "Te jailearan si ven que estás haciendo Dm por las puras."},
+	{"Como canjeo los codigos", "con /canjear pega el codigo"},
+	{"En este server , puedo encontrar lo que sería graff e terris", "Claro , siempre y cuando tengas o te integren a una mafia e banda."},
+	{"Como puedo subirme la vida", "Puedes ir al hospital y comprar medicamentos."},
+	{"Cómo prendo un auto", "Presiona el botón 2 y te aparece la opción de prender e apagar motor"},
+	{"dónde puedo reportar a alguien ", "puedes reportar usando /re + ID + RAZÓN o yendo a foro.hyaxe.com con pruebas."},
+	{"donde compro armas", "Repuestas en mercados negros o a mafioso"},
+	{"Como veo donde hay pacientes trabajando de medico", "Presionado la tecla [2] - Mapa."},
+	{"Dónde venden armas", "Mercado Negro (Colinas , East los santos)"},
+	{"con mi apagó la radio", "2-radio-apagar o /parar"},
+	{"Como soy policia", "Mira en el foro Hay esta el formulario foro.hyaxe.com"},
+	{"Como Acepto muerte", "Presionando la tecla [ C ]"},
+	{"cuál es el discord", "/discord"},
+	{"cómo me pongo de médico", "en la sala de la derecha según entras"},
+	{"Como puedo contactar un administrador ", "Autoreportate para que este vaya a tu ubicación o te hable via PM."},
+	{"que trabajo da más dinero ", "averiguar IC o recomendación camionero o minero."},
+	{"cómo se quiénes estan en la banda", "n-banda"},
+	{"A que nivel puedo portar armas", "Desde el nivel 2 en adelante."},
+	{"Como obtengo el trabajo de medico", "Entra al hospital firma el contrato y ponte en servicio con la tecla H en la sala de atención."},
+	{"cómo se dónde están mis coches", "/localizar"},
+	{"dónde compró el geolocalizador o el boombox ", "En la tienda electrónica; /GPS - otros - tienda tecno"},
+	{"Como reporto a alguien", "usa /re [ID] [razon]"},
+	{"como participó en eventos IC ", "los admin podrán un anuncio dentro del juego y dirán las reglas y más para participar."},
+	{"como llamo a una persona", "n-telefono-Y-telefono-llamar-numero-enter"},
+	{"Algun admin", "Autoreportate y te ayudaran"},
+	{"como reportó una especie de bug con los mod en el ds de hyaxe ", "crea un ticket, es gratis, ahí responderán tus dudas y más."},
+	{"Como acepto muerte", "Apretando la tecla [C]"},
+	{"Como veo el numero de otra persona", "Compras una agenda en el 24/7 y pones /agenda id"},
+	{"Como pongo un anuncio", "/anuncio (lo que deceas , pero de forma de rol) para evitar ser Muteado."},
+	{"como me cambio la ropa ", "ve a alguna tienda del modo historia y en cada una hay una especial, elije la que te guste"},
+	{"como soy policia", "siendo lvl 4 y postulandote en foro.hyaxe.com"},
+	{"A que nivel puedo utilizar armas", "A nivel 2 ya puedes usar todas las armas."},
+	{"como consigo el número de teléfono de otro jugador", "/guía [ID]"},
+	{"cómo apago la radio ", "escribiendo /stop o con el 2 estando arriba del auto."},
+	{"como me uno a una mafia ", "la mafia dirá a que nivel puedes entrar, te Ara unas preguntas y pruebas y si las pasas y a ellos les parece bien, entras."},
+	{"Como le doy dinero a alguien", "Cerca de la persona apretas N y le das a interactuar"},
+	{"como enciendo mi auto", "presionando 2 o poniendo /motor"},
+	{"Com me pongo una prenda", "Dale a la [N] luego a la prendas que estan en la izquierda."},
+	{"cómo se mi número ", "escribe /guía + TÚ ID"},
+	{"Como invito a alguien a mi banda", "Apreta -N- cerca del user, luego dale en Interactuar con xx y en invitar banda"},
+	{"Como enciendo mi auto", "Apretando el 2 te sale un panel, le das donde dice motor"},
+	{"como tiro una determinada cantidad de cosas", "te pones el objeto en la mano y poner /tirar [cantidad]"},
+	{"Donde vendo mi auto", "En el banco central, /gps"},
+	{"Como consumo crack ", "presiona la tecla N luego cojes el dicho objeto y presiones la letra Y"},
+	{"los mods están permitidos ", "Mods que te den ventajas no están permitidos en el servidor."},
+	{"Si perdi mi auto como lo recupero", "En tu celular apreta Contactos y en aseguradora y selecciona tu auto"},
+	{"Como consumo un medicamento", "Apretando la Y"},
+	{"Dónde venden la mp3", "/GPS - tienda electrónica"},
+	{"Como uso la MP3", "/mp3"},
+	{"Como curoa a alguien con botiquin", "Dale a la [N] lo pones en mano y luego a la [Y]"},
+	{"qué son las barritas que aparecen abajo ", "es la barra de sed y de hambre."},
+	{"Ya estoy en mecanico como lo reparo.", "Apagas el  coche con el 2 Y luego das a la H, Selecionas con el que te suves al coche."},
+	{"Cómo puedo ser moderador", "Espera a que abran las postulaciones y podrás ver los requisitos y el formulario"},
+	{"Tiraron mi auto al agua, que hago", "LLama a aseguradora"},
+	{"cómo reparo mi auto", "/GPS - Otros - taller mecánico"},
+	{"como trabajo de minero", "garras el trabajo compras un mazo te pones frente al mineral y aprietas ALT"},
+	{"En qué trabajo se gana dinero rápido ", "Minero (aprox 2 minutos picando)"},
+	{"Donde arreglo mi auto", "Ve a mecanico"},
+	{"Como creo una banda", "Dale a la [N] luego a bandas y ahi aparece"},
+	{"Como llamo a alguien", "Apreta -N- selecciona tu celular, luego apreta -Y- y dale en telefono y en llamar"},
+	{"Duda; Como compro ropa", "Ve a una tienda de ropa"},
+	{"Como conquisto un territorio con mi banda", " Ve al territorio, con 4 personas de tu banda y dispara estando dentro de el."},
+	{"Como trabajo de camionero", "Ve a la casita y toma el trabajo con Y"},
+	{"Como se que ID tiene tal persona", "Puedes verlo en el Tab,"},
+	{"Duda : Como vendo un auto", "Ve al banco central y ve a la mesa en la izquierda"},
+	{"Cómo doy dinero a una persona ic", "presionar la tecla N en la parte de abajo te saldrá interactuar con dicha persona y te dará 2 opciones 1 : reportar y 2: dar dinero."},
+	{"el servidor tiene discord", "escribe /discord."},
+	{"como es el discord del sv", "pon /discord"},
+	{"Como reporto a alguien ", "/re [id] [razon]"},
+	{"cómo curo a alguien ", "abres inventario, escoges el botiquín y presionas Y cerca del herido."},
+	{"El cleo de Luces es permitido", "Cualquier cleo es permitido mientras no te de ventaja"},
+	{"Donde puedo comprar arma", "Averigua IC/En el mercado de East o Colinas"},
+	{"como saco el celular", "abrís inventario y aprietas Y"},
+	{"A que nivel puedo tener armas", "Al nivel 2."},
+	{"Cuál es el foro", "foro.hyaxe.com"}
+};
+
+// Raknet
 new VehicleDestroyed = 136;
 const UNOCCUPIED_SYNC = 209,
 	AIM_SYNC = 203,
@@ -36771,6 +36874,38 @@ CheckNameFilterViolation(const str_text[])
 	return false;
 }
 
+CALLBACK: SendBotResponse(content[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL])
+			{
+				SendResponsiveMessage(i, COLOR_DARK_GREEN, content, 135);
+			}
+		}
+	}
+	return 1;	
+}
+
+BotDoubtResponse(playerid, doubt[])
+{
+	new str_text[364];
+	for(new x = 0; x < sizeof(BOT_RESPONSE); x ++)
+    {
+        if (strfind(doubt, BOT_RESPONSE[x][0], true) != -1)
+        {
+        	new name[MAX_PLAYER_NAME];
+			format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);
+
+			format(str_text, sizeof(str_text), "[Dudas] "COL_WHITE"Jugador %s (%d): (( @%d %s ))", name, minrand(1, 80), playerid, BOT_RESPONSE[x][1]);
+        	SetTimerEx("SendBotResponse", 1000 + minrand(100, 2500), false, "s[234]", str_text);
+        }
+    }
+	return 1;
+}
+
 SendMessageToDoubtChannel(playerid, message[])
 {
 	new str[364];
@@ -36808,6 +36943,8 @@ SendMessageToDoubtChannel(playerid, message[])
 			}
 		}
 	}
+
+	BotDoubtResponse(playerid, message);
 	return 1;
 }
 
