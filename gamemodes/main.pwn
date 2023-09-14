@@ -30552,10 +30552,10 @@ CMD:esposar(playerid, params[])
 	    ShowPlayerMessage(playerid, "Estás esposando a esta persona", 3);
 
 	    CHARACTER_INFO[params[0]][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-		if (ACCOUNT_INFO[params[0]][ac_SU]) SetPlayerHealthEx(playerid, 50.0);
+		if (ACCOUNT_INFO[params[0]][ac_SU]) SetPlayerHealthEx(params[0], 50.0);
 		else SetPlayerHealthEx(params[0], 25.0);
 
-		DisablePlayerMedicMark(playerid);
+		DisablePlayerMedicMark(params[0]);
 
 		ApplyAnimation(params[0], "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 		ClearAnimations(params[0]);
