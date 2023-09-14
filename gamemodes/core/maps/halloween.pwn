@@ -1,4 +1,4 @@
-new Float:PUMPKIN_POSITIONS[][] =
+static Float:PUMPKIN_POSITIONS[][] =
 {
 	{1201.5510, -1381.8387, 13.2459, 169.8299},
 	{1201.1536, -1345.4445, 13.4003, 359.3750},
@@ -25,7 +25,7 @@ new Float:PUMPKIN_POSITIONS[][] =
 
 HalloweenMap()
 {
-	static
+	new
 		g_Object[259],
 		g_Actor[7]
 	;
@@ -317,10 +317,14 @@ HalloweenMap()
 
 	CreateDynamic3DTextLabel(""COL_RED"Bruja perazoli"COL_WHITE"\nHabla con ella si quieres vender calabazas", 0xF7F7F7FF, 817.2799, -1103.3270, 25.7921, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	AddKeyArea(817.2799, -1103.3270, 1.5, KEY_TYPE_Y);
+
+	SetTimer("SpawnPumpkin", 600000, true);
+	SpawnPumpkin();
 	return 1;
 }
 
-CALLBACK: SpawnPumpkin()
+forward SpawnPumpkin();
+public SpawnPumpkin()
 {
 	for(new i = 0, j = 10; i <= j; i++)
 	{
@@ -330,6 +334,9 @@ CALLBACK: SpawnPumpkin()
 			Float:y
 		;
 
+		x = PUMPKIN_POSITIONS[index][0];
+		y = PUMPKIN_POSITIONS[index][1];
+		
 		RandomCordFromPoint(minrand(10, 50), minrand(3, 5), x, y);
 
 		CreateDropItem(

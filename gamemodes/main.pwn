@@ -7491,9 +7491,6 @@ public OnGameModeInit()
 	#if defined HALLOWEEN_MODE
 		SendRconCommand("hostname "HALLOWEEN_HOSTNAME"");
 		HalloweenMap();
-
-		SetTimer("SpawnPumpkin", 600000, true);
-		SpawnPumpkin();
 	#endif
 
 	#if defined CHRISTMAS_MODE
