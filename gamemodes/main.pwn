@@ -29,7 +29,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"v0.9 Build 10"
+#define SERVER_VERSION 			"Legacy v0.9 Build 10"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
