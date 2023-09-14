@@ -18890,9 +18890,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerMessage(playerid, "~g~Dinero enviado.", 3);
 				SetPlayerChatBubble(playerid, "\n\n\n\n* saca dinero de su billetera y se lo da a alguien\n\n\n", 0xffcb90FF, 20.0, 5000);
 
-				new str_text[32];
-				format(str_text, 32, "~g~+%d$", inputtext[0]);
-     			GameTextForPlayer(PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], str_text, 5000, 1);
+				new pay_str[32];
+				format(pay_str, 32, "~g~+%d$", inputtext[0]);
+     			GameTextForPlayer(PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], pay_str, 5000, 1);
 
 				ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
 
@@ -32693,7 +32693,7 @@ CMD:esposar(playerid, params[])
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes esposar a este jugador ahora.", 3);
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para esposar a esta persona tiene que estar depie.", 3);
 	if (params[0] == playerid) return ShowPlayerMessage(playerid, "~r~No puedes esposarte a ti mismo");
-	if (PLAYER_WORKS[params[0]][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3)
+	if (PLAYER_WORKS[params[0]][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
 
 	if (PLAYER_TEMP[params[0]][py_CUFFED])
 	{
