@@ -332,6 +332,13 @@ enum
 >>>>>>> 68c68d6 (tienda de colores)
 =======
 	DIALOG_BUY_CHAT_COLOR,
+<<<<<<< HEAD
 	DIALOG_INV_ORDER
 >>>>>>> 4d102db (configurar orden del inventario)
+=======
+	DIALOG_INV_ORDER,
+	DIALOG_PROPERTY_KEYS,
+	DIALOG_PROPERTY_KEYS_ADD,
+	DIALOG_PROPERTY_KEYS_DEL
+>>>>>>> ea4c7926 (compartir llaves de propiedades)
 };

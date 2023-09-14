@@ -154,6 +154,9 @@
 #include "core/world/header.pwn"
 #include "core/world/callbacks.pwn"
 
+// Properties
+#include "core/property/functions.pwn"
+
 // Damage
 #include "core/damage/callbacks.pwn"
 #include "core/damage/functions.pwn"

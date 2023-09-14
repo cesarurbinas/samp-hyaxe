@@ -533,7 +533,7 @@ EnterSite(playerid)
                 }
                 else
                 {
-                    if (PROPERTY_INFO[info[1]][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+                    if (PROPERTY_INFO[info[1]][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID] || IsPlayerInPropertyKeys(PROPERTY_INFO[info[1]][property_ID], ACCOUNT_INFO[playerid][ac_ID]))
                     {
                         CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_OWN_PROPERTY;
                         CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = PROPERTY_INFO[info[1]][property_ID];
@@ -6570,6 +6570,10 @@ ShowPropertyMenu(playerid)
 	AddPlayerMenuItem(playerid, "Personalizar");
 	AddPlayerMenuItem(playerid, "Sacar items");
 	AddPlayerMenuItem(playerid, "Meter items");
+	if (PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+	{
+		AddPlayerMenuItem(playerid, "Gestionar llaves");
+	}
 
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 	return 1;
@@ -6611,7 +6615,7 @@ ShowPropertyOptions(playerid)
     {
         if (info[2] == 1) // Está en el Pickup Interior
         {
-            if (PROPERTY_INFO[info[1]][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+            if (PROPERTY_INFO[info[1]][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID] || IsPlayerInPropertyKeys(PROPERTY_INFO[info[1]][property_ID], ACCOUNT_INFO[playerid][ac_ID]))
             {
             	if (!PLAYER_TEMP[playerid][py_EDITING_MODE])
             	{

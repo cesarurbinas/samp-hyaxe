@@ -92,6 +92,8 @@ Listado de cosas para hacer
 
 ✅ Enumerations en inventory type
 
+❌ Agregar para compartir llaves de casas
+
 ❌ Mejorar el inicio de disputas
 
 ❌ Arreglar el tiempo restante para una disputa en el panel de banda

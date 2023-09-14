@@ -285,6 +285,10 @@ Menu:PROPERTY_MENU(playerid, response, listitem)
 			{
 				ShowInventory(playerid, 2);
 			}
+			case 5:
+			{
+				ShowDialog(playerid, DIALOG_PROPERTY_KEYS);
+			}
     	}
     }
     return 1; 

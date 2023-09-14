@@ -1883,6 +1883,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new info[3];
 				UpdateUnnocupiedPropertyLabel(PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED]);
 
+				ClearPropertyKeys(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]);
 				DestroyDynamicPickup(PROPERTY_INFO[PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED]][property_EXT_PICKUP_ID]);
 				PROPERTY_INFO[PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED]][property_EXT_PICKUP_ID] = INVALID_STREAMER_ID;
 
@@ -2004,6 +2005,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (BANK_ACCOUNT[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~El vendedor no tiene cuenta bancaria.", 3);
 
 				// Traspasar
+				ClearPropertyKeys(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]);
+
 				new label_str[256], city[45], zone[45];
 				GetPointZone(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_X], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Y], city, zone);
 				format
@@ -7865,6 +7868,85 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerNotification(playerid, sprintf("Nueva orden de inventario establecida: ~y~%s", INV_CONFIG[listitem]), 5);
 			}
 			ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
+		}
+		case DIALOG_PROPERTY_KEYS:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0:
+					{
+						new property = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID];
+
+						if (GetUsedPropertyKeys(property) >= 5)
+						{
+							ShowPlayerMessage(playerid, "~r~No puedes dar mas de 5 llaves", 4);
+							ShowDialog(playerid, DIALOG_PROPERTY_KEYS);
+							return 1;
+						}
+						
+						ShowDialog(playerid, DIALOG_PROPERTY_KEYS_ADD);
+					}
+					case 1: ShowDialog(playerid, DIALOG_PROPERTY_KEYS_DEL);
+				}
+			}
+			else ShowPropertyMenu(playerid);
+		}
+		case DIALOG_PROPERTY_KEYS_ADD:
+		{
+			if (response)
+			{
+				new to_player;
+			    if (sscanf(inputtext, "u", to_player))
+			    {
+			    	ShowPlayerMessage(playerid, "~r~Ingrese un nombre", 4);
+			    	ShowDialog(playerid, dialogid);
+			    	return 1;
+			    }
+
+			    if (!IsPlayerConnected(to_player))
+			    {
+			    	ShowPlayerMessage(playerid, "~r~Jugador desconectado", 4);
+			    	ShowDialog(playerid, dialogid);
+			    	return 1;
+			    }
+
+			    if (playerid == to_player)
+			    {
+			    	ShowPlayerMessage(playerid, "~r~Selecciona a otro usaurio", 4);
+			    	ShowDialog(playerid, dialogid);
+			    	return 1;
+			    }
+
+			    new property = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID];
+
+			    if (IsPlayerInPropertyKeys(property, ACCOUNT_INFO[to_player][ac_ID]))
+			    {
+			    	ShowPlayerMessage(playerid, "~r~Ese jugador ya tiene las llaves", 4);
+			    	ShowDialog(playerid, dialogid);
+			    	return 1;	
+			    }
+
+				AddPropertyKey(property, ACCOUNT_INFO[to_player][ac_ID]);
+				ShowPlayerMessage(playerid, "Llave ~g~agregada", 4);
+
+				ShowPlayerNotification(to_player, sprintf("%s te ha dado una copia de las llaves de su propiedad", PLAYER_TEMP[playerid][py_NAME]), 5);
+			}
+			else ShowDialog(playerid, DIALOG_PROPERTY_KEYS);
+		}
+		case DIALOG_PROPERTY_KEYS_DEL:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
+
+				new property = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID];
+
+				RemovePropertyKey(property, PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]);
+				ShowPlayerMessage(playerid, "Llave ~r~eliminada", 4);
+			}
+			else ShowDialog(playerid, DIALOG_PROPERTY_KEYS);
 		}
 	}
 	return 0;

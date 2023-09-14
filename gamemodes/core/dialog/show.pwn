@@ -4314,6 +4314,48 @@ ShowDialog(playerid, dialogid)
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Cambiar orden del inventario", "Normal\nTipo (Ascendente)\nCantidad (Ascendente)\nTipo (Descendente)\nCantidad (Descendente)", "Cambiar", "Atrás");
     		return 1;
     	}
+		case DIALOG_PROPERTY_KEYS:
+		{
+			new property = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID];
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, sprintf(""COL_RED"Llaves [%d/5]", GetUsedPropertyKeys(property)), "Agregar\nEliminar\n", "Seguir", "Atrás");
+		}
+		case DIALOG_PROPERTY_KEYS_ADD:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Dar llave", ""COL_WHITE"Ingrese el nombre del usuario a agregar.", "Seguir", "Atrás");
+		}
+		case DIALOG_PROPERTY_KEYS_DEL:
+		{
+			if (PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return 1;
+
+			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
+
+			new
+				dialog[25 * 5],
+				listitem,
+				property = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]
+			;
+
+			new DBResult:Result, DB_Query[164];
+			format(DB_Query, 164, "SELECT * FROM `PROPERTY_KEYS` WHERE `PROPERTY_ID` = '%d';", property);
+			Result = db_query(Database, DB_Query);
+
+			for(new i; i < db_num_rows(Result); i++ )
+			{
+				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = db_get_field_assoc_int(Result, "USER_ID");
+
+				new line_str[64];
+				format(line_str, sizeof(line_str), "%s\n", GetDatabaseUserName(PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]));
+
+				strcat(dialog, line_str);
+				listitem ++;
+				db_next_row(Result);
+			}
+			db_free_result(Result);
+
+			if (listitem == 0) return ShowPlayerMessage(playerid, "~r~No hay llaves para eliminar", 4);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccione el usuario", dialog, "Eliminar", "Atrás");
+		}
 		default: return 0;
 	}
 	return 1;
