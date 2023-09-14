@@ -79,12 +79,12 @@
 #include "core/notification/header.pwn"
 
 // Libs
-#include <nex-ac>
-#include <PreviewModelDialog>
+#include <hyaxe-anticheat>
+#include <hyaxe-preview>
 #include <route-tracing>
 #include <strlib>
-#include <ExtendedActorFunctions>
-#include <gmenu>
+#include <extended-actor>
+#include <hyaxe-select>
 #include <discord-connector>
 #include <discord-command>
 
