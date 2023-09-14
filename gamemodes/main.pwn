@@ -20,7 +20,6 @@
 #include <hy_string>
 #include <hy_actor>
 #include <hy_selection>
-#include <sampvoice>
 #include <profiler>
 
 // Lang
@@ -3644,46 +3643,6 @@ ClearPlayerChatBox(playerid, ammount = 20)
 	return 1;
 }
 
-ReturnKeyHex(type)
-{
-	new key = 0x5A;
-	switch(type)
-	{
-		case 0: key = 0x5A;
-		case 1: key = 0x58;
-		case 2: key = 0x42;
-		case 3: key = 0x4D;
-		case 4: key = 0x4C;
-		case 5: key = 0x4B;
-		case 6: key = 0x4A;
-		case 7: key = 0x50;
-		case 8: key = 0x4F;
-		case 9: key = 0x49;
-		case 10: key = 0x55;
-	}
-	return key;
-}
-
-ReturnKeyName(key)
-{
-	new name[4] = "Z";
-	switch(key)
-	{
-		case 0: name = "Z";
-		case 1: name = "X";
-		case 2: name = "B";
-		case 3: name = "M";
-		case 4: name = "L";
-		case 5: name = "K";
-		case 6: name = "J";
-		case 7: name = "P";
-		case 8: name = "O";
-		case 9: name = "I";
-		case 10: name = "U";
-	}
-	return name;
-}
-
 ReturnTimelapse(start, till)
 {
     new ret[32];
@@ -3897,32 +3856,10 @@ public OnPlayerConnect(playerid)
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
 	GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 
-		if (!strcmp(PLAYER_TEMP[playerid][py_IP], BotsMaster))
+	if (!strcmp(PLAYER_TEMP[playerid][py_IP], BotsMaster))
 	{
 		SetBot(playerid);
 		return 1;
-	}
-
-	if (sv_get_version(playerid) == SV_VERSION)
-	{
-		SendClientMessage(playerid, 0xec4134FF, "[DEBUG]{FFFFFF} Hyaxe Client detectado");
-
-		if (!sv_has_micro(playerid))
-	    {
-	        SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} No tienes un micrófono conectado");
-	    }
-
-	    PLAYER_STREAM[playerid] = sv_sgstream_create();
-	    sv_stream_player_attach(PLAYER_STREAM[playerid], playerid);
-	    sv_set_key(playerid, 0x5A);
-	    sv_record_volume(playerid, 9000.0);
-	    VALID_CLIENT[playerid] = true;
-
-	    SendClientMessage(playerid, 0xec4134FF, "[DEBUG]{FFFFFF} Sesión creada");
-	}
-	else
-	{
-		SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} Instale/Actualice Hyaxe Client en {ec4134}www.hyaxe.com/client");	
 	}
 
 	if (GetPlayersInIP(PLAYER_TEMP[playerid][py_IP]) > 5)
@@ -4198,8 +4135,6 @@ public OnPlayerDisconnect(playerid, reason)
 		db_query(Database, DB_Query);
 	}
 
-	if (VALID_CLIENT[playerid]) sv_stream_delete(PLAYER_STREAM[playerid]);
-
   	if (PLAYER_TEMP[playerid][py_USER_LOGGED]) // ha pasado la pantalla de registro/login y ha estado jugando
   	{
   		ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
@@ -4294,35 +4229,6 @@ public OnPlayerDisconnect(playerid, reason)
   	return 1;
 }
 
-public SV_BOOL:OnPlayerVoice(SV_UINT:playerid, SV_PACKET:packet, SV_UINT:volume)
-{
-	if (GetPlayerState(playerid) != PLAYER_STATE_SPECTATING)
-	{
-		new Float:pos[3];
-		GetPlayerPos(playerid, pos[0], pos[1], pos[2]); 
-
-		SetPlayerChatBubble(playerid, "Hablando...", 0x67DA5BFF, 10.00, 1000);
-
-		for(new i = 0; i < MAX_PLAYERS; i++)
-		{
-			if (PLAYER_TEMP[playerid][py_VOICE_TEST] == false)
-			{
-				if (playerid == i) continue;
-			}
-
-			if (!IsPlayerConnected(i)) continue; 
-			if (GetPlayerState(i) == PLAYER_STATE_SPECTATING) continue;
-			if (VALID_CLIENT[i] == false) continue;
-
-			if (IsPlayerInRangeOfPoint(i, 20.00, pos[0], pos[1], pos[2]))
-			{
-				sv_send_packet(packet, PLAYER_STREAM[i]);
-			}
-		}
-	}
-	return SV_TRUE;
-}
-
 ResetPlayerVariables(playerid)
 {
 	if (BOTS[playerid][b_ACTIVE])
@@ -4337,7 +4243,6 @@ ResetPlayerVariables(playerid)
 	new temp_CHARACTER_INFO[Character_Enum]; CHARACTER_INFO[playerid] = temp_CHARACTER_INFO;
 	new temp_BANK_ACCOUNT[Bank_Account_Enum]; BANK_ACCOUNT[playerid] = temp_BANK_ACCOUNT;
 
-	VALID_CLIENT[playerid] = false;
 	CancelTracing(playerid);
 
 	new temp_PLAYER_TOYS[Player_Toys_Info];
@@ -6342,6 +6247,7 @@ public OnPlayerSpawn(playerid)
 	ac_SetPlayerArmedWeapon(playerid, 0);
 	SetPlayerNormalColor(playerid);
 	SetTracingColor(playerid, COLOR_RED);
+	PreloadAnims(playerid);
 	
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
 	{
@@ -7153,8 +7059,6 @@ CALLBACK: GiveAutoGift()
 public OnGameModeInit()
 {
 	//printf("ongamemodeini"); // debug juju
-	sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
-
     SetWeaponDamage(WEAPON_SNIPER, DAMAGE_TYPE_RANGE, 7.0, 10.0, 25.0, 40.0, 30.0); //sniper
     SetWeaponDamage(WEAPON_VEHICLE, DAMAGE_TYPE_RANGE, 50.0, 10.0, 50.0, 40.0, 50.0); //vehiculo
     SetWeaponDamage(WEAPON_RIFLE, DAMAGE_TYPE_RANGE, 35.0, 30.0, 25.0, 320.0, 15.0); //rifle
@@ -11943,6 +11847,17 @@ ShowDialog(playerid, dialogid)
 				}
 			}
 
+			if (BOTS[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][b_ACTIVE])
+			{
+				if (!BOTS[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][b_OCCUPIED])
+				{
+					strcat(dialog, "Seguimiento\n");
+					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 10;
+					listitem ++;
+				}
+			}
+
+
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "-");
 			return 1;
 		}
@@ -12714,17 +12629,14 @@ ShowDialog(playerid, dialogid)
 					Mostrar sed y hambre\t%s\n\
 					Primera persona\t%s\n\
 					Sexo\t%s\n\
-					Tecla para hablar\t%s\n\
 					Recargar mapeos\t\n\
-					Prueba de voz\t\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(PLAYER_MISC[playerid][MISC_CONFIG_HUD] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(PLAYER_MISC[playerid][MISC_CONFIG_FP] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
-					(CHARACTER_INFO[playerid][ch_SEX] ? "Mujer" : "Hombre"),
-					(ReturnKeyName(PLAYER_MISC[playerid][MISC_VOICE_KEY]))
+					(CHARACTER_INFO[playerid][ch_SEX] ? "Mujer" : "Hombre")
 			);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Panel de configuración", dialog, "Cambiar", "Salir");
@@ -12954,10 +12866,6 @@ ShowDialog(playerid, dialogid)
     	case DIALOG_VOICE_TEST:
     	{
     		PLAYER_TEMP[playerid][py_VOICE_TEST] = true;
-
-    		new str_text[74];
-    		format(str_text, sizeof(str_text), ""COL_WHITE"Hable pulsando "COL_RED"%s"COL_WHITE"...", ReturnKeyName(PLAYER_MISC[playerid][MISC_VOICE_KEY]));
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Prueba de voz", str_text, "Terminar", "");
     		return 1;
     	}
 		default: return 0;
@@ -13086,7 +12994,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				StopAudioStreamForPlayer(playerid);
 				SetSpawnInfo(playerid, NO_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
 				SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
-				sv_set_key(playerid, ReturnKeyHex(PLAYER_MISC[playerid][MISC_VOICE_KEY]));
 				PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 
 				PLAYER_TEMP[playerid][py_BAD_LOGIN_ATTEMP] = 0;
@@ -20669,15 +20576,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 7:
 					{
-						ShowDialog(playerid, DIALOG_CONFIG_VOICE);
-					}
-					case 8:
-					{
 						Streamer_Update(playerid);
-					}
-					case 9:
-					{
-						ShowDialog(playerid, DIALOG_VOICE_TEST);
 					}
 				}
 			}
@@ -21039,7 +20938,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				PLAYER_MISC[playerid][MISC_VOICE_KEY] = listitem;
-				sv_set_key(playerid, ReturnKeyHex(listitem));
 				ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 				SavePlayerMisc(playerid);
 			}
@@ -31818,13 +31716,6 @@ CMD:frecuencias(playerid, params[])
 	return 1;
 }
 
-/*CMD:frecuencia(playerid, params[])
-{
-	if (sv_get_version(playerid) != SV_NULL) return ShowPlayerMessage(playerid, "~r~No tienes instalado Hyaxe Client", 4);
-	ShowDialog(playerid, DIALOG_CHANGE_MHZ);
-	return 1;
-}*/
-
 SendPoliceRadioMessage(radio, color, const message[])
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -32298,8 +32189,7 @@ CMD:id(playerid, params[])
 		acid
 	);
 	
-	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"HyClient: %d (%s) "COL_RED"|"COL_WHITE" PacketLoss: %.2f",
-		VALID_CLIENT[playerid],
+	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Versión: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f",
 		player_version,
 		NetStats_PacketLossPercent(playerid)
 	);

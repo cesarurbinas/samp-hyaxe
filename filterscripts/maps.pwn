@@ -29,6 +29,37 @@ public OnFilterScriptInit()
     CreateActor(124, 954.9873, -1460.0356, 14.7193, 177.6999); //The Mafia
     CreateActor(124, 964.0612, -1436.8337, 14.3725, 0.0000); //The Mafia
 
+    tmpobjid = CreateDynamicObject(19377, 1042.3314, -1469.4366, 14.9717, 0.0000, 0.0000, 89.8000); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19371, 1047.4598, -1467.8668, 17.9214, 0.0000, 0.0000, -14.8000); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19371, 1047.7658, -1466.7065, 17.9214, 0.0000, 0.0000, -14.8000); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19371, 1046.6593, -1464.9100, 17.9214, 0.0000, 0.0000, -101.9000); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19371, 1043.5838, -1464.1801, 17.9214, 0.0000, 0.0000, -101.9000); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19445, 1048.5980, -1460.2949, 19.9835, 0.0000, 0.0000, -9.3999); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19445, 949.7933, -1437.5312, 20.0168, 0.0000, 0.0000, 89.9999); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19445, 959.4231, -1437.5312, 20.0168, 0.0000, 0.0000, 89.9999); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19445, 959.4231, -1458.8505, 20.0168, 0.0000, 0.0000, 89.9999); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19445, 949.8035, -1458.8505, 20.0168, 0.0000, 0.0000, 89.9999); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19371, 1047.1884, -1467.9494, 14.5814, 0.0000, 0.0000, -14.8000); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19371, 1047.4822, -1466.8378, 14.5814, 0.0000, 0.0000, -14.8000); //osborn-invisiblewall
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(1223, 1018.0191, -1431.1645, 12.6081, 0.0000, 0.0000, -85.3000); //osborn-light
+    tmpobjid = CreateDynamicObject(1223, 952.1343, -1449.0582, 10.9081, 0.0000, 0.0000, -3.6000); //osborn-light
+    tmpobjid = CreateDynamicObject(1223, 1008.8926, -1460.6606, 12.5981, 0.0000, 0.0000, 85.5999); //osborn-light
+    tmpobjid = CreateDynamicObject(1223, 952.8447, -1449.3757, 12.9581, 0.0000, 0.0000, -3.6000); //osborn-light
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(1223, 1002.0730, -1460.1356, 12.5981, 0.0000, 0.0000, 85.5999); //osborn-light
+
     tmpobjid = CreateDynamicObject(8613, 1028.0405, -1435.6925, 16.4195, 0.0000, 0.0000, -90.0000); //no comment
     tmpobjid = CreateDynamicObject(8615, 1031.3291, -1438.6932, 20.4304, 0.0000, 0.0000, -90.0000); //no comment
     tmpobjid = CreateDynamicObject(19435, 1032.1245, -1441.8734, 17.9698, 0.0000, 90.0000, 0.0000); //no comment
@@ -9773,7 +9804,8 @@ public OnFilterScriptInit()
 	Pintura[3] = CreateDynamicObject(2749, 2380.9868, -1243.3880, 23.8213, 0.0000, 0.0000, 0.0000); //CJ_hairspray
 	Pintura[4] = CreateDynamicObject(2749, 2380.1499, -1242.8997, 23.9324, -79.3999, -29.4000, 0.0000); //CJ_hairspray
 
-	MecanicoJobxd = CreateObject(17301, -49.390598, -1140.869995, 5.203125, 0.000000, 0.000000, 0.000000, 800.00);
+	//MecanicoJobxd = CreateObject(17301, -49.390598, -1140.869995, 5.203125, 0.000000, 0.000000, 0.000000, 800.00);
+    CreateDynamicObject(17301, -49.390598, -1140.869995, 5.203125, 0.000000, 0.000000, 0.000000); // piso
 	SetObjectMaterial(MecanicoJobxd, 0, 9254, "carparkssfn", "parking2plain", 0x00000000);
 	SetObjectMaterial(MecanicoJobxd, 4, 9254, "carparkssfn", "parking2plain", 0x00000000);
 	SetObjectMaterial(MecanicoJobxd, 11, 9254, "carparkssfn", "parking2plain", 0x00000000);

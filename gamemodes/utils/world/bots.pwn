@@ -7,7 +7,9 @@ enum bot_enum
 	b_TIMER[5],
 	bool:b_ACTIVE,
 	bool:b_OCCUPIED,
-	b_ACTION_TYPE
+	b_ACTION_TYPE,
+	bool:b_FOLLOW_MODE,
+	b_FOLLOW_ID
 }
 new BOTS[MAX_PLAYERS][bot_enum];
 
@@ -590,13 +592,13 @@ public UpdateBot(playerid)
 {
 	SetPlayerFakePing(playerid, minrand(170, 345));
 
-	if (BOTS[playerid][b_OCCUPIED])
+	/*if (BOTS[playerid][b_OCCUPIED])
 	{
 		switch(BOTS[playerid][b_ACTION_TYPE])
 		{
 			case 0: ApplyAnimation(playerid, "SWORD", "SWORD_4", 4.1, true, true, true, true, 0, true);
 		}
-	}
+	}*/
 	return 1;
 }
 
@@ -618,18 +620,8 @@ public RandomBotAction(playerid)
 	switch(action)
 	{
 		case 0: CallLocalFunction("OnPlayerText", "ds[128]", playerid, fake_chat[random(sizeof(fake_chat))]);
-		case 1:
-		{
-			ApplyAnimation(playerid,"GANGS", "hndshkfa_swt", 4.1, 0, 0, 0, 0, 0);
-			ApplyAnimation(playerid,"GANGS", "hndshkfa_swt", 4.1, 0, 0, 0, 0, 0);
-			ApplyAnimation(playerid,"GANGS", "hndshkfa_swt", 4.1, 0, 0, 0, 0, 0);
-		}
-		case 2:
-		{
-			ApplyAnimation(playerid, "COP_AMBIENT", "Coplook_loop", 4.0, 1, 1, 1, 0, 4000);
-			ApplyAnimation(playerid, "COP_AMBIENT", "Coplook_loop", 4.0, 1, 1, 1, 0, 4000);
-			ApplyAnimation(playerid, "COP_AMBIENT", "Coplook_loop", 4.0, 1, 1, 1, 0, 4000);
-		}
+		case 1: SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USECELLPHONE);
+		case 2: SetPlayerSpecialAction(playerid, SPECIAL_ACTION_DANCE4);
 		case 3:
 		{
 			ApplyAnimation(playerid, "SUNBATHE", "ParkSit_M_in", 4.000000, 0, 1, 1, 1, 0);
@@ -649,7 +641,14 @@ public RandomBotAction(playerid)
 			ApplyAnimation(playerid, "RAPPING", "Laugh_01", 4.0, 0, 0, 0, 0,0);
 		}
 		case 6: CallLocalFunction("OnPlayerText", "ds[128]", playerid, fake_chat[random(sizeof(fake_chat))]);
-		case 7: SendMessageToDoubtChannel(playerid, fake_doubt[random(sizeof(fake_doubt))]);
+		case 7:
+		{
+			switch(random(2))
+			{
+				case 0: SendMessageToDoubtChannel(playerid, fake_doubt[random(sizeof(fake_doubt))]);
+				case 1: RandomBotAction(playerid);
+			}
+		}
 		case 8:
 		{
 			if (TOTAL_MINER_BOTS >= 15) return RandomBotAction(playerid);
@@ -689,9 +688,10 @@ SetBot(playerid)
 
 	SetPlayerName(playerid, name);
 	SetPlayerFakePing(playerid, minrand(170, 345));
+	SetPlayerScore(playerid, minrand(1, 7));
 
 	BOTS[playerid][b_TIMER][0] = SetTimerEx("UpdateBot", 5000, true, "i", playerid);
-	BOTS[playerid][b_TIMER][1] = SetTimerEx("RandomBotAction", 30000 + random(10000), true, "i", playerid);
+	//BOTS[playerid][b_TIMER][1] = SetTimerEx("RandomBotAction", 30000 + random(10000), true, "i", playerid);
 	CallLocalFunction("OnPlayerRequestSpawn", "dd", playerid, 0);
 	return 1;
 }
@@ -751,7 +751,7 @@ RandomCordFromPoint(range, negative, &Float:x, &Float:y)
 
 SetBotInit(playerid)
 {
-	SetPlayerScore(playerid, minrand(1, 3));
+	SetPlayerScore(playerid, minrand(1, 5));
 	SetPlayerFightingStyle(playerid, 0);
 	SetPlayerHealthEx(playerid, 100.0);
 	SetPlayerArmourEx(playerid, 0.0);

@@ -265,7 +265,3 @@ enum Temp_Enum
 	bool:py_VOICE_TEST
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
-
-new
-	SV_PTR:PLAYER_STREAM[MAX_PLAYERS],
-	bool:VALID_CLIENT[MAX_PLAYERS];
