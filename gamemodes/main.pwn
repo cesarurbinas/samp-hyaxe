@@ -10141,7 +10141,6 @@ CMD:guardar(playerid, params[])
 					);		
 				}
 
-				RefreshItemList(playerid);
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Mete algo al maletero.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else ShowPlayerMessage(playerid, "~r~No puedes hacerlo con ese objeto", 4);
