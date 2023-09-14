@@ -1929,7 +1929,8 @@ new POLICE_SHOP_WEAPONS[][enum_POLICE_SHOP_WEAPONS] =
 	{2, 30, 0}, //ak 47
 	{2, 31, 0}, //m4
 	{2, 33, 0}, //rifle
-	{2, 46, 0} //paracaidas
+	{2, 46, 0}, //paracaidas
+	{2, 4, 0}
 };
 
 
@@ -3434,15 +3435,13 @@ IPacket:UNOCCUPIED_SYNC(playerid, BitStream:bs)
     BS_IgnoreBits(bs, 8);
     BS_ReadUnoccupiedSync(bs, unoccupiedData);
  
+    if (GetVehicleModel(unoccupiedData[PR_vehicleId]) == 425) return 0;
+
     if ((unoccupiedData[PR_roll][0] == unoccupiedData[PR_direction][0]) &&
         (unoccupiedData[PR_roll][1] == unoccupiedData[PR_direction][1]) &&
         (unoccupiedData[PR_roll][2] == unoccupiedData[PR_direction][2])
     )
     {
-    	new str[145];
-        format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): Vehicle enter crasher", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str);
-    	SendDiscordWebhook(str, 1);
         return 0;
     }
 
@@ -3463,13 +3462,16 @@ IPacket:UNOCCUPIED_SYNC(playerid, BitStream:bs)
         (floatabs(unoccupiedData[PR_velocity][2]) > 100.0)
     )
     {
-    	new str[145];
-        format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): Unoccupied crasher", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str);
-    	SendDiscordWebhook(str, 1);
         return 0;
     }
 
+    if ((unoccupiedData[PR_angularVelocity][0] >= 90000) &&
+        (unoccupiedData[PR_angularVelocity][1] >= 90000) &&
+        (unoccupiedData[PR_angularVelocity][2] >= 90000)
+    )
+    {
+        return 0;
+    }
     return 1;
 }
 
@@ -3487,7 +3489,7 @@ IPacket:VEHICLE_SYNC(playerid, BitStream:bs)
 		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= 2) return 1;
 		
 		new string[128];
-		format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): Car-Stealer", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): Vehicle Grabber (1)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 		SendDiscordWebhook(string, 1);
 
@@ -3506,10 +3508,6 @@ IPacket:AIM_SYNC(playerid, BitStream:bs)
 
     if (aimData[PR_aimZ] != aimData[PR_aimZ])
     {
-    	new str[145];
-        format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): AimZ invisible", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str);
-    	SendDiscordWebhook(str, 1);
         return 0;
     }
 
@@ -3563,6 +3561,12 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					return 0;
 				}
 	        }*/
+	    }
+
+	    /*Slapper*/
+	    if(onFootData[PR_animationId] == 1666 && onFootData[PR_animationFlags] == 4356)
+	    {
+	    	return 0;
 	    }
     }
 
@@ -8265,7 +8269,7 @@ public OnPlayerText(playerid, text[])
 	}
 	else
 	{
-		if (GetPlayerDrunkLevel(playerid) > 2000) format(str_text, 145, "%s (ebrio): %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
+		if (GetPlayerDrunkLevel(playerid) > 2000) format(str_text, 145, "%s (mareado): %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
 		else format(str_text, 145, "%s: %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
 	}
 
@@ -10750,7 +10754,7 @@ ShowDialog(playerid, dialogid)
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = i;
 				listitem ++;
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "Selecciona la ropa", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_LIGHT_BLUE"Seleccionar skin", dialog, ">>", "-");
 			return 1;
 		}
 		case DIALOG_POLICE_RADIOS:
@@ -12949,7 +12953,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerNotification(playerid, str_text, 4);
 
 				// ONLY HOST
-				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 600000, true, "i", playerid);				
+				//PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 700000, true, "i", playerid);				
 
 				new pass_str[364];
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
@@ -23902,7 +23906,7 @@ LoadBlackMarkets()
 			format(str_text, sizeof(str_text), "\n"COL_WHITE"Dominado por: Nadie");
 		}
 
-		BLACK_MARKET_OBJ[i][bm_LABEL] = CreateDynamic3DTextLabel(str_text, 0xF7F7F700, BLACK_MARKET_OBJ[i][bm_EXTERIOR_X], BLACK_MARKET_OBJ[i][bm_EXTERIOR_Y], BLACK_MARKET_OBJ[i][bm_EXTERIOR_Z] + 0.25, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+		BLACK_MARKET_OBJ[i][bm_LABEL] = CreateDynamic3DTextLabel(str_text, 0xF7F7F700, BLACK_MARKET_OBJ[i][bm_EXTERIOR_X], BLACK_MARKET_OBJ[i][bm_EXTERIOR_Y], BLACK_MARKET_OBJ[i][bm_EXTERIOR_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	}
 	return 1;
 }
@@ -25421,97 +25425,110 @@ public OnPlayerUpdate(playerid)
 				{
 					GetPlayerFacingAngle(playerid, angle);
 
-					if (ud == KEY_UP)
-		    		{
-						SetPlayerFacingAngle(playerid, angle + 20.0);
-						ApplyAnimation(playerid, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
-						PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = true;
-						SetTimerEx("InjuredAnimationCut", 470, false, "i", playerid);
+					switch(ud)
+					{
+						case KEY_UP:
+			    		{
+							SetPlayerFacingAngle(playerid, angle + 20.0);
+							ApplyAnimation(playerid, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
+							PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = true;
+							SetTimerEx("InjuredAnimationCut", 470, false, "i", playerid);
+						}
+
+						case KEY_DOWN:
+					    {
+					    	SetPlayerFacingAngle(playerid, 180);
+					    	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+					    }
 					}
 
-					if (ud == KEY_DOWN)
-				    {
-				    	SetPlayerFacingAngle(playerid, 180);
-				    	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-				    }
-
-					if (lr == KEY_LEFT)
+					switch(lr)
 					{
-						SetPlayerFacingAngle(playerid, angle + 16.0);
-						ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-					}
+						case KEY_LEFT:
+						{
+							SetPlayerFacingAngle(playerid, angle + 16.0);
+							ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+						}
 
-					if (lr == KEY_RIGHT)
-					{
-						SetPlayerFacingAngle(playerid, angle - 16.0);
-						ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+						case KEY_RIGHT:
+						{
+							SetPlayerFacingAngle(playerid, angle - 16.0);
+							ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+						}
 					}
 				}
 		    }
 
 		    if (PLAYER_TEMP[playerid][py_EDITING_MODE])
 		    {
-		    	if (ud == KEY_UP)
-				{
-					if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+		    	switch(ud)
+		    	{
+			    	case KEY_UP:
 					{
-						GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-						SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 0.1, pos[1], pos[2]);
-						SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+						if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+						{
+							GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+							SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 0.1, pos[1], pos[2]);
+							SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+						}
+						else
+						{
+							GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+							SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 3.0, pos[1], pos[2]);
+						}
 					}
-					else
-					{
-						GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-						SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 3.0, pos[1], pos[2]);
-					}
+
+					case KEY_DOWN:
+				    {
+				    	if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+				    	{
+							GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+							SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] - 0.1, pos[1], pos[2]);
+							SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+						}
+						else
+						{
+							GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+							SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 3.0, pos[2]);
+						}
+				    }
 				}
 
-				if (ud == KEY_DOWN)
-			    {
-			    	if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
-			    	{
-						GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-						SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] - 0.1, pos[1], pos[2]);
-						SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-					}
-					else
-					{
-						GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-						SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 3.0, pos[2]);
-					}
-			    }
-
-				if (lr == KEY_LEFT)
+				switch(lr)
 				{
-					if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+					case KEY_LEFT:
 					{
-						GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-						SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 0.1, pos[2]);
-						SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+						if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+						{
+							GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+							SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 0.1, pos[2]);
+							SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+						}
+						else
+						{
+							GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+							SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] - 1.5);
+						}
 					}
-					else
-					{
-						GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-						SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] - 1.5);
-					}
-				}
 
-				if (lr == KEY_RIGHT)
-				{
-					if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+					case KEY_RIGHT:
 					{
-						GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-						SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] - 0.1, pos[2]);
-						SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-					}
-					else
-					{
-						GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-						SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] + 1.5);
+						if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+						{
+							GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+							SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] - 0.1, pos[2]);
+							SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+						}
+						else
+						{
+							GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+							SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] + 1.5);
+						}
 					}
 				}
 		    }
 		}
+
 		case PLAYER_STATE_DRIVER:
 		{
 			new Float:Vehicle_Speed = GetVehicleSpeed(vehicleid);
@@ -25605,7 +25622,6 @@ public OnPlayerUpdate(playerid)
 
 	CHARACTER_INFO[playerid][ch_HEALTH] = player_health;
 	CHARACTER_INFO[playerid][ch_ARMOUR] = player_armour;
-
 	GetPlayerPos(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2]);
 	if (vehicleid)
 	{
@@ -30916,6 +30932,13 @@ CMD:esposar(playerid, params[])
 	    ShowPlayerMessage(params[0], "Estás siendo esposado", 3);
 	    ShowPlayerMessage(playerid, "Estás esposando a esta persona", 3);
 
+	    CHARACTER_INFO[params[0]][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+		if (ACCOUNT_INFO[params[0]][ac_SU]) SetPlayerHealthEx(playerid, 50.0);
+		else SetPlayerHealthEx(params[0], 25.0);
+
+		ApplyAnimation(params[0], "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
+		ClearAnimations(params[0]);
+
 		PLAYER_TEMP[params[0]][py_CUFFED] = false;
 		PLAYER_TEMP[params[0]][py_CUFFING] = true;
 		KillTimer(PLAYER_TEMP[params[0]][py_TIMERS][14]);
@@ -31235,7 +31258,7 @@ CMD:arrestar(playerid, params[])
 	if (CHARACTER_INFO[params[0]][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
 	{
 		CHARACTER_INFO[params[0]][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-		SendClientMessageEx(playerid, COLOR_WHITE, "Has soltado a %s.", PLAYER_TEMP[params[0]][py_RP_NAME]);
+		ShowPlayerNotification(playerid, "Has soltado al detenido.", 3);
 		return 1;
 	}
 	else
@@ -31365,14 +31388,18 @@ CMD:mafia(playerid, params[])
 		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
 		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
 		ShowDialog(playerid, DIALOG_MAFIA_LIST);
+		return 1;
 	}
-	else if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
+	
+	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
 	{
 		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
 		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
 		ShowDialog(playerid, DIALOG_ENEMY_MAFIA_LIST);
+		return 1;
 	}
-	else return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
+	
+	ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
 	return 1;
 }
 
@@ -32390,7 +32417,8 @@ CMD:get(playerid, params[])
 
 	SetPlayerPosEx(to_player, p[0], p[1], p[2], GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid), false, true);
 	SetPlayerFacingAngle(to_player, p[3] + 180.0);
-
+	SetPlayerInterior(to_player, GetPlayerInterior(playerid));
+	SetPlayerVirtualWorld(to_player, GetPlayerVirtualWorld(playerid));
 
 	SendCmdLogToAdmins(playerid, "get", params);
 	return 1;
@@ -33225,6 +33253,8 @@ CMD:v(playerid, params[])
 	GetPlayerFacingAngle(playerid, p[3]);
 
 	new vid = AddTestVehicle(false, modelid, p[0], p[1], p[2], p[3], color1, color2);
+	LinkVehicleToInterior(vid, GetPlayerInterior(playerid));
+	SetVehicleVirtualWorld(vid, GetPlayerVirtualWorld(playerid));
 	PutPlayerInVehicleEx(playerid, vid, 0);
 
 	SendCmdLogToAdmins(playerid, "v", params);
@@ -34402,7 +34432,7 @@ CALLBACK: StandUpBotikin(medic, playerid)
 	CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 	ResetItemBody(playerid);
 
-	if (ACCOUNT_INFO[playerid][ac_SU]) SetPlayerHealthEx(playerid, 50.0);
+	if (ACCOUNT_INFO[playerid][ac_SU]) SetPlayerHealthEx(playerid, 100.0);
 	else SetPlayerHealthEx(playerid, 25.0);
 
 	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
@@ -35786,7 +35816,6 @@ CMD:rev(playerid, params[])
 	if (CHARACTER_INFO[to_player][ch_STATE] != ROLEPLAY_STATE_CRACK) return SendClientMessage(playerid, COLOR_WHITE, "Esta persona no está herida.");
 
 	CHARACTER_INFO[to_player][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-	//SetWeaponsForPlayer(to_player);
 	if (ACCOUNT_INFO[to_player][ac_SU]) SetPlayerHealthEx(playerid, 50.0);
 	else SetPlayerHealthEx(to_player, 25.0);
 
