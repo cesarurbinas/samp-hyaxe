@@ -344,7 +344,7 @@ GetMafiaColor(mafia)
 	return color;
 }
 
-RandomCordFromPoint(range, negative, &Float:x, &Float:y)
+stock RandomCordFromPoint(range, negative, &Float:x, &Float:y)
 {
 	x = ( x + ( random( range ) - negative ) );
 	y = ( y + ( random( range ) - negative ) );
