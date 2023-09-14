@@ -22524,30 +22524,32 @@ SetIntroCamera(playerid)
 
 CheckBlockedWeapon(playerid, weapon_ip)
 {
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
-	if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PLAYER_WORKS[playerid][WORK_MAFIA] && !PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA] && !PLAYER_WORKS[playerid][WORK_OSBORN] && !ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
-  	{
-		new bool:blocked = false;
-		switch(weapon_ip)
-		{
-			case 31, 29, 23, 34, 24, 27, 30: blocked = true;
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+	{
+		if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PLAYER_WORKS[playerid][WORK_MAFIA] && !PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA] && !PLAYER_WORKS[playerid][WORK_OSBORN] && !ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	  	{
+			new bool:blocked = false;
+			switch(weapon_ip)
+			{
+				case 31, 29, 23, 34, 24, 27, 30: blocked = true;
+			}
+
+			if (blocked)
+			{
+				ResetPlayerWeaponsEx(playerid);
+
+		    	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
+
+		    	new str[144];
+		    	format(str, 145, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		    	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+		    	SendDiscordWebhook(str, 1);
+		    
+		    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
+		    	KickEx(playerid, 500);
+		  	}
 		}
-
-		if (blocked)
-		{
-			ResetPlayerWeaponsEx(playerid);
-
-	    	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
-
-	    	new str[144];
-	    	format(str, 145, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-	    	SendMessageToAdmins(COLOR_ANTICHEAT, str);
-	    	SendDiscordWebhook(str, 1);
-	    
-	    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
-	    	KickEx(playerid, 500);
-	  	}
-	  }
+	}
  	return 1;
 }
 
@@ -30316,65 +30318,68 @@ OnCheatDetected(playerid, ip_address[], type, code)
 {
 	#pragma unused ip_address, type
 
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
-	new ac_message[144];
-	format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d): Cheats (#%03d).", PLAYER_TEMP[playerid][py_NAME], playerid, code);
-	SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
-	SendDiscordWebhook(ac_message, 1);
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+	{
+		new ac_message[144];
+		format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d): Cheats (#%03d).", PLAYER_TEMP[playerid][py_NAME], playerid, code);
+		SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
+		SendDiscordWebhook(ac_message, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
-	TogglePlayerControllableEx(playerid, false);
-	KickEx(playerid, 500);
+		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
+		TogglePlayerControllableEx(playerid, false);
+		KickEx(playerid, 500);
+	}
 	return 1;
 }
 
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 {
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
-
-	if (gettime() < PLAYER_TEMP[playerid][py_LAST_CHEAT_DETECTED_TIME] + 5) return 1;
-
-	new ac_message[144], player_state = GetPlayerState(playerid);
-
-	if (ac_Info[cheat][ac_Kick])
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
-		new bad_history[24];
-		format(bad_history, sizeof bad_history, "ac, cheat (%02d)", cheat);
-		AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], COLOR_WHITE, TYPE_KICK, bad_history);
+		if (gettime() < PLAYER_TEMP[playerid][py_LAST_CHEAT_DETECTED_TIME] + 5) return 1;
 
-		if (extra != 0.0) format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d, extra: %.1f)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval], extra);
-		else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
+		new ac_message[144], player_state = GetPlayerState(playerid);
 
-		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (%s)", ac_Info[cheat][ac_Name]);
-		TogglePlayerControllableEx(playerid, false);
-		KickEx(playerid, 500);
+		if (ac_Info[cheat][ac_Kick])
+		{
+			new bad_history[24];
+			format(bad_history, sizeof bad_history, "ac, cheat (%02d)", cheat);
+			AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], COLOR_WHITE, TYPE_KICK, bad_history);
 
-		if (cheat == CHEAT_PLAYER_HEALTH) CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
-		if (cheat == CHEAT_PLAYER_ARMOUR) CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
-	}
-	else
-	{
-		if (extra != 0.0) format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Aviso sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d, extra: %.1f)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval], extra);
-		else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Aviso sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
-	}
+			if (extra != 0.0) format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d, extra: %.1f)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval], extra);
+			else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 
-	SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
-	SendDiscordWebhook(ac_message, 1);
-	PLAYER_TEMP[playerid][py_LAST_CHEAT_DETECTED_TIME] = gettime();
+			SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (%s)", ac_Info[cheat][ac_Name]);
+			TogglePlayerControllableEx(playerid, false);
+			KickEx(playerid, 500);
 
-	PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] ++;
+			if (cheat == CHEAT_PLAYER_HEALTH) CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
+			if (cheat == CHEAT_PLAYER_ARMOUR) CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
+		}
+		else
+		{
+			if (extra != 0.0) format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Aviso sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d, extra: %.1f)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval], extra);
+			else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Aviso sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
+		}
 
-	if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 5)
-	{
-		format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): Max AC Adv (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
-		
-		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por sobrepasar cantidad máxima de advertencias del anti-cheat.");
-		KickEx(playerid, 500);
+		SendDiscordWebhook(ac_message, 1);
+		PLAYER_TEMP[playerid][py_LAST_CHEAT_DETECTED_TIME] = gettime();
+
+		PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] ++;
+
+		if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 5)
+		{
+			format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): Max AC Adv (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
+			SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
+			
+			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por sobrepasar cantidad máxima de advertencias del anti-cheat.");
+			KickEx(playerid, 500);
+		}
 	}
 
 	return 1;
