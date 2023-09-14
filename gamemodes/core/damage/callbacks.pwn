@@ -211,7 +211,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 						
 						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Aimbot");
 
-						KickEx(playerid, 500);
+						KickEx(playerid, 500); 
 						PLAYER_MISC[playerid][MISC_BANS] ++;
 						SavePlayerMisc(playerid);
 
