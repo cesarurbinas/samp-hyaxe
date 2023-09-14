@@ -5016,7 +5016,7 @@ static DamageFeedUpdate(playerid, bool:modified = false)
 
 			PlayerTextDrawLetterSize(playerid, td, 0.2, 0.9);
 			PlayerTextDrawColor(playerid, td, 0x30FF50FF);
-			PlayerTextDrawFont(playerid, td, 1);
+			PlayerTextDrawFont(playerid, td, 2);
 			PlayerTextDrawSetShadow(playerid, td, 0);
 			PlayerTextDrawAlignment(playerid, td, 2);
 			PlayerTextDrawSetOutline(playerid, td, 1);
@@ -5036,7 +5036,7 @@ static DamageFeedUpdate(playerid, bool:modified = false)
 
 			PlayerTextDrawLetterSize(playerid, td, 0.2, 0.9);
 			PlayerTextDrawColor(playerid, td, 0x33CCFFFF);
-			PlayerTextDrawFont(playerid, td, 1);
+			PlayerTextDrawFont(playerid, td, 2);
 			PlayerTextDrawSetShadow(playerid, td, 0);
 			PlayerTextDrawAlignment(playerid, td, 2);
 			PlayerTextDrawSetOutline(playerid, td, 1);
@@ -5133,7 +5133,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"%s%s +%.2f~n~",
+				"~w~%s%s ~g~+%.2f~n~",
 				buf,
 				weapon,
 				s_DamageFeedHitsGiven[playerid][i][e_Amount] + 0.009
@@ -5142,7 +5142,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"%s%s - %s +%.2f (%.2f)~n~",
+				"~w~%s%s - %s ~g~+%.2f~n~",
 				buf,
 				s_DamageFeedHitsGiven[playerid][i][e_Name],
 				weapon,
@@ -5182,7 +5182,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"%s%s -%.2f (%.2f)~n~",
+				"~w~%s%s ~r~-%.2f~n~",
 				buf,
 				weapon,
 				s_DamageFeedHitsTaken[playerid][i][e_Amount] + 0.009,
@@ -5192,7 +5192,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"%s%s - %s -%.2f (%.2f)~n~",
+				"~w~%s%s - %s ~r~-%.2f~n~",
 				buf,
 				s_DamageFeedHitsTaken[playerid][i][e_Name],
 				weapon,
