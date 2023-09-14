@@ -61,9 +61,11 @@ PlayAudioInBoombox(requester, id, const url[])
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if(!IsPlayerConnected(i)) continue;
-		PlayAudioStreamForPlayer(i, url, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2], 50.0, 1);
 		if(IsPlayerInRangeOfPoint(i, 50.0, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2]))
+		{
+			PlayAudioStreamForPlayer(i, url, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2], 50.0, 1);
 			ShowPlayerNotification(i, sprintf("Reproduciendo %s. Solicitaddo por %s", PLAYER_DIALOG_MP3_RESULT[requester][ PLAYER_TEMP[requester][py_RESULT_INDEX] ][result_NAME], ACCOUNT_INFO[requester][ac_NAME]), 5);
+		}
 	}
 
 	return 1;
