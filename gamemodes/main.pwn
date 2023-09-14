@@ -23799,6 +23799,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 		case KEY_TYPE_ENTER: ShowPlayerKeyMessage(playerid, "ENTER");
 		case KEY_TYPE_Y: ShowPlayerKeyMessage(playerid, "Y");
 		case KEY_TYPE_H: ShowPlayerKeyMessage(playerid, "H");
+		case KEY_TYPE_ALT: ShowPlayerKeyMessage(playerid, "ALT");
 	}
 
 	switch(info[0])
@@ -23855,7 +23856,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 	switch(type)
 	{
-		case KEY_TYPE_ENTER, KEY_TYPE_Y, KEY_TYPE_H:
+		case KEY_TYPE_ENTER, KEY_TYPE_Y, KEY_TYPE_H, KEY_TYPE_ALT:
 		{
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);

@@ -4,7 +4,8 @@ enum
 	AREA_TYPE_GANGZONE,
 	KEY_TYPE_ENTER,
 	KEY_TYPE_Y,
-	KEY_TYPE_H
+	KEY_TYPE_H,
+	KEY_TYPE_ALT
 };
 
 AddKeyArea(Float:x, Float:y, Float:range, key)
