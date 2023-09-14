@@ -9218,7 +9218,7 @@ CMD:guia(playerid, params[])
 	return 1;
 }
 
-CMD:sguia(playerid, params[])
+/*CMD:sguia(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_PHONE[playerid][player_phone_VALID])
@@ -9238,7 +9238,7 @@ CMD:sguia(playerid, params[])
 		ShowPlayerMessage(playerid, "Tu número aparecerá ahora en la guía telefónica.", 3);
 	}
 	return 1;
-}
+}*/
 
 /*CMD:sms(playerid, params[])
 {
