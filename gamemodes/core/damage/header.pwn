@@ -73,7 +73,7 @@ new const g_rgszWeaponName[][] = {
 		{ 10, 5, 5, 5, 5, 5, 10 }, // Motosierra
 		{ 1, 1, 1, 1, 1, 1, 2 }, // Dildo morado
 		{ 1, 1, 1, 1, 1, 1, 2 }, // Dildo
-		{ 1, 1, 1, 1, 1, 1, 2 }, // Vibrador
+		{ 1, 1, 1, 1, 1, 1, 2 }, // Vibrador 
 		{ 1, 1, 1, 1, 1, 1, 2 }, // Vibrador gris
 		{ 1, 1, 1, 1, 1, 1, 2 }, // Flores
 		{ 4, 1, 1, 1, 1, 1, 2 }, // Bastón
