@@ -121,6 +121,11 @@ public OnDownloadResponse(playerid, response_code, data[])
 			}
 		}
 	}
+	else if(PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] != -1)
+	{
+		PlayAudioInBoombox(playerid, PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX], url);
+		PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
+	}
 	else
 	{
 		PlayAudioStreamForPlayer(playerid, url);
