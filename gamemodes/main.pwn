@@ -29,7 +29,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"v0.9 Build 4"
+#define SERVER_VERSION 			"v0.9 Build 5"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -55,7 +55,7 @@
 
 // Features
 #define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -6504,7 +6504,8 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-				DeleteIlegalInv(playerid, true);
+				if (ACCOUNT_INFO[playerid][ac_SU] >= 2) DeleteIlegalInv(playerid);
+				else DeleteIlegalInv(playerid, true);
 
 				new random_pos = minrand(0, 12); 
 				PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
@@ -6635,7 +6636,8 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-				DeleteIlegalInv(playerid, true);
+				if (ACCOUNT_INFO[playerid][ac_SU] >= 2) DeleteIlegalInv(playerid);
+				else DeleteIlegalInv(playerid, true);
 
 				ClearPlayerChatBox(playerid);
 				if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
@@ -35744,7 +35746,7 @@ DeleteIlegalInv(playerid, bool:drugs = false)
 		ResetPlayerWeaponsEx(playerid); // LMFAOO HAHAHA!
 	}
 
-	if(drugs)
+	if (drugs)
 	{
 		PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
 		PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
