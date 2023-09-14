@@ -14662,7 +14662,7 @@ ShowDialog(playerid, dialogid)
 
 			new str_text[128];
 			format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender el local por %d "SERVER_COIN"?", CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Vender local", str_text, "Si", "No");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender local", str_text, "Si", "No");
 		}
 		default: return 0;
 	}
@@ -23685,7 +23685,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (PLAYER_TEMP[playerid][py_CLUB_INDEX] == -1) return 0;
 
-				new extra =  CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE];
+				new 
+					DB_Query[264],
+					str_text[128],				
+					extra = CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE]
+				;
 
 				ACCOUNT_INFO[playerid][ac_SD] += extra;
 
@@ -23694,8 +23698,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				format(str_text, sizeof(str_text), "Acabas de vender el local por ~y~%d Hycoins", extra);
 				ShowPlayerMessage(playerid, str_text, 6);
+
+				ReleaseClub(PLAYER_TEMP[playerid][py_CLUB_INDEX]);
 			}
-			else CheckClubMenu(playerid);
+			else CheckClubOptions(playerid);
 		}
 	}
 	return 0;

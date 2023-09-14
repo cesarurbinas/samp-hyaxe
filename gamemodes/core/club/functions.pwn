@@ -240,10 +240,7 @@ BuyClub(playerid, index)
 
 ReleaseClub(index)
 {
-	new 
-		DB_Query[340],
-		label_str[264]
-	;
+	new DB_Query[340];
 	
 	CLUBS_INFO[index][club_USER_ID] = 0;
 	CLUBS_INFO[index][club_BALANCE] = 0;
@@ -265,7 +262,7 @@ ReleaseClub(index)
 	db_free_result(db_query(Database, DB_Query));
 
 	new str_text[264];
-	format(label_str, 264, ""COL_WHITE"%d %s (%s)\nEntrada: %s\n"COL_GREEN"En venta", index, CLUBS_INFO[index][club_NAME], (CLUBS_INFO[index][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(index));
+	format(str_text, 264, ""COL_WHITE"%d %s (%s)\nEntrada: %s\n"COL_GREEN"En venta", index, CLUBS_INFO[index][club_NAME], (CLUBS_INFO[index][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), GetClubEnterPrice(index));
 	UpdateDynamic3DTextLabelText(CLUBS_INFO[index][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
 	return 1;
 }
