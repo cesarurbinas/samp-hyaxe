@@ -95,107 +95,112 @@ MissionFailed(playerid)
 
 CheckMissionPlace(playerid)
 {
-    new area = IsPlayerInAnyDynamicArea(playerid);
-
-    if (area)
+    new bool:valid, index;
+    for(new i = 0; i < sizeof(START_MISSION); i ++)
     {
-        new info[2];
-        Streamer_GetArrayData(STREAMER_TYPE_AREA, PLAYER_TEMP[playerid][py_LAST_AREA], E_STREAMER_EXTRA_ID, info);
-
-        new
-            type = info[0],
-            index = info[1]
-        ;
-
-        if (type == KEY_TYPE_MISSION)
+        if (START_MISSION[i][ems_ENABLED])
         {
-            if (PLAYER_TEMP[playerid][py_IN_MISSION])
-                return ShowPlayerMessage(playerid, "~r~Primero termina la misión actual.", 4);
-            
-            // Init
-            new players_in_mission;
+            if (IsPlayerInRangeOfPoint(playerid, 3.5, START_MISSION[i][ems_X], START_MISSION[i][ems_Y], START_MISSION[i][ems_Z]))
+			{
+                index = i;
+                valid = true;
+                break;
+            }
+        }
+    }
 
-            PLAYER_TEMP[playerid][py_IN_MISSION] = true;
-            PLAYER_TEMP[playerid][py_MISSION] = index;
-            PLAYER_TEMP[playerid][py_MISSION_POINTS] = 0;
+    if (valid)
+    {
+        if (PLAYER_TEMP[playerid][py_IN_MISSION])
+            return ShowPlayerMessage(playerid, "~r~Primero termina la misión actual.", 4);
+        
+        // Init
+        new players_in_mission;
 
-            // Enter message
-            for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+        PLAYER_TEMP[playerid][py_IN_MISSION] = true;
+        PLAYER_TEMP[playerid][py_MISSION] = index;
+        PLAYER_TEMP[playerid][py_MISSION_POINTS] = 0;
+
+        // Enter message
+        for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+        {
+            if (!IsPlayerConnected(i)) continue;
+
+            if (PLAYER_TEMP[i][py_IN_MISSION])
             {
-                if (!IsPlayerConnected(i)) continue;
-
-                if (PLAYER_TEMP[i][py_IN_MISSION])
+                if (PLAYER_TEMP[i][py_MISSION] == index)
                 {
-                    if (PLAYER_TEMP[i][py_MISSION] == index)
-                    {
-                        ShowPlayerNotification(i, sprintf("%s se ha unido a la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
-                        SetPlayerMarkerForPlayer(i, playerid, 0x46ABE5FF);
-                        players_in_mission ++;
-                    }
+                    ShowPlayerNotification(i, sprintf("%s se ha unido a la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
+                    SetPlayerMarkerForPlayer(i, playerid, 0x46ABE5FF);
+                    players_in_mission ++;
                 }
             }
+        }
 
-            if (players_in_mission <= 1) START_MISSION[index][ems_TYPE] = random(START_MISSION[index][ems_MAX_MISSIONS]);
+        if (players_in_mission <= 1) START_MISSION[index][ems_TYPE] = random(START_MISSION[index][ems_MAX_MISSIONS]);
 
-            // Show message
-            switch(index)
+        // Show message
+        switch(index)
+        {
+            // Sweet missions
+            case SWEET_MISSION:
             {
-                // Sweet missions
-                case SWEET_MISSION:
+                // Mission messages
+                switch(START_MISSION[index][ems_TYPE])
                 {
-                    // Mission messages
-                    switch(START_MISSION[index][ems_TYPE])
+                    // Dealers exterminate
+                    case 0:
                     {
-                        // Dealers exterminate
-                        case 0:
+                        for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
                         {
-                            for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+                            if (players_in_mission <= 1)
                             {
-                                if (players_in_mission <= 1)
-                                {
-                                    PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
-                                    CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+                                PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
+                                CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+                                g_rgbitsPlayerFlags[ SWEET_DEALERS[i][sd_ID] ] &= ~e_bmPlayerDead;
 
-                                    SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 100.0);
-                                    FCNPC_GiveHealth(SWEET_DEALERS[i][sd_ID], 100.0);
-                                    
-                                    FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
+                                SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 100.0);
+                                FCNPC_GiveHealth(SWEET_DEALERS[i][sd_ID], 100.0);
+                                
+                                FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
 
-                                    FCNPC_Spawn(
-                                        SWEET_DEALERS[i][sd_ID],
-                                        DEALER_SKIN[ random(sizeof(DEALER_SKIN))],
-                                        SWEET_DEALERS[i][sd_X],
-                                        SWEET_DEALERS[i][sd_Y],
-                                        SWEET_DEALERS[i][sd_Z]
-                                    );
+                                FCNPC_Spawn(
+                                    SWEET_DEALERS[i][sd_ID],
+                                    DEALER_SKIN[ random(sizeof(DEALER_SKIN))],
+                                    SWEET_DEALERS[i][sd_X],
+                                    SWEET_DEALERS[i][sd_Y],
+                                    SWEET_DEALERS[i][sd_Z]
+                                );
 
-                                    FCNPC_SetPosition(
-                                        SWEET_DEALERS[i][sd_ID],
-                                        SWEET_DEALERS[i][sd_X],
-                                        SWEET_DEALERS[i][sd_Y],
-                                        SWEET_DEALERS[i][sd_Z]
-                                    );
+                                FCNPC_SetPosition(
+                                    SWEET_DEALERS[i][sd_ID],
+                                    SWEET_DEALERS[i][sd_X],
+                                    SWEET_DEALERS[i][sd_Y],
+                                    SWEET_DEALERS[i][sd_Z]
+                                );
 
-                                    FCNPC_SetAngle(SWEET_DEALERS[i][sd_ID], SWEET_DEALERS[i][sd_ANGLE]);
+                                FCNPC_SetAngle(SWEET_DEALERS[i][sd_ID], SWEET_DEALERS[i][sd_ANGLE]);
 
-                                    FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
-                                    FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
-                                    FCNPC_UseInfiniteAmmo(SWEET_DEALERS[i][sd_ID], true);
+                                FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
+                                FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
+                                FCNPC_UseInfiniteAmmo(SWEET_DEALERS[i][sd_ID], true);
 
-                                    FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 0);
+                                FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 0);
 
-                                    FCNPC_SetInvulnerable(SWEET_DEALERS[i][sd_ID], false);
+                                FCNPC_SetInvulnerable(SWEET_DEALERS[i][sd_ID], false);
 
-                                    FCNPC_AimAtPlayer(SWEET_DEALERS[i][sd_ID], playerid, true, 1000);
-                                }
+                                FCNPC_AimAtPlayer(SWEET_DEALERS[i][sd_ID], playerid, true, 1000);
 
-                                SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
-                                SetPlayerColor(SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
+                                SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 100.0);
+                                FCNPC_GiveHealth(SWEET_DEALERS[i][sd_ID], 100.0);
                             }
-                            
-                            ShowPlayerMessage(playerid, "Elimina a los ~r~Dealers~w~ colados en el barrio.", 10);
-                            SetTimer("NPC_Update", 3000, false);
+
+                            SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
+                            SetPlayerColor(SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
                         }
+                        
+                        ShowPlayerMessage(playerid, "Elimina a los ~r~Dealers~w~ colados en el barrio.", 10);
+                        SetTimer("NPC_Update", 3000, false);
                     }
                 }
             }

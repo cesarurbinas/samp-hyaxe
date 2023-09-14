@@ -206,10 +206,9 @@ public FCNPC_OnTakeDamage(npcid, issuerid, Float:amount, weaponid, bodypart)
 
 public FCNPC_OnGiveDamage(npcid, damagedid, Float:amount, weaponid, bodypart)
 {
-	if (npcid != INVALID_PLAYER_ID && weaponid < 50 && weaponid != WEAPON_FLAMETHROWER)
-	{
-		return 0;
-	}
+	#if DEBUG_MODE == 1
+		printf("FCNPC_OnGiveDamage npc: %d, damageid: %d, amount: %f, weapon: %d, bodypart: %d", npcid, damagedid, amount, weaponid, bodypart); // debug juju
+	#endif
 
 	if (amount <= 0.9) amount = 1.0;
 

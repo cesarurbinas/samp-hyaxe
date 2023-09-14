@@ -2072,6 +2072,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		printf("OnPlayerDeath %d %d %d", playerid, killerid, reason); // debug juju
 	#endif
 
+	if (IsPlayerNPC(playerid)) return 0;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
@@ -2866,6 +2867,8 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 	#if DEBUG_MODE == 1
 		printf("OnPlayerLeaveDynamicArea %d %d",playerid, areaid); // debug juju
 	#endif
+
+	PLAYER_TEMP[playerid][py_LAST_AREA] = INVALID_STREAMER_ID;
 
 	new
 		info[2],

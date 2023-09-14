@@ -951,6 +951,7 @@ JailPlayer(playerid, seconds = 300)
 
 IsPlayerPaused(playerid)
 {
+	if (IsPlayerNPC(playerid)) return false;
 	return (GetTickCount() - g_iPlayerLastUpdate[playerid] > 2000);
 }
 
