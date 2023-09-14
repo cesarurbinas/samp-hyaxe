@@ -246,6 +246,23 @@ new Supermarket_Product_List[][Supermarket_Enum] =
 	//{PRODUCT_TYPE_FOOD, "Whisky", 200, 0.0, 3.0, 3000}
 };
 
+// Food
+enum Fast_Food_Info
+{
+	fast_food_INTERIOR_TYPE,
+	fast_food_NAME[24],
+	Float:fast_food_X,
+	Float:fast_food_Y,
+	Float:fast_food_Z,
+	fast_food_INTERIOR
+};
+new Fast_Food_Positions[][Fast_Food_Info] =
+{
+	{INTERIOR_BURGER_SHOT, "Burger Shot", 375.913238, -67.435272, 1001.507812, 10}, // BurgerShot
+	{INTERIOR_PIZZA, "Well Stacked Pizza", 375.254730, -118.804710, 1001.499511, 5}, //Pizza
+	{INTERIOR_CLUCKIN_BELL, "Cluckin Bell", 368.757904, -6.018908, 1001.851562, 9} //Cluckin Bell
+};
+
 ExitSite(playerid)
 {
     if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;

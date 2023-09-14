@@ -16,6 +16,10 @@
 
 #define dccommand_included
 
+#define DC_BOT_NAME         "Server Controller"
+#define DC_PREFIX           "!"
+#define DC_PREFIX_LENGTH    1
+
 #if !defined DC_BOT_NAME
 	#error You must add `#define DC_BOT_NAME "Your Bot Name"` in your script!
 #endif

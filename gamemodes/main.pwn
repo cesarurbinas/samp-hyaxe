@@ -86,9 +86,6 @@
 #include <ExtendedActorFunctions>
 #include <gmenu>
 #include <discord-connector>
-#define DC_BOT_NAME         "Server Controller"
-#define DC_PREFIX           "!"
-#define DC_PREFIX_LENGTH    1
 #include <discord-command>
 
 /* v0.x Features */
