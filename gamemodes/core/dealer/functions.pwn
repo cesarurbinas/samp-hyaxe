@@ -40,7 +40,7 @@ CheckDealerSite(playerid)
 
 			ShowPlayerMenu(playerid, DEALER_MENU, "Dealer");
 
-			new str_text[128]
+			new str_text[128];
 			switch(DEALER_INFO[i][dl_PRODUCT_TYPE])
 			{
 				case 1:
@@ -48,7 +48,7 @@ CheckDealerSite(playerid)
 					format(str_text, sizeof(str_text), "Comprar marihuana (x%d)", DEALER_INFO[i][dl_PRODUCT_COUNT]);
 					AddPlayerMenuItem(playerid, str_text, sprintf("Precio: %d$", DEALER_INFO[i][dl_PRICE]));
 				}
-				dafault:
+				default:
 				{
 					format(str_text, sizeof(str_text), "Comprar crack (x%d)", DEALER_INFO[i][dl_PRODUCT_COUNT]);
 					AddPlayerMenuItem(playerid, str_text, sprintf("Precio: %d$", DEALER_INFO[i][dl_PRICE]));
@@ -64,7 +64,7 @@ forward TerminateDealingScene(playerid, actorid);
 public TerminateDealingScene(playerid, actorid)
 {
 	ApplyDynamicActorAnimation(actorid, "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
-	ClearPl
+	ClearAnimations(playerid);
 	return 1;
 }
 
@@ -80,13 +80,28 @@ Menu:DEALER_MENU(playerid, response, listitem)
     			if (CHARACTER_INFO[playerid][ch_CASH] < DEALER_INFO[dealer][dl_PRICE]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
     			GivePlayerCash(playerid, -DEALER_INFO[dealer][dl_PRICE], false);
 
-    			switch(DEALER_INFO[i][dl_PRODUCT_TYPE])
+    			switch(DEALER_INFO[dealer][dl_PRODUCT_TYPE])
 				{
-					case 1: PLAYER_MISC[playerid][MISC_CANNABIS] += DEALER_INFO[i][dl_PRODUCT_COUNT];
-					dafault: PLAYER_MISC[playerid][MISC_CANNABIS] += DEALER_INFO[i][dl_PRODUCT_COUNT];
+					case 1: PLAYER_MISC[playerid][MISC_CANNABIS] += DEALER_INFO[dealer][dl_PRODUCT_COUNT];
+					default: PLAYER_MISC[playerid][MISC_CANNABIS] += DEALER_INFO[dealer][dl_PRODUCT_COUNT];
 				}
 
 				SavePlayerMisc(playerid);
+
+				// In-Front Position
+				new
+					Float:x = DEALER_INFO[dealer][dl_X],
+					Float:y = DEALER_INFO[dealer][dl_Y]
+				;
+
+				GetXYFromAngle(x, y, DEALER_INFO[dealer][dl_ANGLE], 1.0);
+				SetPlayerPosEx(playerid, x, y, DEALER_INFO[dealer][dl_Z], -DEALER_INFO[dealer][dl_ANGLE], 0, 0);
+
+				// Dealing scene
+				ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.0, 1, 1, 1, 0, 0);
+				ApplyDynamicActorAnimation(DEALER_INFO[dealer][dl_ACTOR], "DEALER", "DEALER_DEAL", 4.0, 1, 1, 1, 0, 0);
+
+				SetTimerEx("TerminateDealingScene", 4000, false, "ii", playerid, DEALER_INFO[dealer][dl_ACTOR]);
     		}
 
     		case 0:
