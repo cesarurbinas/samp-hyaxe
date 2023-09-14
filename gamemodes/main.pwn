@@ -6933,8 +6933,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 	if (IsPlayerConnected(killerid) && CHARACTER_INFO[killerid][ch_STATE] == ROLEPLAY_STATE_NORMAL && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_NORMAL)
 	{
-		PlayerBloodParticle(playerid);
-
 		new 
 			str_victim[164],
 			str_killer[64],
@@ -6981,7 +6979,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 	if (IsPlayerConnected(killerid) && CHARACTER_INFO[killerid][ch_STATE] == ROLEPLAY_STATE_NORMAL && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
 	{
 		PlayerBloodParticle(playerid);
-		
+
 		new 
 			str_victim[164],
 			str_killer[64],
@@ -7093,6 +7091,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 			SetPlayerPos(playerid,PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2]+1);
 		
 			TogglePlayerSpectating(playerid, false);
+
+			PlayerBloodParticle(playerid);
 		}
 	}
 
@@ -9450,6 +9450,12 @@ CMD:ayuda(playerid, params[])
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+	return 1;
+}
+
+CMD:testvlood(playerid, params[])
+{
+	PlayerBloodParticle(playerid);
 	return 1;
 }
 
@@ -27970,7 +27976,7 @@ CheckRobActor(playerid)
 								ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
 								ShowPlayerNotification(playerid, "La policía viene en camino, es mejor que corras.", 3);
 								PLAYER_TEMP[playerid][py_ROB_PROGRESS] = 0;
-								a_TMP[ActorTarget][a_LAST_ROB] = gettime();
+								a_TMP[ActorTarget][a_LAST_ROB] = gettime() + 5;
 								PLAYER_TEMP[playerid][py_INITIAL_ROB] = false;
 								return 1;
 							}
