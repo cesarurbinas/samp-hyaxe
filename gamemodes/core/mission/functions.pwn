@@ -116,6 +116,9 @@ MissionFailed(playerid, bool:disconnected = false)
                     FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 1);
                 }
             }
+
+            // Delete pickup
+            DestroyDynamicPickup(START_MISSION[SWEET_MISSION][ems_PICKUP]);
         }
     }
 }
@@ -244,6 +247,8 @@ CheckMissionPlace(playerid)
                             info[1] = 0; // Index
                             info[2] = 0; // Nada
                             Streamer_SetArrayData(STREAMER_TYPE_PICKUP, drug_pickup, E_STREAMER_EXTRA_ID, info);
+
+                            START_MISSION[index][ems_PICKUP] = drug_pickup;
                         }
 
                         for(new i = 0; i < 6; i++)
@@ -267,8 +272,8 @@ CheckMissionPlace(playerid)
                                     Float:z = INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][2]
                                 ;
 
-                                x = ( x + ( float_random( 20.0 ) - mathfrandom( -20.0, 20.0 ) ) );
-	                            y = ( y + ( float_random( 20.0 ) - mathfrandom( -20.0, 20.0 ) ) );
+                                x = ( x + ( float_random( 20.0 ) - mathfrandom( -20.0, 15.0 ) ) );
+	                            y = ( y + ( float_random( 20.0 ) - mathfrandom( -20.0, 15.0 ) ) );
 
                                 CA_FindZ_For2DCoord(x, y, z);
 

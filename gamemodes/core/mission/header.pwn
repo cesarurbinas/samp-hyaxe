@@ -32,7 +32,8 @@ enum e_start_mission
 	ems_TYPE,
 	bool:ems_COME_BACK,
 	ems_COME_BACK_AREA,
-	ems_SPECIAL_INDEX
+	ems_SPECIAL_INDEX,
+	ems_PICKUP
 };
 
 new START_MISSION[][e_start_mission] =
