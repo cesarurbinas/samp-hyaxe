@@ -951,6 +951,11 @@ JailPlayer(playerid, seconds = 300)
 
 IsPlayerPaused(playerid)
 {
+	if (playerid == 65535)
+	{
+		print("pausa asdasd");
+		return false;
+	}
 	if (IsPlayerNPC(playerid)) return false;
 	return (GetTickCount() - g_iPlayerLastUpdate[playerid] > 2000);
 }
