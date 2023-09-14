@@ -6568,11 +6568,8 @@ InitBlackMarket(market_id)
 	return 1;
 }
 
-CALLBACK: InitRandomGraffiti()
-{	
-	new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
-		//bm_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
-
+InitGraffiti(graff_id)
+{
 	ResetGraffitiTextdraw();
 
 	for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
@@ -6618,6 +6615,12 @@ CALLBACK: InitRandomGraffiti()
 			}
 		}
 	}
+}
+
+CALLBACK: InitRandomGraffiti()
+{	
+	new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
+	InitGraffiti(graff_id);
 	return 1;
 }
 
@@ -34638,6 +34641,7 @@ flags:setbans(CMD_MODERATOR4)
 flags:setadv(CMD_MODERATOR4)
 flags:setkicks(CMD_MODERATOR4)
 flags:initmarket(CMD_OPERATOR)
+flags:initgraffiti(CMD_OPERATOR)
 flags:dropitem(CMD_MODERATOR3)
 flags:closeserver(CMD_ADMIN)
 flags:pmaletero(CMD_MODERATOR4)

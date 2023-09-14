@@ -1378,6 +1378,16 @@ CMD:initmarket(playerid, params[])
 	return 1;
 }
 
+CMD:initmarket(playerid, params[])
+{
+	new id;
+	if (sscanf(params, "d", id)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /initmarket <id>");
+	if(id <= -1 || id >= sizeof(BLACK_MARKET_OBJ)) return SendClientMessage(playerid, COLOR_WHITE, sprintf("Syntax: /initmarket <0-%d>", sizeof(BLACK_MARKET_OBJ)));
+	
+	InitBlackMarket(id);
+	return 1;
+}
+
 CMD:closeserver(playerid, params[])
 {
 	SendRconCommand("exit");
