@@ -39,8 +39,8 @@ CMD:jailoff(playerid, params[])
 	if(minutes <= 0 || minutes > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Solo puedes jailear por 1440 minutos.");
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
-	new DBResult:Result, query[250];
-	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, PERSONAJE.`POLICE_JAIL_TIME`, PERSONAJE.`STATE` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
+	new DBResult:Result, query[265];
+	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, CUENTA.`ADMIN_LEVEL`, PERSONAJE.`POLICE_JAIL_TIME`, PERSONAJE.`STATE` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result))
 	{
@@ -59,6 +59,12 @@ CMD:jailoff(playerid, params[])
 	{
 		db_free_result(Result);
 		return SendClientMessage(playerid, COLOR_WHITE, "Este jugador ya esta en prisión.");
+	}
+
+	if(db_get_field_assoc_int(Result, "ADMIN") >= ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		db_free_result(Result);
+		return SendClientMessage(playerid, COLOR_WHITE, "No puedes jailear jugadores con tu mismo rango o mayor al tuyo.");
 	}
 
 	new name[25];
@@ -651,7 +657,7 @@ CMD:jail(playerid, params[])
 	if (time < 0 || time > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Intervalo de minutos incorrecto.");
     if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
     if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
-
+	if(CHARACTER_INFO[to_player][ch_STATE] == ROLEPLAY_STATE_JAIL) return SendClientMessage(playerid, COLOR_WHITE, "Este jugador ya esta encarcelado.");
     StopAudioStreamForPlayer(to_player);
     CancelEdit(to_player);
     EndPlayerJob(to_player);
@@ -801,7 +807,7 @@ CMD:dban(playerid, params[])
 		player_id = db_get_field_assoc_int(Result, "PLAYERID");
 		admin_level = db_get_field_assoc_int(Result, "ADMIN_LEVEL");
 
-		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= admin_level)
+		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] > admin_level)
 		{
 			if (connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado utilice /ban, su player_id: %d.", get_name, id, player_id);
 			else
@@ -865,7 +871,7 @@ CMD:dtban(playerid, params[])
 		player_id = db_get_field_assoc_int(Result, "PLAYERID");
 		admin_level = db_get_field_assoc_int(Result, "ADMIN_LEVEL");
 
-		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= admin_level)
+		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] > admin_level)
 		{
 			if (connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado utilice /ban, su player_id: %d.", get_name, id, player_id);
 			else
@@ -2604,11 +2610,16 @@ CMD:muteard(playerid, params[])
 {
 	new to_player, reason[128], time;
 	if (sscanf(params, "uds[128]", to_player, time, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /muteard <player_id> <minutos> <razón>");
-	if (time < 0 || time > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Intervalo de minutos incorrecto.");
+	if (time > 65535 || -1 >= time) return SendClientMessage(playerid, COLOR_WHITE, "Intervalo de minutos incorrecto. (0 - 65535)");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (PLAYER_MISC[to_player][MISC_MUTE] > gettime()) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) ya esta muteado", to_player);
 	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
-
+	if(!time)
+	{
+		if(!PLAYER_MISC[to_player][MISC_MUTES]) return SendClientMessage(playerid, COLOR_WHITE, "No puedes usar el valor 0 con usuarios sin muteos.");
+		time = 60 * PLAYER_MISC[to_player][MISC_MUTES]; // 60 minutes * mute amount
+	}
+	
 	new seconds = time * 60;
 
 	SendClientMessageEx(to_player, COLOR_ORANGE, "%s te silenció del canal de dudas y anuncios por %s - Tiempo: %d", ACCOUNT_INFO[playerid][ac_NAME], reason, time);
