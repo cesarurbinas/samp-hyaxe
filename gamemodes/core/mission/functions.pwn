@@ -406,6 +406,6 @@ CheckMissionPlace(playerid)
 
 CMD:cancelarmision(playerid, params[])
 {
-    MissionFailed(playerid);
+    if (PLAYER_TEMP[playerid][py_IN_MISSION]) MissionFailed(playerid);
     return 1;
 }

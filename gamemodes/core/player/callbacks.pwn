@@ -636,7 +636,7 @@ public OnPlayerDisconnect(playerid, reason)
   		}
   	}
 
-	MissionFailed(playerid, true);
+	if (PLAYER_TEMP[playerid][py_IN_MISSION]) MissionFailed(playerid, true);
 	DestroyPlayerCheckpoints(playerid);
 	DestroyPlayerTextDraws(playerid);
 
@@ -2353,7 +2353,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 				}
 			}
 
-			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) MissionFailed(playerid);
+			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) if (PLAYER_TEMP[playerid][py_IN_MISSION]) MissionFailed(playerid);
 
 			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL)
 			{

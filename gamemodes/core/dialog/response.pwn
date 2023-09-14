@@ -7701,7 +7701,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 					}
-					case 14: MissionFailed(playerid);
+					case 14: if (PLAYER_TEMP[playerid][py_IN_MISSION]) MissionFailed(playerid);
 				}
 			}
 			else
