@@ -6470,6 +6470,31 @@ public OnPlayerDeath(playerid, killerid, reason)
 		}
 	}
 
+	if (IsPlayerConnected(killerid) && CHARACTER_INFO[killerid][ch_STATE] == ROLEPLAY_STATE_NORMAL && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
+	{
+		new 
+			str_victim[164],
+			str_killer[64],
+			gunname[32],
+			Float:x, Float:y, Float:z;
+
+		format(str_killer, sizeof str_killer, "Asesinaste a ~r~%s", ACCOUNT_INFO[playerid][ac_NAME]);
+		ShowPlayerMessage(killerid, str_killer, 3);
+
+		GetWeaponName(reason, gunname, sizeof(gunname));
+
+		GetPlayerPos(killerid, x, y, z);
+
+		format(str_victim, sizeof(str_victim), "%s te mató con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+		SavePlayerNotification(playerid, str_victim);
+
+		format(str_victim, sizeof(str_victim), "[KILL] %s (%d) mató a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+		SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 2);
+
+		GetPlayerPos(playerid, x, y, z);
+		SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+	}
+
 	if (IsPlayerConnected(killerid))
 	{
 		if (PLAYER_TEMP[killerid][py_BOXING] && PLAYER_TEMP[playerid][py_BOXING])
@@ -13441,7 +13466,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_CLUB_PRODUCTS:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Productos", "Crear\nEliminar\n", "Ver", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Productos", "Crear\nEliminar\n", "Ver", "Atrás");
 		}
 		case DIALOG_CLUB_WELCOME:
 		{
