@@ -30,10 +30,7 @@ DeleteIlegalInv(playerid, bool:drugs = false)
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE])
 	{
-		new DB_Query[90];
-		format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-		db_free_result(db_query(Database, DB_Query));
-		ResetPlayerWeaponsEx(playerid); // LMFAOO HAHAHA!
+		// RESETIAR ARMAS AKI AKI
 	}
 
 	if (drugs)

@@ -1589,14 +1589,6 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", "¿Está seguro de que quiere eliminar todas sus armas?\nEsta opción no se puede deshacer.", "Eliminar", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_WEAPONS_DELETE:
-		{
-			new dialog[150];
-			format(dialog, sizeof dialog, ""COL_WHITE"Arma: %s\nMunición: %s\n\n¿Está seguro de que quiere eliminar esta arma?", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO]));
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar arma", dialog, "Eliminar", "Atrás");
-			return 1;
-		}
 		case DIALOG_TRICKS_FOOD:
 		{
 			new dialog[150];

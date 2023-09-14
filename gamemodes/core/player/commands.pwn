@@ -313,7 +313,6 @@ CMD:accsave(playerid, params[])
 	SavePlayerSkills(playerid);
 	SavePlayerWorks(playerid);
 	SavePlayerMisc(playerid);
-	SavePlayerWeaponsData(playerid);
 
 	PLAYER_TEMP[playerid][py_SAVE_ACCOUNT_TIME] = gettime();
 
@@ -551,26 +550,6 @@ CMD:vincular(playerid, params[])
 	HTTP(playerid, HTTP_GET, str_text, "", "");
 	return 1;
 }
-
-/*CMD:armas(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	new
-		dialog[500],
-		line_str[128]
-	;
-
-	for(new i; i != 13; i ++)
-	{
-		if (!PLAYER_WEAPONS[playerid][i][player_weapon_VALID]) continue;
-
-		format(line_str, sizeof line_str, ""COL_WHITE"%s | Slot "COL_RED"%d\n", WEAPON_INFO[ PLAYER_WEAPONS[playerid][i][player_weapon_ID] ][weapon_info_NAME], i);
-		strcat(dialog, line_str);
-	}
-	
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Armas", dialog, "Cerrar", "");
-	return 1;
-}*/
 
 CMD:gps(playerid, params[])
 {
@@ -1563,47 +1542,6 @@ CMD:minero(playerid)
 	}
 	return 1;
 }
-
-/*CMD:guardar(playerid, params[])
-{
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-
-	new option[24], extra;
-	if (sscanf(params, "s[24]d", option, extra)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guardar arma "COL_WHITE"[slot]");
-
-	if (!strcmp(option, "arma", true))
-	{
-		if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
-		{
-			if (extra < 0 || extra > 12) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guardar arma "COL_WHITE"[slot]");
-			if (!PLAYER_WEAPONS[playerid][extra][player_weapon_VALID])
-			{
-				PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-				ShowPlayerMessage(playerid, "~r~No tienes una arma en ese slot.", 3);
-				return 1;
-			}
-
-			new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-			if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No estás cerca de tu vehículo", 3);
-
-			if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 3);
-			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~", 3);
-
-			new boot_slot = GetPlayerVehicleAvaibleBootSlot(vehicleid);
-			if (boot_slot == -1) return ShowPlayerMessage(playerid, "~r~No tienes suficiente espacio en tu maletero.", 3);
-
-			new str_text[128];
-			format(str_text, sizeof(str_text), "%s guardado en el maletero de tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][extra][player_weapon_ID] ][weapon_info_NAME], VEHICLE_INFO[GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_NAME]);
-			ShowPlayerNotification(playerid, str_text, 3);
-			ResetItemBody(playerid);
-
-			SavePlayerWeaponInVehicleBoot(playerid, extra, vehicleid, boot_slot);
-		}
-		else ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guardar arma "COL_WHITE"[slot]");
-	return 1;
-}*/
 
 #define MIN_SECONDS_BETWEEN_COMMANDS 1 // Deben pasar al menos 1 segundos entre comando y comando.
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags)

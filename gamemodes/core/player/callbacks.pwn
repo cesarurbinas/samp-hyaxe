@@ -547,8 +547,7 @@ public OnPlayerDisconnect(playerid, reason)
 
 			if (PLAYER_TEMP[playerid][py_COMBAT_MODE])
 			{
-				ResetPlayerWeaponsEx(playerid);
-				SavePlayerWeaponsData(playerid);
+				// RESETIAR ARMAS CHE
 			}
 
 			if (PLAYER_TEMP[playerid][py_BOXING])
@@ -707,8 +706,6 @@ public SavePlayerData(playerid)
 	SaveUserData(playerid);
 	SavePlayerVehicles(playerid, false);
 	SavePlayerMisc(playerid);
-	SavePlayerWeaponsData(playerid);
-
 	/*if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
 		if (GetPlayerPing(playerid) >= 300)
@@ -1473,11 +1470,9 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				    	if (weapon_ammo > server_ammo || weapon_ammo < -1)
 				    	{
 				    		Anticheat_Ban(playerid, "Ammo #0");
-				    		//OnPlayerCheatDetected(playerid, CHEAT_AMMO, weapon_ammo);
 				    	}
 				    }
 				}
-		    	//SendClientMessageEx(playerid, -1, "id: %d, ammo: %d, wammo: %d, slot: %d, pid: %d", weapon_id, weapon_ammo, PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO], weapon_slot, onFootData[PR_weaponId]);
 		    }
 
 		    if (onFootData[PR_specialAction] == SPECIAL_ACTION_USEJETPACK)
@@ -2666,12 +2661,8 @@ public OnPlayerText(playerid, text[])
 			{
 				if (CheckKillEvadeAttemp(text))
 				{
-					ResetPlayerWeaponsEx(playerid);
-					SavePlayerWeaponsData(playerid);
-
 					if (CHARACTER_INFO[playerid][ch_CASH] >= 5000) GivePlayerCash(playerid, -5000, false);
-				
-					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Tus armas fueron reseteados y te sacamos 5.000$ por\nintentar evadir muerte.", "Cerrar", "");
+					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Te sacamos 5.000$ por intentar evadir muerte.", "Cerrar", "");
 				}
 			}
 		}
@@ -5675,13 +5666,6 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Disturbios", 5);
 		}
 	}
-
-	/*if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
-	{
-		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar estando herido.");
-		TogglePlayerControllableEx(playerid, false);
-		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-	}*/
 
 	if (PLAYER_TEMP[playerid][py_EXPLOSION_BULLET])
 	{

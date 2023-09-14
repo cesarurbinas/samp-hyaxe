@@ -1393,50 +1393,6 @@ VehiclePaintjob(modelid)
 	return false;
 }
 
-/*GetPlayerVehicleAvaibleBootSlot(vehicleid)
-{
-	new max_slots = VEHICLE_INFO[GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_BOOT_SLOTS];
-	if (max_slots > MAX_BOOT_SLOTS) max_slots = MAX_BOOT_SLOTS;
-
-	for(new i = 0; i != max_slots; i ++)
-	{
-		if (!VEHICLE_BOOT[vehicleid][i][vehicle_boot_VALID]) return i;
-	}
-	return -1;
-}
-
-SavePlayerWeaponInVehicleBoot(playerid, weapon_slot, vehicleid, boot_slot)
-{
-	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_ID]) return 0;
-
-	VEHICLE_BOOT[vehicleid][boot_slot][vehicle_boot_VALID] = true;
-	VEHICLE_BOOT[vehicleid][boot_slot][vehicle_boot_TYPE] = BOOT_TYPE_WEAPON;
-	VEHICLE_BOOT[vehicleid][boot_slot][vehicle_boot_INT] = PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID];
-	VEHICLE_BOOT[vehicleid][boot_slot][vehicle_boot_INT_EXTRA] = PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO];
-
-	new DBResult:Result, DB_Query[256];
-	format(DB_Query, sizeof DB_Query,
-	"\
-		INSERT INTO `VEHICLE_BOOT`\
-		(\
-			`ID_VEHICLE`, `TYPE`, `INT`, `INT_EXTRA`\
-		)\
-		VALUES\
-		(\
-			'%d', '%d', '%d', '%d'\
-		);\
-		SELECT MAX(`ID_OBJECT`) FROM `VEHICLE_BOOT`;\
-	",
-		PLAYER_VEHICLES[vehicleid][player_vehicle_ID], VEHICLE_BOOT[vehicleid][boot_slot][vehicle_boot_TYPE], VEHICLE_BOOT[vehicleid][boot_slot][vehicle_boot_INT], VEHICLE_BOOT[vehicleid][boot_slot][vehicle_boot_INT_EXTRA]);
-	Result = db_query(Database, DB_Query);
-
-	if (db_num_rows(Result)) VEHICLE_BOOT[vehicleid][boot_slot][vehicle_boot_OBJECT_ID] = db_get_field_int(Result, 0);
-	db_free_result(Result);
-
-	RemovePlayerSlotWeapon(playerid, weapon_slot, true);
-	return 1;
-}*/
-
 CheckAndOpenBoot(playerid, type)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;

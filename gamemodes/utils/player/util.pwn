@@ -711,164 +711,6 @@ CheckMedicJobSite(playerid)
 	return 1;
 }
 
-/*CheckIsFireWeapon(weapon)
-{
-	switch(weapon)
-	{
-		case 0..18: return 0;
-		case 22..38: return 1;
-		case 39..46: return 0;
-	}
-	return 1;
-}
-
-ResyncWeapon(playerid, weapon)
-{
-	switch(weapon)
-	{
-		case 22: // 9MM
-		{
-			GivePlayerWeaponEx(playerid, weapon, 15, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+15"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-		case 24: // Desert
-		{
-			GivePlayerWeaponEx(playerid, weapon, 7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+7"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-		case 32: // TEC9
-		{
-			GivePlayerWeaponEx(playerid, weapon, 20, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+20"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-		case 28: // UZI
-		{
-			GivePlayerWeaponEx(playerid, weapon, 25, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+25"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-		case 33: // Rifle
-		{
-			GivePlayerWeaponEx(playerid, weapon, 8, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+8"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "RIFLE", "RIFLE_load", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-		case 26: // Recortada
-		{
-			GivePlayerWeaponEx(playerid, weapon, 2, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+2"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-		case 25: // Escopeta
-		{
-			GivePlayerWeaponEx(playerid, weapon, 5, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+5"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-		case 29: // MP5
-		{
-			GivePlayerWeaponEx(playerid, weapon, 35, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+35"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-		case 30: // AK-47
-		{
-			GivePlayerWeaponEx(playerid, weapon, 50, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-		case 31: // M4
-		{
-			GivePlayerWeaponEx(playerid, weapon, 50, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
-			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
-			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
-			return 1;
-		}
-	}
-	return 1;
-}*/
-
-/*CheckAndReload(playerid)
-{
-	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL && GetPlayerAnimationIndex(playerid) != 1537 && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
-	{
-		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
-		{
-			new slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
-
-			if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
-			{
-				new actual_weapon = PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID];
-				if (CheckIsFireWeapon(actual_weapon))
-				{
-					switch(actual_weapon)
-					{
-						case 22..24: // Pistolas
-						{
-							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_1] > 0)
-							{
-								ResyncWeapon(playerid, actual_weapon);
-								PLAYER_MISC[playerid][MISC_CARTRIDGE_1] --;
-								return 1;
-							}
-						}
-						case 25..27: // Escopetas
-						{
-							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_2] > 0)
-							{
-								ResyncWeapon(playerid, actual_weapon);
-								PLAYER_MISC[playerid][MISC_CARTRIDGE_2] --;
-								return 1;
-							}
-						}
-						case 33, 34: // Rifles
-						{
-							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_3] > 0)
-							{
-								ResyncWeapon(playerid, actual_weapon);
-								PLAYER_MISC[playerid][MISC_CARTRIDGE_3] --;
-								return 1;
-							}
-						}
-						case 28..32: // Subfusiles
-						{
-							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_4] > 0)
-							{
-								ResyncWeapon(playerid, actual_weapon);
-								PLAYER_MISC[playerid][MISC_CARTRIDGE_4] --;
-								return 1;
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	return 1;
-}*/
-
 GetPlayerZones(playerid, city[], zone[])
 {
 	new Float:f_Pos[3];
@@ -940,7 +782,7 @@ JailPlayer(playerid, seconds = 300)
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
 	PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
 
-    ResetPlayerWeaponsEx(playerid);
+    // RESETIAR ARMAS AKI
     SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
     TogglePlayerControllableEx(playerid, false);
     SetPlayerPoliceSearchLevel(playerid, 0);
@@ -3674,98 +3516,6 @@ getRandomLetter()
     return 65 + random(25);
 }
 
-/*RotateDynamicObject(objectid, Float:rotX, Float:rotY, Float:rotZ, Float:Speed)
-{
-
-		Rotation Speeds:
-		0.01 - Very very slow speed
-		1.00 - Normal speed
-		5.00 - Fast speed
-
-	new Float:X, Float:Y, Float:Z;
-	new Float:SpeedConverted = floatdiv(floatmul(Speed, 0.01), 2);
-
-	if (IsDynamicObjectMoving(objectid)) StopDynamicObject(objectid);
-	GetDynamicObjectPos(objectid, X, Y, Z);
-	SetDynamicObjectPos(objectid, X, Y, Z + 0.01);
-	MoveDynamicObject(objectid, X, Y, Z, SpeedConverted, rotX, rotY, rotZ);
-	return 1;
-}*/
-
-SavePlayerWeaponsData(playerid)
-{
-  	if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
-  	
-  	for(new i = 0; i != 13; i ++)
-  	{
-    	if (!PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]) continue;
-
-    	new DB_Query[128];
-    	format(DB_Query, sizeof(DB_Query), "UPDATE `PLAYER_WEAPONS` SET `WEAPON_ID` = '%d', `AMMO` = '%d' WHERE `ID_WEAPON` = '%d';", PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO], PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]);
-    	db_free_result(db_query(Database, DB_Query));
-  	}
-  	return 1;
-}
-
-LoadPlayerWeaponsData(playerid)
-{
-	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
-
-	new DBResult:Result, DB_Query[90];
-	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d' LIMIT %d;", ACCOUNT_INFO[playerid][ac_ID], 13);
-	Result = db_query(Database, DB_Query);
-
-	new total;
-	for(new i; i < db_num_rows(Result); i++ )
-	{
-		if (total >= 13)
-		{
-			printf("[debug]  Límite superado en array 'PLAYER_WEAPONS' al intentar cargar de la base de datos.");
-			break;
-		}
-
-		new weapon_id = db_get_field_assoc_int(Result, "WEAPON_ID");
-
-		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_VALID] = true;
-		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_DB_ID] = db_get_field_assoc_int(Result, "ID_WEAPON");
-		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
-		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = db_get_field_assoc_int(Result, "AMMO");
-		
-		if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] >= 10000)
-			PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = 100;
-
-		total ++;
-		db_next_row(Result);
-	}
-	db_free_result(Result);
-	return 1;
-}
-
-RemovePlayerSlotWeapon(playerid, slot, bool:db_delete = false)
-{
-	PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY] = gettime() + 3;
-	PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY] = gettime() + 3;
-
-	if (db_delete)
-	{
-		new DB_Query[140];
-		format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d' AND `ID_WEAPON` = '%d';", ACCOUNT_INFO[playerid][ac_ID], PLAYER_WEAPONS[playerid][slot][player_weapon_DB_ID]);
-		db_free_result(db_query(Database, DB_Query));
-	}
-
-	new current_weapon = GetPlayerWeapon(playerid);
-	if (current_weapon == PLAYER_WEAPONS[playerid][slot][player_weapon_ID]) current_weapon = 0;
-
-	PLAYER_WEAPONS[playerid][slot][player_weapon_VALID] = false;
-	PLAYER_WEAPONS[playerid][slot][player_weapon_DB_ID] = 0;
-	PLAYER_WEAPONS[playerid][slot][player_weapon_ID] = 0;
-	PLAYER_WEAPONS[playerid][slot][player_weapon_AMMO] = 0;
-
-	SetPlayerArmedWeapon(playerid, current_weapon);
-	SavePlayerWeaponsData(playerid);
-	return 1;
-}
-
 SetPlayerHealthEx(playerid, Float:health)
 {
 	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY] = gettime() + 3;
@@ -3791,22 +3541,6 @@ GivePlayerHealthEx(playerid, Float:health)
 	CHARACTER_INFO[playerid][ch_HEALTH] += health;
 	if (CHARACTER_INFO[playerid][ch_HEALTH] > 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
 	Player_SetHealth(playerid, floatround(CHARACTER_INFO[playerid][ch_HEALTH]));
-	return 1;
-}
-
-TransferPlayerWeapon(from_playerid, slot, to_playerid)
-{
-	new DB_Query[130];
-	format(DB_Query, sizeof(DB_Query), "UPDATE `PLAYER_WEAPONS` SET `ID_USER` = '%d' WHERE `ID_WEAPON` = '%d';", ACCOUNT_INFO[to_playerid][ac_ID], PLAYER_WEAPONS[from_playerid][slot][player_weapon_DB_ID]);
-	db_free_result(db_query(Database, DB_Query));
-
-	PLAYER_WEAPONS[to_playerid][slot][player_weapon_VALID] = true;
-	PLAYER_WEAPONS[to_playerid][slot][player_weapon_DB_ID] = PLAYER_WEAPONS[from_playerid][slot][player_weapon_DB_ID];
-	PLAYER_WEAPONS[to_playerid][slot][player_weapon_ID] = PLAYER_WEAPONS[from_playerid][slot][player_weapon_ID];
-	PLAYER_WEAPONS[to_playerid][slot][player_weapon_AMMO] = PLAYER_WEAPONS[from_playerid][slot][player_weapon_AMMO];
-	//SetWeaponsForPlayer(to_playerid);
-
-	RemovePlayerSlotWeapon(from_playerid, slot);
 	return 1;
 }
 
@@ -4010,23 +3744,6 @@ PlayerPayday(playerid)
 	return td_icon;
 }*/
 
-RegisterNewPlayerWeapon(playerid, weapon_slot)
-{
-	new DBResult:Result, DB_Query[380];
-	format(DB_Query, sizeof DB_Query,
-	"\
-		INSERT INTO `PLAYER_WEAPONS` (`ID_USER`, `WEAPON_ID`, `AMMO`) VALUES ('%d', '%d', '%d');\
-		SELECT MAX(`ID_WEAPON`) FROM `PLAYER_WEAPONS`;\
-	",
-		ACCOUNT_INFO[playerid][ac_ID], PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID], PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO]
-	);
-	Result = db_query(Database, DB_Query);
-
-	if (db_num_rows(Result)) PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_DB_ID] = db_get_field_int(Result, 0);
-	db_free_result(Result);
-	return 1;
-}
-
 GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false)
 {
 	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
@@ -4044,18 +3761,6 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false)
 		GivePlayerWeapon(playerid, weapon_id, ammo);
 		SetPlayerArmedWeapon(playerid, weapon_id);
 	}
-
-	SavePlayerWeaponsData(playerid);
-	return 1;
-}
-
-ResetPlayerWeaponsEx(playerid)
-{
-	new tmp_PLAYER_WEAPONS[enum_PLAYER_WEAPONS];
-	for(new i = 0; i != 13; i ++) PLAYER_WEAPONS[playerid][i] = tmp_PLAYER_WEAPONS;
-
-	ResetPlayerWeapons(playerid);
-	ResetItemBody(playerid);
 	return 1;
 }
 
@@ -4076,18 +3781,6 @@ ShowPlayerInventory(playerid, pid)
 	{
 		format(line_str, sizeof line_str, "Teléfono: %d"COL_WHITE"\n", PLAYER_PHONE[pid][player_phone_NUMBER]);
 		strcat(dialog, line_str);
-	}
-
-	new player_weapons = CountPlayerWeapons(pid);
-	if (player_weapons > 0)
-	{
-		for(new i; i != 13; i ++)
-		{
-			if (!PLAYER_WEAPONS[pid][i][player_weapon_VALID]) continue;
-
-			format(line_str, sizeof line_str, ""COL_WHITE"%s | Slot "COL_RED"%d"COL_WHITE"\n", WEAPON_INFO[ PLAYER_WEAPONS[pid][i][player_weapon_ID] ][weapon_info_NAME], i);
-			strcat(dialog, line_str);
-		}
 	}
 
 	if (PLAYER_MISC[pid][MISC_SEED_CANNABIS] > 0)
@@ -4116,48 +3809,6 @@ ShowPlayerInventory(playerid, pid)
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
 	return 1;
-}
-
-/*CountPlayerToys(playerid)
-{
-	new toys;
-
-	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++)
-	{
-		if (PLAYER_TOYS[playerid][i][player_toy_VALID])
-		{
-			toys ++;
-		}
-	}
-	return toys;
-}
-
-CountPlayerPocketObjects(playerid)
-{
-	new objects;
-
-	for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++)
-	{
-		if (PLAYER_POCKET[playerid][i][player_pocket_VALID])
-		{
-			objects ++;
-		}
-	}
-	return objects;
-}*/
-
-CountPlayerWeapons(playerid)
-{
-	new weapons;
-
-	for(new i = 0; i != 13; i ++)
-	{
-		if (PLAYER_WEAPONS[playerid][i][player_weapon_VALID])
-		{
-			weapons ++;
-		}
-	}
-	return weapons;
 }
 
 ShowPlayerSkills(playerid, pid)

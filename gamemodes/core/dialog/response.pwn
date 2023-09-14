@@ -113,7 +113,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				LoadPlayerVehicles(playerid);
 				LoadPlayerSkills(playerid);
 				LoadPlayerWorks(playerid);
-				LoadPlayerWeaponsData(playerid);
 				LoadPlayerCrewInfo(playerid);
 				
 				ResetPlayerWeapons(playerid);
@@ -3777,16 +3776,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ResetPlayerWeaponsEx(playerid);
 
 			    ShowPlayerMessage(playerid, "Has eliminado todas tus armas.", 2);
-			}
-			else ShowDialog(playerid, DIALOG_PLAYER_WEAPONS);
-			return 1;
-		}
-		case DIALOG_PLAYER_WEAPONS_DELETE:
-		{
-			if (response)
-			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "Has eliminado tu '%s' de tus armas.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
-				RemovePlayerSlotWeapon(playerid, PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT], true);
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_WEAPONS);
 			return 1;
@@ -8438,6 +8427,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case ELECTRONIC_BOOMBOX:
 					{
 						if (PLAYER_OBJECT[playerid][po_BOOMBOX]) return ShowPlayerMessage(playerid, "~r~Ya tienes un parlante.", 2);
+						if (!inv_GetFreeSlot(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
 						PLAYER_OBJECT[playerid][po_BOOMBOX] = true;
@@ -8447,8 +8437,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case ELECTRONIC_GEO:
 					{
+						if (!inv_GetFreeSlot(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
-						PLAYER_MISC[playerid][MISC_GEO] ++;
+						AddPlayerItem(playerid, 40);
 						ShowPlayerNotification(playerid, "Has comprado un geolocalizador.", 4);
 						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
 						SavePlayerMisc(playerid);
@@ -8456,23 +8448,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case ELECTRONIC_CAM:
 					{
-						new 
-							weapon_id = 43, 
-							weapon_slot = WEAPON_INFO[weapon_id][weapon_info_SLOT],
-							str_text[128]
-						;
-
-						if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
-						{
-							format(str_text, sizeof(str_text), "Para comprar esto tienes que deshacerte de tu %s para tener espacio.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] ][weapon_info_NAME]);
-							ShowPlayerNotification(playerid, str_text, 4);
-							return 1;
-						}
-
-						RegisterNewPlayerWeapon(playerid, weapon_slot);
-						GivePlayerWeaponEx(playerid, weapon_id, 1000);
+						if (!inv_GetFreeSlot(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						AddPlayerItem(playerid, 32);
 						ShowPlayerNotification(playerid, "Has comprado una cámara.", 4);
 						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
 						return 1;
