@@ -9349,7 +9349,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if (!IsValidRPName(inputtext)) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
 				}
 
-				if (PLAYER_TEMP[playerid][py_USER_VALID_NAME] == false)
+				if (!PLAYER_TEMP[playerid][py_USER_VALID_NAME])
 				{
 					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
 						Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\

@@ -47,10 +47,8 @@ InitGraffiti(graff_id)
 
 	for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
 	{
-		if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
-		{
+		if (GRAFFITIS_OBJ[i][g_ACTIVATED])
 			GRAFFITIS_OBJ[i][g_ACTIVATED] = false;
-		}
 	}
 
 	GraffitiGetTime = gettime();
@@ -171,7 +169,7 @@ CheckGraffitiProgress(playerid)
 
 		for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
 		{
-			if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
+			if (GRAFFITIS_OBJ[i][g_ACTIVATED])
 			{
 				GRAFFITIS_OBJ[i][g_ACTIVATED] = false;
 				KillTimer(GraffitiCancelTimer);

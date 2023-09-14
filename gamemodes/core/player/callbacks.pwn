@@ -1087,7 +1087,7 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 		PLAYER_TEMP[playerid][py_FUEL_DOWN_TIME] = gettime();
 	}
 
-	if (PLAYER_TEMP[playerid][py_PLAYER_IN_PHONE] == true) return HidePlayerSpeedoMeter(playerid);
+	if (PLAYER_TEMP[playerid][py_PLAYER_IN_PHONE]) return HidePlayerSpeedoMeter(playerid);
 
 	new td_str[64],
 		td_str_vel[64],
@@ -1472,7 +1472,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 			    	if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != onFootData[PR_weaponId])
 			    		return OnPlayerCheatDetected(playerid, CHEAT_WEAPON, weapon_slot);
 
-			    	if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_VALID] == false)
+			    	if (!PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_VALID])
 			    		return OnPlayerCheatDetected(playerid, CHEAT_WEAPON, weapon_slot);
 			    }
 
@@ -1963,10 +1963,8 @@ public OnPlayerSpawn(playerid)
 			{
 				for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
 				{
-					if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
-					{
+					if (GRAFFITIS_OBJ[i][g_ACTIVATED])
 						SetPlayerMapIcon(playerid, 0, GRAFFITIS_OBJ[i][g_X], GRAFFITIS_OBJ[i][g_Y], GRAFFITIS_OBJ[i][g_Z], 63, 0, MAPICON_GLOBAL);
-					}
 				}
 			}
 
@@ -2442,7 +2440,7 @@ public OnPlayerRequestClass(playerid, classid)
 			if (CheckNameFilterViolation(PLAYER_TEMP[playerid][py_NAME])) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
 			if (!IsValidRPName(PLAYER_TEMP[playerid][py_NAME])) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
 
-			if (PLAYER_TEMP[playerid][py_USER_VALID_NAME] == false)
+			if (!PLAYER_TEMP[playerid][py_USER_VALID_NAME])
 			{
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
 					Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
@@ -3227,7 +3225,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		return 1;
 	}
 
-	if (PLAYER_TEMP[playerid][py_PLAYER_IN_PHONE] == true)
+	if (PLAYER_TEMP[playerid][py_PLAYER_IN_PHONE])
 	{
 		if (clickedid == Textdraws[textdraw_PHONE_MENU][12]) ShowDialog(playerid, DIALOG_PHONE);
 		else if (clickedid == Textdraws[textdraw_PHONE_MENU][13]) ShowDialog(playerid, DIALOG_PHONE_MESSAGE_LIST);
@@ -3644,7 +3642,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
     if (PRESSED(  KEY_SECONDARY_ATTACK  ))
     {
-    	if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] == true) PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = false;
+    	if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE]) PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = false;
 
         EnterSite(playerid);
 		CheckRepairRockProcessor(playerid);
@@ -3843,7 +3841,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			return 1;
 		}
 
-		if (PLAYER_TEMP[playerid][py_IN_TELE] == true)
+		if (PLAYER_TEMP[playerid][py_IN_TELE])
 		{
 			CloseTeleView(playerid);
 			return 1;
@@ -3861,7 +3859,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					{
 						for(new i = 0; i < sizeof ROCKS_OBJ; i ++)
 						{
-							if (ROCKS_OBJ[i][r_ACTIVATED] == true)
+							if (ROCKS_OBJ[i][r_ACTIVATED])
 							{
 								if (IsPlayerInRangeOfPoint(playerid, 1.8, ROCKS_OBJ[i][r_X], ROCKS_OBJ[i][r_Y], ROCKS_OBJ[i][r_Z]))
 								{
@@ -3898,7 +3896,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 		}
 
-		if (PLAYER_TEMP[playerid][py_SELFIE] == true)
+		if (PLAYER_TEMP[playerid][py_SELFIE])
 		{
 			PLAYER_TEMP[playerid][py_SELFIE] = false;
 			TogglePlayerControllableEx(playerid, true);
@@ -3913,7 +3911,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			for(new i = 0; i != MAX_DROP_ITEMS; i ++)
 			{
-				if (DROP_ITEMS[i][itm_VALID] == true)
+				if (DROP_ITEMS[i][itm_VALID])
 				{
 					new Float:x, Float:y, Float:z; 
 					Streamer_GetFloatData(STREAMER_TYPE_OBJECT, DROP_ITEMS[i][itm_ID], E_STREAMER_X, x);
@@ -4102,7 +4100,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						{
 							if (IsPlayerInRangeOfPoint(playerid, 3.0, GRAFFITIS_OBJ[i][g_X], GRAFFITIS_OBJ[i][g_Y], GRAFFITIS_OBJ[i][g_Z]))
 							{
-								if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
+								if (GRAFFITIS_OBJ[i][g_ACTIVATED])
 								{
 									if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
 									PLAYER_TEMP[playerid][py_TIMERS][41] = SetTimerEx("UpdateGraffitiProgress", 1000, 1, "i", playerid);
@@ -4533,7 +4531,7 @@ public OnPlayerUpdate(playerid)
 
     if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
 	{
-		if (PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] == false)
+		if (!PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION])
 		{
 			switch(ud)
 			{
@@ -5686,7 +5684,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	}*/
 
-	if (PLAYER_TEMP[playerid][py_EXPLOSION_BULLET] == true)
+	if (PLAYER_TEMP[playerid][py_EXPLOSION_BULLET])
 	{
 		CreateExplosion(fX, fY, fZ, 12, 1.0);
 	}

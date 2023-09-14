@@ -57,7 +57,7 @@ CheckBallonAction(playerid)
 		{
 			if (IsPlayerInRangeOfPoint(playerid, 1.5, HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], HOTAIR_BALLOONS[i][balloon_Z]))
 			{
-				if (HOTAIR_BALLOONS[i][balloon_ACTIVE] == false)
+				if (!HOTAIR_BALLOONS[i][balloon_ACTIVE])
 				{
 					PLAYER_MISC[playerid][MISC_BALLOON] = false;
 					SetBalloonAction(i, HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], 60.0, 10.0);

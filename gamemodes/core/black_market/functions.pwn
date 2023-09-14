@@ -4,7 +4,7 @@ InitBlackMarket(market_id)
 
 	for(new i = 0; i < sizeof BLACK_MARKET_OBJ; i ++)
 	{
-		if (BLACK_MARKET_OBJ[i][bm_ACTIVATED] == true)
+		if (BLACK_MARKET_OBJ[i][bm_ACTIVATED])
 		{
 			BLACK_MARKET_OBJ[i][bm_ACTIVATED] = false;
 		}
@@ -125,7 +125,7 @@ CheckMarketProgress(playerid)
 
 		for(new i = 0; i < sizeof BLACK_MARKET_OBJ; i ++)
 		{
-			if (BLACK_MARKET_OBJ[i][bm_ACTIVATED] == true)
+			if (BLACK_MARKET_OBJ[i][bm_ACTIVATED])
 			{
 				BLACK_MARKET_OBJ[i][bm_ACTIVATED] = false;
 				//TextDrawColor(Textdraws[textdraw_GRAFFITI][0], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);
@@ -214,9 +214,9 @@ CheckMarketAttack(playerid)
 				{
 					if (GetPlayerInterior(playerid) == 0)
 					{
-						if (BLACK_MARKET_OBJ[i][bm_ACTIVATED] == true)
+						if (BLACK_MARKET_OBJ[i][bm_ACTIVATED])
 						{
-							if (PLAYER_TEMP[playerid][py_IN_MARKET] == true) return 0;
+							if (PLAYER_TEMP[playerid][py_IN_MARKET]) return 0;
 
 							for(new z = 0, j = GetPlayerPoolSize(); z <= j; z++)
 							{

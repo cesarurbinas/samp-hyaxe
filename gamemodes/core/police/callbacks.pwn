@@ -51,7 +51,7 @@ public UpdateWantedLevelMark()
                 SendPoliceMark(i, 0xCB2828FF);
             }
 
-            if (PLAYER_TEMP[i][py_CUFFED] == true)
+            if (PLAYER_TEMP[i][py_CUFFED])
             {
                 SendPoliceMark(i, 0x2DAA24FF);
             }

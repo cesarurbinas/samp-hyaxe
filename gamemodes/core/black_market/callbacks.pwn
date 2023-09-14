@@ -17,12 +17,12 @@ public UpdateMarketProgress(playerid)
 
 	for(new x = 0; x < sizeof BLACK_MARKET_OBJ; x ++)
 	{
-		if (BLACK_MARKET_OBJ[x][bm_ACTIVATED] == true)
+		if (BLACK_MARKET_OBJ[x][bm_ACTIVATED])
 		{
 			//Give crew text slot
 			if (BLACK_MARKET_OBJ[x][bm_CREW_ONE] == 0)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_MARKET] == false)
+				if (!CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_MARKET])
 				{
 					BLACK_MARKET_OBJ[x][bm_CREW_ONE] = CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID];
 					CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_MARKET] = true;
@@ -35,7 +35,7 @@ public UpdateMarketProgress(playerid)
 
 			if (BLACK_MARKET_OBJ[x][bm_CREW_TWO] == 0)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_MARKET] == false)
+				if (!CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_MARKET])
 				{
 					BLACK_MARKET_OBJ[x][bm_CREW_TWO] = CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID];
 					CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_MARKET] = true;
@@ -48,7 +48,7 @@ public UpdateMarketProgress(playerid)
 
 			if (BLACK_MARKET_OBJ[x][bm_CREW_THREE] == 0)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_MARKET] == false)
+				if (!CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_MARKET])
 				{
 					BLACK_MARKET_OBJ[x][bm_CREW_THREE] = CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID];
 					CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_MARKET] = true;

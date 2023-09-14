@@ -2911,7 +2911,7 @@ CMD:explosionbullet(playerid, params[])
     if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /explosionbullet <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
 
-    if (PLAYER_TEMP[to_player][py_EXPLOSION_BULLET] == false)
+    if (!PLAYER_TEMP[to_player][py_EXPLOSION_BULLET])
     {
     	PLAYER_TEMP[to_player][py_EXPLOSION_BULLET] = true;
 		SendClientMessageEx(playerid, COLOR_WHITE, "Jugador '%s (%d)' ahora tiene balas explosivas.", ACCOUNT_INFO[to_player][ac_NAME], to_player);

@@ -76,7 +76,7 @@ public CancelGraffiti()
 
 	for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
 	{
-		if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
+		if (GRAFFITIS_OBJ[i][g_ACTIVATED])
 		{
 			new str_text[144];
 
@@ -136,7 +136,7 @@ public UpdateGraffitiProgress(playerid)
 
 	for(new x = 0; x < sizeof GRAFFITIS_OBJ; x ++)
 	{
-		if (GRAFFITIS_OBJ[x][g_ACTIVATED] == true)
+		if (GRAFFITIS_OBJ[x][g_ACTIVATED])
 		{
 			new Float:distance = GetPlayerDistanceFromPoint(playerid, GRAFFITIS_OBJ[x][g_X], GRAFFITIS_OBJ[x][g_Y], GRAFFITIS_OBJ[x][g_Z]);
 			if (distance > 2.5)
@@ -145,7 +145,7 @@ public UpdateGraffitiProgress(playerid)
 			//Give crew text slot
 			if (GRAFFITIS_OBJ[x][g_CREW_ONE] == 0)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_GRAFFITI] == false)
+				if (!CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_GRAFFITI])
 				{
 					GRAFFITIS_OBJ[x][g_CREW_ONE] = CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID];
 					CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_GRAFFITI] = true;
@@ -161,7 +161,7 @@ public UpdateGraffitiProgress(playerid)
 
 			if (GRAFFITIS_OBJ[x][g_CREW_TWO] == 0)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_GRAFFITI] == false)
+				if (!CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_GRAFFITI])
 				{
 					GRAFFITIS_OBJ[x][g_CREW_TWO] = CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID];
 					CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_GRAFFITI] = true;
@@ -177,7 +177,7 @@ public UpdateGraffitiProgress(playerid)
 
 			if (GRAFFITIS_OBJ[x][g_CREW_THREE] == 0)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_GRAFFITI] == false)
+				if (!CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_GRAFFITI])
 				{
 					GRAFFITIS_OBJ[x][g_CREW_THREE] = CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID];
 					CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_IN_GRAFFITI] = true;

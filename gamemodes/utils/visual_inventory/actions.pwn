@@ -1,7 +1,7 @@
 ClickInventorySlot(playerid, td_init, bool:simple = false)
 {
 	new slot;
-	if (simple == false) slot = (td_init - 10);
+	if (!simple) slot = (td_init - 10);
 	else slot = td_init;
 	
 	switch(PLAYER_TEMP[playerid][py_INVENTORY_TYPE])
@@ -328,7 +328,7 @@ DropItemSlot(playerid, anim = true)
 
 	if (anim) ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
 	
-	if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot] == true)
+	if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
 	{
 		CreateDropItem(GetItemObjectByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), PLAYER_TEMP[playerid][py_NAME], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 	}
@@ -473,7 +473,7 @@ UseItemSlot(playerid)
 			{
 				if (!IsPlayerInWater(playerid))
 				{
-					if (PLAYER_TEMP[playerid][py_FISHING] == false)
+					if (!PLAYER_TEMP[playerid][py_FISHING])
 					{
 						if (IsPlayerInRangeOfPoint(playerid, 30.0, 1955.022094, -189.402023, -2.332746) || IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 1858.291503, -69.229499, -2.332746))
 						{

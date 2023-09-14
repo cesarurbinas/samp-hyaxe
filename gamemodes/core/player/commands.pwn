@@ -1149,7 +1149,7 @@ CMD:parar(playerid, params[])
 	PLAYER_TEMP[playerid][py_IN_MARKET] = false;
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 
-	if (PLAYER_TEMP[playerid][py_SELFIE] == true)
+	if (PLAYER_TEMP[playerid][py_SELFIE])
 	{
 		PLAYER_TEMP[playerid][py_SELFIE] = false;
 		TogglePlayerControllableEx(playerid, true);
@@ -1530,7 +1530,7 @@ CMD:minero(playerid)
 			{
 				for(new i = 0; i < sizeof ROCKS_OBJ; i ++)
 				{
-					if (ROCKS_OBJ[i][r_ACTIVATED] == true)
+					if (ROCKS_OBJ[i][r_ACTIVATED])
 					{
 						if (IsPlayerInRangeOfPoint(playerid, 1.5, ROCKS_OBJ[i][r_X], ROCKS_OBJ[i][r_Y], ROCKS_OBJ[i][r_Z]))
 						{

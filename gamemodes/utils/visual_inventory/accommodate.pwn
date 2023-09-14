@@ -4,7 +4,7 @@ inv_AccommodateAccessories(playerid)
 
 	if (PLAYER_TOYS[playerid][0][player_toy_VALID])
 	{
-		if (toys_inv_slots[0] == false)
+		if (!toys_inv_slots[0])
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][5], PLAYER_TOYS[playerid][0][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][5], -15.000000, 0.000000, 12.000000, 1.000000);
@@ -15,7 +15,7 @@ inv_AccommodateAccessories(playerid)
 
 	if (PLAYER_TOYS[playerid][1][player_toy_VALID])
 	{
-		if (toys_inv_slots[1] == false)
+		if (!toys_inv_slots[1])
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][6], PLAYER_TOYS[playerid][1][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][6], -15.000000, 0.000000, 12.000000, 1.000000);
@@ -25,7 +25,7 @@ inv_AccommodateAccessories(playerid)
 
 	if (PLAYER_TOYS[playerid][2][player_toy_VALID])
 	{
-		if (toys_inv_slots[2] == false)
+		if (!toys_inv_slots[2])
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][7], PLAYER_TOYS[playerid][2][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][7], -15.000000, 0.000000, 12.000000, 1.000000);
@@ -36,7 +36,7 @@ inv_AccommodateAccessories(playerid)
 
 	if (PLAYER_TOYS[playerid][3][player_toy_VALID])
 	{
-		if (toys_inv_slots[3] == false)
+		if (!toys_inv_slots[3])
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][8], PLAYER_TOYS[playerid][3][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][8], -15.000000, 0.000000, 12.000000, 1.000000);
@@ -47,7 +47,7 @@ inv_AccommodateAccessories(playerid)
 
 	if (PLAYER_TOYS[playerid][4][player_toy_VALID])
 	{
-		if (toys_inv_slots[4] == false)
+		if (!toys_inv_slots[4])
 		{
 			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][9], PLAYER_TOYS[playerid][0][player_toy_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][9], -15.000000, 0.000000, 12.000000, 1.000000);
