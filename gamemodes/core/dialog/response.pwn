@@ -7687,6 +7687,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", dialog, "Cerrar", "");
 					}
+					case 8: ShowDialog(playerid, DIALOG_BUY_NAME_COLOR);
+					case 9: ShowDialog(playerid, DIALOG_BUY_CHAT_COLOR);
 				}
 			}
 			else
@@ -9373,6 +9375,44 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
     			if (in_main_menu[playerid]) return ShowMainMenu(playerid);
 			}
+		}
+		case DIALOG_BUY_NAME_COLOR:
+		{
+			if (response)
+			{
+				if (ACCOUNT_INFO[playerid][ac_SD] < 5) return ShowPlayerMessage(playerid, "~r~No tienes los Hycoins suficientes.", 4);
+				
+				ACCOUNT_INFO[playerid][ac_SD] -= 5;
+
+				new DB_Query_update[160];
+				format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+				db_free_result(db_query(Database, DB_Query_update));
+
+				PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] = listitem;
+				SavePlayerMisc(playerid);
+
+				ShowPlayerMessage(playerid, "Color comprado!", 4);
+			}
+			else ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
+		}
+		case DIALOG_BUY_CHAT_COLOR:
+		{
+			if (response)
+			{
+				if (ACCOUNT_INFO[playerid][ac_SD] < 5) return ShowPlayerMessage(playerid, "~r~No tienes los Hycoins suficientes.", 4);
+				
+				ACCOUNT_INFO[playerid][ac_SD] -= 5;
+
+				new DB_Query_update[160];
+				format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+				db_free_result(db_query(Database, DB_Query_update));
+
+				PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] = listitem;
+				SavePlayerMisc(playerid);
+
+				ShowPlayerMessage(playerid, "Color comprado!", 4);
+			}
+			else ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 		}
 	}
 	return 0;

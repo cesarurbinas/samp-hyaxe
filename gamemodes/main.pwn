@@ -5,6 +5,7 @@
 
 #pragma option -(+
 #pragma option -;+
+//#pragma option -a
 
 /*
  * Modos de debug:

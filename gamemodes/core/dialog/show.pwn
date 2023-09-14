@@ -3982,6 +3982,8 @@ ShowDialog(playerid, dialogid)
 					Recargar mapeos\t\n\
 					Damage informer\t%s\n\
 					Ver registros de IP\t\n\
+					Color del nombre\t%s%s\n\
+					Color del texto\t%s%s\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
@@ -3990,7 +3992,11 @@ ShowDialog(playerid, dialogid)
 					(PLAYER_MISC[playerid][MISC_CONFIG_HUD] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(PLAYER_MISC[playerid][MISC_CONFIG_FP] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(CHARACTER_INFO[playerid][ch_SEX] ? "Mujer" : "Hombre"),
-					(PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] ? ""COL_GREEN"Sí" : ""COL_RED"No")
+					(PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
+					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] ][color_HEX],
+					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] ][color_NAME],
+					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_HEX],
+					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_NAME]
 			);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Panel de configuración", dialog, "Cambiar", "Salir");
@@ -4715,6 +4721,32 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_CHANGE_ACCOUNT:
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cuenta", ""COL_WHITE"Ingrese el nombre de usuario:", "Entrar", "Cerrar");
+		}
+		case DIALOG_BUY_NAME_COLOR:
+		{
+			new dialog[264];
+
+    		for(new i = 0; i != sizeof COLOR_INFO; i ++)
+    		{
+    			new line[144];
+    			format(line, sizeof(line), "%s%s\t"COL_GREEN"10 Hycoins\n", COLOR_INFO[i][color_HEX], COLOR_INFO[i][color_NAME]);
+    			strcat(dialog, line);
+    		}
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Comprar color (nombre)", dialog, "Comprar", "Volver");
+		}
+		case DIALOG_BUY_CHAT_COLOR:
+		{
+			new dialog[264];
+
+    		for(new i = 0; i != sizeof COLOR_INFO; i ++)
+    		{
+    			new line[144];
+    			format(line, sizeof(line), "%s%s\t"COL_GREEN"10 Hycoins\n", COLOR_INFO[i][color_HEX], COLOR_INFO[i][color_NAME]);
+    			strcat(dialog, line);
+    		}
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Comprar color (chat)", dialog, "Comprar", "Volver");
 		}
 		default: return 0;
 	}

@@ -353,6 +353,12 @@ enum
 =======
 	DIALOG_CHANGE_ACCOUNT,
 	DIALOG_SINDACCO_MAFIA_LIST,
+<<<<<<< HEAD
 	DIALOG_SINDACCO_MAFIA_MODIFY
 >>>>>>> e76ea2e (anti pg removido)
+=======
+	DIALOG_SINDACCO_MAFIA_MODIFY,
+	DIALOG_BUY_NAME_COLOR,
+	DIALOG_BUY_CHAT_COLOR
+>>>>>>> 68c68d6 (tienda de colores)
 };
