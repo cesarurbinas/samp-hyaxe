@@ -30,11 +30,11 @@ public UpdateWorldTime()
 		printf("UpdateWorldTime"); // debug juju
 	#endif
 
-	SERVER_TIME[1] ++;
+	SERVER_TIME[1] += 2;
 	if (SERVER_TIME[1] > 60)
 	{
 		SERVER_TIME[1] = 0;
-		
+
 		SERVER_TIME[0] ++;
 		if (SERVER_TIME[0] > 23) SERVER_TIME[0] = 0;
 	}

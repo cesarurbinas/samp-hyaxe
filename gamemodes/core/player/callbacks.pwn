@@ -1570,6 +1570,7 @@ public OnPlayerSpawn(playerid)
 
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO]);
 	SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
+	StopAudioStreamForPlayer(playerid);
 	
 	switch(PLAYER_MISC[playerid][MISC_GAMEMODE])
 	{
