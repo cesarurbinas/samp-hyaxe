@@ -34511,7 +34511,7 @@ ShowPlayerStats(playerid, pid)
 		"COL_WHITE"  VIP: "COL_YELLOW"%s\n\
 		"COL_WHITE"  DNI: %s\n\
 		"COL_WHITE"  Licencia de conducir: %s\n\
-		"COL_WHITE"  Estado de cuenta: %s",",
+		"COL_WHITE"  Estado social: %s",",
 
 			ACCOUNT_INFO[pid][ac_ID],
 			ACCOUNT_INFO[pid][reg_DATE],
@@ -37328,7 +37328,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);
-	
+
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < 8)
 	{
 		if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL || PLAYER_TEMP[playerid][py_NEW_USER])
