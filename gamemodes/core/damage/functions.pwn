@@ -81,3 +81,15 @@ Damage_ResetInformer(playerid)
 	PlayerTextDrawHide(playerid, g_ptdDamageTaken[playerid]);
 	return 1;
 }
+
+IsShortDistanceWeapon(weaponid, Float:distance)
+{
+	if (distance >= 90.0)
+	{
+		switch(weaponid)
+		{
+			case 0..15, 22..28, 32: return true;
+		}
+	}
+	return false;
+}
