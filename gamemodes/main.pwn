@@ -4501,6 +4501,12 @@ ExitSite(playerid)
         return 1;
     }
 
+    if (IsPlayerInRangeOfPoint(playerid, 2.0, 3854.231933, -1265.252319, 7547.983398))
+    {
+    	SetPlayerPosEx(playerid, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, false);
+        return 1;
+    }
+
     new info[3];
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
     if (info[0] == PICKUP_TYPE_NONE) return 0;
@@ -5909,6 +5915,14 @@ CheckMafiaEquipeSite(playerid)
 	if (PLAYER_WORKS[playerid][WORK_MAFIA])
 	{
 		if (IsPlayerInRangeOfPoint(playerid, 1.3, 726.2478, -1276.3830, 13.5662))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 3855.066162, -1290.975585, 7547.983398))
 		{
 			ShowDialog(playerid, DIALOG_POLICE_SHOP);
 		}
@@ -7684,6 +7698,7 @@ SanAndreas()
 	
 	//base mafia
 	CreateDynamic3DTextLabel("{ca3535}La cosa nostra\n"COL_WHITE"Equipamiento", 0xF7F7F700, 726.2478, -1276.3830, 13.5662, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{ff9b00}The Crew Criminals\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	//meca
 	/*CreateDynamicPickup(1558, 1, -82.038078, -1208.153564, 2.704517, 0, 0);
@@ -8053,6 +8068,15 @@ UpdatePlayerZoneMessages(playerid)
 	if (IsPlayerInRangeOfPoint(playerid, 1.5, 726.2478, -1276.3830, 13.5662))
 	{
 		if (PLAYER_WORKS[playerid][WORK_MAFIA])
+		{
+			ShowPlayerKeyMessage(playerid, "Y");
+			return 1;
+		}
+	}
+
+	if (IsPlayerInRangeOfPoint(playerid, 1.5, 3855.066162, -1290.975585, 7547.983398))
+	{
+		if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
 		{
 			ShowPlayerKeyMessage(playerid, "Y");
 			return 1;
