@@ -3506,8 +3506,9 @@ public OnPlayerDisconnect(playerid, reason)
 			if(PLAYER_MISC[playerid][MISC_SEARCH_LEVEL])
 			{
 				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
-				CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] = 0;
     			CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 600 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL];
+				CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] =
+				PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] = 0;
 				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
 			}
 
