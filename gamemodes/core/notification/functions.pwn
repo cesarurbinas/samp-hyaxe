@@ -2,14 +2,12 @@ ShowPlayerNotification(playerid, const text[], time = 0)
 {
 	static
 		free_pos,
-		Float:pos_y,
+		Float:pos_y = 141.000000,
 		PlayerText:temp_td
 	;
 
 	free_pos = GetFreeNotificationSlot(playerid);
 	if (free_pos == -1) return 0;
-
-	pos_y = 143.333282;
 
 	for(new i; i < free_pos; i++)
 	{
@@ -18,20 +16,19 @@ ShowPlayerNotification(playerid, const text[], time = 0)
 
 	format(NotificationData[playerid][free_pos][nt_TEXT], 128, text);
 
-	temp_td = CreatePlayerTextDraw(playerid, 25.000000, pos_y + 6.0, NotificationData[playerid][free_pos][nt_TEXT]);
-	PlayerTextDrawLetterSize(playerid, temp_td, 0.287999, 1.249997);
-	PlayerTextDrawTextSize(playerid, temp_td, 160.000000, 0.000000);
+	temp_td = CreatePlayerTextDraw(playerid, 24.000000, pos_y + 6.0, NotificationData[playerid][free_pos][nt_TEXT]);
+	PlayerTextDrawFont(playerid, temp_td, 1);
+	PlayerTextDrawLetterSize(playerid, temp_td, 0.237499, 1.299999);
+	PlayerTextDrawTextSize(playerid, temp_td, 166.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, temp_td, 0);
+	PlayerTextDrawSetShadow(playerid, temp_td, 0);
 	PlayerTextDrawAlignment(playerid, temp_td, 1);
 	PlayerTextDrawColor(playerid, temp_td, -1);
-	PlayerTextDrawUseBox(playerid, temp_td, 1);
-	PlayerTextDrawBoxColor(playerid, temp_td, 255);
-	PlayerTextDrawSetShadow(playerid, temp_td, 0);
-	PlayerTextDrawSetOutline(playerid, temp_td, 0);
 	PlayerTextDrawBackgroundColor(playerid, temp_td, 255);
-	PlayerTextDrawFont(playerid, temp_td, 1);
+	PlayerTextDrawBoxColor(playerid, temp_td, 286331342);
+	PlayerTextDrawUseBox(playerid, temp_td, 1);
 	PlayerTextDrawSetProportional(playerid, temp_td, 1);
-	PlayerTextDrawSetShadow(playerid, temp_td, 0);
-	PlayerTextDrawShow(playerid, temp_td);
+	PlayerTextDrawSetSelectable(playerid, temp_td, 0);
 
 	NotificationData[playerid][free_pos][nt_TD] = temp_td;
 
@@ -51,7 +48,6 @@ ShowPlayerNotification(playerid, const text[], time = 0)
 	NotificationData[playerid][free_pos][nt_ID] = LastNotificationID;
 	return LastNotificationID;
 }
-
 
 FindNotificationPosById(playerid, notification_id)
 {
