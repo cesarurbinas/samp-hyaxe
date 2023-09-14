@@ -2774,12 +2774,23 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		            if (!IsPlayerInAnyVehicle(playerid))
 		            {
-		            	new str_text[144];
-						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
+		            	new dialog[250];
+						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Fly");
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+						
+						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Fly");
+
 						KickEx(playerid, 500);
+						PLAYER_MISC[playerid][MISC_BANEOS] ++;
+						SavePlayerMisc(playerid);
+
+						new str[145];
+						format(str, 145, "[ADMIN] %s (%d) fue baneado: Fly.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+						SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+						new webhook[145];
+						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+						SendDiscordWebhook(webhook, 1);
 						return 0;
 		            }
 		        }
@@ -2787,12 +2798,23 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		        	if (onFootData[PR_weaponId] != WEAPON_PARACHUTE)
 					{
-						new str_text[144];
-						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
+						new dialog[250];
+						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Fly");
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+						
+						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Fly");
+
 						KickEx(playerid, 500);
+						PLAYER_MISC[playerid][MISC_BANEOS] ++;
+						SavePlayerMisc(playerid);
+
+						new str[145];
+						format(str, 145, "[ADMIN] %s (%d) fue baneado: Fly.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+						SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+						new webhook[145];
+						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+						SendDiscordWebhook(webhook, 1);
 						return 0;
 					}
 		        }
@@ -2800,12 +2822,23 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		            if (!IsPlayerInAnyVehicle(playerid))
 		            {
-		            	new str_text[144];
-						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Anti-L", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Anti-L");
+						new dialog[250];
+						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Anti-L");
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+						
+						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Anti-L");
+
 						KickEx(playerid, 500);
+						PLAYER_MISC[playerid][MISC_BANEOS] ++;
+						SavePlayerMisc(playerid);
+
+						new str[145];
+						format(str, 145, "[ADMIN] %s (%d) fue baneado: Anti-L.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+						SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+						new webhook[145];
+						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+						SendDiscordWebhook(webhook, 1);
 						return 0;
 		            }
 		        }
@@ -2822,14 +2855,38 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						return 0;
 		            }
 		        }
-		        /*case 1538, 1539, 1543:
+		        case 1538, 1539, 1543:
 		        {
-		        	if (onFootData[PR_position][2] > 1.0)
-					{
-						KickEx(playerid, 500);
-						return 0;
+		        	if (!CA_IsPlayerInWater(playerid))
+		        	{
+		        		if (onFootData[PR_position][2] > 1.0)
+						{
+							new str_text[144];
+							format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
+						    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+						    SendDiscordWebhook(str_text, 1);
+						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
+							KickEx(playerid, 500);
+							return 0;
+						}
 					}
-		        }*/
+		        }
+		    }
+
+		    if (onFootData[PR_weaponId])
+		    {
+		    	new 
+		    		weapon_slot = GetWeaponSlot(onFootData[PR_weaponId]),
+		    		weapon_id,
+		    		weapon_ammo
+		    	;
+
+		    	if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != onFootData[PR_weaponId])
+		    		OnPlayerCheatDetected(playerid, CHEAT_WEAPON, weapon_slot);
+
+		    	GetPlayerWeaponData(playerid, weapon_slot, weapon_id, weapon_ammo);
+		    	if (weapon_ammo > (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO] + 100))
+		    		OnPlayerCheatDetected(playerid, CHEAT_AMMO, weapon_slot);
 		    }
 		}
 
@@ -16681,7 +16738,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				SendClientMessageEx(playerid, COLOR_WHITE, "Has eliminado tu '%s' de este maletero.", WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT] ][weapon_info_NAME]);
 
-
 				new DB_Query[64];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_BOOT` WHERE `ID_OBJECT` = '%d';", VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_OBJECT_ID]);
 				db_free_result(db_query(Database, DB_Query));
@@ -26790,6 +26846,9 @@ LoadPlayerVehicles(playerid)
 				VEHICLE_BOOT[vehicle_id][boot_slot][vehicle_boot_INT] = db_get_field_assoc_int(boot_Result, "INT");
 				VEHICLE_BOOT[vehicle_id][boot_slot][vehicle_boot_INT_EXTRA] = db_get_field_assoc_int(boot_Result, "INT_EXTRA");
 
+				if (VEHICLE_BOOT[vehicle_id][boot_slot][vehicle_boot_INT_EXTRA] > 1000)
+					VEHICLE_BOOT[vehicle_id][boot_slot][vehicle_boot_INT_EXTRA] = 100;
+
 				boot_slot ++;
 				db_next_row(boot_Result);
 			}
@@ -29676,20 +29735,6 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7)
 	return 1;
 }
 
-ac_GivePlayerWeapon(playerid, weapon_id, ammo, color = 0x00F7F7F7)
-{
-	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
-	else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;
-
-	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_VALID] = true;
-	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
-	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_COLOR] = color;
-
-	GivePlayerWeapon(playerid, weapon_id, ammo);
-    SavePlayerWeaponsData(playerid);
-	return 1;
-}
-
 ResetPlayerWeaponsEx(playerid)
 {
 	new tmp_PLAYER_WEAPONS[enum_PLAYER_WEAPONS];
@@ -30019,7 +30064,9 @@ LoadPlayerWeaponsData(playerid)
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_DB_ID] = db_get_field_assoc_int(Result, "ID_WEAPON");
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = db_get_field_assoc_int(Result, "AMMO");
-		//printf("load: id %d, ammo: %d, db_id: %d", PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO], PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_DB_ID]);
+		
+		if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] > 1000)
+			PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = 100;
 
 		total ++;
 		db_next_row(Result);
