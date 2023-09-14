@@ -2828,6 +2828,57 @@ CMD:ufo(playerid, params[])
 	return 1;
 }
 
+static const ALIEN_ITEMS[][] =
+{
+	0, 1, 3, 28, 57, 32, 2, 4
+};
+
+CMD:aliendrop(playerid, params[])
+{
+	new 
+		Float:x,
+		Float:y,
+		Float:z,
+		type,
+		ammount
+	;
+
+	for(new i = 0, j = 10; i <= j; i++)
+	{
+		GetPlayerPos(playerid, x, y, z);
+		RandomCordFromPoint(minrand(10, 50), minrand(3, 5), x, y);
+
+		type = random(sizeof(ALIEN_ITEMS));
+
+		switch(type)
+		{
+			case 0: ammount = 1;
+			case 1: ammount = minrand(1, 5);
+			case 3: ammount = minrand(1, 5);
+			case 28: ammount = minrand(1000, 3000);
+			case 57: ammount = 1;
+			case 32: ammount = minrand(1000, 2000);
+			case 2: ammount = minrand(5, 10);
+			case 4: ammount = minrand(1, 3);
+		}
+
+		CreateDropItem(
+			GetItemObjectByType(type),
+			x, y, z + 5.0, 0.0, 0.0, 0.0,
+			GetPlayerVirtualWorld(playerid),
+			GetPlayerInterior(playerid),
+			GetItemNameByType(type),
+			PLAYER_TEMP[playerid][py_NAME],
+			type,
+			ammount
+		);
+	}
+
+	SendCmdLogToAdmins(playerid, "aliendrop", params);
+	return 1;
+}
+flags:aliendrop(CMD_MODERATOR)
+
 forward neuroadmin_BotLearning(index, response_code, data[]);
 public neuroadmin_BotLearning(index, response_code, data[])
 {
