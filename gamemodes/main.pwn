@@ -8861,7 +8861,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_PLAYER_GPS_SITES:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Otros", "Hospitales\nTiendas de Ropa\nNegocios\nRestaurantes\nBancos\nCajeros\nGasolineras\nConcesionarios\nBanco Central\nPolicías\nTaller mecánico\nHelipuerto", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Otros", "Hospitales\nTiendas de Ropa\nNegocios\nRestaurantes\nBancos\nCajeros\nGasolineras\nConcesionarios\nBanco Central\nPolicías\nTaller mecánico\nHelipuerto\nTienda Tecno", ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_WORKS:
@@ -14075,6 +14075,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 9: SetPlayer_GPS_Checkpoint(playerid, 1545.472778, -1675.525024, 13.560430, 0, 0); // LSPD
 					case 10: SetPlayer_GPS_Checkpoint(playerid, 1049.747680, -938.670715, 42.861778, 0, 0); // Taller
 					case 11: SetPlayer_GPS_Checkpoint(playerid, 1876.87915, -2286.58911, 1.16550 + 15, 0, 0); // Helipuerto
+					case 12: SetPlayer_GPS_Checkpoint(playerid, 1738.542846, -1269.991577, 13.543532, 0, 0); // Tecno
 				}
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_GPS);
