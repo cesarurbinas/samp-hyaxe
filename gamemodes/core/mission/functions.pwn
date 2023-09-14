@@ -62,6 +62,7 @@ MissionFailed(playerid)
             if (PLAYER_TEMP[i][py_MISSION] == PLAYER_TEMP[playerid][py_MISSION])
             {
                 ShowPlayerNotification(i, sprintf("%s ha fracasado la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
+                SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
             }
         }
     }
@@ -126,6 +127,17 @@ CheckMissionPlace(playerid)
                             {
                                 if (players_in_mission <= 1)
                                 {
+                                    SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 100.0);
+                                    FCNPC_GiveHealth(SWEET_DEALERS[i][sd_ID], 100.0);
+                                    
+                                    FCNPC_Spawn(
+                                        SWEET_DEALERS[i][sd_ID],
+                                        DEALER_SKIN[ random(sizeof(DEALER_SKIN))],
+                                        SWEET_DEALERS[i][sd_X],
+                                        SWEET_DEALERS[i][sd_Y],
+                                        SWEET_DEALERS[i][sd_Z]
+                                    );
+
                                     FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
                                     FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
 

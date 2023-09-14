@@ -62,7 +62,7 @@ public NPC_Update()
 
 								FCNPC_GetPosition(npcid, n_x, n_y, n_z);
 
-								if (GetPlayerDistanceFromPoint(x, n_x, n_y, n_z) <= 30.0)
+								if (GetPlayerDistanceFromPoint(x, n_x, n_y, n_z) <= 40.0)
 								{
 									forplayerid = x;
 									break;
@@ -84,6 +84,11 @@ public NPC_Update()
 
 					SetPlayerMarkerForPlayer(forplayerid, npcid, 0xCB2828FF);
 					SetPlayerColor(npcid, 0xCB2828FF);
+				}
+				else
+				{
+					SetPlayerMarkerForPlayer(forplayerid, npcid, PLAYER_COLOR);
+					SetPlayerColor(npcid, PLAYER_COLOR);
 				}
 			}
 		}
