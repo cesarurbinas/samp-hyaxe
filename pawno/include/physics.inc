@@ -184,10 +184,6 @@ public OnGameModeInit()
 {
 	SetTimer("PHY_CoreTimer", PHY_TIMER_INTERVAL, true);
 	
-	#if defined COLANDREAS
-	CA_Init();
-	#endif
-
 	cb_Connect = funcidx("PHY_OnPlayerConnect") != -1;
 	if(funcidx("PHY_OnGameModeInit") != -1)
 		return CallLocalFunction("PHY_OnGameModeInit", "");

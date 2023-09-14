@@ -6612,8 +6612,6 @@ public OnGameModeInit()
 
 	CA_Init();
 
-	//print("OnGamemodeInit()"); // debug juju
-
 	#if defined VOICE_CHAT
 		sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
 		printf("[VOICE] Frecuency: 24000, Rate: 60");
@@ -6630,8 +6628,6 @@ public OnGameModeInit()
 	SendRconCommand("conncookies 0");
 	SendRconCommand("cookielogging 0");
 	SendRconCommand("chatlogging 0");
-
-	ConnectDatabase();
 
 	UsePlayerPedAnims();
 	DisableInteriorEnterExits();
