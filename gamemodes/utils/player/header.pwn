@@ -249,7 +249,7 @@ new BAN_KEYWORDS[][100] =
 	"V O T S",
 	"H.U.B",
 	"170.83.221.2",
-	"BREÃ‘AS",
+	"BREÑAS",
 	"cable color",
 	"CABLE COLOR",
 	"170.83.220.0/22",
@@ -649,7 +649,7 @@ enum Food_Info
 new PIZZA_FOOD[][Food_Info] =
 {
 	{"Pizza de verduras", 25, 10.0, -0.1},
-	{"Pizza de jamÃ³n y queso", 60, 16.0, -0.1},
+	{"Pizza de jamón y queso", 60, 16.0, -0.1},
 	{"Pizza barbacoa", 40, 15.0, -0.1},
 	{"Pizza 4 quesos", 55, 14.0, -0.1},
 	{"Ensalada", 20, 10.0, 5.0},

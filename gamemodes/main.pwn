@@ -36,7 +36,7 @@
 
 // Features
 #define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween

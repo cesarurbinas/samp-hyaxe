@@ -10,10 +10,10 @@ ShowDialog(playerid, dialogid)
 			new dialog[280];
 			format(dialog, sizeof dialog, ""COL_WHITE"\
 				Hola, "COL_RED"%s"COL_WHITE". Esta cuenta no esta registrada.\n\n\
-				\t{E3E3E3}1. ContraseÃ±a\n\
+				\t{E3E3E3}1. Contraseña\n\
 				\t{5c5c5c}2. Correo\n\
 				\t{5c5c5c}3. Sexo"COL_WHITE"\n\n\
-				Ingrese una contraseÃ±a entre 6-18 caracteres.", PLAYER_TEMP[playerid][py_RP_NAME]);
+				Ingrese una contraseña entre 6-18 caracteres.", PLAYER_TEMP[playerid][py_RP_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Registrarse", dialog, "Aceptar", "Cancelar");
 			return 1;
 		}
@@ -21,23 +21,23 @@ ShowDialog(playerid, dialogid)
 		{
 			new dialog_login[164];
 			format(dialog_login, sizeof dialog_login, ""COL_WHITE"\
-				Hola, "COL_RED"%s"COL_WHITE". Esta cuenta ya estÃ¡ registrada.\n\nContraseÃ±a:", PLAYER_TEMP[playerid][py_RP_NAME]);
+				Hola, "COL_RED"%s"COL_WHITE". Esta cuenta ya está registrada.\n\nContraseña:", PLAYER_TEMP[playerid][py_RP_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Ingresa a tu cuenta", dialog_login, "Aceptar", "Cancelar");
 			return 1;
 		}
-		case DIALOG_REGISTER_EMAIL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Correo electrÃ³nico", ""COL_WHITE"Ingresa una direcciÃ³n de correo electrÃ³nico.\n\n\
-			\t{5c5c5c}1. ContraseÃ±a\n\
+		case DIALOG_REGISTER_EMAIL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Correo electrónico", ""COL_WHITE"Ingresa una dirección de correo electrónico.\n\n\
+			\t{5c5c5c}1. Contraseña\n\
 			\t{E3E3E3}2. Correo\n\
 			\t{5c5c5c}3. Sexo"COL_WHITE"\n\n\
-			Esto le va a servir para poder recuperar su contraseÃ±a\nen caso que se la olvide.","Aceptar", "Cerrar");
+			Esto le va a servir para poder recuperar su contraseña\nen caso que se la olvide.","Aceptar", "Cerrar");
         case DIALOG_REGISTER_SEX: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Sexo", ""COL_WHITE"Selecciona un sexo.\n\n\
-        	\t{5c5c5c}1. ContraseÃ±a\n\
+        	\t{5c5c5c}1. Contraseña\n\
 			\t{5c5c5c}2. Correo\n\
 			\t{E3E3E3}3. Sexo"COL_WHITE"\n\n\
 			Este va a ser el sexo inicial de su personaje.", "Hombre", "Mujer");
-		case DIALOG_FOOD_PIZZA: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rÃ¡pida", DIALOG_FOOD_PIZZA_String, "Pedir", "Salir");
-		case DIALOG_FOOD_CLUCKIN: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rÃ¡pida", DIALOG_FOOD_CLUCKIN_String, "Pedir", "Salir");
-		case DIALOG_FOOD_BURGER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rÃ¡pida", DIALOG_FOOD_BURGER_String, "Pedir", "Salir");
+		case DIALOG_FOOD_PIZZA: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", DIALOG_FOOD_PIZZA_String, "Pedir", "Salir");
+		case DIALOG_FOOD_CLUCKIN: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", DIALOG_FOOD_CLUCKIN_String, "Pedir", "Salir");
+		case DIALOG_FOOD_BURGER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", DIALOG_FOOD_BURGER_String, "Pedir", "Salir");
 		case DIALOG_PLAYER_TOYS:
 		{
 			new dialog[96 * (MAX_PLAYER_ATTACHED_OBJECTS + 2)], line_str[64];
@@ -48,26 +48,26 @@ ShowDialog(playerid, dialogid)
 				{
 					if (PLAYER_TOYS[playerid][i][player_toy_VALID])
 					{
-						if (PLAYER_TOYS[playerid][i][player_toy_ATTACHED]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_RED"SÃ­\n", i + 1, PLAYER_TOYS[playerid][i][player_toy_NAME]);
+						if (PLAYER_TOYS[playerid][i][player_toy_ATTACHED]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_RED"Sí\n", i + 1, PLAYER_TOYS[playerid][i][player_toy_NAME]);
 						else format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_RED"No\n", i + 1, PLAYER_TOYS[playerid][i][player_toy_NAME]);
 					}
-					else format(line_str, sizeof line_str, "{666666}%d. Slot vacÃ­o\n", i + 1);
+					else format(line_str, sizeof line_str, "{666666}%d. Slot vacío\n", i + 1);
 				}
 				else
 				{
 					if (i >= MAX_NU_TOYS)
 					{
 						if (PLAYER_TOYS[playerid][i][player_toy_VALID]) format(line_str, sizeof line_str, "{666666}%d. %s\t"COL_RED"No\n", i + 1, PLAYER_TOYS[playerid][i][player_toy_NAME]);
-						else format(line_str, sizeof line_str, "{666666}%d. Slot vacÃ­o\n", i + 1);
+						else format(line_str, sizeof line_str, "{666666}%d. Slot vacío\n", i + 1);
 					}
 					else
 					{
 						if (PLAYER_TOYS[playerid][i][player_toy_VALID])
 						{
-							if (PLAYER_TOYS[playerid][i][player_toy_ATTACHED]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_RED"SÃ­\n", i + 1, PLAYER_TOYS[playerid][i][player_toy_NAME]);
+							if (PLAYER_TOYS[playerid][i][player_toy_ATTACHED]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_RED"Sí\n", i + 1, PLAYER_TOYS[playerid][i][player_toy_NAME]);
 							else format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_RED"No\n", i + 1, PLAYER_TOYS[playerid][i][player_toy_NAME]);
 						}
-						else format(line_str, sizeof line_str, "{666666}%d. Slot vacÃ­o\n", i + 1);
+						else format(line_str, sizeof line_str, "{666666}%d. Slot vacío\n", i + 1);
 					}
 				}
 				strcat(dialog, line_str);
@@ -82,7 +82,7 @@ ShowDialog(playerid, dialogid)
 		{
 			if (!PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_VALID])
 			{
-			    ShowPlayerMessage(playerid, "~r~Este slot estÃ¡ vacÃ­o, puedes comprar accesorios en cualquier tienda de ropa.", 3);
+			    ShowPlayerMessage(playerid, "~r~Este slot está vacío, puedes comprar accesorios en cualquier tienda de ropa.", 3);
 				return 1;
 			}
 
@@ -95,7 +95,7 @@ ShowDialog(playerid, dialogid)
 			{
 				if (PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_BONE] == -1)
 				{
-				    ShowPlayerMessage(playerid, "Este accesorio es nuevo y aÃºn no ha sido configurado, configuralo desde ~y~'Configurar el accesorio'", 4);
+				    ShowPlayerMessage(playerid, "Este accesorio es nuevo y aún no ha sido configurado, configuralo desde ~y~'Configurar el accesorio'", 4);
 					format(dialog, sizeof dialog, ""COL_WHITE"Colocarte el accesorio\n"COL_WHITE"Cambiar el nombre del accesorio\n"COL_WHITE"Configurar el accesorio\n"COL_WHITE"Color primario\n"COL_WHITE"Color secundario\n"COL_WHITE"Eliminar este accesorio");
 				}
 				else format(dialog, sizeof dialog, ""COL_WHITE"Colocarte el accesorio\n"COL_WHITE"Cambiar el nombre del accesorio\n"COL_WHITE"Configurar el accesorio\n"COL_WHITE"Color primario\n"COL_WHITE"Color secundario\n"COL_WHITE"Eliminar este accesorio");
@@ -108,13 +108,13 @@ ShowDialog(playerid, dialogid)
 		{
 			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre actual: \"%s\"\nIndica el nuevo nombre:", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_TOY_CONFIRMDELETE:
 		{
 			new dialog[144];
-			format(dialog, sizeof dialog, ""COL_WHITE"Â¿EstÃ¡s seguro que quieres borrar el accesorio %s?", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
+			format(dialog, sizeof dialog, ""COL_WHITE"¿Estás seguro que quieres borrar el accesorio %s?", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar accesorio", dialog, "Si", "No");
 			return 1;
 		}
@@ -132,7 +132,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_TOY_EDIT_BONE:
@@ -141,24 +141,24 @@ ShowDialog(playerid, dialogid)
 			format(caption, sizeof caption, ""COL_WHITE"Accesorio '%s'", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
 
 			new dialog[144];
-			format(dialog, sizeof(dialog), "Â¿Quieres cambiar la parte del cuerpo donde se coloca este accesorio?\nActualmente estÃ¡ colocado en: %s", Toys_Bones[ PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_BONE] - 1 ]);
+			format(dialog, sizeof(dialog), "¿Quieres cambiar la parte del cuerpo donde se coloca este accesorio?\nActualmente está colocado en: %s", Toys_Bones[ PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_BONE] - 1 ]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, caption, dialog, "SÃ­", "No");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, caption, dialog, "Sí", "No");
 			return 1;
 		}
 		case DIALOG_PLAYER_TOY_COLOR_1:
 		{
 		    ShowPlayerMessage(playerid, "Selecciona el color 0 para poner el color original del accesorio.", 3);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Selecciona color", DIALOG_CREATE_CREW_COLOR_String, "Continuar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Selecciona color", DIALOG_CREATE_CREW_COLOR_String, "Continuar", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_TOY_COLOR_2:
 		{
 			ShowPlayerMessage(playerid, "Selecciona el color 0 para poner el color original del accesorio.", 3);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Selecciona color", DIALOG_CREATE_CREW_COLOR_String, "Continuar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Selecciona color", DIALOG_CREATE_CREW_COLOR_String, "Continuar", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_TOY_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Accesorios - Eliminar todo", "Â¿EstÃ¡ seguro de que quiere eliminar todos sus accesorios?\nEsta opciÃ³n no se puede deshacer.", "Eliminar", "AtrÃ¡s");
+		case DIALOG_PLAYER_TOY_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Accesorios - Eliminar todo", "¿Está seguro de que quiere eliminar todos sus accesorios?\nEsta opción no se puede deshacer.", "Eliminar", "Atrás");
 		case DIALOG_BANK:
 		{
 			if (BANK_ACCOUNT[playerid][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~No tienes cuenta bancaria.", 2);
@@ -167,7 +167,7 @@ ShowDialog(playerid, dialogid)
 			format(caption, sizeof caption, "ID: %s - Balance actual: "COL_GREEN"%s$", number_format_thousand(BANK_ACCOUNT[playerid][bank_account_ID]), number_format_thousand(BANK_ACCOUNT[playerid][bank_account_BALANCE]));
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption,
-				""COL_WHITE"1. Retirar dinero\n"COL_WHITE"2. Depositar dinero\n"COL_WHITE"3. Transferir dinero\n"COL_WHITE"4. Ãšltimas transacciones",
+				""COL_WHITE"1. Retirar dinero\n"COL_WHITE"2. Depositar dinero\n"COL_WHITE"3. Transferir dinero\n"COL_WHITE"4. Últimas transacciones",
 			"Selecc.", "Cerrar");
 			return 1;
 		}
@@ -183,7 +183,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[100];
 			format(dialog, sizeof dialog, ""COL_WHITE"Dinero actual: "COL_GREEN"%s$\n"COL_WHITE"Ingrese la cantidad a retirar.", number_format_thousand(BANK_ACCOUNT[playerid][bank_account_BALANCE]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Retirar", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Retirar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_BANK_DEPOSIT:
@@ -191,16 +191,16 @@ ShowDialog(playerid, dialogid)
 			new dialog[100];
 			format(dialog, sizeof dialog, ""COL_WHITE"Dinero actual: "COL_GREEN"%s$\n"COL_WHITE"Ingrese la cantidad a depositar.", number_format_thousand(CHARACTER_INFO[playerid][ch_CASH]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Depositar", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Depositar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
-		case DIALOG_BANK_TRANSFER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", ""COL_WHITE"Ingrese el nÃºmero de cuenta a donde quiere transferir dinero.\nAviso: NÃºmero de cuenta no es lo mismo que el id del jugador.\nPidale al otro jugador que le de su NÃºmero de cuenta.", "Selecc.", "AtrÃ¡s");
+		case DIALOG_BANK_TRANSFER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", ""COL_WHITE"Ingrese el número de cuenta a donde quiere transferir dinero.\nAviso: Número de cuenta no es lo mismo que el id del jugador.\nPidale al otro jugador que le de su Número de cuenta.", "Selecc.", "Atrás");
 		case DIALOG_BANK_TRANSFER_SEND:
 		{
 			if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2 para transferir.", 3);
 			new dialog[170];
 			format(dialog, sizeof dialog, ""COL_WHITE"Transferir a cuenta: "COL_GREEN"%s\n"COL_WHITE"Dinero actual: "COL_GREEN"%s$\n\n"COL_WHITE"Ingrese la cantidad a transferir.", number_format_thousand(PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT]), number_format_thousand(BANK_ACCOUNT[playerid][bank_account_BALANCE]));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_BANK_TRANSACTIONS:
@@ -282,9 +282,9 @@ ShowDialog(playerid, dialogid)
 			db_free_result(Result);
 
 			new caption[40];
-			format(caption, sizeof caption, ""COL_GREEN"NÃºmero de cuenta: %d", BANK_ACCOUNT[playerid][bank_account_ID]);
+			format(caption, sizeof caption, ""COL_GREEN"Número de cuenta: %d", BANK_ACCOUNT[playerid][bank_account_ID]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Salir", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Salir", "Atrás");
 			return 1;
 		}
 		case DIALOG_247_LIST: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"24/7", DIALOG_247_LIST_String, "Selecc.", "Cerrar");
@@ -293,7 +293,7 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Farmacia", ""COL_WHITE"Producto\t"COL_WHITE"Precio\n\
 				"COL_WHITE"5 Vendas\t"COL_GREEN"70$\n\
 				"COL_WHITE"10 Medicamentos\t"COL_GREEN"170$\n\
-				"COL_WHITE"1 BotiquÃ­n\t"COL_GREEN"720$\n", "Comprar", "Salir");
+				"COL_WHITE"1 Botiquín\t"COL_GREEN"720$\n", "Comprar", "Salir");
 			return 1;
 		}
 		case DIALOG_PLAYER_POCKET:
@@ -308,7 +308,7 @@ ShowDialog(playerid, dialogid)
 				}
 				else
 				{
-					format(line_str, sizeof line_str, "{666666}%d. Slot vacÃ­o\n", i + 1);
+					format(line_str, sizeof line_str, "{666666}%d. Slot vacío\n", i + 1);
 					strcat(dialog, line_str);
 				}
 			}
@@ -321,18 +321,18 @@ ShowDialog(playerid, dialogid)
 		{
 			new caption[40];
 			format(caption, sizeof caption, "Alimento - %s", PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Consumir\n"COL_WHITE"2. Eliminar", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Consumir\n"COL_WHITE"2. Eliminar", "Selecc.", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_POCKET_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Alimentos - Eliminar todo", "Â¿EstÃ¡ seguro de que quiere eliminar todos sus alimentos?\nEsta opciÃ³n no se puede deshacer y perderÃ¡s todos lo que haya.", "Eliminar", "AtrÃ¡s");
+		case DIALOG_PLAYER_POCKET_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Alimentos - Eliminar todo", "¿Está seguro de que quiere eliminar todos sus alimentos?\nEsta opción no se puede deshacer y perderás todos lo que haya.", "Eliminar", "Atrás");
 		case DIALOG_PHONE:
 		{
 			new caption[50];
-			format(caption, sizeof caption, ""COL_RED"TelÃ©fono - %d", PLAYER_PHONE[playerid][player_phone_NUMBER]);
+			format(caption, sizeof caption, ""COL_RED"Teléfono - %d", PLAYER_PHONE[playerid][player_phone_NUMBER]);
 
 			new dialog[200];
-			if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_ON) format(dialog, sizeof dialog, "Llamar\nEnviar mensaje\nApagar telÃ©fono");
-			else format(dialog, sizeof dialog, ""COL_WHITE"Encender telÃ©fono\nLlamar\nEnviar mensaje");
+			if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_ON) format(dialog, sizeof dialog, "Llamar\nEnviar mensaje\nApagar teléfono");
+			else format(dialog, sizeof dialog, ""COL_WHITE"Encender teléfono\nLlamar\nEnviar mensaje");
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
@@ -341,7 +341,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[80 * (MAX_PHONE_CONTACTS + 3)];
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"NÃºmero\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Número\n");
 
 			new line_str[80], contacts, listitem;
 			for(new i = 0; i != MAX_PHONE_CONTACTS; i++ )
@@ -357,7 +357,7 @@ ShowDialog(playerid, dialogid)
 			if (contacts < MAX_PHONE_CONTACTS)
 			{
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = MAX_PHONE_CONTACTS + 10;
-				strcat(dialog, ""COL_GREEN"+"COL_WHITE" AÃ±adir contacto\n"); listitem ++;
+				strcat(dialog, ""COL_GREEN"+"COL_WHITE" Añadir contacto\n"); listitem ++;
 			}
 			if (contacts > 0)
 			{
@@ -368,14 +368,14 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Contactos", dialog, "Ver", "Cerrar");
 			return 1;
 		}
-		case DIALOG_PHONE_BOOK_ADD_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Agenda - AÃ±adir contacto", "EstÃ¡ aÃ±adiendo un nuevo contacto en su agenda.\nIndique el nÃºmero de telÃ©fono del nuevo contacto.", "Selecc.", "AtrÃ¡s");
-		case DIALOG_PHONE_BOOK_ADD_NAME: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Agenda - AÃ±adir contacto", "EstÃ¡ aÃ±adiendo un nuevo contacto en su agenda.\nIndique el nombre del nuevo contacto.", "Selecc.", "AtrÃ¡s");
+		case DIALOG_PHONE_BOOK_ADD_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Agenda - Añadir contacto", "Está añadiendo un nuevo contacto en su agenda.\nIndique el número de teléfono del nuevo contacto.", "Selecc.", "Atrás");
+		case DIALOG_PHONE_BOOK_ADD_NAME: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Agenda - Añadir contacto", "Está añadiendo un nuevo contacto en su agenda.\nIndique el nombre del nuevo contacto.", "Selecc.", "Atrás");
 		case DIALOG_PHONE_BOOK_OPTIONS:
 		{
 			new caption[40];
 			format(caption, sizeof caption, ""COL_RED"%s", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Llamar\n"COL_WHITE"Enviar mensaje\n"COL_WHITE"Cambiar nombre del contacto\n"COL_WHITE"Eliminar este contacto", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Llamar\n"COL_WHITE"Enviar mensaje\n"COL_WHITE"Cambiar nombre del contacto\n"COL_WHITE"Eliminar este contacto", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PHONE_BOOK_CHANGE_NAME:
@@ -384,9 +384,9 @@ ShowDialog(playerid, dialogid)
 			format(caption, sizeof caption, ""COL_RED"%s", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME]);
 
 			new dialog[140];
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre actual: %s\nTelÃ©fono: %d\n\nIndica el nuevo nombre de este contacto.", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_PHONE_NUMBER]);
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre actual: %s\nTeléfono: %d\n\nIndica el nuevo nombre de este contacto.", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_PHONE_NUMBER]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Cambiar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Cambiar", "Atrás");
 			return 1;
 		}
 		case DIALOG_PHONE_BOOK_CONFIRM_DELET:
@@ -395,16 +395,16 @@ ShowDialog(playerid, dialogid)
 			format(caption, sizeof caption, ""COL_RED"%s", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME]);
 
 			new dialog[140];
-			format(dialog, sizeof dialog, ""COL_WHITE"Â¿EstÃ¡ seguro de que desea eliminar el siguiente contacto?\n\nNombre: %s\nTelÃ©fono: %d", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_PHONE_NUMBER]);
+			format(dialog, sizeof dialog, ""COL_WHITE"¿Está seguro de que desea eliminar el siguiente contacto?\n\nNombre: %s\nTeléfono: %d", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_PHONE_NUMBER]);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, caption, dialog, "Si", "No");
 			return 1;
 		}
-		case DIALOG_PHONE_BOOK_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", ""COL_WHITE"Â¿EstÃ¡ seguro de que quiere eliminar todos sus contactos?\nEsta opciÃ³n no se puede deshacer y perderÃ¡s todos los contactos guardados.", "Eliminar", "AtrÃ¡s");
-		case DIALOG_PHONE_CALL_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Llamar", ""COL_WHITE"Â¿A quiÃ©n quieres llamar?\nIndique el nÃºmero al que desea llamar.", "Selecc.", "AtrÃ¡s");
-		case DIALOG_PHONE_SMS_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Â¿A quiÃ©n quieres enviarle el mensaje?\nIndique el nÃºmero al que desea enviar el mensaje.", "Selecc.", "AtrÃ¡s");
-		case DIALOG_PHONE_SMS_MESSAGE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Escribe el mensaje que quieres enviar\nCaracteres: 1-64.", "Selecc.", "AtrÃ¡s");
-		case DIALOG_PHONE_BOOK_SEND_MESSAGE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Escribe el mensaje que quieres enviar\nCaracteres: 1-64.", "Selecc.", "AtrÃ¡s");
+		case DIALOG_PHONE_BOOK_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", ""COL_WHITE"¿Está seguro de que quiere eliminar todos sus contactos?\nEsta opción no se puede deshacer y perderás todos los contactos guardados.", "Eliminar", "Atrás");
+		case DIALOG_PHONE_CALL_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Llamar", ""COL_WHITE"¿A quién quieres llamar?\nIndique el número al que desea llamar.", "Selecc.", "Atrás");
+		case DIALOG_PHONE_SMS_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"¿A quién quieres enviarle el mensaje?\nIndique el número al que desea enviar el mensaje.", "Selecc.", "Atrás");
+		case DIALOG_PHONE_SMS_MESSAGE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Escribe el mensaje que quieres enviar\nCaracteres: 1-64.", "Selecc.", "Atrás");
+		case DIALOG_PHONE_BOOK_SEND_MESSAGE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Escribe el mensaje que quieres enviar\nCaracteres: 1-64.", "Selecc.", "Atrás");
 		case DIALOG_PHONE_SENT_MESSAGES:
 		{
 			new dialog[128 * 5];
@@ -435,7 +435,7 @@ ShowDialog(playerid, dialogid)
 			db_free_result(Result);
 
 			new caption[40];
-			format(caption, sizeof caption, ""COL_RED"Ãšltimos %d mensajes enviados", messages);
+			format(caption, sizeof caption, ""COL_RED"Últimos %d mensajes enviados", messages);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Cerrar", "");
 			return 1;
@@ -470,7 +470,7 @@ ShowDialog(playerid, dialogid)
 			db_free_result(Result);
 
 			new caption[40];
-			format(caption, sizeof caption, ""COL_RED"Ãšltimos %d mensajes recibidos", messages);
+			format(caption, sizeof caption, ""COL_RED"Últimos %d mensajes recibidos", messages);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Cerrar", "");
 			return 1;
@@ -482,12 +482,12 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_CONFIRM_BUY_PROPERTY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Confirmar compra", ""COL_WHITE"Haga click en el botÃ³n de Comprar para confirmar.", "Comprar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Confirmar compra", ""COL_WHITE"Haga click en el botón de Comprar para confirmar.", "Comprar", "Salir");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"GPS",  "Lugares guardados\nPropiedades\nVehÃ­culos\nOtros\nTrabajos", "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"GPS",  "Lugares guardados\nPropiedades\nVehículos\nOtros\nTrabajos", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_PLAYER:
@@ -511,7 +511,7 @@ ShowDialog(playerid, dialogid)
 			if (sites < MAX_PLAYER_GPS_SAVES)
 			{
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = MAX_PLAYER_GPS_SAVES + 10;
-				strcat(dialog, ""COL_GREEN"+"COL_WHITE" AÃ±adir lugar actual\n"); listitem ++;
+				strcat(dialog, ""COL_GREEN"+"COL_WHITE" Añadir lugar actual\n"); listitem ++;
 			}
 			if (sites > 0)
 			{
@@ -519,40 +519,40 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, ""COL_RED"Cerrar"COL_WHITE" Eliminar todo\n"); listitem ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis lugares", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis lugares", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_PLAYER_ADD:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"AÃ±adir lugar", ""COL_WHITE"Tu posiciÃ³n actual serÃ¡ guardada en este lugar para ir mÃ¡s tarde.\nIndica el nombre de este lugar para guardarlo.", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Añadir lugar", ""COL_WHITE"Tu posición actual será guardada en este lugar para ir más tarde.\nIndica el nombre de este lugar para guardarlo.", "Selecc.", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_GPS_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", ""COL_WHITE"Â¿EstÃ¡ seguro de que quiere eliminar todos sus lugares?\nEsta opciÃ³n no se puede deshacer y perderÃ¡s todos los lugares guardados.", "Eliminar", "AtrÃ¡s");
+		case DIALOG_PLAYER_GPS_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", ""COL_WHITE"¿Está seguro de que quiere eliminar todos sus lugares?\nEsta opción no se puede deshacer y perderás todos los lugares guardados.", "Eliminar", "Atrás");
 		case DIALOG_PLAYER_GPS_PLAYER_OPTION:
 		{
 			new caption[40];
 			format(caption, sizeof caption, ""COL_RED"%s", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Marcar coordenadas en el GPS\n"COL_WHITE"2. Cambiar nombre de este lugar\n"COL_WHITE"3. Eliminar este lugar del GPS", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Marcar coordenadas en el GPS\n"COL_WHITE"2. Cambiar nombre de este lugar\n"COL_WHITE"3. Eliminar este lugar del GPS", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_CHANGE_NAME:
 		{
 			new dialog[90];
 			format(dialog, sizeof dialog, "Nombre del lugar: %s\nIndica el nuevo nombre para este lugar.", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de un lugar", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de un lugar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_CONFIRM_DELET:
 		{
 			new dialog[95];
-			format(dialog, sizeof dialog, "Nombre del lugar: %s\nÂ¿EstÃ¡ seguro de que quiere borrarlo del GPS?", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar un lugar", dialog, "Eliminar", "AtrÃ¡s");
+			format(dialog, sizeof dialog, "Nombre del lugar: %s\n¿Está seguro de que quiere borrarlo del GPS?", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar un lugar", dialog, "Eliminar", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITES:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Otros", "Hospitales\nTiendas de Ropa\nNegocios\nRestaurantes\nBancos\nCajeros\nGasolineras\nConcesionarios\nBanco Central\nPolicÃ­as\nTaller mecÃ¡nico\nHelipuerto\nTienda Tecno", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Otros", "Hospitales\nTiendas de Ropa\nNegocios\nRestaurantes\nBancos\nCajeros\nGasolineras\nConcesionarios\nBanco Central\nPolicías\nTaller mecánico\nHelipuerto\nTienda Tecno", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_WORKS:
@@ -574,7 +574,7 @@ ShowDialog(playerid, dialogid)
 				listitem ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Trabajos", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Trabajos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TRABAJOS_TELEPORTS:
@@ -593,12 +593,12 @@ ShowDialog(playerid, dialogid)
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = i;
 				listitem ++;
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Trabajos", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Trabajos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_0: //Hospitales
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Hospitales", DIALOG_PLAYER_GPS_SITE_0_String, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Hospitales", DIALOG_PLAYER_GPS_SITE_0_String, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_1: //Tiendas de ropa
@@ -621,7 +621,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Tiendas de ropa", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Tiendas de ropa", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_2: //Tiendas 24 horas
@@ -651,7 +651,7 @@ ShowDialog(playerid, dialogid)
 				PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 4;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Negocios", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Negocios", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_3: //Comida rapida
@@ -674,7 +674,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Restaurantes", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Restaurantes", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_4: //Bancos
@@ -697,7 +697,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Bancos", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Bancos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_5: //Cajeros
@@ -714,7 +714,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Cajeros", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Cajeros", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_6: //Gasolineras
@@ -731,12 +731,12 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Gasolineras", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Gasolineras", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_7: //Concesionarios
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Concesionarios", DIALOG_PLAYER_GPS_SITE_7_String, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Concesionarios", DIALOG_PLAYER_GPS_SITE_7_String, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_8: //Policias
@@ -759,7 +759,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"PolicÃ­as", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Policías", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_PROPERTIES:
@@ -797,7 +797,7 @@ ShowDialog(playerid, dialogid)
 			}
 			db_free_result(Result);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis propiedades", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis propiedades", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_VEHICLES:
@@ -805,7 +805,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[115 * (MAX_SU_VEHICLES + 2)], total_vehicles;
-			format(dialog, sizeof dialog, ""COL_WHITE"VehÃ­culo\t"COL_WHITE"MatrÃ­cula\t"COL_WHITE"Distancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Vehículo\t"COL_WHITE"Matrícula\t"COL_WHITE"Distancia\n");
 			for(new i = 0; i != MAX_VEHICLES; i ++)
 			{
 				if (!GLOBAL_VEHICLES[i][gb_vehicle_VALID]) continue;
@@ -827,19 +827,19 @@ ShowDialog(playerid, dialogid)
 					total_vehicles ++;
 				}
 			}
-			if (total_vehicles == 0) strcat(dialog, ""COL_WHITE"No tienes vehÃ­culos");
+			if (total_vehicles == 0) strcat(dialog, ""COL_WHITE"No tienes vehículos");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis vehÃ­culos", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis vehículos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_GASOLINE:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Gasolinera", "Cargar gasolina\nLlenar tanque\nComprar bidÃ³n", "Comprar", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Gasolinera", "Cargar gasolina\nLlenar tanque\nComprar bidón", "Comprar", "Cerrar");
 			return 1;
 		}
 		case DIALOG_HELI_OPTIONS:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"VehÃ­culo", "Cargar gasolina\nModificar", "Comprar", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Vehículo", "Cargar gasolina\nModificar", "Comprar", "Cerrar");
 			return 1;
 		}
 		case DIALOG_LOAD_GASOLINE:
@@ -849,7 +849,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_FUEL_DRUM:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Poner gasolina", ""COL_WHITE"Ingrese la cantidad a cargar desde su bidÃ³n de gasolina.", "Cargar", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Poner gasolina", ""COL_WHITE"Ingrese la cantidad a cargar desde su bidón de gasolina.", "Cargar", "Cerrar");
 			return 1;
 		}
 		case DIALOG_PROPERTY_OPTIONS:
@@ -867,12 +867,12 @@ ShowDialog(playerid, dialogid)
 				}
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PROPERTY_NAME:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la propiedad", ""COL_WHITE"Ingresa el nuevo nombre de la propiedad.", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la propiedad", ""COL_WHITE"Ingresa el nuevo nombre de la propiedad.", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Buscar en YouTube", ""COL_WHITE"Introduce el nombre de un video de YouTube que quieras reproducir.", "Buscar", "Salir");
@@ -884,10 +884,10 @@ ShowDialog(playerid, dialogid)
 
 			new dialog[800];
 			format(dialog, sizeof dialog,
-				""COL_WHITE"VehÃ­culo: %s\n\
+				""COL_WHITE"Vehículo: %s\n\
 				"COL_WHITE"Nivel necesario:{df423d} %d\n\
-				"COL_WHITE"Precio del vehÃ­culo:{df423d} %s$\n\
-				"COL_WHITE"Velocidad mÃ¡xima: %d Km/h\n\
+				"COL_WHITE"Precio del vehículo:{df423d} %s$\n\
+				"COL_WHITE"Velocidad máxima: %d Km/h\n\
 				"COL_WHITE"Capacidad de tanque:{67df3d} %.1f Litros\n\
 				"COL_WHITE"Seguro: {dfbf3d}%s$"COL_GREEN"\n\n",
 				VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME],
@@ -901,63 +901,63 @@ ShowDialog(playerid, dialogid)
 			new str[144];
 			if (SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_LEVEL] > ACCOUNT_INFO[playerid][ac_LEVEL])
 			{
-				format(str, sizeof str, "{dc0606}Necesitas ser al menos nivel %d para poder comprar este vehÃ­culo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_LEVEL]);
+				format(str, sizeof str, "{dc0606}Necesitas ser al menos nivel %d para poder comprar este vehículo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_LEVEL]);
 				strcat(dialog, str);
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehÃ­culo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
 			if (SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_VIP_LEVEL] > ACCOUNT_INFO[playerid][ac_SU])
 			{
-				format(str, sizeof str, "{dc0606}Necesitas membresÃ­a VIP%d para poder comprar este vehÃ­culo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_VIP_LEVEL]);
+				format(str, sizeof str, "{dc0606}Necesitas membresía VIP%d para poder comprar este vehículo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_VIP_LEVEL]);
 				strcat(dialog, str);
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehÃ­culo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
 			if (BANK_ACCOUNT[playerid][bank_account_ID] == 0)
 			{
-				strcat(dialog, "{dc0606}Necesitas una cuenta bancaria para poder comprar vehÃ­culos.");
+				strcat(dialog, "{dc0606}Necesitas una cuenta bancaria para poder comprar vehículos.");
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehÃ­culo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
 			if (SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_PRICE] > BANK_ACCOUNT[playerid][bank_account_BALANCE])
 			{
 				new diff = SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_PRICE] - BANK_ACCOUNT[playerid][bank_account_BALANCE];
-				format(str, sizeof str, "{dc0606}Te faltan %s$ en tu cuenta bancaria para poder comprar este vehÃ­culo.", number_format_thousand(diff));
+				format(str, sizeof str, "{dc0606}Te faltan %s$ en tu cuenta bancaria para poder comprar este vehículo.", number_format_thousand(diff));
 				strcat(dialog, str);
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehÃ­culo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
 			if (SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA] > ACCOUNT_INFO[playerid][ac_SD])
 			{
-				format(str, sizeof str, "{dc0606}Te faltan %d "SERVER_COIN" para poder comprar este vehÃ­culo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA] - ACCOUNT_INFO[playerid][ac_SD]);
+				format(str, sizeof str, "{dc0606}Te faltan %d "SERVER_COIN" para poder comprar este vehículo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA] - ACCOUNT_INFO[playerid][ac_SD]);
 				strcat(dialog, str);
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehÃ­culo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
-			if (!SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA]) format(str, sizeof str, "Balance de tu cuenta bancaria: %s$\nBalance tras la compra: %s$\n\nÂ¿De verdad desea comprar este vehÃ­culo?", number_format_thousand(BANK_ACCOUNT[playerid][bank_account_BALANCE]), number_format_thousand(BANK_ACCOUNT[playerid][bank_account_BALANCE] - SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_PRICE]));
-			else format(str, sizeof str, "Tus monedas: %d "SERVER_COIN"\nMonedas tras la compra: %d "SERVER_COIN"\n\nÂ¿De verdad desea comprar este vehÃ­culo?", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SD] - SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA]);
+			if (!SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA]) format(str, sizeof str, "Balance de tu cuenta bancaria: %s$\nBalance tras la compra: %s$\n\n¿De verdad desea comprar este vehículo?", number_format_thousand(BANK_ACCOUNT[playerid][bank_account_BALANCE]), number_format_thousand(BANK_ACCOUNT[playerid][bank_account_BALANCE] - SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_PRICE]));
+			else format(str, sizeof str, "Tus monedas: %d "SERVER_COIN"\nMonedas tras la compra: %d "SERVER_COIN"\n\n¿De verdad desea comprar este vehículo?", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SD] - SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA]);
 			strcat(dialog, str);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehÃ­culo", dialog, "Comprar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Comprar", "Salir");
 			return 1;
 		}
 		case DIALOG_NOTARY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"NotarÃ­a",
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Notaría",
 				"Vender una propiedad al banco\n\
-				Vender un vehÃ­culo al banco\n\
+				Vender un vehículo al banco\n\
 				Vender una propiedad a una persona\n\
-				Vender un vehÃ­culo a una persona", "Ver", "Cerrar");
+				Vender un vehículo a una persona", "Ver", "Cerrar");
 			return 1;
 		}
 		case DIALOG_NOTARY_SELECT_PROPERTY:
@@ -992,7 +992,7 @@ ShowDialog(playerid, dialogid)
 			}
 			db_free_result(Result);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona la propiedad", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona la propiedad", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PROPERTY_BANK_SELL:
@@ -1006,8 +1006,8 @@ ShowDialog(playerid, dialogid)
 			else payment = floatround( floatmul(price, 0.70) );
 
 			new dialog[160];
-			format(dialog, sizeof dialog, ""COL_WHITE"Precio en mercado: %s$\nNosotros te pagaremos: %s$\n\nÂ¿EstÃ¡ seguro de que quiere venderla?", number_format_thousand(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_PRICE]), number_format_thousand(payment));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, caption, dialog, "Vender", "AtrÃ¡s");
+			format(dialog, sizeof dialog, ""COL_WHITE"Precio en mercado: %s$\nNosotros te pagaremos: %s$\n\n¿Está seguro de que quiere venderla?", number_format_thousand(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_PRICE]), number_format_thousand(payment));
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, caption, dialog, "Vender", "Atrás");
 			return 1;
 		}
 		case DIALOG_PROPERTY_SELL_PRICE:
@@ -1022,11 +1022,11 @@ ShowDialog(playerid, dialogid)
 
 			new dialog[250];
 			format(dialog, sizeof dialog,
-			""COL_WHITE"Precio en mercado: %s$\n\nPrecio mÃ­nimo de venta: %s$\nPrecio mÃ¡ximo de venta: %s$\n\nÂ¿Por cuÃ¡nto quieres vender esta propiedad?",
+			""COL_WHITE"Precio en mercado: %s$\n\nPrecio mínimo de venta: %s$\nPrecio máximo de venta: %s$\n\n¿Por cuánto quieres vender esta propiedad?",
 			number_format_thousand(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_PRICE]),
 			number_format_thousand(min_price),
 			number_format_thousand(max_price));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PROPERTY_SELL_TO_PLAYER:
@@ -1037,7 +1037,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[250];
 			format(dialog, sizeof dialog, ""COL_WHITE"Quieres vender esta propiedad por %s$.\n\nIndica el nombre o playerid del comprador.\nEl comprador debe estar en la sala y cumplir todos los requisitos.", number_format_thousand(PLAYER_TEMP[playerid][py_NOTARY_PRICE]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SELL_CONFIRM_PROPERTY:
@@ -1048,7 +1048,7 @@ ShowDialog(playerid, dialogid)
 				Propiedad: %d\n\
 				Precio: %s$\n\n\
 				Balance tras la compra: %s$\n\n\
-				Â¿Quieres comprar esta propiedad?",
+				¿Quieres comprar esta propiedad?",
 				PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_RP_NAME],
 				PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],
 				number_format_thousand(PLAYER_TEMP[playerid][py_NOTARY_PRICE]),
@@ -1063,7 +1063,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[95 * (MAX_SU_VEHICLES + 2)], total_vehicles;
-			format(dialog, sizeof dialog, ""COL_WHITE"VehÃ­culo\t"COL_RED"MatrÃ­cula\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Vehículo\t"COL_RED"Matrícula\n");
 			for(new i = 0; i != MAX_VEHICLES; i ++)
 			{
 				if (!GLOBAL_VEHICLES[i][gb_vehicle_VALID]) continue;
@@ -1080,9 +1080,9 @@ ShowDialog(playerid, dialogid)
 					total_vehicles ++;
 				}
 			}
-			if (total_vehicles == 0) strcat(dialog, ""COL_WHITE"No tienes vehÃ­culos");
+			if (total_vehicles == 0) strcat(dialog, ""COL_WHITE"No tienes vehículos");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona el vehÃ­culo", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona el vehículo", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VEHICLE_BANK_SELL:
@@ -1096,8 +1096,8 @@ ShowDialog(playerid, dialogid)
 			else payment = floatround( floatmul(price, 0.70) );
 
 			new dialog[160];
-			format(dialog, sizeof dialog, ""COL_WHITE"Precio en mercado: %s$\nNosotros te pagaremos: %s$\n\nÂ¿EstÃ¡ seguro de que quiere venderlo?", number_format_thousand( VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_PRICE] ), number_format_thousand(payment));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, caption, dialog, "Vender", "AtrÃ¡s");
+			format(dialog, sizeof dialog, ""COL_WHITE"Precio en mercado: %s$\nNosotros te pagaremos: %s$\n\n¿Está seguro de que quiere venderlo?", number_format_thousand( VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_PRICE] ), number_format_thousand(payment));
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, caption, dialog, "Vender", "Atrás");
 			return 1;
 		}
 		case DIALOG_VEHICLE_SELL_PRICE:
@@ -1112,11 +1112,11 @@ ShowDialog(playerid, dialogid)
 
 			new dialog[250];
 			format(dialog, sizeof dialog,
-			""COL_WHITE"Precio en mercado: %s$\n\nPrecio mÃ­nimo de venta: %s$\nPrecio mÃ¡ximo de venta: %s$\n\nÂ¿Por cuÃ¡nto quieres vender este vehÃ­culo?",
+			""COL_WHITE"Precio en mercado: %s$\n\nPrecio mínimo de venta: %s$\nPrecio máximo de venta: %s$\n\n¿Por cuánto quieres vender este vehículo?",
 			number_format_thousand(VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_PRICE]),
 			number_format_thousand(min_price),
 			number_format_thousand(max_price));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VEHICLE_SELL_TO_PLAYER:
@@ -1125,21 +1125,21 @@ ShowDialog(playerid, dialogid)
 			format(caption, sizeof caption, ""COL_RED"Vender - %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
 			new dialog[250];
-			format(dialog, sizeof dialog, ""COL_WHITE"Quieres vender este vehÃ­culo por %s$.\n\nIndica el nombre o playerid del comprador.\nEl comprador debe estar en la sala y cumplir todos los requisitos.", number_format_thousand(PLAYER_TEMP[playerid][py_NOTARY_PRICE]));
+			format(dialog, sizeof dialog, ""COL_WHITE"Quieres vender este vehículo por %s$.\n\nIndica el nombre o playerid del comprador.\nEl comprador debe estar en la sala y cumplir todos los requisitos.", number_format_thousand(PLAYER_TEMP[playerid][py_NOTARY_PRICE]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SELL_CONFIRM_VEHICLE:
 		{
 			new dialog[300];
 			format(dialog, sizeof dialog,
-				""COL_WHITE"%s te quiere vender un vehÃ­culo.\n\n\
-				"COL_WHITE"VehÃ­culo: %s\n\
-				"COL_WHITE"MatrÃ­cula: %s\n\
+				""COL_WHITE"%s te quiere vender un vehículo.\n\n\
+				"COL_WHITE"Vehículo: %s\n\
+				"COL_WHITE"Matrícula: %s\n\
 				"COL_WHITE"Precio:{df423d} %s$\n\n\
 				"COL_WHITE"Balance tras la compra: "COL_GREEN"%s$\n\n\
-				"COL_WHITE"Â¿Quieres comprar este vehÃ­culo?",
+				"COL_WHITE"¿Quieres comprar este vehículo?",
 				PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_RP_NAME],
 				VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME],
 				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_NUMBER_PLATE],
@@ -1161,9 +1161,9 @@ ShowDialog(playerid, dialogid)
 			format(DB_Query, sizeof DB_Query, "SELECT `COMPONENTS_INFO`.`PART`, `COMPONENTS_INFO`.`PIECES` FROM `COMPONENTS_INFO`, `VEHICLE_COMPONENTS` WHERE `VEHICLE_COMPONENTS`.`MODELID` = '%d' AND `VEHICLE_COMPONENTS`.`COMPONENT_ID` = `COMPONENTS_INFO`.`ID` GROUP BY `COMPONENTS_INFO`.`PART`;", GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID]);
 			Result = db_query(Database, DB_Query);
 
-			format(dialog, sizeof dialog, ""COL_WHITE"CategorÃ­a\tPiezas necesarias\tEstimaciÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Categoría\tPiezas necesarias\tEstimación\n");
 
-			if (db_num_rows(Result) == 0) strcat(dialog, "{666666}Este vehÃ­culo no se puede tunear");
+			if (db_num_rows(Result) == 0) strcat(dialog, "{666666}Este vehículo no se puede tunear");
 			else
 			{
 				new line_str[80];
@@ -1171,7 +1171,7 @@ ShowDialog(playerid, dialogid)
 				{
 					if (i >= TOTAL_TUNING_PARTS)
 					{
-						printf("[debug]  LÃ­mite superado en array 'PLAYER_TUNING_MENU, dialog Parts' al intentar cargar de la base de datos.");
+						printf("[debug]  Límite superado en array 'PLAYER_TUNING_MENU, dialog Parts' al intentar cargar de la base de datos.");
 						break;
 					}
 
@@ -1185,7 +1185,7 @@ ShowDialog(playerid, dialogid)
 			}
 			db_free_result(Result);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TUNING_MENU_COMPONENT:
@@ -1205,7 +1205,7 @@ ShowDialog(playerid, dialogid)
 				{
 					if (i >= MAX_TUNING_PARTS_COMPONENTS)
 					{
-						printf("[debug]  LÃ­mite superado en array 'PLAYER_TUNING_MENU, dialog Partsnames' al intentar cargar de la base de datos.");
+						printf("[debug]  Límite superado en array 'PLAYER_TUNING_MENU, dialog Partsnames' al intentar cargar de la base de datos.");
 						break;
 					}
 
@@ -1220,7 +1220,7 @@ ShowDialog(playerid, dialogid)
 			}
 			db_free_result(Result);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Tunear", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Tunear", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_MENU:
@@ -1231,29 +1231,29 @@ ShowDialog(playerid, dialogid)
 			new dialog[450];
 			format(dialog, sizeof dialog,
 			"\
-				"COL_WHITE"OpciÃ³n\t"COL_RED"Piezas necesarias\t"COL_WHITE"EstimaciÃ³n\n\
-				"COL_WHITE"ReparaciÃ³n completa\t"COL_RED"10\t"COL_WHITE"500$\n\
+				"COL_WHITE"Opción\t"COL_RED"Piezas necesarias\t"COL_WHITE"Estimación\n\
+				"COL_WHITE"Reparación completa\t"COL_RED"10\t"COL_WHITE"500$\n\
 			");
 
 			if (IsPlayerInDynamicArea(playerid, Mechanic_Area))
 			{
 				new paintjobs = VehiclePaintjob( GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] );
-				strcat(dialog, ""COL_WHITE"Pintar vehÃ­culo\t"COL_RED"5\t"COL_WHITE"250$\n");
+				strcat(dialog, ""COL_WHITE"Pintar vehículo\t"COL_RED"5\t"COL_WHITE"250$\n");
 				if (PLAYER_SKILLS[playerid][WORK_MECHANIC] >= 100)
 				{
 					strcat(dialog, ""COL_WHITE"Eliminar componentes\n");
-					strcat(dialog, ""COL_WHITE"Tunear vehÃ­culo\n");
+					strcat(dialog, ""COL_WHITE"Tunear vehículo\n");
 					if (paintjobs > 0) strcat(dialog, ""COL_WHITE"Paintjob\t"COL_RED"15\t"COL_WHITE"750$\n");
 				}
 				else
 				{
 					strcat(dialog, "{666666}Eliminar componentes\n");
-					strcat(dialog, "{666666}Tunear vehÃ­culo\n");
+					strcat(dialog, "{666666}Tunear vehículo\n");
 					if (paintjobs > 0) strcat(dialog, "{666666}Paintjob\t{666666}15\t{666666}750$\n");
 				}
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_REPAIR_PRICE:
@@ -1261,7 +1261,7 @@ ShowDialog(playerid, dialogid)
 			new caption[60];
 			format(caption, sizeof caption, "Reparar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio de la reparaciÃ³n.\nRango de precio: 0$ - 2.000$", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio de la reparación.\nRango de precio: 0$ - 2.000$", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_COLOR_PRICE:
@@ -1269,7 +1269,7 @@ ShowDialog(playerid, dialogid)
 			new caption[60];
 			format(caption, sizeof caption, "Pintar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para pintar el vehÃ­culo.\nRango de precio: 0$ - 1.750$", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para pintar el vehículo.\nRango de precio: 0$ - 1.750$", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_TUNING_PRICE:
@@ -1277,8 +1277,8 @@ ShowDialog(playerid, dialogid)
 			new caption[60], dialog[144];
 			format(caption, sizeof caption, "Tunear %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
-			format(dialog, sizeof dialog, "Indica el precio para tunear el vehÃ­culo.\nRango de precio: 0$ - %s$", number_format_thousand((PLAYER_TEMP[playerid][py_TUNING_SELECTED_PIECES] * 50) + 2000));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "AtrÃ¡s");
+			format(dialog, sizeof dialog, "Indica el precio para tunear el vehículo.\nRango de precio: 0$ - %s$", number_format_thousand((PLAYER_TEMP[playerid][py_TUNING_SELECTED_PIECES] * 50) + 2000));
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_PAINTJOB_PRICE:
@@ -1286,7 +1286,7 @@ ShowDialog(playerid, dialogid)
 			new caption[60];
 			format(caption, sizeof caption, "Paintjob %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para el paintjob del vehÃ­culo.\nRango de precio: 0$ - 2.750$", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para el paintjob del vehículo.\nRango de precio: 0$ - 2.750$", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_ACCEPT:
@@ -1295,23 +1295,23 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog,
 
 				"\
-					"COL_WHITE"El mecÃ¡nico %s te ofrece:\n\
+					"COL_WHITE"El mecánico %s te ofrece:\n\
 						\t%s\n\
 					\n\
 					"COL_WHITE"Precio: %s$\n\
-					Â¿Quieres aceptarlo?\n\
+					¿Quieres aceptarlo?\n\
 				",
 					PLAYER_TEMP[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][py_RP_NAME],
 					PLAYER_TEMP[playerid][py_MECHANIC_TEXT],
 					number_format_thousand(PLAYER_TEMP[playerid][py_MECHANIC_PRICE])
 			);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "MecÃ¡nico", dialog, "Aceptar", "Cancelar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Mecánico", dialog, "Aceptar", "Cancelar");
 			return 1;
 		}
 		case DIALOG_TUNING_SELECT_COL_SLOT:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehÃ­culo", ""COL_WHITE"Color primario\n"COL_WHITE"Color secundario", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehículo", ""COL_WHITE"Color primario\n"COL_WHITE"Color secundario", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_SELECT_COL_SLOT:
@@ -1319,7 +1319,7 @@ ShowDialog(playerid, dialogid)
 			new caption[60];
 			format(caption, sizeof caption, "Pintar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Pintar color primario\n"COL_WHITE"Pintar color secundario", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Pintar color primario\n"COL_WHITE"Pintar color secundario", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TUNING_SELECT_COLOR:
@@ -1335,7 +1335,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehÃ­culo", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehículo", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_SELECT_COLOR:
@@ -1352,7 +1352,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TUNING_REMOVE:
@@ -1388,10 +1388,10 @@ ShowDialog(playerid, dialogid)
 			if (listitem == 0)
 			{
 				PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID] = 0;
-				strcat(dialog, ""COL_WHITE"VehÃ­culo sin tunear");
+				strcat(dialog, ""COL_WHITE"Vehículo sin tunear");
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Componentes", dialog, "Eliminar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Componentes", dialog, "Eliminar", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_REMOVE_COMPONEN:
@@ -1427,10 +1427,10 @@ ShowDialog(playerid, dialogid)
 			if (listitem == 0)
 			{
 				PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID] = 0;
-				strcat(dialog, ""COL_WHITE"VehÃ­culo sin tunear");
+				strcat(dialog, ""COL_WHITE"Vehículo sin tunear");
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Eliminar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Eliminar", "Atrás");
 			return 1;
 		}
 		case DIALOG_TUNING_PAINTJOB:
@@ -1441,7 +1441,7 @@ ShowDialog(playerid, dialogid)
 			new paintjobs = VehiclePaintjob( GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] );
 			if (paintjobs == 0)
 			{
-				ShowPlayerMessage(playerid, "~r~Este vehÃ­culo no soporta paintjobs.", 3);
+				ShowPlayerMessage(playerid, "~r~Este vehículo no soporta paintjobs.", 3);
 				ShowDialog(playerid, DIALOG_MECHANIC_MENU);
 				return 1;
 			}
@@ -1453,7 +1453,7 @@ ShowDialog(playerid, dialogid)
 				format(line_str, sizeof line_str, ""COL_WHITE"Paintjob %d\n", i + 1);
 				strcat(dialog, line_str);
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SEED_LIST:
@@ -1476,7 +1476,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"Ingresa la cantidad de semillas de %s que desea comprar.\nCada una vale "COL_GREEN"%d$"COL_WHITE".", seed_info[ PLAYER_TEMP[playerid][py_SELECTED_BUY_SEED_ID] ][seed_info_NAME], seed_info[ PLAYER_TEMP[playerid][py_SELECTED_BUY_SEED_ID] ][seed_info_PRICE]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Semillas ", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Semillas ", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLANT_PLANTS:
@@ -1498,7 +1498,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_BLACK_MARKET:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Mercado negro", "Comprar armas\nComprar municiÃ³n para mis armas", "Comprar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Mercado negro", "Comprar armas\nComprar munición para mis armas", "Comprar", "Salir");
 			return 1;
 		}
 		case DIALOG_BLACK_MARKET_WEAPONS:
@@ -1562,7 +1562,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[95 * 15], line_str[95], listitem;
-			format(dialog, sizeof dialog, ""COL_WHITE"Arma\t"COL_WHITE"MuniciÃ³n\t"COL_WHITE"Slot\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Arma\t"COL_WHITE"Munición\t"COL_WHITE"Slot\n");
 
 			for(new i; i != 13; i ++)
 			{
@@ -1582,21 +1582,21 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_PLAYER_WEAPONS_DELETE_A:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", "Â¿EstÃ¡ seguro de que quiere eliminar todas sus armas?\nEsta opciÃ³n no se puede deshacer.", "Eliminar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", "¿Está seguro de que quiere eliminar todas sus armas?\nEsta opción no se puede deshacer.", "Eliminar", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_WEAPONS_DELETE:
 		{
 			new dialog[150];
-			format(dialog, sizeof dialog, ""COL_WHITE"Arma: %s\nMuniciÃ³n: %s\n\nÂ¿EstÃ¡ seguro de que quiere eliminar esta arma?", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO]));
+			format(dialog, sizeof dialog, ""COL_WHITE"Arma: %s\nMunición: %s\n\n¿Está seguro de que quiere eliminar esta arma?", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar arma", dialog, "Eliminar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar arma", dialog, "Eliminar", "Atrás");
 			return 1;
 		}
 		case DIALOG_TRICKS_FOOD:
 		{
 			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Alimento\nNombre: %s\nPrecio: %s$\n\nÂ¿Quieres comprÃ¡rselo?",
+			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Alimento\nNombre: %s\nPrecio: %s$\n\n¿Quieres comprárselo?",
 									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
 									PLAYER_POCKET[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA] ][player_pocket_object_NAME],
 									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
@@ -1608,7 +1608,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_TRICKS_MEDICINE:
 		{
 			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Medicamento\nCantidad: %dg\nPrecio: %s$\n\nÂ¿Quieres comprÃ¡rselo?",
+			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Medicamento\nCantidad: %dg\nPrecio: %s$\n\n¿Quieres comprárselo?",
 									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
 									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
 									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
@@ -1620,7 +1620,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_TRICKS_VENDAS:
 		{
 			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Vendas\nCantidad: %d\nPrecio: %s$\n\nÂ¿Quieres comprÃ¡rselo?",
+			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Vendas\nCantidad: %d\nPrecio: %s$\n\n¿Quieres comprárselo?",
 									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
 									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
 									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
@@ -1632,7 +1632,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_TRICKS_BOTIKIN:
 		{
 			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: BotiquÃ­n\nCantidad: %d\nPrecio: %s$\n\nÂ¿Quieres comprÃ¡rselo?",
+			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Botiquín\nCantidad: %d\nPrecio: %s$\n\n¿Quieres comprárselo?",
 									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
 									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
 									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
@@ -1644,7 +1644,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_TRICKS_CUETE:
 		{
 			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: BotiquÃ­n\nCantidad: %d\nPrecio: %s$\n\nÂ¿Quieres comprÃ¡rselo?",
+			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Botiquín\nCantidad: %d\nPrecio: %s$\n\n¿Quieres comprárselo?",
 									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
 									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
 									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
@@ -1656,7 +1656,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_TRICKS_CANNABIS:
 		{
 			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Marihuana\nCantidad: %dg\nPrecio: %s$\n\nÂ¿Quieres comprÃ¡rselo?",
+			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Marihuana\nCantidad: %dg\nPrecio: %s$\n\n¿Quieres comprárselo?",
 									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
 									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
 									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
@@ -1668,7 +1668,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_TRICKS_CRACK:
 		{
 			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Crack\nCantidad: %dg\nPrecio: %s$\n\nÂ¿Quieres comprÃ¡rselo?",
+			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Crack\nCantidad: %dg\nPrecio: %s$\n\n¿Quieres comprárselo?",
 									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
 									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
 									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
@@ -1692,7 +1692,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_TRICKS_WEAPON:
 		{
 			new dialog[180];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Arma\nNombre: %s\nMuniciÃ³n: %s\nPrecio: %s$\n\nÂ¿Quieres comprÃ¡rselo?",
+			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Arma\nNombre: %s\nMunición: %s\nPrecio: %s$\n\n¿Quieres comprárselo?",
 									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
 									WEAPON_INFO[ PLAYER_WEAPONS[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA] ][player_weapon_ID] ][weapon_info_NAME],
 									number_format_thousand(PLAYER_WEAPONS[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA] ][player_weapon_AMMO]),
@@ -1710,7 +1710,7 @@ ShowDialog(playerid, dialogid)
 			if (max_slots > MAX_BOOT_SLOTS) max_slots = MAX_BOOT_SLOTS;
 
 			new dialog[128 * (MAX_BOOT_SLOTS + 2)], line_str[128], listitem;
-			format(dialog, sizeof dialog, ""COL_WHITE"Arma\t"COL_WHITE"MuniciÃ³n\t"COL_WHITE"Slot\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Arma\t"COL_WHITE"Munición\t"COL_WHITE"Slot\n");
 
 			for(new i = 0; i != max_slots; i ++)
 			{
@@ -1741,21 +1741,21 @@ ShowDialog(playerid, dialogid)
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Cerrar");
 		}
-		case DIALOG_VEHICLE_BOOT_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Maletero - Eliminar todo", ""COL_WHITE"Â¿EstÃ¡ seguro de que quiere eliminar todo de su maletero?\nEsta opciÃ³n no se puede deshacer.", "Eliminar", "Cancelar");
+		case DIALOG_VEHICLE_BOOT_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Maletero - Eliminar todo", ""COL_WHITE"¿Está seguro de que quiere eliminar todo de su maletero?\nEsta opción no se puede deshacer.", "Eliminar", "Cancelar");
 		case DIALOG_VEHICLE_BOOT_OPTIONS:
 		{
 			new caption[45];
 			format(caption, sizeof caption, ""COL_RED"%s", WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT] ][weapon_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Sacar\nEliminar", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Sacar\nEliminar", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VEHICLE_BOOT_DELETE:
 		{
 			new dialog[190];
-			format(dialog, sizeof dialog, ""COL_WHITE"Arma: %s\nMuniciÃ³n: %s\n\nÂ¿EstÃ¡ seguro de que quiere eliminar esta arma de este maletero?\nEsta opciÃ³n no se puede deshacer.", WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT] ][weapon_info_NAME], number_format_thousand( VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT_EXTRA] ));
+			format(dialog, sizeof dialog, ""COL_WHITE"Arma: %s\nMunición: %s\n\n¿Está seguro de que quiere eliminar esta arma de este maletero?\nEsta opción no se puede deshacer.", WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT] ][weapon_info_NAME], number_format_thousand( VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT_EXTRA] ));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Maletero - Eliminar", dialog, "Eliminar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Maletero - Eliminar", dialog, "Eliminar", "Atrás");
 			return 1;
 		}
 		case DIALOG_SELECT_POLICE_SKIN:
@@ -1802,7 +1802,7 @@ ShowDialog(playerid, dialogid)
 				listitem,
 				start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
 
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_POLICE, WORK_POLICE, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -1822,7 +1822,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "TOTAL");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, POLICE_RANKS[rank]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, POLICE_RANKS[rank]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, POLICE_RANKS[rank], last_connection);
 
 				strcat(dialog, line_str);
@@ -1838,7 +1838,7 @@ ShowDialog(playerid, dialogid)
 
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_LIGHT_BLUE"PolicÃ­as", dialog, "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_LIGHT_BLUE"Policías", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_MAFIA_LIST:
@@ -1849,7 +1849,7 @@ ShowDialog(playerid, dialogid)
 				listitem,
 				start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
 
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_MAFIA, WORK_MAFIA, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -1869,7 +1869,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "TOTAL");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, MAFIA_RANKS[rank]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, MAFIA_RANKS[rank]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, MAFIA_RANKS[rank], last_connection);
 
 				strcat(dialog, line_str);
@@ -1931,7 +1931,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_ENEMY_MAFIA_LIST:
@@ -1942,7 +1942,7 @@ ShowDialog(playerid, dialogid)
 				listitem,
 				start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
 
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_ENEMY_MAFIA, WORK_ENEMY_MAFIA, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -1962,7 +1962,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "TOTAL");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, ENEMY_MAFIA_RANKS[rank]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, ENEMY_MAFIA_RANKS[rank]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, ENEMY_MAFIA_RANKS[rank], last_connection);
 
 				strcat(dialog, line_str);
@@ -2024,7 +2024,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_OSBORN_MAFIA_LIST:
@@ -2035,7 +2035,7 @@ ShowDialog(playerid, dialogid)
 				listitem,
 				start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
 
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_OSBORN, WORK_OSBORN, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -2055,7 +2055,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "TOTAL");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, OSBORN_RANKS[rank]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, OSBORN_RANKS[rank]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, OSBORN_RANKS[rank], last_connection);
 
 				strcat(dialog, line_str);
@@ -2117,7 +2117,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CONNOR_MAFIA_LIST:
@@ -2128,7 +2128,7 @@ ShowDialog(playerid, dialogid)
 				listitem,
 				start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
 
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_CONNOR, WORK_CONNOR, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -2148,7 +2148,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "TOTAL");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, CONNOR_RANKS[rank]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, CONNOR_RANKS[rank]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, CONNOR_RANKS[rank], last_connection);
 
 				strcat(dialog, line_str);
@@ -2210,7 +2210,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_DIVISO_MAFIA_LIST:
@@ -2221,7 +2221,7 @@ ShowDialog(playerid, dialogid)
 				listitem,
 				start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
 
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[600];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_DIVISO, WORK_DIVISO, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -2241,7 +2241,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "TOTAL");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, DIVISO_RANKS[rank]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, DIVISO_RANKS[rank]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, DIVISO_RANKS[rank], last_connection);
 
 				strcat(dialog, line_str);
@@ -2303,7 +2303,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_POLICE_MODIFY:
@@ -2329,7 +2329,7 @@ ShowDialog(playerid, dialogid)
 			}
 
 			new caption[45];
-			format(caption, sizeof caption, "PolicÃ­a - %s", name);
+			format(caption, sizeof caption, "Policía - %s", name);
 
 			new dialog[45 * sizeof(POLICE_RANKS)], line_str[45];
 			format(dialog, sizeof dialog, ""COL_WHITE"Civil (eliminar)\n");
@@ -2349,7 +2349,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_POLICE_SHOP:
@@ -2362,7 +2362,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[95 * 15], line_str[95], listitem;
-			format(dialog, sizeof dialog, ""COL_WHITE"Arma\t{90C3D4}MuniciÃ³n\t"COL_WHITE"Slot\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Arma\t{90C3D4}Munición\t"COL_WHITE"Slot\n");
 
 			for(new i; i != 13; i ++)
 			{
@@ -2376,15 +2376,15 @@ ShowDialog(playerid, dialogid)
 			}
 			if (listitem == 0) strcat(dialog, "{666666}No tienes armas");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "Selecciona la arma a la que quieres comprarle municiÃ³n", dialog, "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "Selecciona la arma a la que quieres comprarle munición", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_AMMO:
 		{
 			new dialog[144];
-			format(dialog, sizeof dialog, "Arma: %s\nMuniciÃ³n: %s\n\nEl precio por bala es de 2$\nÂ¿CuÃ¡nto municiÃ³n quiere comprar?", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO]));
+			format(dialog, sizeof dialog, "Arma: %s\nMunición: %s\n\nEl precio por bala es de 2$\n¿Cuánto munición quiere comprar?", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Comprar municiÃ³n", dialog, "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Comprar munición", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_ARMOUR:
@@ -2514,21 +2514,21 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Ayuda - VIP",
 
 				"\
-					"COL_WHITE"El VIP es una suscripciÃ³n para obtener beneficios, puedes comprarlo con 12 "SERVER_COIN".\n\
-					Si quieres adquirir "SERVER_COIN" puedes comprar en "COL_RED"www.hyaxe.com/hycoin"COL_WHITE" o comprÃ¡ndole a otro usuario.\n\n\
+					"COL_WHITE"El VIP es una suscripción para obtener beneficios, puedes comprarlo con 12 "SERVER_COIN".\n\
+					Si quieres adquirir "SERVER_COIN" puedes comprar en "COL_RED"www.hyaxe.com/hycoin"COL_WHITE" o comprándole a otro usuario.\n\n\
 					"COL_RED"Ventajas del VIP:\n\
-					"COL_WHITE"- Tener 6 vehÃ­culos.\n\
+					"COL_WHITE"- Tener 6 vehículos.\n\
 					"COL_WHITE"- Tener 10 accesorios.\n\
 					"COL_WHITE"- Tener 6 propiedades.\n\
-					"COL_WHITE"- No pagas seguro de propiedades y vehÃ­culos en el Payday.\n\
-					"COL_WHITE"- Te recuperas el doble de rÃ¡pido en el hospital.\n\
+					"COL_WHITE"- No pagas seguro de propiedades y vehículos en el Payday.\n\
+					"COL_WHITE"- Te recuperas el doble de rápido en el hospital.\n\
 					"COL_WHITE"- Al recuperarte tu vida es del 100%.\n\
-					"COL_WHITE"- Te pagaran mÃ¡s en algunos trabajos.\n\
+					"COL_WHITE"- Te pagaran más en algunos trabajos.\n\
 					"COL_WHITE"- No pierdes chaleco al morir.\n\
 					"COL_WHITE"- Rol especial en el Discord.\n\
 					"COL_WHITE"- Acceso a contenido por anticipado.\n\
 					"COL_WHITE"- Regalos secretos.\n\
-					"COL_WHITE"- Desbloquear el acceso a propiedades y vehÃ­culos exclusivos.\n\
+					"COL_WHITE"- Desbloquear el acceso a propiedades y vehículos exclusivos.\n\
 					\n\
 					"COL_WHITE"Use el comando "COL_RED"/vip"COL_WHITE" si desea comprando.\n\
 					\n\
@@ -2542,7 +2542,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[128 * 15], listitem, start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[400];
 			format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION`, `CONNECTED`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ADMIN_LEVEL` > 0 ORDER BY `CONNECTED` DESC, `ADMIN_LEVEL` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -2559,7 +2559,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "ADMIN_LEVEL");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, ADMIN_LEVELS[rank]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, ADMIN_LEVELS[rank]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, ADMIN_LEVELS[rank], last_connection);
 
 				strcat(dialog, line_str);
@@ -2621,19 +2621,19 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CHANGE_PASSWORD:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Cambiar contraseÃ±a", ""COL_WHITE"Introduce tu contraseÃ±a actual.", "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Cambiar contraseña", ""COL_WHITE"Introduce tu contraseña actual.", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_CHANGE_PASSWORD_PASS:
 		{
 			new dialog[128];
-			format(dialog, sizeof dialog, ""COL_WHITE"Introduce tu nueva contraseÃ±a, recuerda que debe contener entre %d-%d caracteres.", MIN_PASS_LENGTH, MAX_PASS_LENGTH);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Cambiar contraseÃ±a", dialog, "Selecc.", "Cerrar");
+			format(dialog, sizeof dialog, ""COL_WHITE"Introduce tu nueva contraseña, recuerda que debe contener entre %d-%d caracteres.", MIN_PASS_LENGTH, MAX_PASS_LENGTH);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Cambiar contraseña", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_ANTI_CHEAT:
@@ -2641,7 +2641,7 @@ ShowDialog(playerid, dialogid)
 			if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < 4) return 0;
 
 			new dialog[115 * sizeof(ac_Info) + 1], line_str[115];
-			dialog = "Tipo\tEstado\tAccionar\tAcciÃ³n\n";
+			dialog = "Tipo\tEstado\tAccionar\tAcción\n";
 
 			for(new i = 0; i != sizeof(ac_Info); i ++)
 			{
@@ -2669,7 +2669,7 @@ ShowDialog(playerid, dialogid)
 			new caption[45], dialog[200];
 
 			format(caption, sizeof caption, "ac %02d %s", PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM], ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Name]);
-			format(dialog, sizeof dialog, "Estado actual de accioner en: (%d:%d)\n\nSintaxis: <detecciones>:<segundos>\nDeja segundos en 0 para que sea instantÃ¡neo.\n\nEjemplo de 2 detecciones en 10 segundos: 2:10", ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Detections], ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Interval]);
+			format(dialog, sizeof dialog, "Estado actual de accioner en: (%d:%d)\n\nSintaxis: <detecciones>:<segundos>\nDeja segundos en 0 para que sea instantáneo.\n\nEjemplo de 2 detecciones en 10 segundos: 2:10", ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Detections], ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Interval]);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "<<");
 			return 1;
@@ -2911,7 +2911,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[95 * (MAX_SU_VEHICLES + 2)], total_vehicles;
-			format(dialog, sizeof dialog, ""COL_WHITE"VehÃ­culo\t"COL_WHITE"MatrÃ­cula\t"COL_WHITE"Precio\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Vehículo\t"COL_WHITE"Matrícula\t"COL_WHITE"Precio\n");
 			for(new i = 0; i != MAX_VEHICLES; i ++)
 			{
 				if (!GLOBAL_VEHICLES[i][gb_vehicle_VALID]) continue;
@@ -2928,14 +2928,14 @@ ShowDialog(playerid, dialogid)
 					total_vehicles ++;
 				}
 			}
-			if (total_vehicles == 0) strcat(dialog, ""COL_WHITE"No tienes vehÃ­culos");
+			if (total_vehicles == 0) strcat(dialog, ""COL_WHITE"No tienes vehículos");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona el vehÃ­culo", dialog, "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona el vehículo", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_CRANE_SELECT_PLACE:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona el lugar", "DepÃ³sito municipal\nÃšltimo estacionamiento\n", "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona el lugar", "Depósito municipal\nÚltimo estacionamiento\n", "Selecc.", "Cerrar");
 			return 1;	
 		}
 		case DIALOG_USER_NOTIFICATIONS:
@@ -2975,15 +2975,15 @@ ShowDialog(playerid, dialogid)
 			new dialog[100];
 			format(dialog, sizeof dialog, ""COL_WHITE"Tiene %s$ en efectivo, ingrese la cantidad que quiere\nenviarle a %s.", number_format_thousand(CHARACTER_INFO[playerid][ch_CASH]), ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Dar dinero", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Dar dinero", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SEND_REPORT:
 		{
 			new dialog[100];
-			format(dialog, sizeof dialog, ""COL_WHITE"Ingrese la razÃ³n para reportar a %s.", ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME]);
+			format(dialog, sizeof dialog, ""COL_WHITE"Ingrese la razón para reportar a %s.", ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Reportar", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Reportar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_RANGE_USER:
@@ -3109,7 +3109,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_CREATE_CREW:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Banda", ""COL_WHITE"Para crear una banda necesitas ser nivel 2 y tener 100.000$.\nÂ¿Desea crearla?", "SÃ­", "No");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Banda", ""COL_WHITE"Para crear una banda necesitas ser nivel 2 y tener 100.000$.\n¿Desea crearla?", "Sí", "No");
 			return 1;
 		}
 		case DIALOG_CREATE_CREW_NAME:
@@ -3119,7 +3119,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_CREATE_CREW_COLOR:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona un color para tu banda", DIALOG_CREATE_CREW_COLOR_String, "Continuar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona un color para tu banda", DIALOG_CREATE_CREW_COLOR_String, "Continuar", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREATE_CREW_CONFIRM:
@@ -3159,7 +3159,7 @@ ShowDialog(playerid, dialogid)
 
 			if (CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][CREW_RANK_CHANGE_NAME])
 			{
-				strcat(dialog, "Cambiar nombre y descripciÃ³n\n");
+				strcat(dialog, "Cambiar nombre y descripción\n");
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = CREW_RANK_CHANGE_NAME;
 				listitem ++;
 			}
@@ -3205,7 +3205,7 @@ ShowDialog(playerid, dialogid)
 			format(caption, sizeof caption, "Miembros de la banda '%s'", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
 
 			new dialog[128 * 15], listitem, start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[320];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '%d' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK` ASC LIMIT %d, %d;", PLAYER_CREW[playerid][player_crew_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -3221,7 +3221,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "RANK");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ rank ][crew_rank_NAME]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ rank ][crew_rank_NAME]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ rank ][crew_rank_NAME], last_connection);
 
 				strcat(dialog, line_str);
@@ -3237,19 +3237,19 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}<<\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_CHANGE_NAME:
 		{
 			new dialog[128];
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre actual de la banda: %s\nIndica el nuevo nombre (max 32 caracteres).", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la banda", dialog, "Cambiar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la banda", dialog, "Cambiar", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_CHANGE_DESC:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar descripciÃ³n", ""COL_WHITE"Ingrese una descripciÃ³n.", "Cambiar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar descripción", ""COL_WHITE"Ingrese una descripción.", "Cambiar", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_MEMBER_LIST_DELETE:
@@ -3257,7 +3257,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[128 * 15], listitem, start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[350];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '%d' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK` ASC LIMIT %d, %d;", PLAYER_CREW[playerid][player_crew_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -3274,7 +3274,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "RANK");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ rank ][crew_rank_NAME]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ rank ][crew_rank_NAME]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ rank ][crew_rank_NAME], last_connection);
 
 				strcat(dialog, line_str);
@@ -3290,12 +3290,12 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}<<\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Expulsar", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Expulsar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_CAST_MEMBER_CONFIRM:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Expulsar", ""COL_WHITE"Â¿EstÃ¡s seguro de que quieres expulsar a este miembro?", "Si", "No");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Expulsar", ""COL_WHITE"¿Estás seguro de que quieres expulsar a este miembro?", "Si", "No");
 			return 1;
 		}
 		case DIALOG_CREW_INVITE_RANK:
@@ -3321,7 +3321,7 @@ ShowDialog(playerid, dialogid)
 		{
 			new dialog[128];
 			format(dialog, sizeof dialog, ""COL_WHITE"Te han ofrecio unirte a la banda %s con el rango de %s.", CREW_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][1] ][crew_NAME], CREW_RANK_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][1] ][ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][2] ][crew_rank_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"InvitaciÃ³n", dialog, "Unirme", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Invitación", dialog, "Unirme", "Salir");
 			return 1;
 		}
 		case DIALOG_CREW_RANKS:
@@ -3336,24 +3336,24 @@ ShowDialog(playerid, dialogid)
 				}
 				else
 				{
-					if (i < PLAYER_CREW[playerid][player_crew_RANK]) format(line_str, sizeof line_str, "{666666}%d. Slot vacÃ­o\n", i + 1, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][i][crew_rank_NAME]);
-					else format(line_str, sizeof line_str, ""COL_WHITE"%d. VacÃ­o\n", i + 1, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][i][crew_rank_NAME]);
+					if (i < PLAYER_CREW[playerid][player_crew_RANK]) format(line_str, sizeof line_str, "{666666}%d. Slot vacío\n", i + 1, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][i][crew_rank_NAME]);
+					else format(line_str, sizeof line_str, ""COL_WHITE"%d. Vacío\n", i + 1, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][i][crew_rank_NAME]);
 				}
 				strcat(dialog, line_str);
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Rangos", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Rangos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_RANK_MODIFY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Modificar rango", "Cambiar nombre del rango\nModificar permisos\nEliminar rango", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Modificar rango", "Cambiar nombre del rango\nModificar permisos\nEliminar rango", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_RANK_MODIFY_NAME:
 		{
 			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"Indica el nuevo nombre del rango %s (max 32 caracteres).", CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar rango", dialog, "Cambiar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar rango", dialog, "Cambiar", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_RANK_MODIFY_PERMISS:
@@ -3363,18 +3363,18 @@ ShowDialog(playerid, dialogid)
 
 			for(new i = 0; i != CREW_RANK_SIZE; i ++)
 			{
-				if (CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][i]) format(line_str, sizeof line_str, "%s\t%s\n", CREW_RANKS_PERMISSIONS[i], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_PERMISSION][i] ? ""COL_GREEN"SÃ­" : ""COL_RED"No");
-				else format(line_str, sizeof line_str, "{666666}%s\t{666666}%s\n", CREW_RANKS_PERMISSIONS[i], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_PERMISSION][i] ? ""COL_GREEN"SÃ­" : ""COL_RED"No");
+				if (CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][i]) format(line_str, sizeof line_str, "%s\t%s\n", CREW_RANKS_PERMISSIONS[i], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_PERMISSION][i] ? ""COL_GREEN"Sí" : ""COL_RED"No");
+				else format(line_str, sizeof line_str, "{666666}%s\t{666666}%s\n", CREW_RANKS_PERMISSIONS[i], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_PERMISSION][i] ? ""COL_GREEN"Sí" : ""COL_RED"No");
 
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Modificar permisos", dialog, "Cambiar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Modificar permisos", dialog, "Cambiar", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_RANK_CREATE:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Crear nuevo rango", ""COL_WHITE"Indica el nombre del rango (max 32 caracteres).", "Crear", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Crear nuevo rango", ""COL_WHITE"Indica el nombre del rango (max 32 caracteres).", "Crear", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_RANK_DELETE:
@@ -3394,7 +3394,7 @@ ShowDialog(playerid, dialogid)
 
 				listitem ++;
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccionar nuevo rango", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccionar nuevo rango", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_RANK_DELETE_CONFIRM:
@@ -3413,9 +3413,9 @@ ShowDialog(playerid, dialogid)
 				"\
 					"COL_WHITE"Rango a eliminar: %s\n\
 					Miembros afectados: %d\n\
-					El nuevo rango de estos miembros serÃ¡: %s\n\
+					El nuevo rango de estos miembros será: %s\n\
 					\n\
-					Â¿Seguro que quieres eliminar el rango?\n\
+					¿Seguro que quieres eliminar el rango?\n\
 					\n\
 				",
 					CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_NAME],
@@ -3428,7 +3428,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_CREW_MODIFY_COLOR:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona un color", DIALOG_CREATE_CREW_COLOR_String, "Cambiar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona un color", DIALOG_CREATE_CREW_COLOR_String, "Cambiar", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_DELETE:
@@ -3451,14 +3451,14 @@ ShowDialog(playerid, dialogid)
 			//db_free_result(Result_territories);
 
 			new dialog[128];
-			format(dialog, sizeof dialog, ""COL_WHITE"Â¿Deseas borrar %s con %d miembros?",CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], affected_members);
+			format(dialog, sizeof dialog, ""COL_WHITE"¿Deseas borrar %s con %d miembros?",CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], affected_members);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar banda", dialog, "Si", "No");
 			return 1;
 		}
 		case DIALOG_CREW_LEAVE:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Abandonar banda", ""COL_WHITE"Â¿Quieres abandonar la banda?", "Si", "No");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Abandonar banda", ""COL_WHITE"¿Quieres abandonar la banda?", "Si", "No");
 			return 1;
 		}
 		case DIALOG_CREW_MODIFY_MEMBERS:
@@ -3466,7 +3466,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[128 * 15], listitem, start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
-			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Ãšlt. conexiÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
 
 			new DBResult:Result, DB_Query[350];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '%d' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK` ASC LIMIT %d, %d;", PLAYER_CREW[playerid][player_crew_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -3483,7 +3483,7 @@ ShowDialog(playerid, dialogid)
 				rank = db_get_field_assoc_int(Result, "RANK");
 
 				new line_str[128];
-				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t{82F11A}â€¢\n", start_pos + listitem, name, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ rank ][crew_rank_NAME]);
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ rank ][crew_rank_NAME]);
 				else format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ rank ][crew_rank_NAME], last_connection);
 
 				strcat(dialog, line_str);
@@ -3499,7 +3499,7 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}<<\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Modificar rango de un miembro", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Modificar rango de un miembro", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_MODIFY_MEMBER:
@@ -3530,7 +3530,7 @@ ShowDialog(playerid, dialogid)
 
 				if (total <= 1)
 				{
-					ShowPlayerMessage(playerid, "~r~No se puede modificar el rango de este miembro ya que es el Ãºnico miembro con el rango principal.", 4);
+					ShowPlayerMessage(playerid, "~r~No se puede modificar el rango de este miembro ya que es el único miembro con el rango principal.", 4);
 					return 1;
 				}
 			}
@@ -3561,28 +3561,28 @@ ShowDialog(playerid, dialogid)
 				listitem ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_PROPERTY_CONFIRM:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad de banda", ""COL_WHITE"Â¿EstÃ¡s seguro que quieres pasar esta propiedad a banda?\nEsta opciÃ³n no se puede deshacer.", "Selecc.", "Cancelar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad de banda", ""COL_WHITE"¿Estás seguro que quieres pasar esta propiedad a banda?\nEsta opción no se puede deshacer.", "Selecc.", "Cancelar");
 			return 1;
 		}
 		case DIALOG_CREW_LEAVE_TERRITORY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Abandonar territorio", ""COL_WHITE"Â¿EstÃ¡s seguro que quieres abandonar este territorio?\nEsta opciÃ³n no se puede deshacer.", "Selecc.", "Cancelar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Abandonar territorio", ""COL_WHITE"¿Estás seguro que quieres abandonar este territorio?\nEsta opción no se puede deshacer.", "Selecc.", "Cancelar");
 			return 1;
 		}
 		case DIALOG_CREW_LEAVE_PROPERTY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad de banda", ""COL_WHITE"Â¿EstÃ¡s seguro que quieres liberar esta propiedad?\nEsta opciÃ³n no se puede deshacer.", "Selecc.", "Cancelar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad de banda", ""COL_WHITE"¿Estás seguro que quieres liberar esta propiedad?\nEsta opción no se puede deshacer.", "Selecc.", "Cancelar");
 			return 1;
 		}
 		case DIALOG_POLICE_PENALTY:
 		{
 			new dialog[128];
-			format(dialog, sizeof dialog, ""COL_WHITE"El policÃ­a %s te ha puesto una multa de "COL_GREEN"%s$\n", PLAYER_TEMP[ PLAYER_TEMP[playerid][py_POLICE_PEN_PID] ][py_RP_NAME], number_format_thousand(PLAYER_TEMP[playerid][py_POLICE_PEN_IM]));
+			format(dialog, sizeof dialog, ""COL_WHITE"El policía %s te ha puesto una multa de "COL_GREEN"%s$\n", PLAYER_TEMP[ PLAYER_TEMP[playerid][py_POLICE_PEN_PID] ][py_RP_NAME], number_format_thousand(PLAYER_TEMP[playerid][py_POLICE_PEN_IM]));
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Multa", dialog, "Pagar", "Salir");
 			return 1;
 		}
@@ -3622,19 +3622,19 @@ ShowDialog(playerid, dialogid)
 				case 4: format(dialog, sizeof dialog, "ARMAS: %f", MULTIPLIER_WEAPONS);
 				case 5: format(dialog, sizeof dialog, "Coste de VIP: %d "SERVER_COIN"", SU_SD_PRICE);
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Multiplicador", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Multiplicador", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SU_BUY:
 		{
 			new dialog[420];
 			format(dialog, sizeof dialog, ""COL_WHITE"Ventajas del VIP Classic\n\
-				- Tener hasta 6 vehÃ­culos\n\
+				- Tener hasta 6 vehículos\n\
 				- Tener hasta 2 propiedades\n\
-				- Te pagaran mÃ¡s en algunos trabajos\n\
-				- Desbloquear el acceso a propiedades y vehÃ­culos exclusivos\n\
+				- Te pagaran más en algunos trabajos\n\
+				- Desbloquear el acceso a propiedades y vehículos exclusivos\n\
 				- Rol especial en el Discord\n\
-				El VIP se paga mensualmente, 30 dÃ­as vale %d "SERVER_COIN".\n\
+				El VIP se paga mensualmente, 30 días vale %d "SERVER_COIN".\n\
 				Si desea el VIP Turbo, visite hyaxe.com/store", SU_SD_PRICE);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar VIP", dialog, "Comprar", "Salir");
@@ -3673,7 +3673,7 @@ ShowDialog(playerid, dialogid)
 		{
 			new caption[64];
 			format(caption, sizeof(caption), ""COL_RED"%s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Mis objetos\nComprar objeto\nAÃ±adir texto (500$)\nAÃ±adir bandera de paÃ­s (2.000$)\nAÃ±adir panel de paÃ­s (2.000$)", "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Mis objetos\nComprar objeto\nAñadir texto (500$)\nAñadir bandera de país (2.000$)\nAñadir panel de país (2.000$)", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECTS:
@@ -3686,15 +3686,15 @@ ShowDialog(playerid, dialogid)
 			{
 				if (VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][i][vobject_VALID])
 				{
-					if (VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][i][vobject_ATTACHED]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\tSÃ­\n", i + 1, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][i][vobject_NAME]);
+					if (VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][i][vobject_ATTACHED]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\tSí\n", i + 1, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][i][vobject_NAME]);
 					else format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"No\n", i + 1, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][i][vobject_NAME]);
 				}
-				else format(line_str, sizeof line_str, "{666666}%d. VacÃ­o\n", i + 1);
+				else format(line_str, sizeof line_str, "{666666}%d. Vacío\n", i + 1);
 				strcat(dialog, line_str);
 			}
 			strcat(dialog, ""COL_RED"Eliminar todo\n");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT:
@@ -3706,29 +3706,29 @@ ShowDialog(playerid, dialogid)
 			{
 				case VOBJECT_TYPE_OBJECT:
 				{
-					if (VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED]) format(dialog, sizeof dialog, ""COL_WHITE"Guardar este objeto\n"COL_WHITE"Cambiar el nombre del objeto\n"COL_WHITE"Editar posiciÃ³n del objeto\n"COL_WHITE"Colores\n"COL_WHITE"Eliminar este objeto");
-					else format(dialog, sizeof dialog, "Colocar este objeto\nCambiar el nombre del objeto\n{666666}Editar posiciÃ³n del objeto\n{666666}Colores\nEliminar este objeto");
+					if (VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED]) format(dialog, sizeof dialog, ""COL_WHITE"Guardar este objeto\n"COL_WHITE"Cambiar el nombre del objeto\n"COL_WHITE"Editar posición del objeto\n"COL_WHITE"Colores\n"COL_WHITE"Eliminar este objeto");
+					else format(dialog, sizeof dialog, "Colocar este objeto\nCambiar el nombre del objeto\n{666666}Editar posición del objeto\n{666666}Colores\nEliminar este objeto");
 				}
 				case VOBJECT_TYPE_TEXT:
 				{
-					if (VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED]) format(dialog, sizeof dialog, ""COL_WHITE"Guardar este objeto\n"COL_WHITE"Cambiar el nombre del objeto\n"COL_WHITE"Editar posiciÃ³n del objeto\n"COL_WHITE"Texto\n"COL_WHITE"Eliminar este objeto");
-					else format(dialog, sizeof dialog, "Colocar este objeto\nCambiar el nombre del objeto\n{666666}Editar posiciÃ³n del objeto\n{666666}Texto\nEliminar este objeto");
+					if (VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED]) format(dialog, sizeof dialog, ""COL_WHITE"Guardar este objeto\n"COL_WHITE"Cambiar el nombre del objeto\n"COL_WHITE"Editar posición del objeto\n"COL_WHITE"Texto\n"COL_WHITE"Eliminar este objeto");
+					else format(dialog, sizeof dialog, "Colocar este objeto\nCambiar el nombre del objeto\n{666666}Editar posición del objeto\n{666666}Texto\nEliminar este objeto");
 				}
 				case VOBJECT_TYPE_COUNTRY_FLAG, VOBJECT_TYPE_COUNTRY_PANEL:
 				{
-					if (VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED]) format(dialog, sizeof dialog, ""COL_WHITE"Guardar este objeto\n"COL_WHITE"Cambiar el nombre del objeto\n"COL_WHITE"Editar posiciÃ³n del objeto\n"COL_WHITE"Eliminar este objeto");
-					else format(dialog, sizeof dialog, "Colocar este objeto\nCambiar el nombre del objeto\n{666666}Editar posiciÃ³n del objeto\nEliminar este objeto");
+					if (VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED]) format(dialog, sizeof dialog, ""COL_WHITE"Guardar este objeto\n"COL_WHITE"Cambiar el nombre del objeto\n"COL_WHITE"Editar posición del objeto\n"COL_WHITE"Eliminar este objeto");
+					else format(dialog, sizeof dialog, "Colocar este objeto\nCambiar el nombre del objeto\n{666666}Editar posición del objeto\nEliminar este objeto");
 				}
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_CNAME:
 		{
 			new dialog[144];
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre actual: \"%s\"\nIndica el nuevo nombre:", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_COLORS:
@@ -3744,7 +3744,7 @@ ShowDialog(playerid, dialogid)
 
 				strcat(dialog, line_str);
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_COLOR:
@@ -3757,15 +3757,15 @@ ShowDialog(playerid, dialogid)
 
 					"\
 						Color original\n\
-						{%06x}Color #1 del vehÃ­culo\n\
-						{%06x}Color #2 del vehÃ­culo\n\
+						{%06x}Color #1 del vehículo\n\
+						{%06x}Color #2 del vehículo\n\
 						Color personalizado\n\
 					",
 					VEHICLE_COLORS[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_COLOR_1] ] >>> 8,
 					VEHICLE_COLORS[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_COLOR_2] ] >>> 8
 			);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_COLOR_HEX:
@@ -3773,54 +3773,54 @@ ShowDialog(playerid, dialogid)
 			new caption[64];
 			format(caption, sizeof caption, "Color (%d) de '%s'", PLAYER_TEMP[playerid][py_TUNING_EDIT_COLOR_SLOT], VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Introduce el color en formato AARRGGBB\nPor ejemplo: F7F7F7FF", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Introduce el color en formato AARRGGBB\nPor ejemplo: F7F7F7FF", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_CDELETE:
 		{
 			new dialog[144];
-			format(dialog, sizeof dialog, ""COL_WHITE"Â¿EstÃ¡s seguro que quieres eliminar el objeto %s?", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
+			format(dialog, sizeof dialog, ""COL_WHITE"¿Estás seguro que quieres eliminar el objeto %s?", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar Objeto", dialog, "Si", "No");
 			return 1;
 		}
-		case DIALOG_VOBJECT_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", ""COL_WHITE"Â¿EstÃ¡ seguro de que quiere eliminar todos los objetos de este vehÃ­culo?", "Si", "No");
+		case DIALOG_VOBJECT_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", ""COL_WHITE"¿Está seguro de que quiere eliminar todos los objetos de este vehículo?", "Si", "No");
 		case DIALOG_VOBJECT_TEXT_MENU:
 		{
 			new caption[64];
 			format(caption, sizeof caption, ""COL_RED"%s", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar texto\nCambiar fuente\nTamaÃ±o de letra\nNegrita\nColor de fuente", "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar texto\nCambiar fuente\nTamaño de letra\nNegrita\nColor de fuente", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_TEXT_TEXT:
 		{
 			new dialog[128];
 			format(dialog, sizeof dialog, ""COL_WHITE"Texto actual: %s\nIndica el nuevo texto (1-32 caracteres).", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_TEXT]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar texto", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar texto", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_TEXT_FONT:
 		{
 			new dialog[128];
 			format(dialog, sizeof dialog, ""COL_WHITE"Fuente actual: %s\nIndica la nueva fuente.", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar fuente", dialog, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar fuente", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_TEXT_FONT_SIZE:
 		{
 			new dialog[128];
-			format(dialog, sizeof dialog, ""COL_WHITE"TamaÃ±o actual: %d\nIndica la nueva fuente.", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_SIZE]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar fuente", dialog, "Selecc.", "AtrÃ¡s");
+			format(dialog, sizeof dialog, ""COL_WHITE"Tamaño actual: %d\nIndica la nueva fuente.", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_SIZE]);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar fuente", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_TEXT_FONT_COLOR:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona color", DIALOG_CREATE_CREW_COLOR_String, "Selecc.", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona color", DIALOG_CREATE_CREW_COLOR_String, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_COUNTRY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona paÃ­s",
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona país",
 
 				"\
 					Alemania\n\
@@ -3832,12 +3832,12 @@ ShowDialog(playerid, dialogid)
 					Chile\n\
 					Colombia\n\
 					El Salvador\n\
-					EspaÃ±a\n\
+					España\n\
 					Estonia\n\
 					Francia\n\
 					Guatemala\n\
 					Holanda\n\
-					HungrÃ­a\n\
+					Hungría\n\
 					India\n\
 					Indonesia\n\
 					Irlanda\n\
@@ -3846,20 +3846,20 @@ ShowDialog(playerid, dialogid)
 					Luxemburgo\n\
 					Madagascar\n\
 					Malta\n\
-					MalÃ­\n\
-					MÃ©xico\n\
+					Malí\n\
+					México\n\
 					Nigeria\n\
-					PanamÃ¡\n\
+					Panamá\n\
 					Paraguay\n\
-					PerÃº\n\
+					Perú\n\
 					Polonia\n\
-					RumanÃ­a\n\
+					Rumanía\n\
 					Rusia\n\
 					Ucrania\n\
 					Venezuela\n\
 				"
 
-			, "Selecc.", "AtrÃ¡s");
+			, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_CONFIG:
@@ -3868,9 +3868,9 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog,
 
 				"\
-					ContraseÃ±a\t*********\n\
+					Contraseña\t*********\n\
 					Correo\t%s\n\
-					NÃºmero en guÃ­a telefÃ³nica\t%s\n\
+					Número en guía telefónica\t%s\n\
 					Canal de dudas\t%s\n\
 					Mostrar sed y hambre\t%s\n\
 					Primera persona\t%s\n\
@@ -3880,27 +3880,27 @@ ShowDialog(playerid, dialogid)
 					Ver registros de IP\t\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
-					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"SÃ­" : ""COL_RED"No"),
-					(ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL] ? ""COL_GREEN"SÃ­" : ""COL_RED"No"),
-					(PLAYER_MISC[playerid][MISC_CONFIG_HUD] ? ""COL_GREEN"SÃ­" : ""COL_RED"No"),
-					(PLAYER_MISC[playerid][MISC_CONFIG_FP] ? ""COL_GREEN"SÃ­" : ""COL_RED"No"),
+					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
+					(ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
+					(PLAYER_MISC[playerid][MISC_CONFIG_HUD] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
+					(PLAYER_MISC[playerid][MISC_CONFIG_FP] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(CHARACTER_INFO[playerid][ch_SEX] ? "Mujer" : "Hombre"),
-					(PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] ? ""COL_GREEN"SÃ­" : ""COL_RED"No")
+					(PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] ? ""COL_GREEN"Sí" : ""COL_RED"No")
 			);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Panel de configuraciÃ³n", dialog, "Cambiar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Panel de configuración", dialog, "Cambiar", "Salir");
 			return 1;
 		}
 		case DIALOG_POLICE_BYC:
 		{
 			new caption[128];
-			format(caption, sizeof caption, ""COL_LIGHT_BLUE"Placa NÂº%d | %c. %s", PLAYER_MISC[playerid][MISC_PLACA_PD], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, "Ver Ãºltimos registros\nBuscar una persona", "Ver", "Salir");
+			format(caption, sizeof caption, ""COL_LIGHT_BLUE"Placa Nº%d | %c. %s", PLAYER_MISC[playerid][MISC_PLACA_PD], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME]);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, "Ver últimos registros\nBuscar una persona", "Ver", "Salir");
 			return 1;
 		}
 		case DIALOG_POLICE_BYC_NAME_FIND:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_LIGHT_BLUE"BÃºsqueda", ""COL_WHITE"Introduce el nombre completo del sospechoso.\nUsa el guiÃ³n bajo para separar nombre y apellido (Nombre_Apellido).", "Buscar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_LIGHT_BLUE"Búsqueda", ""COL_WHITE"Introduce el nombre completo del sospechoso.\nUsa el guión bajo para separar nombre y apellido (Nombre_Apellido).", "Buscar", "Salir");
 			return 1;
 		}
 		case DIALOG_POLICE_BYC_LAST_ALL:
@@ -3908,7 +3908,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[256 * 15], listitem, start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
-			format(dialog, sizeof dialog, ""COL_WHITE"Sospechoso\t"COL_WHITE"AÃ±adido por\t"COL_WHITE"Fecha\t"COL_WHITE"RazÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Sospechoso\t"COL_WHITE"Añadido por\t"COL_WHITE"Fecha\t"COL_WHITE"Razón\n");
 
 			new DBResult:Result, DB_Query[256], name[24], by[24], reason[128], date[24];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `POLICE_HISTORY`.* FROM `CUENTA`, `POLICE_HISTORY` WHERE `CUENTA`.`ID` = `POLICE_HISTORY`.`ID_USER` ORDER BY `DATE` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -3946,7 +3946,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[256 * 15], listitem, start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
-			format(dialog, sizeof dialog, ""COL_WHITE"Sospechoso\t"COL_WHITE"AÃ±adido por\t"COL_WHITE"Fecha\t"COL_WHITE"RazÃ³n\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Sospechoso\t"COL_WHITE"Añadido por\t"COL_WHITE"Fecha\t"COL_WHITE"Razón\n");
 
 			new DBResult:Result, DB_Query[256], name[24], by[24], reason[128], date[24];
 			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `POLICE_HISTORY`.* FROM `CUENTA`, `POLICE_HISTORY` WHERE `POLICE_HISTORY`.`ID_USER` = '%d' AND `CUENTA`.`ID` = `POLICE_HISTORY`.`ID_USER` ORDER BY `DATE` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_SELECTED_BYC_USER_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
@@ -3981,12 +3981,12 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_POLICE_DELETE_BYC:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_LIGHT_BLUE"Borrar", ""COL_WHITE"Â¿Borrar esto del historial?", "Si", "No");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_LIGHT_BLUE"Borrar", ""COL_WHITE"¿Borrar esto del historial?", "Si", "No");
 			return 1;
 		}
     	case DIALOG_GIFT:
     	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Canjear regalo", ""COL_WHITE"Ingrese el cÃ³digo a canjear, recuerde que cada\ncÃ³digo solo se puede usar una sola vez.", "Canjear", "Cerrar");
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Canjear regalo", ""COL_WHITE"Ingrese el código a canjear, recuerde que cada\ncódigo solo se puede usar una sola vez.", "Canjear", "Cerrar");
     		return 1;
     	}
     	case DIALOG_DRUG_MARKET:
@@ -3998,13 +3998,13 @@ ShowDialog(playerid, dialogid)
     	}
     	case DIALOG_BUY_ROD:
     	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"CaÃ±a de pescar", ""COL_WHITE"Â¿Comprar una caÃ±a de pescar?\n\n\
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Caña de pescar", ""COL_WHITE"¿Comprar una caña de pescar?\n\n\
     			Costo:"COL_GREEN" $455", "Comprar", "Cerrar");
 			return 1;
     	}
     	case DIALOG_BUY_FIXKIT:
     	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Taller mecÃ¡nico", ""COL_WHITE"Â¿Comprar un kit de reparaciÃ³n?\n\n\
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Taller mecánico", ""COL_WHITE"¿Comprar un kit de reparación?\n\n\
     			Costo:"COL_GREEN" $800", "Comprar", "Cerrar");
 			return 1;
     	}
@@ -4020,7 +4020,7 @@ ShowDialog(playerid, dialogid)
 				vip_payment = (PLAYER_MISC[playerid][MISC_FISH] * 100);				
 			}
 
-    		format(str_text, sizeof(str_text), ""COL_WHITE"Â¿Desea vender sus %d peces?\n\n\
+    		format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender sus %d peces?\n\n\
     			Paga:"COL_GREEN" $%d"COL_WHITE"\n\
     			Extra: "COL_GREEN" $%d", PLAYER_MISC[playerid][MISC_FISH], payment, vip_payment);
 
@@ -4029,7 +4029,7 @@ ShowDialog(playerid, dialogid)
     	}
     	case DIALOG_CONFIG_VOICE:
     	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Cambiar tecla de chat de voz", "Z\nX\nB\nM\nL\nK\nJ\nP\nO\nI\nU", "Cambiar", "AtrÃ¡s");
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Cambiar tecla de chat de voz", "Z\nX\nB\nM\nL\nK\nJ\nP\nO\nI\nU", "Cambiar", "Atrás");
     		return 1;
     	}
     	case DIALOG_CHANGE_MHZ:
@@ -4094,7 +4094,7 @@ ShowDialog(playerid, dialogid)
     		format(dialog, sizeof(dialog), "\
     			Motor\t%s\n\
     			Luces\t%s\n\
-    			EstaciÃ³n de radio\t%s\n\
+    			Estación de radio\t%s\n\
     			Mapa\t%s\n\
     			Ventana\t%s\n\
     			Estacionar\t\n\
@@ -4111,20 +4111,20 @@ ShowDialog(playerid, dialogid)
     	}
 		case DIALOG_MINER_STORE:
     	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"MinerÃ­a", ""COL_WHITE"Mazo\t"COL_GREEN"$150", "Comprar", "Cerrar");
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Minería", ""COL_WHITE"Mazo\t"COL_GREEN"$150", "Comprar", "Cerrar");
     		return 1;
     	}
     	case DIALOG_SELL_HYCOIN:
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Canjear HyCoins", ""COL_WHITE"Ingrese la cantiad de HyCoins a vender, cada una\n\
-    			vale en el mercado: "COL_GREEN"$150.000"COL_WHITE".", "Canjear", "AtrÃ¡s");
+    			vale en el mercado: "COL_GREEN"$150.000"COL_WHITE".", "Canjear", "Atrás");
     		return 1;
     	}
     	case DIALOG_DEATH:
     	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Herido", ""COL_WHITE"OpciÃ³n\t"COL_WHITE"Efecto\n\
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Herido", ""COL_WHITE"Opción\t"COL_WHITE"Efecto\n\
     			"COL_WHITE"Ir al hospital\t"COL_RED"Pierdes armas\n\
-    			"COL_WHITE"Pedir un mÃ©dico\t"COL_YELLOW"Tarda en llegar\n", "Selecc.", "Cerrar");
+    			"COL_WHITE"Pedir un médico\t"COL_YELLOW"Tarda en llegar\n", "Selecc.", "Cerrar");
     		return 1;
     	}
     	case DIALOG_PASSENGER_OPTIONS:
@@ -4186,17 +4186,17 @@ ShowDialog(playerid, dialogid)
 				}
 			}
 			if (total_fighters == 0) strcat(dialog, ""COL_WHITE"No hay participantes\n");
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_YELLOW"Participantes", dialog, "Apostar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_YELLOW"Participantes", dialog, "Apostar", "Atrás");
     	}
     	case DIALOG_BOX_BET:
     	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_YELLOW"Ingrese apuesta", ""COL_WHITE"Ingrese la cantidad a apostar:", "Apostar", "AtrÃ¡s");	
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_YELLOW"Ingrese apuesta", ""COL_WHITE"Ingrese la cantidad a apostar:", "Apostar", "Atrás");	
     	}
 		case DIALOG_BOOMBOX_OPTIONS:
 		{
 			new dialog[350];
-			if (BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), ""COL_WHITE"OpciÃ³n\t"COL_WHITE"Estado\nParlante pÃºblico\t< "COL_GREEN"SÃ­\n");
-			else format(dialog, sizeof(dialog), ""COL_WHITE"OpciÃ³n\t"COL_WHITE"Estado\nParlante pÃºblico\t< "COL_RED"No\n");
+			if (BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), ""COL_WHITE"Opción\t"COL_WHITE"Estado\nParlante público\t< "COL_GREEN"Sí\n");
+			else format(dialog, sizeof(dialog), ""COL_WHITE"Opción\t"COL_WHITE"Estado\nParlante público\t< "COL_RED"No\n");
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Opciones del parlante", dialog, "Cambiar", "Salir");
 		}
 		case DIALOG_ELECTRONIC_SHOP:
@@ -4208,7 +4208,7 @@ ShowDialog(playerid, dialogid)
 				format(line, sizeof(line), "%s\t"COL_GREEN"$%d\n", ELECTRONIC_PRODUCTS[i][ep_NAME], ELECTRONIC_PRODUCTS[i][ep_PRICE]);
 				strcat(dialog, line);
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Productos electrÃ³nicos", dialog, "Comprar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Productos electrónicos", dialog, "Comprar", "Salir");
 		}
 		case DIALOG_FURNITURE_LIST:
 		{
@@ -4239,13 +4239,13 @@ ShowDialog(playerid, dialogid)
 			}
 			if (total_furniture == 0) return ShowPlayerMessage(playerid, "~r~No tienes muebles", 4);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Muebles", dialog, "Ver", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Muebles", dialog, "Ver", "Atrás");
 		}
 		case DIALOG_FURNITURE_OPTIONS:
 		{
 			new caption[64];
 			format(caption, 64, ""COL_RED"%s", PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar\nVender\n", "Ver", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar\nVender\n", "Ver", "Atrás");
 		}
 		case DIALOG_SELECC_ANSWER:
 		{
@@ -4265,7 +4265,7 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof(dialog), ""COL_WHITE"Escriba la respuesta a la pregunta:\n"COL_RED"%s"COL_WHITE"\n\nAVISO: Si se olvida la respuesta no hay\nforma alguna de recuperar la cuenta.", SECURITY_QUESTIONS[ PLAYER_TEMP[playerid][py_ANSWER_INDEX] ]);
 
 			ShowPlayerNotification(playerid, "Escriba la respuesta a su pregunta de seguridad.", 5);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Seguridad de la cuenta", dialog, "Terminar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Seguridad de la cuenta", dialog, "Terminar", "Atrás");
 		}
 		case DIALOG_QUESTION_RESPONSE:
 		{
@@ -4284,7 +4284,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_BLACK_MARKET_SELECT:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Mercado negro", "Armas\nMuniciÃ³n", "Ver", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Mercado negro", "Armas\nMunición", "Ver", "Cerrar");
 			return 1;
 		}
 		case DIALOG_CLUB:
@@ -4347,7 +4347,7 @@ ShowDialog(playerid, dialogid)
 				db_free_result(Result);
 
 				if (listitem == 0) return ShowPlayerMessage(playerid, "~r~No hay productos disponibles", 4);
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comidas", dialog, "Comprar", "AtrÃ¡s");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comidas", dialog, "Comprar", "Atrás");
 			}
 		}
 		case DIALOG_CLUB_BUY_DRINK:
@@ -4395,20 +4395,20 @@ ShowDialog(playerid, dialogid)
 				db_free_result(Result);
 
 				if (total_products == 0) return ShowPlayerMessage(playerid, "~r~No hay productos disponibles", 4);
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Bebidas", dialog, "Comprar", "AtrÃ¡s");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Bebidas", dialog, "Comprar", "Atrás");
 			}
 		}
 		case DIALOG_CLUB_NAME:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre", ""COL_WHITE"Ingrese un nombre para su negocio (max. 32).", "Cambiar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre", ""COL_WHITE"Ingrese un nombre para su negocio (max. 32).", "Cambiar", "Atrás");
 		}
 		case DIALOG_CLUB_PRODUCTS:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Productos", "Crear\nEliminar\n", "Ver", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Productos", "Crear\nEliminar\n", "Ver", "Atrás");
 		}
 		case DIALOG_CLUB_WELCOME:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar bienvenida", ""COL_WHITE"Ingrese un mensaje para la bienvenida (max. 64).", "Cambiar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar bienvenida", ""COL_WHITE"Ingrese un mensaje para la bienvenida (max. 64).", "Cambiar", "Atrás");
 		}
 		case DIALOG_CLUB_RADIO:
 		{
@@ -4426,23 +4426,23 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_CLUB_PRICE:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Precio de entrada", ""COL_WHITE"Ingrese un precio de entrada (ponga 0 para dejarlo gratis).", "Cambiar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Precio de entrada", ""COL_WHITE"Ingrese un precio de entrada (ponga 0 para dejarlo gratis).", "Cambiar", "Atrás");
 		}
 		case DIALOG_PRODUCT_NAME:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Nombre del producto", ""COL_WHITE"Ingrese un nombre para el producto (max. 32).", "Seguir", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Nombre del producto", ""COL_WHITE"Ingrese un nombre para el producto (max. 32).", "Seguir", "Atrás");
 		}
 		case DIALOG_PRODUCT_PRICE:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Precio del producto", ""COL_WHITE"Ingrese un precio para el producto (max. 32).", "Seguir", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Precio del producto", ""COL_WHITE"Ingrese un precio para el producto (max. 32).", "Seguir", "Atrás");
 		}
 		case DIALOG_PRODUCT_TYPE:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Tipo del producto", "Para tomar\nPara comer\n", "Seguir", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Tipo del producto", "Para tomar\nPara comer\n", "Seguir", "Atrás");
 		}
 		case DIALOG_PRODUCT_EXTRA:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Calidad del producto", ""COL_WHITE"Ingrese lo que va a subir al consumirlo (max. 25).", "Seguir", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Calidad del producto", ""COL_WHITE"Ingrese lo que va a subir al consumirlo (max. 25).", "Seguir", "Atrás");
 		}
 		case DIALOG_PRODUCT_DELETE:
 		{
@@ -4489,7 +4489,7 @@ ShowDialog(playerid, dialogid)
 				db_free_result(Result);
 
 				if (total_products == 0) return ShowPlayerMessage(playerid, "~r~No hay productos disponibles", 4);
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Seleccione para borrar", dialog, "Borrar", "AtrÃ¡s");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Seleccione para borrar", dialog, "Borrar", "Atrás");
 			}
 		}
 		case DIALOG_VEHICLE_KEYS:
@@ -4498,11 +4498,11 @@ ShowDialog(playerid, dialogid)
 			vehicleid = GetPlayerVehicleID(playerid);
 			if (vehicleid == INVALID_VEHICLE_ID) return 0;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, sprintf(""COL_RED"Llaves [%d/5]", GetUsedKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID])), "Agregar\nEliminar\n", "Seguir", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, sprintf(""COL_RED"Llaves [%d/5]", GetUsedKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID])), "Agregar\nEliminar\n", "Seguir", "Atrás");
 		}
 		case DIALOG_VEHICLE_KEYS_ADD:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Dar llave", ""COL_WHITE"Ingrese el nombre del usuario a agregar.", "Seguir", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Dar llave", ""COL_WHITE"Ingrese el nombre del usuario a agregar.", "Seguir", "Atrás");
 		}
 		case DIALOG_VEHICLE_KEYS_DEL:
 		{
@@ -4535,7 +4535,7 @@ ShowDialog(playerid, dialogid)
 			db_free_result(Result);
 
 			if (listitem == 0) return ShowPlayerMessage(playerid, "~r~No hay llaves para eliminar", 4);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccione el usuario", dialog, "Eliminar", "AtrÃ¡s");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccione el usuario", dialog, "Eliminar", "Atrás");
 		}
 		case DIALOG_REGISTER_CIVIL:
     	{
@@ -4554,7 +4554,7 @@ ShowDialog(playerid, dialogid)
 				vip_payment = (PLAYER_MISC[playerid][MISC_PUMPKIN] * 1500);				
 			}
 
-    		format(str_text, sizeof(str_text), ""COL_WHITE"Â¿Desea vender sus %d calabazas?\n\n\
+    		format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender sus %d calabazas?\n\n\
     			Paga:"COL_GREEN" $%d"COL_WHITE"\n\
     			Extra: "COL_GREEN" $%d", PLAYER_MISC[playerid][MISC_PUMPKIN], payment, vip_payment);
 
@@ -4566,7 +4566,7 @@ ShowDialog(playerid, dialogid)
 			if (PLAYER_TEMP[playerid][py_CLUB_INDEX] == -1) return 0;
 
 			new str_text[128];
-			format(str_text, sizeof(str_text), ""COL_WHITE"Â¿Desea vender el local por %d "SERVER_COIN"?", CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE]);
+			format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender el local por %d "SERVER_COIN"?", CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender local", str_text, "Si", "No");
 		}
 		case DIALOG_STORE:
@@ -4576,7 +4576,7 @@ ShowDialog(playerid, dialogid)
 				caption[128]
 			;
 
-			format(caption, sizeof(caption), ""COL_RED"Tienda | CrÃ©dito: %s$", PLAYER_TEMP[playerid][py_CREDIT]);
+			format(caption, sizeof(caption), ""COL_RED"Tienda | Crédito: %s$", PLAYER_TEMP[playerid][py_CREDIT]);
 
     		for(new i = 0; i != sizeof STORE_PRODUCTS; i ++)
     		{

@@ -86,7 +86,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (email_exists)
 			{
-			    ShowPlayerMessage(playerid, "~r~Este correo electr√≥nico ya est√° en uso, use otro distinto.", 3);
+			    ShowPlayerMessage(playerid, "~r~Este correo electrÛnico ya est· en uso, use otro distinto.", 3);
 				ShowDialog(playerid, dialogid);
 				return 1;
 			}
@@ -145,7 +145,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (CHARACTER_INFO[playerid][ch_CASH] >= PIZZA_FOOD[listitem][food_PRICE])
 				{
-					if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir m√°s.", 2);
+					if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir m·s.", 2);
 
 					GivePlayerCash(playerid, -PIZZA_FOOD[listitem][food_PRICE]);
 					Add_Hungry_Thirst(playerid, PIZZA_FOOD[listitem][food_HUNGRY], PIZZA_FOOD[listitem][food_THIRST]);
@@ -175,7 +175,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (CHARACTER_INFO[playerid][ch_CASH] >= BURGER_SHOT_FOOD[listitem][food_PRICE])
 				{
-					if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir m√°s.", 2);
+					if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir m·s.", 2);
 
 					GivePlayerCash(playerid, -BURGER_SHOT_FOOD[listitem][food_PRICE]);
 					Add_Hungry_Thirst(playerid, BURGER_SHOT_FOOD[listitem][food_HUNGRY], BURGER_SHOT_FOOD[listitem][food_THIRST]);
@@ -205,7 +205,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (CHARACTER_INFO[playerid][ch_CASH] >= CLUCKIN_BELL_FOOD[listitem][food_PRICE])
 				{
-					if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir m√°s.", 2);
+					if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir m·s.", 2);
 
 					GivePlayerCash(playerid, -CLUCKIN_BELL_FOOD[listitem][food_PRICE]);
 					Add_Hungry_Thirst(playerid, CLUCKIN_BELL_FOOD[listitem][food_HUNGRY], CLUCKIN_BELL_FOOD[listitem][food_THIRST]);
@@ -236,7 +236,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (listitem == MAX_PLAYER_ATTACHED_OBJECTS) return ShowDialog(playerid, DIALOG_PLAYER_TOY_DELETE_ALL);
 				if (!ACCOUNT_INFO[playerid][ac_SU] && listitem >= MAX_NU_TOYS)
 				{
-					ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m√°s accesorios.", 4);
+					ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m·s accesorios.", 4);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -446,7 +446,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -469,7 +469,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if (inputtext[0] > 50000)
 					{
 						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-						ShowPlayerMessage(playerid, "~r~Las operaciones de m√°s de 50.000$ no se pueden realizar desde un cajero, solo en el banco.", 4);
+						ShowPlayerMessage(playerid, "~r~Las operaciones de m·s de 50.000$ no se pueden realizar desde un cajero, solo en el banco.", 4);
 						ShowDialog(playerid, dialogid);
 						return 1;
 					}
@@ -497,7 +497,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -520,7 +520,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if (inputtext[0] > 50000)
 					{
 						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-						ShowPlayerMessage(playerid, "~r~Las operaciones de m√°s de 50.000$ no se pueden realizar desde un cajero, solo en el banco.", 3);
+						ShowPlayerMessage(playerid, "~r~Las operaciones de m·s de 50.000$ no se pueden realizar desde un cajero, solo en el banco.", 3);
 						ShowDialog(playerid, dialogid);
 						return 1;
 					}
@@ -551,7 +551,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -577,7 +577,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				else
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "~r~El n√∫mero de cuenta introducido no existe o no es correcto.", 3);
+					ShowPlayerMessage(playerid, "~r~El n˙mero de cuenta introducido no existe o no es correcto.", 3);
 					PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = false;
 				}
 			}
@@ -591,7 +591,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -617,7 +617,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if (inputtext[0] > 50000)
 					{
 						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-				        ShowPlayerMessage(playerid, "~r~Las operaciones de m√°s de 50.000$ no se pueden realizar desde un cajero, solo en el banco.", 3);
+				        ShowPlayerMessage(playerid, "~r~Las operaciones de m·s de 50.000$ no se pueden realizar desde un cajero, solo en el banco.", 3);
 						ShowDialog(playerid, dialogid);
 						return 1;
 					}
@@ -677,7 +677,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_TRANSFER_SENT, inputtext[0], PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT]);
 				RegisterBankAccountTransaction(PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT], BANK_TRANSACTION_TRANSFER_RECE, inputtext[0], BANK_ACCOUNT[playerid][bank_account_ID]);
 
-				SendClientMessageEx(playerid, COLOR_WHITE, "Operaci√≥n realizada con √©xito, has transferido "COL_RED"%s$ "COL_WHITE"al n√∫mero de cuenta "COL_RED"%s.", number_format_thousand(inputtext[0]), number_format_thousand(PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT]));
+				SendClientMessageEx(playerid, COLOR_WHITE, "OperaciÛn realizada con Èxito, has transferido "COL_RED"%s$ "COL_WHITE"al n˙mero de cuenta "COL_RED"%s.", number_format_thousand(inputtext[0]), number_format_thousand(PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT]));
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 				PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT] = 0;
 				PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = false;
@@ -718,7 +718,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_CREATE_ACCOUNT, 500);
 
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Enhorabuena, ahora podras comprar muchas cosas m√°s.", 7);
+					ShowPlayerMessage(playerid, "Enhorabuena, ahora podras comprar muchas cosas m·s.", 7);
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
 					if (PLAYER_TEMP[playerid][py_TUTORIAL])
@@ -774,7 +774,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							if (PLAYER_PHONE[playerid][player_phone_VALID])
 							{
-							    ShowPlayerMessage(playerid, "~r~Ya tienes un tel√©fono.", 2);
+							    ShowPlayerMessage(playerid, "~r~Ya tienes un telÈfono.", 2);
 								PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
 								return 1;
 							}
@@ -793,14 +793,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								RegisterNewPlayerPhone(playerid);
 								GivePlayerCash(playerid, -Supermarket_Product_List[listitem][product_PRICE]);
 
-								SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"tu n√∫mero es {c5e03e}%d.", Supermarket_Product_List[listitem][product_NAME], Supermarket_Product_List[listitem][product_PRICE], PLAYER_PHONE[playerid][player_phone_NUMBER]);
+								SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"tu n˙mero es {c5e03e}%d.", Supermarket_Product_List[listitem][product_NAME], Supermarket_Product_List[listitem][product_PRICE], PLAYER_PHONE[playerid][player_phone_NUMBER]);
 								ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
 								PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 							}
 							else
 							{
 								PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-						        ShowPlayerMessage(playerid, "~r~No se ha podido encontrar un n√∫mero de tel√©fono libre.", 3);
+						        ShowPlayerMessage(playerid, "~r~No se ha podido encontrar un n˙mero de telÈfono libre.", 3);
 							}
 						}
 						else
@@ -840,7 +840,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							if (PLAYER_OBJECT[playerid][po_PHONE_RESOLVER])
 							{
-							    ShowPlayerMessage(playerid, "~r~Ya tienes una gu√≠a telef√≥nica.", 2);
+							    ShowPlayerMessage(playerid, "~r~Ya tienes una guÌa telefÛnica.", 2);
 								PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
 								return 1;
 							}
@@ -848,7 +848,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							GivePlayerCash(playerid, -Supermarket_Product_List[listitem][product_PRICE]);
 
 							PLAYER_OBJECT[playerid][po_PHONE_RESOLVER] = true;
-							ShowPlayerNotification(playerid, "Compraste una gu√≠a telef√≥nica.", 3);
+							ShowPlayerNotification(playerid, "Compraste una guÌa telefÛnica.", 3);
 							ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
 							PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 						}
@@ -898,7 +898,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 							GivePlayerCash(playerid, -720);
 							PLAYER_MISC[playerid][MISC_BOTIKIN] += 1;
-							ShowPlayerNotification(playerid, "Compraste un botiqu√≠n por 720$", 3);
+							ShowPlayerNotification(playerid, "Compraste un botiquÌn por 720$", 3);
 							SavePlayerMisc(playerid);
 							return 1;
 						}
@@ -914,7 +914,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (listitem == MAX_PLAYER_POCKET_OBJECTS) return ShowDialog(playerid, DIALOG_PLAYER_POCKET_DELETE_ALL);
 				if (!PLAYER_POCKET[playerid][listitem][player_pocket_VALID])
 				{
-				    ShowPlayerMessage(playerid, "~r~Este slot est√° vaci√≥", 2);
+				    ShowPlayerMessage(playerid, "~r~Este slot est· vaciÛ", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -934,7 +934,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0)
 						{
 							PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED] = 0;
-							ShowPlayerMessage(playerid, "~r~No puedes consumir m√°s.", 2);
+							ShowPlayerMessage(playerid, "~r~No puedes consumir m·s.", 2);
 							return 1;
 						}
 
@@ -975,7 +975,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new temp_PLAYER_POCKET[Player_Pocket_Enum];
 				for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++) PLAYER_POCKET[playerid][i] = temp_PLAYER_POCKET;
 
-				ShowPlayerMessage(playerid, "Ha eliminado todo lo que ten√≠as en tus alimentos.", 2);
+				ShowPlayerMessage(playerid, "Ha eliminado todo lo que tenÌas en tus alimentos.", 2);
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_POCKET);
 			return 1;
@@ -995,21 +995,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							return 1;
 						}
 
-						if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu tel√©fono est√° apagado, enci√©ndelo para usarlo.", 3);
+						if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu telÈfono est· apagado, enciÈndelo para usarlo.", 3);
 						ShowDialog(playerid, DIALOG_PHONE_CALL_NUMBER);
 					}
 					case 1: //Enviar mensaje
 					{
-						if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu tel√©fono est√° apagado, enci√©ndelo para usarlo.", 3);
+						if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu telÈfono est· apagado, enciÈndelo para usarlo.", 3);
 						ShowDialog(playerid, DIALOG_PHONE_SMS_NUMBER);
 					}
 					case 2: //Apagar
 					{
-						if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu tel√©fono est√° apagado, enci√©ndelo para usarlo.", 3);
+						if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu telÈfono est· apagado, enciÈndelo para usarlo.", 3);
 
 						if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
 						PLAYER_PHONE[playerid][player_phone_STATE] = PHONE_STATE_OFF;
-						ShowPlayerMessage(playerid, "Has apagado tu tel√©fono, ahora no recibir√°s llamadas.", 3);
+						ShowPlayerMessage(playerid, "Has apagado tu telÈfono, ahora no recibir·s llamadas.", 3);
 					}
 				}
 			}
@@ -1035,7 +1035,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -1071,7 +1071,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new slot = GetEmptyPlayerPhoneBookSlot(playerid);
-				if (slot == -1) return ShowPlayerMessage(playerid, "~r~La memoria de la agenda se llen√≥.", 3);
+				if (slot == -1) return ShowPlayerMessage(playerid, "~r~La memoria de la agenda se llenÛ.", 3);
 
 
 				PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_VALID] = true;
@@ -1080,8 +1080,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				RegisterNewPlayerPhoneBook(playerid, slot);
 
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-				ShowPlayerMessage(playerid, "~g~Nuevo contacto a√±adido a la agenda.", 3);
-				SendClientMessageEx(playerid, COLOR_WHITE, "Nuevo contacto a√±adido a la agenda: Nombre: "COL_RED"%s "COL_WHITE"Tel√©fono: "COL_RED"%d.", PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_PHONE_NUMBER]);
+				ShowPlayerMessage(playerid, "~g~Nuevo contacto aÒadido a la agenda.", 3);
+				SendClientMessageEx(playerid, COLOR_WHITE, "Nuevo contacto aÒadido a la agenda: Nombre: "COL_RED"%s "COL_WHITE"TelÈfono: "COL_RED"%d.", PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_PHONE_NUMBER]);
 				ShowDialog(playerid, DIALOG_PHONE_BOOK);
 			}
 			else ShowDialog(playerid, DIALOG_PHONE_BOOK_ADD_NUMBER);
@@ -1095,7 +1095,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0: //llamar
 					{
-						if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~Est√°s en una llamada.", 2);
+						if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~Est·s en una llamada.", 2);
 
 						switch(PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_PHONE_NUMBER])
 						{
@@ -1106,7 +1106,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								PLAYER_TEMP[playerid][py_POLICE_CALL_NAME] = true;
 								PLAYER_TEMP[playerid][py_POLICE_CALL_DESCRIPTION] = false;
 
-								SendClientMessage(playerid, COLOR_YELLOW, "Operadora:"COL_WHITE" Ha llamado a la central de polic√≠a, ind√≠canos su nombre por favor.");
+								SendClientMessage(playerid, COLOR_YELLOW, "Operadora:"COL_WHITE" Ha llamado a la central de policÌa, indÌcanos su nombre por favor.");
 								return 1;
 							}
 							case 570: //Mecanico
@@ -1115,13 +1115,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								{
 									PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
 									DisablePlayerMechanicMark(playerid);
-							        ShowPlayerMessage(playerid, "Has cancelado el llamado a un mec√°nico.", 3);
+							        ShowPlayerMessage(playerid, "Has cancelado el llamado a un mec·nico.", 3);
 								}
 								else
 								{
 									PLAYER_TEMP[playerid][py_WANT_MECHANIC] = true;
-									ShowPlayerMessage(playerid, "Tu llamada se ha enviado a los mec√°nicos disponibles, espera a que llegue un mec√°nico.", 3);
-									//SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Vuelve a llamar a este n√∫mero si ya no necesitas un mec√°nico.");
+									ShowPlayerMessage(playerid, "Tu llamada se ha enviado a los mec·nicos disponibles, espera a que llegue un mec·nico.", 3);
+									//SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Vuelve a llamar a este n˙mero si ya no necesitas un mec·nico.");
 									SendAlertToMechanic(playerid);
 								}
 								return 1;
@@ -1144,12 +1144,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							}
 						}
 
-						if (to_playerid == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El n√∫mero al que intentas llamar no es correcto o est√° fuera de cobertura.", 3);
-						if (to_playerid == playerid) return ShowPlayerMessage(playerid, "~r~El n√∫mero al que intentas llamar no es correcto.", 3);
-						if (PLAYER_PHONE[to_playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~El n√∫mero al que intentas llamar est√° apagado o fuera de cobertura.", 3);
-						if (PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~El n√∫mero al que intentas llamar est√° en otra llamada.", 3);
+						if (to_playerid == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El n˙mero al que intentas llamar no es correcto o est· fuera de cobertura.", 3);
+						if (to_playerid == playerid) return ShowPlayerMessage(playerid, "~r~El n˙mero al que intentas llamar no es correcto.", 3);
+						if (PLAYER_PHONE[to_playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~El n˙mero al que intentas llamar est· apagado o fuera de cobertura.", 3);
+						if (PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~El n˙mero al que intentas llamar est· en otra llamada.", 3);
 
-						SendClientMessageEx(to_playerid, COLOR_WHITE, ""COL_GREEN"[Llamada entrante] "COL_WHITE"%s te est√° llamando, para responder usa "COL_GREEN"/responder "COL_WHITE"o "COL_GREEN"/colgar.", convertPhoneNumber(to_playerid, PLAYER_PHONE[playerid][player_phone_NUMBER]));
+						SendClientMessageEx(to_playerid, COLOR_WHITE, ""COL_GREEN"[Llamada entrante] "COL_WHITE"%s te est· llamando, para responder usa "COL_GREEN"/responder "COL_WHITE"o "COL_GREEN"/colgar.", convertPhoneNumber(to_playerid, PLAYER_PHONE[playerid][player_phone_NUMBER]));
 						ShowPlayerMessage(to_playerid, "Llamada entrante...", 2);
 						PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL] = true;
 						PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_STATE] = CALL_STATE_INCOMING_CALL;
@@ -1241,18 +1241,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu tel√©fono est√° apagado, para encenderlo usa /movil.", 3);
-				if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~Est√°s en una llamada.", 2);
+				if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu telÈfono est· apagado, para encenderlo usa /movil.", 3);
+				if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~Est·s en una llamada.", 2);
 
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
-				    ShowPlayerMessage(playerid, "~r~N√∫mero no v√°lido.", 2);
+				    ShowPlayerMessage(playerid, "~r~N˙mero no v·lido.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
 				if (inputtext[0] <= 0)
 				{
-				    ShowPlayerMessage(playerid, "~r~El n√∫mero del destinario no es v√°lido.", 2);
+				    ShowPlayerMessage(playerid, "~r~El n˙mero del destinario no es v·lido.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -1266,7 +1266,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PLAYER_TEMP[playerid][py_POLICE_CALL_NAME] = true;
 						PLAYER_TEMP[playerid][py_POLICE_CALL_DESCRIPTION] = false;
 
-						SendClientMessage(playerid, COLOR_YELLOW, "Operadora:"COL_WHITE" Ha llamado a la central de polic√≠a, ind√≠canos su nombre por favor.");
+						SendClientMessage(playerid, COLOR_YELLOW, "Operadora:"COL_WHITE" Ha llamado a la central de policÌa, indÌcanos su nombre por favor.");
 						return 1;
 					}
 					case 570: //Mecanico
@@ -1275,12 +1275,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
 							DisablePlayerMechanicMark(playerid);
-							ShowPlayerMessage(playerid, "Has cancelado el llamado de mec√°nico.", 2);
+							ShowPlayerMessage(playerid, "Has cancelado el llamado de mec·nico.", 2);
 						}
 						else
 						{
 							PLAYER_TEMP[playerid][py_WANT_MECHANIC] = true;
-							ShowPlayerMessage(playerid, "Tu llamada se ha enviado a los mec√°nicos disponibles, espera a que llegue un mec√°nico.", 2);
+							ShowPlayerMessage(playerid, "Tu llamada se ha enviado a los mec·nicos disponibles, espera a que llegue un mec·nico.", 2);
 							SendAlertToMechanic(playerid);
 						}
 						return 1;
@@ -1303,12 +1303,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 
-				if (to_playerid == INVALID_PLAYER_ID) return ShowPlayerNotification(playerid, "El n√∫mero al que intentas llamar no es correcto o est√° fuera de cobertura.", 3);
-				if (to_playerid == playerid) return ShowPlayerNotification(playerid, "El n√∫mero al que intentas llamar no es correcto.", 3);
-				if (PLAYER_PHONE[to_playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerNotification(playerid, "El n√∫mero al que intentas llamar est√° apagado o fuera de cobertura.", 3);
-				if (PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL]) return ShowPlayerNotification(playerid, "El n√∫mero al que intentas llamar est√° en otra llamada.", 3);
+				if (to_playerid == INVALID_PLAYER_ID) return ShowPlayerNotification(playerid, "El n˙mero al que intentas llamar no es correcto o est· fuera de cobertura.", 3);
+				if (to_playerid == playerid) return ShowPlayerNotification(playerid, "El n˙mero al que intentas llamar no es correcto.", 3);
+				if (PLAYER_PHONE[to_playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerNotification(playerid, "El n˙mero al que intentas llamar est· apagado o fuera de cobertura.", 3);
+				if (PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL]) return ShowPlayerNotification(playerid, "El n˙mero al que intentas llamar est· en otra llamada.", 3);
 
-				SendClientMessageEx(to_playerid, COLOR_WHITE, ""COL_GREEN"[Llamada entrante] "COL_WHITE"%s te est√° llamando, para responder usa "COL_GREEN"/responder "COL_WHITE"o "COL_GREEN"/colgar.", convertPhoneNumber(to_playerid, PLAYER_PHONE[playerid][player_phone_NUMBER]));
+				SendClientMessageEx(to_playerid, COLOR_WHITE, ""COL_GREEN"[Llamada entrante] "COL_WHITE"%s te est· llamando, para responder usa "COL_GREEN"/responder "COL_WHITE"o "COL_GREEN"/colgar.", convertPhoneNumber(to_playerid, PLAYER_PHONE[playerid][player_phone_NUMBER]));
 				ShowPlayerMessage(to_playerid, "Llamada entrante...", 2);
 				PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL] = true;
 				PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_STATE] = CALL_STATE_INCOMING_CALL;
@@ -1329,18 +1329,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu tel√©fono est√° apagado, para encenderlo usa /movil.", 3);
-				if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~Est√°s en una llamada", 2);
+				if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu telÈfono est· apagado, para encenderlo usa /movil.", 3);
+				if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~Est·s en una llamada", 2);
 
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
-					ShowPlayerMessage(playerid, "~r~N√∫mero no v√°lido.", 2);
+					ShowPlayerMessage(playerid, "~r~N˙mero no v·lido.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
 				if (inputtext[0] <= 0)
 				{
-					ShowPlayerMessage(playerid, "~r~El n√∫mero del destinario no es v√°lido.", 2);
+					ShowPlayerMessage(playerid, "~r~El n˙mero del destinario no es v·lido.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -1355,7 +1355,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!phone_exists)
 				{
 					ShowDialog(playerid, dialogid);
-					ShowPlayerMessage(playerid, "~r~El n√∫mero del destinario no es v√°lido.", 2);
+					ShowPlayerMessage(playerid, "~r~El n˙mero del destinario no es v·lido.", 2);
 					return 1;
 				}
 
@@ -1410,7 +1410,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (db_num_rows(Result)) phone_exists = true;
 				db_free_result(Result);
 
-				if (!phone_exists) return ShowPlayerMessage(playerid, "~r~El n√∫mero del destinario no es v√°lido.", 2);
+				if (!phone_exists) return ShowPlayerMessage(playerid, "~r~El n˙mero del destinario no es v·lido.", 2);
 
 				new to_playerid = INVALID_PLAYER_ID;
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -1460,7 +1460,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_SOLD]) return ShowPlayerMessage(playerid, "~r~Est√° propiedad ya est√° vendida", 2);
+				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_SOLD]) return ShowPlayerMessage(playerid, "~r~Est· propiedad ya est· vendida", 2);
 				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_LEVEL] > ACCOUNT_INFO[playerid][ac_LEVEL])
 				{
 					new str_text[128];
@@ -1589,7 +1589,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new slot = GetEmptyPlayer_GPS_Slot(playerid);
-				if (slot == -1) return ShowPlayerMessage(playerid, "~r~La memoria del GPS se llen√≥.", 3);
+				if (slot == -1) return ShowPlayerMessage(playerid, "~r~La memoria del GPS se llenÛ.", 3);
 
 				PLAYER_GPS[playerid][slot][player_gps_VALID] = true;
 				format(PLAYER_GPS[playerid][slot][player_gps_NAME], 24, "%s", inputtext);
@@ -1599,8 +1599,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				RegisterNewPlayer_GPS_Site(playerid, slot);
 
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-				SendClientMessageEx(playerid, COLOR_WHITE, "Nuevo sitio a√±adido al GPS con el nombre: "COL_RED"%s.", PLAYER_GPS[playerid][slot][player_gps_NAME]);
-				ShowPlayerMessage(playerid, "Nuevo sitio a√±adido al GPS.", 2);
+				SendClientMessageEx(playerid, COLOR_WHITE, "Nuevo sitio aÒadido al GPS con el nombre: "COL_RED"%s.", PLAYER_GPS[playerid][slot][player_gps_NAME]);
+				ShowPlayerMessage(playerid, "Nuevo sitio aÒadido al GPS.", 2);
 				ShowDialog(playerid, DIALOG_PLAYER_GPS_PLAYER);
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_GPS_PLAYER);
@@ -1790,7 +1790,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					if (!PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][player_vehicle_ACCESSIBLE])
 					{
-					    ShowPlayerMessage(playerid, "~r~No podr√°s usar este veh√≠culo hasta que no seas VIP.", 3);
+					    ShowPlayerMessage(playerid, "~r~No podr·s usar este vehÌculo hasta que no seas VIP.", 3);
 					}
 				}
 
@@ -1798,7 +1798,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GetVehiclePos(PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem], x, y, z);
 				SetPlayer_GPS_Checkpoint(playerid, x, y, z, 0, 0);
 			}
-			else ShowDialog(playerid, DIALOG_PLAYER_GPS);
+			//else ShowDialog(playerid, DIALOG_PLAYER_GPS);
 			return 1;
 		}
 		case DIALOG_HELI_OPTIONS:
@@ -1824,10 +1824,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 						{
 							new vehicleid = GetPlayerVehicleID(playerid), modelid = GetVehicleModel(vehicleid);
-							if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este veh√≠culo.", 3);
-							if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este veh√≠culo.", 3);
+							if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehÌculo.", 3);
+							if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehÌculo.", 3);
 
-							if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) return ShowPlayerMessage(playerid, "~r~El veh√≠culo debe estar detenido.", 3);
+							if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) return ShowPlayerMessage(playerid, "~r~El vehÌculo debe estar detenido.", 3);
 
 							ShowDialog(playerid, DIALOG_LOAD_GASOLINE);
 						}
@@ -1837,8 +1837,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 						{
 							new vehicleid = GetPlayerVehicleID(playerid), modelid = GetVehicleModel(vehicleid);
-							if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este veh√≠culo.", 3);
-							if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este veh√≠culo.", 3);
+							if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehÌculo.", 3);
+							if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehÌculo.", 3);
 
 							new Float:ammount = floatsub(GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS], GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]);
 
@@ -1848,7 +1848,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								GivePlayerCash(playerid, -price);
 								GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] = GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS];
 								new str_text[64];
-								format(str_text, sizeof(str_text), "Has puesto %.1f litros de gasolina a tu veh√≠culo por %s$.", ammount, number_format_thousand(price));
+								format(str_text, sizeof(str_text), "Has puesto %.1f litros de gasolina a tu vehÌculo por %s$.", ammount, number_format_thousand(price));
 								ShowPlayerNotification(playerid, str_text, 3);
 							}
 							else ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 3);
@@ -1860,7 +1860,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							if (CHARACTER_INFO[playerid][ch_CASH] >= 250)
 							{
-								ShowPlayerNotification(playerid, "Has comprado un bid√≥n de gasolina de 20 litros por 250$.", 3);
+								ShowPlayerNotification(playerid, "Has comprado un bidÛn de gasolina de 20 litros por 250$.", 3);
 								GivePlayerCash(playerid, -250);
 								SavePlayerMisc(playerid);
 								PLAYER_MISC[playerid][MISC_FUEL_DRUM] = 20;
@@ -1869,14 +1869,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 						else
 						{
-							if (PLAYER_MISC[playerid][MISC_FUEL_DRUM] == 20) return ShowPlayerMessage(playerid, "~Tu bid√≥n de gasolina ya est√° lleno.", 3);
+							if (PLAYER_MISC[playerid][MISC_FUEL_DRUM] == 20) return ShowPlayerMessage(playerid, "~Tu bidÛn de gasolina ya est· lleno.", 3);
 
 							new ammount = (20 - PLAYER_MISC[playerid][MISC_FUEL_DRUM]);
 							new price = (13 * ammount);
 
 							if (CHARACTER_INFO[playerid][ch_CASH] >= price)
 							{
-								ShowPlayerNotification(playerid, "Has llenado tu bid√≥n de gasolina con 20 litros.", 3);
+								ShowPlayerNotification(playerid, "Has llenado tu bidÛn de gasolina con 20 litros.", 3);
 								GivePlayerCash(playerid, -price);
 								SavePlayerMisc(playerid);
 								PLAYER_MISC[playerid][MISC_FUEL_DRUM] += ammount;
@@ -1895,7 +1895,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", result_input)) return ShowPlayerMessage(playerid, "~r~Ingrese un valor correcto.", 3);
 
 				new vehicleid = GetPlayerVehicleID(playerid), modelid = GetVehicleModel(vehicleid);
-				if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este veh√≠culo.", 3);
+				if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehÌculo.", 3);
 
 				new Float:ammount = float(result_input);
 				if (ammount < 0.0) return ShowPlayerMessage(playerid, "~r~Ingrese un valor correcto.", 3);
@@ -1909,7 +1909,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] += ammount;
 
 					new str_text[64];
-					format(str_text, sizeof(str_text), "Has puesto %.1f litros de gasolina a tu veh√≠culo por %s$.", ammount, number_format_thousand(price));
+					format(str_text, sizeof(str_text), "Has puesto %.1f litros de gasolina a tu vehÌculo por %s$.", ammount, number_format_thousand(price));
 					ShowPlayerNotification(playerid, str_text, 3);
 				}
 				else ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
@@ -1920,22 +1920,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del veh√≠culo para vertir el bid√≥n.", 3);
+				if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del vehÌculo para vertir el bidÛn.", 3);
 
 				new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-				if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No est√°s cerca de ning√∫n veh√≠culo.", 3);
-				if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este veh√≠culo.", 3);
+				if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No est·s cerca de ning˙n vehÌculo.", 3);
+				if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehÌculo.", 3);
 
 				if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
 				{
-					ShowPlayerNotification(playerid, "Por favor, para primero el motor del veh√≠culo.", 3);
+					ShowPlayerNotification(playerid, "Por favor, para primero el motor del vehÌculo.", 3);
 					return 1;
 				}
 
 				new ammount_load, str_text[128];
 
-				if (sscanf(inputtext, "d", ammount_load)) return ShowPlayerMessage(playerid, "~r~Cantidad de litros no v√°lida.", 3);
-				if (ammount_load <= 0) return ShowPlayerMessage(playerid, "~r~Cantidad de litros no v√°lida.", 3);
+				if (sscanf(inputtext, "d", ammount_load)) return ShowPlayerMessage(playerid, "~r~Cantidad de litros no v·lida.", 3);
+				if (ammount_load <= 0) return ShowPlayerMessage(playerid, "~r~Cantidad de litros no v·lida.", 3);
 				if (ammount_load > PLAYER_MISC[playerid][MISC_FUEL_DRUM]) return ShowPlayerNotification(playerid, "No te alcanza para llenar el tanque.", 3);
 
 				new Float:ammount = float(ammount_load);
@@ -1944,9 +1944,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PLAYER_MISC[playerid][MISC_FUEL_DRUM] -= floatround(ammount);
 				GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] += ammount;
 
-				format(str_text, sizeof(str_text), "Has vertido ~r~%.1f~w~ litros del bid√≥n, te quedan ~r~%d.0~w~ litros.", ammount, PLAYER_MISC[playerid][MISC_FUEL_DRUM]);
+				format(str_text, sizeof(str_text), "Has vertido ~r~%.1f~w~ litros del bidÛn, te quedan ~r~%d.0~w~ litros.", ammount, PLAYER_MISC[playerid][MISC_FUEL_DRUM]);
 				ShowPlayerMessage(playerid, str_text, 5);
-				SetPlayerChatBubble(playerid, "\n\n\n\n* Ha puesto gasolina el veh√≠culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+				SetPlayerChatBubble(playerid, "\n\n\n\n* Ha puesto gasolina el vehÌculo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			return 1;
 		}
@@ -2015,7 +2015,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (isnull(inputtext)) return ShowDialog(playerid, dialogid);
 
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Espere", ""COL_WHITE"Buscando resultados para su b√∫squeda...", "Cerrar", "");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Espere", ""COL_WHITE"Buscando resultados para su b˙squeda...", "Cerrar", "");
 
 				for(new i = 0; i < strlen(inputtext); i++)
 				{
@@ -2069,7 +2069,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_MAX_GAS]
 				);
 
-				if (!cmpv) return ShowPlayerMessage(playerid, "~r~No se puede agregar m√°s veh√≠culos.", 3);
+				if (!cmpv) return ShowPlayerMessage(playerid, "~r~No se puede agregar m·s vehÌculos.", 3);
 
 				if (SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA])
 				{
@@ -2079,7 +2079,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 					db_free_result(db_query(Database, DB_Query_update));
 
-					SendClientMessageEx(playerid, COLOR_WHITE, "Has gastado %d "SERVER_COIN" en la compra de este veh√≠culo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA]);
+					SendClientMessageEx(playerid, COLOR_WHITE, "Has gastado %d "SERVER_COIN" en la compra de este vehÌculo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA]);
 				}
 				else
 				{
@@ -2098,7 +2098,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_BUY_VEHICLE, SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_PRICE]);
 				}
 
-				ShowPlayerMessage(playerid, "¬°Veh√≠culo comprado! Utiliza ~y~/ayuda~w~ para ver que puedes hacer con tu nuevo veh√≠culo.", 4);
+				ShowPlayerMessage(playerid, "°VehÌculo comprado! Utiliza ~y~/ayuda~w~ para ver que puedes hacer con tu nuevo vehÌculo.", 4);
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
 				new Float:x, Float:y, Float:z, Float:angle;
@@ -2237,7 +2237,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (inputtext[0] < min_price || inputtext[0] > max_price)
 				{
-					ShowPlayerMessage(playerid, "~r~Este precio no est√° dentro del rango ofrecido.", 2);
+					ShowPlayerMessage(playerid, "~r~Este precio no est· dentro del rango ofrecido.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -2255,11 +2255,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "u", inputtext[0])) return ShowDialog(playerid, dialogid);
 
 				if (!IsPlayerConnected(inputtext[0])) return ShowPlayerMessage(playerid, "~r~Comprador desconectado", 3);
-				if (inputtext[0] == playerid) return ShowPlayerMessage(playerid, "~r~No puedes vender cosas a t√≠ mismo.", 3);
-				if (PLAYER_TEMP[inputtext[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El comprador no est√° disponible.", 3);
+				if (inputtext[0] == playerid) return ShowPlayerMessage(playerid, "~r~No puedes vender cosas a tÌ mismo.", 3);
+				if (PLAYER_TEMP[inputtext[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El comprador no est· disponible.", 3);
 
-				if (ENTER_EXIT[ PLAYER_TEMP[inputtext[0]][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~El comprador no est√° en la sala.", 3);
-				if (!IsPlayerInRangeOfPoint(inputtext[0],6.0, 1796.071655, -1414.565307, 2770.660156)) return ShowPlayerMessage(playerid, "~r~El comprador no est√° en la sala.", 3);
+				if (ENTER_EXIT[ PLAYER_TEMP[inputtext[0]][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~El comprador no est· en la sala.", 3);
+				if (!IsPlayerInRangeOfPoint(inputtext[0],6.0, 1796.071655, -1414.565307, 2770.660156)) return ShowPlayerMessage(playerid, "~r~El comprador no est· en la sala.", 3);
 				if (BANK_ACCOUNT[inputtext[0]][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~El comprador no tiene cuenta bancaria.", 3);
 
 				new DBResult:Result, DB_Query[120], player_properties;
@@ -2268,16 +2268,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (db_num_rows(Result)) player_properties = db_get_field_assoc_int(Result, "PROPERTIES");
 				db_free_result(Result);
 
-				if (player_properties >= MAX_SU_PROPERTIES) return ShowPlayerMessage(playerid, "~r~El comprador no puede adquirir m√°s propiedades.", 3);
+				if (player_properties >= MAX_SU_PROPERTIES) return ShowPlayerMessage(playerid, "~r~El comprador no puede adquirir m·s propiedades.", 3);
 				if (!ACCOUNT_INFO[inputtext[0]][ac_SU])
 				{
-					if (player_properties >= MAX_NU_PROPERTIES) return ShowPlayerMessage(playerid, "~r~El comprador no puede adquirir m√°s propiedades.", 3);
+					if (player_properties >= MAX_NU_PROPERTIES) return ShowPlayerMessage(playerid, "~r~El comprador no puede adquirir m·s propiedades.", 3);
 				}
 
 				if (ACCOUNT_INFO[inputtext[0]][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~El comprador debe ser nivel 2.", 3);
 				if (PLAYER_TEMP[playerid][py_NOTARY_PRICE] > BANK_ACCOUNT[inputtext[0]][bank_account_BALANCE]) return ShowPlayerMessage(playerid, "~r~El comprador no tiene ese dinero.", 3);
 
-				ShowPlayerMessage(playerid, "Tu oferta se envi√≥ al comprador.", 3);
+				ShowPlayerMessage(playerid, "Tu oferta se enviÛ al comprador.", 3);
 
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Trata de llagar a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
@@ -2295,11 +2295,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_NOTARY_TO_PLAYER] != playerid) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
-				if (ENTER_EXIT[ PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° en la sala.", 3);
-				if (!IsPlayerInRangeOfPoint(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER],6.0, 1796.071655, -1414.565307, 2770.660156)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° en la sala.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_NOTARY_TO_PLAYER] != playerid) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
+				if (ENTER_EXIT[ PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~El vendedor no est· en la sala.", 3);
+				if (!IsPlayerInRangeOfPoint(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER],6.0, 1796.071655, -1414.565307, 2770.660156)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· en la sala.", 3);
 				if (BANK_ACCOUNT[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~El vendedor no tiene cuenta bancaria.", 3);
 
 				// Traspasar
@@ -2362,7 +2362,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(str_buy, sizeof(str_buy), "~y~Propiedad comprada!~w~~n~Compraste una propiedad en %s, puedes ver las opciones de la propiedad pulsando la tecla H cuando te encuentres en pickup del interior.", zone);
 				ShowPlayerNotification(playerid, str_buy, 2);
 
-				ShowPlayerNotification(seller, "Vendiste tu propiedad, el dinero se deposit√≥ en tu cuenta bancaria.", 3);				
+				ShowPlayerNotification(seller, "Vendiste tu propiedad, el dinero se depositÛ en tu cuenta bancaria.", 3);				
 				PlayerPlaySoundEx(seller, 1058, 0.0, 0.0, 0.0);
 
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
@@ -2392,7 +2392,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (!GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_VALID]) return 1;
 				if (PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return 1;
-				if (BANK_ACCOUNT[playerid][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~Debes tener cuenta bancaria para vender veh√≠culos.", 3);
+				if (BANK_ACCOUNT[playerid][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~Debes tener cuenta bancaria para vender vehÌculos.", 3);
 
 				new Float:price, payment;
 				price = VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_PRICE];
@@ -2420,7 +2420,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(db_query(Database, DB_Query_update));
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_SOLD_VEHICLE, payment);
 
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has vendido este veh√≠culo, has recibido %s$ en tu cuenta bancaria.", number_format_thousand(payment));
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has vendido este vehÌculo, has recibido %s$ en tu cuenta bancaria.", number_format_thousand(payment));
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
 				if (!ACCOUNT_INFO[playerid][ac_SU]) ReLockPlayerVehicles(playerid);
@@ -2459,11 +2459,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "u", inputtext[0])) return ShowDialog(playerid, dialogid);
 
 				if (!IsPlayerConnected(inputtext[0])) return ShowPlayerMessage(playerid, "~r~Comprador desconectado.", 3);
-				if (inputtext[0] == playerid) return ShowPlayerMessage(playerid, "~r~No puedes venderte cosas a t√≠ mismo.", 3);
-				if (PLAYER_TEMP[inputtext[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El comprador no est√° disponible.", 3);
+				if (inputtext[0] == playerid) return ShowPlayerMessage(playerid, "~r~No puedes venderte cosas a tÌ mismo.", 3);
+				if (PLAYER_TEMP[inputtext[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El comprador no est· disponible.", 3);
 
-				if (ENTER_EXIT[ PLAYER_TEMP[inputtext[0]][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~El comprador no est√° en la sala", 3);
-				if (!IsPlayerInRangeOfPoint(inputtext[0],6.0, 1796.071655, -1414.565307, 2770.660156)) return ShowPlayerMessage(playerid, "~r~El comprador no est√° en la sala", 3);
+				if (ENTER_EXIT[ PLAYER_TEMP[inputtext[0]][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~El comprador no est· en la sala", 3);
+				if (!IsPlayerInRangeOfPoint(inputtext[0],6.0, 1796.071655, -1414.565307, 2770.660156)) return ShowPlayerMessage(playerid, "~r~El comprador no est· en la sala", 3);
 				if (BANK_ACCOUNT[inputtext[0]][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~El comprador no tiene cuenta bancaria", 3);
 
 				new DBResult:Result, DB_Query[120], player_vehicles;
@@ -2472,16 +2472,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (db_num_rows(Result)) player_vehicles = db_get_field_assoc_int(Result, "VEHICLES");
 				db_free_result(Result);
 
-				if (player_vehicles >= MAX_SU_VEHICLES) return ShowPlayerMessage(playerid, "~r~El comprador no puede adquirir m√°s veh√≠culos.", 3);
+				if (player_vehicles >= MAX_SU_VEHICLES) return ShowPlayerMessage(playerid, "~r~El comprador no puede adquirir m·s vehÌculos.", 3);
 				if (!ACCOUNT_INFO[inputtext[0]][ac_SU])
 				{
-					if (player_vehicles >= MAX_NU_VEHICLES) return ShowPlayerMessage(playerid, "~r~El comprador no puede adquirir m√°s veh√≠culos.", 3);
+					if (player_vehicles >= MAX_NU_VEHICLES) return ShowPlayerMessage(playerid, "~r~El comprador no puede adquirir m·s vehÌculos.", 3);
 				}
 
 				if (ACCOUNT_INFO[inputtext[0]][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~El comprador debe ser nivel 2.", 3);
 				if (PLAYER_TEMP[playerid][py_NOTARY_PRICE] > BANK_ACCOUNT[inputtext[0]][bank_account_BALANCE]) return ShowPlayerMessage(playerid, "~r~El comprador no tiene ese dinero.", 3);
 
-				ShowPlayerMessage(playerid, "Tu oferta se envi√≥ al comprador.", 3);
+				ShowPlayerMessage(playerid, "Tu oferta se enviÛ al comprador.", 3);
 
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Intenta llegar a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
@@ -2499,11 +2499,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_NOTARY_TO_PLAYER] != playerid) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
-				if (ENTER_EXIT[ PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° en la sala.", 3);
-				if (!IsPlayerInRangeOfPoint(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER], 6.0, 1796.071655, -1414.565307, 2770.660156)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° en la sala.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_NOTARY_TO_PLAYER] != playerid) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
+				if (ENTER_EXIT[ PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~El vendedor no est· en la sala.", 3);
+				if (!IsPlayerInRangeOfPoint(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER], 6.0, 1796.071655, -1414.565307, 2770.660156)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· en la sala.", 3);
 				if (BANK_ACCOUNT[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~El vendedor no tiene cuenta vancaria.", 3);
 
 				// Traspasar
@@ -2552,9 +2552,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(db_query(Database, DB_Query_update));
 
 
-				ShowPlayerMessage(playerid, "¬°Veh√≠culo comprado! Utiliza /GPS para localizarlo.", 3);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_RED"¬°Veh√≠culo %s comprado!", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-				SendClientMessageEx(seller, COLOR_WHITE, ""COL_RED"¬°Veh√≠culo vendido! "COL_WHITE"Has recibido {d1f442}%s$ "COL_WHITE"en tu cuenta bancaria.", number_format_thousand(price));
+				ShowPlayerMessage(playerid, "°VehÌculo comprado! Utiliza /GPS para localizarlo.", 3);
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_RED"°VehÌculo %s comprado!", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
+				SendClientMessageEx(seller, COLOR_WHITE, ""COL_RED"°VehÌculo vendido! "COL_WHITE"Has recibido {d1f442}%s$ "COL_WHITE"en tu cuenta bancaria.", number_format_thousand(price));
 				PlayerPlaySoundEx(seller, 1058, 0.0, 0.0, 0.0);
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
@@ -2576,12 +2576,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new Float:Vehicle_Pos[3];
 				GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-				if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 				if (PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] < PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_PIECES])
 				{
 					ShowDialog(playerid, dialogid);
-					ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m√°s piezas en el taller.", 3);
+					ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m·s piezas en el taller.", 3);
 					return 1;
 				}
 
@@ -2606,7 +2606,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new Float:Vehicle_Pos[3];
 				GetVehiclePos(vehicleid, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-				if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 				if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
 				{
@@ -2618,7 +2618,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					GLOBAL_VEHICLES[vehicleid][gb_vehicle_COMPONENTS][slot] = PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID];
 					AddVehicleComponent(vehicleid, PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID]);
-					ShowPlayerMessage(playerid, "Componente ~g~a√±adido", 2);
+					ShowPlayerMessage(playerid, "Componente ~g~aÒadido", 2);
 					GivePlayerCash(playerid, -50, false);
 					ShowTuningMenu(playerid);
 				}
@@ -2635,28 +2635,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new Float:Vehicle_Pos[3];
 				GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-				if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 				switch(listitem)
 				{
 					case 0: // Reparar
 					{
-						if (PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] < 10) return ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m√°s piezas en el taller.", 3);
+						if (PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] < 10) return ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m·s piezas en el taller.", 3);
 
 						if (gettime() < GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_LAST_REPAIR_TIME] + 100)
 						{
 							new time = (300-(gettime()-GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_LAST_REPAIR_TIME]));
 							new str_text[128];
-							format(str_text, sizeof(str_text), "Tienes que esperar %s minutos para volver a reparar este veh√≠culo.", TimeConvert(time));
+							format(str_text, sizeof(str_text), "Tienes que esperar %s minutos para volver a reparar este vehÌculo.", TimeConvert(time));
 							ShowPlayerMessage(playerid, str_text, 3);
 							return 1;
 						}
 
 						if (PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
 						{
-                            if (2 > PLAYER_SKILLS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~Tienes que reparar 2 veh√≠culos para reparar el tuyo", 4);
+                            if (2 > PLAYER_SKILLS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~Tienes que reparar 2 vehÌculos para reparar el tuyo", 4);
                             {
-                                ShowPlayerMessage(playerid, "~g~Reparaste t√∫ veh√≠culo, por lo cual no se te cobrar√°.", 4);
+                                ShowPlayerMessage(playerid, "~g~Reparaste t˙ vehÌculo, por lo cual no se te cobrar·.", 4);
                                 RepairVehicleEx(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], playerid);
                             }
 
@@ -2672,8 +2672,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 									PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] -= 10;
 									RepairVehicleEx(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], playerid);
 
-								    ShowPlayerMessage(playerid, "Has necesitado 10 piezas para la reparaci√≥n.", 3);
-									//SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Eres el conductor o el √∫ltimo conductor de este veh√≠culo por lo que no se cobrar√°.");
+								    ShowPlayerMessage(playerid, "Has necesitado 10 piezas para la reparaciÛn.", 3);
+									//SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Eres el conductor o el ˙ltimo conductor de este vehÌculo por lo que no se cobrar·.");
 									return 1;
 								}
 							}
@@ -2685,14 +2685,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] < 5)
 						{
 							ShowDialog(playerid, dialogid);
-							ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m√°s piezas en el taller.", 3);
+							ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m·s piezas en el taller.", 3);
 							return 1;
 						}
 
 						if (!PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_VALID])
 						{
 							ShowDialog(playerid, dialogid);
-							ShowPlayerMessage(playerid, "~r~Solo los veh√≠culos personales se pueden pintar.", 3);
+							ShowPlayerMessage(playerid, "~r~Solo los vehÌculos personales se pueden pintar.", 3);
 							return 1;
 						}
 
@@ -2702,7 +2702,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (50 > PLAYER_SKILLS[playerid][WORK_MECHANIC])
 						{
-							SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec√°nico, necesitas 50 para tunear veh√≠culos.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec·nico, necesitas 50 para tunear vehÌculos.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
@@ -2713,7 +2713,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (50 > PLAYER_SKILLS[playerid][WORK_MECHANIC])
 						{
-							SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec√°nico, necesitas 50 para tunear veh√≠culos.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec·nico, necesitas 50 para tunear vehÌculos.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
@@ -2721,7 +2721,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_VALID])
 						{
 							ShowDialog(playerid, dialogid);
-							ShowPlayerMessage(playerid, "~r~Solo los veh√≠culos personales se pueden tunear.", 3);
+							ShowPlayerMessage(playerid, "~r~Solo los vehÌculos personales se pueden tunear.", 3);
 							return 1;
 						}
 
@@ -2731,7 +2731,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (50 > PLAYER_SKILLS[playerid][WORK_MECHANIC])
 						{
-							SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec√°nico, necesitas 50 para paintjobs.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec·nico, necesitas 50 para paintjobs.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
@@ -2739,7 +2739,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_VALID])
 						{
 							ShowDialog(playerid, dialogid);
-							ShowPlayerMessage(playerid, "~r~Solo los veh√≠culos personales se le pueden cambiar el paintjob.", 3);
+							ShowPlayerMessage(playerid, "~r~Solo los vehÌculos personales se le pueden cambiar el paintjob.", 3);
 							return 1;
 						}
 						ShowDialog(playerid, DIALOG_TUNING_PAINTJOB);
@@ -2755,7 +2755,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
@@ -2775,16 +2775,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_VALID])
 				{
 					new buyer = GetPlayerIdFromAccountId(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_OWNER_ID]);
-					if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El due√±o del veh√≠culo no est√° cerca tuya.", 3);
+					if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El dueÒo del vehÌculo no est· cerca tuya.", 3);
 
 					new Float:mechanic_pos[3];
 					GetPlayerPos(playerid, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2]);
-					if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El due√±o del veh√≠culo est√° muy lejos.", 3);
+					if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El dueÒo del vehÌculo est· muy lejos.", 3);
 
 					PLAYER_TEMP[buyer][py_MECHANIC_PID] = playerid;
 					PLAYER_TEMP[buyer][py_MECHANIC_AID] = ACCOUNT_INFO[playerid][ac_ID];
 					PLAYER_TEMP[buyer][py_MECHANIC_PRICE] = inputtext[0];
-					format(PLAYER_TEMP[buyer][py_MECHANIC_TEXT], 64, "Reparaci√≥n completa del veh√≠culo");
+					format(PLAYER_TEMP[buyer][py_MECHANIC_TEXT], 64, "ReparaciÛn completa del vehÌculo");
 					PLAYER_TEMP[buyer][py_MECHANIC_TYPE] = MECHANIC_OPTION_REPAIR;
 					PLAYER_TEMP[buyer][py_MECHANIC_EXTRA] = 0;
 					PLAYER_TEMP[buyer][py_MECHANIC_VEHICLE_ID] = PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID];
@@ -2798,23 +2798,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						DisablePlayerMechanicMark(buyer);
 					}
 
-					SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s reparar su veh√≠culo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
+					SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s reparar su vehÌculo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
 				}
 				else
 				{
 					if (GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_OCCUPIED])
 					{
 						new buyer = GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_DRIVER];
-						if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El conductor del vehiculo no est√° cerca tuya.", 3);
+						if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El conductor del vehiculo no est· cerca tuya.", 3);
 
 						new Float:mechanic_pos[3];
 						GetPlayerPos(playerid, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2]);
-						if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El conductor del veh√≠culo est√° muy lejos.", 3);
+						if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El conductor del vehÌculo est· muy lejos.", 3);
 
 						PLAYER_TEMP[buyer][py_MECHANIC_PID] = playerid;
 						PLAYER_TEMP[buyer][py_MECHANIC_AID] = ACCOUNT_INFO[playerid][ac_ID];
 						PLAYER_TEMP[buyer][py_MECHANIC_PRICE] = inputtext[0];
-						format(PLAYER_TEMP[buyer][py_MECHANIC_TEXT], 64, "Reparaci√≥n completa del veh√≠culo");
+						format(PLAYER_TEMP[buyer][py_MECHANIC_TEXT], 64, "ReparaciÛn completa del vehÌculo");
 						PLAYER_TEMP[buyer][py_MECHANIC_TYPE] = MECHANIC_OPTION_REPAIR;
 						PLAYER_TEMP[buyer][py_MECHANIC_EXTRA] = 0;
 						PLAYER_TEMP[buyer][py_MECHANIC_VEHICLE_ID] = PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID];
@@ -2828,21 +2828,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							DisablePlayerMechanicMark(buyer);
 						}
 
-						SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s reparar el veh√≠culo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
+						SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s reparar el vehÌculo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
 					}
 					else
 					{
 						new buyer = GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_LAST_DRIVER];
-						if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~Este veh√≠culo no tiene conductor.", 3);
+						if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~Este vehÌculo no tiene conductor.", 3);
 
 						new Float:mechanic_pos[3];
 						GetPlayerPos(playerid, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2]);
-						if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El conductor del veh√≠culo est√° muy lejos.", 3);
+						if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El conductor del vehÌculo est· muy lejos.", 3);
 
 						PLAYER_TEMP[buyer][py_MECHANIC_PID] = playerid;
 						PLAYER_TEMP[buyer][py_MECHANIC_AID] = ACCOUNT_INFO[playerid][ac_ID];
 						PLAYER_TEMP[buyer][py_MECHANIC_PRICE] = inputtext[0];
-						format(PLAYER_TEMP[buyer][py_MECHANIC_TEXT], 64, "Reparaci√≥n completa del veh√≠culo");
+						format(PLAYER_TEMP[buyer][py_MECHANIC_TEXT], 64, "ReparaciÛn completa del vehÌculo");
 						PLAYER_TEMP[buyer][py_MECHANIC_TYPE] = MECHANIC_OPTION_REPAIR;
 						PLAYER_TEMP[buyer][py_MECHANIC_EXTRA] = 0;
 						PLAYER_TEMP[buyer][py_MECHANIC_VEHICLE_ID] = PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID];
@@ -2856,7 +2856,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							DisablePlayerMechanicMark(buyer);
 						}
 
-						SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s reparar el veh√≠culo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
+						SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s reparar el vehÌculo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
 					}
 				}
 			}
@@ -2870,7 +2870,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
@@ -2888,11 +2888,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new buyer = GetPlayerIdFromAccountId(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_OWNER_ID]);
-				if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El due√±o del veh√≠culo no est√° cerca tuya.", 3);
+				if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El dueÒo del vehÌculo no est· cerca tuya.", 3);
 
 				new Float:mechanic_pos[3];
 				GetPlayerPos(playerid, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2]);
-				if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El due√±o del veh√≠culo est√° muy lejos.", 3);
+				if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El dueÒo del vehÌculo est· muy lejos.", 3);
 
 				PLAYER_TEMP[buyer][py_MECHANIC_PID] = playerid;
 				PLAYER_TEMP[buyer][py_MECHANIC_AID] = ACCOUNT_INFO[playerid][ac_ID];
@@ -2919,7 +2919,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowDialog(buyer, DIALOG_MECHANIC_ACCEPT);
 
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s pintar su veh√≠culo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s pintar su vehÌculo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
 			}
 			else ShowDialog(playerid, DIALOG_MECHANIC_MENU);
 			return 1;
@@ -2931,7 +2931,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos", 3);
 
 			if (response)
 			{
@@ -2949,11 +2949,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new buyer = GetPlayerIdFromAccountId(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_OWNER_ID]);
-				if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El due√±o del veh√≠culo no est√° cerca.", 3);
+				if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El dueÒo del vehÌculo no est· cerca.", 3);
 
 				new Float:mechanic_pos[3];
 				GetPlayerPos(playerid, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2]);
-				if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El due√±o del veh√≠culo est√° muy lejos.", 3);
+				if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El dueÒo del vehÌculo est· muy lejos.", 3);
 
 				PLAYER_TEMP[buyer][py_MECHANIC_PID] = playerid;
 				PLAYER_TEMP[buyer][py_MECHANIC_AID] = ACCOUNT_INFO[playerid][ac_ID];
@@ -2967,7 +2967,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowDialog(buyer, DIALOG_MECHANIC_ACCEPT);
 
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s tunear su veh√≠culo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s tunear su vehÌculo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
 			}
 			else ShowDialog(playerid, DIALOG_MECHANIC_MENU);
 			return 1;
@@ -2979,7 +2979,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
@@ -2997,11 +2997,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new buyer = GetPlayerIdFromAccountId(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_OWNER_ID]);
-				if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~EL due√±o del veh√≠culo no esta cerca.", 3);
+				if (buyer == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~EL dueÒo del vehÌculo no esta cerca.", 3);
 
 				new Float:mechanic_pos[3];
 				GetPlayerPos(playerid, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2]);
-				if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El due√±o del veh√≠culo est√° muy lejos.", 3);
+				if (!IsPlayerInRangeOfPoint(buyer, 10.0, mechanic_pos[0], mechanic_pos[1], mechanic_pos[2])) return ShowPlayerMessage(playerid, "~r~El dueÒo del vehÌculo est· muy lejos.", 3);
 
 				PLAYER_TEMP[buyer][py_MECHANIC_PID] = playerid;
 				PLAYER_TEMP[buyer][py_MECHANIC_AID] = ACCOUNT_INFO[playerid][ac_ID];
@@ -3015,7 +3015,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowDialog(buyer, DIALOG_MECHANIC_ACCEPT);
 
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s cambiar el paintjob de su veh√≠culo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has ofrecido a %s cambiar el paintjob de su vehÌculo por %s$.", PLAYER_TEMP[buyer][py_RP_NAME], number_format_thousand(PLAYER_TEMP[buyer][py_MECHANIC_PRICE]));
 			}
 			else ShowDialog(playerid, DIALOG_MECHANIC_MENU);
 			return 1;
@@ -3025,12 +3025,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_MECHANIC_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_MECHANIC_PID])) return ShowPlayerMessage(playerid, "~r~El mec√°nico no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_MECHANIC_AID]) return ShowPlayerMessage(playerid, "~r~El mec√°nico no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_MECHANIC_PID])) return ShowPlayerMessage(playerid, "~r~El mec·nico no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_MECHANIC_AID]) return ShowPlayerMessage(playerid, "~r~El mec·nico no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_MECHANIC_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 10.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El mec√°nico est√° muy lejos.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El mec√°nico ya no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 10.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El mec·nico est· muy lejos.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El mec·nico ya no est· disponible.", 3);
 
 				if (PLAYER_TEMP[playerid][py_MECHANIC_PRICE] > CHARACTER_INFO[playerid][ch_CASH])
 				{
@@ -3040,22 +3040,22 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if (PLAYER_TEMP[playerid][py_MECHANIC_PIECES] > PLAYER_MISC[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][MISC_MECHANIC_PIECES])
 				{
-					ShowPlayerMessage(playerid, "~r~El mec√°nico ya no tiene piezas.", 3);
+					ShowPlayerMessage(playerid, "~r~El mec·nico ya no tiene piezas.", 3);
 					ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "~r~No tienes piezas suficientes para el trabajo.", 3);
 					return 1;
 				}
 
 				if (!GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID] ][gb_vehicle_VALID])
 				{
-					ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos del mec√°nico.", 3);
-					ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "~r~El veh√≠culo est√° muy lejos.", 3);
+					ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos del mec·nico.", 3);
+					ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "~r~El vehÌculo est· muy lejos.", 3);
 					return 1;
 				}
 
 				if (GetVehicleDistanceFromPoint(PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID], x, y, z) > 10.0)
 				{
-					ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos del mec√°nico.", 3);
-					ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "~r~El veh√≠culo est√° muy lejos.", 3);
+					ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos del mec·nico.", 3);
+					ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "~r~El vehÌculo est· muy lejos.", 3);
 					return 1;
 				}
 
@@ -3080,7 +3080,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID] ][gb_vehicle_COLOR_1] = PLAYER_TEMP[playerid][py_MECHANIC_EXTRA];
 						ChangeVehicleColor(PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID], GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID] ][gb_vehicle_COLOR_1], GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID] ][gb_vehicle_COLOR_2]);
 
-						ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "Has usado 5 piezas en la pintura del veh√≠culo.", 3);
+						ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "Has usado 5 piezas en la pintura del vehÌculo.", 3);
 					}
 					case MECHANIC_OPTION_COLOR_2:
 					{
@@ -3089,7 +3089,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID] ][gb_vehicle_COLOR_2] = PLAYER_TEMP[playerid][py_MECHANIC_EXTRA];
 						ChangeVehicleColor(PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID], GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID] ][gb_vehicle_COLOR_1], GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID] ][gb_vehicle_COLOR_2]);
 
-						ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "Has usado 5 piezas en la pintura del veh√≠culo.", 3);
+						ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "Has usado 5 piezas en la pintura del vehÌculo.", 3);
 					}
 					case MECHANIC_OPTION_TUNING:
 					{
@@ -3101,21 +3101,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						AddVehicleComponent(PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID], PLAYER_TEMP[playerid][py_MECHANIC_EXTRA]);
 
 						PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] -= PLAYER_TEMP[playerid][py_MECHANIC_PIECES];
-						ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "Has usado 5 piezas en el tuneo del veh√≠culo.", 3);
+						ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "Has usado 5 piezas en el tuneo del vehÌculo.", 3);
 					    SavePlayerMisc(playerid);
-						//SendClientMessageEx(PLAYER_TEMP[playerid][py_MECHANIC_PID], COLOR_WHITE, ""COL_WHITE"Has necesitado 5 piezas para tunear el veh√≠culo.", PLAYER_TEMP[playerid][py_MECHANIC_PIECES]);
+						//SendClientMessageEx(PLAYER_TEMP[playerid][py_MECHANIC_PID], COLOR_WHITE, ""COL_WHITE"Has necesitado 5 piezas para tunear el vehÌculo.", PLAYER_TEMP[playerid][py_MECHANIC_PIECES]);
 					}
 					case MECHANIC_OPTION_PAINTJOB:
 					{
 						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID] ][gb_vehicle_PAINTJOB] = PLAYER_TEMP[playerid][py_MECHANIC_EXTRA];
 						ChangeVehiclePaintjob(PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID], GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID] ][gb_vehicle_PAINTJOB]);
-						ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "Has usado 5 piezas en el paintjob de el veh√≠culo.", 3);
+						ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "Has usado 5 piezas en el paintjob de el vehÌculo.", 3);
 					    SavePlayerMisc(playerid);
-						//SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Has necesitado 15 piezas para el paintjob de el veh√≠culo.");
+						//SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Has necesitado 15 piezas para el paintjob de el vehÌculo.");
 					}
 				}
 
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has pagado %s$ al mec√°nico por su trabajo.", number_format_thousand(PLAYER_TEMP[playerid][py_MECHANIC_PRICE]));
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has pagado %s$ al mec·nico por su trabajo.", number_format_thousand(PLAYER_TEMP[playerid][py_MECHANIC_PRICE]));
 				SendClientMessageEx(PLAYER_TEMP[playerid][py_MECHANIC_PID], COLOR_WHITE, ""COL_WHITE"%s te ha pagado %s$ por tu trabajo.", PLAYER_TEMP[playerid][py_RP_NAME], number_format_thousand(PLAYER_TEMP[playerid][py_MECHANIC_PRICE]));
 			}
 			else
@@ -3124,7 +3124,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_MECHANIC_PID])) return 1;
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_MECHANIC_AID]) return 1;
 
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "~r~La persona no acept√≥ lo que le ofreciste.", 3);
+			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "~r~La persona no aceptÛ lo que le ofreciste.", 3);
 			}
 			return 1;
 		}
@@ -3138,7 +3138,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(vehicleid, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
@@ -3155,7 +3155,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
@@ -3175,7 +3175,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(vehicleid, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
@@ -3188,7 +3188,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					ChangeVehicleColor(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_COLOR_1], GLOBAL_VEHICLES[vehicleid][gb_vehicle_COLOR_2]);
 
-					ShowPlayerMessage(playerid, "Veh√≠culo ~g~pintado.", 2);
+					ShowPlayerMessage(playerid, "VehÌculo ~g~pintado.", 2);
 					ShowTuningMenu(playerid);
 				}
 			}
@@ -3202,11 +3202,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
-				if (PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] < 5) return ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m√°s piezas en el taller.", 3);
+				if (PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] < 5) return ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m·s piezas en el taller.", 3);
 
 				if (PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
 				{
@@ -3218,7 +3218,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					ChangeVehicleColor(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_COLOR_1], GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_COLOR_2]);
 
-					ShowPlayerMessage(playerid, "Has usado 5 piezas para pintar el veh√≠culo.", 3);
+					ShowPlayerMessage(playerid, "Has usado 5 piezas para pintar el vehÌculo.", 3);
 				}
 				else
 				{
@@ -3239,7 +3239,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(vehicleid, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
@@ -3261,13 +3261,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
 				if (50 > PLAYER_SKILLS[playerid][WORK_MECHANIC])
 				{
-					SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec√°nico, necesitas 50 para tunear veh√≠culos.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
+					SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec·nico, necesitas 50 para tunear vehÌculos.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -3289,23 +3289,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			new Float:Vehicle_Pos[3];
 			GetVehiclePos(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
 
-			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~Est√© veh√≠culo est√° muy lejos.", 3);
+			if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~EstÈ vehÌculo est· muy lejos.", 3);
 
 			if (response)
 			{
 				if (50 > PLAYER_SKILLS[playerid][WORK_MECHANIC])
 				{
-					SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec√°nico, necesitas 50 para cambiar el paintjob de veh√≠culos.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
+					SendClientMessageEx(playerid, COLOR_WHITE, "Has realizado %d reparaciones como mec·nico, necesitas 50 para cambiar el paintjob de vehÌculos.", PLAYER_SKILLS[playerid][WORK_MECHANIC]);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
-				if (PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] < 15) return ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m√°s piezas en el taller.", 3);
+				if (PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] < 15) return ShowPlayerMessage(playerid, "~r~No tienes suficientes piezas, tienes que comprar m·s piezas en el taller.", 3);
 
 				if (listitem == 0)
 				{
 					if (GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_PAINTJOB] == 3)
 					{
-					    ShowPlayerMessage(playerid, "~r~El veh√≠culo no tiene ning√∫n paintjob.", 3);
+					    ShowPlayerMessage(playerid, "~r~El vehÌculo no tiene ning˙n paintjob.", 3);
 						return 1;
 					}
 
@@ -3323,7 +3323,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_PAINTJOB] = listitem - 1;
 					ChangeVehiclePaintjob(PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID], GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_PAINTJOB]);
-				    ShowPlayerMessage(playerid, "~r~Has usado 15 piezas para el paintjob de el veh√≠culo.", 3);
+				    ShowPlayerMessage(playerid, "~r~Has usado 15 piezas para el paintjob de el vehÌculo.", 3);
 				}
 				else
 				{
@@ -3340,7 +3340,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID] == INVALID_PLAYER_ID)
 				{
-					SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Necesitas un compa√±ero para comenzar a recoger basura.");
+					SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Necesitas un compaÒero para comenzar a recoger basura.");
 					return 1;
 				}
 
@@ -3394,7 +3394,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+				if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 
 				switch(seed_info[listitem][seed_info_PLANT_TYPE])
 				{
@@ -3459,7 +3459,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							if (gettime() < PLAYER_TEMP[playerid][py_LAST_BM_BUY] + 25)
 							{
 								new time = (10-(gettime()-PLAYER_TEMP[playerid][py_LAST_BM_BUY]));
-								SendClientMessageEx(playerid, COLOR_WHITE, "Tienes que esperar %s segundos para volver a comprar aqu√≠.", TimeConvert(time));
+								SendClientMessageEx(playerid, COLOR_WHITE, "Tienes que esperar %s segundos para volver a comprar aquÌ.", TimeConvert(time));
 								return 1;
 							}
 						}
@@ -3587,7 +3587,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (!WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_AMMO])
 				{
-				    ShowPlayerMessage(playerid, "~r~Esta arma no requiere de munici√≥n.", 3);
+				    ShowPlayerMessage(playerid, "~r~Esta arma no requiere de municiÛn.", 3);
 					return 1;
 				}
 
@@ -3606,7 +3606,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 450) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
 						{
-							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munici√≥n.", 3);
+							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha municiÛn.", 3);
 							return 1;
 						}
 
@@ -3619,7 +3619,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
-							ShowPlayerMessage(playerid, "No se te va a cobrar por ser polic√≠a.", 3);
+							ShowPlayerMessage(playerid, "No se te va a cobrar por ser policÌa.", 3);
 							return 1;
 						}
 						else
@@ -3633,7 +3633,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 650) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
 						{
-							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munici√≥n.", 3);
+							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha municiÛn.", 3);
 							return 1;
 						}
 
@@ -3646,7 +3646,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
-							ShowPlayerMessage(playerid, "No se te va a cobrar por ser polic√≠a.", 3);
+							ShowPlayerMessage(playerid, "No se te va a cobrar por ser policÌa.", 3);
 							return 1;
 						}
 						else
@@ -3660,7 +3660,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 850) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
 						{
-							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munici√≥n.", 3);
+							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha municiÛn.", 3);
 							return 1;
 						}
 
@@ -3673,7 +3673,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
-							ShowPlayerMessage(playerid, "No se te va a cobrar por ser polic√≠a.", 3);
+							ShowPlayerMessage(playerid, "No se te va a cobrar por ser policÌa.", 3);
 							return 1;
 						}
 						else
@@ -3687,7 +3687,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 1350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
 						{
-							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munici√≥n.", 3);
+							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha municiÛn.", 3);
 							return 1;
 						}
 
@@ -3700,7 +3700,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
-							ShowPlayerMessage(playerid, "No se te va a cobrar por ser polic√≠a.", 3);
+							ShowPlayerMessage(playerid, "No se te va a cobrar por ser policÌa.", 3);
 							return 1;
 						}
 						else
@@ -3761,12 +3761,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor est√° desconectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor est· desconectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
 
 
 				new to_player_slot = GetEmptyPlayerPocketSlot(playerid);
@@ -3800,12 +3800,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
 
 
 				PLAYER_MISC[playerid][MISC_MEDICINE] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
@@ -3835,12 +3835,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
 
 
 				PLAYER_MISC[playerid][MISC_VENDAS] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
@@ -3869,12 +3869,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
 
 
 				PLAYER_MISC[playerid][MISC_BOTIKIN] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
@@ -3904,12 +3904,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
 
 
 				PLAYER_MISC[playerid][MISC_CUETE] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
@@ -3938,12 +3938,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
 
 
 				PLAYER_MISC[playerid][MISC_CANNABIS] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
@@ -3972,12 +3972,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
 
 
 				PLAYER_MISC[playerid][MISC_CRACK] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
@@ -4006,12 +4006,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
 
 
 				ACCOUNT_INFO[playerid][ac_SD] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
@@ -4062,12 +4062,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est√° disponible.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no est· cerca tuya.", 3);
+				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no est· disponible.", 3);
 
 
 				if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA] ][player_weapon_VALID])
@@ -4168,7 +4168,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						new temp_VEHICLE_BOOT[enum_VEHICLE_BOOT]; VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ] = temp_VEHICLE_BOOT;
 
-						SetPlayerChatBubble(playerid, "\n\n\n\n* Saca una arma del maletero de su veh√≠culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+						SetPlayerChatBubble(playerid, "\n\n\n\n* Saca una arma del maletero de su vehÌculo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 					}
 					case 1: ShowDialog(playerid, DIALOG_VEHICLE_BOOT_DELETE);
 				}
@@ -4278,7 +4278,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!found) return 1;
 				if (current_rank > PLAYER_SKILLS[playerid][WORK_POLICE])
 				{
-				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este polic√≠a porque es un rango superior al tuyo.", 3);
+				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este policÌa porque es un rango superior al tuyo.", 3);
 					return 1;
 				}
 
@@ -4300,9 +4300,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_POLICE) EndPlayerJob(player_id);
 						PLAYER_WORKS[player_id][WORK_POLICE] = false;
-						SendClientMessageEx(player_id, COLOR_WHITE, "El %s %s te ha expulsado del cuerpo de polic√≠a.", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+						SendClientMessageEx(player_id, COLOR_WHITE, "El %s %s te ha expulsado del cuerpo de policÌa.", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_RP_NAME]);
 					}
-					else SendClientMessageEx(player_id, COLOR_WHITE, ""COL_WHITE"El %s %s ha modificado tu rango del cuerpo de polic√≠a a '%s'.", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_RP_NAME], POLICE_RANKS[listitem]);
+					else SendClientMessageEx(player_id, COLOR_WHITE, ""COL_WHITE"El %s %s ha modificado tu rango del cuerpo de policÌa a '%s'.", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_RP_NAME], POLICE_RANKS[listitem]);
 				}
 			}
 			else ShowDialog(playerid, DIALOG_POLICE_LIST);
@@ -4796,7 +4796,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (!WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_AMMO])
 				{
-				    ShowPlayerMessage(playerid, "~r~Esta arma no requiere de munici√≥n.", 3);
+				    ShowPlayerMessage(playerid, "~r~Esta arma no requiere de municiÛn.", 3);
 					return 1;
 				}
 
@@ -4809,21 +4809,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (sscanf(inputtext, "d", inputtext[0])) return ShowDialog(playerid, dialogid);
-				if (inputtext[0] <= 0 || inputtext[0] > 9999) return ShowPlayerMessage(playerid, "~r~Cantidad de munici√≥n incorrecta.", 3);
+				if (inputtext[0] <= 0 || inputtext[0] > 9999) return ShowPlayerMessage(playerid, "~r~Cantidad de municiÛn incorrecta.", 3);
 
 				new price = 2 * inputtext[0];
 				if (price > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 
 				if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] + inputtext[0] > 9999)
 				{
-					ShowPlayerMessage(playerid, "~r~Esta arma no le entra esa cantidad de munici√≥n.", 3);
+					ShowPlayerMessage(playerid, "~r~Esta arma no le entra esa cantidad de municiÛn.", 3);
 					return 1;
 				}
 
 				GivePlayerCash(playerid, -price);
 				GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], inputtext[0]);
 
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has comprado "COL_RED"%s "COL_WHITE"de munici√≥n para tu "COL_RED"'%s' "COL_WHITE"por %s$.", number_format_thousand(inputtext[0]), WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(price));
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has comprado "COL_RED"%s "COL_WHITE"de municiÛn para tu "COL_RED"'%s' "COL_WHITE"por %s$.", number_format_thousand(inputtext[0]), WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(price));
 				ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
 			}
 			return 1;
@@ -4845,7 +4845,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					if (!PLAYER_WORKS[playerid][WORK_POLICE])
 					{
-						if (POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID] == 23) return ShowPlayerMessage(playerid, "~r~Esta arma solo es para polic√≠as", 4);
+						if (POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID] == 23) return ShowPlayerMessage(playerid, "~r~Esta arma solo es para policÌas", 4);
 					}
 
 					if (WEAPON_INFO[ POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID] ][weapon_info_AMMO]) GivePlayerWeaponEx(playerid, POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID], 1);
@@ -4929,7 +4929,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (connected)
 				{
 					ACCOUNT_INFO[player_id][ac_ADMIN_LEVEL] = listitem;
-					SendClientMessageEx(player_id, COLOR_WHITE, "%s cambi√≥ tu rango administrativo a: %s.", ACCOUNT_INFO[playerid][ac_NAME], ADMIN_LEVELS[listitem]);
+					SendClientMessageEx(player_id, COLOR_WHITE, "%s cambiÛ tu rango administrativo a: %s.", ACCOUNT_INFO[playerid][ac_NAME], ADMIN_LEVELS[listitem]);
 					ShowPlayerMessage(player_id, "~g~Han cambiado tu rango administrativo.", 3);
 				}
 			}
@@ -4954,7 +4954,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					PLAYER_TEMP[playerid][py_BAD_LOGIN_ATTEMP] ++;
 					if (PLAYER_TEMP[playerid][py_BAD_LOGIN_ATTEMP] > MAX_BAD_LOGIN_ATTEMPS) return KickEx(playerid, 100);
-					ShowPlayerMessage(playerid, "~r~CONTRASE√ëA INCORRECTA.", 3);
+					ShowPlayerMessage(playerid, "~r~CONTRASE—A INCORRECTA.", 3);
 				}
 			}
 			return 1;
@@ -4974,8 +4974,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SALT` = '%q' `PASS` = '%q' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_ID]);
 				db_free_result(db_query(Database, DB_Query));
 
-				ShowPlayerNotification(playerid, "~r~Importante~w~~n~¬°Nunca compartas o muestres la contrase√±a de tu cuenta! Los administradores de "SERVER_NAME" nunca solicitan esta informaci√≥n.", 4);
-				ShowPlayerMessage(playerid, "~g~Tu contrase√±a ha sido cambiada correctamente.", 3);
+				ShowPlayerNotification(playerid, "~r~Importante~w~~n~°Nunca compartas o muestres la contraseÒa de tu cuenta! Los administradores de "SERVER_NAME" nunca solicitan esta informaciÛn.", 4);
+				ShowPlayerMessage(playerid, "~g~Tu contraseÒa ha sido cambiada correctamente.", 3);
 			}
 			return 1;
 		}
@@ -5025,13 +5025,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new detections, seconds;
 				if (sscanf(inputtext, "p<:>dd", detections, seconds))
 				{
-				    ShowPlayerMessage(playerid, "~r~Sintaxis no v√°lida.", 3);
+				    ShowPlayerMessage(playerid, "~r~Sintaxis no v·lida.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
 				if (detections < 1 || detections > 99999)
 				{
-				    ShowPlayerMessage(playerid, "~r~El n√∫mero de detecciones debe ser 1 o mayor.", 3);
+				    ShowPlayerMessage(playerid, "~r~El n˙mero de detecciones debe ser 1 o mayor.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -5063,14 +5063,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_TOYS)
 					{
 						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-						ShowPlayerMessage(playerid, "~r~No tienes m√°s espacio para accesorios, elimina alguno si quieres comprar otro~n~o adquiere VIP.", 5);
+						ShowPlayerMessage(playerid, "~r~No tienes m·s espacio para accesorios, elimina alguno si quieres comprar otro~n~o adquiere VIP.", 5);
 						return 1;
 					}
 
 					if (slot == -1)
 					{
 						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-						ShowPlayerMessage(playerid, "~r~No tienes m√°s espacio para accesorios, elimina alguno si quieres comprar otro.", 5);
+						ShowPlayerMessage(playerid, "~r~No tienes m·s espacio para accesorios, elimina alguno si quieres comprar otro.", 5);
 						return 1;
 					}
 
@@ -5095,7 +5095,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					GivePlayerCash(playerid, -Toys_Shop[ listitem ][shop_toy_price]);
 
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Gracias por comprar aqu√≠, vuelva pronto.", 3);
+					ShowPlayerMessage(playerid, "Gracias por comprar aquÌ, vuelva pronto.", 3);
 					SavePlayerToysData(playerid);
 				}
 				else
@@ -5169,7 +5169,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					CHARACTER_INFO[playerid][ch_SKIN] = clothe_info[0];
 
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Gracias por comprar aqu√≠, vuelva pronto.", 3);
+					ShowPlayerMessage(playerid, "Gracias por comprar aquÌ, vuelva pronto.", 3);
 					SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
 					PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 				}
@@ -5208,7 +5208,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_OCCUPIED])
 				{
-				    ShowPlayerMessage(playerid, "~r~No se puede remolcar tu veh√≠culo porque hay alguien conduci√©ndolo.", 3);
+				    ShowPlayerMessage(playerid, "~r~No se puede remolcar tu vehÌculo porque hay alguien conduciÈndolo.", 3);
 					return 1;
 				}
 
@@ -5230,7 +5230,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_OCCUPIED])
 				{
-				    ShowPlayerMessage(playerid, "~r~No se puede remolcar tu veh√≠culo porque hay alguien conduci√©ndolo.", 3);
+				    ShowPlayerMessage(playerid, "~r~No se puede remolcar tu vehÌculo porque hay alguien conduciÈndolo.", 3);
 					return 1;
 				}
 
@@ -5245,7 +5245,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						switch(vehicle_type)
 						{
-							// Helic√≥pteros
+							// HelicÛpteros
 							case 0:
 							{
 								new crane_point = random(sizeof(HELI_POINTS));
@@ -5254,7 +5254,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = HELI_POINTS[crane_point][2];
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = HELI_POINTS[crane_point][3];
 								
-								ShowPlayerMessage(playerid, "El veh√≠culo ha sido remolcado al ~y~LS Airport~w~.", 6);
+								ShowPlayerMessage(playerid, "El vehÌculo ha sido remolcado al ~y~LS Airport~w~.", 6);
 							}
 
 							// Aviones
@@ -5266,7 +5266,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = PLANE_POINTS[crane_point][2];
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = PLANE_POINTS[crane_point][3];
 								
-								ShowPlayerMessage(playerid, "El veh√≠culo ha sido remolcado al ~y~LS Airport~w~.", 6);
+								ShowPlayerMessage(playerid, "El vehÌculo ha sido remolcado al ~y~LS Airport~w~.", 6);
 							}
 
 							// Barcos
@@ -5278,7 +5278,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = BOAT_POINTS[crane_point][2];
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = BOAT_POINTS[crane_point][3];
 								
-								ShowPlayerMessage(playerid, "El veh√≠culo ha sido remolcado a la ~y~Playa de Santa Maria~w~.", 6);
+								ShowPlayerMessage(playerid, "El vehÌculo ha sido remolcado a la ~y~Playa de Santa Maria~w~.", 6);
 							}
 
 							// Autos, motos, etc
@@ -5290,7 +5290,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = CRANE_POINTS[crane_point][2];
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = CRANE_POINTS[crane_point][3];
 								
-								ShowPlayerNotification(playerid, "El veh√≠culo ha sido remolcado al ~y~Dep√≥sito municipal~w~.", 4);
+								ShowPlayerNotification(playerid, "El vehÌculo ha sido remolcado al ~y~DepÛsito municipal~w~.", 4);
 							}
 						}
 
@@ -5314,7 +5314,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SetVehicleToRespawnEx(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
 						RepairVehicleEx(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
 
-						ShowPlayerNotification(playerid, "El veh√≠culo ha sido remolcado hasta el √∫ltimo estacionamiento.", 4);
+						ShowPlayerNotification(playerid, "El vehÌculo ha sido remolcado hasta el ˙ltimo estacionamiento.", 4);
 					}
 				}
 			}
@@ -5335,7 +5335,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -5386,7 +5386,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "s[128]", reason)) return ShowPlayerMessage(playerid, "~r~Formato incorrecto.", 3);
 			    if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER])) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 
-				ShowPlayerMessage(playerid, "~g~Tu reporte fue enviado a los administradores en l√≠nea.", 3);
+				ShowPlayerMessage(playerid, "~g~Tu reporte fue enviado a los administradores en lÌnea.", 3);
 
 				new str[144]; format(str, 144, "[REPORTE]"COL_WHITE" %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME], PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], reason);
 				SendMessageToAdmins(COLOR_ORANGE, str);
@@ -5415,8 +5415,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 3:
 					{
-						ShowPlayerMessage(PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], "Est√°s siendo esposado", 3);
-					    ShowPlayerMessage(playerid, "Est√°s esposando a esta persona", 3);
+						ShowPlayerMessage(PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], "Est·s siendo esposado", 3);
+					    ShowPlayerMessage(playerid, "Est·s esposando a esta persona", 3);
 
 						PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_CUFFED] = false;
 						PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_CUFFING] = true;
@@ -5448,13 +5448,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16] = SetTimerEx("StandUpBotikin", 7000, false, "ii", playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
 
 						ApplyAnimation(playerid, "MEDIC", "CPR", 4.1, false, 0, 0, 0, 0, 1);
-						SetPlayerChatBubble(playerid, "\n\n\n\n* Usa un botiqu√≠n.", 0xffcb90FF, 20.0, 2000);
+						SetPlayerChatBubble(playerid, "\n\n\n\n* Usa un botiquÌn.", 0xffcb90FF, 20.0, 2000);
 						return 1;
 					}
 					case 5:
 					{
-						if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MEMBERS] >= 20) return ShowPlayerMessage(playerid, "~r~La banda ya est√° llena.", 3);
-						if (PLAYER_WORKS[PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No se pueden invitar a polic√≠as.", 3);
+						if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MEMBERS] >= 20) return ShowPlayerMessage(playerid, "~r~La banda ya est· llena.", 3);
+						if (PLAYER_WORKS[PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No se pueden invitar a policÌas.", 3);
 						if (PLAYER_CREW[PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Este jugador ya tiene banda.", 3);
 						if (PLAYER_TEMP[PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes invitar cuando la banda esta en combate.", 3);
 
@@ -5520,7 +5520,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (strlen(inputtext) >= 24)
 				{
-				    ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir un nombre de 24 caracteres.", 3);
+				    ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir un nombre de 24 caracteres.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -5555,7 +5555,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new index = GetAvaibleCrewIndex();
 				if (index == -1)
 				{
-					SendClientMessageEx(playerid, COLOR_WHITE, "No se puede crear la banda porque no hay espacio disponible, el l√≠mite de CREWS es %d.", MAX_CREWS);
+					SendClientMessageEx(playerid, COLOR_WHITE, "No se puede crear la banda porque no hay espacio disponible, el lÌmite de CREWS es %d.", MAX_CREWS);
 					ShowPlayerMessage(playerid, "~r~No se puede crear la crew porque no hay espacio disponible.", 3);
 					return 1;
 				}
@@ -5627,7 +5627,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							time = (gettime() - GraffitiGetTime);
 
 						format(caption, sizeof caption, "{%06x}%s", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
-					    format(dialog, sizeof dialog, ""COL_WHITE"Los graffitis son cada 45 minutos, han pasado %s minutos desde el √∫ltimo.\nLa banda actualmente tiene %d graffitis.", TimeConvert(time), CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT]);
+					    format(dialog, sizeof dialog, ""COL_WHITE"Los graffitis son cada 45 minutos, han pasado %s minutos desde el ˙ltimo.\nLa banda actualmente tiene %d graffitis.", TimeConvert(time), CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT]);
 					    ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
 					}
 					case 2:
@@ -5637,7 +5637,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							caption[64];
 
 						format(caption, sizeof caption, "{%06x}%s", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
-					    format(dialog, sizeof dialog, ""COL_WHITE"Las disputas de mercados son cada 7 dias, ha pasado %s desde el √∫ltimo.\nLa banda actualmente tiene %d mercados dominados.", ReturnTimelapse(MarketGetTime, gettime()), CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT]);
+					    format(dialog, sizeof dialog, ""COL_WHITE"Las disputas de mercados son cada 7 dias, ha pasado %s desde el ˙ltimo.\nLa banda actualmente tiene %d mercados dominados.", ReturnTimelapse(MarketGetTime, gettime()), CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT]);
 					    ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
 					}
 				}
@@ -5662,7 +5662,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case CREW_RANK_CHANGE_NAME:
 					{
 						if (!CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][CREW_RANK_CHANGE_NAME]) return ShowPlayerMessage(playerid, "~r~No tienes permisos.", 2);
-						if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el nombre de la banda cuando la crew est√° en combate.", 3);
+						if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el nombre de la banda cuando la crew est· en combate.", 3);
 						ShowDialog(playerid, DIALOG_CREW_CHANGE_NAME);
 					}
 					case CREW_RANK_CAST_MEMBERS:
@@ -5684,7 +5684,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (!CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][CREW_RANK_CHANGE_COLOR]) return ShowPlayerMessage(playerid, "~r~No tienes permisos.", 2);
 
-						if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el color de la banda cuando la banda est√° en combate.", 3);
+						if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el color de la banda cuando la banda est· en combate.", 3);
 						ShowDialog(playerid, DIALOG_CREW_MODIFY_COLOR);
 					}
 					case CREW_RANK_DELETE:
@@ -5714,7 +5714,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 							if (total <= 1)
 							{
-								ShowPlayerMessage(playerid, "~r~No puedes abandonar la banda porque eres el √∫nico miembro con el rango principal.", 3);
+								ShowPlayerMessage(playerid, "~r~No puedes abandonar la banda porque eres el ˙nico miembro con el rango principal.", 3);
 								return 1;
 							}
 						}
@@ -5762,10 +5762,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (response)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el nombre de la banda cuando la crew est√° en combate.", 3);
+				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el nombre de la banda cuando la crew est· en combate.", 3);
 				if (strlen(inputtext) >= 32)
 				{
-					ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir un nombre de 32 caracteres.", 3);
+					ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir un nombre de 32 caracteres.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -5795,10 +5795,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					zone[45],
 					saved_noti[364];
 
-				format(saved_noti, sizeof saved_noti, "%s cambi√≥ el nombre de la banda a %s.", PLAYER_TEMP[playerid][py_RP_NAME], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
+				format(saved_noti, sizeof saved_noti, "%s cambiÛ el nombre de la banda a %s.", PLAYER_TEMP[playerid][py_RP_NAME], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
 				SaveNotificationToCrewMemeber(PLAYER_CREW[playerid][player_crew_ID], saved_noti);
 
-				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) cambi√≥ el nombre de la banda a %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
+				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) cambiÛ el nombre de la banda a %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
 				SendMessageToCrewMembers(PLAYER_CREW[playerid][player_crew_ID], COLOR_WHITE, message);
 
 				ShowCrew(playerid);
@@ -5834,10 +5834,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (response)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el nombre de la banda cuando est√°n en combate.", 3);
+				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el nombre de la banda cuando est·n en combate.", 3);
 				if (strlen(inputtext) >= 32)
 				{
-					ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir un algo de 32 caracteres.", 3);
+					ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir un algo de 32 caracteres.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -5845,7 +5845,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new crew_description[32];
 				if (sscanf(inputtext, "s[32]", crew_description))
 				{
-					ShowPlayerMessage(playerid, "Introduce una descripci√≥n para la banda.", 3);
+					ShowPlayerMessage(playerid, "Introduce una descripciÛn para la banda.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -5860,10 +5860,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					message[144],
 					saved_noti[264];
 
-				format(saved_noti, sizeof saved_noti, "%s cambi√≥ la descripci√≥n de la banda.", PLAYER_TEMP[playerid][py_RP_NAME]);
+				format(saved_noti, sizeof saved_noti, "%s cambiÛ la descripciÛn de la banda.", PLAYER_TEMP[playerid][py_RP_NAME]);
 				SaveNotificationToCrewMemeber(PLAYER_CREW[playerid][player_crew_ID], saved_noti);
 
-				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) cambi√≥ la descripci√≥n de la banda.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME]);
+				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) cambiÛ la descripciÛn de la banda.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME]);
 				SendMessageToCrewMembers(PLAYER_CREW[playerid][player_crew_ID], COLOR_WHITE, message);
 
 				ShowCrew(playerid);
@@ -5930,7 +5930,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						if (total <= 1)
 						{
-							ShowPlayerMessage(playerid, "~r~No se puede echar a este miembro ya que es el √∫nico miembro con el rango principal.", 3);
+							ShowPlayerMessage(playerid, "~r~No se puede echar a este miembro ya que es el ˙nico miembro con el rango principal.", 3);
 							return 1;
 						}
 					}
@@ -5977,7 +5977,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					if (total <= 1)
 					{
-						ShowPlayerMessage(playerid, "~r~No se puede echar a este miembro ya que es el √∫nico miembro con el rango principal.", 3);
+						ShowPlayerMessage(playerid, "~r~No se puede echar a este miembro ya que es el ˙nico miembro con el rango principal.", 3);
 						return 1;
 					}
 				}
@@ -6027,16 +6027,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_CREW_INVITE_PID])) return ShowPlayerMessage(playerid, "~r~El jugador no est√° conectado.", 2);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_CREW_INVITE_PID])) return ShowPlayerMessage(playerid, "~r~El jugador no est· conectado.", 2);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_CREW_INVITE_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
-				if (PLAYER_WORKS[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Esta persona es polic√≠a y no puede tener banda.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
+				if (PLAYER_WORKS[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Esta persona es policÌa y no puede tener banda.", 3);
 				if (PLAYER_CREW[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona pertenece a otra banda.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) ShowPlayerMessage(playerid, "~r~No puedes invitar a este jugador ahora, prueba despues.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_CREW_INVITE_AID]) return ShowPlayerMessage(playerid, "~r~El jugador no est√° conectado.", 2);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_CREW_INVITE_AID]) return ShowPlayerMessage(playerid, "~r~El jugador no est· conectado.", 2);
 
-				ShowPlayerMessage(playerid, "~g~Invitaci√≥n enviada.", 3);
+				ShowPlayerMessage(playerid, "~g~InvitaciÛn enviada.", 3);
 
 				PLAYER_TEMP[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][py_CREW_INVITE_INFO][0] = PLAYER_CREW[playerid][player_crew_ID];
 				PLAYER_TEMP[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][py_CREW_INVITE_INFO][1] = PLAYER_CREW[playerid][player_crew_INDEX];
@@ -6053,7 +6053,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!CREW_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][1] ][crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta banda ya no existe.", 2);
 				if (!CREW_RANK_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][1] ][ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][2] ][crew_rank_VALID]) return ShowPlayerMessage(playerid, "~r~El rango que te ofrecieron ya no existe.", 2);
 				if (gettime() > PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][3] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en responder.", 2);
-				if (CREW_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][1] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes unirte a la banda cuando la banda est√° en combate.", 2);
+				if (CREW_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][1] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes unirte a la banda cuando la banda est· en combate.", 2);
 
 				PLAYER_CREW[playerid][player_crew_VALID] = true;
 				PLAYER_CREW[playerid][player_crew_ID] = PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][0];
@@ -6153,7 +6153,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (strlen(inputtext) >= 32)
 				{
-				    ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir un nombre de 32 caracteres.", 3);
+				    ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir un nombre de 32 caracteres.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -6186,7 +6186,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (strlen(inputtext) >= 32)
 				{
-					ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir un nombre de 32 caracteres.", 3);
+					ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir un nombre de 32 caracteres.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -6301,7 +6301,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowCrew(playerid);
 
 				new message[144];
-				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) cambi√≥ tu rango al rango '%s'.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_NEW_RANK] ][crew_rank_NAME]);
+				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) cambiÛ tu rango al rango '%s'.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_NEW_RANK] ][crew_rank_NAME]);
 				
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{
@@ -6338,7 +6338,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (response)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el color cuando la banda est√° en combate.", 3);
+				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede cambiar el color cuando la banda est· en combate.", 3);
 
 				CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] = CrewColors[listitem];
 
@@ -6363,7 +6363,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(db_query(Database, DB_Query));
 
 				new saved_noti[264];
-				format(saved_noti, sizeof saved_noti, "%s cambi√≥ el color de la banda.", PLAYER_TEMP[playerid][py_RP_NAME]);
+				format(saved_noti, sizeof saved_noti, "%s cambiÛ el color de la banda.", PLAYER_TEMP[playerid][py_RP_NAME]);
 				SaveNotificationToCrewMemeber(PLAYER_CREW[playerid][player_crew_ID], saved_noti);
 
 				ShowPlayerMessage(playerid, "El color de la banda se ha cambiado.", 3);
@@ -6383,7 +6383,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (response)
 			{
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede borrar la banda cuando est√° en combate.", 3);
+				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No se puede borrar la banda cuando est· en combate.", 3);
 
 				new message[144];
 				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) ha eliminado la banda.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME]);
@@ -6494,7 +6494,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					if (total <= 1)
 					{
-						ShowPlayerMessage(playerid, "~r~No puedes abandonar la banda porque eres el √∫nico miembro con el rango principal.", 3);
+						ShowPlayerMessage(playerid, "~r~No puedes abandonar la banda porque eres el ˙nico miembro con el rango principal.", 3);
 						return 1;
 					}
 				}
@@ -6602,7 +6602,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					if (total <= 1)
 					{
-						ShowPlayerMessage(playerid, "~r~No se puede modificar el rango de este miembro ya que es el √∫nico miembro con el rango principal.", 3);
+						ShowPlayerMessage(playerid, "~r~No se puede modificar el rango de este miembro ya que es el ˙nico miembro con el rango principal.", 3);
 						return 1;
 					}
 				}
@@ -6614,7 +6614,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (connected)
 				{
 					PLAYER_CREW[player_id][player_crew_RANK] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
-					format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) cambi√≥ tu rango al rango '%s'.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][crew_rank_NAME]);
+					format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) cambiÛ tu rango al rango '%s'.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][crew_rank_NAME]);
 					SendClientMessage(player_id, COLOR_WHITE, message);
 				}
 
@@ -6631,10 +6631,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (response)
 			{
-				if (!TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_VALID]) return ShowPlayerMessage(playerid, "~r~La propiedad no est√° dentro de un territorio de tu banda.", 3);
-				if (!TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_OCCUPIED]) return ShowPlayerMessage(playerid, "~r~La propiedad no est√° dentro de un territorio de tu banda.", 3);
-				if (TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_CREW_ID] != PLAYER_CREW[playerid][player_crew_ID]) return ShowPlayerMessage(playerid, "~r~La propiedad no est√° dentro de un territorio de tu banda.", 3);
-				if (!IsPointInDynamicArea(TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_AREA], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_X], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Y], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Z])) return SendClientMessage(playerid, COLOR_WHITE, "La propiedad no est√° dentro de un territorio de tu crew.");
+				if (!TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_VALID]) return ShowPlayerMessage(playerid, "~r~La propiedad no est· dentro de un territorio de tu banda.", 3);
+				if (!TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_OCCUPIED]) return ShowPlayerMessage(playerid, "~r~La propiedad no est· dentro de un territorio de tu banda.", 3);
+				if (TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_CREW_ID] != PLAYER_CREW[playerid][player_crew_ID]) return ShowPlayerMessage(playerid, "~r~La propiedad no est· dentro de un territorio de tu banda.", 3);
+				if (!IsPointInDynamicArea(TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_AREA], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_X], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Y], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Z])) return SendClientMessage(playerid, COLOR_WHITE, "La propiedad no est· dentro de un territorio de tu crew.");
 				if (PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Esta no es tu propiedad.", 3);
 
 
@@ -6666,7 +6666,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(db_query(Database, DB_Query));
 
 				new message[144];
-				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) ha a√±adido una nueva propiedad en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_NAME]);
+				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) ha aÒadido una nueva propiedad en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_NAME]);
 				SendMessageToCrewMembers(PLAYER_CREW[playerid][player_crew_ID], COLOR_WHITE, message);
 			}
 			return 1;
@@ -6681,8 +6681,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (!IsPlayerInDynamicArea(playerid, TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_AREA])) return ShowPlayerMessage(playerid, "~r~No estas dentro de un territorio de tu banda.", 3);
 				if (TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_CREW_ID] != PLAYER_CREW[playerid][player_crew_ID]) return ShowPlayerMessage(playerid, "~r~No estas dentro de un territorio de tu banda.", 3);
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes abandonar territorios mientras tu banda est√° en combate.", 3);
-				if (TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_WAR]) return ShowPlayerMessage(playerid, "~r~No se puede abandonar este territorio cuando est√° siendo conquistado.", 3);
+				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes abandonar territorios mientras tu banda est· en combate.", 3);
+				if (TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_WAR]) return ShowPlayerMessage(playerid, "~r~No se puede abandonar este territorio cuando est· siendo conquistado.", 3);
 
 				TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_OCCUPIED] = false;
 				TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_CREW_ID] = 0;
@@ -6752,7 +6752,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (!PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_CREW]) return ShowPlayerMessage(playerid, "~r~Esta no es una propiedad de tu banda.", 3);
 				if (PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_CREW_ID] != PLAYER_CREW[playerid][player_crew_ID]) return ShowPlayerMessage(playerid, "~r~Esta no es una propiedad de tu banda.", 3);
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes liberar una propiedad cuando tu banda est√° en combate.", 3);
+				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes liberar una propiedad cuando tu banda est· en combate.", 3);
 
 				PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_SOLD] = false;
 				PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_CREW] = false;
@@ -6787,11 +6787,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				if (gettime() > PLAYER_TEMP[playerid][py_POLICE_PEN_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_POLICE_PEN_PID])) return ShowPlayerMessage(playerid, "~r~El polic√≠a no est√° conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_POLICE_PEN_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_POLICE_PEN_AID]) return ShowPlayerMessage(playerid, "~r~El polic√≠a no est√° conectado.", 3);
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_POLICE_PEN_PID])) return ShowPlayerMessage(playerid, "~r~El policÌa no est· conectado.", 3);
+				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_POLICE_PEN_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_POLICE_PEN_AID]) return ShowPlayerMessage(playerid, "~r~El policÌa no est· conectado.", 3);
 
 				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_POLICE_PEN_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 5.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El polic√≠a no estpa cerca tuya.", 3);
+				if (!IsPlayerInRangeOfPoint(playerid, 5.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El policÌa no estpa cerca tuya.", 3);
 
 				if (PLAYER_TEMP[playerid][py_POLICE_PEN_IM] > CHARACTER_INFO[playerid][ch_CASH])
 				{
@@ -6837,7 +6837,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new Float:multiplier;
 				if (sscanf(inputtext, "f", multiplier))
 				{
-				    ShowPlayerMessage(playerid, "~r~Sintaxis no v√°lida.", 2);
+				    ShowPlayerMessage(playerid, "~r~Sintaxis no v·lida.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -6919,14 +6919,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
 						{
 							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-							ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m√°s objetos.", 4);
+							ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m·s objetos.", 4);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
 
 						if (slot == -1)
 						{
-						    ShowPlayerMessage(playerid, "~r~No hay m√°s espacio para objetos en este veh√≠culo.", 3);
+						    ShowPlayerMessage(playerid, "~r~No hay m·s espacio para objetos en este vehÌculo.", 3);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
@@ -6949,7 +6949,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						UpdateTuningShop(playerid);
 
-						ShowPlayerMessage(playerid, "Pulsa ~y~ESCAPE ~w~si quieres salir del men√∫", 2);
+						ShowPlayerMessage(playerid, "Pulsa ~y~ESCAPE ~w~si quieres salir del men˙", 2);
 						SelectTextDrawEx(playerid, 0xe8d08fFF);
 					}
 					case 2:
@@ -6958,13 +6958,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
 						{
 							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-							ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m√°s objetos.", 4);
+							ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m·s objetos.", 4);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
 						if (slot == -1)
 						{
-							ShowPlayerMessage(playerid, "~r~No hay m√°s espacio para objetos en este veh√≠culo.", 3);
+							ShowPlayerMessage(playerid, "~r~No hay m·s espacio para objetos en este vehÌculo.", 3);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
@@ -6995,7 +6995,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						RegisterNewVehicleObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
 						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
 
-						ShowPlayerMessage(playerid, "El objeto de texto fue a√±adido.", 2);
+						ShowPlayerMessage(playerid, "El objeto de texto fue aÒadido.", 2);
 						PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;
 						ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
 					}
@@ -7005,13 +7005,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
 						{
 							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-							ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m√°s objetos.", 4);
+							ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m·s objetos.", 4);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
 						if (slot == -1)
 						{
-							ShowPlayerMessage(playerid, "~r~No hay m√°s espacio para objetos en este veh√≠culo.", 3);
+							ShowPlayerMessage(playerid, "~r~No hay m·s espacio para objetos en este vehÌculo.", 3);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
@@ -7033,13 +7033,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
 						{
 							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-							ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m√°s objetos.", 4);
+							ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m·s objetos.", 4);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
 						if (slot == -1)
 						{
-							ShowPlayerMessage(playerid, "~r~No hay m√°s espacio para objetos en este veh√≠culo.", 3);
+							ShowPlayerMessage(playerid, "~r~No hay m·s espacio para objetos en este vehÌculo.", 3);
 							ShowDialog(playerid, dialogid);
 							return 1;
 						}
@@ -7067,13 +7067,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m√°s objetos.", 4);
+					ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m·s objetos.", 4);
 					ShowObjTuning(playerid);
 					return 1;
 				}
 				if (slot == -1)
 				{
-					ShowPlayerMessage(playerid, "~r~No hay m√°s espacio para objetos en este veh√≠culo.", 3);
+					ShowPlayerMessage(playerid, "~r~No hay m·s espacio para objetos en este vehÌculo.", 3);
 					ShowObjTuning(playerid);
 					return 1;
 				}
@@ -7108,7 +7108,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
 				UpdateVehicleMaterialObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
 
-				ShowPlayerMessage(playerid, "El objeto fue a√±adido.", 3);
+				ShowPlayerMessage(playerid, "El objeto fue aÒadido.", 3);
 				PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;
 				ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
 			}
@@ -7122,7 +7122,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (listitem == MAX_SU_VOBJECTS) return ShowDialog(playerid, DIALOG_VOBJECT_DELETE_ALL);
 				if (!VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][listitem][vobject_VALID])
 				{
-				    ShowPlayerMessage(playerid, "~r~Este slot est√° vac√≠o, puedes comprar un objeto nuevo.", 3);
+				    ShowPlayerMessage(playerid, "~r~Este slot est· vacÌo, puedes comprar un objeto nuevo.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -7330,7 +7330,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][i] = temp_VEHICLE_OBJECTS;
 				}
 
-				ShowPlayerMessage(playerid, "Todos los objetos de este veh√≠culo han sido eliminados.", 2);
+				ShowPlayerMessage(playerid, "Todos los objetos de este vehÌculo han sido eliminados.", 2);
 				ShowDialog(playerid, DIALOG_VOBJECT_OBJECTS);
 			}
 			else ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
@@ -7373,7 +7373,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (strlen(inputtext) >= 32)
 				{
-				    ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir un texto de 32 caracteres.", 3);
+				    ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir un texto de 32 caracteres.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -7398,7 +7398,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (strlen(inputtext) >= 24)
 				{
-				    ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir una fuente de 24 caracteres.", 3);
+				    ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir una fuente de 24 caracteres.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -7423,7 +7423,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
-				    ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+				    ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -7435,7 +7435,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_SIZE] = inputtext[0];
 				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
-				ShowPlayerMessage(playerid, "Tama√±o de letra actualizado.", 2);
+				ShowPlayerMessage(playerid, "TamaÒo de letra actualizado.", 2);
 			}
 			ShowDialog(playerid, DIALOG_VOBJECT_TEXT_MENU);
 			return 1;
@@ -7626,7 +7626,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
 					ShowDialog(playerid, DIALOG_POLICE_BYC_LAST_PLAYER);
 				}
-				else ShowPlayerMessage(playerid, "~r~No se encontr√≥ a esa persona.", 3);
+				else ShowPlayerMessage(playerid, "~r~No se encontrÛ a esa persona.", 3);
 			}
 			return 1;
 		}
@@ -7706,7 +7706,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(DB_Query, sizeof DB_Query, "SELECT * FROM `GIFTS_CODES` WHERE `CODE` = '%q';", inputtext);
 				Result = db_query(Database, DB_Query);
 
-				if (db_num_rows(Result) == 0) ShowPlayerMessage(playerid, "~r~El c√≥digo no existe.", 4);
+				if (db_num_rows(Result) == 0) ShowPlayerMessage(playerid, "~r~El cÛdigo no existe.", 4);
 				else
 				{
 					new 
@@ -7763,7 +7763,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						db_free_result(db_query(Database, DB_Query));
 						return 1;
 					}
-					else ShowPlayerMessage(playerid, "~r~El c√≥digo ya fue usado.", 4);
+					else ShowPlayerMessage(playerid, "~r~El cÛdigo ya fue usado.", 4);
 				}
 				db_free_result(Result);
 			}
@@ -7862,9 +7862,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				new mhz;
-				if (sscanf(inputtext, "d", mhz)) return ShowPlayerMessage(playerid, "~r~Ingrese un n√∫mero del 1 al 1000.", 3);
-				if (mhz > 1000) return ShowPlayerMessage(playerid, "~r~Ingrese un n√∫mero del 1 al 1000.", 3);
-				if (!PLAYER_WORKS[playerid][WORK_POLICE] && mhz >= 990) return ShowPlayerMessage(playerid, "~r~Las frecuencias superiores a 990~n~solo son para polic√≠as.", 4);
+				if (sscanf(inputtext, "d", mhz)) return ShowPlayerMessage(playerid, "~r~Ingrese un n˙mero del 1 al 1000.", 3);
+				if (mhz > 1000) return ShowPlayerMessage(playerid, "~r~Ingrese un n˙mero del 1 al 1000.", 3);
+				if (!PLAYER_WORKS[playerid][WORK_POLICE] && mhz >= 990) return ShowPlayerMessage(playerid, "~r~Las frecuencias superiores a 990~n~solo son para policÌas.", 4);
 				ShowPlayerMessage(playerid, "~g~Frecuencia cambiada", 3);
 				ShowPlayerNotification(playerid, "Si quiere apagar la radio use la frecuencia 0", 4);
 				PLAYER_MISC[playerid][MISC_MHZ] = mhz;
@@ -7879,12 +7879,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m√°s objetos.", 4);
+					ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m·s objetos.", 4);
 					return 1;
 				}
 				if (slot == -1)
 				{
-				    ShowPlayerMessage(playerid, "~r~No hay m√°s espacio para objetos en este veh√≠culo.", 3);
+				    ShowPlayerMessage(playerid, "~r~No hay m·s espacio para objetos en este vehÌculo.", 3);
 					return 1;
 				}
 
@@ -7938,7 +7938,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if (listitem == 1)
 				{
-					if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la b√∫squeda actual.", 3, 1085);
+					if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la b˙squeda actual.", 3, 1085);
 					if (gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar YouTube cada un minuto.", 3, 1085);
 
 					ShowPlayerMessage(playerid, "~r~YouTube nos ha baneado, esta opcion se encuentra desactivada.", 4);
@@ -8004,13 +8004,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (windows[0] == 0)
 						{
 							SetVehicleParamsCarWindows(vehicleid, 1, windows[1], windows[2], windows[3]);
-							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha cerrado la ventana de su veh√≠culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha cerrado la ventana de su vehÌculo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 							ShowPlayerMessage(playerid, "Ventana ~r~cerrada", 2);
 						}
 						else
 						{
 							SetVehicleParamsCarWindows(vehicleid, 0, windows[1], windows[2], windows[3]);
-							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto la ventana de su veh√≠culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto la ventana de su vehÌculo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 							ShowPlayerMessage(playerid, "Ventana ~g~abierta", 2);
 						}
 
@@ -8025,9 +8025,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						new vehicleid = INVALID_VEHICLE_ID;
 						if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER) vehicleid = GetPlayerVehicleID(playerid);
 
-						if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No est√°s en tu veh√≠culo para aparcarlo.", 2);
-						if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es t√∫ veh√≠culo.", 2);
-						if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es t√∫ veh√≠culo.", 2);
+						if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No est·s en tu vehÌculo para aparcarlo.", 2);
+						if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es t˙ vehÌculo.", 2);
+						if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es t˙ vehÌculo.", 2);
 						ShowDialog(playerid, DIALOG_VEHICLE_KEYS);
 					}
 				}
@@ -8059,7 +8059,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -8195,7 +8195,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -8209,7 +8209,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (inputtext[0] < 100)
 				{
-					ShowPlayerMessage(playerid, "~r~Menudo taca√±o, apuesta m√°s.", 4);
+					ShowPlayerMessage(playerid, "~r~Menudo tacaÒo, apuesta m·s.", 4);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -8308,7 +8308,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						GivePlayerWeaponEx(playerid, weapon_id, 1000, 0x00F7F7F7);
 
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
-						ShowPlayerNotification(playerid, "Has comprado una c√°mara.", 4);
+						ShowPlayerNotification(playerid, "Has comprado una c·mara.", 4);
 						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
 						return 1;
 					}
@@ -8383,7 +8383,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else
 			{
-				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Respuesta incorrecta");
+				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Respuesta incorrecta");
 				KickEx(playerid, 500);
 			}
 		}
@@ -8422,9 +8422,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"ALERTA",
 					""COL_WHITE"Cuidado con lo que digas por el canal de dudas/anuncios\n\
 					en el caso que vengas a hacer spam, insultar a Hyaxe, o algo parecido\n\
-					vamos a publicar todos tus datos privados en la siguiente p√°gina:\n\
+					vamos a publicar todos tus datos privados en la siguiente p·gina:\n\
 					"COL_RED"https://www.hyaxe.com/servers/samp/ban"COL_WHITE"\n\n\
-					No te preocupes si has puesto datos falsos, Hyaxe est√° en todos lados.", "Cerrar", "");
+					No te preocupes si has puesto datos falsos, Hyaxe est· en todos lados.", "Cerrar", "");
 			}
 			else ShowDialog(playerid, DIALOG_SELECC_ANSWER);
 		}
@@ -8460,7 +8460,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					);
 					SendEmail(ACCOUNT_INFO[playerid][ac_EMAIL], "Respuesta de seguridad", str_text);
 
-					SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Respuesta incorrecta");
+					SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Respuesta incorrecta");
 					KickEx(playerid, 500);
 				}
 			}
@@ -8638,7 +8638,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					
 					if (strlen(inputtext) >= 32)
 					{
-						ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir 32 caracteres.", 3);
+						ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir 32 caracteres.", 3);
 						ShowDialog(playerid, dialogid);
 						return 1;
 					}
@@ -8677,7 +8677,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					
 					if (strlen(inputtext) >= 64)
 					{
-						ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir 64 caracteres.", 3);
+						ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir 64 caracteres.", 3);
 						ShowDialog(playerid, dialogid);
 						return 1;
 					}
@@ -8800,7 +8800,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if (sscanf(inputtext, "d", inputtext[0]))
 					{
 						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-						ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+						ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 						ShowDialog(playerid, dialogid);
 						return 1;
 					}
@@ -8839,7 +8839,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (strlen(inputtext) >= 32)
 				{
-					ShowPlayerMessage(playerid, "~r~Como m√°ximo puedes introducir 32 caracteres.", 3);
+					ShowPlayerMessage(playerid, "~r~Como m·ximo puedes introducir 32 caracteres.", 3);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -8862,7 +8862,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -8895,7 +8895,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (sscanf(inputtext, "d", inputtext[0]))
 				{
 					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Introduce un valor num√©rico.", 2);
+					ShowPlayerMessage(playerid, "Introduce un valor numÈrico.", 2);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -9134,12 +9134,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					db_free_result(Result);
 
 
-					if (player_vehicles >= MAX_SU_VEHICLES) return ShowPlayerMessage(playerid, "~r~No puedes tener mas veh√≠culos.", 5);
+					if (player_vehicles >= MAX_SU_VEHICLES) return ShowPlayerMessage(playerid, "~r~No puedes tener mas vehÌculos.", 5);
 					if (!ACCOUNT_INFO[playerid][ac_SU])
 					{
 						if (player_vehicles >= MAX_NU_VEHICLES)
 						{
-							ShowPlayerMessage(playerid, "~r~No puedes tener mas veh√≠culos.", 5);
+							ShowPlayerMessage(playerid, "~r~No puedes tener mas vehÌculos.", 5);
 							return 1;
 						}
 					}
@@ -9227,7 +9227,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
 						Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
-						no est√°n permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
+						no est·n permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
 
 					if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
     				if (in_main_menu[playerid]) return ShowMainMenu(playerid);
