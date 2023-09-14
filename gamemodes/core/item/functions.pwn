@@ -429,22 +429,22 @@ SetItemToBody(playerid, type)
 	switch(type)
 	{
 		case 0: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.2470, 0.0139, 0.0519, 0.5999, -102.4999, 0.4000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 1: SetPlayerAttachedObject(playerid, 9, 11736, 6, 0.2470, 0.0139, 0.0069, 90.3999, 175.6999, 7.3000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 2: SetPlayerAttachedObject(playerid, 9, 11747, 6, 0.0850, 0.0189, 0.0069, -157.9001, 175.6999, 7.3000, 1.2790, 1.3560, 1.4689, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 3, 4: SetPlayerAttachedObject(playerid, 9, GetItemObjectByType(type), 6, 0.0850, 0.0389, 0.0069, -81.2000, 175.6999, 7.3000, 0.3079, 0.3089, 0.2209, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 5: SetPlayerAttachedObject(playerid, 9, 1650, 6, 0.1430, 0.0249, 0.0149, -81.2000, -88.4000, 7.3000, 0.4980, 1.6589, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 6..8: SetPlayerAttachedObject(playerid, 9, 11739, 6, 0.1430, 0.0249, 0.0149, -81.2000, -88.4000, 7.3000, 0.4980, 0.5799, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 9, 10, 11, 55: SetPlayerAttachedObject(playerid, 9, 19832, 6, 0.2910, -0.0060, 0.0149, -81.2000, -88.4000, 95.5000, 0.6470, 0.5799, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 12..42: SetPlayerAttachedObject(playerid, 9, GetItemObjectByType(type), 6, 0.0040, -0.0000, -0.0000, 0.5999, -0.2000, 0.4000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 50: SetPlayerAttachedObject(playerid, 9, 18866, 6, 0.0970, 0.0429, 0.0149, 2.7999, -83.7000, -81.7000, 1.0330, 1.1429, 0.8569, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 51: SetPlayerAttachedObject(playerid, 9, 18632, 6, 0.0620, 0.0199, 0.0149, 9.1999, 171.9999, 103.0999, 0.8920, 0.9029, 1.0589, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 52: SetPlayerAttachedObject(playerid, 9, 19631, 6, 0.0789, 0.0000, 0.2580, -86.0000, -97.5000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 53: SetPlayerAttachedObject(playerid, 9, 19921, 6, 0.0699, 0.0289, 0.0000, -75.9000, -5.8000, -84.7999, 0.6219, 0.6579, 0.5109, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 1: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.2470, 0.0139, 0.0069, 90.3999, 175.6999, 7.3000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 2: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0850, 0.0189, 0.0069, -157.9001, 175.6999, 7.3000, 1.2790, 1.3560, 1.4689, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 3, 4: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0850, 0.0389, 0.0069, -81.2000, 175.6999, 7.3000, 0.3079, 0.3089, 0.2209, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 5: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.1430, 0.0249, 0.0149, -81.2000, -88.4000, 7.3000, 0.4980, 1.6589, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 6..8: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.1430, 0.0249, 0.0149, -81.2000, -88.4000, 7.3000, 0.4980, 0.5799, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 9, 10, 11, 55: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.2910, -0.0060, 0.0149, -81.2000, -88.4000, 95.5000, 0.6470, 0.5799, 0.9489, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 12..42: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0040, -0.0000, -0.0000, 0.5999, -0.2000, 0.4000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 50: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0970, 0.0429, 0.0149, 2.7999, -83.7000, -81.7000, 1.0330, 1.1429, 0.8569, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 51: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0620, 0.0199, 0.0149, 9.1999, 171.9999, 103.0999, 0.8920, 0.9029, 1.0589, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 52: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0789, 0.0000, 0.2580, -86.0000, -97.5000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 53: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0699, 0.0289, 0.0000, -75.9000, -5.8000, -84.7999, 0.6219, 0.6579, 0.5109, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 54: SetPlayerSpecialAction(playerid, SPECIAL_ACTION_SMOKE_CIGGY);
-		case 56: SetPlayerAttachedObject(playerid, 9, 19942, 6, 0.0649, 0.0180, 0.0260, 0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 57: SetPlayerAttachedObject(playerid, 9, 19320, 6, 0.2209, 0.0000, 0.0539, -4.3999, -90.0999, 41.0000, 0.4979, 0.5780, 0.5470, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 58..60: SetPlayerAttachedObject(playerid, 9, 1636, 6, 0.0659, 0.0549, 0.0000, 78.6999, 0.0000, 0.0000, 0.4990, 0.5360, 0.6230, 0xFFFFFFFF, 0xFFFFFFFF);
-		case 61, 62, 63: SetPlayerAttachedObject(playerid, 9, 3013, 6, 0.1480, 0.0000, 0.0000, -0.9000, -98.7000, 0.0000, 0.8480, 0.8320, 0.6209, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 56: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0649, 0.0180, 0.0260, 0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 57: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.2209, 0.0000, 0.0539, -4.3999, -90.0999, 41.0000, 0.4979, 0.5780, 0.5470, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 58..60: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0659, 0.0549, 0.0000, 78.6999, 0.0000, 0.0000, 0.4990, 0.5360, 0.6230, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 61, 62, 63: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.1480, 0.0000, 0.0000, -0.9000, -98.7000, 0.0000, 0.8480, 0.8320, 0.6209, 0xFFFFFFFF, 0xFFFFFFFF);
 	}
 	return 1;
 }
