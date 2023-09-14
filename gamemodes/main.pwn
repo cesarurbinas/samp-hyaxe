@@ -5645,6 +5645,27 @@ Menu:CLUB_MENU(playerid, response, listitem)
 
 				CheckClubOptions(playerid);
 			}
+			case 5:
+			{
+				if (CLUBS_INFO[club][club_BALANCE] =< 0)
+				{
+					CheckClubOptions(playerid);
+					ShowPlayerMessage(playerid, "~r~No hay fondos para retirar.", 3);
+					return 0;
+				}
+
+				GivePlayerCash(playerid, CLUBS_INFO[club][club_BALANCE], false);
+
+				CLUBS_INFO[club][club_BALANCE] = 0;
+				format(DB_Query, sizeof(DB_Query), "\
+					UPDATE `CLUB_INFO` SET\
+						`BALANCE` = '%d' \
+					WHERE `ID` = '%d';\
+				", CLUBS_INFO[club][club_BALANCE], club);
+				db_free_result(db_query(Database, DB_Query));
+
+				CheckClubOptions(playerid);
+			}
     	}
     }
     return 1; 
