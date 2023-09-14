@@ -7,7 +7,7 @@
 forward TIMER_NotificationHide(playerid, count);
 public TIMER_NotificationHide(playerid, count)
 {
-	print("hide");
+	//print("hide");
 	g_ActiveNotification[playerid] = false;
 	PlayerTextDrawHide(playerid, g_ptdNotification{playerid});
 
@@ -15,8 +15,8 @@ public TIMER_NotificationHide(playerid, count)
 	{
 		if (WAITING_NOTIFICATIONS[i][wn_VALID])
 		{
-			print("waiting");
-			printf("waited (%d, %d seconds): %s", i, WAITING_NOTIFICATIONS[i][wn_TIME], WAITING_NOTIFICATIONS[i][wn_TEXT]);
+			//print("waiting");
+			//printf("waited (%d, %d seconds): %s", i, WAITING_NOTIFICATIONS[i][wn_TIME], WAITING_NOTIFICATIONS[i][wn_TEXT]);
 			ShowPlayerNotification(
 				playerid,
 				WAITING_NOTIFICATIONS[i][wn_TEXT],
