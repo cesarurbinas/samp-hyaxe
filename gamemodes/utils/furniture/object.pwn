@@ -1,4 +1,4 @@
-/*GetFurnitureTypeName(type)
+GetFurnitureTypeName(type)
 {
 	new name[64];
 
@@ -6,18 +6,18 @@
 	{
 		case 0: name = "Cama";
 		case 1: name = "Cuadro";
-		case 2: name = "Decoración";
-		case 3: name = "Electrodoméstico";
-		case 4: name = "Iluminación";
+		case 2: name = "Deco.";
+		case 3: name = "Elec.";
+		case 4: name = "Ilum.";
 		case 5: name = "Mesa";
 		case 6: name = "Silla";
 	}
 	return name;
-}*/
+}
 
 GetFreeSlotPropertyObject()
 {
-    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+    for(new i = 0, j = MAX_FURNITURE_OBJECTS; i <= j; i++)
 	{
 		if (!PROPERTY_OBJECT[i][pobj_VALID]) return i;
 	}
@@ -110,8 +110,8 @@ AddPropertyObject(playerid, modelid, property_id, name[], type, interior, world)
 		PROPERTY_OBJECT[ slot ][pobj_INTERIOR]
 	);
 
-	Result = db_query(Database, "SELECT MAX(`ID`) FROM `PROPERTY_OBJECTS`;");
-	if (db_num_rows(Result)) PROPERTY_OBJECT[ slot ][pobj_DB_ID] = db_get_field_int(Result, 0);
+	Result = db_query(Database, "SELECT * FROM `PROPERTY_OBJECTS`;");
+	PROPERTY_OBJECT[ slot ][pobj_DB_ID] = db_num_rows(Result);
 	db_free_result(Result);
 
 	format(DB_Query, sizeof DB_Query,
@@ -147,7 +147,7 @@ AddPropertyObject(playerid, modelid, property_id, name[], type, interior, world)
 
 UpdatePropertyObject(index, objectid)
 {
-	new DB_Query[140];
+	new DB_Query[364];
 
 	GetDynamicObjectPos(
 		objectid,
@@ -172,15 +172,27 @@ UpdatePropertyObject(index, objectid)
 			`RX` = '%f',\
 			`RY` = '%f',\
 			`RZ` = '%f'\
-		WHERE `ID` = '%d';\
+		WHERE `ID` = '%q';\
 	",
-		PROPERTY_OBJECT[ index ][pobj_DB_ID],
 		PROPERTY_OBJECT[ index ][pobj_POS][0],
 		PROPERTY_OBJECT[ index ][pobj_POS][1],
 		PROPERTY_OBJECT[ index ][pobj_POS][2],
 		PROPERTY_OBJECT[ index ][pobj_ROTATION][0],
 		PROPERTY_OBJECT[ index ][pobj_ROTATION][1],
-		PROPERTY_OBJECT[ index ][pobj_ROTATION][2]
+		PROPERTY_OBJECT[ index ][pobj_ROTATION][2],
+		PROPERTY_OBJECT[ index ][pobj_DB_ID]
 	);
+	print(DB_Query);
 	db_free_result(db_query(Database, DB_Query));
+	return 1;
+}
+
+DeletePropertyObject(object_id, index)
+{
+	new DB_Query[64];
+	format(DB_Query, sizeof DB_Query, "DELETE FROM `PROPERTY_OBJECTS` WHERE `ID` = '%d';", object_id);
+	db_free_result(db_query(Database, DB_Query));
+
+	PROPERTY_OBJECT[ index ][pobj_VALID] = false;
+	return 1;
 }

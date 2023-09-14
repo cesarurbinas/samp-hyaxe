@@ -248,6 +248,12 @@ enum
 =======
 	DIALOG_ROBBERY_MEMBERS,
 	DIALOG_ELECTRONIC_SHOP,
+<<<<<<< HEAD
 	DIALOG_FURNITURE_SHOP
 >>>>>>> 6f7ef17 (Guardar muebles comprados)
+=======
+	DIALOG_FURNITURE_SHOP,
+	DIALOG_FURNITURE_LIST,
+	DIALOG_FURNITURE_OPTIONS
+>>>>>>> d3504e5 (Opciones vender, editar, y otras cosas)
 };

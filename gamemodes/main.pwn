@@ -9,7 +9,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
-#define SERVER_VERSION 			"v0.5 Build 180"
+#define SERVER_VERSION 			"v0.5 Build 200"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -4801,7 +4801,7 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
     {
     	switch(listitem)
     	{
-    		case 0: print("a");
+    		case 0: ShowDialog(playerid, DIALOG_FURNITURE_LIST);
     		case 1..7:
     		{
     			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
@@ -6007,11 +6007,11 @@ public OnPlayerRequestClass(playerid, classid)
 		if (PLAYER_TEMP[playerid][py_USER_EXIT])
 		{
 			// Usuario registrado
-			if (ACCOUNT_INFO[playerid][ac_ID] == 0 || strcmp(PLAYER_TEMP[playerid][py_NAME], ACCOUNT_INFO[playerid][ac_NAME], false)) // No coincide
+			/*if (ACCOUNT_INFO[playerid][ac_ID] == 0 || strcmp(PLAYER_TEMP[playerid][py_NAME], ACCOUNT_INFO[playerid][ac_NAME], false)) // No coincide
 			{
 				KickEx(playerid, 100);
 				return 1;
-			}
+			}*/
 
 			if (strcmp(PLAYER_TEMP[playerid][py_IP], ACCOUNT_INFO[playerid][ac_IP], false)) // La IP actual no es la misma IP de la última conexión
 			{
@@ -6038,7 +6038,7 @@ public OnPlayerRequestClass(playerid, classid)
 			{
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
 					Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
-					no están permitidos, procura ponerte un nombre que parezca real.", "X", "");
+					no están permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
 				KickEx(playerid, 500);
 				return 0;
 			}
@@ -8411,7 +8411,7 @@ ShowDialog(playerid, dialogid)
 			}
 			strcat(dialog, ""COL_RED"Eliminar todo\n");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis accesorios", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis accesorios", dialog, "Selecc.", "Cerrar");
 			SavePlayerToysData(playerid);
 			return 1;
 		}
@@ -8438,14 +8438,14 @@ ShowDialog(playerid, dialogid)
 				else format(dialog, sizeof dialog, ""COL_WHITE"Colocarte el accesorio\n"COL_WHITE"Cambiar el nombre del accesorio\n"COL_WHITE"Configurar el accesorio\n"COL_WHITE"Color primario\n"COL_WHITE"Color secundario\n"COL_WHITE"Eliminar este accesorio");
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_PLAYER_TOY_EDIT_NAME:
 		{
 			new dialog[145];
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre actual: \"%s\"\nIndica el nuevo nombre:", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_TOY_CONFIRMDELETE:
@@ -8469,7 +8469,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_TOY_EDIT_BONE:
@@ -8505,7 +8505,7 @@ ShowDialog(playerid, dialogid)
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption,
 				""COL_WHITE"1. Retirar dinero\n"COL_WHITE"2. Depositar dinero\n"COL_WHITE"3. Transferir dinero\n"COL_WHITE"4. Últimas transacciones",
-			">>", "-");
+			"Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_CREATE_BANK_ACCOUNT:
@@ -8520,7 +8520,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[100];
 			format(dialog, sizeof dialog, ""COL_WHITE"Dinero actual: "COL_GREEN"%s$\n"COL_WHITE"Ingrese la cantidad a retirar.", number_format_thousand(BANK_ACCOUNT[playerid][bank_account_BALANCE]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Retirar", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Retirar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_BANK_DEPOSIT:
@@ -8528,16 +8528,16 @@ ShowDialog(playerid, dialogid)
 			new dialog[100];
 			format(dialog, sizeof dialog, ""COL_WHITE"Dinero actual: "COL_GREEN"%s$\n"COL_WHITE"Ingrese la cantidad a depositar.", number_format_thousand(CHARACTER_INFO[playerid][ch_CASH]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Depositar", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Depositar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
-		case DIALOG_BANK_TRANSFER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", ""COL_WHITE"Ingrese el número de cuenta a donde quiere transferir dinero.\nAviso: Número de cuenta no es lo mismo que el id del jugador.\nPidale al otro jugador que le de su Número de cuenta.", ">>", "Atrás");
+		case DIALOG_BANK_TRANSFER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", ""COL_WHITE"Ingrese el número de cuenta a donde quiere transferir dinero.\nAviso: Número de cuenta no es lo mismo que el id del jugador.\nPidale al otro jugador que le de su Número de cuenta.", "Selecc.", "Atrás");
 		case DIALOG_BANK_TRANSFER_SEND:
 		{
 			if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2 para transferir.", 3);
 			new dialog[170];
 			format(dialog, sizeof dialog, ""COL_WHITE"Transferir a cuenta: "COL_GREEN"%s\n"COL_WHITE"Dinero actual: "COL_GREEN"%s$\n\n"COL_WHITE"Ingrese la cantidad a transferir.", number_format_thousand(PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT]), number_format_thousand(BANK_ACCOUNT[playerid][bank_account_BALANCE]));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_BANK_TRANSACTIONS:
@@ -8624,7 +8624,7 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Salir", "Atrás");
 			return 1;
 		}
-		case DIALOG_247_LIST: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"24/7", DIALOG_247_LIST_String, ">>", "-");
+		case DIALOG_247_LIST: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"24/7", DIALOG_247_LIST_String, "Selecc.", "Cerrar");
 		case DIALOG_HOSPITAL_SHOP:
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Farmacia", ""COL_WHITE"Producto\t"COL_WHITE"Precio\n\
@@ -8651,14 +8651,14 @@ ShowDialog(playerid, dialogid)
 			}
 			strcat(dialog, ""COL_RED"Eliminar todo\n");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Alimentos", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Alimentos", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_PLAYER_POCKET_OPTIONS:
 		{
 			new caption[40];
 			format(caption, sizeof caption, "Alimento - %s", PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Consumir\n"COL_WHITE"2. Eliminar", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Consumir\n"COL_WHITE"2. Eliminar", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_POCKET_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Alimentos - Eliminar todo", "¿Está seguro de que quiere eliminar todos sus alimentos?\nEsta opción no se puede deshacer y perderás todos lo que haya.", "Eliminar", "Atrás");
@@ -8670,7 +8670,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[200];
 			if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_ON) format(dialog, sizeof dialog, "Llamar\nEnviar mensaje\nApagar teléfono");
 			else format(dialog, sizeof dialog, ""COL_WHITE"Encender teléfono\nLlamar\nEnviar mensaje");
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_PHONE_BOOK:
@@ -8699,20 +8699,20 @@ ShowDialog(playerid, dialogid)
 			if (contacts > 0)
 			{
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = MAX_PHONE_CONTACTS + 20;
-				strcat(dialog, ""COL_RED"-"COL_WHITE" Eliminar todo\n"); listitem ++;
+				strcat(dialog, ""COL_RED"Cerrar"COL_WHITE" Eliminar todo\n"); listitem ++;
 			}
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Contactos", dialog, "Ver", "Cerrar");
 			return 1;
 		}
-		case DIALOG_PHONE_BOOK_ADD_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Agenda - Añadir contacto", "Está añadiendo un nuevo contacto en su agenda.\nIndique el número de teléfono del nuevo contacto.", ">>", "Atrás");
-		case DIALOG_PHONE_BOOK_ADD_NAME: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Agenda - Añadir contacto", "Está añadiendo un nuevo contacto en su agenda.\nIndique el nombre del nuevo contacto.", ">>", "Atrás");
+		case DIALOG_PHONE_BOOK_ADD_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Agenda - Añadir contacto", "Está añadiendo un nuevo contacto en su agenda.\nIndique el número de teléfono del nuevo contacto.", "Selecc.", "Atrás");
+		case DIALOG_PHONE_BOOK_ADD_NAME: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Agenda - Añadir contacto", "Está añadiendo un nuevo contacto en su agenda.\nIndique el nombre del nuevo contacto.", "Selecc.", "Atrás");
 		case DIALOG_PHONE_BOOK_OPTIONS:
 		{
 			new caption[40];
 			format(caption, sizeof caption, ""COL_RED"%s", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Llamar\n"COL_WHITE"Enviar mensaje\n"COL_WHITE"Cambiar nombre del contacto\n"COL_WHITE"Eliminar este contacto", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Llamar\n"COL_WHITE"Enviar mensaje\n"COL_WHITE"Cambiar nombre del contacto\n"COL_WHITE"Eliminar este contacto", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PHONE_BOOK_CHANGE_NAME:
@@ -8738,10 +8738,10 @@ ShowDialog(playerid, dialogid)
 			return 1;
 		}
 		case DIALOG_PHONE_BOOK_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", ""COL_WHITE"¿Está seguro de que quiere eliminar todos sus contactos?\nEsta opción no se puede deshacer y perderás todos los contactos guardados.", "Eliminar", "Atrás");
-		case DIALOG_PHONE_CALL_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Llamar", ""COL_WHITE"¿A quién quieres llamar?\nIndique el número al que desea llamar.", ">>", "Atrás");
-		case DIALOG_PHONE_SMS_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"¿A quién quieres enviarle el mensaje?\nIndique el número al que desea enviar el mensaje.", ">>", "Atrás");
-		case DIALOG_PHONE_SMS_MESSAGE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Escribe el mensaje que quieres enviar\nCaracteres: 1-64.", ">>", "Atrás");
-		case DIALOG_PHONE_BOOK_SEND_MESSAGE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Escribe el mensaje que quieres enviar\nCaracteres: 1-64.", ">>", "Atrás");
+		case DIALOG_PHONE_CALL_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Llamar", ""COL_WHITE"¿A quién quieres llamar?\nIndique el número al que desea llamar.", "Selecc.", "Atrás");
+		case DIALOG_PHONE_SMS_NUMBER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"¿A quién quieres enviarle el mensaje?\nIndique el número al que desea enviar el mensaje.", "Selecc.", "Atrás");
+		case DIALOG_PHONE_SMS_MESSAGE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Escribe el mensaje que quieres enviar\nCaracteres: 1-64.", "Selecc.", "Atrás");
+		case DIALOG_PHONE_BOOK_SEND_MESSAGE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Mensaje", ""COL_WHITE"Escribe el mensaje que quieres enviar\nCaracteres: 1-64.", "Selecc.", "Atrás");
 		case DIALOG_PHONE_SENT_MESSAGES:
 		{
 			new dialog[1600];
@@ -8814,7 +8814,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_PHONE_MESSAGE_LIST:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Mensajes",  "Enviado\nRecibidos", ">>", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Mensajes",  "Enviado\nRecibidos", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_CONFIRM_BUY_PROPERTY:
@@ -8824,7 +8824,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_PLAYER_GPS:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"GPS",  "Lugares guardados\nPropiedades\nVehículos\nOtros\nTrabajos", ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"GPS",  "Lugares guardados\nPropiedades\nVehículos\nOtros\nTrabajos", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_PLAYER:
@@ -8853,15 +8853,15 @@ ShowDialog(playerid, dialogid)
 			if (sites > 0)
 			{
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = MAX_PLAYER_GPS_SAVES + 20;
-				strcat(dialog, ""COL_RED"-"COL_WHITE" Eliminar todo\n"); listitem ++;
+				strcat(dialog, ""COL_RED"Cerrar"COL_WHITE" Eliminar todo\n"); listitem ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis lugares", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis lugares", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_PLAYER_ADD:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Añadir lugar", ""COL_WHITE"Tu posición actual será guardada en este lugar para ir más tarde.\nIndica el nombre de este lugar para guardarlo.", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Añadir lugar", ""COL_WHITE"Tu posición actual será guardada en este lugar para ir más tarde.\nIndica el nombre de este lugar para guardarlo.", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", ""COL_WHITE"¿Está seguro de que quiere eliminar todos sus lugares?\nEsta opción no se puede deshacer y perderás todos los lugares guardados.", "Eliminar", "Atrás");
@@ -8870,14 +8870,14 @@ ShowDialog(playerid, dialogid)
 			new caption[40];
 			format(caption, sizeof caption, ""COL_RED"%s", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Marcar coordenadas en el GPS\n"COL_WHITE"2. Cambiar nombre de este lugar\n"COL_WHITE"3. Eliminar este lugar del GPS", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Marcar coordenadas en el GPS\n"COL_WHITE"2. Cambiar nombre de este lugar\n"COL_WHITE"3. Eliminar este lugar del GPS", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_CHANGE_NAME:
 		{
 			new dialog[90];
 			format(dialog, sizeof dialog, "Nombre del lugar: %s\nIndica el nuevo nombre para este lugar.", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de un lugar", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de un lugar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_CONFIRM_DELET:
@@ -8889,7 +8889,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_PLAYER_GPS_SITES:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Otros", "Hospitales\nTiendas de Ropa\nNegocios\nRestaurantes\nBancos\nCajeros\nGasolineras\nConcesionarios\nBanco Central\nPolicías\nTaller mecánico\nHelipuerto\nTienda Tecno", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Otros", "Hospitales\nTiendas de Ropa\nNegocios\nRestaurantes\nBancos\nCajeros\nGasolineras\nConcesionarios\nBanco Central\nPolicías\nTaller mecánico\nHelipuerto\nTienda Tecno", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_WORKS:
@@ -8911,7 +8911,7 @@ ShowDialog(playerid, dialogid)
 				listitem ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Trabajos", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Trabajos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TRABAJOS_TELEPORTS:
@@ -8930,12 +8930,12 @@ ShowDialog(playerid, dialogid)
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = i;
 				listitem ++;
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Trabajos", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Trabajos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_0: //Hospitales
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Hospitales", DIALOG_PLAYER_GPS_SITE_0_String, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Hospitales", DIALOG_PLAYER_GPS_SITE_0_String, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_1: //Tiendas de ropa
@@ -8958,7 +8958,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Tiendas de ropa", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Tiendas de ropa", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_2: //Tiendas 24 horas
@@ -8981,7 +8981,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Negocios", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Negocios", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_3: //Comida rapida
@@ -9004,7 +9004,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Restaurantes", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Restaurantes", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_4: //Bancos
@@ -9027,7 +9027,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Bancos", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Bancos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_5: //Cajeros
@@ -9044,7 +9044,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Cajeros", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Cajeros", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_6: //Gasolineras
@@ -9061,12 +9061,12 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Gasolineras", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Gasolineras", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_7: //Concesionarios
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Concesionarios", DIALOG_PLAYER_GPS_SITE_7_String, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Concesionarios", DIALOG_PLAYER_GPS_SITE_7_String, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_8: //Policias
@@ -9089,7 +9089,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Policías", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Policías", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_PROPERTIES:
@@ -9127,7 +9127,7 @@ ShowDialog(playerid, dialogid)
 			}
 			db_free_result(Result);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis propiedades", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis propiedades", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_VEHICLES:
@@ -9159,7 +9159,7 @@ ShowDialog(playerid, dialogid)
 			}
 			if (total_vehicles == 0) strcat(dialog, ""COL_WHITE"No tienes vehículos");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis vehículos", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis vehículos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_GASOLINE:
@@ -9197,12 +9197,12 @@ ShowDialog(playerid, dialogid)
 				}
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PROPERTY_NAME:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la propiedad", ""COL_WHITE"Ingresa el nuevo nombre de la propiedad.", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la propiedad", ""COL_WHITE"Ingresa el nuevo nombre de la propiedad.", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Buscar en YouTube", ""COL_WHITE"Introduce el nombre de un video de YouTube que quieras reproducir.", "Buscar", "Salir");
@@ -9285,7 +9285,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_NOTARY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Notaría", ""COL_WHITE"Vender una propiedad al banco\n"COL_WHITE"Vender un vehículo al banco\n"COL_WHITE"Vender una propiedad a una persona\n"COL_WHITE"Vender un vehículo a una persona", ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Notaría", ""COL_WHITE"Vender una propiedad al banco\n"COL_WHITE"Vender un vehículo al banco\n"COL_WHITE"Vender una propiedad a una persona\n"COL_WHITE"Vender un vehículo a una persona", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_NOTARY_SELECT_PROPERTY:
@@ -9320,7 +9320,7 @@ ShowDialog(playerid, dialogid)
 			}
 			db_free_result(Result);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona la propiedad", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona la propiedad", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PROPERTY_BANK_SELL:
@@ -9354,7 +9354,7 @@ ShowDialog(playerid, dialogid)
 			number_format_thousand(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_PRICE]),
 			number_format_thousand(min_price),
 			number_format_thousand(max_price));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PROPERTY_SELL_TO_PLAYER:
@@ -9365,7 +9365,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[250];
 			format(dialog, sizeof dialog, ""COL_WHITE"Quieres vender esta propiedad por %s$.\n\nIndica el nombre o playerid del comprador.\nEl comprador debe estar en la sala y cumplir todos los requisitos.", number_format_thousand(PLAYER_TEMP[playerid][py_NOTARY_PRICE]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SELL_CONFIRM_PROPERTY:
@@ -9410,7 +9410,7 @@ ShowDialog(playerid, dialogid)
 			}
 			if (total_vehicles == 0) strcat(dialog, ""COL_WHITE"No tienes vehículos");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona el vehículo", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona el vehículo", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VEHICLE_BANK_SELL:
@@ -9444,7 +9444,7 @@ ShowDialog(playerid, dialogid)
 			number_format_thousand(VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID] - 400 ][vehicle_info_PRICE]),
 			number_format_thousand(min_price),
 			number_format_thousand(max_price));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VEHICLE_SELL_TO_PLAYER:
@@ -9455,7 +9455,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[250];
 			format(dialog, sizeof dialog, ""COL_WHITE"Quieres vender este vehículo por %s$.\n\nIndica el nombre o playerid del comprador.\nEl comprador debe estar en la sala y cumplir todos los requisitos.", number_format_thousand(PLAYER_TEMP[playerid][py_NOTARY_PRICE]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SELL_CONFIRM_VEHICLE:
@@ -9513,7 +9513,7 @@ ShowDialog(playerid, dialogid)
 			}
 			db_free_result(Result);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TUNING_MENU_COMPONENT:
@@ -9548,7 +9548,7 @@ ShowDialog(playerid, dialogid)
 			}
 			db_free_result(Result);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Tunear", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Tunear", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_MENU:
@@ -9581,7 +9581,7 @@ ShowDialog(playerid, dialogid)
 				}
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_REPAIR_PRICE:
@@ -9589,7 +9589,7 @@ ShowDialog(playerid, dialogid)
 			new caption[60];
 			format(caption, sizeof caption, "Reparar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio de la reparación.\nRango de precio: 0$ - 2.000$", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio de la reparación.\nRango de precio: 0$ - 2.000$", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_COLOR_PRICE:
@@ -9597,7 +9597,7 @@ ShowDialog(playerid, dialogid)
 			new caption[60];
 			format(caption, sizeof caption, "Pintar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para pintar el vehículo.\nRango de precio: 0$ - 1.750$", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para pintar el vehículo.\nRango de precio: 0$ - 1.750$", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_TUNING_PRICE:
@@ -9606,7 +9606,7 @@ ShowDialog(playerid, dialogid)
 			format(caption, sizeof caption, "Tunear %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
 			format(dialog, sizeof dialog, "Indica el precio para tunear el vehículo.\nRango de precio: 0$ - %s$", number_format_thousand((PLAYER_TEMP[playerid][py_TUNING_SELECTED_PIECES] * 50) + 2000));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_PAINTJOB_PRICE:
@@ -9614,7 +9614,7 @@ ShowDialog(playerid, dialogid)
 			new caption[60];
 			format(caption, sizeof caption, "Paintjob %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para el paintjob del vehículo.\nRango de precio: 0$ - 2.750$", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para el paintjob del vehículo.\nRango de precio: 0$ - 2.750$", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_ACCEPT:
@@ -9639,7 +9639,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_TUNING_SELECT_COL_SLOT:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehículo", ""COL_WHITE"Color primario\n"COL_WHITE"Color secundario", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehículo", ""COL_WHITE"Color primario\n"COL_WHITE"Color secundario", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_SELECT_COL_SLOT:
@@ -9647,7 +9647,7 @@ ShowDialog(playerid, dialogid)
 			new caption[60];
 			format(caption, sizeof caption, "Pintar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Pintar color primario\n"COL_WHITE"Pintar color secundario", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Pintar color primario\n"COL_WHITE"Pintar color secundario", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TUNING_SELECT_COLOR:
@@ -9663,7 +9663,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehículo", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehículo", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_MECHANIC_SELECT_COLOR:
@@ -9680,7 +9680,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TUNING_REMOVE:
@@ -9781,7 +9781,7 @@ ShowDialog(playerid, dialogid)
 				format(line_str, sizeof line_str, ""COL_WHITE"Paintjob %d\n", i + 1);
 				strcat(dialog, line_str);
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SEED_LIST:
@@ -9796,7 +9796,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Semillas", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Semillas", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_SEED_BUY:
@@ -9804,7 +9804,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[145];
 			format(dialog, sizeof dialog, ""COL_WHITE"Ingresa la cantidad de semillas de %s que desea comprar.\nCada una vale "COL_GREEN"%d$"COL_WHITE".", seed_info[ PLAYER_TEMP[playerid][py_SELECTED_BUY_SEED_ID] ][seed_info_NAME], seed_info[ PLAYER_TEMP[playerid][py_SELECTED_BUY_SEED_ID] ][seed_info_PRICE]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Semillas ", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Semillas ", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLANT_PLANTS:
@@ -9822,7 +9822,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Plantar", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Plantar", dialog, "Selecc.", "Cerrar");
 		}
 		case DIALOG_BLACK_MARKET:
 		{
@@ -9871,7 +9871,7 @@ ShowDialog(playerid, dialogid)
 			}
 			if (listitem == 0) strcat(dialog, ""COL_WHITE"No tienes armas");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccionar arma", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccionar arma", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_BLACK_MARKET_AMMO:
@@ -9905,7 +9905,7 @@ ShowDialog(playerid, dialogid)
 			strcat(dialog, ""COL_RED"Eliminar todo\n");
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 13 + 20;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Armas", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Armas", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_PLAYER_WEAPONS_DELETE_A:
@@ -9921,7 +9921,7 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar arma", dialog, "Eliminar", "Atrás");
 			return 1;
 		}
-		case DIALOG_ANIMS: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Animaciones", DIALOG_ANIMS_String, ">>", "X");
+		case DIALOG_ANIMS: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Animaciones", DIALOG_ANIMS_String, "Selecc.", "Cerrar");
 		case DIALOG_TRICKS_FOOD:
 		{
 			new dialog[150];
@@ -10068,7 +10068,7 @@ ShowDialog(playerid, dialogid)
 			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = true;
 			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Cerrar");
 		}
 		case DIALOG_VEHICLE_BOOT_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Maletero - Eliminar todo", ""COL_WHITE"¿Está seguro de que quiere eliminar todo de su maletero?\nEsta opción no se puede deshacer.", "Eliminar", "Cancelar");
 		case DIALOG_VEHICLE_BOOT_OPTIONS:
@@ -10076,7 +10076,7 @@ ShowDialog(playerid, dialogid)
 			new caption[45];
 			format(caption, sizeof caption, ""COL_RED"%s", WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT] ][weapon_info_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Sacar\nEliminar", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Sacar\nEliminar", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VEHICLE_BOOT_DELETE:
@@ -10104,7 +10104,7 @@ ShowDialog(playerid, dialogid)
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = i;
 				listitem ++;
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_LIGHT_BLUE"Seleccionar skin", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_LIGHT_BLUE"Seleccionar skin", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_RADIOS:
@@ -10120,7 +10120,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Selecciona la frecuencia", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Selecciona la frecuencia", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_LIST:
@@ -10167,7 +10167,7 @@ ShowDialog(playerid, dialogid)
 
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_LIGHT_BLUE"Policías", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_LIGHT_BLUE"Policías", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_MAFIA_LIST:
@@ -10214,7 +10214,7 @@ ShowDialog(playerid, dialogid)
 
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"La cosa nostra", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"La cosa nostra", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_MAFIA_MODIFY:
@@ -10260,7 +10260,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_ENEMY_MAFIA_LIST:
@@ -10307,7 +10307,7 @@ ShowDialog(playerid, dialogid)
 
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{33D1FF}Moriarty Family Business", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{33D1FF}Moriarty Family Business", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_ENEMY_MAFIA_MODIFY:
@@ -10353,7 +10353,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_OSBORN_MAFIA_LIST:
@@ -10400,7 +10400,7 @@ ShowDialog(playerid, dialogid)
 
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{3a3eab}Familia Osborn", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{3a3eab}Familia Osborn", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_OSBORN_MAFIA_MODIFY:
@@ -10446,7 +10446,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_POLICE_MODIFY:
@@ -10492,7 +10492,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_POLICE_SHOP:
@@ -10519,7 +10519,7 @@ ShowDialog(playerid, dialogid)
 			}
 			if (listitem == 0) strcat(dialog, "{666666}No tienes armas");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "Selecciona la arma a la que quieres comprarle munición", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "Selecciona la arma a la que quieres comprarle munición", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_AMMO:
@@ -10527,7 +10527,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[145];
 			format(dialog, sizeof dialog, "Arma: %s\nMunición: %s\n\nEl precio por bala es de 2$\n¿Cuánto munición quiere comprar?", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO]));
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Comprar munición", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Comprar munición", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_ARMOUR:
@@ -10661,7 +10661,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_WHITE"Trabajos", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_WHITE"Trabajos", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_HELP_SU:
@@ -10730,7 +10730,7 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Hyaxe Staff", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Hyaxe Staff", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_ADMIN_MODIFY:
@@ -10776,19 +10776,19 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CHANGE_PASSWORD:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Cambiar contraseña", ""COL_WHITE"Introduce tu contraseña actual.", ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Cambiar contraseña", ""COL_WHITE"Introduce tu contraseña actual.", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_CHANGE_PASSWORD_PASS:
 		{
 			new dialog[128];
 			format(dialog, sizeof dialog, ""COL_WHITE"Introduce tu nueva contraseña, recuerda que debe contener entre %d-%d caracteres.", MIN_PASS_LENGTH, MAX_PASS_LENGTH);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Cambiar contraseña", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Cambiar contraseña", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_ANTI_CHEAT:
@@ -10804,7 +10804,7 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line_str);
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Anti-Cheat", dialog, ">>", "X");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Anti-Cheat", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_ANTI_CHEAT_MODIFY:
@@ -10816,7 +10816,7 @@ ShowDialog(playerid, dialogid)
 			format(caption, sizeof caption, "ac %02d %s", PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM], ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Name]);
 			format(dialog, sizeof dialog, "Estado\t%s\nAccionar\t(%d:%d)\nAccion\t%s", ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Enabled] ? "Activado" : "Desactivado", ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Detections], ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Interval], ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Kick] ? "Kick" : "Aviso");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, ">>", "<<");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Selecc.", "<<");
 			return 1;
 		}
 		case DIALOG_ANTI_CHEAT_MODIFY_DETECT:
@@ -10826,7 +10826,7 @@ ShowDialog(playerid, dialogid)
 			format(caption, sizeof caption, "ac %02d %s", PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM], ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Name]);
 			format(dialog, sizeof dialog, "Estado actual de accioner en: (%d:%d)\n\nSintaxis: <detecciones>:<segundos>\nDeja segundos en 0 para que sea instantáneo.\n\nEjemplo de 2 detecciones en 10 segundos: 2:10", ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Detections], ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Interval]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, ">>", "<<");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "<<");
 			return 1;
 		}
 		case DIALOG_SHOP_TOYS:
@@ -11085,7 +11085,7 @@ ShowDialog(playerid, dialogid)
 			}
 			if (total_vehicles == 0) strcat(dialog, ""COL_WHITE"No tienes vehículos");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona el vehículo", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Selecciona el vehículo", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_USER_NOTIFICATIONS:
@@ -11125,7 +11125,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[100];
 			format(dialog, sizeof dialog, ""COL_WHITE"Tiene %s$ en efectivo, ingrese la cantidad que quiere\nenviarle a %s.", number_format_thousand(CHARACTER_INFO[playerid][ch_CASH]), ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Dar dinero", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Dar dinero", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SEND_REPORT:
@@ -11133,7 +11133,7 @@ ShowDialog(playerid, dialogid)
 			new dialog[100];
 			format(dialog, sizeof dialog, ""COL_WHITE"Ingrese la razón para reportar a %s.", ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Reportar", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Reportar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_RANGE_USER:
@@ -11245,7 +11245,7 @@ ShowDialog(playerid, dialogid)
 			}
 
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_CREATE_CREW:
@@ -11284,7 +11284,7 @@ ShowDialog(playerid, dialogid)
 			new caption[64];
 			format(caption, sizeof caption, "{%06x}%s", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Opciones\nGraffitis\nMercados", ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Opciones\nGraffitis\nMercados", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_CREW_MENU:
@@ -11335,7 +11335,7 @@ ShowDialog(playerid, dialogid)
 				listitem ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_CREW_MEMBER_LIST:
@@ -11378,7 +11378,7 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}<<\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_CHANGE_NAME:
@@ -11431,7 +11431,7 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}<<\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Expulsar", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Expulsar", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_CAST_MEMBER_CONFIRM:
@@ -11482,12 +11482,12 @@ ShowDialog(playerid, dialogid)
 				}
 				strcat(dialog, line_str);
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Rangos", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Rangos", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_RANK_MODIFY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Modificar rango", "Cambiar nombre del rango\nModificar permisos\nEliminar rango", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Modificar rango", "Cambiar nombre del rango\nModificar permisos\nEliminar rango", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_RANK_MODIFY_NAME:
@@ -11535,7 +11535,7 @@ ShowDialog(playerid, dialogid)
 
 				listitem ++;
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccionar nuevo rango", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccionar nuevo rango", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_RANK_DELETE_CONFIRM:
@@ -11640,7 +11640,7 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}<<\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Modificar rango de un miembro", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Modificar rango de un miembro", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_MODIFY_MEMBER:
@@ -11702,22 +11702,22 @@ ShowDialog(playerid, dialogid)
 				listitem ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_CREW_PROPERTY_CONFIRM:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad de banda", ""COL_WHITE"¿Estás seguro que quieres pasar esta propiedad a banda?\nEsta opción no se puede deshacer.", ">>", "Cancelar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad de banda", ""COL_WHITE"¿Estás seguro que quieres pasar esta propiedad a banda?\nEsta opción no se puede deshacer.", "Selecc.", "Cancelar");
 			return 1;
 		}
 		case DIALOG_CREW_LEAVE_TERRITORY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Abandonar territorio", ""COL_WHITE"¿Estás seguro que quieres abandonar este territorio?\nEsta opción no se puede deshacer.", ">>", "Cancelar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Abandonar territorio", ""COL_WHITE"¿Estás seguro que quieres abandonar este territorio?\nEsta opción no se puede deshacer.", "Selecc.", "Cancelar");
 			return 1;
 		}
 		case DIALOG_CREW_LEAVE_PROPERTY:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad de banda", ""COL_WHITE"¿Estás seguro que quieres liberar esta propiedad?\nEsta opción no se puede deshacer.", ">>", "Cancelar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad de banda", ""COL_WHITE"¿Estás seguro que quieres liberar esta propiedad?\nEsta opción no se puede deshacer.", "Selecc.", "Cancelar");
 			return 1;
 		}
 		case DIALOG_POLICE_PENALTY:
@@ -11748,7 +11748,7 @@ ShowDialog(playerid, dialogid)
 					SU_SD_PRICE
 			);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, "Multiplicadores", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, "Multiplicadores", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_SERVER_ECO_MODIFY:
@@ -11763,7 +11763,7 @@ ShowDialog(playerid, dialogid)
 				case 4: format(dialog, sizeof dialog, "ARMAS: %f", MULTIPLIER_WEAPONS);
 				case 5: format(dialog, sizeof dialog, "Coste de VIP: %d "SERVER_COIN"", SU_SD_PRICE);
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Multiplicador", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Multiplicador", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SU_BUY:
@@ -11814,7 +11814,7 @@ ShowDialog(playerid, dialogid)
 		{
 			new caption[64];
 			format(caption, sizeof(caption), ""COL_RED"%s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Mis objetos\nComprar objeto\nAñadir texto (500$)\nAñadir bandera de país (2.000$)\nAñadir panel de país (2.000$)", ">>", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Mis objetos\nComprar objeto\nAñadir texto (500$)\nAñadir bandera de país (2.000$)\nAñadir panel de país (2.000$)", "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECTS:
@@ -11835,7 +11835,7 @@ ShowDialog(playerid, dialogid)
 			}
 			strcat(dialog, ""COL_RED"Eliminar todo\n");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT:
@@ -11862,14 +11862,14 @@ ShowDialog(playerid, dialogid)
 				}
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_CNAME:
 		{
 			new dialog[145];
 			format(dialog, sizeof dialog, ""COL_WHITE"Nombre actual: \"%s\"\nIndica el nuevo nombre:", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar nombre", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_COLORS:
@@ -11885,7 +11885,7 @@ ShowDialog(playerid, dialogid)
 
 				strcat(dialog, line_str);
 			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_COLOR:
@@ -11906,7 +11906,7 @@ ShowDialog(playerid, dialogid)
 					VEHICLE_COLORS[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_COLOR_2] ] >>> 8
 			);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_COLOR_HEX:
@@ -11914,7 +11914,7 @@ ShowDialog(playerid, dialogid)
 			new caption[64];
 			format(caption, sizeof caption, "Color (%d) de '%s'", PLAYER_TEMP[playerid][py_TUNING_EDIT_COLOR_SLOT], VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Introduce el color en formato AARRGGBB\nPor ejemplo: F7F7F7FF", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Introduce el color en formato AARRGGBB\nPor ejemplo: F7F7F7FF", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_OBJECT_CDELETE:
@@ -11930,33 +11930,33 @@ ShowDialog(playerid, dialogid)
 			new caption[64];
 			format(caption, sizeof caption, ""COL_RED"%s", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_NAME]);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar texto\nCambiar fuente\nTamaño de letra\nNegrita\nColor de fuente", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar texto\nCambiar fuente\nTamaño de letra\nNegrita\nColor de fuente", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_TEXT_TEXT:
 		{
 			new dialog[128];
 			format(dialog, sizeof dialog, ""COL_WHITE"Texto actual: %s\nIndica el nuevo texto (1-32 caracteres).", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_TEXT]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar texto", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar texto", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_TEXT_FONT:
 		{
 			new dialog[128];
 			format(dialog, sizeof dialog, ""COL_WHITE"Fuente actual: %s\nIndica la nueva fuente.", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar fuente", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar fuente", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_TEXT_FONT_SIZE:
 		{
 			new dialog[128];
 			format(dialog, sizeof dialog, ""COL_WHITE"Tamaño actual: %d\nIndica la nueva fuente.", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_SIZE]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar fuente", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Modificar fuente", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_TEXT_FONT_COLOR:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona color", DIALOG_CREATE_CREW_COLOR_String, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Selecciona color", DIALOG_CREATE_CREW_COLOR_String, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_VOBJECT_COUNTRY:
@@ -12000,7 +12000,7 @@ ShowDialog(playerid, dialogid)
 					Venezuela\n\
 				"
 
-			, ">>", "Atrás");
+			, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_CONFIG:
@@ -12035,7 +12035,7 @@ ShowDialog(playerid, dialogid)
 		{
 			new caption[128];
 			format(caption, sizeof caption, "Placa Nº%d | %c. %s", PLAYER_MISC[playerid][MISC_PLACA_PD], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, "Ver últimos registros a BYC\nBuscar BYC de una persona", ">>", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, "Ver últimos registros a BYC\nBuscar BYC de una persona", "Selecc.", "Salir");
 			return 1;
 		}
 		case DIALOG_POLICE_BYC_NAME_FIND:
@@ -12078,7 +12078,7 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "BYC", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "BYC", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_BYC_LAST_PLAYER:
@@ -12116,7 +12116,7 @@ ShowDialog(playerid, dialogid)
 			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "BYC", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "BYC", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_POLICE_DELETE_BYC:
@@ -12348,6 +12348,40 @@ ShowDialog(playerid, dialogid)
 				strcat(dialog, line);
 			}
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Productos electrónicos", dialog, "Comprar", "Salir");
+		}
+		case DIALOG_FURNITURE_LIST:
+		{
+			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
+
+			new 
+				dialog[200 * 6],
+				line[150],
+				total_furniture
+			;
+
+			format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Tipo\n");
+
+			for(new i = 0; i != MAX_FURNITURE_OBJECTS; i++)
+			{
+				if (PROPERTY_OBJECT[i][pobj_VALID] && PROPERTY_OBJECT[i][pobj_PROPERTY_ID] == PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID])
+				{
+					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_furniture] = i;
+
+					format(line, sizeof(line), "%s\t%s\n", PROPERTY_OBJECT[i][pobj_NAME], GetFurnitureTypeName(PROPERTY_OBJECT[i][pobj_TYPE]));
+					strcat(dialog, line);
+
+					total_furniture ++;
+				}
+			}
+			if (total_furniture == 0) return ShowPlayerMessage(playerid, "~r~No tienes muebles", 4);
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Muebles", dialog, "Ver", "Atrás");
+		}
+		case DIALOG_FURNITURE_OPTIONS:
+		{
+			new caption[64];
+			format(caption, 64, ""COL_RED"%s", PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_NAME]);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar\nVender\n", "Ver", "Atrás");	
 		}
 		default: return 0;
 	}
@@ -14382,7 +14416,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (isnull(inputtext)) return ShowDialog(playerid, dialogid);
 
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Espere", ""COL_WHITE"Buscando resultados para su búsqueda...", "X", "");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Espere", ""COL_WHITE"Buscando resultados para su búsqueda...", "Cerrar", "");
 
 				for(new i = 0; i < strlen(inputtext); i++)
 				{
@@ -20600,6 +20634,44 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else ShowFurnitureMenu(playerid);
 		}
+		case DIALOG_FURNITURE_LIST:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
+				PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
+				ShowDialog(playerid, DIALOG_FURNITURE_OPTIONS);
+			}
+			else ShowFurnitureMenu(playerid);
+		}
+		case DIALOG_FURNITURE_OPTIONS:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0:
+					{
+						PLAYER_TEMP[playerid][py_EDITING_OBJ] = PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_ID];
+						EditingMode(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
+					}
+					case 1:
+					{
+						new
+							str_text[32],
+							pay = minrand(200, 400)
+						;
+
+						format(str_text, sizeof(str_text), "~g~+%s$", pay);
+						GameTextForPlayer(playerid, str_text, 5000, 1);
+						GivePlayerCash(playerid, pay, false);
+
+						DeletePropertyObject(PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_DB_ID], PLAYER_TEMP[playerid][py_FURNITURE_SELECTED]);
+					}
+				}
+			}
+			else ShowDialog(playerid, DIALOG_FURNITURE_LIST);
+		}
 	}
 	return 0;
 }
@@ -21926,7 +21998,7 @@ LoadPlayerGPSData(playerid)
 
 		PLAYER_GPS[playerid][index][player_gps_ID] = db_get_field_assoc_int(Result, "ID");
 		db_get_field_assoc(Result, "NAME", PLAYER_GPS[playerid][index][player_gps_NAME], 24);
-		PLAYER_GPS[playerid][index][player_gps_X] = db_get_field_assoc_float(Result, "X");
+		PLAYER_GPS[playerid][index][player_gps_X] = db_get_field_assoc_float(Result, "Cerrar");
 		PLAYER_GPS[playerid][index][player_gps_Y] = db_get_field_assoc_float(Result, "Y");
 		PLAYER_GPS[playerid][index][player_gps_Z] = db_get_field_assoc_float(Result, "Z");
 		PLAYER_GPS[playerid][index][player_gps_WORLD] = db_get_field_assoc_int(Result, "WORLD");
@@ -25410,7 +25482,7 @@ number_format_thousand(e_number)
 		strins(f_string, ".", numbers);
 	}
 
-	if (negative) strins(f_string, "-", 0);
+	if (negative) strins(f_string, "Cerrar", 0);
 	return f_string;
 }
 
@@ -25428,7 +25500,7 @@ number_format_thousand(e_number)
 	while(numbers > 3)
 	{
 		numbers -= 3;
-		strins(f_string, "-", numbers);
+		strins(f_string, "Cerrar", numbers);
 	}
 
 	if (negative) strins(f_string, "- ", 0);
@@ -26847,7 +26919,7 @@ SavePlayerVehicles(playerid, destroy = false)
 
 public OnVehicleSpawn(vehicleid)
 {
-	printf("OnVehicleId %d",vehicleid); // debug juju
+	//printf("OnVehicleId %d",vehicleid); // debug juju
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_TP_IMMUNITY] = gettime() + 5;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = true;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_ATTACHED_TO] = INVALID_VEHICLE_ID;
