@@ -3929,7 +3929,7 @@ public OnPlayerConnect(playerid)
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
 	GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 
-	if (!strcmp(PLAYER_TEMP[playerid][py_IP], BotsMaster))
+	if(!strcmp(PLAYER_TEMP[playerid][py_IP], BotsMaster))
 	{
 		SetBot(playerid);
 		return 1;
@@ -11715,23 +11715,6 @@ ShowDialog(playerid, dialogid)
 			format(dialog, sizeof dialog, "Estado actual de accioner en: (%d:%d)\n\nSintaxis: <detecciones>:<segundos>\nDeja segundos en 0 para que sea instantáneo.\n\nEjemplo de 2 detecciones en 10 segundos: 2:10", ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Detections], ac_Info[ PLAYER_TEMP[playerid][py_SELECTED_AC_LISTITEM] ][ac_Interval]);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, ">>", "<<");
-			return 1;
-		}
-		case DIALOG_SHOP_ARTICLE_MODIFY: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Mi anuncio", "Inserta el nuevo precio de tu artículo:\n", ">>", "<<");
-		case DIALOG_SHOP_ARTICLE_REMOVE: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Eliminar anuncio", "¿Está seguro de que quiere eliminar este anuncio?\nEsta opción no se puede deshacer.", "Eliminar", "Atrás");
-		case DIALOG_SHOP_ADD:
-		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Añadir anuncio", ""COL_WHITE"Propiedad\n"COL_WHITE"Vehículo\n"COL_WHITE"Otros", ">>", "-");
-			return 1;
-		}
-		case DIALOG_SHOP_ADD_TEXT:
-		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Añadir anuncio", "Introduce una breve descripción para tu anuncio.\nCaracteres: 1-24 [A-Z a-z 0-9]", ">>", "-");
-			return 1;
-		}
-		case DIALOG_SHOP_ADD_PRICE:
-		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "Añadir anuncio", "Introduce el precio para tu anuncio.\nAl publicar tu anuncio se te cobrará 500$.", ">>", "-");
 			return 1;
 		}
 		case DIALOG_SHOP_TOYS:
@@ -33887,7 +33870,7 @@ CMD:spos(playerid, params[])
 CMD:v(playerid, params[])
 {
 	new modelid, color1, color2;
-	if (sscanf(params, "ddd", modelid, color1, color2)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /v <modelid> <color 1> <color 2>");
+	if (sscanf(params, "dD(0)D(0)", modelid, color1, color2)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /v <modelid> <color 1 = 0> <color 2 = 0>");
 	if (modelid < 400 || modelid > 611) return SendClientMessage(playerid, COLOR_WHITE, "Modelo de vehículo no válido.");
 
 	new Float:p[4];
