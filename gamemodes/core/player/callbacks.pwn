@@ -3960,7 +3960,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 								GameTextForPlayer(playerid, TextToSpanish(item_name), 2000, 5);
 
 								ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
-								GrabItem(playerid, DROP_ITEMS[i][itm_TYPE], DROP_ITEMS[i][itm_AMMOUNT]);
+								AddPlayerItem(playerid, DROP_ITEMS[i][itm_TYPE], DROP_ITEMS[i][itm_AMMOUNT]);
 								DeleteDropItem(i);
 								if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV]) ShowInventory(playerid);
 								return 1;

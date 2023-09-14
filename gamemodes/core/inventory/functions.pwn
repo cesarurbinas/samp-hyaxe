@@ -1585,13 +1585,13 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 				if (is_weapon)
 				{
-					grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
 				}
 				else
 				{
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] -= 1;
-					grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
+					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
 				}
 
 				if (grab_status)
@@ -1701,13 +1701,13 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 				if (is_weapon)
 				{
-					grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
 				}
 				else
 				{
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] -= 1;
-					grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
+					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
 				}
 
 				if (grab_status)

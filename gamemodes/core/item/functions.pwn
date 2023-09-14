@@ -194,6 +194,85 @@ GetVehicleItemsCount(vehicle_id)
 	return count;
 }
 
+PlayerAlreadyHasItem(playerid, type)
+{
+	new
+		DBResult:Result,
+		DB_Query[140],
+		id
+	;
+
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `TYPE` = '%d' AND `ID_USER` = '%d';", type, ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		for(new i; i < db_num_rows(Result); i++ )
+		{
+			id = db_get_field_assoc_int(Result, "ID");
+			break;
+		}
+		db_free_result(Result);
+
+		return id;
+	}
+
+	if (db_num_rows(Result)) return true;
+	return false;
+}
+
+AddPlayerItem(playerid, type, extra = 1)
+{
+	new
+		DB_Query[164],
+		already_exists = PlayerAlreadyHasItem(playerid, type)
+	;
+
+	if (ITEM_INFO[type][item_SINGLE_SLOT])
+		already_exists = false;
+
+	if (already_exists)
+	{
+		format(DB_Query, sizeof DB_Query,
+			"UPDATE `PLAYER_INVENTORY` SET `EXTRA` = EXTRA + '%d' WHERE `ID` = '%d';",
+			extra,
+			already_exists
+		);
+		db_free_result(db_query(Database, DB_Query));
+	}
+	else
+	{
+		new
+			id,
+			DBResult:Result
+		;
+
+		format(DB_Query, sizeof DB_Query,
+		"\
+			INSERT INTO `PLAYER_INVENTORY`\
+			(\
+				`ID_USER`, `TYPE`, `EXTRA`\
+			)\
+			VALUES\
+			(\
+				'%d', '%d', '%d'\
+			);\
+			SELECT MAX(`ID`) FROM `PLAYER_INVENTORY`;\
+		",
+			ACCOUNT_INFO[playerid][ac_ID],
+			type,
+			extra
+		);
+
+		Result = db_query(Database, DB_Query);
+		if (db_num_rows(Result)) id = db_get_field_int(Result, 0);
+		db_free_result(Result);
+
+		return id;
+	}
+	return false;
+}
+
 SubtractItem(playerid, type, slot, ammount = 1)
 {
 	switch(type)
@@ -357,61 +436,6 @@ GrabWeapon(playerid, type, ammount)
 
 	RegisterNewPlayerWeapon(playerid, weapon_slot);
 	GivePlayerWeaponEx(playerid, weapon_id, ammount);
-	return 1;
-}
-
-GrabItem(playerid, type, ammount = 1)
-{
-	switch(type)
-	{
-		case 0: return PLAYER_MISC[playerid][MISC_BOTIKIN] += ammount;
-		case 1: return PLAYER_MISC[playerid][MISC_MEDICINE] += ammount;
-		case 2: return PLAYER_MISC[playerid][MISC_VENDAS] += ammount;
-		case 3: return PLAYER_MISC[playerid][MISC_CANNABIS] += ammount;
-		case 4: return PLAYER_MISC[playerid][MISC_CRACK] += ammount;
-		case 5: return PLAYER_MISC[playerid][MISC_FUEL_DRUM] = 20;
-		case 6: return PLAYER_MISC[playerid][MISC_SEED_MEDICINE] += ammount;
-		case 7: return PLAYER_MISC[playerid][MISC_SEED_CANNABIS] += ammount;
-		case 8: return PLAYER_MISC[playerid][MISC_SEED_CRACK] += ammount;
-		case 9: return PLAYER_MISC[playerid][MISC_CARTRIDGE_1] += ammount;
-		case 10: return PLAYER_MISC[playerid][MISC_CARTRIDGE_2] += ammount;
-		case 11: return PLAYER_MISC[playerid][MISC_CARTRIDGE_3] += ammount;
-		case 12: return GrabWeapon(playerid, type, ammount);
-		case 13: return GrabWeapon(playerid, type, ammount);
-		case 14: return GrabWeapon(playerid, type, ammount);
-		case 15: return GrabWeapon(playerid, type, ammount);
-		case 16: return GrabWeapon(playerid, type, ammount);
-		case 17: return GrabWeapon(playerid, type, ammount);
-		case 18: return GrabWeapon(playerid, type, ammount);
-		case 19: return GrabWeapon(playerid, type, ammount);
-		case 22: return GrabWeapon(playerid, type, ammount);
-		case 23: return GrabWeapon(playerid, type, ammount);
-		case 24: return GrabWeapon(playerid, type, ammount);
-		case 25: return GrabWeapon(playerid, type, ammount);
-		case 26: return GrabWeapon(playerid, type, ammount);
-		case 28: return GrabWeapon(playerid, type, ammount);
-		case 29: return GrabWeapon(playerid, type, ammount);
-		case 30: return GrabWeapon(playerid, type, ammount);
-		case 31: return GrabWeapon(playerid, type, ammount);
-		case 32: return GrabWeapon(playerid, type, ammount);
-		case 33: return GrabWeapon(playerid, type, ammount);
-		case 41: return GrabWeapon(playerid, type, ammount);
-		case 43: return GrabWeapon(playerid, type, ammount);
-		case 46: return GrabWeapon(playerid, type, ammount);
-		case 51: return PLAYER_MISC[playerid][MISC_ROD] += ammount;
-		case 52: return PLAYER_MISC[playerid][MISC_MALLET] += ammount;
-		case 53: return PLAYER_MISC[playerid][MISC_FIXKIT] += ammount;
-		case 54: return PLAYER_MISC[playerid][MISC_JOINT] += ammount;
-		case 55: return PLAYER_MISC[playerid][MISC_CARTRIDGE_4] += ammount;
-		case 56: return PLAYER_MISC[playerid][MISC_GEO] += ammount;
-		case 57: return PLAYER_MISC[playerid][MISC_PUMPKIN] += ammount;
-		case 58: return PLAYER_MISC[playerid][MISC_ROCKET] += ammount;
-		case 59: return PLAYER_MISC[playerid][MISC_MORTERO] += ammount;
-		case 60: return PLAYER_MISC[playerid][MISC_PETARDO] += ammount;
-		case 61: return PLAYER_MISC[playerid][MISC_VOLCAN] += ammount;
-		case 62: return PLAYER_MISC[playerid][MISC_LAVAKO] += ammount;
-		case 63: return PLAYER_MISC[playerid][MISC_12TIROS] += ammount;
-	}
 	return 1;
 }
 
