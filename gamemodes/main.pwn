@@ -67,9 +67,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Lang
 #include "core/languages/es.pwn"
 
-// Webhooks
-#include "utils/discord/webhook.pwn"
-
 // Database
 #include "utils/database/db.pwn"
 
@@ -25277,7 +25274,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_JOINT]) > 2)
 			{
 				PLAYER_TEMP[playerid][py_JOINT_USES] ++;
-				GivePlayerHealthEx(playerid, 0.5);
+				GivePlayerHealthEx(playerid, 1.0);
 
 				if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
 				{

@@ -1474,8 +1474,10 @@ stock WC_SetPlayerHealth(playerid, Float:health, Float:armour = -1.0)
 		}
 		s_PlayerHealth[playerid] = health;
 
-		SetFakeHealth(playerid, health);
-		SetFakeArmour(playerid, armour);
+		//SetFakeHealth(playerid, health);
+		SetPlayerHealth(playerid, health);
+		//SetFakeArmour(playerid, armour);
+		SetPlayerArmour(playerid, armour);
 
 		UpdateHealthBar(playerid, true);
 	}
@@ -1506,7 +1508,7 @@ stock WC_SetPlayerArmour(playerid, Float:armour)
 		armour = s_PlayerMaxArmour[playerid];
 	}
 	s_PlayerArmour[playerid] = armour;
-	SetFakeArmour(playerid, armour);
+	//SetFakeArmour(playerid, armour);
 	UpdateHealthBar(playerid, true);
 
 	return 1;
@@ -2908,7 +2910,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		case PLAYER_STATE_ONFOOT,
 		     PLAYER_STATE_DRIVER,
 		     PLAYER_STATE_PASSENGER: {
-			SetHealthBarVisible(playerid, true);
+			SetHealthBarVisible(playerid, false);
 		}
 
 		default: {
@@ -3371,6 +3373,8 @@ public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 			PlayerDeath(playerid, animlib, animname, _, 4000 - GetPlayerPing(playerid));
 
 			WC_OnPlayerDeath(playerid, issuerid, weaponid);
+
+			SetPlayerHealth(playerid, Float:0x7f7fffff);
 
 			DebugMessage(playerid, "being knifed by %d", issuerid);
 			DebugMessage(issuerid, "knifing %d", playerid);
@@ -3927,7 +3931,7 @@ static ScriptInit()
 			     PLAYER_STATE_DRIVER,
 			     PLAYER_STATE_PASSENGER,
 			     PLAYER_STATE_SPAWNED: {
-				SetHealthBarVisible(playerid, true);
+				SetHealthBarVisible(playerid, false);
 			}
 
 			default: {
@@ -3972,7 +3976,9 @@ static ScriptExit()
 		}
 
 		SetFakeHealth(playerid, 255);
+		SetPlayerHealth(playerid, 255);
 		SetFakeArmour(playerid, 255);
+		SetPlayerArmour(playerid, 255);
 		FreezeSyncPacket(playerid, .toggle = false);
 		SetFakeFacingAngle(playerid, _);
 		SetHealthBarVisible(playerid, false);
@@ -4071,7 +4077,9 @@ static UpdateHealthBar(playerid, bool:force = false)
 	}
 
 	SetFakeHealth(playerid, health);
+	SetPlayerHealth(playerid, health);
 	SetFakeArmour(playerid, armour);
+	SetPlayerArmour(playerid, armour);
 
 	UpdateSyncData(playerid);
 
@@ -4097,11 +4105,11 @@ static UpdateHealthBar(playerid, bool:force = false)
 					PlayerTextDrawTextSize  (playerid, s_HealthBarForeground[playerid], 545.75, 0.0);
 					PlayerTextDrawBoxColor  (playerid, s_HealthBarForeground[playerid], 0xB51821FF);
 
-					PlayerTextDrawShow(playerid, s_HealthBarForeground[playerid]);
+					//PlayerTextDrawShow(playerid, s_HealthBarForeground[playerid]);
 				}
 			} else {
 				PlayerTextDrawSetPosition(playerid, s_HealthBarForeground[playerid], 551.5 + float(health) * 0.5651, 70.25);
-				PlayerTextDrawShow(playerid, s_HealthBarForeground[playerid]);
+				//PlayerTextDrawShow(playerid, s_HealthBarForeground[playerid]);
 			}
 
 		} else if (s_HealthBarForeground[playerid] != PlayerText:INVALID_TEXT_DRAW) {
