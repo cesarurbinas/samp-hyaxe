@@ -2902,6 +2902,20 @@ CMD:alienboom(playerid, params[])
 }
 flags:alienboom(CMD_MODERATOR)
 
+CMD:allalien(playerid, params[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			StopAudioStreamForPlayer(i);
+			PlayAudioStreamForPlayer(i, "https://www.hyaxe.com/static/files/tkoztvoiuuioyophalien.mp3");
+		}
+	}
+	return 1;
+}
+flags:allalien(CMD_OWNER)
+
 CMD:nuclearbomb(playerid, params[])
 {
 	new 
@@ -2910,12 +2924,12 @@ CMD:nuclearbomb(playerid, params[])
 		Float:z
 	;
 
-	for(new i = 0, j = 50; i <= j; i++)
+	for(new i = 0, j = 100; i <= j; i++)
 	{
 		GetPlayerPos(playerid, x, y, z);
 		CA_FindZ_For2DCoord(x, y, z);
 
-		RandomCordFromPoint(minrand(10, 200), minrand(10, 200), x, y);
+		RandomCordFromPoint(minrand(-100, 100), minrand(-100, 100), x, y);
 
 		CreateExplosion(x, y, z, 10, 5.0);
 	}
@@ -2924,6 +2938,7 @@ CMD:nuclearbomb(playerid, params[])
 	return 1;
 }
 flags:nuclearbomb(CMD_LORD)
+
 
 forward neuroadmin_BotLearning(index, response_code, data[]);
 public neuroadmin_BotLearning(index, response_code, data[])

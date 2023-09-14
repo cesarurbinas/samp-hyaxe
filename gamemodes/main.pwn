@@ -55,10 +55,10 @@
 
 // Features
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
-#define HALLOWEEN_MODE // Modo de halloween
+//#define HALLOWEEN_MODE // Modo de halloween
 //#define CHRISTMAS_MODE // Modo de navidad
 //#define EASTER_MODE // Modo de pascuas
 
