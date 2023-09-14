@@ -9,12 +9,15 @@ ShowDialog(playerid, dialogid)
 		{
 			new dialog[280];
 			format(dialog, sizeof dialog, ""COL_WHITE"\
-				Hola, "COL_RED"%s"COL_WHITE". Esta cuenta no esta registrada.\n\n\
+				Bienvenido, "COL_ORANGE"%s"COL_WHITE".\n\n\
+				Esta cuenta aún no está registrada, ingrese\n\
+				una contraseña en el cuadro a continuación\n\
+				para iniciar el proceso de registro.\n\n\
 				\t{E3E3E3}1. Contraseña\n\
 				\t{5c5c5c}2. Correo\n\
 				\t{5c5c5c}3. Sexo"COL_WHITE"\n\n\
 				Ingrese una contraseña entre 6-18 caracteres.", PLAYER_TEMP[playerid][py_RP_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Registrarse", dialog, "Aceptar", "Cancelar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"[1/3] Registrarse", dialog, "Aceptar", "Cancelar");
 			return 1;
 		}
 		case DIALOG_LOGIN:
@@ -25,12 +28,12 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Ingresa a tu cuenta", dialog_login, "Aceptar", "Cancelar");
 			return 1;
 		}
-		case DIALOG_REGISTER_EMAIL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Correo electrónico", ""COL_WHITE"Ingresa una dirección de correo electrónico.\n\n\
+		case DIALOG_REGISTER_EMAIL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"[2/3] Correo electrónico", ""COL_WHITE"Ingresa una dirección de correo electrónico.\n\n\
 			\t{5c5c5c}1. Contraseña\n\
 			\t{E3E3E3}2. Correo\n\
 			\t{5c5c5c}3. Sexo"COL_WHITE"\n\n\
 			Esto le va a servir para poder recuperar su contraseña\nen caso que se la olvide.","Aceptar", "Cerrar");
-        case DIALOG_REGISTER_SEX: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Sexo", ""COL_WHITE"Selecciona un sexo.\n\n\
+        case DIALOG_REGISTER_SEX: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"[3/3] Sexo", ""COL_WHITE"Selecciona un sexo.\n\n\
         	\t{5c5c5c}1. Contraseña\n\
 			\t{5c5c5c}2. Correo\n\
 			\t{E3E3E3}3. Sexo"COL_WHITE"\n\n\
