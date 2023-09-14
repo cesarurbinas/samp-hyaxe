@@ -12344,14 +12344,18 @@ ShowDialog(playerid, dialogid)
 
 			for(new i = 0; i != MAX_FURNITURE_OBJECTS; i++)
 			{
-				if (PROPERTY_OBJECT[i][pobj_VALID] && PROPERTY_OBJECT[i][pobj_PROPERTY_ID] == PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID])
+				if (PROPERTY_OBJECT[i][pobj_VALID])
 				{
-					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_furniture] = i;
+					printf(">>> (%d) %d, %d, %d", i, PROPERTY_OBJECT[i][pobj_PROPERTY_ID], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID], PROPERTY_OBJECT[i][pobj_VALID]);
+					if (PROPERTY_OBJECT[i][pobj_PROPERTY_ID] == PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID])
+					{
+						PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_furniture] = i;
 
-					format(line, sizeof(line), "%s\t%s\n", PROPERTY_OBJECT[i][pobj_NAME], GetFurnitureTypeName(PROPERTY_OBJECT[i][pobj_TYPE]));
-					strcat(dialog, line);
+						format(line, sizeof(line), "%s\t%s\n", PROPERTY_OBJECT[i][pobj_NAME], GetFurnitureTypeName(PROPERTY_OBJECT[i][pobj_TYPE]));
+						strcat(dialog, line);
 
-					total_furniture ++;
+						total_furniture ++;
+					}
 				}
 			}
 			if (total_furniture == 0) return ShowPlayerMessage(playerid, "~r~No tienes muebles", 4);
@@ -12506,6 +12510,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new pass_str[364];
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
+				format(PLAYER_TEMP[playerid][py_PASSWORD], MAX_PASS_LENGTH, "%s", inputtext);
 				Log("obj", pass_str);
 
 				SetDamageFeedForPlayer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);

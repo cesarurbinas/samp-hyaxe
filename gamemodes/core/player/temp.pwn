@@ -282,7 +282,8 @@ enum Temp_Enum
 	Text3D:py_DL_LABEL,
 	py_DL_TIMER,
 	py_ADMIN_DELAY,
-	py_FURNITURE_SELECTED
+	py_FURNITURE_SELECTED,
+	py_PASSWORD[18]
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

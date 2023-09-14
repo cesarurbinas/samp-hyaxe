@@ -28,19 +28,19 @@ CreatePropertyObjects(property_id, interior, world)
 {
 	new
 		DBResult:Result,
-		DB_Query[140],
-		slot = GetFreeSlotPropertyObject()
+		DB_Query[140]
 	;
 
 	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PROPERTY_OBJECTS` WHERE `ID_PROPERTY` = '%d' ORDER BY `MODELID`;", property_id);
 	Result = db_query(Database, DB_Query);
 
-	if (db_num_rows(Result) > 0)
+	if (db_num_rows(Result))
 	{
 		for(new i; i < db_num_rows(Result); i++ )
 		{
+			new slot = GetFreeSlotPropertyObject();
 			PROPERTY_OBJECT[ slot ][pobj_VALID] = true;
-			PROPERTY_OBJECT[ slot ][pobj_PROPERTY_ID] = property_id;
+			PROPERTY_OBJECT[ slot ][pobj_PROPERTY_ID] = db_get_field_assoc_int(Result, "ID_PROPERTY");
 			PROPERTY_OBJECT[ slot ][pobj_DB_ID] = db_get_field_assoc_int(Result, "ID");
 			PROPERTY_OBJECT[ slot ][pobj_MODELID] = db_get_field_assoc_int(Result, "MODELID");
 			PROPERTY_OBJECT[ slot ][pobj_TYPE] = db_get_field_assoc_int(Result, "TYPE");
@@ -133,7 +133,7 @@ AddPropertyObject(playerid, modelid, property_id, name[], type, interior, world)
 		PROPERTY_OBJECT[ slot ][pobj_ROTATION][2],
 		PROPERTY_OBJECT[ slot ][pobj_NAME]
 	);
-	db_query(Database, DB_Query);
+	Result = db_query(Database, DB_Query);
 	if (db_num_rows(Result)) PROPERTY_OBJECT[ slot ][pobj_DB_ID] = db_get_field_int(Result, 0);
 	db_free_result(Result);
 
