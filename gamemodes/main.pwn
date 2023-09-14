@@ -5647,7 +5647,7 @@ Menu:CLUB_MENU(playerid, response, listitem)
 			}
 			case 5:
 			{
-				if (CLUBS_INFO[club][club_BALANCE] =< 0)
+				if (CLUBS_INFO[club][club_BALANCE] <= 0)
 				{
 					CheckClubOptions(playerid);
 					ShowPlayerMessage(playerid, "~r~No hay fondos para retirar.", 3);
