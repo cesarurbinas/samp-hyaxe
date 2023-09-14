@@ -62,13 +62,14 @@ new MAFIA_RANKS[][] =
 	/* 6 */ "Sottocapo",
 	/* 7 */ "consigliere",
 	/* 8 */ "Don",
-	/* 9 */ "Capo di tutti capo"
+	/* 9 */ "Capo di tutti capo",
+	/* 10 */ "Ricardo."
 };
 
 // enemy mafia
 new ENEMY_MAFIA_RANKS[][] =
 {
-	/* 0 */ "Traficantes",
+	/* 0 */ "Traficante",
 	/* 1 */ "Armeros",
 	/* 2 */ "Renta de seguridad",
 	/* 3 */ "Seguridad privada",

@@ -381,7 +381,6 @@ public OnFilterScriptInit()
     tmpobjid = CreateDynamicObject(987, 2811.919433, -1609.377075, 11.639586, 0.299997, -0.100005, 152.899993, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(987, 2812.348632, -1608.271972, 11.291102, -0.100008, -178.199996, -23.900075, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(8674, 2790.275878, -1594.884521, 13.534873, 0.000000, -0.599996, 90.099960, object_world, object_int, -1, 300.00, 300.00); 
-    tmpobjid = CreateDynamicObject(19912, 2801.428222, -1603.694580, 12.685187, 0.000000, 0.000000, -18.600008, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(987, 2769.188964, -1600.549926, 12.465839, -3.000000, 178.200027, -179.300155, object_world, object_int, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(987, 2778.360351, -1600.440429, 12.420105, -3.000000, 177.900009, -179.200134, object_world, object_int, -1, 300.00, 300.00); 
     

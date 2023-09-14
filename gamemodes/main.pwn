@@ -2118,7 +2118,8 @@ new MAFIA_DOORS[][enum_MAFIA_DOORS] =
 {
 	{19912, 659.0961, -1311.3387, 15.4062, -179.8999, 0, 0, true, INVALID_STREAMER_ID, -1},
 	{19912, 655.2785, -1231.4831, 17.8062, -117.6996, 0, 0, true, INVALID_STREAMER_ID, -1},
-	{19912, 787.4024, -1158.2618, 25.5062, -90.1996, 0, 0, true, INVALID_STREAMER_ID, -1}
+	{19912, 787.4024, -1158.2618, 25.5062, -90.1996, 0, 0, true, INVALID_STREAMER_ID, -1},
+	{19912, 2801.428222, -1603.694580, 12.685187, -18.600008, 0, 0, true, INVALID_STREAMER_ID, -1}
 };
 
 /* SYSTEM - PROPERTIES */
@@ -2498,7 +2499,8 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Mina", INTERIOR_NO_INFO, -1, true, 36, 25, 1147.865356, 1001.796081, -99.214622, 273.832519, 11, false, 0, 0, 509.152374, -723.324951, 19.869243, 340.774505, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Sección B", INTERIOR_NO_INFO, -1, true, 37, 26, 1988.257446, 1204.595825, -63.139907, 268.650756, 56, false, 36, 25, 1270.046142, 1000.668884, -99.214637, 81.757308, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Sección C", INTERIOR_NO_INFO, -1, true, 38, 27, 2546.433105, 1924.534423, -58.649192, 265.830688, 56, false, 37, 26, 2067.543212, 1201.233398, -61.074184, 85.059127, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
+	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "The Crew Criminals", INTERIOR_NO_INFO, -1, true, 27, 23, 3854.231933, -1265.252319, 7547.983398, 188.315292, 44, false, 0, 0, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
 enum enum_JAIL_POSITIONS
@@ -3519,13 +3521,6 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
         if (onFootData[PR_surfingVehicleId] != 0 && onFootData[PR_surfingVehicleId] != INVALID_VEHICLE_ID)
         {
-        	/*new str_text[145];
-	    	format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Invisibilidad", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-	    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
-			SendDiscordWebhook(str_text, 1);
-			SendClientMessageEx(playerid, COLOR_ANTICHEAT, "[ANTI-CHEAT] Fuiste expulsado - Razón: Invisibilidad");
-			KickEx(playerid, 500);*/
-
             if ((floatabs(onFootData[PR_surfingOffsets][0]) >= 50.0) ||
                 (floatabs(onFootData[PR_surfingOffsets][1]) >= 50.0) ||
                 (floatabs(onFootData[PR_surfingOffsets][2]) >= 50.0)
@@ -3586,11 +3581,6 @@ public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
 	    		if (B1G_PLAYER[i][FAKE_PING] == true) ping = B1G_PLAYER[i][PING];
 				else
 				{
-					/*if (GetPlayerPing(i) > 100)
-					{
-						ping = (GetPlayerPing(playerid) - minrand(50, 90));
-					}
-					else ping = GetPlayerPing(i);*/
 					ping = GetPlayerPing(i);
 				}
 
@@ -3854,7 +3844,7 @@ MakeBotFacha(playerid)
 
     SetPlayerFakePing(playerid, minrand(170, 345));
 
-	PLAYER_TEMP[playerid][py_TIMERS][37] = SetTimerEx("UploadFacha", 5000, true, "i", playerid);
+	PLAYER_TEMP[playerid][py_TIMERS][37] = SetTimerEx("UploadFacha", 30000, true, "i", playerid);
 	return 1;
 }
 
@@ -3899,19 +3889,6 @@ public OnPlayerConnect(playerid)
 
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
 	GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
-
-	/*new player_version[32];
-	GetPlayerVersion(playerid, player_version, sizeof player_version);
-
-	if (strcmp(player_version, "0.3.7-R4"))
-	{
-		if (!strcmp(PLAYER_TEMP[playerid][py_IP], BotsMaster)) return MakeBotFacha(playerid);
-
-		ShowPlayerNotification(playerid, "~r~IMPORTANTE~w~~n~Tu versión de cliente es antigua, actualiza tu versión de SA-MP a R4 desde: www.sa-mp.com");
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Solo puedes jugar a Hyaxe usando SA-MP R4.\nDescárgala en "COL_RED"www.sa-mp.com", "X", "");
-		KickEx(playerid, 500);
-		return 1;
-	}*/
 
 	if (sv_get_version(playerid) == SV_VERSION)
 	{
@@ -4754,25 +4731,6 @@ CheckTrashJobSite(playerid)
 	return 1;
 }
 
-/*MechanicCheckJobAndStart(playerid)
-{
-	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return 0;
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_MECHANIC)
-	{
-	    ShowPlayerMessage(playerid, "~r~Ya estas en servicio en otro trabajo.", 3);
-		return 1;
-	}
-
-	if (GetPlayerVirtualWorld(playerid) != 0) return 0;
-	if (GetPlayerInterior(playerid) != 0) return 0;
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0, -69.941520, -1181.400634, 1.750000)) return 0;
-
-	if (!PLAYER_TEMP[playerid][py_WORKING_IN]) StartPlayerJob(playerid, WORK_MECHANIC);
-	else EndPlayerJob(playerid);
-	return 1;
-}*/
-
 CheckIsFireWeapon(weapon)
 {
 	switch(weapon)
@@ -4783,28 +4741,6 @@ CheckIsFireWeapon(weapon)
 	}
 	return 1;
 }
-
-/*GetWeaponSlot(weaponid)
-{
-	new slot;
-	switch(weaponid)
-	{
-		case 0,1: slot = 0;
-		case 2 .. 9: slot = 1;
-		case 10 .. 15: slot = 10;
-		case 16 .. 18, 39: slot = 8;
-		case 22 .. 24: slot =2;
-		case 25 .. 27: slot = 3;
-		case 28, 29, 32: slot = 4;
-		case 30, 31: slot = 5;
-		case 33, 34: slot = 6;
-		case 35 .. 38: slot = 7;
-		case 40: slot = 12;
-		case 41 .. 43: slot = 9;
-		case 44 .. 46: slot = 11;
-	}
-	return slot;
-}*/
 
 ResyncWeapon(playerid, weapon)
 {
@@ -5265,15 +5201,6 @@ Menu:OBJTUNINGMENU(playerid, response, listitem)
 			}
 		}
 	}
-	
-	/*else
-	{
-		PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = false;
-		SetPlayerInterior(playerid, 0);
-		SetVehicleVirtualWorldEx(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], 0);
-		SetPlayerVirtualWorld(playerid, 0);
-		ShowTuningMenu(playerid);
-	}*/
 	return 1;
 }
 
@@ -5314,12 +5241,6 @@ Menu:TRUCKRECOS(playerid, response, listitem)
 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][9]);
 		PLAYER_TEMP[playerid][py_TIMERS][9] = SetTimerEx("TruckLoadUp", 1000, false, "ii", playerid, vehicleid);
 	}
-	/*else
-	{
-		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][9]);
-		SetVehicleToRespawnEx(GetPlayerVehicleID(playerid));
-		HidePlayerMenu(playerid);
-	}*/
     return 1; 
 }
 
@@ -5911,24 +5832,6 @@ CheckClothShop(playerid)
 	return 1;
 }
 
-/*CheckClothingShop(playerid)
-{
-	if (PLAYER_TEMP[playerid][py_INTERIOR_INDEX] == -1) return 0;
-	if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_NO_INFO) return 0;
-
-	new shop = GetClothingShopIndexByIntType(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE]);
-	if (shop == -1) return 0;
-
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0, Clothing_Shop_Positions[shop][clothing_shop_X], Clothing_Shop_Positions[shop][clothing_shop_Y], Clothing_Shop_Positions[shop][clothing_shop_Z])) return 0;
-
-	SetPlayerVirtualWorld(playerid, playerid + MAX_PLAYERS);
-	SetCameraBehindPlayer(playerid);
-	TogglePlayerControllableEx(playerid, false);
-
-	ShowDialog(playerid, DIALOG_SHOP_SKINS);
-	return 1;
-}*/
-
 CheckAndExecuteHospitalShop(playerid)
 {
 	if (GetPlayerInterior(playerid) > 0)
@@ -6429,7 +6332,6 @@ public OnPlayerSpawn(playerid)
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_NORMAL;
 	SetPlayerSkin(playerid, PLAYER_TEMP[playerid][py_SKIN]);
 	SetPlayerToys(playerid);
-	//if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_JAIL && CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK) SetWeaponsForPlayer(playerid);
 	ac_SetPlayerArmedWeapon(playerid, 0);
 	SetPlayerNormalColor(playerid);
 	SetTracingColor(playerid, COLOR_RED);
@@ -6453,24 +6355,6 @@ public OnPlayerSpawn(playerid)
 	return 1;
 }
 
-/*IpLog(const nombre[], const texto[])
-{
-	new dir[32], File:arc, txt[256];
-
-	format(dir, sizeof(dir), "/logsdata/%s.log", nombre);
- 	format(txt, sizeof(txt), "%s\r\n", texto);
-
-	if (!fexist(dir))
- 	arc = fopen(dir, io_write);
-  	else
-   	arc = fopen(dir, io_append);
-
-	printf("[export: %s] %s", nombre, texto);
- 	fwrite(arc, txt);
-  	fclose(arc);
-   	return 1;
-}*/
-
 Log(const nombre[], const texto[])
 {
     new dir[32], File:arc, txt[256];
@@ -6492,74 +6376,6 @@ Log(const nombre[], const texto[])
     fclose(arc);
     return 1;
 }
-
-/*LogGraff(const nombre[], const texto[])
-{
-    new dir[32], File:arc, txt[256];
-    new log_D, log_M, log_A;
-    new log_Seg, log_Min, log_Hor;
-
-    getdate(log_A, log_M, log_D);
-    gettime(log_Hor, log_Min, log_Seg);
-
-    format(dir, sizeof(dir), "/LOGS_FILES/%s.log", nombre);
-    format(txt, sizeof(txt), "%s\r\n", texto);
-
-    if (!fexist(dir))
-    arc = fopen(dir, io_write);
-    else
-    arc = fopen(dir, io_append);
-    printf("[log: %s] %s", nombre, texto);
-    fwrite(arc, txt);
-    fclose(arc);
-    return 1;
-}*/
-
-/*DISCORD:id(DCC_Channel:channel, DCC_User:author, params[])
-{
-	new to_player;
-	if (sscanf(params, "u", to_player)) return DCC_SendChannelMessage(channel, ":warning: Syntax: `!id [ID o nombre]`");
-	if (!IsPlayerConnected(to_player)) return DCC_SendChannelMessage(channel, ":anger: Jugador desconectado.");
-
-	new 
-		str_text[364],
-		city[45],
-		zone[45],
-		Float:hours;
-
-	GetPlayerZones(to_player, city, zone);
-	ConvertTime_SecondsToHoursFloat(ACCOUNT_INFO[to_player][ac_TIME_PLAYING], hours);
-
-	format(str_text, sizeof(str_text), ":bust_in_silhouette: Nombre: `%s (%d)`\n\
-										:joystick: Nivel: `%d`\n\
-										:map: Ciudad: `%s`\n\
-										:gun: Banda: `%s`\n\
-										:rotating_light: Rango: `%s`\n\
-										:page_facing_up: Fecha de registro: `%s`\n\
-										:hourglass_flowing_sand: Tiempo jugado: `%.1f horas`\n\
-										:inbox_tray: Ping: `%d`",
-										ACCOUNT_INFO[to_player][ac_NAME],
-										to_player,
-										ACCOUNT_INFO[to_player][ac_LEVEL],
-										city,
-										getPlayerCrew(to_player),
-										ADMIN_LEVELS[ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL]],
-										ACCOUNT_INFO[to_player][reg_DATE],
-										hours,
-										GetPlayerPing(to_player));
-
-	DCC_SendChannelMessage(channel, str_text);
-	return 1;
-}
-
-DISCORD:tickrate(DCC_Channel:channel, DCC_User:author)
-{
-	new str_text[50];
-
-	format(str_text, sizeof(str_text), ":rocket: SA:MP TickRate: `%i`", GetServerTickRate());
-	DCC_SendChannelMessage(channel, str_text);
-	return 1;
-}*/
 
 CMD:editmodetestxd(playerid, params[])
 {
@@ -6690,21 +6506,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 		SetCameraBehindPlayer(playerid);
 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 	}
-
-	/*if (IsPlayerConnected(killerid) && CHARACTER_INFO[killerid][ch_STATE] == ROLEPLAY_STATE_NORMAL && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_NORMAL)
-	{
-		if (!PLAYER_WORKS[killerid][WORK_POLICE])
-		{
-			if (gettime() > PLAYER_TEMP[killerid][py_LAST_SAFE_ZONE_WARNING] + 60)
-			{
-				if (IsPlayerInSafeZone(killerid))
-				{
-					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", "Fuiste expulsado por matar en zona segura.", "Entiendo", "");
-					KickEx(500);
-				}
-			}
-		}
-	}*/
 
 	if (PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW])
 	{
@@ -7225,55 +7026,6 @@ CALLBACK: InitRandomGraffiti()
 		}
 	}
 
-	/*for(new i = 0; i < sizeof BLACK_MARKET_OBJ; i ++)
-	{
-		new bm_date,
-			bm_time,
-			DB_Query[140],
-			DBResult:Result;
-		
-		format(DB_Query, sizeof DB_Query, "SELECT * FROM `BLACK_MARKETS` WHERE `MARKET_ID` = '%d'", i);
-		Result = db_query(Database, DB_Query);
-		
-		if (db_num_rows(Result) == 0) bm_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
-		else
-		{
-			bm_date = db_get_field_assoc_int(Result, "LAST_START");
-			bm_time = CheckGraffitiTimelapse(bm_date, gettime());
-
-			if (bm_time == 7)
-			{	
-				bm_id = i;
-				InitBlackMarket(bm_id);
-				return 1;
-			}
-		}
-	}*/
-
-	/*for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
-	{
-		new graff_date,
-			graff_time,
-			DB_Query[140],
-			DBResult:Result;
-		
-		format(DB_Query, sizeof DB_Query, "SELECT * FROM `GRAFFITIS` WHERE `GRAFF_ID` = '%d'", i);
-		Result = db_query(Database, DB_Query);
-		
-		if (db_num_rows(Result) == 0) graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
-		else
-		{
-			graff_date = db_get_field_assoc_int(Result, "LAST_START");
-			graff_time = CheckGraffitiTimelapse(graff_date, gettime());
-
-			if (graff_time == 3)
-			{	
-				graff_id = i;
-				break;
-			}
-		}
-	}*/
-
 	GraffitiGetTime = gettime();
 
 	new str_text[128];
@@ -7339,29 +7091,6 @@ CMD:closeserver(playerid, params[])
 	return 1;
 }
 
-/*forward UpdateFakeOnline();
-public UpdateFakeOnline()
-{
-	RealQuery = minrand(1, 6);
-	FO_SetValue(FakeQueryAmmount + RealQuery);
-	return 1;
-}*/
-
-/*CALLBACK: UpdateHostname()
-{
-	new hostname = random(6);
-    switch (hostname)
-    {
-		case 0: SendRconCommand("hostname "SERVER_HOSTNAME"");
-		case 1: SendRconCommand("hostname Hyaxe Roleplay | PC/Android");
-		case 2: SendRconCommand("hostname Hyaxe Roleplay | "SERVER_VERSION"");
-		case 3: SendRconCommand("hostname Hyaxe Roleplay | Roleplay en Español");
-		case 4: SendRconCommand("hostname Hyaxe Roleplay | Chat de voz");
-		case 6: SendRconCommand("hostname Hyaxe Roleplay | www.hyaxe.com");
-	}
-	return 1;
-}*/
-
 CALLBACK: GiveAutoGift()
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -7419,12 +7148,7 @@ public OnGameModeInit()
 	CreateGraffitis();
 	CreateMinerRocks();
 
-	//FO_SetMode(FO_RELATIVE);
-	//FO_SetValue(2);
-
-	//SetTimer("UpdateFakeOnline", 30000, true);
 	SetTimer("UpdateWantedLevelMark", 30000, true);
-	//SetTimer("UpdateHostname", 5000, true);
 	SetTimer("GiveAutoGift", 300000, false);
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
@@ -7884,12 +7608,6 @@ SanAndreas()
 		SetVehicleToRespawnEx(vehicle_id);
 	}
 
-	/*for(new i = 0; i != sizeof San_Andreas_Barriers; i ++)
-	{
-		CreateDynamicObject(966, San_Andreas_Barriers[i][barrier_X], San_Andreas_Barriers[i][barrier_Y], San_Andreas_Barriers[i][barrier_Z], 0.0, 0.0, San_Andreas_Barriers[i][barrier_ROTATION], San_Andreas_Barriers[i][barrier_WORLD], San_Andreas_Barriers[i][barrier_INTERIOR]);
-		San_Andreas_Barriers[i][barrier_OBJECT_ID] = CreateDynamicObject(968, San_Andreas_Barriers[i][barrier_X], San_Andreas_Barriers[i][barrier_Y], San_Andreas_Barriers[i][barrier_Z] + 0.72967, 0.0, -90.0, San_Andreas_Barriers[i][barrier_ROTATION], San_Andreas_Barriers[i][barrier_WORLD], San_Andreas_Barriers[i][barrier_INTERIOR]);
-	}*/
-
 	//polcias
 	for(new i = 0; i != sizeof POLICE_GARAGE_DOORS; i ++)
 	{
@@ -8081,61 +7799,6 @@ CALLBACK: UpdateThePutis()
 	}
 	return 1;
 }
-
-/*PrintPropertiesDatabaseInserts()
-{
-	new DBResult:Result;
-	Result = db_query(Database, "SELECT `PROPERTY`.*, `PROPERTY_INFO`.* FROM `PROPERTY`, `PROPERTY_INFO` WHERE `PROPERTY_INFO`.ID_PROPERTY = `PROPERTY`.ID;");
-
-	new
-		Float:ext_X, Float:ext_Y, Float:ext_Z, Float:ext_ANGLE, ext_INTERIOR, ext_FREEZE,
-		id_Interior,
-
-		property_price, property_level, property_extra, property_vip_level
-	;
-
-	new File:handle = fopen("properties.txt", io_write), line_str[512];
-	if (!handle) return printf("Error - properties.txt");
-
-	for(new i = 0; i < db_num_rows(Result); i ++)
-	{
-
-		ext_X = db_get_field_assoc_float(Result, "EXT_X");
-		ext_Y = db_get_field_assoc_float(Result, "EXT_Y");
-		ext_Z = db_get_field_assoc_float(Result, "EXT_Z");
-		ext_ANGLE = db_get_field_assoc_float(Result, "EXT_ANGLE");
-		ext_INTERIOR = db_get_field_assoc_int(Result, "EXT_INTERIOR");
-		ext_FREEZE = db_get_field_assoc_int(Result, "EXT_FREEZE");
-
-		id_Interior = db_get_field_assoc_int(Result, "ID_INTERIOR");
-
-		property_price = db_get_field_assoc_int(Result, "PRICE");
-		property_level = db_get_field_assoc_int(Result, "LEVEL");
-		property_extra = db_get_field_assoc_int(Result, "EXTRA");
-		property_vip_level = db_get_field_assoc_int(Result, "VIP_LEVEL");
-
-
-		format
-		(line_str, sizeof line_str,
-			"INSERT INTO `PROPERTY` (`EXT_X`, `EXT_Y`, `EXT_Z`, `EXT_ANGLE`, `EXT_INTERIOR`, `EXT_FREEZE`, `ID_INTERIOR`) VALUES ('%f', '%f', '%f', '%f', '%d', '%d', '%d');\r\n",
-			ext_X, ext_Y, ext_Z, ext_ANGLE, ext_INTERIOR, ext_FREEZE,
-			id_Interior
-		);
-		fwrite(handle, line_str);
-
-		format
-		(line_str, sizeof line_str,
-			"INSERT INTO `PROPERTY_INFO` (`ID_PROPERTY`, `PRICE`, `LEVEL`, `EXTRA`, `VIP_LEVEL`) SELECT MAX(`ID`), '%d', '%d', '%d', '%d' FROM `PROPERTY`;\r\n\r\n",
-			property_price, property_level, property_extra, property_vip_level
-		);
-		fwrite(handle, line_str);
-
-		db_next_row(Result);
-	}
-	db_free_result(Result);
-	fclose(handle);
-	return 1;
-}*/
 
 CreateTrashCheckpoint(route, modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
@@ -8413,12 +8076,6 @@ public OnGameModeExit()
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
-		/*SaveUserData(i);
-		SavePlayerToysData(i);
-		SavePlayerVehicles(i, false);
-		SavePlayerSkills(i);
-		SavePlayerWorks(i);
-		SavePlayerMisc(i);*/
 	}
 
 	printf("OnGameModeExit()"); // debug juju
@@ -8952,45 +8609,11 @@ CMD:accsave(playerid, params[])
 	return 1;
 }
 
-/*CMD:vmenu(playerid, params[])
-{
-	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerNotification(playerid, "No eres mecánico.");
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_MECHANIC) return ShowPlayerNotification(playerid, "No estás de servicio como mecánico.");
-	
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "No estás parado", 4);
-	
-	new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "No estás cerca de ningún vehículo.", 5);
-	
-	if (!IsPlayerInDynamicArea(playerid, Mechanic_Area))
-	{
-		if (VEHICLE_INFO[GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_MECHANIC_TRAILER] && VEHICLE_INFO[GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_SEATS] < 2)
-		{
-			ShowPlayerNotification(playerid, "Para reparar este vehículo tienes que subir a una grúa y remolcarlo hasta el mecánico. (/remolcar)");
-			return 1;
-		}
-	}
-
-	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) return ShowPlayerNotification(playerid, "Para trabajar sobre el vehículo el motor debe estar apagado.");
-	
-	PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] = vehicleid;
-	ShowDialog(playerid, DIALOG_MECHANIC_MENU);
-	return 1;
-}*/
-
 CMD:ayuda(playerid, params[])
 {
 	SendClientMessage(playerid, COLOR_WHITE, "Presiona N y haz click en Ayuda.");
 	return 1;
 }
-
-/*CMD:accesorios(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	ShowDialog(playerid, DIALOG_PLAYER_TOYS);
-	return 1;
-}
-alias:accesorios("prendas");*/
 
 CMD:armas(playerid, params[])
 {
@@ -9012,34 +8635,6 @@ CMD:armas(playerid, params[])
 	return 1;
 }
 
-/*CMD:pedir(playerid, params[])
-{
-	if (PLAYER_TEMP[playerid][py_INTERIOR_INDEX] == -1) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_NO_INFO) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-
-	new index = GetFastFoodLocalIndexByIntType(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE]);
-	if (index == -1) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0, Fast_Food_Positions[index][fast_food_X], Fast_Food_Positions[index][fast_food_Y], Fast_Food_Positions[index][fast_food_Z])) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-	switch(Fast_Food_Positions[index][fast_food_INTERIOR_TYPE])
-	{
-		case INTERIOR_BURGER_SHOT: ShowDialog(playerid, DIALOG_FOOD_BURGER);
-		case INTERIOR_PIZZA: ShowDialog(playerid, DIALOG_FOOD_PIZZA);
-		case INTERIOR_CLUCKIN_BELL: ShowDialog(playerid, DIALOG_FOOD_CLUCKIN);
-	}
-	return 1;
-}
-
-CMD:mercado(playerid, params[])
-{
-	if (!IsPlayerInRangeOfPoint(playerid, 3.0, 1900.5925, -1874.2084, 13.3124)) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "No puedes comprar aqui siendo policia.", 3);
-	ShowDialog(playerid, DIALOG_BLACK_MARKET);
-	return 1;
-}*/
-
 CMD:gps(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
@@ -9054,115 +8649,11 @@ CMD:gps(playerid, params[])
 	return 1;
 }
 
-/*CMD:tiempo(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL)
-	{
-		new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
-		if (time <= 0)
-		{
-			UnjailPlayer(playerid);
-			return 1;
-		}
-		SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te quedan {62d743}%s"COL_WHITE" minutos de condena.", TimeConvert(time));
-	}
-	else ShowPlayerMessage(playerid, "~r~No estás en la carcel.", 2);
-	return 1;
-}*/
-
-/*CMD:mapa(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (!PLAYER_OBJECT[playerid][po_GPS])
-	{
-		ShowPlayerMessage(playerid, "No tienes ningún GPS, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-		return 1;
-	}
-
-	if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
-	else ShowPlayerGpsMap(playerid);
-	return 1;
-}*/
-
-/*CMD:mp3(playerid, params[])
-{
-  if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-  if (!PLAYER_OBJECT[playerid][po_MP3])
-  {
-    ShowPlayerMessage(playerid, "No tienes ningún MP3, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-    return 1;
-  }
-
-  PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
-  SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su MP3.", 0xffcb90FF, 20.0, 3000);
-  ShowDialog(playerid, DIALOG_EMISORAS);
-  return 1;
-}*/
-
-/*CMD:mp3(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (!PLAYER_OBJECT[playerid][po_MP3])
-	{
-		ShowPlayerMessage(playerid, "No tienes ningún MP3, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-		return 1;
-	}
-	if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 2);
-
-	PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Busca música en su MP3.", 0xffcb90FF, 20.0, 3000);
-	ShowDialog(playerid, DIALOG_PLAYER_MP3);
-	return 1;
-}*/
-
-/*CMD:vmp3(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ShowPlayerMessage(playerid, "~r~No conduces ningún vehículo.", 2);
-	if (!PLAYER_OBJECT[playerid][po_MP3])
-	{
-		ShowPlayerMessage(playerid, "No tienes ningún MP3, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-		return 1;
-	}
-	if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "Espera que termine la búsqueda actual.", 3);
-
-	PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = true;
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Busca música en su MP3", 0xffcb90FF, 20.0, 3000);
-	ShowDialog(playerid, DIALOG_EMISORAS);
-	return 1;
-}*/
-
 CMD:stop(playerid, params[])
 {
 	StopAudioStreamForPlayer(playerid);
 	return 1;
 }
-
-/*CMD:stats(playerid, params[])
-{
-	if (!ACCOUNT_INFO[playerid][ac_GRABBED_STATS])
-	{
-		ACCOUNT_INFO[playerid][ac_GRABBED_STATS] = true;	
-		PLAYER_MISC[playerid][MISC_BOTIKIN] += 30;
-		PLAYER_MISC[playerid][MISC_MEDICINE] += 30;
-		PLAYER_MISC[playerid][MISC_VENDAS] += 30;
-		PLAYER_MISC[playerid][MISC_CANNABIS] += 30;
-		GivePlayerCash(playerid, 200000);
-		NextLevel(playerid);
-
-		new Float:p[4];
-		GetPlayerPos(playerid, p[0], p[1], p[2]);
-		GetPlayerFacingAngle(playerid, p[3]);
-
-		new vid = AddTestVehicle(false, 471, p[0], p[1], p[2], p[3], 3, 3);
-		PutPlayerInVehicleEx(playerid, vid, 0);
-
-		for(new i = 0; i != 32; i++) SendClientMessage(playerid, COLOR_WHITE, "Recuerda que si usas {E60C0C}MULTICUENTAS"COL_WHITE" para pasarte los stats, es un {E60C0C}BANEO"COL_WHITE" permanente de IP.");
-		SendClientMessage(playerid, COLOR_WHITE, "Te lo repetimos 32 veces por las dudas.");
-		ShowPlayerNotification(playerid, "Felicidades, tienes más cosas y una moto temporal");
-	}
-	return 1;
-}*/
 
 CMD:dineroall(playerid, params[])
 {
@@ -9198,28 +8689,6 @@ CMD:borrarcp(playerid, params[])
 	return 1;
 }
 
-/*CMD:movil(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (!PLAYER_PHONE[playerid][player_phone_VALID])
-	{
-		ShowPlayerMessage(playerid, "No tienes ningún teléfono, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-		return 1;
-	}
-	if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) ShowPlayerMessage(playerid, "~r~Estás en una llamada.", 2);
-
-	if (!PLAYER_TEMP[playerid][py_PHONE_COMMANDS_MESSAGE])
-	{
-		PLAYER_TEMP[playerid][py_PHONE_COMMANDS_MESSAGE] = true;
-		ShowPlayerMessage(playerid, "Recuerda que también puedes usar ~p~/agenda, /llamar, /sms, /tienda", 3);
-	}
-
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Mira su telefono.", 0xffcb90FF, 20.0, 4000);
-	ShowDialog(playerid, DIALOG_PHONE);
-	return 1;
-}
-alias:movil("celular", "telefono", "tlf");*/
-
 CMD:guia(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
@@ -9238,230 +8707,6 @@ CMD:guia(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE, "Teléfono de %s: "COL_RED"%d", PLAYER_TEMP[params[0]][py_RP_NAME], PLAYER_PHONE[params[0]][player_phone_NUMBER]);
 	return 1;
 }
-
-/*CMD:sguia(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (!PLAYER_PHONE[playerid][player_phone_VALID])
-	{
-		ShowPlayerMessage(playerid, "No tienes ningún teléfono, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-		return 1;
-	}
-
-	if (PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER])
-	{
-		PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] = false;
-		ShowPlayerMessage(playerid, "Tu número no aparecerá ahora en la guía telefónica.", 3);
-	}
-	else
-	{
-		PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] = true;
-		ShowPlayerMessage(playerid, "Tu número aparecerá ahora en la guía telefónica.", 3);
-	}
-	return 1;
-}*/
-
-/*CMD:sms(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (!PLAYER_PHONE[playerid][player_phone_VALID])
-	{
-		ShowPlayerMessage(playerid, "No tienes ningún teléfono, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-		return 1;
-	}
-	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "Tu teléfono está apagado, para encenderlo usa ~y~/movil", 3);
-	if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~Estás en una llamada.", 2);
-
-	new to_number, message[64];
-	new tmp_number, tmp_contact[24], bool:found;
-	if (!sscanf(params, "ds[64]", tmp_number, message))
-	{
-		found = true;
-		to_number = tmp_number;
-	}
-	else if (!sscanf(params, "s[24]s[64]", tmp_contact, message))
-	{
-		// con strcmp daba crash por las tilder
-		new DBResult:Result, DB_Query[145];
-		format(DB_Query, sizeof DB_Query, "SELECT `PHONE_NUMBER` FROM `PHONE_BOOK` WHERE `PHONE_ID` = '%d' AND `NAME` LIKE '%%%q%%' LIMIT 1;", PLAYER_PHONE[playerid][player_phone_NUMBER], tmp_contact);
-		Result = db_query(Database, DB_Query);
-		if (db_num_rows(Result))
-		{
-			found = true;
-			to_number = db_get_field_int(Result, 0);
-		}
-		db_free_result(Result);
-	}
-	else return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sms "COL_WHITE"[Número o contacto de /agenda] [Mensaje 1-64 caracteres]");
-
-	if (!found) return ShowPlayerNotification(playerid, "No se encontro al contacto en tu agenda.", 3);
-	if (to_number <= 0) return ShowPlayerMessage(playerid, "~r~El número del destinario no es válido.", 2);
-
-	new DBResult:Result, DB_Query[100], bool:phone_exists;
-	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PHONE` WHERE `PHONE_NUMBER` = '%d';", to_number);
-	Result = db_query(Database, DB_Query);
-
-	if (db_num_rows(Result)) phone_exists = true;
-	db_free_result(Result);
-
-	if (!phone_exists) return ShowPlayerMessage(playerid, "~r~El número del destinario no es válido.", 2);
-
-	new to_playerid = INVALID_PLAYER_ID;
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && PLAYER_PHONE[i][player_phone_NUMBER] == to_number)
-			{
-				to_playerid = i;
-				break;
-			}
-		}
-	}
-
-	if (to_playerid == INVALID_PLAYER_ID) RegisterPhoneMessage(PLAYER_PHONE[playerid][player_phone_NUMBER], to_number, message, true);
-	else
-	{
-		RegisterPhoneMessage(PLAYER_PHONE[playerid][player_phone_NUMBER], to_number, message);
-		if (PLAYER_PHONE[to_playerid][player_phone_STATE] == PHONE_STATE_ON) SendClientMessageEx(to_playerid, COLOR_WHITE, ""COL_GREEN"[Mensaje] "COL_WHITE"%s: %s", convertPhoneNumber(to_playerid, PLAYER_PHONE[playerid][player_phone_NUMBER]), message);
-	}
-	SendClientMessageEx(playerid, COLOR_WHITE, "Mensaje enviado a {7b9cd1}%s.", convertPhoneNumber(playerid, to_number));
-	return 1;
-}*/
-
-/*CMD:agenda(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (!PLAYER_PHONE[playerid][player_phone_VALID])
-	{
-		ShowPlayerMessage(playerid, "No tienes ningún teléfono, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-		return 1;
-	}
-	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "Tu teléfono está apagado, para encenderlo usa /movil.", 3);
-	if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "Estás en una llamada", 2);
-
-	ShowDialog(playerid, DIALOG_PHONE_BOOK);
-	return 1;
-}*/
-
-/*CMD:tienda(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (!PLAYER_PHONE[playerid][player_phone_VALID])
-	{
-		ShowPlayerMessage(playerid, "No tienes ningún teléfono, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-		return 1;
-	}
-
-	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "Tu teléfono está apagado, para encenderlo usa /movil.", 3);
-	ShowPlayerShop(playerid);
-	return 1;
-}*/
-
-/*CMD:llamar(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (!PLAYER_PHONE[playerid][player_phone_VALID])
-	{
-		ShowPlayerMessage(playerid, "No tienes ningún teléfono, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
-		return 1;
-	}
-	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "Tu teléfono está apagado, para encenderlo usa /movil.", 3);
-	if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "Estás en una llamada.", 2);
-
-	new call_number, tmp_number, tmp_contact[24], bool:found;
-	if (!sscanf(params, "d", tmp_number))
-	{
-		found = true;
-		call_number = tmp_number;
-	}
-	else if (!sscanf(params, "s[24]", tmp_contact))
-	{
-		// con strcmp daba crash por las tilder
-		new DBResult:Result, DB_Query[145];
-		format(DB_Query, sizeof DB_Query, "SELECT `PHONE_NUMBER` FROM `PHONE_BOOK` WHERE `PHONE_ID` = '%d' AND `NAME` LIKE '%%%q%%' LIMIT 1;", PLAYER_PHONE[playerid][player_phone_NUMBER], tmp_contact);
-		Result = db_query(Database, DB_Query);
-
-		if (db_num_rows(Result))
-		{
-			found = true;
-			call_number = db_get_field_int(Result, 0);
-		}
-		db_free_result(Result);
-	}
-	else return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /llamar "COL_WHITE"[Número o contacto de /agenda]");
-
-	if (!found) return ShowPlayerNotification(playerid, "No se encontro el contacto en tu agenda.", 3);
-	if (call_number <= 0) return ShowPlayerNotification(playerid, "El número del destinario no es válido.", 3);
-
-	switch(call_number)
-	{
-		case 911:
-		{
-			if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2.", 2);
-			PLAYER_TEMP[playerid][py_PLAYER_IN_CALL] = true;
-			PLAYER_TEMP[playerid][py_POLICE_CALL_NAME] = true;
-			PLAYER_TEMP[playerid][py_POLICE_CALL_DESCRIPTION] = false;
-
-			SendClientMessage(playerid, COLOR_YELLOW, "Operadora:"COL_WHITE" Ha llamado a la central de policía, indícanos su nombre por favor.");//aca estoy
-			return 1;
-		}
-		case 570: //Mecanico
-		{
-			if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-			{
-				PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-				DisablePlayerMechanicMark(playerid);
-			    ShowPlayerMessage(playerid, "Has cancelado el mecánico.", 2);
-			}
-			else
-			{
-				if (!IsPlayerInAnyVehicle(playerid)) return ShowPlayerMessage(playerid, "Tienes que estar dentro de un vehículo averiado para llamar al mecánico.", 3);
-				if (GLOBAL_VEHICLES[ GetPlayerVehicleID(playerid) ][gb_vehicle_STATE] != VEHICLE_STATE_DAMAGED) return ShowPlayerMessage(playerid, "Tienes que estar dentro de un vehículo averiado para llamar al mecánico.", 3);
-
-				PLAYER_TEMP[playerid][py_WANT_MECHANIC] = true;
-				ShowPlayerMessage(playerid, "Tu llamada se ha enviado a los mecánicos disponibles, espera a que llegue un mecánico.", 3);
-				SendAlertToMechanic(playerid);
-			}
-			return 1;
-		}
-		case 6740: return ShowDialog(playerid, DIALOG_BANK_TRANSACTIONS);
-		case 38350: return ShowDialog(playerid, DIALOG_CRANE_SELECT_VEHICLE);
-		case 666: return SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Llamada no disponible");
-	}
-
-	new to_playerid = INVALID_PLAYER_ID;
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL) && PLAYER_PHONE[i][player_phone_NUMBER] == call_number)
-			{
-				to_playerid = i;
-				break;
-			}
-		}
-	}
-
-	if (to_playerid == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~El número al que intentas llamar no es correcto o está fuera de cobertura.", 3);
-	if (to_playerid == playerid) return ShowPlayerMessage(playerid, "~r~El número al que intentas llamar no es correcto.", 3);
-	if (PLAYER_PHONE[to_playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~El número al que intentas llamar está apagado o fuera de cobertura.", 3);
-	if (PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~El número al que intentas llamar está en otra llamada.", 3);
-
-	SendClientMessageEx(to_playerid, COLOR_WHITE, "{3ed878}[Llamada entrante] "COL_WHITE"%s te está llamando, para responder usa {3ed878}/responder "COL_WHITE"o {3ed878}/colgar.", convertPhoneNumber(to_playerid, PLAYER_PHONE[playerid][player_phone_NUMBER]));
-	ShowPlayerMessage(to_playerid, "~g~Llamada entrante...", 3);
-	PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL] = true;
-	PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_STATE] = CALL_STATE_INCOMING_CALL;
-	PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_PLAYERID] = playerid;
-
-	SendClientMessageEx(playerid, COLOR_WHITE, "Llamando a {3ed878}%s ...", convertPhoneNumber(playerid, call_number));
-	PLAYER_TEMP[playerid][py_TIMERS][6] = SetTimerEx("NoCallResponse", 15000, false, "i", playerid);
-	PLAYER_TEMP[playerid][py_PLAYER_IN_CALL] = true;
-	PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_STATE] = CALL_STATE_WAITING_RESPONSE;
-	PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] = to_playerid;
-	PlayerPlaySoundEx(playerid, 3600, 0.0, 0.0, 0.0);
-	return 1;
-}*/
 
 CMD:responder(playerid, params[])
 {
@@ -9608,204 +8853,6 @@ CheckAtmPlayerAndExecute(playerid)
     return 1;
 }
 
-/*CMD:alimentos(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	ShowDialog(playerid, DIALOG_PLAYER_POCKET);
-	return 1;
-}*/
-
-/*#define TIME_BETWEEN_GIVE_CASH 30 // segundos
-CMD:dar(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2", 2);
-
-	new option[24], to_playerid, extra;
-	if (sscanf(params, "s[24]ud", option, to_playerid, extra)) return SendClientMessage(playerid, COLOR_WHITE, "Error en los parámetros, use /comandos dar.");
-
-	if (!IsPlayerConnected(to_playerid)) return ShowPlayerMessage(playerid, "~r~El jugador no está conectado.", 2);
-	new Float:pos[3]; GetPlayerPos(to_playerid, pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~Este jugador no está cerca tuya.", 3);
-	if (PLAYER_TEMP[to_playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes darle nada a este jugador por ahora.", 2);
-	if (ACCOUNT_INFO[to_playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~El jugador no es nivel 2.", 3);
-
-	if (!strcmp(option, "dinero", true))
-	{
-		if (gettime() < PLAYER_TEMP[playerid][py_LAST_GIVE_MONEY_TIME] + TIME_BETWEEN_GIVE_CASH)
-		{
-			new time = TIME_BETWEEN_GIVE_CASH - (gettime() - PLAYER_TEMP[playerid][py_LAST_GIVE_MONEY_TIME]);
-			new str_text[128];
-			format(str_text, sizeof(str_text), "Tienes que esperar %s minutos para volver a dar dinero", TimeConvert(time));
-			ShowPlayerNotification(playerid, str_text, 3);
-			return 1;
-		}
-
-		if (extra < 0 || extra > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Cantidad de dinero incorrecta.", 2);
-		if (extra > 50000) return ShowPlayerMessage(playerid, "~r~Para dar tanto dinero tienes que hacerlo a través de transferencias bancarias.", 3);
-
-		GivePlayerCash(playerid, -extra);
-		GivePlayerCash(to_playerid, extra);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Le has dado {5cd1d1}%s$ "COL_WHITE"a "COL_RED"%s.", number_format_thousand(extra), PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		SendClientMessageEx(to_playerid, COLOR_WHITE, ""COL_RED"%s "COL_WHITE" te ha dado {5cd1d1}%s$.", PLAYER_TEMP[playerid][py_RP_NAME], number_format_thousand(extra));
-
-		new action[64];
-		format(action, sizeof action, "le da dinero a %s.", PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Le da dinero a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-		PLAYER_TEMP[playerid][py_LAST_GIVE_MONEY_TIME] = gettime();
-		return 1;
-	}
-	else if (!strcmp(option, "alimento", true))
-	{
-		if (extra < 1 || extra > MAX_PLAYER_POCKET_OBJECTS) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dar alimento "COL_WHITE"[ID o Nombre] [Slot /alimentos]");
-
-		extra --;
-
-		if (!PLAYER_POCKET[playerid][extra][player_pocket_VALID]) return ShowPlayerMessage(playerid, "~r~No tienes nada ese slot.", 3);
-
-		new to_player_slot = GetEmptyPlayerPocketSlot(to_playerid);
-		if (to_player_slot == -1)
-		{
-			PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-			ShowPlayerMessage(playerid, "~r~El jugador no tiene más espacio entre sus alimentos.", 3);
-			return 1;
-		}
-
-		new action[64];
-		format(action, sizeof action, "le da su %s a %s.", PLAYER_POCKET[playerid][extra][player_pocket_object_NAME], PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Le da algo a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-
-		TransferPlayerPocketObject(playerid, extra, to_playerid, to_player_slot);
-		return 1;
-	}
-	else if (!strcmp(option, "medicamentos", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 2);
-		if (extra > PLAYER_MISC[playerid][MISC_MEDICINE]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 2);
-
-		PLAYER_MISC[playerid][MISC_MEDICINE] -= extra;
-		PLAYER_MISC[to_playerid][MISC_MEDICINE] += extra;
-    	SavePlayerMisc(playerid);
-    	SavePlayerMisc(to_playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Le has dado %dg de medicamentos a %s.", extra, PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		SendClientMessageEx(to_playerid, COLOR_WHITE, "%s te ha dado %dg de medicamentos.", PLAYER_TEMP[playerid][py_RP_NAME], extra);
-
-		new action[64];
-		format(action, sizeof action, "le da algo a %s.", PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Le da algo a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-		return 1;
-	}
-	else if (!strcmp(option, "vendas", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 2);
-		if (extra > PLAYER_MISC[playerid][MISC_VENDAS]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 2);
-
-		PLAYER_MISC[playerid][MISC_VENDAS] -= extra;
-		PLAYER_MISC[to_playerid][MISC_VENDAS] += extra;
-    	SavePlayerMisc(playerid);
-    	SavePlayerMisc(to_playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Le has dado %d vendas a %s.", extra, PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		SendClientMessageEx(to_playerid, COLOR_WHITE, "%s te ha dado %d vendas.", PLAYER_TEMP[playerid][py_RP_NAME], extra);
-
-		new action[64];
-		format(action, sizeof action, "le da algo a %s.", PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Le da algo a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-		return 1;
-	}
-	else if (!strcmp(option, "botiquin", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 2);
-		if (extra > PLAYER_MISC[playerid][MISC_BOTIKIN]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 2);
-
-		PLAYER_MISC[playerid][MISC_BOTIKIN] -= extra;
-		PLAYER_MISC[to_playerid][MISC_BOTIKIN] += extra;
-    	SavePlayerMisc(playerid);
-    	SavePlayerMisc(to_playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Le has dado %d botiquines a %s.", extra, PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		SendClientMessageEx(to_playerid, COLOR_WHITE, "%s te ha dado %d botiquines.", PLAYER_TEMP[playerid][py_RP_NAME], extra);
-
-		new action[64];
-		format(action, sizeof action, "le da algo a %s.", PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Le da algo a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-		return 1;
-	}
-	else if (!strcmp(option, "marihuana", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 2);
-		if (extra > PLAYER_MISC[playerid][MISC_CANNABIS]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 2);
-
-		PLAYER_MISC[playerid][MISC_CANNABIS] -= extra;
-		PLAYER_MISC[to_playerid][MISC_CANNABIS] += extra;
-    	SavePlayerMisc(playerid);
-    	SavePlayerMisc(to_playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Le has dado %dg de marihuana a %s.", extra, PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		SendClientMessageEx(to_playerid, COLOR_WHITE, "%s te ha dado %dg de marihuana.", PLAYER_TEMP[playerid][py_RP_NAME], extra);
-
-		new action[64];
-		format(action, sizeof action, "le da algo a %s.", PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Le da algo a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-		return 1;
-	}
-	else if (!strcmp(option, "crack", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 2);
-		if (extra > PLAYER_MISC[playerid][MISC_CRACK]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 2);
-
-		PLAYER_MISC[playerid][MISC_CRACK] -= extra;
-		PLAYER_MISC[to_playerid][MISC_CRACK] += extra;
-    	SavePlayerMisc(playerid);
-    	SavePlayerMisc(to_playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Le has dado %dg de crack a %s.", extra, PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		SendClientMessageEx(to_playerid, COLOR_WHITE, "%s te ha dado %dg de crack.", PLAYER_TEMP[playerid][py_RP_NAME], extra);
-
-		new action[64];
-		format(action, sizeof action, "le da algo a %s.", PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Le da algo a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-		return 1;
-	}
-	else if (!strcmp(option, "arma", true))
-	{
-		if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Los policías no pueden vender armas.", 3);
-		if (extra < 0 || extra > 12) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dar arma "COL_WHITE"[ID o Nombre] [Slot /armas]");
-
-		if (!PLAYER_WEAPONS[playerid][extra][player_weapon_VALID]) return ShowPlayerMessage(playerid, "~r~No tienes una arma en ese slor.", 3);
-
-		if (ACCOUNT_INFO[to_playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~El jugador no es nivel 2.", 3);
-		if (PLAYER_WEAPONS[to_playerid][extra][player_weapon_VALID])
-		{
-			PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-			ShowPlayerMessage(playerid, "~r~El jugador ya tiene una arma en ese slot", 3);
-			return 1;
-		}
-
-		SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Le has dado tu '%s' a %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][extra][player_weapon_ID] ][weapon_info_NAME], PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		SendClientMessageEx(to_playerid, COLOR_WHITE, ""COL_WHITE"%s te ha dado su '%s'.", PLAYER_TEMP[playerid][py_RP_NAME], WEAPON_INFO[ PLAYER_WEAPONS[playerid][extra][player_weapon_ID] ][weapon_info_NAME]);
-
-		new action[64];
-		format(action, sizeof action, "le da un arma a %s.", PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Le da una arma a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-
-		TransferPlayerWeapon(playerid, extra, to_playerid);
-		return 1;
-	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Error en los parámetros, use /comandos dar.");
-	return 1;
-}*/
-
 CMD:vender(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
@@ -9848,368 +8895,6 @@ CMD:vender(playerid, params[])
 	return 1;
 }
 
-/*CMD:usar(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	new option[24], slot;
-	if (!sscanf(params, "s[24]d", option, slot))
-	{
-		if (!strcmp(option, "alimento", true))
-		{
-			if (slot < 1 || slot > MAX_PLAYER_POCKET_OBJECTS) return SendClientMessageEx(playerid, COLOR_WHITE, "Syntax: /usar alimento "COL_WHITE"[SLOT 1-%d]", MAX_PLAYER_POCKET_OBJECTS);
-
-			slot --;
-
-			if (!PLAYER_POCKET[playerid][slot][player_pocket_VALID]) return ShowPlayerMessage(playerid, "~r~No tienes nada en ese slot", 3);
-			if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0) return ShowPlayerMessage(playerid, "~r~No puedes consumir más.", 3);
-
-			Add_Hungry_Thirst(playerid, PLAYER_POCKET[playerid][slot][player_pocket_object_HUNGRY], PLAYER_POCKET[playerid][slot][player_pocket_object_THIRST]);
-			GivePlayerDrunkLevel(playerid, PLAYER_POCKET[playerid][slot][player_pocket_object_DRUNK]);
-
-			new action[64];
-			format(action, sizeof action, "consume %s.", PLAYER_POCKET[playerid][slot][player_pocket_object_NAME]);
-			//Auto_SendPlayerAction(playerid, action);
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
-
-			DeletePlayerPocketObject(playerid, slot);
-
-			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
-			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
-		}
-		else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /usar "COL_WHITE"[medicamento - venda - botiquin - marihuana - crack - alimento]");
-	}
-	else if (!sscanf(params, "s[24]", option))
-	{
-		if (!strcmp(option, "medicamento", true))
-		{
-			if (PLAYER_MISC[playerid][MISC_MEDICINE] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes medicamentos.", 3);
-			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_REMEDY]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir medicamentos.", 3);
-
-			PLAYER_MISC[playerid][MISC_MEDICINE] --;
-			SavePlayerMisc(playerid);
-			GivePlayerHealthEx(playerid, 10.0);
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Se toma un medicamento.", 0xffcb90FF, 20.0, 2000);
-			ShowPlayerMessage(playerid, "Consumiste un medicamento.", 2);
-			PLAYER_TEMP[playerid][py_LIMIT_REMEDY] = gettime();
-		}
-		if (!strcmp(option, "venda", true))
-		{
-			if (PLAYER_MISC[playerid][MISC_VENDAS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes vendas.", 3);
-			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_BAND]) < 10) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 10 segundos para volver a usar vendas.", 3);
-
-			PLAYER_MISC[playerid][MISC_VENDAS] --;
-			SavePlayerMisc(playerid);
-			GivePlayerHealthEx(playerid, 5.0);
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Usa una venda.", 0xffcb90FF, 20.0, 2000);
-			ShowPlayerMessage(playerid, "Usaste una venda.", 2);
-			PLAYER_TEMP[playerid][py_LIMIT_BAND] = gettime();
-			ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, false, false, false, false, 2000);
-		}
-		else if (!strcmp(option, "marihuana", true))
-		{
-			if (PLAYER_MISC[playerid][MISC_CANNABIS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes marihuana.", 3);
-			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_WEED]) < 30) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 30 segundos para volver a consumir marihuana.", 3);
-
-			PLAYER_MISC[playerid][MISC_CANNABIS] --;
-			SavePlayerMisc(playerid);
-			GivePlayerHealthEx(playerid, 10.0);
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Consume marihuana.", 0xffcb90FF, 20.0, 2000);
-			ShowPlayerMessage(playerid, "Consumiste marihuana.", 2);
-			GivePlayerDrunkLevel(playerid, 9000);
-			ApplyAnimation(playerid,"ped","Smoke_in_car",4.1,1,1,1,1,1);
-			SetTimerEx("StopDrugEffect", 15000, false, "i", playerid);
-			PLAYER_TEMP[playerid][py_LIMIT_WEED] = gettime();
-		}
-		else if (!strcmp(option, "crack", true))
-		{
-			if (PLAYER_MISC[playerid][MISC_CRACK] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes crack.", 3);
-			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_CRACK]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir crack.", 3);
-
-			PLAYER_MISC[playerid][MISC_CRACK] --;
-			SavePlayerMisc(playerid);
-			GivePlayerHealthEx(playerid, 25.0);
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Consume crack", 0xffcb90FF, 20.0, 2000);
-			ShowPlayerMessage(playerid, "Consumiste crack.", 2);
-			SetPlayerWeather(playerid, -50);
-			GivePlayerDrunkLevel(playerid, 10000);
-			ApplyAnimation(playerid,"ped","Smoke_in_car",4.1,1,1,1,1,1);
-			SetTimerEx("StopDrugEffect", 15000, false, "i", playerid);
-			PLAYER_TEMP[playerid][py_LIMIT_CRACK] = gettime();
-		}
-		else if (!strcmp(option, "alimento", true)) SendClientMessageEx(playerid, COLOR_WHITE, "Syntax: /usar alimento "COL_WHITE"[SLOT 1-%d]", MAX_PLAYER_POCKET_OBJECTS);
-		else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /usar "COL_WHITE"[medicamento - botiquin - venda - marihuana - crack - alimento]");
-	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /usar "COL_WHITE"[medicamento - botiquin - venda - marihuana - crack - alimento]");
-	return 1;
-}*/
-
-/*CMD:comandos(playerid, params[])
-{
-	new option[24];
-	if (sscanf(params, "s[24]", option)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /comandos "COL_WHITE"[dar]");
-
-	if (!strcmp(option, "dar", true))
-	{
-		ShowPlayerDialog
-		(
-			playerid,
-			DIALOG_INFO,
-			DIALOG_STYLE_MSGBOX,
-
-				""SERVER_NAME" - Manual",
-					"\
-						Comando: dar\n\
-						Sintaxis: dar <opcion> <playerid o nombre> <extra>\n\
-						\n\
-						Este comando sirve para dar algo a otro jugador cercano.\n\
-						Para comprobar que tiene el objeto y la cantidad utilice /inv.\n\
-						\n\
-						Esta es la lista de opciones:\n\
-						    - arma <playerid o nombre> <slot de /armas>\n\
-						    - dinero <playerid o nombre> <cantidad>\n\
-						    - alimento <playerid o nombre> <slot de /alimentos>\n\
-						    - medicamentos <playerid o nombre> <cantidad>\n\
-						    - marihuana <playerid o nombre> <cantidad>\n\
-						    - crack <playerid o nombre> <cantidad>\n\
-						\n\
-						Para obtener ayuda diferente use /ayuda.\
-					",
-				"Cerrar", ""
-
-		);
-		return 1;
-	}
-	else if (!strcmp(option, "tirar", true))
-	{
-		ShowPlayerDialog
-		(
-			playerid,
-			DIALOG_INFO,
-			DIALOG_STYLE_MSGBOX,
-
-				""SERVER_NAME" - Manual",
-					"\
-						Comando: tirar\n\
-						Sintaxis: tirar <opcion> <extra>\n\
-						\n\
-						Este comando sirve para deshacerte de algún objeto.\n\
-						\n\
-						Esta es la lista de opciones:\n\
-						    - arma <slot de /armas>\n\
-						    - dinero <cantidad>\n\
-						    - alimento <slot de /alimentos>\n\
-						    - medicamentos <cantidad>\n\
-						    - marihuana <cantidad>\n\
-						    - crack <cantidad>\n\
-						\n\
-						Para obtener ayuda diferente use /ayuda.\
-					",
-				"Cerrar", ""
-
-		);
-		return 1;
-	}
-	else if (!strcmp(option, "vender", true))
-	{
-		ShowPlayerDialog
-		(
-			playerid,
-			DIALOG_INFO,
-			DIALOG_STYLE_MSGBOX,
-
-				""SERVER_NAME" - Manual",
-					"\
-						Comando: vender\n\
-						Sintaxis: vender <opcion> <playerid o nombre> <extra> <precio>\n\
-						\n\
-						Este comando sirve para vender algo a otro jugador cercano.\n\
-						Para comprobar que tiene el objeto y la cantidad utilice /inv.\n\
-						\n\
-						Esta es la lista de opciones:\n\
-						    - arma <playerid o nombre> <slot de /armas> <precio>\n\
-						    - alimento <playerid o nombre> <slot de /alimentos> <precio>\n\
-						    - medicamentos <playerid o nombre> <cantidad> <precio>\n\
-						    - marihuana <playerid o nombre> <cantidad> <precio>\n\
-						    - crack <playerid o nombre> <cantidad> <precio>\n\
-						    - hycoins <playerid o nombre> <cantidad> <precio>\n\
-						\n\
-						Para obtener ayuda diferente use /ayuda.\
-					",
-				"Cerrar", ""
-
-		);
-		return 1;
-	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /comandos "COL_WHITE"[dar]");
-	return 1;
-}*/
-
-/*CMD:tirar(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	new option[24], extra;
-	if (sscanf(params, "s[24]d", option, extra)) return SendClientMessage(playerid, COLOR_WHITE, "Error en los parámetros, use /comandos tirar.");
-
-	if (!strcmp(option, "dinero", true))
-	{
-		if (extra < 0 || extra > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 3);
-
-		GivePlayerCash(playerid, -extra);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has tirado {5cd1d1}%s$.", number_format_thousand(extra));
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Tira dinero.", 0xffcb90FF, 20.0, 3000);
-		return 1;
-	}
-	else if (!strcmp(option, "alimento", true))
-	{
-		if (extra < 1 || extra > MAX_PLAYER_POCKET_OBJECTS) return SendClientMessageEx(playerid, COLOR_WHITE, "Syntax: /tirar alimento "COL_WHITE"[SLOT 1-%d]", MAX_PLAYER_POCKET_OBJECTS);
-
-		extra --;
-
-		if (!PLAYER_POCKET[playerid][extra][player_pocket_VALID]) return ShowPlayerMessage(playerid, "~r~No tienes nada en ese slot.", 3);
-
-		ShowPlayerNotification(playerid, "Alimento eliminado.", 3);
-		DeletePlayerPocketObject(playerid, extra);
-		return 1;
-	}
-	else if (!strcmp(option, "medicamentos", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 3);
-		if (extra > PLAYER_MISC[playerid][MISC_MEDICINE]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 3);
-
-		PLAYER_MISC[playerid][MISC_MEDICINE] -= extra;
-	    SavePlayerMisc(playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Has tirado %dg de medicamentos.", extra);
-		return 1;
-	}
-	else if (!strcmp(option, "vendas", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 3);
-		if (extra > PLAYER_MISC[playerid][MISC_VENDAS]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 3);
-
-		PLAYER_MISC[playerid][MISC_VENDAS] -= extra;
-	    SavePlayerMisc(playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Has tirado %d vendas.", extra);
-		return 1;
-	}
-	else if (!strcmp(option, "botiquin", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 3);
-		if (extra > PLAYER_MISC[playerid][MISC_BOTIKIN]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 3);
-
-		PLAYER_MISC[playerid][MISC_BOTIKIN] -= extra;
-	    SavePlayerMisc(playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Has tirado %d botiquines.", extra);
-		return 1;
-	}
-	else if (!strcmp(option, "cohete", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 3);
-		if (extra > PLAYER_MISC[playerid][MISC_CUETE]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 3);
-
-		PLAYER_MISC[playerid][MISC_CUETE] -= extra;
-	    SavePlayerMisc(playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Has tirado %d botiquines.", extra);
-		return 1;
-	}
-	else if (!strcmp(option, "marihuana", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 3);
-		if (extra > PLAYER_MISC[playerid][MISC_CANNABIS]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 3);
-
-		PLAYER_MISC[playerid][MISC_CANNABIS] -= extra;
-	    SavePlayerMisc(playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Has tirado %dg de marihuana.", extra);
-		return 1;
-	}
-	else if (!strcmp(option, "crack", true))
-	{
-		if (extra <= 0 || extra > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta.", 3);
-		if (extra > PLAYER_MISC[playerid][MISC_CRACK]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad.", 3);
-
-		PLAYER_MISC[playerid][MISC_CRACK] -= extra;
-	    SavePlayerMisc(playerid);
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Has tirado %dg de crack.", extra);
-		return 1;
-	}
-	else if (!strcmp(option, "arma", true))
-	{
-		if (extra < 0 || extra > 12) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tirar arma "COL_WHITE"[Slot /armas]");
-
-		if (!PLAYER_WEAPONS[playerid][extra][player_weapon_VALID]) return ShowPlayerMessage(playerid, "~r~No tienes una arma en ese slot.", 3);
-
-		ShowPlayerNotification(playerid, "Arma eliminada.", 3);
-		RemovePlayerSlotWeapon(playerid, extra, true);
-		return 1;
-	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Error en los parámetros, use /comandos tirar.");
-	return 1;
-}*/
-
-/*CMD:grua(playerid, params[])
-{
-	if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0, 1795.293823,-1407.773681,2770.660156)) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-	ShowDialog(playerid, DIALOG_CRANE_SELECT_VEHICLE);
-	return 1;
-}*/
-
-/*CMD:casa(playerid, params[])
-{
-	if (PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] == 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-	new info[3];
-	Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
-	if (info[0] != PICKUP_TYPE_PROPERTY) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-	new Float:pos[3];
-	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, pos[0]);
-	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, pos[1]);
-	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, pos[2]);
-
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY)
-	{
-		if (info[2] == 1) // Está en el Pickup Interior
-		{
-			if (PROPERTY_INFO[info[1]][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
-			{
-				PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] = info[1];
-				ShowPropertyMenu(playerid);
-			}
-			else ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-		}
-		else ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	}
-	else if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY)
-	{
-		if (info[2] == 1) // Está en el Pickup Interior
-		{
-			if (PROPERTY_INFO[info[1]][property_CREW])
-			{
-				if (PROPERTY_INFO[info[1]][property_CREW_ID] != PLAYER_CREW[playerid][player_crew_ID]) return ShowPlayerMessage(playerid, "~r~Esta no es una propiedad de tu crew.", 3);
-				if (!CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][CREW_RANK_DELETE_PROPERTIES]) return ShowPlayerMessage(playerid, "~r~No tienes permisos.", 2);
-				if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes liberar esta propiedad mienras tu crew está en combate.", 3);
-
-				PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] = info[1];
-				ShowDialog(playerid, DIALOG_CREW_LEAVE_PROPERTY);
-			}
-			else ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-		}
-		else ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	}
-	else ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	return 1;
-}*/
-
 CMD:echar(playerid, params[])
 {
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /echar "COL_WHITE"[ID o nombre]");
@@ -10226,9 +8911,6 @@ CMD:echar(playerid, params[])
 
 		RemovePlayerFromVehicle(params[0]);
 
-		new action[64];
-		format(action, sizeof action, "ha echado a %s de su vehículo.", PLAYER_TEMP[ params[0] ][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
 		SetPlayerChatBubble(playerid, "\n\n\n\n* Hecha a alguien de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		return 1;
 	}
@@ -10261,47 +8943,11 @@ SavePlayerNotification(playerid, const message[])
 	return 1;
 }
 
-/*CMD:vertir(playerid, params[])
-{
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del vehículo para vertir el bidón.", 3);
-
-	new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No estás cerca de ningún vehículo.", 3);
-
-	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
-	{
-		ShowPlayerNotification(playerid, "Por favor, para primero el motor del vehículo.", 3);
-		return 1;
-	}
-
-	if (sscanf(params, "d", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vertir "COL_WHITE"[Cantidad de litros]");
-	if (params[0] <= 0) return ShowPlayerMessage(playerid, "~r~Cantidad de litros no válida.", 3);
-	if (params[0] > PLAYER_MISC[playerid][MISC_FUEL_DRUM]) return ShowPlayerNotification(playerid, "No te alcanza para llenar el tanque.", 3);
-
-	new Float:ammount = float(params[0]);
-	if (ammount + GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] > GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS]) ammount = GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS] - GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS];
-
-	PLAYER_MISC[playerid][MISC_FUEL_DRUM] -= floatround(ammount);
-	GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] += ammount;
-
-	SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has vertido %.1f litros del bidón, te quedan %d.0 litros.", ammount, PLAYER_MISC[playerid][MISC_FUEL_DRUM]);
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha puesto gasolina el vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	return 1;
-}*/
-
 SendPlayerAction(playerid, action[])
 {
 	new str_text[190];
 	format(str_text, sizeof str_text, "* %s %s *", PLAYER_TEMP[playerid][py_RP_NAME], action);
 	ProxDetector(playerid, 15.0, str_text, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 85);
-	return 1;
-}
-
-Auto_SendPlayerAction(playerid, const action[])
-{
-	new str_text[145];
-	format(str_text, 145, "\n\n\n\n* %s\n\n\n", action);
-	SetPlayerChatBubble(playerid, str_text, 0xffcb90FF, 20.0, 5000);
 	return 1;
 }
 
@@ -12426,16 +11072,6 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != sizeof POLICE_SHOP_WEAPONS; i ++)
 			{
 				new line_str[64];
-				/*if (POLICE_SHOP_WEAPONS[i][police_shop_RANK] > PLAYER_SKILLS[playerid][WORK_POLICE])
-				{
-					format(line_str, sizeof line_str, "{666666}%s\t{666666}%s\n", WEAPON_INFO[ POLICE_SHOP_WEAPONS[i][police_shop_WEAPON_ID] ][weapon_info_NAME], POLICE_RANKS[ POLICE_SHOP_WEAPONS[i][police_shop_WEAPON_PRICE] ]);
-					strcat(dialog, line_str);
-				}
-				else
-				{
-					format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_WHITE"%s\n", WEAPON_INFO[ POLICE_SHOP_WEAPONS[i][police_shop_WEAPON_ID] ][weapon_info_NAME], POLICE_RANKS[ POLICE_SHOP_WEAPONS[i][police_shop_WEAPON_PRICE] ]);
-					strcat(dialog, line_str);
-				}*/
 				format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_WHITE"%s\n", WEAPON_INFO[ POLICE_SHOP_WEAPONS[i][police_shop_WEAPON_ID] ][weapon_info_NAME], POLICE_RANKS[ POLICE_SHOP_WEAPONS[i][police_shop_WEAPON_PRICE] ]);
 				strcat(dialog, line_str);
 			}
@@ -13114,10 +11750,20 @@ ShowDialog(playerid, dialogid)
 
 			if (PLAYER_WORKS[playerid][WORK_MAFIA])
 			{
-				if (PLAYER_SKILLS[playerid][WORK_MAFIA] > 7)
+				if (PLAYER_SKILLS[playerid][WORK_MAFIA] >= 7)
 				{
 					strcat(dialog, "Invitar a LCN\n");
 					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 7;
+					listitem ++;
+				}
+			}
+
+			if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
+			{
+				if (PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] >= 5)
+				{
+					strcat(dialog, "Invitar a TCC\n");
+					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 8;
 					listitem ++;
 				}
 			}
@@ -14273,8 +12919,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
 				Log("obj", pass_str);
 
-				//if (strfind(ACCOUNT_INFO[playerid][ac_NAME], "Yahir_Kozel", true) != -1) SetPlayerName(playerid, "Atom");
-
 				/*ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Apoyar a Hyaxe", ""COL_WHITE"\
 					Si deseas apoyar a Hyaxe puedes hacerlo vía paypal enviado la suma\n\
 					que quieras al siguiente correo: "COL_RED"500wapos@gmail.com"COL_WHITE", si envías una\n\
@@ -14302,9 +12946,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
-					new action[64];
-					format(action, sizeof action, "compra %s y lo consume.", PIZZA_FOOD[listitem][food_NAME]);
-					//Auto_SendPlayerAction(playerid, action);
 					SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
 					ShowPlayerNotification(playerid, "Consumiendo...", 3);
 
@@ -14335,9 +12976,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
-					new action[64];
-					format(action, sizeof action, "compra %s y lo consume.", BURGER_SHOT_FOOD[listitem][food_NAME]);
-					//Auto_SendPlayerAction(playerid, action);
 					SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
 					ShowPlayerNotification(playerid, "Consumiendo...", 3);
 
@@ -14368,9 +13006,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
-					new action[64];
-					format(action, sizeof action, "compra %s y lo consume.", CLUCKIN_BELL_FOOD[listitem][food_NAME]);
-					//Auto_SendPlayerAction(playerid, action);
 					SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
 					ShowPlayerNotification(playerid, "Consumiendo...", 3);
 
@@ -14418,8 +13053,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ATTACHED] = false;
 							RemovePlayerAttachedObject(playerid, PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]);
 
-							new action[45]; format(action, sizeof action, "se quita su \"%s\"", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
-							//Auto_SendPlayerAction(playerid, action);
 							SetPlayerChatBubble(playerid, "\n\n\n\n* Se quita algo de encima.\n\n\n", 0xffcb90FF, 20.0, 5000);
 						}
 						else // No lo tiene puesto
@@ -14448,8 +13081,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_2]
 							);
 
-							new action[45]; format(action, sizeof action, "se coloca su \"%s\"", PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_NAME]);
-							//Auto_SendPlayerAction(playerid, action);
 							SetPlayerChatBubble(playerid, "\n\n\n\n* Se coloca algo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 						}
 					}
@@ -14904,29 +13535,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] >= Supermarket_Product_List[listitem][product_PRICE])
 						{
-							/*new slot = GetEmptyPlayerPocketSlot(playerid);
-							if (slot == -1)
-							{
-								PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-						        ShowPlayerMessage(playerid, "~r~No tienes más espacio entre tus alimentos, elimina algo con /alimentos.", 3);
-								return 1;
-							}*/
-
 							GivePlayerCash(playerid, -Supermarket_Product_List[listitem][product_PRICE]);
 							Add_Hungry_Thirst(playerid, Supermarket_Product_List[listitem][product_HUNGRY], Supermarket_Product_List[listitem][product_THIRST]);
 
-							/*PLAYER_POCKET[playerid][slot][player_pocket_VALID] = true;
-							format(PLAYER_POCKET[playerid][slot][player_pocket_object_NAME], 24, "%s", Supermarket_Product_List[listitem][product_NAME]);
-							PLAYER_POCKET[playerid][slot][player_pocket_object_HUNGRY] = Supermarket_Product_List[listitem][product_HUNGRY];
-							PLAYER_POCKET[playerid][slot][player_pocket_object_THIRST] = Supermarket_Product_List[listitem][product_THIRST];
-							PLAYER_POCKET[playerid][slot][player_pocket_object_DRUNK] = Supermarket_Product_List[listitem][product_DRUNK];
-							RegisterNewPlayerPocketObject(playerid, slot);
-
-							SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"para consumirlo usa "COL_RED"/alimentos.", Supermarket_Product_List[listitem][product_NAME], Supermarket_Product_List[listitem][product_PRICE]);
-							ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar*/
-
-							new action[64];
-							format(action, sizeof action, "compra %s y lo consume.", Supermarket_Product_List[listitem][product_NAME]);
 							SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
 							ShowPlayerNotification(playerid, "Consumiendo...", 3);
 
@@ -15137,9 +13748,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						Add_Hungry_Thirst(playerid, PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_HUNGRY], PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_THIRST]);
 						GivePlayerDrunkLevel(playerid, PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_DRUNK]);
 
-						new action[64];
-						format(action, sizeof action, "consume %s.", PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_NAME]);
-						//Auto_SendPlayerAction(playerid, action);
 						SetPlayerChatBubble(playerid, "\n\n\n\n* Consume algo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 						DeletePlayerPocketObject(playerid, PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]);
@@ -16182,27 +14790,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (total == 0) ShowPlayerMessage(playerid, "~r~No hay nadie en tu propiedad", 2);
 						else SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has echado %d personas de tu propiedad.", total);
 					}
-					/*case 2:
-					{
-						if (!PLAYER_CREW[playerid][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~No perteneces a ninguna crew.", 2);
-						if (!CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][CREW_RANK_ADD_PROPERTIES]) return ShowPlayerMessage(playerid, "~r~No tienes permisos.", 2);
-
-
-						for(new i = 0; i != MAX_TERRITORIES; i ++)
-						{
-							if (!TERRITORIES[i][territory_VALID]) continue;
-							if (!TERRITORIES[i][territory_OCCUPIED]) continue;
-							if (TERRITORIES[i][territory_CREW_ID] != PLAYER_CREW[playerid][player_crew_ID]) continue;
-
-							if (IsPointInDynamicArea(TERRITORIES[i][territory_AREA], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_X], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Y], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Z]))
-							{
-								PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] = i;
-								ShowDialog(playerid, DIALOG_CREW_PROPERTY_CONFIRM);
-								return 1;
-							}
-						}
-						ShowPlayerMessage(playerid, "~r~Esta propiedad no está dentro de un territorio de tu crew.", 3);
-					}*/
 				}
 			}
 			return 1;
@@ -16550,8 +15137,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowPlayerMessage(playerid, "Tu oferta se envió al comprador.", 3);
 
-				new action[64]; format(action, sizeof action, "quiere llegar a un acuerdo con %s.", PLAYER_TEMP[inputtext[0]][py_RP_NAME]);
-				//Auto_SendPlayerAction(playerid, action);
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Trata de llagar a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 				PLAYER_TEMP[inputtext[0]][py_PLAYER_PROPERTY_SELECTED] = PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED];
@@ -16638,8 +15223,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerNotification(seller, "Vendiste tu propiedad, el dinero se depositó en tu cuenta bancaria.", 3);				
 				PlayerPlaySoundEx(seller, 1058, 0.0, 0.0, 0.0);
 
-				new action[64]; format(action, sizeof action, "y %s han llegado a un acuerdo.", PLAYER_TEMP[seller][py_RP_NAME]);
-				//Auto_SendPlayerAction(playerid, action);
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			return 1;
@@ -16768,8 +15351,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowPlayerMessage(playerid, "Tu oferta se envió al comprador.", 3);
 
-				new action[64]; format(action, sizeof action, "quiere llegar a un acuerdo con %s.", PLAYER_TEMP[inputtext[0]][py_RP_NAME]);
-				//Auto_SendPlayerAction(playerid, action);
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Intenta llegar a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 				PLAYER_TEMP[inputtext[0]][py_PLAYER_VEHICLE_SELECTED] = PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED];
@@ -16844,8 +15425,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PlayerPlaySoundEx(seller, 1058, 0.0, 0.0, 0.0);
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
-				new action[64]; format(action, sizeof action, "y %s han llegado a un acuerdo.", PLAYER_TEMP[seller][py_RP_NAME]);
-				//Auto_SendPlayerAction(playerid, action);
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Llega a un acuerdo\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 				if (!ACCOUNT_INFO[seller][ac_SU]) ReLockPlayerVehicles(seller);
@@ -18127,10 +16706,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-
-				new action[64];
-				format(action, sizeof action, "y %s llegan a un acuerdo.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				Auto_SendPlayerAction(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], action);
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
@@ -18165,9 +16740,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 
-				new action[64];
-				format(action, sizeof action, "y %s llegan a un acuerdo.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				Auto_SendPlayerAction(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], action);
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
@@ -18203,9 +16775,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 
-				new action[64];
-				format(action, sizeof action, "y %s llegan a un acuerdo.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				Auto_SendPlayerAction(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], action);
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
@@ -18241,9 +16810,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 
-				new action[64];
-				format(action, sizeof action, "y %s llegan a un acuerdo.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				Auto_SendPlayerAction(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], action);
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
@@ -18278,9 +16844,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 
-				new action[64];
-				format(action, sizeof action, "y %s llegan a un acuerdo.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				Auto_SendPlayerAction(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], action);
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
@@ -18315,9 +16878,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 
-				new action[64];
-				format(action, sizeof action, "y %s llegan a un acuerdo.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				Auto_SendPlayerAction(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], action);
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
@@ -18352,9 +16912,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 
-				new action[64];
-				format(action, sizeof action, "y %s llegan a un acuerdo.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				Auto_SendPlayerAction(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], action);
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
@@ -18446,9 +17003,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
 
-				new action[64];
-				format(action, sizeof action, "y %s llegan a un acuerdo.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				Auto_SendPlayerAction(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], action);
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
@@ -19807,6 +18361,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						InviteToLCN(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
 						return 1;
 					}
+					case 8:
+					{
+						InviteToTCC(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
+						return 1;
+					}
 				}
 			}
 			return 1;
@@ -19963,23 +18522,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case CREW_RANK_SIZE: //Lista de miembros
 					{
-						/*PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
-						PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-						ShowDialog(playerid, DIALOG_CREW_MEMBER_LIST);
-						HideDialog(playerid);*/
 						HidePlayerDialog(playerid);
 					}
-					/*case 2:
-					{
-						new 
-							dialog[170],
-							caption[64],
-							time = (gettime() - GraffitiGetTime);
-
-						format(caption, sizeof caption, "{%06x}%s", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
-					    format(dialog, sizeof dialog, ""COL_WHITE"Los graffitis son cada 45 minutos, han pasado %s minutos desde el último.", TimeConvert(time));
-					    ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
-					}*/
 					case CREW_RANK_CHANGE_NAME:
 					{
 						if (!CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][CREW_RANK_CHANGE_NAME]) return ShowPlayerMessage(playerid, "~r~No tienes permisos.", 2);
@@ -24013,19 +22557,9 @@ CALLBACK: UpdateWorldTime()
 				new p_int = GetPlayerInterior(i);
 				SetPlayerTime(i, SERVER_TIME[0], SERVER_TIME[1]);
 
-				if (p_int == 25)
+				switch(p_int)
 				{
-					SetPlayerTime(i, 2, 2);
-				}
-
-				if (p_int == 26)
-				{
-					SetPlayerTime(i, 2, 2);
-				}
-
-				if (p_int == 27)
-				{
-					SetPlayerTime(i, 2, 2);
+					case 25..27: SetPlayerTime(i, 2, 2);
 				}
 			}
 		}
@@ -24069,13 +22603,6 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 			CancelPlayerTuningShop(playerid);
 			ShowObjTuning(playerid);
 		}
-
-		/*if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV])
-		{
-			printf("inv %d - phone %d", PLAYER_TEMP[playerid][py_PLAYER_IN_INV], PLAYER_TEMP[playerid][py_PLAYER_IN_PHONE]);
-			HideInventory(playerid);
-			HidePhone(playerid);
-		}*/
 		return 1;
 	}
 
@@ -24285,12 +22812,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][3])
 		{
-			/*PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], COLOR_WHITE);
-			PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], COLOR_WHITE);
-			PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3], COLOR_RED);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);*/
 			HideCrew(playerid);
 			ShowDialog(playerid, DIALOG_PLAYER_GPS);
 			return 1;
@@ -24695,38 +23216,12 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
     return 1;
 }
 
-/*UpdateReputationTextDraws(playerid)
-{
-	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER, str[64];
-	// vacio 0, lleno 450
-
-	if (ACCOUNT_INFO[playerid][ac_REP] >= neccessary_rep)
-	{
-		PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][0], 450.0, 0.0);
-		if (PLAYER_MISC[playerid][MISC_CONFIG_HUD]) PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][0]);
-		format(str, sizeof str, "Nivel_%d__", ACCOUNT_INFO[playerid][ac_LEVEL]);
-		PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], str);
-	    SavePlayerMisc(playerid);
-	}
-	else
-	{
-		new Float:sizeX = floatmul(floatdiv(ACCOUNT_INFO[playerid][ac_REP], neccessary_rep), 450.0);
-		PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][0], sizeX, 0.0);
-		if (PLAYER_MISC[playerid][MISC_CONFIG_HUD]) PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][0]);
-		format(str, sizeof str, "Nivel_%d__(%d/%d)", ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], neccessary_rep);
-		PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], str);
-	    SavePlayerMisc(playerid);
-	}
-	return 1;
-}*/
-
 CALLBACK: AddPlayerReputation(playerid)
 {
 	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
 	if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
 	{
 		ACCOUNT_INFO[playerid][ac_REP] ++;
-		//UpdateReputationTextDraws(playerid);
 
 		if (ACCOUNT_INFO[playerid][ac_REP] >= neccessary_rep) NextLevel(playerid);
 
@@ -25423,10 +23918,6 @@ SendGraffitiNotification(const ann[])
         {
         	if (PLAYER_CREW[i][player_crew_VALID])
 			{
-				/*TextDrawSetString(Textdraws[textdraw_GRAFFITI][0], TextToSpanish(ann));
-                TextDrawShowForPlayer(i, Textdraws[textdraw_GRAFFITI][0]);
-                TextDrawShowForPlayer(i, Textdraws[textdraw_GRAFFITI][1]);
-                GraffitiGlobalTime = SetTimer("HideGraffitiNotification", 10000, 0);*/
                 ShowPlayerNotification(i, ann, 6);
                 RecalculeCrewGraffitis(PLAYER_CREW[i][player_crew_INDEX]);
             }
@@ -25434,21 +23925,6 @@ SendGraffitiNotification(const ann[])
     }
     return 1;
 }
-
-/*CALLBACK: HideGraffitiNotification(virtualworld)
-{
-	KillTimer(GraffitiGlobalTime);
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-    {
-        if (IsPlayerConnected(i))
-        {
-        	TextDrawSetString(Textdraws[textdraw_GRAFFITI][0], "_");
-            TextDrawHideForPlayer(i, Textdraws[textdraw_GRAFFITI][0]);
-            TextDrawHideForPlayer(i, Textdraws[textdraw_GRAFFITI][1]);
-        }
-    }
-	return 1;
-}*/
 
 CheckMarketProgress(playerid)
 {
@@ -25597,7 +24073,6 @@ CheckGraffitiProgress(playerid)
 				KillTimer(GraffitiCancelTimer);
 				SetTimer("FirstGraffitiAnnounce", 1500000, false);
 
-				//TextDrawColor(Textdraws[textdraw_GRAFFITI][0], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);
 				format(str_text, sizeof(str_text), "%s ha ganado el graffiti en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], GRAFFITIS_OBJ[i][g_ZONE_NAME]);
 				SendGraffitiNotification(str_text);
 				SendDiscordWebhook(str_text, 2);
@@ -25636,7 +24111,6 @@ CheckGraffitiProgress(playerid)
 				db_query(Database, DB_Query);
 
 				/* UPDATE GRAFFITI DATE */
-				//format(DB_Query, sizeof DB_Query, "UPDATE `GRAFFITIS` SET `GRAFF_ID` = '%d', `ID_CREW` = '%i', `LAST_START` = '%i' WHERE `GRAFF_ID` = '%d';", i, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID], gettime(), i);
 				format(DB_Query, sizeof DB_Query, "UPDATE `GRAFFITIS` SET `GRAFF_ID` = '%d', `ID_CREW` = '%i' WHERE `GRAFF_ID` = '%d';", i, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID], i);
 				db_query(Database, DB_Query);
 
@@ -26012,15 +24486,6 @@ CMD:testphone(playerid, params[])
 	return 1;
 }
 
-/*CMD:testdropp(playerid, params[])
-{
-	new Float:pos[3];
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000);
-	CreateDropItem(11736, pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), "Medicamento", PLAYER_TEMP[playerid][py_NAME], 1);
-	return 1;
-}*/
-
 CMD:testno(playerid, params[])
 {
 	ShowPlayerNotification(playerid, "Testttt", 5);
@@ -26090,53 +24555,12 @@ CMD:setpd(playerid, params[])
 	return 1;
 }
 
-/*CMD:damebalas(playerid, params[])
-{
-	PLAYER_MISC[playerid][MISC_CARTRIDGE_1] = 5;
-	PLAYER_MISC[playerid][MISC_CARTRIDGE_2] = 5;
-	PLAYER_MISC[playerid][MISC_CARTRIDGE_3] = 5;
-	PLAYER_MISC[playerid][MISC_CARTRIDGE_4] = 5;
-	return 1;
-}*/
-
 CMD:notificaciones(playerid, params[])
 {
 	ShowDialog(playerid, DIALOG_USER_NOTIFICATIONS);
 	return 1;
 }
 alias:notificaciones("not");
-
-/*CMD:pgeo(playerid, params[])
-{
-	new to_player;
-    if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /pgeo <player_id>");
-    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
-	SendCmdLogToAdmins(playerid, "pgeo", params);
-	if (!strcmp(PLAYER_TEMP[to_player][py_IP], "170.83.220.2")) return SendClientMessage(playerid, COLOR_WHITE, "Has intentado ver información de Atom, se le ha enviado un aviso con tus datos.");
-	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Yahir_Kozel")) return SendClientMessage(playerid, COLOR_WHITE, "Has intentado ver información de Atom, se le ha enviado un aviso con tus datos.");
-
-	new dialog[564];
-
-	format(dialog, sizeof dialog, ""COL_WHITE"\
-		IP de %s (%d): %s\n\
-		País: %s\n\
-		Región: %s\n\
-		Ciudad: %s\n\
-		Proveedor: %s\n\
-		Proxy: %s",
-		PLAYER_TEMP[to_player][py_NAME],
-		to_player,
-		PLAYER_TEMP[to_player][py_IP],
-		GetPlayerIpCountry(to_player),
-		GetPlayerIpRegion(to_player),
-		GetPlayerIpCity(to_player),
-		GetPlayerIpProvider(to_player),
-		GetPlayerIpProxyStatus(to_player));
-
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Geolocalizar", dialog, "Cerrar", "");
-	SendCmdLogToAdmins(playerid, "pgeo", params);
-	return 1;
-}*/
 
 CMD:addcode(playerid, params[])
 {
@@ -26289,7 +24713,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
             			ApplyAnimation(playerid, "STRIP", RandomPayStripAnimations[random(sizeof(RandomPayStripAnimations))], 4.1, 0, 0, 0, 0, 0);
             		    GivePlayerCash(playerid, -random(25), false);
-            			//Auto_SendPlayerAction(playerid, "le pone billetes en la tanga de una puta.");
             		    SetPlayerChatBubble(playerid, "\n\n\n\n* le pone billetes en la tanga de una puta\n\n\n", 0xffcb90FF, 20.0, 5000);
             		    return 1;
 		            }
@@ -26315,7 +24738,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						KillTimer(POLICE_DOORS[i][police_door_TIMER]);
 						POLICE_DOORS[i][police_door_TIMER] = SetTimerEx("ClosePoliceDoor", 3000, false, "i", i);
 						MoveDynamicObject(POLICE_DOORS[i][police_door_OBJECT_ID], POLICE_DOORS[i][police_door_X], POLICE_DOORS[i][police_door_Y] - 1.4, POLICE_DOORS[i][police_door_Z] + 0.01, 2.0, 0.0, 0.0, POLICE_DOORS[i][police_door_RZ]);
-						//MoveDynamicObject(POLICE_DOORS[i][police_door_OBJECT_ID], POLICE_DOORS[i][police_door_X], POLICE_DOORS[i][police_door_Y], POLICE_DOORS[i][police_door_Z] + 0.01, 0.0125, 0.0, 0.0, POLICE_DOORS[i][police_door_RZ] - 85.0);
 						POLICE_DOORS[i][police_door_CLOSED] = false;
 						break;
 					}
@@ -26323,7 +24745,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					{
 						KillTimer(POLICE_DOORS[i][police_door_TIMER]);
 						POLICE_DOORS[i][police_door_TIMER] = SetTimerEx("ClosePoliceDoor", 3000, false, "i", i);
-						//MoveDynamicObject(POLICE_DOORS[i][police_door_OBJECT_ID], POLICE_DOORS[i][police_door_X], POLICE_DOORS[i][police_door_Y], POLICE_DOORS[i][police_door_Z] + 0.01, 0.0125, 0.0, 0.0, POLICE_DOORS[i][police_door_RZ] + 85.0);
 						MoveDynamicObject(POLICE_DOORS[i][police_door_OBJECT_ID], POLICE_DOORS[i][police_door_X], POLICE_DOORS[i][police_door_Y] + 1.4, POLICE_DOORS[i][police_door_Z] + 0.01, 2.0, 0.0, 0.0, POLICE_DOORS[i][police_door_RZ]);
 						POLICE_DOORS[i][police_door_CLOSED] = false;
 						break;
@@ -26552,11 +24973,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		}
 	}
 
-	/*if (newkeys & KEY_FIRE && oldkeys & KEY_CROUCH)
-	{
-	    FreezeThenAutoUnfreeze(playerid, 300);
-	}*/
-
 	if (PRESSED( KEY_SUBMISSION ))
     {
     	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
@@ -26582,34 +24998,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 		UpdateKeyPressed(playerid);
 	}
-
-	/*if (PRESSED( KEY_ANALOG_UP  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
-		ClickInventorySlot(playerid, 6, true);
-	}
-
-	if (PRESSED( KEY_ANALOG_DOWN  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
-		ClickInventorySlot(playerid, 5, true);
-	}
-
-	if (PRESSED( KEY_ANALOG_LEFT  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
-		ClickInventorySlot(playerid, 10, true);
-	}
-
-	if (PRESSED( KEY_ANALOG_RIGHT  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
-		ClickInventorySlot(playerid, 2, true);
-	}*/
 
 	if (PRESSED(KEY_FIRE))
 	{
@@ -26696,7 +25084,27 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					{
 						if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
 						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
+						if (i == 3) break;
 
+						if (IsPlayerInRangeOfPoint(playerid, 20.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+						{
+							KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
+							MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
+							MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - 15.0, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
+							MAFIA_DOORS[i][mafia_door_CLOSED] = false;
+							break;
+						}
+					}
+				}
+
+				if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
+				{
+					for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
+					{
+						if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
+						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
+						if (i < 3) break;
+						
 						if (IsPlayerInRangeOfPoint(playerid, 20.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
 						{
 							KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
@@ -26877,46 +25285,6 @@ public OnPlayerUpdate(playerid)
 	
 	GetPlayerHealth(playerid, player_health);
 	GetPlayerArmour(playerid, player_armour);
-
-	//if (player_weapon) CheckWeaponAndAmmo(playerid, player_weapon);
-
-	/*if (ac_Info[CHEAT_PLAYER_HEALTH][ac_Enabled])
-	{
-		if (player_health > CHARACTER_INFO[playerid][ch_HEALTH] + 5.0)
-		{
-			if (current_gettime > PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY])
-			{
-				if (!ac_Info[CHEAT_PLAYER_HEALTH][ac_Interval]) OnPlayerCheatDetected(playerid, CHEAT_PLAYER_HEALTH);
-				else
-				{
-					if (current_gettime - PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_LAST_DETECTION] > ac_Info[CHEAT_PLAYER_HEALTH][ac_Interval]) PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_DETECTIONS] = 0;
-					else PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_DETECTIONS] ++;
-
-					PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_LAST_DETECTION] = current_gettime;
-					if (PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_DETECTIONS] >= ac_Info[CHEAT_PLAYER_HEALTH][ac_Detections]) OnPlayerCheatDetected(playerid, CHEAT_PLAYER_HEALTH);
-				}
-			}
-		}
-	}
-
-	if (ac_Info[CHEAT_PLAYER_ARMOUR][ac_Enabled])
-	{
-		if (player_armour > CHARACTER_INFO[playerid][ch_ARMOUR] + 5.0)
-		{
-			if (current_gettime > PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_IMMUNITY])
-			{
-				if (!ac_Info[CHEAT_PLAYER_ARMOUR][ac_Interval]) OnPlayerCheatDetected(playerid, CHEAT_PLAYER_ARMOUR);
-				else
-				{
-					if (current_gettime - PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_LAST_DETECTION] > ac_Info[CHEAT_PLAYER_ARMOUR][ac_Interval]) PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_DETECTIONS] = 0;
-					else PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_DETECTIONS] ++;
-
-					PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_LAST_DETECTION] = current_gettime;
-					if (PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_DETECTIONS] >= ac_Info[CHEAT_PLAYER_ARMOUR][ac_Detections]) OnPlayerCheatDetected(playerid, CHEAT_PLAYER_ARMOUR);
-				}
-			}
-		}
-	}*/
 
 	if (ac_Info[CHEAT_JETPACK][ac_Enabled])
 	{
@@ -27389,7 +25757,7 @@ CALLBACK: HealthUp(playerid)
 			PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
-			PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 900, true, "i", playerid);
+			PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
 		}
 		else
 		{
@@ -27553,15 +25921,6 @@ CreateInteriorActor(interior_type, world, interior)
 	CreateDynamicActor(skin, pos[0], pos[1], pos[2], pos[3], 0, 50.0, world, interior);
 	return 1;
 }
-
-/*GetBuyPropertySiteIndexByIntTyp(interior_type)
-{
-	for(new i = 0; i != sizeof BUY_PROPERTIES_SITES; i ++)
-	{
-		if (BUY_PROPERTIES_SITES[i][site_INTERIOR_TYPE] == interior_type) return i;
-	}
-	return -1;
-}*/
 
 GetFastFoodLocalIndexByIntType(interior_type)
 {
@@ -29328,12 +27687,6 @@ CheckWorkSite(playerid)
 
 	new str_text[128];
 
-	/*if (gettime() < PLAYER_TEMP[playerid][py_LAST_GOT_WORK_TIME] + NECESSARY_TIME_BETWEEN_WORKS)
-	{
-		KickEx(playerid, 500);
-		return 1;
-	}*/
-
 	new player_jobs = CountPlayerJobs(playerid);
 	if (ACCOUNT_INFO[playerid][ac_SU])
 	{
@@ -29553,26 +27906,6 @@ SetPlayerVehiclePark(playerid)
 	return 1;
 }
 
-/*CMD:luces(playerid, params[])
-{
-	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-	{
-		new vehicleid = GetPlayerVehicleID(playerid);
-		if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS])
-		{
-			GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] = 0;//SetPlayerChatBubble(playerid, "\n\n\n\n* \n\n\n", 0xffcb90FF, 20.0, 5000);
-			UpdateVehicleParams(vehicleid);
-		}
-		else
-		{
-			GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] = 1;
-			UpdateVehicleParams(vehicleid);
-		}
-	}
-	else ShowPlayerMessage(playerid, "~r~No estás conduciendo un vehículo.", 2);
-	return 1;
-}*/
-
 CALLBACK: StartVehicleEngine(playerid, vehicleid)
 {
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] == VEHICLE_STATE_DAMAGED) return ShowPlayerMessage(playerid, "~r~Motor dañado.", 1);
@@ -29742,7 +28075,7 @@ ShowPlayerSpeedoMeter(playerid)
 
 	PLAYER_TEMP[playerid][py_SPEEDOMETER] = true;
 	PLAYER_TEMP[playerid][py_FUEL_DOWN_TIME] = gettime();
-	PLAYER_TEMP[playerid][py_TIMERS][8] = SetTimerEx("UpdatePlayerSpeedo", 100, true, "iif", playerid, vehicleid, VEHICLE_INFO[modelid - 400][vehicle_info_MAX_VEL]);
+	PLAYER_TEMP[playerid][py_TIMERS][8] = SetTimerEx("UpdatePlayerSpeedo", 50, true, "iif", playerid, vehicleid, VEHICLE_INFO[modelid - 400][vehicle_info_MAX_VEL]);
 	return 1;
 }
 
@@ -30497,156 +28830,6 @@ UpdatePlayerLoadingTruckSize(playerid)
 	return 1;
 }
 
-/*CMD:basurero(playerid, params[])
-{
-	if (!PLAYER_WORKS[playerid][WORK_TRASH]) return ShowPlayerMessage(playerid, "~r~No eres basurero", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_TRASH)
-	{
-	    //ShowPlayerMessage(playerid, "~r~Ya estas en servicio en otro trabajo.", 3);
-		////ShowPlayerMessage(playerid, "~r~Ya estas en servicio en otro trabajo.", 3);
-		return 1;
-	}
-
-	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0, 1626.089355, -2174.786132, 13.554687)) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-	if (!PLAYER_TEMP[playerid][py_WORKING_IN]) StartPlayerJob(playerid, WORK_TRASH);
-	else EndPlayerJob(playerid);
-	return 1;
-}*/
-
-/*CMD:remolcar(playerid, params[])
-{
-	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mecánico.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_MECHANIC) return ShowPlayerMessage(playerid, "~r~No estas e servicio como mecánico.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ShowPlayerMessage(playerid, "~r~No estás conduciendo una grua", 3);
-
-	new vehicleid = GetPlayerVehicleID(playerid);
-	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] != VEHICLE_TYPE_WORK) return ShowPlayerMessage(playerid, "~r~No estás conduciendo una grua", 3);
-	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_MECHANIC) return ShowPlayerMessage(playerid, "~r~No estás conduciendo una grua", 3);
-
-	new to_player;
-	if (sscanf(params, "d", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /remolcar "COL_WHITE"[playerid o nombre]");
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~El jugador no está conectado.", 2);
-
-	new Float:pos[3]; GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 10.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes remolcar a este jugador ahora.", 3);
-	if (!PLAYER_TEMP[to_player][py_WANT_MECHANIC]) return ShowPlayerMessage(playerid, "~r~Este jugador no solicitó un mecánico.", 3);
-
-
-
-	new player_vehicleid = GetPlayerVehicleID(to_player);
-	if (!player_vehicleid)
-	{
-		ShowPlayerMessage(to_player, "~r~Para que el mecánico pueda remolcar tu vehículo, sube al asiento de pasajero de tu vehículo.", 3);
-		ShowPlayerMessage(playerid, "~r~Este jugador no tiene un vehículo para remolcar.", 3);
-		return 1;
-	}
-
-
-	if (!VEHICLE_INFO[GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_MECHANIC_TRAILER]) return ShowPlayerMessage(playerid, "~r~Este tipo de vehículo no se puede remolcar, para repararlo bájate de la grúa y usa /vmenu sobre el vehículo.", 3);
-	if (VEHICLE_INFO[GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_SEATS] < 2) return ShowPlayerMessage(playerid, "~r~Este tipo de vehículo no se puede remolcar, para repararlo bájate de la grúa y usa /vmenu sobre el vehículo.", 3);
-
-	if (GetPlayerState(to_player) != PLAYER_STATE_PASSENGER)
-	{
-	    ShowPlayerMessage(playerid, "~r~Súbete en el asiento de pasajero de tu vehículo para que el mecánico pueda remolcar tu vehículo.", 3);
-	    ShowPlayerMessage(playerid, "~r~El jugador debe estar en el asiento del pasajero de su vehículo.", 3);
-		return 1;
-	}
-
-	if (GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_OCCUPIED])
-	{
-		ShowPlayerMessage(playerid, "~r~Súbete en el asiento de pasajero de tu vehículo para que el mecánico pueda remolcar tu vehículo.", 3);
-		ShowPlayerMessage(playerid, "~r~Para remolcar el vehículo, el vehículo debe estar vacío.", 3);
-		return 1;
-	}
-
-	if (GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_ATTACHED_TO] != INVALID_VEHICLE_ID)
-	{
-		new trailerid = GetVehicleTrailer(GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_ATTACHED_TO]);
-		if (trailerid == player_vehicleid) return ShowPlayerMessage(playerid, "~r~Este vehículo ya está remolcado.", 3);
-	}
-
-	if (GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_PARAMS_ENGINE])
-	{
-		GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
-		UpdateVehicleParams(player_vehicleid);
-	}
-
-	GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_ATTACHED_TO] = vehicleid;
-	AttachTrailerToVehicle(player_vehicleid, vehicleid);
-
-	ShowPlayerMessage(playerid, "Has remolcado el vehículo, llévalo al taller para repararlo.", 3);
-	ShowPlayerMessage(to_player, "El mecánico esta remolcado el vehículo.", 3);
-
-	PLAYER_TEMP[to_player][py_WANT_MECHANIC] = false;
-	DisablePlayerMechanicMark(to_player);
-	return 1;
-}*/
-
-/*CMD:remolcar(playerid, params[])
-{
-    new player_vehicleid = GetPlayerVehicleID(playerid);
-    new vehicleid = INVALID_VEHICLE_ID;
-    if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER) vehicleid = GetPlayerVehicleID(playerid);
-    else if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT) vehicleid = GetPlayerCameraTargetVehicle(playerid);
-
-    if (vehicleid == INVALID_VEHICLE_ID) return SendClientMessage(playerid, COLOR_WHITE, "No estás en tu vehículo o cerca de él para abrirlo.");
-    if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return SendClientMessage(playerid, COLOR_WHITE, "Este no es tú vehículo.");
-    if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return SendClientMessage(playerid, COLOR_WHITE, "Este no es tú vehículo.");
-    if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ShowPlayerMessage(playerid, "~r~No estás conduciendo un vehículo", 3);
-
-    if (!VEHICLE_INFO[GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_MECHANIC_TRAILER]) return ShowPlayerMessage(playerid, "~r~Este tipo de vehículo no se puede remolcar, para repararlo bájate de la grúa y usa /vmenu sobre el vehículo.", 3);
-    if (VEHICLE_INFO[GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_SEATS] < 2) return ShowPlayerMessage(playerid, "~r~Este tipo de vehículo no se puede remolcar, para repararlo bájate de la grúa y usa /vmenu sobre el vehículo.", 3);
-
-    if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_ATTACHED_TO] != INVALID_VEHICLE_ID)
-    {
-        new trailerid = GetVehicleTrailer(GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_ATTACHED_TO]);
-        if (trailerid == player_vehicleid) return ShowPlayerMessage(playerid, "~r~Este vehículo ya está remolcado.", 3);
-    }
-
-    if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
-    {
-        GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
-        UpdateVehicleParams(vehicleid);
-    }
-
-    GLOBAL_VEHICLES[player_vehicleid][gb_vehicle_ATTACHED_TO] = vehicleid;
-    AttachTrailerToVehicle(player_vehicleid, vehicleid);
-
-    ShowPlayerMessage(playerid, "Has remolcado el vehículo", 3);
-    return 1;
-}*/
-
-/*CMD:vmenu(playerid, params[])
-{
-	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mecánico.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_MECHANIC) return ShowPlayerMessage(playerid, "~r~No estás de servicio como mecánico.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-  	if (!IsPlayerInDynamicArea(playerid, Mechanic_Area)) return ShowPlayerMessage(playerid, "~r~No estás en el taller.", 3);
-
-	new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No estás cerca de un vehículo.", 3);
-
-	if (!IsPlayerInDynamicArea(playerid, Mechanic_Area))
-	{
-		if (VEHICLE_INFO[GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_MECHANIC_TRAILER] && VEHICLE_INFO[GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_SEATS] < 2)
-		{
-		    ShowPlayerNotification(playerid, "~r~Para reparar este vehículo tienes que subir a una grúa y remolcarlo hasta el mecánico. (/remolcar)");
-			return 1;
-		}
-	}
-
-	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) return ShowPlayerMessage(playerid, "~r~Para trabajar sobre el vehículo el motor debe estar apagado.", 3);
-
-	PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] = vehicleid;
-	ShowDialog(playerid, DIALOG_MECHANIC_MENU);
-	return 1;
-}*/
-
 CMD:policia(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía", 3);
@@ -31141,140 +29324,55 @@ ShowPlayerInventory(playerid, pid)
 	if (ACCOUNT_INFO[pid][ac_ID] == 0) return 0;
 
 	new caption[48];
-	format(caption, sizeof caption, ""COL_RED"Inventario | %s", PLAYER_TEMP[pid][py_RP_NAME]);
+	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
 
 	new dialog[1800], line_str[128];
 
-	format(line_str, sizeof line_str, ""COL_WHITE"Dinero {24B3FF}(%s$)"COL_WHITE"\n", number_format_thousand(CHARACTER_INFO[pid][ch_CASH]));
+	format(line_str, sizeof line_str, ""COL_WHITE"Dinero: "COL_GREEN"%s$"COL_WHITE"\n", number_format_thousand(CHARACTER_INFO[pid][ch_CASH]));
 	strcat(dialog, line_str);
 
 	if (PLAYER_PHONE[pid][player_phone_VALID])
 	{
-		format(line_str, sizeof line_str, "Teléfono {24B3FF}(%d)"COL_WHITE"\n", PLAYER_PHONE[pid][player_phone_NUMBER]);
+		format(line_str, sizeof line_str, "Teléfono: %d"COL_WHITE"\n", PLAYER_PHONE[pid][player_phone_NUMBER]);
 		strcat(dialog, line_str);
 	}
-
-	new toys = CountPlayerToys(pid);
-	if (toys > 0)
-	{
-		format(line_str, sizeof line_str, "Accesorios {24B3FF}(%d)"COL_WHITE"\n", toys);
-		strcat(dialog, line_str);
-	}
-
-	new pocket_objects = CountPlayerPocketObjects(pid);
-	if (pocket_objects > 0)
-	{
-		format(line_str, sizeof line_str, "Alimentos {24B3FF}(%d)"COL_WHITE"\n", pocket_objects);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_OBJECT[pid][po_GPS]) strcat(dialog, "GPS\n");
-	if (PLAYER_OBJECT[pid][po_MP3]) strcat(dialog, "Reproductor MP3\n");
-	if (PLAYER_OBJECT[pid][po_PHONE_RESOLVER]) strcat(dialog, "Guía telefónica\n");
 
 	new player_weapons = CountPlayerWeapons(pid);
 	if (player_weapons > 0)
 	{
-		if (PLAYER_WORKS[pid][WORK_POLICE]) format(line_str, sizeof line_str, "{FF000F}Armas "COL_WHITE"(%d)\n", player_weapons);
-		else format(line_str, sizeof line_str, "{FF000F}Armas "COL_WHITE"(%d)\n", player_weapons);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_CUETE] > 0)
-	{
-		format(line_str, sizeof line_str, "{ffb900}Pirotecnia "COL_WHITE"(%d)\n", PLAYER_MISC[pid][MISC_CUETE]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_MECHANIC_PIECES] > 0)
-	{
-		format(line_str, sizeof line_str, "Piezas de mecánico "COL_WHITE"(%s)\n", number_format_thousand(PLAYER_MISC[pid][MISC_MECHANIC_PIECES]));
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_FUEL_DRUM] > 0)
-	{
-		format(line_str, sizeof line_str, "Bidón de gasolina "COL_WHITE"(%d Litros)\n", PLAYER_MISC[pid][MISC_FUEL_DRUM]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_SEED_MEDICINE] > 0)
-	{
-		format(line_str, sizeof line_str, "{34CC34}Semillas Aloe vera "COL_WHITE"(%d)\n", PLAYER_MISC[pid][MISC_SEED_MEDICINE]);
+		format(line_str, sizeof line_str, "Armas: "COL_RED"%d"COL_WHITE"\n", player_weapons);
 		strcat(dialog, line_str);
 	}
 
 	if (PLAYER_MISC[pid][MISC_SEED_CANNABIS] > 0)
 	{
-		format(line_str, sizeof line_str, "{34CC34}Semillas Marihuana "COL_WHITE"(%d)\n", PLAYER_MISC[pid][MISC_SEED_CANNABIS]);
+		format(line_str, sizeof line_str, "Semillas Marihuana: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_SEED_CANNABIS]);
 		strcat(dialog, line_str);
 	}
 
 	if (PLAYER_MISC[pid][MISC_SEED_CRACK] > 0)
 	{
-		format(line_str, sizeof line_str, "{34CC34}Semillas Coca "COL_WHITE"(%d)\n", PLAYER_MISC[pid][MISC_SEED_CRACK]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_MEDICINE] > 0)
-	{
-		format(line_str, sizeof line_str, "{34CC34}Medicamentos "COL_WHITE"(%dg)\n", PLAYER_MISC[pid][MISC_MEDICINE]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_VENDAS] > 0)
-	{
-		format(line_str, sizeof line_str, "{34CC34}Vendas "COL_WHITE"(%d)\n", PLAYER_MISC[pid][MISC_VENDAS]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_BOTIKIN] > 0)
-	{
-		format(line_str, sizeof line_str, "{34CC34}Botiquines "COL_WHITE"(%d)\n", PLAYER_MISC[pid][MISC_BOTIKIN]);
+		format(line_str, sizeof line_str, "Semillas Coca: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_SEED_CRACK]);
 		strcat(dialog, line_str);
 	}
 
 	if (PLAYER_MISC[pid][MISC_CANNABIS] > 0)
 	{
-		format(line_str, sizeof line_str, "{34CC34}Marihuana "COL_WHITE"(%dg)\n", PLAYER_MISC[pid][MISC_CANNABIS]);
+		format(line_str, sizeof line_str, "Marihuana: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_CANNABIS]);
 		strcat(dialog, line_str);
 	}
 
 	if (PLAYER_MISC[pid][MISC_CRACK] > 0)
 	{
-		format(line_str, sizeof line_str, "{34CC34}Crack "COL_WHITE"(%dg)\n", PLAYER_MISC[pid][MISC_CRACK]);
+		format(line_str, sizeof line_str, "Crack: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_CRACK]);
 		strcat(dialog, line_str);
 	}
-
-	/*if (PLAYER_MISC[playerid][MISC_CARTRIDGE_1] > 0)
-	{
-		format(line_str, sizeof line_str, "{E34545}Cartuchos para pistolas: "COL_WHITE"%d\n", PLAYER_MISC[playerid][MISC_CARTRIDGE_1]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[playerid][MISC_CARTRIDGE_2] > 0)
-	{
-		format(line_str, sizeof line_str, "{E8D828}Cartuchos para escopetas: "COL_WHITE"%d\n", PLAYER_MISC[playerid][MISC_CARTRIDGE_2]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[playerid][MISC_CARTRIDGE_3] > 0)
-	{
-		format(line_str, sizeof line_str, "{5BCC41}Cartuchos para rifles: "COL_WHITE"%d\n", PLAYER_MISC[playerid][MISC_CARTRIDGE_3]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[playerid][MISC_CARTRIDGE_4] > 0)
-	{
-		format(line_str, sizeof line_str, "{2DA4E2}Cartuchos para subfusiles: "COL_WHITE"%d\n", PLAYER_MISC[playerid][MISC_CARTRIDGE_4]);
-		strcat(dialog, line_str);
-	}*/
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
 	return 1;
 }
 
-CountPlayerToys(playerid)
+/*CountPlayerToys(playerid)
 {
 	new toys;
 
@@ -31300,7 +29398,7 @@ CountPlayerPocketObjects(playerid)
 		}
 	}
 	return objects;
-}
+}*/
 
 CountPlayerWeapons(playerid)
 {
@@ -31410,7 +29508,6 @@ CALLBACK: PlantingUp(playerid, seeds)
 {
 	if (PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] < 100)
 	{
-		//PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] += floatdiv(50, seeds);
 		PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] += minrand(5, 20);
 		if (PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] > 100) PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] = 100;
 
@@ -31901,20 +29998,6 @@ ResetPlayerWeaponsEx(playerid)
 	return 1;
 }
 
-/*SetWeaponsForPlayer(playerid)
-{
-	ac_ResetPlayerWeapons(playerid);
-	for(new i = 0; i != 13; i ++)
-	{
-		if (PLAYER_WEAPONS[playerid][i][player_weapon_ID] != 0)
-		{// PLAYER_WEAPONS[playerid][i][player_weapon_AMMO]
-			if (PLAYER_WEAPONS[playerid][i][player_weapon_AMMO] > 0) ac_GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO]);
-			else ac_GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][i][player_weapon_ID], 1);
-		}
-	}
-	return 1;
-}*/
-
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
 	if (WEAPON_INFO[weaponid][weapon_info_AMMO]) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] --;
@@ -32120,96 +30203,8 @@ public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 			SetPlayerTime(issuerid, SERVER_TIME[0], SERVER_TIME[1]);
 		}
 	}
-
-	/*if (!PLAYER_WORKS[playerid][WORK_POLICE])
-	{
-		if (gettime() > PLAYER_TEMP[playerid][py_LAST_SAFE_ZONE_WARNING] + 60)
-		{
-			if ((playerid))
-			{
-				new city[45], zone[45];
-				GetPlayerZones(playerid, city, zone);
-
-				new message[145];
-				format(message, sizeof message, "{6060ff}[SAPD] "COL_WHITE"%s está causando disturbios en {6060ff}%s, %s.", PLAYER_TEMP[playerid][py_RP_NAME], city, zone);
-				SendPoliceRadioMessage(-1, COLOR_WHITE, message);
-
-				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-			    {
-			        if (IsPlayerConnected(i))
-			        {
-			            if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
-			            {
-			                if (PLAYER_WORKS[i][WORK_POLICE])
-			                {
-			                    if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
-			                    {
-			                        SetPlayerMarkerForPlayer(i, playerid, 0xEDC91FFF);
-			                    }
-			                }
-			            }
-			        }
-			    }
-
-				PLAYER_TEMP[playerid][py_LAST_SAFE_ZONE_WARNING] = gettime();
-			}
-		}
-	}*/
     return 1;
 }
-
-/*CheckWeaponAndAmmo(playerid, weaponid)
-{
-	if (WEAPON_INFO[weaponid][weapon_info_ANTI_CHEAT])
-	{
-		new weapon_id, weapon_ammo;
-		GetPlayerWeaponData(playerid, WEAPON_INFO[weaponid][weapon_info_SLOT], weapon_id, weapon_ammo);
-
-		if (ac_Info[CHEAT_WEAPON][ac_Enabled])
-		{
-			if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY])
-			{
-				if (weapon_id != PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID])
-				{
-					if (!ac_Info[CHEAT_WEAPON][ac_Interval]) OnPlayerCheatDetected(playerid, CHEAT_WEAPON);
-					else
-					{
-						if (gettime() - PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_LAST_DETECTION] > ac_Info[CHEAT_WEAPON][ac_Interval]) PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_DETECTIONS] = 0;
-						else PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_DETECTIONS] ++;
-
-						PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_LAST_DETECTION] = gettime();
-						if (PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_DETECTIONS] >= ac_Info[CHEAT_WEAPON][ac_Detections]) OnPlayerCheatDetected(playerid, CHEAT_WEAPON);
-					}
-				}
-			}
-		}
-
-		if (WEAPON_INFO[weapon_id][weapon_info_AMMO])
-		{
-			if (weapon_ammo > PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] + 10)
-			{
-				if (ac_Info[CHEAT_AMMO][ac_Enabled])
-				{
-					if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY])
-					{
-						if (!ac_Info[CHEAT_AMMO][ac_Interval]) OnPlayerCheatDetected(playerid, CHEAT_AMMO);
-						else
-						{
-							if (gettime() - PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_LAST_DETECTION] > ac_Info[CHEAT_AMMO][ac_Interval]) PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_DETECTIONS] = 0;
-							else PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_DETECTIONS] ++;
-
-							PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_LAST_DETECTION] = gettime();
-							if (PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_DETECTIONS] >= ac_Info[CHEAT_AMMO][ac_Detections]) OnPlayerCheatDetected(playerid, CHEAT_AMMO);
-						}
-					}
-				}
-			}
-			else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = weapon_ammo;
-		}
-	}
-	return 1;
-}*/
-
 
 new ADMIN_LEVEL_AC_IMMUNITY = 1; //nivel 3 en adelante
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
@@ -32360,16 +30355,6 @@ GivePlayerHealthEx(playerid, Float:health)
 	return 1;
 }
 
-/*GivePlayerArmourEx(playerid, Float:armour)
-{
-	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_IMMUNITY] = gettime() + 3;
-
-	CHARACTER_INFO[playerid][ch_ARMOUR] += armour;
-	if (CHARACTER_INFO[playerid][ch_ARMOUR] > 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
-	SetPlayerArmour(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
-	return 1;
-}*/
-
 TransferPlayerWeapon(from_playerid, slot, to_playerid)
 {
 	new DB_Query[130];
@@ -32391,7 +30376,7 @@ PlayerPayday(playerid)
 	if (IsPlayerPaused(playerid)) return 1;
 	
 	new 
-		str_payday[200],
+		str_payday[364],
 		str_temp[64],
 		total_secures_vehicles,
 		total_secures_property,
@@ -32450,6 +30435,16 @@ PlayerPayday(playerid)
 	if (PLAYER_WORKS[playerid][WORK_MAFIA])
 	{
 		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_MAFIA]);
+
+		money += work_payment;
+
+		format(str_temp, sizeof(str_temp), "~n~Mafia: ~g~%s$~w~", number_format_thousand(work_payment));
+		strcat(str_payday, str_temp);
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
+	{
+		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA]);
 
 		money += work_payment;
 
@@ -32526,10 +30521,6 @@ CMD:cagar(playerid, params[])
 
 	new shit_particle = CreateDynamicObject(18678, pos[0], pos[1], pos[2] - 2.8, 0.0, 0.0, 0.0);
 	SetTimerEx("DestroyShitObject", 1000, false, "i", shit_particle);
-
-	/*new shit_obj = CreateDynamicObject(3930, pos[0], pos[1], pos[2] - 1.3, 0.0, 0.0, 0.0);
-	SetDynamicObjectMaterial(shit_obj, 0, -1, "none", "none", 0xFF966C3A);
-	SetTimerEx("DestroyShitObject", 10000, false, "i", shit_obj);*/
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Se baja los pantalones para cagar.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	PLAYER_TEMP[playerid][py_LIMIT_SHIT] = gettime();
@@ -32737,12 +30728,6 @@ CMD:llorar(playerid, params[])
 	ApplyAnimation(playerid,"GRAVEYARD","mrnF_loop",4.1,0,0,0,0,0);//llorar
 	return 1;
 }
-/*CMD:dormir(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	ApplyAnimation(playerid,"INT_HOUSE","BED_In_R",4.1,0,0,0,1,0);//dormir
-	return 1;
-}*/
 CMD:rapear(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
@@ -32868,55 +30853,6 @@ CMD:guardar(playerid, params[])
 	return 1;
 }
 
-/*CMD:sacar(playerid, params[])
-{
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-
-	new option[24], extra;
-	if (sscanf(params, "s[24]d", option, extra)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sacar arma "COL_WHITE"[slot /maletero]");
-
-	if (!strcmp(option, "arma", true))
-	{
-		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_NORMAL)
-		{
-			new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-			if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No estás cerca de tú vehículo.", 3);
-
-			if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 3);
-			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo", 3);
-
-
-			if (extra < 0 || extra > MAX_BOOT_SLOTS) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sacar arma "COL_WHITE"[slot /maletero]");
-
-			if (!VEHICLE_BOOT[vehicleid][extra][vehicle_boot_VALID]) return ShowPlayerMessage(playerid, "~r~No hay nada en ese slot", 3);
-			if (VEHICLE_BOOT[vehicleid][extra][vehicle_boot_TYPE] != BOOT_TYPE_WEAPON) return ShowPlayerMessage(playerid, "~r~En ese slot no hay armas.", 3);
-
-			new to_slot = WEAPON_INFO[ VEHICLE_BOOT[vehicleid][extra][vehicle_boot_INT] ][weapon_info_SLOT];
-			if (PLAYER_WEAPONS[playerid][to_slot][player_weapon_VALID])
-			{
-				PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-				SendClientMessageEx(playerid, COLOR_WHITE, "Para sacar esta arma tienes que deshacerte de tu '%s' (%d) para tener espacio.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ to_slot ][player_weapon_ID] ][weapon_info_NAME], to_slot);
-				return 1;
-			}
-
-			new DB_Query[64];
-			format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_BOOT` WHERE `ID_OBJECT` = '%d';", VEHICLE_BOOT[vehicleid][extra][vehicle_boot_OBJECT_ID]);
-			db_query(Database, DB_Query);
-
-			GivePlayerWeaponEx(playerid, VEHICLE_BOOT[vehicleid][extra][vehicle_boot_INT], VEHICLE_BOOT[vehicleid][extra][vehicle_boot_INT_EXTRA] + 1);
-			//GivePlayerWeaponEx(playerid, VEHICLE_BOOT[vehicleid][extra][vehicle_boot_INT], 9999);
-			RegisterNewPlayerWeapon(playerid, to_slot);
-
-			new temp_VEHICLE_BOOT[enum_VEHICLE_BOOT]; VEHICLE_BOOT[vehicleid][extra] = temp_VEHICLE_BOOT;
-
-			SetPlayerChatBubble(playerid, "\n\n\n\n* Saca una arma del maletero de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-		}
-		else ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sacar arma "COL_WHITE"[slot /maletero]");
-	return 1;
-}*/
-
 CheckAndOpenBoot(playerid)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
@@ -32937,26 +30873,6 @@ CMD:hy(playerid, params[])
 {
 	return 1;
 }
-
-/*CMD:showplayer(playerid, params[])
-{
-	new playertwo;
-	if (sscanf(params, "u", playertwo)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /showplayer <playertwo>");
-
-	ShowPlayerForPlayer(playerid, playertwo);
-	SendClientMessageEx(playerid, -1, "show player %s(%d)", GetName(playertwo), playertwo);
-	return 1;
-}
-
-CMD:hideplayer(playerid, params[])
-{
-	new playertwo;
-	if (sscanf(params, "u", playertwo)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /hideplayer <playertwo>");
-
-	HidePlayerForPlayer(playerid, playertwo);
-	SendClientMessageEx(playerid, -1, "show player %s(%d)", GetName(playertwo), playertwo);
-	return 1;
-}*/
 
 CMD:pmaletero(playerid, params[])
 {
@@ -32991,9 +30907,6 @@ CMD:esposar(playerid, params[])
 		PLAYER_TEMP[params[0]][py_CUFFING] = false;
 		SetPlayerSpecialAction(params[0], SPECIAL_ACTION_NONE);
 
-		new action[64];
-		format(action, sizeof action, "le quita las esposas a %s.", PLAYER_TEMP[params[0]][py_RP_NAME]);
-		//Auto_SendPlayerAction(playerid, action);
 		SetPlayerChatBubble(playerid, "\n\n\n\n* Le quita las esposas a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		SendPoliceMark(params[0], PLAYER_COLOR);
 		return 1;
@@ -33026,12 +30939,9 @@ CMD:placa(playerid, params[])
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes enseñarle tu placa a este jugador ahora.", 3);
 
-	new action[64];
-	format(action, sizeof action, "le enseña su placa a %s.", PLAYER_TEMP[params[0]][py_RP_NAME]);
-	//Auto_SendPlayerAction(playerid, action);
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Le enseña su placa a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
-	SendClientMessageEx(params[0], COLOR_WHITE, ""COL_WHITE"%s %c. %s {A9C4E4}[Placa: %d]", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME], PLAYER_MISC[playerid][MISC_PLACA_PD]);
+	SendClientMessageEx(params[0], COLOR_WHITE, "%s %c. %s "COL_YELLOW"[Placa: %d]", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME], PLAYER_MISC[playerid][MISC_PLACA_PD]);
 	return 1;
 }
 
@@ -33051,9 +30961,6 @@ CMD:revisar(playerid, params[])
 
 	ShowPlayerInventory(playerid, params[0]);
 
-	new action[64];
-	format(action, sizeof action, "revisa a %s.", PLAYER_TEMP[params[0]][py_RP_NAME]);
-	//Auto_SendPlayerAction(playerid, action);
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Revisa a alguien\n\n\n", 0xffcb90FF, 20.0, 5000);
 	return 1;
 }
@@ -33074,11 +30981,8 @@ CMD:requisar(playerid, params[])
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
 
 	RequisarilegalInv(params[0]);
-
-	new action[64];
-	format(action, sizeof action, "requisa las pertenencias ilegales de %s.", PLAYER_TEMP[params[0]][py_RP_NAME]);
-	//Auto_SendPlayerAction(playerid, action);
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Requisa las pertenecias ilegales de alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	ShowPlayerMessage(playerid, "Has requisado a este jugador", 3);
 	return 1;
 }
 
@@ -33198,18 +31102,6 @@ CMD:control(playerid, params[])
 	return 1;
 }
 
-/*CMD:creargraffiti(playerid, params[])
-{
-	new Float:pos[3];
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-
-	new temp_obj = CreateDynamicObject(19482, pos[0], pos[1], pos[2], 0.0, 0.0, 0.0, 0, 0);
-	SetDynamicObjectMaterialText(temp_obj, 0, "PEPITO", OBJECT_MATERIAL_SIZE_512x64, "Comic Sans MS", 60, 0, 0xFFdc3939, 0x00000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
-	
-	EditDynamicObject(playerid, temp_obj);
-	return 1;
-}*/
-
 CMD:econtrol(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
@@ -33291,20 +31183,6 @@ public OnPlayerEditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, respons
 			ShowPlayerMessage(playerid, "Objeto policial eliminado.", 2);
 		}
 	}
-
-	/*if (response == EDIT_RESPONSE_FINAL)
-	{
-		new str_text[564], city[64], zone[64];
-		GetPlayerZones(playerid, city, zone);
-		format(str_text, sizeof(str_text), "{19482, %f, %f, %f, %f, %f, %f, COMILLAS%sCOMILLAS, COMILLASComic Sans MSCOMILLAS},", x, y, z, rx, ry, rz, zone);
-		LogGraff("graffitis", str_text);
-		SendClientMessage(playerid, -1, "Graffiti guardado");
-
-		for(new i = 0; i < MAX_PLAYERS; i++)
-		{
-			Streamer_Update(i);
-		}
-	}*/
 	return 1;
 }
 
@@ -33737,7 +31615,6 @@ JailPlayer(playerid, seconds = 300)
     PLAYER_TEMP[playerid][py_TIMERS][15] = SetTimerEx("UnjailPlayer", CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] * 1000, false, "i", playerid);
 
     new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
-    //SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te quedan {62d743}%s"COL_WHITE" minutos de condena.", TimeConvert(time));
     
     new str_text[128];
 	format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
@@ -33950,15 +31827,6 @@ CMD:reportar(playerid, params[])
 	Log("reports", str);
 
 	PLAYER_TEMP[ params[0] ][py_TOTAL_REPORTS] ++;
-	/*if (PLAYER_TEMP[ params[0] ][py_TOTAL_REPORTS] > 5)
-	{
-		format(str, 145, "{aa4949}[KICK] %s (%d) fue expulsado por ser reportado muchas veces.", ACCOUNT_INFO[params[0]][ac_NAME], params[0]);
-		SendMessageToAdmins(COLOR_ORANGE, str);
-
-		SendClientMessage(params[0], COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por tener muchos reportes.");
-
-		KickEx(params[0], 500);
-	}*/
 	return 1;
 }
 
@@ -34491,24 +32359,8 @@ CMD:duty(playerid)
 			PLAYER_TEMP[playerid][py_ADMIN_LABEL] = Text3D:INVALID_STREAMER_ID;
 		}
 
-		/*new label_str[64];
-		switch(ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
-		{
-			case 1: format(label_str, sizeof label_str, "\n\n{c4ccc2}%s en servicio", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);//{FFE500}%s en servicio
-			case 2: format(label_str, sizeof label_str, "\n\n{c4ccc2}%s en servicio", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-			case 3: format(label_str, sizeof label_str, "\n\n{c4ccc2}%s en servicio", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-			case 4: format(label_str, sizeof label_str, "\n\n{c4ccc2}%s en servicio", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-			case 5: format(label_str, sizeof label_str, "\n\n{c4ccc2}%s en servicio", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-			case 6: format(label_str, sizeof label_str, "\n\n{c4ccc2}%s en servicio", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-			case 7: format(label_str, sizeof label_str, "\n\n{c4ccc2}%s en servicio", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-			case 8: format(label_str, sizeof label_str, "\n\n{c4ccc2}%s en servicio", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-		}
-		PLAYER_TEMP[playerid][py_ADMIN_LABEL] = CreateDynamic3DTextLabel(label_str, COLOR_WHITE, 0.0, 0.0, 0.3, 20.0, playerid, .testlos = true);*/
-
-		//if (PLAYER_TEMP[playerid][py_WORKING_IN]) SendClientMessageEx(playerid, COLOR_WHITE, "Deberías dejar de estar de servicio como %s ", work_info[ PLAYER_TEMP[playerid][py_WORKING_IN] ][work_info_NAME]);
 		SendClientMessageEx(playerid, 0xF7F7F7CC, "Ahora estás de servicio como {4BD53D}%s", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
 		format(str_text, sizeof(str_text), ":scales: %s (%d) se puso en servicio como %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-		//DCC_SendChannelMessage(DiscordLogChannel, str_text);
 	}
 	return 1;
 }
@@ -35821,26 +33673,6 @@ GetPlayerSpeed(vehicleid)
 	return floatround(floatsqroot(xPos[0] * xPos[0] + xPos[1] * xPos[1] + xPos[2] * xPos[2]) * 170.00);
 }
 
-/*ShowPlayerShop(playerid)
-{
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP][0]);
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP][1]);
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP][2]);
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP][3]);
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP][4]);
-
-	PLAYER_TEMP[playerid][py_SHOP_COME_FROM_MY_ADS] = false;
-	PLAYER_TEMP[playerid][py_SHOP] = true;
-	PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_ALL;
-
-	PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 6;
-	PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-
-	UpdatePlayerShop(playerid);
-	SelectTextDrawEx(playerid, 0xC0C0C0FF);
-	return 1;
-}*/
-
 UpdatePlayerShop(playerid)
 {
 	switch(PLAYER_TEMP[playerid][py_SHOP_STATE])
@@ -36501,10 +34333,10 @@ DeleteIlegalInv(playerid)
 		ResetPlayerWeaponsEx(playerid);
 	}
 
-	//PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
-	//PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
-	//PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
-	//PLAYER_MISC[playerid][MISC_CRACK] = 0;
+	PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
+	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
+	PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
+	PLAYER_MISC[playerid][MISC_CRACK] = 0;
 	SavePlayerMisc(playerid);
 	return 1;
 }
@@ -36516,37 +34348,12 @@ CALLBACK: HealthDown(playerid)
 	GivePlayerHealthEx(playerid, -1.0);
 
 	if (GetPlayerDistanceFromPoint(playerid, PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2]) > 0.10) ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-	//if (GetPlayerDistanceFromPoint(playerid, PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2]) > 3.0) SetPlayerPosEx(playerid, PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2], PLAYER_TEMP[playerid][py_INJURED_POS][3], 0, 0);
 	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][16]);
 	PLAYER_TEMP[playerid][py_TIMERS][16] = SetTimerEx("HealthDown", 8000, false, "i", playerid);
 	return 1;
 }
-
-/*CMD:curar(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes hacer esto.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-
-	new to_player;
-	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /curar "COL_WHITE"[ID o nombre]");
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
-	if (to_player == playerid) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /curar "COL_WHITE"[ID o nombre]");
-
-	new Float:pos[3];
-	GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 1.2, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
-
-	if (CHARACTER_INFO[to_player][ch_STATE] != ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~Esta persona no está herida.", 3);
-
-	KillTimer(PLAYER_TEMP[to_player][py_TIMERS][16]);
-	PLAYER_TEMP[to_player][py_TIMERS][16] = SetTimerEx("StandUpBotikin", 5000, false, "ii", playerid, to_player);
-
-	ApplyAnimation(playerid, "MEDIC", "CPR", 4.1, false, 0, 0, 0, 0, 1);
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Usa un botiquín.", 0x13CBECFF, 20.0, 2000);
-	return 1;
-}*/
 
 CALLBACK: StandUpBotikin(medic, playerid)
 {
@@ -36557,86 +34364,14 @@ CALLBACK: StandUpBotikin(medic, playerid)
 
 	CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 	ResetItemBody(playerid);
-	//SetWeaponsForPlayer(playerid);
+
 	if (ACCOUNT_INFO[playerid][ac_SU]) SetPlayerHealthEx(playerid, 50.0);
 	else SetPlayerHealthEx(playerid, 25.0);
+
 	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 	ClearAnimations(playerid);
-	//SetWeaponsForPlayer(playerid);
 	return 1;
 }
-
-/*CMD:banda(playerid, params[])
-{
-	if (!PLAYER_CREW[playerid][player_crew_VALID])
-	{
-		if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Los policías no pueden tener banda.", 3);
-
-		new index = GetAvaibleCrewIndex();
-		if (index == -1)
-		{
-		    ShowPlayerMessage(playerid, "~r~No perteneces a ninguna crew y no se puede crear una porque no hay espacio disponible, el límite de CREWS es 150", 5);
-			return 1;
-		}
-
-		ShowDialog(playerid, DIALOG_CREATE_CREW);
-		return 1;
-	}
-
-	ShowDialog(playerid, DIALOG_CREW_MENU_ONE);
-	return 1;
-}
-alias:banda("crew");*/
-
-/*CMD:abandonar(playerid, params[])
-{
-	if (!PLAYER_CREW[playerid][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~No perteneces a ninguna crew.", 2);
-	if (!CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][CREW_RANK_LEAVE_TERRITORY]) return ShowPlayerMessage(playerid, "~r~No tienes permisos para abandonar el territorio.", 3);
-	if (PLAYER_TEMP[playerid][py_LAST_TERRITORY] == INVALID_STREAMER_ID) return ShowPlayerMessage(playerid, "~r~No estas en un territorio de tu crew.", 3);
-	if (!IsPlayerInDynamicArea(playerid, TERRITORIES[ PLAYER_TEMP[playerid][py_LAST_TERRITORY] ][territory_AREA])) return ShowPlayerMessage(playerid, "~r~No estas en un territorio de tu crew.", 3);
-	if (TERRITORIES[ PLAYER_TEMP[playerid][py_LAST_TERRITORY] ][territory_CREW_ID] != PLAYER_CREW[playerid][player_crew_ID]) return ShowPlayerMessage(playerid, "~r~No estas en el terretorio de tu crew.", 3);
-	if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes abandonar territorios mientras tu crew esta en combate.", 3);
-
-	PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] = PLAYER_TEMP[playerid][py_LAST_TERRITORY];
-	ShowDialog(playerid, DIALOG_CREW_LEAVE_TERRITORY);
-	return 1;
-}*/
-
-/*CMD:invitar(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-
-	if (!PLAYER_CREW[playerid][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~No eres miembro de una banda.", 3);
-	if (!CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][CREW_RANK_INVITE]) return ShowPlayerMessage(playerid, "~r~No tienes permisos.", 3);
-	if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes invitar cuando la banda esta en combate.", 3);
-	if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MEMBERS] >= 30) return ShowPlayerMessage(playerid, "~r~La banda ya está llena.", 3);
-
-	new to_player;
-	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /invitar "COL_WHITE"[ID o nombre]");
-	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~El jugador no está conectado.", 2);
-	if (to_player == playerid) return SendClientMessage(playerid, COLOR_WHITE, "No puedes invitarte a tu mismo.");
-
-	new Float:pos[3]; GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
-	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No se pueden invitar a policías.", 3);
-	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Este ya tiene banda.", 3);
-	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes invitar cuando la banda esta en combate.", 3);
-
-	if (gettime() < PLAYER_TEMP[ to_player ][py_LAST_GOT_CREW] + 600)
-	{
-		new time = 600 - (gettime() - PLAYER_TEMP[to_player][py_LAST_GOT_CREW]);
-		SendClientMessageEx(playerid, COLOR_WHITE, "La otra persona debe esperar %s minutos para volver a ser invitada.", TimeConvert(time));
-		return 1;
-	}
-
-	PLAYER_TEMP[playerid][py_CREW_INVITE_PID] = to_player;
-	PLAYER_TEMP[playerid][py_CREW_INVITE_AID] = ACCOUNT_INFO[to_player][ac_ID];
-	SendClientMessageEx(playerid, COLOR_WHITE, "Quieres invitar a %s a la crew, elige el rango que le ofreces.", PLAYER_TEMP[to_player][py_RP_NAME]);
-	ShowDialog(playerid, DIALOG_CREW_INVITE_RANK);
-	return 1;
-}*/
-
-// >>>>> Comandos de Policías.
 
 InviteToSAPD(playerid, to_player)
 {
@@ -36724,6 +34459,47 @@ InviteToLCN(playerid, to_player)
 
 	SendClientMessageEx(playerid, 0xca3535FF, "[LCN] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
 	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
+	return 1;
+}
+
+InviteToTCC(playerid, to_player)
+{
+	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
+	if (to_player == playerid) return 1;
+
+	new Float:pos[3]; GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
+	if (PLAYER_WORKS[to_player][WORK_ENEMY_MAFIA]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
+
+	new player_jobs = CountPlayerJobs(to_player);
+	if (ACCOUNT_INFO[to_player][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+
+	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
+
+	PLAYER_WORKS[to_player][WORK_ENEMY_MAFIA] = true;
+	PLAYER_SKILLS[to_player][WORK_ENEMY_MAFIA] = 1;
+	SavePlayerWorks(to_player);
+	SavePlayerSkills(to_player);
+
+	SendClientMessageEx(playerid, 0xca3535FF, "[LCN] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso enemigo.", 3);
 	return 1;
 }
 
@@ -37036,10 +34812,6 @@ StartTerritoryAttack(crew_index, territory_index, time)
 				{
 					new r, g, b, a;
 					hy_HexToRGBA(CREW_INFO[ PLAYER_CREW[i][player_crew_INDEX] ][crew_COLOR], r, g, b, a);
-					//SetPlayerColorEx(i, hy_RGBAToHex(r, g, b, 0));
-
-					//TextDrawShowForPlayer(i, Textdraws[textdraw_TERRITORY_BOX]);
-					//TextDrawShowForPlayer(i, TERRITORIES[territory_index][territory_TEXTDRAW]);
 				}
 			}
 		}
@@ -37143,7 +34915,6 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 	TERRITORIES[territory_index][territory_WAR_TIME_LEFT] --;
 	new message[145], progress[128];
 	format(progress, sizeof progress, "Tiempo restante: ~r~%s", TimeConvert(TERRITORIES[territory_index][territory_WAR_TIME_LEFT]));
-	//TextDrawSetString(TERRITORIES[territory_index][territory_TEXTDRAW], message);
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -37690,18 +35461,6 @@ CMD:darskin(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE, "Skin '%s (%d)' cambiado a '%d'.", ACCOUNT_INFO[to_player][ac_NAME], to_player, skin);
     return 1;
 }
-
-/*CMD:setplayergravity(playerid, params[])
-{
-	new Float:gravity, to_player;
-	if (sscanf(params, "if", to_player, gravity)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setplayergravity <playerid> <Float:gravity>");
-	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
-
-    SendClientMessageEx(playerid, COLOR_WHITE, "Gravedad de %s: %.3f > %.3f", PLAYER_TEMP[to_player][py_NAME], gravity, GetPlayerGravity(playerid));
-	SetPlayerGravity(to_player, gravity);
-	SendCmdLogToAdmins(playerid, "setplayergravity", params);
-	return 1;
-}*/
 
 CMD:testsound(playerid, params[])
 {
@@ -38697,14 +36456,8 @@ CALLBACK: HidePlayerKeyMessage(playerid)
 ShowPlayerNotification(playerid, const message[], time)
 {
 	new str_text[264];
-	//KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
 	format(str_text, sizeof(str_text), "~w~%s", TextToSpanish(message));
-	new not_id = hy_ShowNotification(playerid, str_text, time);
-	//PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], str_text);
-	//PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE]);
-	//PlayerPlaySound(playerid, 1058, 0.0, 0.0, 0.0);
-	//PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("HidePlayerNotification", 12000 + time, false, "i", playerid);
-	return not_id;
+	return hy_ShowNotification(playerid, str_text, time);
 }
 
 CALLBACK: HidePlayerNotification(playerid)
@@ -38875,7 +36628,6 @@ UpdateUnnocupiedPropertyLabel(index)
 	return 1;
 }
 
-
 FreezePlayer(playerid, ms = 2000)
 {
 	TogglePlayerControllableEx(playerid, false);
@@ -38886,7 +36638,6 @@ FreezePlayer(playerid, ms = 2000)
 
 CALLBACK: CarJackingFinish(playerid)
 {
-	//SetPlayerVirtualWorld(playerid, 0);
 	TogglePlayerControllableEx(playerid, true);
 	return 1;
 }
@@ -38970,39 +36721,6 @@ public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags)
     return 1; 
 }
 
-/*public DCC_OnChannelMessage(DCC_Channel:channel, DCC_User:author, const message[])
-{
-	new channel_name[100 + 1];
-	if (!DCC_GetChannelName(channel, channel_name))
-		return 0;
-
-	new user_name[32 + 1];
-	if (!DCC_GetUserName(author, user_name))
-		return 0;
-
-	new bool:is_bot;
-	if (!DCC_IsUserBot(author, is_bot))
-	    return 0;
-
-	if (is_bot)
-	    return 0;
-
-    if (channel != CanalDudasId) return 0;
-	new str[145];
-	format(str, sizeof str, "[DUDAS]"COL_WHITE" %s: %s", user_name, message);
-    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL] && !PLAYER_TEMP[i][py_NEW_USER])
-			{
-				SendClientMessage(i, 0x1987a7FF, str);
-			}
-		}
-	}
-	return 1;
-}*/
-
 CheckFilterViolation(const str_text[])
 {
 	for(new x = 0; x < sizeof(INVALID_WORDS); x ++)
@@ -39024,14 +36742,9 @@ CheckNameFilterViolation(const str_text[])
 SendMessageToDoubtChannel(playerid, message[])
 {
 	new str[364];
-	//new string[300];
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"%s %s (%d): (( %s ))", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ], PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
 	else format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"Jugador %s (%d): (( %s ))", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
-
-	//CanalDudasId = DCC_FindChannelById("548890261309358090");
-	//format(string, sizeof(string), "[DUDAS] %s (%d) [Nivel %d]: %s", PLAYER_TEMP[playerid][py_RP_NAME], playerid, ACCOUNT_INFO[playerid][ac_LEVEL], message);
-	//DCC_SendChannelMessage(CanalDudasId, string);
 
 	Log("doubt", str);
 
