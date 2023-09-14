@@ -8060,7 +8060,8 @@ CMD:mp3(playerid, params[])
 {
 	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
 	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
-	
+	if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 120) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada 2 minutos.", 3, 1085);
+
 	ShowDialog(playerid, DIALOG_PLAYER_MP3);
 	return 1;
 }

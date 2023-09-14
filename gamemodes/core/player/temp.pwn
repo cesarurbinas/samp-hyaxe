@@ -271,7 +271,8 @@ enum Temp_Enum
 	py_BOX_PLAYER,
 	py_BOX_PAY,
 	bool:py_BOX_BETTING,
-	py_RESULT_INDEX
+	py_RESULT_INDEX,
+	py_LAST_SEARCH
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
