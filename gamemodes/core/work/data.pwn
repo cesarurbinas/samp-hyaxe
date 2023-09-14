@@ -47,7 +47,7 @@ new work_info[][work_info_info] =
 	{WORK_TYPE_FAMILY, 0, "mafioso enemigo",		        false, 1000, 1, 0},
 	{WORK_TYPE_FAMILY, 0, "familia osborn",		        	false, 1000, 1, 0},
 	{WORK_TYPE_NORMAL, 1, "médico",                      	true, 200, 50, 2000},
-	{WORK_TYPE_NORMAL, 1, "boxeador",                      	false, 200, 50, 2000}
+	{WORK_TYPE_FAMILY, 1, "boxeador",                      	false, 200, 50, 2000}
 };
 
 new PLAYER_WORKS[MAX_PLAYERS][sizeof(work_info)];

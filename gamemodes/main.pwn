@@ -48,7 +48,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
-//#tryinclude <profiler>
+#tryinclude <profiler>
 
 // Must fix
 #include <nex-ac>
