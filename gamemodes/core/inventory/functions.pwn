@@ -271,7 +271,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		for(new i; i < db_num_rows(Result); i++ )
 		{
 			new 
-				str_text[32],
+				str_text[64],
 				td_init = (i + 10),
 				td_ammount = td_init + 12,
 				type = db_get_field_assoc_int(Result, "TYPE"),
@@ -291,13 +291,16 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 				case 40: format(str_text, sizeof(str_text), "Geo");
 			}
 
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
+			if (is_visual)
+			{
+				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
 
-			GetTypePreviewRot(type, rot[0], rot[1], rot[2], rot[3]);
-			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], ITEM_INFO[type][item_MODELID]);
-			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], rot[0], rot[1], rot[2], rot[3]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);
+				GetTypePreviewRot(type, rot[0], rot[1], rot[2], rot[3]);
+				PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], ITEM_INFO[type][item_MODELID]);
+				PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], rot[0], rot[1], rot[2], rot[3]);
+				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
+				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);
+			}
 			
 			PLAYER_VISUAL_INV[playerid][slot_VALID][i] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][i] = type;
