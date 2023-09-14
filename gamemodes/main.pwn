@@ -615,7 +615,7 @@ enum enum_TERRITORIES
 };
 new TERRITORIES[MAX_TERRITORIES][enum_TERRITORIES];
 
-new RandomColors[] =
+/*new RandomColors[] =
 {
 	COLOR_WHITE,
 	0x000000FF,
@@ -648,7 +648,7 @@ new RandomColors[] =
 	0x3214AAFF,    0x184D3BFF,    0xAE4B99FF,    0x7E49D7FF,    0x4C436EFF,    0xFA24CCFF,    0xCE76BEFF,    0xA04E0AFF,    0x9F945CFF,
 	0xDCDE3DFF,    0x10C9C5FF,    0x70524DFF,    0x0BE472FF,    0x8A2CD7FF,    0x6152C2FF,    0xCF72A9FF,    0xE59338FF,    0xEEDC2DFF,
 	0xD8C762FF,    0xD8C762FF
-};
+};*/
 
 enum Work_Vehicles_Info
 {
