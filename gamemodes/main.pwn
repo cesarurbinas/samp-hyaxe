@@ -18884,6 +18884,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
      			GameTextForPlayer(PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], str_text, 5000, 1);
 
 				ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
+
+				new str_text[144];
+				format(str_text, sizeof(str_text), "%s (%d) le ha enviado %d$ a %s (%d).",
+					PLAYER_TEMP[playerid][py_NAME],
+					playerid,
+					inputtext[0],
+					PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_NAME],
+					PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]
+				);
+				Log("money", str_text);
 			}
 			else ShowDialog(playerid, DIALOG_RANGE_USER);
 			return 1;
