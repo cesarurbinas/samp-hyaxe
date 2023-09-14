@@ -21964,8 +21964,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				switch(listitem)
 				{
-					case 0: ShowDialog(DIALOG_PRODUCT_NAME);
-					case 1: ShowDialog(DIALOG_PRODUCT_DELETE);
+					case 0: ShowDialog(playerid, DIALOG_PRODUCT_NAME);
+					case 1: ShowDialog(playerid, DIALOG_PRODUCT_DELETE);
 				}
 			}
 			else CheckClubOptions(playerid);
