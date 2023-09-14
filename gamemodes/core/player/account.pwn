@@ -1,0 +1,23 @@
+enum Account_Enum
+{
+	ac_ID,
+	ac_IP[16],
+	ac_NAME[24],
+	ac_EMAIL[32],
+	ac_PASS[64 + 1],
+	ac_SALT[16],
+	ac_LAST_CONNECTION[24],
+	ac_TIME_PLAYING,
+	ac_LEVEL,
+	ac_REP,
+	ac_STATE,
+	reg_DATE[24], //Fecha de registro de la tabla REGISTRO
+	ac_DOUBT_CHANNEL,
+	ac_TIME_FOR_REP, // En MS
+	ac_ADMIN_LEVEL,
+	ac_PAYDAY_REP,
+	ac_SU,
+	ac_SU_EXPIRE_DATE[24],
+	ac_SD
+};
+new ACCOUNT_INFO[MAX_PLAYERS][Account_Enum]; // AI (AccountInfo)

@@ -1,0 +1,291 @@
+
+--------------------------
+SA-MP Server: 0.3.7-R2
+
+Exception At Address: 0x77136F45 Module: (ntdll.dll)
+
+Registers:
+EAX: 0x04222499	EBX: 0xFFFFFFFF	ECX: 0x3FFF3926	EDX: 0x00000003
+ESI: 0x04253FFE	EDI: 0x04253FEC	EBP: 0x0061F0F8	ESP: 0x0061EE84
+EFLAGS: 0x00010202
+
+Stack:
++0000: 0x0061F0E9   0x00000003   0x0061F118   0x0061EED0
++0010: 0x0061F1D0   0x00000010   0x77136F93   0x00000000
++0020: 0x00000000   0x00000000   0x00000000   0x00000000
++0030: 0x00000000   0x00000000   0xFFFFFFFD   0x00000000
++0040: 0x00000000   0x0061F118   0x00000000   0x0000000D
++0050: 0x00000000   0xFFFFFFFD   0x00000003   0x00000000
++0060: 0x0061F1A4   0x00000007   0x00000000   0x00000000
++0070: 0x00000000   0x00000000   0x00000000   0x00000000
++0080: 0x00000000   0x00000000   0x00000000   0x00000000
++0090: 0x00000000   0x00000000   0x00000000   0x00000000
++00A0: 0x00000000   0x00000000   0x00000000   0x00000000
++00B0: 0x00000000   0x00000000   0x00000000   0x00000000
++00C0: 0x00000000   0x00000000   0x00000000   0x00000000
++00D0: 0x00000000   0x00000000   0x00000000   0x50545448
++00E0: 0x302E312F   0x30303220   0x0D4B4F20   0x0000000A
++00F0: 0x00000000   0x00000000   0x00000000   0x00000000
++0100: 0x00000000   0x00000000   0x00000000   0x00000000
++0110: 0x00000000   0x00000000   0x00000000   0x00000000
++0120: 0x00000000   0x00000000   0x00000000   0x00000000
++0130: 0x00000000   0x00000000   0x00000000   0x00000000
+
+--------------------------
+
+Loaded Modules:
+samp-server.exe	A: 0x00400000 - 0x00519000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\samp-server.exe)
+ntdll.dll	A: 0x770C0000 - 0x77239000	(C:\WINDOWS\SYSTEM32\ntdll.dll)
+KERNEL32.DLL	A: 0x766A0000 - 0x76790000	(C:\WINDOWS\SYSTEM32\KERNEL32.DLL)
+KERNELBASE.dll	A: 0x75C70000 - 0x75DE6000	(C:\WINDOWS\SYSTEM32\KERNELBASE.dll)
+SHELL32.dll	A: 0x74700000 - 0x75ABE000	(C:\WINDOWS\SYSTEM32\SHELL32.dll)
+msvcrt.dll	A: 0x76790000 - 0x7684E000	(C:\WINDOWS\SYSTEM32\msvcrt.dll)
+windows.storage.dll	A: 0x76A20000 - 0x76EFC000	(C:\WINDOWS\SYSTEM32\windows.storage.dll)
+combase.dll	A: 0x75ED0000 - 0x7608A000	(C:\WINDOWS\SYSTEM32\combase.dll)
+RPCRT4.dll	A: 0x76090000 - 0x7613C000	(C:\WINDOWS\SYSTEM32\RPCRT4.dll)
+SspiCli.dll	A: 0x741B0000 - 0x741CE000	(C:\WINDOWS\SYSTEM32\SspiCli.dll)
+CRYPTBASE.dll	A: 0x741A0000 - 0x741AA000	(C:\WINDOWS\SYSTEM32\CRYPTBASE.dll)
+bcryptPrimitives.dll	A: 0x74140000 - 0x74199000	(C:\WINDOWS\SYSTEM32\bcryptPrimitives.dll)
+sechost.dll	A: 0x76320000 - 0x76363000	(C:\WINDOWS\SYSTEM32\sechost.dll)
+advapi32.dll	A: 0x762A0000 - 0x7631B000	(C:\WINDOWS\SYSTEM32\advapi32.dll)
+shlwapi.dll	A: 0x76850000 - 0x76894000	(C:\WINDOWS\SYSTEM32\shlwapi.dll)
+GDI32.dll	A: 0x75AC0000 - 0x75C0D000	(C:\WINDOWS\SYSTEM32\GDI32.dll)
+USER32.dll	A: 0x743B0000 - 0x744F0000	(C:\WINDOWS\SYSTEM32\USER32.dll)
+kernel.appcore.dll	A: 0x746F0000 - 0x746FC000	(C:\WINDOWS\SYSTEM32\kernel.appcore.dll)
+shcore.dll	A: 0x761C0000 - 0x7624D000	(C:\WINDOWS\SYSTEM32\shcore.dll)
+powrprof.dll	A: 0x74270000 - 0x742B4000	(C:\WINDOWS\SYSTEM32\powrprof.dll)
+profapi.dll	A: 0x75EC0000 - 0x75ECF000	(C:\WINDOWS\SYSTEM32\profapi.dll)
+WSOCK32.dll	A: 0x74130000 - 0x74138000	(C:\WINDOWS\SYSTEM32\WSOCK32.dll)
+WS2_32.dll	A: 0x74690000 - 0x746EC000	(C:\WINDOWS\SYSTEM32\WS2_32.dll)
+NSI.dll	A: 0x74260000 - 0x74267000	(C:\WINDOWS\SYSTEM32\NSI.dll)
+WINMM.dll	A: 0x73D20000 - 0x73D44000	(C:\WINDOWS\SYSTEM32\WINMM.dll)
+WINMMBASE.dll	A: 0x73930000 - 0x73953000	(C:\WINDOWS\SYSTEM32\WINMMBASE.dll)
+cfgmgr32.dll	A: 0x742C0000 - 0x742F6000	(C:\WINDOWS\SYSTEM32\cfgmgr32.dll)
+DEVOBJ.dll	A: 0x738C0000 - 0x738E1000	(C:\WINDOWS\SYSTEM32\DEVOBJ.dll)
+IMM32.DLL	A: 0x75DF0000 - 0x75E1B000	(C:\WINDOWS\SYSTEM32\IMM32.DLL)
+MSCTF.dll	A: 0x768A0000 - 0x769C0000	(C:\WINDOWS\SYSTEM32\MSCTF.dll)
+MSVCP100.dll	A: 0x6F1D0000 - 0x6F239000	(C:\WINDOWS\SYSTEM32\MSVCP100.dll)
+MSVCR100.dll	A: 0x6F240000 - 0x6F2FF000	(C:\WINDOWS\SYSTEM32\MSVCR100.dll)
+streamer.dll	A: 0x6F170000 - 0x6F1CA000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\streamer.dll)
+VCRUNTIME140.dll	A: 0x717B0000 - 0x717C3000	(C:\WINDOWS\SYSTEM32\VCRUNTIME140.dll)
+ucrtbase.dll	A: 0x69FB0000 - 0x6A08C000	(C:\WINDOWS\SYSTEM32\ucrtbase.dll)
+MSVCP140.dll	A: 0x6F100000 - 0x6F16F000	(C:\WINDOWS\SYSTEM32\MSVCP140.dll)
+sscanf.dll	A: 0x10000000 - 0x1000E000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\sscanf.dll)
+pawnraknet.dll	A: 0x6EFB0000 - 0x6F029000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\pawnraknet.dll)
+SKY.dll	A: 0x6EF70000 - 0x6EFA2000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\SKY.dll)
+sampvoice.dll	A: 0x6EF10000 - 0x6EF66000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\sampvoice.dll)
+bass.dll	A: 0x6D9C0000 - 0x6DA15000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\bass.dll)
+MSACM32.dll	A: 0x70350000 - 0x70368000	(C:\WINDOWS\SYSTEM32\MSACM32.dll)
+pawncmd.dll	A: 0x6D980000 - 0x6D9B8000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\pawncmd.dll)
+pawnregex.dll	A: 0x6D0A0000 - 0x6D0D7000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\pawnregex.dll)
+GPS.dll	A: 0x70310000 - 0x70326000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\GPS.dll)
+FakeOnline.dll	A: 0x6D060000 - 0x6D09C000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\FakeOnline.dll)
+mswsock.dll	A: 0x740A0000 - 0x740EE000	(C:\WINDOWS\system32\mswsock.dll)
+NLAapi.dll	A: 0x70740000 - 0x70753000	(C:\WINDOWS\system32\NLAapi.dll)
+napinsp.dll	A: 0x705C0000 - 0x705D2000	(C:\WINDOWS\system32\napinsp.dll)
+pnrpnsp.dll	A: 0x705A0000 - 0x705B6000	(C:\WINDOWS\system32\pnrpnsp.dll)
+DNSAPI.dll	A: 0x70510000 - 0x70594000	(C:\WINDOWS\SYSTEM32\DNSAPI.dll)
+winrnr.dll	A: 0x70500000 - 0x7050B000	(C:\WINDOWS\System32\winrnr.dll)
+mdnsNSP.dll	A: 0x704D0000 - 0x704F5000	(C:\Program Files (x86)\Bonjour\mdnsNSP.dll)
+Iphlpapi.DLL	A: 0x74100000 - 0x74130000	(C:\WINDOWS\SYSTEM32\Iphlpapi.DLL)
+WINNSI.DLL	A: 0x740F0000 - 0x740F8000	(C:\WINDOWS\SYSTEM32\WINNSI.DLL)
+bcrypt.dll	A: 0x73910000 - 0x7392B000	(C:\WINDOWS\SYSTEM32\bcrypt.dll)
+rasadhlp.dll	A: 0x70370000 - 0x70378000	(C:\Windows\System32\rasadhlp.dll)
+uxtheme.dll	A: 0x73590000 - 0x73605000	(C:\WINDOWS\system32\uxtheme.dll)
+PROPSYS.dll	A: 0x73440000 - 0x73582000	(C:\WINDOWS\SYSTEM32\PROPSYS.dll)
+OLEAUT32.dll	A: 0x74310000 - 0x743A2000	(C:\WINDOWS\SYSTEM32\OLEAUT32.dll)
+cryptsp.dll	A: 0x732B0000 - 0x732C3000	(C:\WINDOWS\SYSTEM32\cryptsp.dll)
+
+--------------------------
+SA-MP Server: 0.3.7-R2
+
+Exception At Address: 0x00408165 Module: (samp-server.exe)
+
+Registers:
+EAX: 0x00000001	EBX: 0x00000010	ECX: 0x00010000	EDX: 0x00000000
+ESI: 0x00000000	EDI: 0x00000001	EBP: 0x004E7014	ESP: 0x0019F3DC
+EFLAGS: 0x00210202
+
+Stack:
++0000: 0x00000001   0x0040D793   0x04245220   0x00000000
++0010: 0x0040D86B   0x042452A0   0x0042DE58   0x00000000
++0020: 0x04245220   0x045019D8   0x0019F534   0x0043FB2B
++0030: 0x00000000   0x04245220   0x0422D720   0x00000000
++0040: 0x00000064   0x00000000   0x0422D720   0x044FC958
++0050: 0x0000002A   0x044FCD18   0x045019D8   0x044FCD18
++0060: 0x044FC980   0x0000000B   0x00000000   0x0354D0F0
++0070: 0x00000000   0x00000000   0x00000000   0x00000000
++0080: 0x00000001   0x00000001   0x044FC9A8   0x044FCCA0
++0090: 0x00000014   0x040ACED0   0x00000003   0x000000B1
++00A0: 0x00000001   0x00000000   0x00000000   0x00000000
++00B0: 0x00000000   0x00000000   0x00000000   0x00000000
++00C0: 0x00000000   0x042978E7   0x042978E7   0x000000B1
++00D0: 0x00000001   0x00000001   0x000000B1   0x0019F4A8
++00E0: 0x0422D720   0x0019FCD0   0x0049D208   0x004BA158
++00F0: 0x0422D720   0x04245220   0x00000000   0x03FD0488
++0100: 0x00407FAB   0x004E7014   0x00408165   0x004E7014
++0110: 0x00436044   0x0422D720   0x00436052   0x0000001C
++0120: 0x0019F501   0x0019F598   0x0022D720   0x00000000
++0130: 0x00000000   0x04501690   0x00000000   0x00000000
+
+--------------------------
+
+Loaded Modules:
+samp-server.exe	A: 0x00400000 - 0x00519000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\samp-server.exe)
+ntdll.dll	A: 0x770C0000 - 0x77239000	(C:\WINDOWS\SYSTEM32\ntdll.dll)
+KERNEL32.DLL	A: 0x766A0000 - 0x76790000	(C:\WINDOWS\SYSTEM32\KERNEL32.DLL)
+KERNELBASE.dll	A: 0x75C70000 - 0x75DE6000	(C:\WINDOWS\SYSTEM32\KERNELBASE.dll)
+SHELL32.dll	A: 0x74700000 - 0x75ABE000	(C:\WINDOWS\SYSTEM32\SHELL32.dll)
+msvcrt.dll	A: 0x76790000 - 0x7684E000	(C:\WINDOWS\SYSTEM32\msvcrt.dll)
+windows.storage.dll	A: 0x76A20000 - 0x76EFC000	(C:\WINDOWS\SYSTEM32\windows.storage.dll)
+combase.dll	A: 0x75ED0000 - 0x7608A000	(C:\WINDOWS\SYSTEM32\combase.dll)
+RPCRT4.dll	A: 0x76090000 - 0x7613C000	(C:\WINDOWS\SYSTEM32\RPCRT4.dll)
+SspiCli.dll	A: 0x741B0000 - 0x741CE000	(C:\WINDOWS\SYSTEM32\SspiCli.dll)
+CRYPTBASE.dll	A: 0x741A0000 - 0x741AA000	(C:\WINDOWS\SYSTEM32\CRYPTBASE.dll)
+bcryptPrimitives.dll	A: 0x74140000 - 0x74199000	(C:\WINDOWS\SYSTEM32\bcryptPrimitives.dll)
+sechost.dll	A: 0x76320000 - 0x76363000	(C:\WINDOWS\SYSTEM32\sechost.dll)
+advapi32.dll	A: 0x762A0000 - 0x7631B000	(C:\WINDOWS\SYSTEM32\advapi32.dll)
+shlwapi.dll	A: 0x76850000 - 0x76894000	(C:\WINDOWS\SYSTEM32\shlwapi.dll)
+GDI32.dll	A: 0x75AC0000 - 0x75C0D000	(C:\WINDOWS\SYSTEM32\GDI32.dll)
+USER32.dll	A: 0x743B0000 - 0x744F0000	(C:\WINDOWS\SYSTEM32\USER32.dll)
+kernel.appcore.dll	A: 0x746F0000 - 0x746FC000	(C:\WINDOWS\SYSTEM32\kernel.appcore.dll)
+shcore.dll	A: 0x761C0000 - 0x7624D000	(C:\WINDOWS\SYSTEM32\shcore.dll)
+powrprof.dll	A: 0x74270000 - 0x742B4000	(C:\WINDOWS\SYSTEM32\powrprof.dll)
+profapi.dll	A: 0x75EC0000 - 0x75ECF000	(C:\WINDOWS\SYSTEM32\profapi.dll)
+WSOCK32.dll	A: 0x74130000 - 0x74138000	(C:\WINDOWS\SYSTEM32\WSOCK32.dll)
+WS2_32.dll	A: 0x74690000 - 0x746EC000	(C:\WINDOWS\SYSTEM32\WS2_32.dll)
+NSI.dll	A: 0x74260000 - 0x74267000	(C:\WINDOWS\SYSTEM32\NSI.dll)
+WINMM.dll	A: 0x73D20000 - 0x73D44000	(C:\WINDOWS\SYSTEM32\WINMM.dll)
+WINMMBASE.dll	A: 0x73930000 - 0x73953000	(C:\WINDOWS\SYSTEM32\WINMMBASE.dll)
+cfgmgr32.dll	A: 0x742C0000 - 0x742F6000	(C:\WINDOWS\SYSTEM32\cfgmgr32.dll)
+DEVOBJ.dll	A: 0x738C0000 - 0x738E1000	(C:\WINDOWS\SYSTEM32\DEVOBJ.dll)
+IMM32.DLL	A: 0x75DF0000 - 0x75E1B000	(C:\WINDOWS\SYSTEM32\IMM32.DLL)
+MSCTF.dll	A: 0x768A0000 - 0x769C0000	(C:\WINDOWS\SYSTEM32\MSCTF.dll)
+MSVCP100.dll	A: 0x6F1D0000 - 0x6F239000	(C:\WINDOWS\SYSTEM32\MSVCP100.dll)
+MSVCR100.dll	A: 0x6F240000 - 0x6F2FF000	(C:\WINDOWS\SYSTEM32\MSVCR100.dll)
+streamer.dll	A: 0x6F170000 - 0x6F1CA000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\streamer.dll)
+VCRUNTIME140.dll	A: 0x717B0000 - 0x717C3000	(C:\WINDOWS\SYSTEM32\VCRUNTIME140.dll)
+ucrtbase.dll	A: 0x69FB0000 - 0x6A08C000	(C:\WINDOWS\SYSTEM32\ucrtbase.dll)
+MSVCP140.dll	A: 0x6F100000 - 0x6F16F000	(C:\WINDOWS\SYSTEM32\MSVCP140.dll)
+sscanf.dll	A: 0x10000000 - 0x1000E000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\sscanf.dll)
+pawnraknet.dll	A: 0x6EFB0000 - 0x6F029000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\pawnraknet.dll)
+SKY.dll	A: 0x6EF70000 - 0x6EFA2000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\SKY.dll)
+sampvoice.dll	A: 0x6EF10000 - 0x6EF66000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\sampvoice.dll)
+bass.dll	A: 0x6D9C0000 - 0x6DA15000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\bass.dll)
+MSACM32.dll	A: 0x70350000 - 0x70368000	(C:\WINDOWS\SYSTEM32\MSACM32.dll)
+pawncmd.dll	A: 0x6D980000 - 0x6D9B8000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\pawncmd.dll)
+pawnregex.dll	A: 0x6D0A0000 - 0x6D0D7000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\pawnregex.dll)
+GPS.dll	A: 0x70310000 - 0x70326000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\GPS.dll)
+FakeOnline.dll	A: 0x6D060000 - 0x6D09C000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\FakeOnline.dll)
+mswsock.dll	A: 0x740A0000 - 0x740EE000	(C:\WINDOWS\system32\mswsock.dll)
+NLAapi.dll	A: 0x70740000 - 0x70753000	(C:\WINDOWS\system32\NLAapi.dll)
+napinsp.dll	A: 0x705C0000 - 0x705D2000	(C:\WINDOWS\system32\napinsp.dll)
+pnrpnsp.dll	A: 0x705A0000 - 0x705B6000	(C:\WINDOWS\system32\pnrpnsp.dll)
+DNSAPI.dll	A: 0x70510000 - 0x70594000	(C:\WINDOWS\SYSTEM32\DNSAPI.dll)
+winrnr.dll	A: 0x70500000 - 0x7050B000	(C:\WINDOWS\System32\winrnr.dll)
+mdnsNSP.dll	A: 0x704D0000 - 0x704F5000	(C:\Program Files (x86)\Bonjour\mdnsNSP.dll)
+Iphlpapi.DLL	A: 0x74100000 - 0x74130000	(C:\WINDOWS\SYSTEM32\Iphlpapi.DLL)
+WINNSI.DLL	A: 0x740F0000 - 0x740F8000	(C:\WINDOWS\SYSTEM32\WINNSI.DLL)
+bcrypt.dll	A: 0x73910000 - 0x7392B000	(C:\WINDOWS\SYSTEM32\bcrypt.dll)
+rasadhlp.dll	A: 0x70370000 - 0x70378000	(C:\Windows\System32\rasadhlp.dll)
+uxtheme.dll	A: 0x73590000 - 0x73605000	(C:\WINDOWS\system32\uxtheme.dll)
+PROPSYS.dll	A: 0x73440000 - 0x73582000	(C:\WINDOWS\SYSTEM32\PROPSYS.dll)
+OLEAUT32.dll	A: 0x74310000 - 0x743A2000	(C:\WINDOWS\SYSTEM32\OLEAUT32.dll)
+cryptsp.dll	A: 0x732B0000 - 0x732C3000	(C:\WINDOWS\SYSTEM32\cryptsp.dll)
+
+--------------------------
+SA-MP Server: 0.3.7-R2
+
+Exception At Address: 0x004912C7 Module: (samp-server.exe)
+
+Registers:
+EAX: 0x02D37010	EBX: 0x03DAA975	ECX: 0x00000000	EDX: 0x00000000
+ESI: 0x02D41028	EDI: 0x0019FE14	EBP: 0x00000000	ESP: 0x0019FE20
+EFLAGS: 0x00210202
+
+Stack:
++0000: 0x76F960C0   0x00000000   0x430533F9   0x0048D4DB
++0010: 0x00000000   0x000023F0   0x0019FF80   0x7FFDE000
++0020: 0x0001401C   0x00010001   0x00000258   0x00001E61
++0030: 0x0000008C   0x00000DAC   0x02139E48   0x656D6167
++0040: 0x65646F6D   0x00003531   0x004C4020   0x004C401C
++0050: 0x7FFDE000   0x004AB4A0   0x0019FE68   0x0019FF70
++0060: 0x0019FF70   0x0049D208   0x004BA2F8   0xFFFFFFFF
++0070: 0x0049B4A1   0x0049B4B1   0x004AB4A0   0x0019FF70
++0080: 0x004AB0E1   0xFFFFFFFF   0x0049CCA6   0x00000001
++0090: 0x02131A78   0x02131AD8   0x00000094   0x00000006
++00A0: 0x00000002   0x000023F0   0x00000002   0x00000000
++00B0: 0x00000000   0x00000000   0x00000000   0x00000000
++00C0: 0x00000000   0x00000000   0x00000000   0x00000000
++00D0: 0x00000000   0x00000000   0x00000000   0x00000000
++00E0: 0x00000000   0x00000000   0x00000000   0x00000000
++00F0: 0x00000000   0x00000000   0x00000000   0x00000000
++0100: 0x00000000   0x00000000   0x00000000   0x00000000
++0110: 0x00000000   0x00000000   0x00000000   0x00000000
++0120: 0x00000000   0x00000000   0x0049CB52   0x0049CB3A
++0130: 0x0049CB3A   0x7FFDE000   0x00000000   0x00000000
+
+--------------------------
+
+Loaded Modules:
+samp-server.exe	A: 0x00400000 - 0x00519000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\samp-server.exe)
+ntdll.dll	A: 0x777D0000 - 0x77949000	(C:\WINDOWS\SYSTEM32\ntdll.dll)
+KERNEL32.DLL	A: 0x76F70000 - 0x77060000	(C:\WINDOWS\SYSTEM32\KERNEL32.DLL)
+KERNELBASE.dll	A: 0x76B80000 - 0x76CF6000	(C:\WINDOWS\SYSTEM32\KERNELBASE.dll)
+SHELL32.dll	A: 0x754E0000 - 0x7689E000	(C:\WINDOWS\SYSTEM32\SHELL32.dll)
+msvcrt.dll	A: 0x76D90000 - 0x76E4E000	(C:\WINDOWS\SYSTEM32\msvcrt.dll)
+windows.storage.dll	A: 0x75000000 - 0x754DC000	(C:\WINDOWS\SYSTEM32\windows.storage.dll)
+combase.dll	A: 0x74C60000 - 0x74E1A000	(C:\WINDOWS\SYSTEM32\combase.dll)
+RPCRT4.dll	A: 0x76E50000 - 0x76EFC000	(C:\WINDOWS\SYSTEM32\RPCRT4.dll)
+SspiCli.dll	A: 0x748C0000 - 0x748DE000	(C:\WINDOWS\SYSTEM32\SspiCli.dll)
+CRYPTBASE.dll	A: 0x748B0000 - 0x748BA000	(C:\WINDOWS\SYSTEM32\CRYPTBASE.dll)
+bcryptPrimitives.dll	A: 0x74850000 - 0x748A9000	(C:\WINDOWS\SYSTEM32\bcryptPrimitives.dll)
+sechost.dll	A: 0x771F0000 - 0x77233000	(C:\WINDOWS\SYSTEM32\sechost.dll)
+advapi32.dll	A: 0x74B90000 - 0x74C0B000	(C:\WINDOWS\SYSTEM32\advapi32.dll)
+shlwapi.dll	A: 0x76F20000 - 0x76F64000	(C:\WINDOWS\SYSTEM32\shlwapi.dll)
+GDI32.dll	A: 0x76A30000 - 0x76B7D000	(C:\WINDOWS\SYSTEM32\GDI32.dll)
+USER32.dll	A: 0x77690000 - 0x777D0000	(C:\WINDOWS\SYSTEM32\USER32.dll)
+kernel.appcore.dll	A: 0x77680000 - 0x7768C000	(C:\WINDOWS\SYSTEM32\kernel.appcore.dll)
+shcore.dll	A: 0x76D00000 - 0x76D8D000	(C:\WINDOWS\SYSTEM32\shcore.dll)
+powrprof.dll	A: 0x77630000 - 0x77674000	(C:\WINDOWS\SYSTEM32\powrprof.dll)
+profapi.dll	A: 0x74E20000 - 0x74E2F000	(C:\WINDOWS\SYSTEM32\profapi.dll)
+WSOCK32.dll	A: 0x74840000 - 0x74848000	(C:\WINDOWS\SYSTEM32\WSOCK32.dll)
+WS2_32.dll	A: 0x770F0000 - 0x7714C000	(C:\WINDOWS\SYSTEM32\WS2_32.dll)
+NSI.dll	A: 0x748E0000 - 0x748E7000	(C:\WINDOWS\SYSTEM32\NSI.dll)
+WINMM.dll	A: 0x74180000 - 0x741A4000	(C:\WINDOWS\SYSTEM32\WINMM.dll)
+WINMMBASE.dll	A: 0x74020000 - 0x74043000	(C:\WINDOWS\SYSTEM32\WINMMBASE.dll)
+cfgmgr32.dll	A: 0x74E30000 - 0x74E66000	(C:\WINDOWS\SYSTEM32\cfgmgr32.dll)
+DEVOBJ.dll	A: 0x73F40000 - 0x73F61000	(C:\WINDOWS\SYSTEM32\DEVOBJ.dll)
+IMM32.DLL	A: 0x748F0000 - 0x7491B000	(C:\WINDOWS\SYSTEM32\IMM32.DLL)
+MSCTF.dll	A: 0x74ED0000 - 0x74FF0000	(C:\WINDOWS\SYSTEM32\MSCTF.dll)
+MSVCP100.dll	A: 0x6A340000 - 0x6A3A9000	(C:\WINDOWS\SYSTEM32\MSVCP100.dll)
+MSVCR100.dll	A: 0x6A3B0000 - 0x6A46F000	(C:\WINDOWS\SYSTEM32\MSVCR100.dll)
+streamer.dll	A: 0x6A2E0000 - 0x6A33A000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\streamer.dll)
+MSVCP140.dll	A: 0x60030000 - 0x6009F000	(C:\WINDOWS\SYSTEM32\MSVCP140.dll)
+VCRUNTIME140.dll	A: 0x600A0000 - 0x600B3000	(C:\WINDOWS\SYSTEM32\VCRUNTIME140.dll)
+ucrtbase.dll	A: 0x6F5A0000 - 0x6F67C000	(C:\WINDOWS\SYSTEM32\ucrtbase.dll)
+sscanf.dll	A: 0x10000000 - 0x1000E000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\sscanf.dll)
+pawnraknet.dll	A: 0x5FFB0000 - 0x60029000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\pawnraknet.dll)
+SKY.dll	A: 0x5FF70000 - 0x5FFA2000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\SKY.dll)
+sampvoice.dll	A: 0x5F1C0000 - 0x5F216000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\sampvoice.dll)
+bass.dll	A: 0x5F160000 - 0x5F1B5000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\bass.dll)
+MSACM32.dll	A: 0x70980000 - 0x70998000	(C:\WINDOWS\SYSTEM32\MSACM32.dll)
+pawncmd.dll	A: 0x5FF30000 - 0x5FF68000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\pawncmd.dll)
+pawnregex.dll	A: 0x5F120000 - 0x5F157000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\pawnregex.dll)
+GPS.dll	A: 0x5F100000 - 0x5F116000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\GPS.dll)
+FakeOnline.dll	A: 0x5F0C0000 - 0x5F0FC000	(C:\Users\alexa\Desktop\Secrets (no ilegal no no)\hyaxe-2.0\plugins\FakeOnline.dll)
+mswsock.dll	A: 0x747B0000 - 0x747FE000	(C:\WINDOWS\system32\mswsock.dll)
+NLAapi.dll	A: 0x70D60000 - 0x70D73000	(C:\WINDOWS\system32\NLAapi.dll)
+napinsp.dll	A: 0x70C30000 - 0x70C42000	(C:\WINDOWS\system32\napinsp.dll)
+pnrpnsp.dll	A: 0x70C10000 - 0x70C26000	(C:\WINDOWS\system32\pnrpnsp.dll)
+DNSAPI.dll	A: 0x70B80000 - 0x70C04000	(C:\WINDOWS\SYSTEM32\DNSAPI.dll)
+winrnr.dll	A: 0x70B70000 - 0x70B7B000	(C:\WINDOWS\System32\winrnr.dll)
+mdnsNSP.dll	A: 0x70B40000 - 0x70B65000	(C:\Program Files (x86)\Bonjour\mdnsNSP.dll)
+Iphlpapi.DLL	A: 0x74810000 - 0x74840000	(C:\WINDOWS\SYSTEM32\Iphlpapi.DLL)
+WINNSI.DLL	A: 0x74800000 - 0x74808000	(C:\WINDOWS\SYSTEM32\WINNSI.DLL)
+bcrypt.dll	A: 0x73D00000 - 0x73D1B000	(C:\WINDOWS\SYSTEM32\bcrypt.dll)
+rasadhlp.dll	A: 0x70AE0000 - 0x70AE8000	(C:\Windows\System32\rasadhlp.dll)
+uxtheme.dll	A: 0x74720000 - 0x74795000	(C:\WINDOWS\system32\uxtheme.dll)
+PROPSYS.dll	A: 0x73690000 - 0x737D2000	(C:\WINDOWS\SYSTEM32\PROPSYS.dll)
+OLEAUT32.dll	A: 0x77150000 - 0x771E2000	(C:\WINDOWS\SYSTEM32\OLEAUT32.dll)
+cryptsp.dll	A: 0x735A0000 - 0x735B3000	(C:\WINDOWS\SYSTEM32\cryptsp.dll)

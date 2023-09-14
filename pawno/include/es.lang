@@ -1,0 +1,34 @@
+#if defined _nex_ac_lang_included
+	#endinput
+#endif
+#define _nex_ac_lang_included
+
+new
+	SUSPICION_1[] =			"[ANTI-CHEAT] Actuacion de %d ID. El codigo de motivo: %03d%s",
+	SUSPICION_2[] =			"[ANTI-CHEAT] Actuacion de IP %s. El codigo de motivo: %03d%s",
+	VERSION_WARNING[] =		"[ANTI-CHEAT] Esta version de anticheat no es adecuado para la version de servidor",
+	CFG_OPENING_ERROR[] =		"[ANTI-CHEAT] Error al crear / abrir %s!",
+
+#if defined DEBUG
+	DEBUG_CODE_1[] =		"[ANTI-CHEAT] ID %d ha superado %d los intentos de flood. Public ID: %d",
+	DEBUG_CODE_2[] =		"[ANTI-CHEAT] La version incorrecta de el %d ID. version: %s",
+	DEBUG_CODE_3[] =		"[ANTI-CHEAT] ID %d ha superado %d de las conexiones desde el 1 de direcciones IP",
+	DEBUG_CODE_4[] =		"[ANTI-CHEAT] Mala sesion en la RCON con la IP %s uso de la contrasena %s",
+	DEBUG_CODE_5[] =		"[ANTI-CHEAT] ID %d usado NOP %s",
+#endif
+
+	KICK_MSG[] =			"[ANTI-CHEAT]{F7F7F7} Fuiste expulsado - Razón: Cheats (#%03d)",
+	MAX_CONNECTS_MSG[] =		"[ANTI-CHEAT] Se ha superado el numero maximo de conexiones desde el 1 de direcciones IP.",
+	UNKNOWN_CLIENT_MSG[] =		"[ANTI-CHEAT] Esta version del cliente no es adecuada para jugar en el servidor.",
+
+	LOADED_MSG_1[] =		"[ANTI-CHEAT] Cargado",
+	LOADED_MSG_2[] =		"[ANTI-CHEAT] Version: %s",
+
+	STATS_STRING_1[] =		" Estadisticas ANTI-CHEAT",
+	STATS_STRING_2[] =		" Detectado y evitado:",
+	STATS_STRING_3[] =		"  %d los intentos de conspiraciones",
+	STATS_STRING_4[] =		"  %d intentos de intrusion",
+	STATS_STRING_5[] =		"  %d los intentos de el desmoldeo",
+	STATS_STRING_6[] =		"  %d los intentos de flood",
+	STATS_STRING_7[] =		"  %d los ataques",
+	STATS_STRING_8[] =		" Todo es descubierto y castigado %d jugadores deshonestos";

@@ -1,0 +1,26 @@
+new MarketGetTime;
+
+enum bm_info
+{
+	Float:bm_INTERIOR_X,
+	Float:bm_INTERIOR_Y,
+	Float:bm_INTERIOR_Z,
+	Float:bm_EXTERIOR_X,
+	Float:bm_EXTERIOR_Y,
+	Float:bm_EXTERIOR_Z,
+	bm_INTERIOR,
+	bm_INTERIOR_WORLD,
+	bm_ZONE_NAME[128],
+	bm_CREW_ONE,
+	bm_CREW_TWO,
+	bm_CREW_THREE,
+	Text3D:bm_LABEL,
+	Bar3D:bm_POGRESS,
+	bool:bm_ACTIVATED
+};
+new BLACK_MARKET_OBJ[][bm_info] =
+{
+	{2310.057128, -1789.786865, 1600.751953, 2071.894287, -1551.255737, 13.424154, 17, 0, "Ganton"},
+	{2164.021484, -1164.398925, -16.871662, 2355.609375, -1039.150268, 54.148437, 20, 0, "Colinas"},
+	{2164.021484, -1164.398925, -16.871662, 2494.093261, -1464.236328, 24.025127, 21, 0, "East LS"}
+};
