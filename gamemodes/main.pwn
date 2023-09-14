@@ -28463,7 +28463,7 @@ public HealthUp(playerid)
 		}
 
 		new pay_str[64];
-		if (PLAYER_WORKS[playerid][WORK_POLICE] || ACCOUNT_INFO[playerid][ac_SU] >= 2)
+		if (PLAYER_WORKS[playerid][WORK_POLICE] || ACCOUNT_INFO[playerid][ac_SU] >= 2) 
 		{
 			ShowPlayerNotification(playerid, "No se te ha cobrado por ser VIP", 4);
 		}
