@@ -691,7 +691,7 @@ static Prev_UpdateListitems(playerid, page, selected, totalItems) {
 	}
 
 	new string[16];
- 	format(string, sizeof string, "PAG: %i/%i", (page + 1), Prev_GetNumPages(playerid));
+ 	format(string, sizeof string, "PAGE: %i/%i", (page + 1), Prev_GetNumPages(playerid));
 	PlayerTextDrawSetString(playerid, Prev@PageNumberPTD[playerid], string);
 }
 

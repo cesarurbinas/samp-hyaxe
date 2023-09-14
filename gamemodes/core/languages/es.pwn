@@ -98,3 +98,66 @@ new OSBORN_RANKS[][] =
 	/* 8 */ "Don",
 	/* 9 */ "Capo di tutti capo"
 };
+
+TextToSpanish(const string[])
+{
+    new result_text[1024],
+        ASCII,
+        Len;
+
+    for (Len = strlen(string); ASCII < Len; ASCII ++)
+    {
+        switch (string[ASCII])
+        {
+            case 'à':   result_text[ASCII] = 151;
+            case 'á':   result_text[ASCII] = 152;
+            case 'â':   result_text[ASCII] = 153;
+            case 'ä':   result_text[ASCII] = 154;
+            case 'À':   result_text[ASCII] = 128;
+            case 'Á':   result_text[ASCII] = 129;
+            case 'Â':   result_text[ASCII] = 130;
+            case 'Ä':   result_text[ASCII] = 131;
+            case 'è':   result_text[ASCII] = 157;
+            case 'é':   result_text[ASCII] = 158;
+            case 'ê':   result_text[ASCII] = 159;
+            case 'ë':   result_text[ASCII] = 160;
+            case 'È':   result_text[ASCII] = 134;
+            case 'É':   result_text[ASCII] = 135;
+            case 'Ê':   result_text[ASCII] = 136;
+            case 'Ë':   result_text[ASCII] = 137;
+            case 'ì':   result_text[ASCII] = 161;
+            case 'í':   result_text[ASCII] = 162;
+            case 'î':   result_text[ASCII] = 163;
+            case 'ï':   result_text[ASCII] = 164;
+            case 'Ì':   result_text[ASCII] = 138;
+            case 'Í':   result_text[ASCII] = 139;
+            case 'Î':   result_text[ASCII] = 140;
+            case 'Ï':   result_text[ASCII] = 141;
+            case 'ò':   result_text[ASCII] = 165;
+            case 'ó':   result_text[ASCII] = 166;
+            case 'ô':   result_text[ASCII] = 167;
+            case 'ö':   result_text[ASCII] = 168;
+            case 'Ò':   result_text[ASCII] = 142;
+            case 'Ó':   result_text[ASCII] = 143;
+            case 'Ô':   result_text[ASCII] = 144;
+            case 'Ö':   result_text[ASCII] = 145;
+            case 'ù':   result_text[ASCII] = 169;
+            case 'ú':   result_text[ASCII] = 170;
+            case 'û':   result_text[ASCII] = 171;
+            case 'ü':   result_text[ASCII] = 172;
+            case 'Ù':   result_text[ASCII] = 146;
+            case 'Ú':   result_text[ASCII] = 147;
+            case 'Û':   result_text[ASCII] = 148;
+            case 'Ü':   result_text[ASCII] = 149;
+            case 'ñ':   result_text[ASCII] = 174;
+            case 'Ñ':   result_text[ASCII] = 173;
+            case '¡':   result_text[ASCII] = 64;
+            case '¿':   result_text[ASCII] = 175;
+            case '`':   result_text[ASCII] = 177;
+            case '#':   result_text[ASCII] = 35;
+            case '&':   result_text[ASCII] = 38;
+            default:    result_text[ASCII] = string[ASCII];
+        }
+    }
+    return result_text;
+}
