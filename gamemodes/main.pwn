@@ -25923,7 +25923,7 @@ CheckBlockedWeapon(playerid, weapon_ip)
 				case 31, 29, 23, 34, 24, 27, 30: blocked = true;
 			}
 
-			if (blocked)
+			/*if (blocked)
 			{
 				ResetPlayerWeaponsEx(playerid);
 
@@ -25936,7 +25936,7 @@ CheckBlockedWeapon(playerid, weapon_ip)
 		    
 		    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
 		    	KickEx(playerid, 500);
-		  	}
+		  	}*/
 		}
 	}
  	return 1;
