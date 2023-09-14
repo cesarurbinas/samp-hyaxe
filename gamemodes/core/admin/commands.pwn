@@ -2526,7 +2526,7 @@ CMD:rproperty(playerid, params[])
 CMD:eproperty(playerid, params[])
 {
 	new id_property, new_int;
-	if (sscanf(params, "dddddd", id_property, new_int, PLAYER_TEMP[playerid][py_PROPERTY_CINFO][0], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][1], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][2], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][3])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /eproperty <id> <interior> <nivel> <precio> <VIP level> <hycoins>");
+	if (sscanf(params, "dddddd", id_property, new_int, PLAYER_TEMP[playerid][py_PROPERTY_CINFO][0], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][1], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][2], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][3])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /eproperty <id> <interior> <nivel> <precio> <VIP level> <vulcoins>");
 	if (id_property <= 0) return SendClientMessage(playerid, COLOR_WHITE, "ID no válida.");
 
 	new index = GetPropertyIndexByID(id_property);
@@ -2578,7 +2578,7 @@ CMD:cproperty(playerid, params[])
 {
 	if (TOTAL_PROPERTIES_LOADED >= MAX_PROPERTIES) return SendClientMessage(playerid, COLOR_WHITE, "Límite alcanzado.");
 
-	if (sscanf(params, "dddd", PLAYER_TEMP[playerid][py_PROPERTY_CINFO][0], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][1], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][2], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][3])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /cproperty <nivel> <precio> <level> <hycoins>");
+	if (sscanf(params, "dddd", PLAYER_TEMP[playerid][py_PROPERTY_CINFO][0], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][1], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][2], PLAYER_TEMP[playerid][py_PROPERTY_CINFO][3])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /cproperty <nivel> <precio> <level> <vulcoins>");
 
 	GetPlayerPos(playerid, PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_X], PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_Y], PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_Z]);
 	GetPlayerFacingAngle(playerid, PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_ANG]);
@@ -3407,7 +3407,7 @@ CMD:dlply(playerid, params[])
 
 	new string[250];
 	format(string, sizeof(string), ""COL_YELLOW"Velocidad: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_YELLOW"Posición: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_YELLOW"Ping: "COL_WHITE"%d\n"COL_YELLOW"PacketLoss: "COL_WHITE"%0.2f", vx, vy, vz, x, y, z, GetPlayerPing(toply), NetStats_PacketLossPercent(toply));
-	PLAYER_TEMP[playerid][py_DL_LABEL] = CreateDynamic3DTextLabel(string, 0xFFFFFFFF, 0.0, 0.0, -0.5, 15.0, .attachedplayer = toply, .testlos = 1, .playerid = playerid);
+	PLAYER_TEMP[playerid][py_DL_LABEL] = CreateDynamic3DTextLabel(string, COLOR_WHITE, 0.0, 0.0, -0.5, 15.0, .attachedplayer = toply, .testlos = 1, .playerid = playerid);
 	PLAYER_TEMP[playerid][py_DL_TIMER] = SetTimerEx("UpdateLabel", 1000, true, "dd", playerid, toply);
 	Streamer_Update(playerid);
 

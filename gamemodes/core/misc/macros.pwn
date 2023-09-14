@@ -18,7 +18,7 @@
 #define MAX_SU_VOBJECTS 		10
 
 // Coin
-#define SERVER_COIN 			"Hycoins"
+#define SERVER_COIN 			"Vulcoins"
 
 // Needs
 #define INTERVAL_HUNGRY_THIRST_DOWN     2 // 2 segundos de timer

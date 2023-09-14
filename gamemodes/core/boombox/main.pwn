@@ -54,8 +54,8 @@ UpdateBoombox(id, bool:ispublic)
 {
 	if(!BOOMBOX[id][bb_VALID]) return 0;
 	BOOMBOX[id][bb_PUBLIC] = ispublic;
-	if(ispublic) UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_YELLOW"Parlante de %s (ID %d)\n"COL_WHITE"Público: "COL_YELLOW"Sí", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME], id));
-	else UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_YELLOW"Parlante de %s (ID %d)\n"COL_WHITE"Público: "COL_RED"No", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME], id));
+	if(ispublic) UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], COLOR_WHITE, sprintf(""COL_YELLOW"Parlante de %s (ID %d)\n"COL_WHITE"Público: "COL_YELLOW"Sí", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME], id));
+	else UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], COLOR_WHITE, sprintf(""COL_YELLOW"Parlante de %s (ID %d)\n"COL_WHITE"Público: "COL_RED"No", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME], id));
 	return 1;
 }
 

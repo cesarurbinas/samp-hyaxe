@@ -10,14 +10,14 @@ public OnFilterScriptInit()
     #include "filterscripts/maps/cryptomine.pwn"
     #include "filterscripts/maps/porn_studio.pwn"
     #include "filterscripts/maps/cyber.pwn"
-    #include "filterscripts/maps/fsb_base.pwn"
-    #include "filterscripts/maps/diviso_base.pwn"
-    #include "filterscripts/maps/connor_base.pwn"
-    #include "filterscripts/maps/osborn_base.pwn"
-    #include "filterscripts/maps/chernobyl.pwn"
+    //#include "filterscripts/maps/fsb_base.pwn"
+    //#include "filterscripts/maps/diviso_base.pwn"
+    //#include "filterscripts/maps/connor_base.pwn"
+    //#include "filterscripts/maps/osborn_base.pwn"
+    //#include "filterscripts/maps/chernobyl.pwn"
     #include "filterscripts/maps/bar1.pwn"
     #include "filterscripts/maps/random.pwn"
-    #include "filterscripts/maps/mfb_base.pwn"
+    //#include "filterscripts/maps/mfb_base.pwn"
     #include "filterscripts/maps/atom_island.pwn"
     #include "filterscripts/maps/mano_base.pwn"
     #include "filterscripts/maps/spawn.pwn"
@@ -1060,7 +1060,7 @@ public OnFilterScriptInit()
     CreateDynamicObject(5822, 1581.4685, -1673.4074, 22.0448, 0.0000, 0.0000, -175.7001); //lhroofst14
     
     //base mc maik
-    CreateDynamicObject(8040, -228.65916, -2138.97583, 29.18840,   0.00000, 0.00000, -170.00000);
+    /*CreateDynamicObject(8040, -228.65916, -2138.97583, 29.18840,   0.00000, 0.00000, -170.00000);
     CreateDynamicObject(2774, -187.19479, -2149.71509, 15.33630,   0.00000, 0.00000, 14.00000);
     CreateDynamicObject(2774, -212.36911, -2153.46777, 15.12387,   0.00000, 0.00000, 14.00000);
     CreateDynamicObject(987, -271.35574, -2126.29272, 28.78419,   0.00000, 0.00000, 11.00000);
@@ -1412,7 +1412,7 @@ public OnFilterScriptInit()
     CreateDynamicObject(19127, -280.62253, -2171.82568, 28.15675,   0.00000, 0.00000, 18.00000);
     CreateDynamicObject(19123, -280.08298, -2171.69824, 28.16328,   0.00000, 0.00000, 0.00000);
     CreateVehicle(468, -229.7331, -2208.4775, 28.8687, 0.0000, -1, -1, 100);
-    CreateVehicle(468, -228.2308, -2208.3472, 28.8687, 0.0000, -1, -1, 100);
+    CreateVehicle(468, -228.2308, -2208.3472, 28.8687, 0.0000, -1, -1, 100);*/
 
     // mafia natalia intee
     tmpobjid = CreateDynamicObject(19379, 3858.307617, -1269.661743, 7546.897460, 0.000000, 90.000000, 90.000000, object_world, object_int, -1, 300.00, 300.00); 
@@ -15970,11 +15970,11 @@ public OnPlayerConnect(playerid)
     // RemoveBuildingForPlayer(playerid, 733, 778.2109, -1207.2031, 13.5391, 0.25);
 
     // Nahuel
-    RemoveBuildingForPlayer(playerid, 3737, 169.2969, -1332.3438, 71.5938, 0.25);
+    /*RemoveBuildingForPlayer(playerid, 3737, 169.2969, -1332.3438, 71.5938, 0.25);
     RemoveBuildingForPlayer(playerid, 3604, 169.2969, -1332.3438, 71.5938, 0.25);
     RemoveBuildingForPlayer(playerid, 700, 223.2656, -1369.0938, 52.3438, 0.25);
     RemoveBuildingForPlayer(playerid, 762, 209.5547, -1318.4922, 74.6016, 0.25);
-    RemoveBuildingForPlayer(playerid, 671, 160.0703, -1283.3281, 69.3203, 0.25);
+    RemoveBuildingForPlayer(playerid, 671, 160.0703, -1283.3281, 69.3203, 0.25);*/
     
     // Cyber
     RemoveBuildingForPlayer(playerid, 1412, 1906.770, -1797.420, 13.812, 0.250);
@@ -15993,7 +15993,7 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 1412, 1951.609, -1821.130, 13.812, 0.250);
 
     // Diviso
-    RemoveBuildingForPlayer(playerid, 4917, 1145.9531, -2037.0000, 65.5156, 0.25);
+    /*RemoveBuildingForPlayer(playerid, 4917, 1145.9531, -2037.0000, 65.5156, 0.25);
     RemoveBuildingForPlayer(playerid, 4920, 1224.4297, -2037.0078, 62.9297, 0.25);
     RemoveBuildingForPlayer(playerid, 4987, 1102.9141, -2036.9844, 76.6875, 0.25);
     RemoveBuildingForPlayer(playerid, 1530, 1118.9063, -2008.2422, 75.0234, 0.25);
@@ -16107,7 +16107,7 @@ public OnPlayerConnect(playerid)
 
     // MFB
     RemoveBuildingForPlayer(playerid, 1297, 2853.3898, -1789.7299, 13.0625, 0.10); // lamppost1
-    RemoveBuildingForPlayer(playerid, 1297, 2833.3000, -1593.1800, 13.3281, 0.10); // lamppost1
+    RemoveBuildingForPlayer(playerid, 1297, 2833.3000, -1593.1800, 13.3281, 0.10); // lamppost1*/
 
     // Taller temple
     RemoveBuildingForPlayer(playerid, 5849, 1046.6797, -935.1953, 46.9922, 0.25);
@@ -16118,7 +16118,7 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 5848, 1046.6797, -935.1953, 46.9922, 0.25);
 
     // Base mc maik
-    RemoveBuildingForPlayer(playerid, 3276, -300.9375, -2148.4219, 28.3203, 0.25);
+    /*RemoveBuildingForPlayer(playerid, 3276, -300.9375, -2148.4219, 28.3203, 0.25);
     RemoveBuildingForPlayer(playerid, 3276, -297.1875, -2141.5703, 28.3203, 0.25);
     RemoveBuildingForPlayer(playerid, 705, -220.5391, -2281.0156, 27.3906, 0.25);
     RemoveBuildingForPlayer(playerid, 705, -208.9766, -2306.9531, 27.8906, 0.25);
@@ -16156,7 +16156,7 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 620, 746.4922, -1303.4141, 11.6719, 0.25);
     RemoveBuildingForPlayer(playerid, 620, 760.4531, -1304.1328, 12.2813, 0.25);
     RemoveBuildingForPlayer(playerid, 620, 782.3438, -1277.8359, 12.2031, 0.25);
-    RemoveBuildingForPlayer(playerid, 620, 783.0625, -1245.7969, 12.5938, 0.25);
+    RemoveBuildingForPlayer(playerid, 620, 783.0625, -1245.7969, 12.5938, 0.25);*/
 
 	// Heix
 	RemoveBuildingForPlayer(playerid, 3578, 2526.4297, -2561.3047, 13.1719, 0.25);
@@ -16273,9 +16273,10 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 785, 438.1409, -628.6480, 26.8593, 0.10); // LOD Model of vbg_fir_copse
 
 	// Conce
-	RemoveBuildingForPlayer(playerid, 6409, 607.695, -1768.851, 15.234, 0.250);
+	/*RemoveBuildingForPlayer(playerid, 6409, 607.695, -1768.851, 15.234, 0.250);
 	RemoveBuildingForPlayer(playerid, 6406, 607.695, -1768.851, 15.234, 0.250);
-	RemoveBuildingForPlayer(playerid, 1308, 592.695, -1753.062, 13.750, 0.250);
+	RemoveBuildingForPlayer(playerid, 1308, 592.695, -1753.062, 13.750, 0.250);*/
+
 	// Pescador
 	RemoveBuildingForPlayer(playerid, 933, 2159.409, -93.921, 1.804, 0.250);
 	RemoveBuildingForPlayer(playerid, 933, 2158.110, -94.140, 2.296, 0.250);
@@ -19447,7 +19448,7 @@ stock CreateCollisions()
     CA_CreateObject(2774, -187.19479, -2149.71509, 15.33630,   0.00000, 0.00000, 14.00000);
 
     // Base mc maik
-    CA_CreateObject(2774, -212.36911, -2153.46777, 15.12387,   0.00000, 0.00000, 14.00000);
+    /*CA_CreateObject(2774, -212.36911, -2153.46777, 15.12387,   0.00000, 0.00000, 14.00000);
     CA_CreateObject(5822, 1600.0332, -1634.6904, 13.6148, 0.0000, 0.0000, -85.7999);
     CA_CreateObject(987, -271.35574, -2126.29272, 28.78419,   0.00000, 0.00000, 11.00000);
     CA_CreateObject(987, -247.92741, -2121.84424, 28.87177,   0.00000, 0.00000, 11.00000);
@@ -19794,7 +19795,7 @@ stock CreateCollisions()
     CA_CreateObject(18649, -267.51160, -2153.32007, 28.61930,   0.00000, 0.00000, 100.00000);
     CA_CreateObject(19967, -319.55801, -2083.09790, 25.52990,   0.00000, 0.00000, -165.00000);
     CA_CreateObject(19127, -280.62253, -2171.82568, 28.15675,   0.00000, 0.00000, 18.00000);
-    CA_CreateObject(19967, -279.68301, -2171.01465, 27.22080,   0.00000, 0.00000, -166.00000);
+    CA_CreateObject(19967, -279.68301, -2171.01465, 27.22080,   0.00000, 0.00000, -166.00000);*/
 
     // Globo
     CA_CreateObject(16337, -372.6110, -1634.1915, 24.2311, 0.0000, 0.0000, -178.2001);

@@ -54,6 +54,8 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 #define COLOR_WHITE 0xD3D3D3FF
 #define COL_WHITE "{D3D3D3}"
 
+#define COLOR_TRACING 0xC22727FF
+
 #define COLOR_ORANGE 0xDD6A4DFF
 #define COL_ORANGE "{DD6A4D}"
 

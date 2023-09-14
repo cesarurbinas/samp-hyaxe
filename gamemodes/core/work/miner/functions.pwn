@@ -77,7 +77,7 @@ PayPlayerMiner(playerid)
 	PLAYER_SKILLS[playerid][WORK_MINER] ++;
 	SavePlayerSkills(playerid);
 
-	if (random(2) == 1) GivePlayerReputation(playerid);
+	if (random(100) < 15) GivePlayerReputation(playerid);
 	return 1;
 }
 

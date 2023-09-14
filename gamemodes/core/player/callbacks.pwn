@@ -926,7 +926,7 @@ public StartVehicleEngine(playerid, vehicleid)
 	{
 		StopAudioStreamForPlayer(playerid);
 		
-		if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 5) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_5.mp3");
+		//if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 5) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_5.mp3");
 		PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 6;
 
 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
@@ -1815,7 +1815,7 @@ public OnPlayerSpawn(playerid)
 			SetPlayerToys(playerid);
 			SetPlayerArmedWeapon(playerid, 0);
 			SetPlayerNormalColor(playerid);
-			SetTracingColor(playerid, COLOR_YELLOW);
+			SetTracingColor(playerid, COLOR_TRACING);
 			PreloadAnims(playerid);
 
 			if (PLAYER_CREW[playerid][player_crew_VALID])
@@ -2450,6 +2450,7 @@ public OnPlayerText(playerid, text[])
 
 			//Do code
 			ReplaceStringByRegex(str_text, "\\[(.*?)\\]", "{dbc766}[$1]{E6E6E6}", str_text);
+			ReplaceStringByRegex(str_text, "\\*(.*?)\\*", "{dbc766}*$1*{E6E6E6}", str_text);
 
 			// Send message
 			ProxDetector(playerid, 15.0, str_text, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5, 85);
@@ -3281,7 +3282,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Trabajos");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Los trabajos es un sistema en el que los jugadores pueden obtener recompensas, como dinero, hycoins, entre otros. Llevando a cabo diversas tareas, como picar, recoger basura, transportar cargas, etc. Esto dependerá del trabajo que elija, puede ser basurero, cosechador, pescador, minero o un trabajo especial como la policía, pero para esto debe postularse en ~y~foro.vulcan-roleplay.com~w~, solo cuando las aplicaciones estén abiertas. Cuando consigas un trabajo, renunciarás automáticamente a todos los otros, a menos que sean especiales (como policía), cuanto más trabajes, más experiencia tendrás, con más experiencia podrás desbloquear pagos más altos. También puedes comprar una membresía VIP en ~y~www.vulcan-roleplay.com/store~w~ con la cual vas a desbloquear pagas extras."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Los trabajos es un sistema en el que los jugadores pueden obtener recompensas, como dinero, vulcoins, entre otros. Llevando a cabo diversas tareas, como picar, recoger basura, transportar cargas, etc. Esto dependerá del trabajo que elija, puede ser basurero, cosechador, pescador, minero o un trabajo especial como la policía, pero para esto debe postularse en ~y~foro.vulcan-roleplay.com~w~, solo cuando las aplicaciones estén abiertas. Cuando consigas un trabajo, renunciarás automáticamente a todos los otros, a menos que sean especiales (como policía), cuanto más trabajes, más experiencia tendrás, con más experiencia podrás desbloquear pagos más altos. También puedes comprar una membresía VIP en ~y~www.vulcan-roleplay.com/store~w~ con la cual vas a desbloquear pagas extras."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3699,14 +3700,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 									{
 										case 4:
 										{
-											new DB_Query[164], hycoins = minrand(1, 5);
+											new DB_Query[164], vulcoins = minrand(1, 5);
 
-											ACCOUNT_INFO[playerid][ac_SD] += hycoins;
+											ACCOUNT_INFO[playerid][ac_SD] += vulcoins;
 
 											format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 											db_free_result(db_query(Database, DB_Query));
 
-											format(DB_Query, sizeof(DB_Query), "~g~[HYCOINS]~w~ Has encontrado %d Hycoins", hycoins);
+											format(DB_Query, sizeof(DB_Query), "~g~[VULCOINS]~w~ Has encontrado %d Vulcoins", vulcoins);
 											ShowPlayerMessage(playerid, DB_Query, 4);
 										}
 										default:
@@ -5221,15 +5222,15 @@ public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 			    GetPlayerPos(playerid, x, y, z);
 			    SetPlayerPos(playerid, x, y, z - 1);
 
-			    new is_hycoin_best = minrand(0, 50);
-			    if (is_hycoin_best == 38)
+			    new is_vulcoin_best = minrand(0, 50);
+			    if (is_vulcoin_best == 38)
 			    {
 			    	new 
-			    		random_hycoin = minrand(1, 3),
+			    		random_vulcoin = minrand(1, 3),
 			    		coin_text[64];
 
-			    	ACCOUNT_INFO[playerid][ac_SD] += random_hycoin;
-			    	format(coin_text, sizeof(coin_text), "Acabas de ganar %d Hycoins.", random_hycoin);
+			    	ACCOUNT_INFO[playerid][ac_SD] += random_vulcoin;
+			    	format(coin_text, sizeof(coin_text), "Acabas de ganar %d Vulcoins.", random_vulcoin);
 			    	ShowPlayerNotification(playerid, coin_text, 4);
 					new DB_Query[128];
 					format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
@@ -5727,7 +5728,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 					if (PLAYER_TEMP[playerid][py_NOFUEL_ALERTS] >= 3)
 						Anticheat_Ban(playerid, "Vehicle Fuel");
 				}
-				case CHEAT_AMMO, CHEAT_JETPACK, CHEAT_TEXT_SPAMMER, CHEAT_COMMAND_SPAMMER, CHEAT_STATE_SPAMMER, CHEAT_DEATH_SPAMMER: Anticheat_Ban(playerid, ac_Info[cheat][ac_Name]);
+				case CHEAT_AMMO, CHEAT_JETPACK, CHEAT_TEXT_SPAMMER, CHEAT_COMMAND_SPAMMER, CHEAT_DEATH_SPAMMER: Anticheat_Ban(playerid, ac_Info[cheat][ac_Name]);
 				default: Anticheat_Kick(playerid, ac_Info[cheat][ac_Name]);
 			}
 		}
@@ -5872,7 +5873,7 @@ public ContinuePlayerIntro(playerid, step)
 		{
 			StopAudioStreamForPlayer(playerid);
 
-			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 1) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_1.mp3");
+			//if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 1) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_1.mp3");
 			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 2;
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
@@ -5881,7 +5882,7 @@ public ContinuePlayerIntro(playerid, step)
 		{
 			StopAudioStreamForPlayer(playerid);
 			
-			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 6) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_6.mp3");
+			//if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 6) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_6.mp3");
 			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 7;
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
@@ -5890,7 +5891,7 @@ public ContinuePlayerIntro(playerid, step)
 		case 4:
 		{
 			StopAudioStreamForPlayer(playerid);
-			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 7) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_7.mp3");
+			//if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 7) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_7.mp3");
 			PLAYER_TEMP[playerid][py_TUTORIAL] = false;
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
@@ -5900,7 +5901,7 @@ public ContinuePlayerIntro(playerid, step)
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 			StopAudioStreamForPlayer(playerid);
 
-			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 4) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_4.mp3");
+			//if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 4) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_4.mp3");
 			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 5;
 		}
 
@@ -5968,7 +5969,7 @@ public OnIncomingRPC(playerid, rpcid, BitStream:bs)
 
 CMD:alerttest(playerid, params[])
 {
-	ShowActionForPlayer(playerid, ActionTest, "¿Estás seguro de darle todos tus Hycoins Motumbo_Fiumba (ID: 422)?", .action_time = 10000);
+	ShowActionForPlayer(playerid, ActionTest, "¿Estás seguro de darle todos tus Vulcoins Motumbo_Fiumba (ID: 422)?", .action_time = 10000);
 	return 1;
 }
 

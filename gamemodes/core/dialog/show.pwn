@@ -7,7 +7,7 @@ ShowDialog(playerid, dialogid)
 	{
 		case DIALOG_REGISTER:
 		{
-			new dialog[280];
+			new dialog[364];
 			format(dialog, sizeof dialog, ""COL_WHITE"\
 				Bienvenido, "COL_DARK_BLUE"%s"COL_WHITE".\n\n\
 				Esta cuenta aún "COL_ORANGE"no está registrada"COL_WHITE", ingrese\n\
@@ -619,7 +619,7 @@ ShowDialog(playerid, dialogid)
 			if (PLAYER_TEMP[playerid][py_TUTORIAL])
 			{
 				StopAudioStreamForPlayer(playerid);
-				if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 3) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_3.mp3");
+				//if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 3) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_3.mp3");
 				PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 4;
 			}
 
@@ -1641,7 +1641,7 @@ ShowDialog(playerid, dialogid)
 
 				"\
 					"COL_WHITE"El VIP es una suscripción para obtener beneficios, puedes comprarlo con 12 "SERVER_COIN".\n\
-					Si quieres adquirir "SERVER_COIN" puedes comprar en "COL_YELLOW"www.hyaxe.com/hycoin"COL_WHITE" o comprándole a otro usuario.\n\n\
+					Si quieres adquirir "SERVER_COIN" puedes comprar en "COL_YELLOW"www.hyaxe.com/vulcoin"COL_WHITE" o comprándole a otro usuario.\n\n\
 					"COL_YELLOW"Ventajas del VIP:\n\
 					"COL_WHITE"- Tener 6 vehículos.\n\
 					"COL_WHITE"- Tener 10 accesorios.\n\
@@ -3194,9 +3194,9 @@ ShowDialog(playerid, dialogid)
 			"Comprar", "Cerrar");
     		return 1;
     	}
-    	case DIALOG_SELL_HYCOIN:
+    	case DIALOG_SELL_VULCOIN:
     	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_YELLOW"Canjear HyCoins", ""COL_WHITE"Ingrese la cantiad de HyCoins a vender, cada una\n\
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_YELLOW"Canjear vulcoins", ""COL_WHITE"Ingrese la cantiad de vulcoins a vender, cada una\n\
     			vale en el mercado: "COL_GREEN"$150.000"COL_WHITE".", "Canjear", "Atrás");
     		return 1;
     	}
@@ -3669,7 +3669,7 @@ ShowDialog(playerid, dialogid)
     		for(new i = 0; i != sizeof COLOR_INFO; i ++)
     		{
     			new line[144];
-    			format(line, sizeof(line), "%s%s\t"COL_GREEN"10 Hycoins\n", COLOR_INFO[i][color_HEX], COLOR_INFO[i][color_NAME]);
+    			format(line, sizeof(line), "%s%s\t"COL_GREEN"10 Vulcoins\n", COLOR_INFO[i][color_HEX], COLOR_INFO[i][color_NAME]);
     			strcat(dialog, line);
     		}
 
@@ -3682,7 +3682,7 @@ ShowDialog(playerid, dialogid)
     		for(new i = 0; i != sizeof COLOR_INFO; i ++)
     		{
     			new line[144];
-    			format(line, sizeof(line), "%s%s\t"COL_GREEN"10 Hycoins\n", COLOR_INFO[i][color_HEX], COLOR_INFO[i][color_NAME]);
+    			format(line, sizeof(line), "%s%s\t"COL_GREEN"10 Vulcoins\n", COLOR_INFO[i][color_HEX], COLOR_INFO[i][color_NAME]);
     			strcat(dialog, line);
     		}
 

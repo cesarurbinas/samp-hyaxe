@@ -706,7 +706,7 @@ CMD:vender(playerid, params[])
 	if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2", 2);
 
 	new option[24], to_playerid, extra, price;
-	if (sscanf(params, "s[24]udd", option, to_playerid, extra, price)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender hycoins <id> <cantidad> <precio>");
+	if (sscanf(params, "s[24]udd", option, to_playerid, extra, price)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender vulcoins <id> <cantidad> <precio>");
 
 	if (price <= 0 || price > 10000000) return ShowPlayerMessage(playerid, "~r~El precio no es válido.", 3);
 	if (!IsPlayerConnected(to_playerid)) return ShowPlayerMessage(playerid, "~r~El jugador no está conectado", 3);
@@ -728,7 +728,7 @@ CMD:vender(playerid, params[])
 	PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] = extra;
 	PLAYER_TEMP[to_playerid][py_TRICK_TIME] = gettime();
 
-	if (!strcmp(option, "hycoins", true))
+	if (!strcmp(option, "vulcoins", true))
 	{
 		if (PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] <= 0 || PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta", 3);
 		if (PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] > ACCOUNT_INFO[playerid][ac_SD]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad", 3);
@@ -743,14 +743,14 @@ CMD:vender(playerid, params[])
 			extra,
 			price
 		);
-		ShowActionForPlayer(to_playerid, HYCOIN_SELL, str_text, .action_time = 10000);
+		ShowActionForPlayer(to_playerid, VULCOIN_SELL, str_text, .action_time = 10000);
 		return 1;
 	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender hycoins <id> <cantidad> <precio>");
+	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender vulcoins <id> <cantidad> <precio>");
 	return 1;
 }
 
-Action:HYCOIN_SELL(playerid, response)
+Action:VULCOIN_SELL(playerid, response)
 {
 	if (response == ACTION_RESPONSE_YES)
 	{
@@ -782,11 +782,11 @@ Action:HYCOIN_SELL(playerid, response)
 
 		GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
 		GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-		ShowPlayerNotification(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], sprintf("Has vendido %d hycoins.", PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA]), 5);
+		ShowPlayerNotification(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], sprintf("Has vendido %d vulcoins.", PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA]), 5);
 		SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 		new str_text[164];
-		format(str_text, sizeof(str_text), "%s (%d) le ha vendido %d hycoins a %s (%d) al precio de %d$.",
+		format(str_text, sizeof(str_text), "%s (%d) le ha vendido %d vulcoins a %s (%d) al precio de %d$.",
 			PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_NAME],
 			PLAYER_TEMP[playerid][py_TRICK_SELLER_PID],
 			PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
@@ -794,7 +794,7 @@ Action:HYCOIN_SELL(playerid, response)
 			playerid,
 			PLAYER_TEMP[playerid][py_TRICK_PRICE]
 		);
-		Log("hycoin_sell", str_text);
+		Log("vulcoin_sell", str_text);
 	}
 	else
 	{

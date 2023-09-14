@@ -8,14 +8,14 @@ public OnGameModeInit()
 
 	// Información
 	CreateDynamicPickup(1275, 1, -1932.7006, -2454.7651, 30.7005);
-	CreateDynamic3DTextLabel(""COL_YELLOW"Armario del aserradero\n"COL_WHITE"Usa "COL_YELLOW"Y"COL_WHITE" para ponerte en servicio.", 0xFFFFFFFF, -1932.7006, -2454.7651, 30.7005, 10.0, .testlos = true);
+	CreateDynamic3DTextLabel(""COL_YELLOW"Armario del aserradero\n"COL_WHITE"Usa "COL_YELLOW"Y"COL_WHITE" para ponerte en servicio.", COLOR_WHITE, -1932.7006, -2454.7651, 30.7005, 10.0, .testlos = true);
 
 	// Cinta transportadora
 	CreateDynamicPickup(1318, 1, -1989.2733, -2383.7856, 30.6250);
-	CreateDynamic3DTextLabel(""COL_YELLOW"Cinta transportadora\n"COL_WHITE"Usa "COL_YELLOW"Y"COL_WHITE" para soltar tus troncos y recibir tu paga", 0xFFFFFFFF, -1989.2733, -2383.7856, 30.6250, 10.0, .testlos = true);
+	CreateDynamic3DTextLabel(""COL_YELLOW"Cinta transportadora\n"COL_WHITE"Usa "COL_YELLOW"Y"COL_WHITE" para soltar tus troncos y recibir tu paga", COLOR_WHITE, -1989.2733, -2383.7856, 30.6250, 10.0, .testlos = true);
 
 	// Stock del aserradero
-	SawmillLabel = CreateDynamic3DTextLabel(sprintf(""COL_YELLOW"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock), 0xFFFFFFFF, -1942.0737, -2453.7593, 30.6734, 5.0);
+	SawmillLabel = CreateDynamic3DTextLabel(sprintf(""COL_YELLOW"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock), COLOR_WHITE, -1942.0737, -2453.7593, 30.6734, 5.0);
 	
 	new label[100];
 	for(new i = 0; i != sizeof(Trees); ++i)
@@ -112,7 +112,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					CA_FindZ_For2DCoord(x, y, z);
 
 					LogCarts[playerid][cart_OBJECT] = CreateDynamicObject(1458, x, y, z, 0.0, 0.0, 0.0);
-					LogCarts[playerid][cart_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_YELLOW"Carrito de %s\n"COL_WHITE"Usa "COL_YELLOW"ALT + CLICK "COL_WHITE"para agarrarlo.", ACCOUNT_INFO[playerid][ac_NAME]), 0xFFFFFFFF, x, y, z + 0.5, 5.0);
+					LogCarts[playerid][cart_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_YELLOW"Carrito de %s\n"COL_WHITE"Usa "COL_YELLOW"ALT + CLICK "COL_WHITE"para agarrarlo.", ACCOUNT_INFO[playerid][ac_NAME]), COLOR_WHITE, x, y, z + 0.5, 5.0);
 			
 					SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 					RemovePlayerAttachedObject(playerid, 1);
@@ -233,7 +233,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 					g_iSawmillStock += LogCarts[playerid][cart_AMOUNT];
 					safe_db_query(sprintf("UPDATE `SERVER_PROPERTIES` SET `SAWMILL_STOCK` = %d;", g_iSawmillStock));
-					UpdateDynamic3DTextLabelText(SawmillLabel, 0xFFFFFFFF, sprintf(""COL_YELLOW"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock));
+					UpdateDynamic3DTextLabelText(SawmillLabel, COLOR_WHITE, sprintf(""COL_YELLOW"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock));
 
 					GivePlayerCash(playerid, 150 * LogCarts[playerid][cart_AMOUNT]);
 					ShowPlayerNotification(playerid, sprintf("Procesaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 150 * LogCarts[playerid][cart_AMOUNT]), 3);

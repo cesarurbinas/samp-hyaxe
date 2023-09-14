@@ -195,7 +195,7 @@ CreateClub(const name[], const welcome[], Float:x, Float:y, Float:z, Float:angle
 
 BuyClub(playerid, index)
 {
-	if (CLUBS_INFO[index][club_PRICE] > ACCOUNT_INFO[playerid][ac_SD]) return ShowPlayerMessage(playerid, "~r~No tienes los hycoins suficientes.", 3);
+	if (CLUBS_INFO[index][club_PRICE] > ACCOUNT_INFO[playerid][ac_SD]) return ShowPlayerMessage(playerid, "~r~No tienes los vulcoins suficientes.", 3);
 	ACCOUNT_INFO[playerid][ac_SD] -= CLUBS_INFO[index][club_PRICE];
 
 	new DB_Query[264];
@@ -224,7 +224,7 @@ BuyClub(playerid, index)
 	if (PLAYER_PHONE[playerid][player_phone_VALID])
 	{
 		new message[64];
-		format(message, sizeof message, "PROPIEDAD COMPRADA: -%d HYCOINS", CLUBS_INFO[index][club_PRICE]);
+		format(message, sizeof message, "PROPIEDAD COMPRADA: -%d VULCOINS", CLUBS_INFO[index][club_PRICE]);
 		RegisterPhoneMessage(6740, PLAYER_PHONE[playerid][player_phone_NUMBER], message);
 
 		new str_buy[164];

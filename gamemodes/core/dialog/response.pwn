@@ -670,7 +670,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						StopAudioStreamForPlayer(playerid);
 						
-						if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 2)PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_2.mp3");
+						//if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 2) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_2.mp3");
 						PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 3;
 					}
 				}
@@ -1191,7 +1191,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_PRICE] > BANK_ACCOUNT[playerid][bank_account_BALANCE]) return ShowPlayerMessage(playerid, "~r~No tienes cuenta bancaria.", 2);
 				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_VIP_LEVEL] > ACCOUNT_INFO[playerid][ac_SU]) return ShowPlayerMessage(playerid, "~r~No eres VIP", 2);
-				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA] > ACCOUNT_INFO[playerid][ac_SD]) return ShowPlayerMessage(playerid, "~r~No tienes hycoins", 2);
+				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA] > ACCOUNT_INFO[playerid][ac_SD]) return ShowPlayerMessage(playerid, "~r~No tienes vulcoins", 2);
 
 				new DB_Query_update[350];
 				if (!PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA])
@@ -5727,14 +5727,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 								db_free_result(db_query(Database, DB_Query));
 
-								format(str_text, sizeof(str_text), "~g~[HYCOINS]~w~ Has canjeado %d Hycoins", extra);
+								format(str_text, sizeof(str_text), "~g~[VULCOINS]~w~ Has canjeado %d vulcoins", extra);
 								ShowPlayerMessage(playerid, str_text, 4);
 							}
 							case 4:
 							{
 								SetPlayerVip(playerid, 2, 0, extra);
 							}
-						}//0: dinero, 1: skin, 2: vip, 3: hycoins
+						}//0: dinero, 1: skin, 2: vip, 3: vulcoins
 
 						format(DB_Query, sizeof DB_Query, "UPDATE `GIFTS_CODES` SET `USED` = '1' WHERE `CODE` = '%q';", inputtext);
 						db_free_result(db_query(Database, DB_Query));
@@ -5997,7 +5997,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
-		case DIALOG_SELL_HYCOIN:
+		case DIALOG_SELL_VULCOIN:
 		{
 			if (response)
 			{
@@ -7020,15 +7020,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
      			GivePlayerReputation(playerid);
 
-     			new is_hycoin_best = minrand(0, 10);
-			    if (is_hycoin_best == 5)
+     			new is_vulcoin_best = minrand(0, 10);
+			    if (is_vulcoin_best == 5)
 			    {
 			    	new 
-			    		random_hycoin = minrand(3, 8),
+			    		random_vulcoin = minrand(3, 8),
 			    		coin_text[64];
 
-			    	ACCOUNT_INFO[playerid][ac_SD] += random_hycoin;
-			    	format(coin_text, sizeof(coin_text), "Acabas de ganar %d Hycoins.", random_hycoin);
+			    	ACCOUNT_INFO[playerid][ac_SD] += random_vulcoin;
+			    	format(coin_text, sizeof(coin_text), "Acabas de ganar %d Vulcoins.", random_vulcoin);
 			    	ShowPlayerNotification(playerid, coin_text, 4);
 					new DB_Query[128];
 					format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
@@ -7053,7 +7053,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(DB_Query, sizeof DB_Query, "UPDATE `ACCOUNTS` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 				db_free_result(db_query(Database, DB_Query));
 
-				format(str_text, sizeof(str_text), "Acabas de vender el local por ~y~%d Hycoins", extra);
+				format(str_text, sizeof(str_text), "Acabas de vender el local por ~y~%d Vulcoins", extra);
 				ShowPlayerMessage(playerid, str_text, 6);
 
 				ReleaseClub(PLAYER_TEMP[playerid][py_CLUB_INDEX]);
@@ -7155,7 +7155,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (ACCOUNT_INFO[playerid][ac_SD] < 5) return ShowPlayerMessage(playerid, "~r~No tienes los Hycoins suficientes.", 4);
+				if (ACCOUNT_INFO[playerid][ac_SD] < 5) return ShowPlayerMessage(playerid, "~r~No tienes los Vulcoins suficientes.", 4);
 				
 				ACCOUNT_INFO[playerid][ac_SD] -= 5;
 
@@ -7174,7 +7174,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (ACCOUNT_INFO[playerid][ac_SD] < 5) return ShowPlayerMessage(playerid, "~r~No tienes los Hycoins suficientes.", 4);
+				if (ACCOUNT_INFO[playerid][ac_SD] < 5) return ShowPlayerMessage(playerid, "~r~No tienes los Vulcoins suficientes.", 4);
 				
 				ACCOUNT_INFO[playerid][ac_SD] -= 5;
 

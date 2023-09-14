@@ -16,7 +16,8 @@ SendMessageToDoubtChannel(playerid, const message[])
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
 	{
-		ReplaceStringByRegex(str, "\\B@(\\w+)", "{4db6ac}@$1{F0F0F0}", str);
+		ReplaceStringByRegex(str, "\\B@(\\w+)", "{4db6ac}@$1"COL_WHITE"", str);
+		ReplaceStringByRegex(str, "\\B/(\\w+)", "{BBA256}/$1"COL_WHITE"", str);
 	}
 
 	PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();

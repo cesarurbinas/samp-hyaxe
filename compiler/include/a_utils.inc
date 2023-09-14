@@ -31,7 +31,7 @@ stock ClearPlayerChat(playerid, lines)
 {
     for(new i = 0; i < lines; i++)
     {
-        SendClientMessage(playerid, 0xFFFFFFFF, "");
+        SendClientMessage(playerid, COLOR_WHITE, "");
     }
 }
 
@@ -39,7 +39,7 @@ stock ClearChatForAll(lines)
 {
     for(new i = 0; i < lines; i++)
     {
-        SendClientMessageToAll(0xFFFFFFFF, "");
+        SendClientMessageToAll(COLOR_WHITE, "");
     }
 }
 

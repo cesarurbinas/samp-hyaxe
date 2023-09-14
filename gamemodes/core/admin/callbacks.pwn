@@ -40,7 +40,7 @@ public UpdateLabel(playerid, adminid)
 
 	new string[250];
 	format(string, sizeof(string), ""COL_YELLOW"Velocidad: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_YELLOW"Posición: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_YELLOW"Ping: "COL_WHITE"%d\n"COL_YELLOW"PacketLoss: "COL_WHITE"%0.2f", vx, vy, vz, x, y, z, GetPlayerPing(playerid), NetStats_PacketLossPercent(playerid));
-	UpdateDynamic3DTextLabelText(PLAYER_TEMP[adminid][py_DL_LABEL], 0xFFFFFFFF, string);
+	UpdateDynamic3DTextLabelText(PLAYER_TEMP[adminid][py_DL_LABEL], COLOR_WHITE, string);
 
 	return 1;
 }
