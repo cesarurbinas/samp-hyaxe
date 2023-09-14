@@ -66,6 +66,19 @@ MissionFailed(playerid)
             }
         }
     }
+
+    // Reset mission env
+    switch(PLAYER_TEMP[playerid][py_MISSION])
+	{
+		case SWEET_MISSION:
+		{
+            // Reset npc color
+            for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+            {
+                SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], PLAYER_COLOR);
+            }
+        }
+    }
 }
 
 CheckMissionPlace(playerid)

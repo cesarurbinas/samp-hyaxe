@@ -87,7 +87,6 @@ public NPC_Update()
 				}
 				else
 				{
-					SetPlayerMarkerForPlayer(forplayerid, npcid, PLAYER_COLOR);
 					SetPlayerColor(npcid, PLAYER_COLOR);
 				}
 			}
