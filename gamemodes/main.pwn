@@ -25454,125 +25454,6 @@ public OnPlayerUpdate(playerid)
 					}
 				}
 			}
-
-			new 
-				Keys,
-				ud,
-				lr,
-				Float:angle,
-				Float:pos[3]
-			;
-
-		    GetPlayerKeys(playerid, Keys, ud, lr);
-
-		    if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
-			{
-				if (PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] == false)
-				{
-					GetPlayerFacingAngle(playerid, angle);
-
-					switch(ud)
-					{
-						case KEY_UP:
-			    		{
-							SetPlayerFacingAngle(playerid, angle + 20.0);
-							ApplyAnimation(playerid, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
-							PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = true;
-							SetTimerEx("InjuredAnimationCut", 470, false, "i", playerid);
-						}
-
-						case KEY_DOWN:
-					    {
-					    	SetPlayerFacingAngle(playerid, 180);
-					    	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-					    }
-					}
-
-					switch(lr)
-					{
-						case KEY_LEFT:
-						{
-							SetPlayerFacingAngle(playerid, angle + 16.0);
-							ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-						}
-
-						case KEY_RIGHT:
-						{
-							SetPlayerFacingAngle(playerid, angle - 16.0);
-							ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-						}
-					}
-				}
-		    }
-
-		    if (PLAYER_TEMP[playerid][py_EDITING_MODE])
-		    {
-		    	switch(ud)
-		    	{
-			    	case KEY_UP:
-					{
-						if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
-						{
-							GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-							SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 0.1, pos[1], pos[2]);
-							SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-						}
-						else
-						{
-							GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-							SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 3.0, pos[1], pos[2]);
-						}
-					}
-
-					case KEY_DOWN:
-				    {
-				    	if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
-				    	{
-							GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-							SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] - 0.1, pos[1], pos[2]);
-							SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-						}
-						else
-						{
-							GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-							SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 3.0, pos[2]);
-						}
-				    }
-				}
-
-				switch(lr)
-				{
-					case KEY_LEFT:
-					{
-						if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
-						{
-							GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-							SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 0.1, pos[2]);
-							SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-						}
-						else
-						{
-							GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-							SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] - 1.5);
-						}
-					}
-
-					case KEY_RIGHT:
-					{
-						if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
-						{
-							GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-							SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] - 0.1, pos[2]);
-							SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-						}
-						else
-						{
-							GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-							SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] + 1.5);
-						}
-					}
-				}
-		    }
 		}
 
 		case PLAYER_STATE_DRIVER:
@@ -25674,6 +25555,125 @@ public OnPlayerUpdate(playerid)
 		GetVehiclePos(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][0], GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][1], GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][2]);
 		GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] = vehicle_health;
 	}
+
+	new 
+		Keys,
+		ud,
+		lr,
+		Float:angle,
+		Float:pos[3]
+	;
+
+    GetPlayerKeys(playerid, Keys, ud, lr);
+
+    if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
+	{
+		if (PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] == false)
+		{
+			GetPlayerFacingAngle(playerid, angle);
+
+			switch(ud)
+			{
+				case KEY_UP:
+	    		{
+					SetPlayerFacingAngle(playerid, angle + 20.0);
+					ApplyAnimation(playerid, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
+					PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = true;
+					SetTimerEx("InjuredAnimationCut", 470, false, "i", playerid);
+				}
+
+				case KEY_DOWN:
+			    {
+			    	SetPlayerFacingAngle(playerid, 180);
+			    	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+			    }
+			}
+
+			switch(lr)
+			{
+				case KEY_LEFT:
+				{
+					SetPlayerFacingAngle(playerid, angle + 16.0);
+					ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+				}
+
+				case KEY_RIGHT:
+				{
+					SetPlayerFacingAngle(playerid, angle - 16.0);
+					ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+				}
+			}
+		}
+    }
+
+    if (PLAYER_TEMP[playerid][py_EDITING_MODE])
+    {
+    	switch(ud)
+    	{
+	    	case KEY_UP:
+			{
+				if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+				{
+					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 0.1, pos[1], pos[2]);
+					SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+				}
+				else
+				{
+					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 3.0, pos[1], pos[2]);
+				}
+			}
+
+			case KEY_DOWN:
+		    {
+		    	if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+		    	{
+					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] - 0.1, pos[1], pos[2]);
+					SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+				}
+				else
+				{
+					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 3.0, pos[2]);
+				}
+		    }
+		}
+
+		switch(lr)
+		{
+			case KEY_LEFT:
+			{
+				if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+				{
+					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 0.1, pos[2]);
+					SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+				}
+				else
+				{
+					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] - 1.5);
+				}
+			}
+
+			case KEY_RIGHT:
+			{
+				if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+				{
+					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] - 0.1, pos[2]);
+					SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+				}
+				else
+				{
+					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] + 1.5);
+				}
+			}
+		}
+    }
 
     UpdatePlayerZoneMessages(playerid);
     CheckRobActor(playerid);

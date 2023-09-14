@@ -96,3 +96,268 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [15:33:28] [join] Pepe_Leele has joined the server (0:127.0.0.1)
 [15:34:16] [ANTI-CHEAT] Kick sobre Pepe_Leele (0): NOP Animation
 [15:34:55] [part] Pepe_Leele has left the server (0:2)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:41:26] 
+[15:41:26] Server Plugins
+[15:41:26] --------------
+[15:41:26]  Loading plugin: crashdetect.dll
+[15:41:26]   CrashDetect v4.18.1 is OK.
+[15:41:26]   Loaded.
+[15:41:26]  Loading plugin: streamer.dll
+[15:41:26] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:41:26]   Loaded.
+[15:41:26]  Loading plugin: sscanf.dll
+[15:41:27] 
+
+[15:41:27]  ===============================
+
+[15:41:27]       sscanf plugin loaded.     
+
+[15:41:27]          Version:  2.8.3        
+
+[15:41:27]   (c) 2018 Alex "Y_Less" Cole  
+
+[15:41:27]  ===============================
+
+[15:41:27]   Loaded.
+[15:41:27]  Loading plugin: pawnraknet.dll
+[15:41:27] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[15:41:27]   Loaded.
+[15:41:27]  Loading plugin: SKY.dll
+[15:41:27] 
+[15:41:27]  ===============================
+[15:41:27]    
+[15:41:27]    ## SKY - 2.1.1 ## 
+[15:41:27]    
+[15:41:27]    (c) 2008 - Present | YSF Maintainers
+[15:41:27]    (c) 2015 | Oscar "Slice" Broman
+[15:41:27]    
+[15:41:27]    Server Version: 0.3.7 R2
+[15:41:27]    Operating System: Windows
+[15:41:27]    Built on: Dec 12 2019 at 12:21:36
+[15:41:27]    
+[15:41:27]  ===============================
+[15:41:27] 
+[15:41:27]   Loaded.
+[15:41:27]  Loading plugin: sampvoice.dll
+[15:41:29] SAMPVOICE plugin v2.1 by MOR loaded
+[15:41:29]   Loaded.
+[15:41:29]  Loading plugin: pawncmd.dll
+[15:41:29] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[15:41:29]   Loaded.
+[15:41:29]  Loading plugin: pawnregex.dll
+[15:41:29] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[15:41:29]   Loaded.
+[15:41:29]  Loading plugin: GPS.dll
+[15:41:32] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[15:41:32]   Loaded.
+[15:41:32]  Loading plugin: profiler.dll
+[15:41:32]   Profiler plugin 2.15.3
+[15:41:32]   Loaded.
+[15:41:32]  Loaded 10 plugins.
+
+[15:41:33] 
+[15:41:33] Filterscripts
+[15:41:33] ---------------
+[15:41:33]   Loading filterscript 'maps.amx'...
+[15:41:36]   Loaded 1 filterscripts.
+
+[15:41:38] [ANTI-CHEAT] Cargado
+[15:41:38] [ANTI-CHEAT] Version: 1.9.46
+[15:41:38] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[15:41:38] [debug] Base de datos conectada
+[15:41:52] [debug] Lugares cargados: 38
+[15:41:55] [debug] Propiedades libres: 1681.
+[15:41:55] [debug] Propiedades totales: 1775.
+[15:41:58] [debug] Bandas cargadas: 158
+[15:41:58] [debug] Territorios totales: 13
+[15:41:59] [info: hostname] Hyaxe | Roleplay con chat de voz
+[15:41:59] [info: language] Español - Spanish
+[15:41:59] [info: website] www.hyaxe.com
+[15:41:59] [info: discord] www.hyaxe.com/discord
+[15:41:59] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 46
+
+[15:41:59] Number of vehicle models: 120
+[15:43:02] [connection] incoming connection: 127.0.0.1:62677 id: 0
+[15:43:03] [join] Pepe_Leele has joined the server (0:127.0.0.1)
+[15:46:27] [debug] Run time error 4: "Array index out of bounds"
+[15:46:27] [debug]  Attempted to read/write array element at negative index -1
+[15:46:27] [debug] AMX backtrace:
+[15:46:27] [debug] #0 001ab43c in ?? (0) from main.amx
+[15:46:27] [debug] #1 001b000c in public Menu_OnPlayerUpdate (0) from main.amx
+[15:46:27] [debug] #2 00070ebc in public AC_OnPlayerUpdate (0) from main.amx
+[15:46:27] [debug] #3 000696e0 in public WC_OnPlayerUpdate (0) from main.amx
+[15:46:27] [debug] #4 00057ec4 in public ac_OnPlayerUpdate (0) from main.amx
+[15:46:27] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:49:15] 
+[15:49:15] Server Plugins
+[15:49:15] --------------
+[15:49:15]  Loading plugin: crashdetect.dll
+[15:49:15]   CrashDetect v4.18.1 is OK.
+[15:49:15]   Loaded.
+[15:49:15]  Loading plugin: streamer.dll
+[15:49:15] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:49:15]   Loaded.
+[15:49:15]  Loading plugin: sscanf.dll
+[15:49:15] 
+
+[15:49:15]  ===============================
+
+[15:49:15]       sscanf plugin loaded.     
+
+[15:49:15]          Version:  2.8.3        
+
+[15:49:15]   (c) 2018 Alex "Y_Less" Cole  
+
+[15:49:15]  ===============================
+
+[15:49:15]   Loaded.
+[15:49:15]  Loading plugin: pawnraknet.dll
+[15:49:15] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[15:49:15]   Loaded.
+[15:49:15]  Loading plugin: SKY.dll
+[15:49:15] 
+[15:49:15]  ===============================
+[15:49:15]    
+[15:49:15]    ## SKY - 2.1.1 ## 
+[15:49:15]    
+[15:49:15]    (c) 2008 - Present | YSF Maintainers
+[15:49:15]    (c) 2015 | Oscar "Slice" Broman
+[15:49:15]    
+[15:49:15]    Server Version: 0.3.7 R2
+[15:49:15]    Operating System: Windows
+[15:49:15]    Built on: Dec 12 2019 at 12:21:36
+[15:49:15]    
+[15:49:15]  ===============================
+[15:49:15] 
+[15:49:15]   Loaded.
+[15:49:15]  Loading plugin: sampvoice.dll
+[15:49:16] SAMPVOICE plugin v2.1 by MOR loaded
+[15:49:16]   Loaded.
+[15:49:16]  Loading plugin: pawncmd.dll
+[15:49:16] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[15:49:16]   Loaded.
+[15:49:16]  Loading plugin: pawnregex.dll
+[15:49:16] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[15:49:16]   Loaded.
+[15:49:16]  Loading plugin: GPS.dll
+[15:49:18] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[15:49:18]   Loaded.
+[15:49:18]  Loading plugin: profiler.dll
+[15:49:18]   Profiler plugin 2.15.3
+[15:49:18]   Loaded.
+[15:49:18]  Loaded 10 plugins.
+
+[15:49:18] 
+[15:49:18] Filterscripts
+[15:49:18] ---------------
+[15:49:18]   Loading filterscript 'maps.amx'...
+[15:49:21]   Loaded 1 filterscripts.
+
+[15:49:24] [ANTI-CHEAT] Cargado
+[15:49:24] [ANTI-CHEAT] Version: 1.9.46
+[15:49:24] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[15:49:24] [debug] Base de datos conectada
+[15:49:34] [debug] Lugares cargados: 38
+[15:49:39] [debug] Propiedades libres: 1681.
+[15:49:39] [debug] Propiedades totales: 1775.
+[15:49:42] [debug] Bandas cargadas: 158
+[15:49:42] [debug] Territorios totales: 13
+[15:49:43] [info: hostname] Hyaxe | Roleplay en español
+[15:49:43] [info: language] Español - Spanish
+[15:49:43] [info: website] www.hyaxe.com
+[15:49:43] [info: discord] www.hyaxe.com/discord
+[15:49:43] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 46
+
+[15:49:43] Number of vehicle models: 120
+[15:50:55] [connection] incoming connection: 127.0.0.1:53425 id: 0
+[15:50:56] [join] Pepe_Leele has joined the server (0:127.0.0.1)
+[15:56:04] [Warning] db_query: Query failed: disk I/O error
+[15:57:32] [debug] Run time error 4: "Array index out of bounds"
+[15:57:32] [debug]  Attempted to read/write array element at negative index -1
+[15:57:32] [debug] AMX backtrace:
+[15:57:32] [debug] #0 001ab43c in ?? (0) from main.amx
+[15:57:32] [debug] #1 001b0004 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #2 00070ebc in public AC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #3 000696e0 in public WC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #4 00057ec4 in public ac_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] Run time error 4: "Array index out of bounds"
+[15:57:32] [debug]  Attempted to read/write array element at negative index -1
+[15:57:32] [debug] AMX backtrace:
+[15:57:32] [debug] #0 001ab43c in ?? (0) from main.amx
+[15:57:32] [debug] #1 001b0004 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #2 00070ebc in public AC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #3 000696e0 in public WC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #4 00057ec4 in public ac_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] Run time error 4: "Array index out of bounds"
+[15:57:32] [debug]  Attempted to read/write array element at negative index -1
+[15:57:32] [debug] AMX backtrace:
+[15:57:32] [debug] #0 001ab43c in ?? (0) from main.amx
+[15:57:32] [debug] #1 001b0004 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #2 00070ebc in public AC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #3 000696e0 in public WC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #4 00057ec4 in public ac_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] Run time error 4: "Array index out of bounds"
+[15:57:32] [debug]  Attempted to read/write array element at negative index -1
+[15:57:32] [debug] AMX backtrace:
+[15:57:32] [debug] #0 001ab43c in ?? (0) from main.amx
+[15:57:32] [debug] #1 001b0004 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #2 00070ebc in public AC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #3 000696e0 in public WC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #4 00057ec4 in public ac_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] Run time error 4: "Array index out of bounds"
+[15:57:32] [debug]  Attempted to read/write array element at negative index -1
+[15:57:32] [debug] AMX backtrace:
+[15:57:32] [debug] #0 001ab43c in ?? (0) from main.amx
+[15:57:32] [debug] #1 001b0004 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #2 00070ebc in public AC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #3 000696e0 in public WC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #4 00057ec4 in public ac_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] Run time error 4: "Array index out of bounds"
+[15:57:32] [debug]  Attempted to read/write array element at negative index -1
+[15:57:32] [debug] AMX backtrace:
+[15:57:32] [debug] #0 001ab43c in ?? (0) from main.amx
+[15:57:32] [debug] #1 001b0004 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #2 00070ebc in public AC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #3 000696e0 in public WC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #4 00057ec4 in public ac_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] Run time error 4: "Array index out of bounds"
+[15:57:32] [debug]  Attempted to read/write array element at negative index -1
+[15:57:32] [debug] AMX backtrace:
+[15:57:32] [debug] #0 001ab43c in ?? (0) from main.amx
+[15:57:32] [debug] #1 001b0004 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #2 00070ebc in public AC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #3 000696e0 in public WC_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #4 00057ec4 in public ac_OnPlayerUpdate (0) from main.amx
+[15:57:32] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx

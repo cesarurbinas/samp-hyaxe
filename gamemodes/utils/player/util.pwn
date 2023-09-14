@@ -166,7 +166,7 @@ SetFirstPersonPos(playerid, Float:x, Float:y, Float:z)
 	return 1;
 }
 
-bool:IsPlayerMoving(playerid)
+/*bool:IsPlayerMoving(playerid)
 {
     switch(GetPlayerAnimationIndex(playerid))
     {
@@ -174,4 +174,4 @@ bool:IsPlayerMoving(playerid)
     }
 
     return false;
-}
+}*/

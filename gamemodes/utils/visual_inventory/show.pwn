@@ -96,7 +96,7 @@ ShowInventory(playerid)
 		target_player = GetPlayerCameraTargetPlayer(playerid),
 		Float:pos[4],
 		str_text[128],
-		Float:size_items = 320.000000;
+		Float:size_items = 330.000000;
 		
 	format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
