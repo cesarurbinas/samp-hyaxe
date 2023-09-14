@@ -13442,14 +13442,12 @@ ShowDialog(playerid, dialogid)
 				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '1' LIMIT %d;", CLUBS_INFO[club][club_ID], MAX_CLUB_PRODUCTS);
 				Result = db_query(Database, DB_Query);
 
-				printf("%d", db_num_rows(Result));
 				for(new i; i < db_num_rows(Result); i++ )
 				{
 					new name[32], price;
 
 					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = db_get_field_assoc_int(Result, "ID");	
 					db_get_field_assoc(Result, "NAME", name, 32);
-					printf("%s", name);
 					price = db_get_field_assoc_int(Result, "PRICE");
 
 					new line_str[64];
@@ -21947,7 +21945,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						", CLUBS_INFO[club][club_BALANCE], club);
 						db_free_result(db_query(Database, DB_Query));
 
-						Add_Hungry_Thirst(playerid, floatround(extra), 0.0);
+						Add_Hungry_Thirst(playerid, 0.0, floatround(extra));
 
 						SetPlayerChatBubble(playerid, "\n\n\n\n* Consume comida.\n\n\n", 0xffcb90FF, 20.0, 5000);
 						ShowPlayerNotification(playerid, "Consumiendo...", 3);

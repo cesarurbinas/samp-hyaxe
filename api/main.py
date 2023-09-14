@@ -35,7 +35,7 @@ class hyDatabase(threading.Thread):
 
 
 app = Flask(__name__)
-database = hyDatabase().start()
+#database = hyDatabase().start()
 
 def IsValidKey(key):
     if key == 'I88B7B7F7Es6bKkNS9SB77svJA':
@@ -136,7 +136,8 @@ def proxy_check(ip):
         'PY',
         'SV',
         'UY',
-        'VE'
+        'VE',
+        'HN'
     ]
 
     if not address_info.get('countryCode') in whitelist:
