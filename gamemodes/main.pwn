@@ -28,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.7 Build 15"
+#define SERVER_VERSION 			"v0.7 Build 20"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -33049,9 +33049,12 @@ CountCrewPlayersInTerritory(crew_index, territory_index)
 				{
 					if (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_NORMAL && PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
 					{
-						if (IsPlayerInDynamicArea(i, TERRITORIES[territory_index][territory_AREA]))
+						if (!IsPlayerPaused(playerid))
 						{
-							count ++;
+							if (IsPlayerInDynamicArea(i, TERRITORIES[territory_index][territory_AREA]))
+							{
+								count ++;
+							}
 						}
 					}
 				}
