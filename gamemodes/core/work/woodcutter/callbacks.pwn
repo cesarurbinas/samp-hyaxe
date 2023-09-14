@@ -138,21 +138,17 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				if(PLAYER_TEMP[playerid][py_CUTTING] == -1)
 				{
 					new object = GetPlayerCameraTargetObject(playerid);
-					printf("%d", object);
 					if(object != INVALID_OBJECT_ID)
 					{
 						new index = Streamer_GetItemStreamerID(playerid, STREAMER_TYPE_OBJECT, object);
-						printf("%d", index);
 						new treeid = Streamer_GetIntData(STREAMER_TYPE_OBJECT, index, E_STREAMER_EXTRA_ID);
-						printf("%d", treeid);
-						if(Trees[treeid][tree_CHOPPED] || Trees[treeid][tree_CHOPPING]) return 1;
+						if(Trees[treeid][tree_CHOPPED] || Trees[treeid][tree_CHOPPING] || Trees[treeid][tree_TYPE] == NOT_A_TREE) return 1;
 
 						new Float:x, Float:y, Float:z;
 						GetDynamicObjectPos(index, x, y, z);
 						CA_FindZ_For2DCoord(x, y, z);
 
-						printf("%f, %f, %f", x, y, z);
-						if(!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return 1;
+						if(!IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z)) return 1;
 
 						new colors[5] = {0xe73939FF, 0x6ed854FF, 0xe3e145FF, 0x20aee7FF};
 						new color = minrand(0, sizeof(colors));
@@ -287,13 +283,15 @@ public FinishTreeCutting(playerid, treeid)
 
 	if(!IsPlayerInRangeOfPoint(playerid, 5.0, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z]))
 	{
-		Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPING] = false;
+		Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPING] =
+		Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPED] = false;
 		PLAYER_TEMP[playerid][py_CUTTING] = -1;
 		return ShowPlayerNotification(playerid, "Te alejaste mucho del árbol y no lo pudiste cortar.", 3);
 	}
 	if(PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] < 50)
 	{
-		Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPING] = false;
+		Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPING] =
+		Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPED] = false;
 		PLAYER_TEMP[playerid][py_CUTTING] = -1;
 		return ShowPlayerNotification(playerid, "No pusiste suficiente empeño en cortar el árbol.", 3);
 	}
