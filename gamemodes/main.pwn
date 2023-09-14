@@ -27227,12 +27227,6 @@ CMD:testedit666(playerid, params[])
 	return 1;
 }
 
-CMD:testnott(playerid, params[])
-{
-	Notification_Show(playerid, "~g~~h~(!)_~h~Trabajo: ~w~Minero~n~~n~~w~No puedes llevar mas minerales.", false);
-	return 1;
-}
-
 AddVehicleComponents(vehicleid)
 {
 	for(new i = 0; i != MAX_VEHICLE_COMPONENTS; i ++)
