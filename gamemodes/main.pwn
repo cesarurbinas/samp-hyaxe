@@ -8660,7 +8660,7 @@ public OnPlayerText(playerid, text[])
 		SavePlayerMisc(playerid);
 
 		new str[144];
-		format(str, 144, "[ADMIN] %s (%d) fue baneado permanentemente: Superar los 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8796,7 +8796,7 @@ CMD:duda(playerid, params[])
 			SavePlayerMisc(playerid);
 
 			new str[144], webhook[144];
-			format(str, 144, "[ADMIN] %s (%d) fue baneado: Spam (Dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Spam (Dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8836,7 +8836,7 @@ CMD:duda(playerid, params[])
 			SavePlayerMisc(playerid);
 
 			new str[144];
-			format(str, 144, "[ADMIN] %s (%d) fue baneado: Spam (IP en el dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Spam (IP en el dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			new webhook[144];
@@ -8913,7 +8913,7 @@ CMD:anuncio(playerid, params[])
 			SavePlayerMisc(playerid);
 
 			new str[144];
-			format(str, 144, "[ADMIN] %s (%d) fue baneado: Spam (Anuncios).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Spam (Anuncios).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			new webhook[144];
@@ -8955,7 +8955,7 @@ CMD:anuncio(playerid, params[])
 		SavePlayerMisc(playerid);
 
 		new str[144];
-		format(str, 144, "[ADMIN] %s (%d) fue baneado: Spam (IP en el anuncio).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Spam (IP en el anuncio).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144];
@@ -32491,7 +32491,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				SavePlayerMisc(playerid);
 
 				new str[144];
-				format(str, 144, "[ADMIN] %s (%d) fue baneado: Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
