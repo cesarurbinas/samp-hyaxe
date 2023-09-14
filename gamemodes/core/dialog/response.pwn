@@ -8076,7 +8076,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-						PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER] += listitem * 5;
+						PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER] += listitem * 5; 
 						ShowPlayerMessage(playerid, sprintf("Ahora puedes picar hasta ~y~%d rocas~w~ de forma veloz.", PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER], 4));
 
 		            	GivePlayerCash(playerid, -price, false);
