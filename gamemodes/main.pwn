@@ -3573,7 +3573,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 	    }
 
 	    /*NOP Freeze*/
-	    if (PLAYER_TEMP[playerid][py_CONTROL])
+	    /*if (PLAYER_TEMP[playerid][py_CONTROL])
 	    {
 	    	if (IsPlayerMoving(playerid))
             {
@@ -3584,7 +3584,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				KickEx(playerid);
 				return 0;
             }
-	    }
+	    }*/
     }
 
     return 1;
@@ -34460,11 +34460,11 @@ DeleteIlegalInv(playerid)
 		ResetPlayerWeaponsEx(playerid);
 	}
 
-	PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
-	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
-	PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
-	PLAYER_MISC[playerid][MISC_CRACK] = 0;
-	SavePlayerMisc(playerid);
+	//PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
+	//PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
+	//PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
+	//PLAYER_MISC[playerid][MISC_CRACK] = 0;
+	//SavePlayerMisc(playerid);
 	return 1;
 }
 
