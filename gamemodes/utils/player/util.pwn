@@ -4,7 +4,9 @@ new NAME_WHITELIST[][24] =
 	"Atom_Palomita",
 	"Pepe_Garcia",
 	"Radric_Dresta",
-	"Alex_Flores"
+	"Alex_Flores",
+	"Travis Dalkowa",
+	"Atom"
 };
 
 new g_iPlayerLastUpdate[MAX_PLAYERS];

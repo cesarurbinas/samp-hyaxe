@@ -8448,6 +8448,7 @@ ac_fpublic ac_Timer(playerid)
 						ac_t = Streamer_GetIntData(STREAMER_TYPE_PICKUP, ACInfo[playerid][acLastPickup] - MAX_PICKUPS, E_STREAMER_EXTRA_ID) - 100;
 					}
 				#endif
+				if (ac_s > 47) ac_s = 0;
 				ac_s = ac_wSlot[ac_s];
 				for(new ac_i, ac_w, ac_a, bool:ac_cw; ac_i <= 12; ++ac_i)
 				{
