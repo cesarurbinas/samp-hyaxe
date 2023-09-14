@@ -5642,7 +5642,6 @@ ShowFurnitureMenu(playerid)
 	AddPlayerMenuItem(playerid, "Cuadros");
 	AddPlayerMenuItem(playerid, TextToSpanish("Decoración"));
 	AddPlayerMenuItem(playerid, TextToSpanish("Electrodomésticos"));
-	AddPlayerMenuItem(playerid, "Higiene");
 	AddPlayerMenuItem(playerid, TextToSpanish("Iluminación"));
 	AddPlayerMenuItem(playerid, "Mesas");
 	AddPlayerMenuItem(playerid, "Sillas");
