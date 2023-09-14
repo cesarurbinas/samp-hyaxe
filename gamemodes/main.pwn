@@ -2342,7 +2342,7 @@ enum
 	PED_BYCICLING
 };
 
-new INVALID_WORDS[][100] =
+static const INVALID_WORDS[][] =
 {
 	"zoor",
 	"zo0r",
@@ -2387,7 +2387,7 @@ new INVALID_WORDS[][100] =
 	"samptab"
 };
 
-new INVALID_NAMES[][100] =
+static const INVALID_NAMES[][100] =
 {
 	"Capija",
 	"Mierda",
@@ -4306,7 +4306,7 @@ public OnPlayerDisconnect(playerid, reason)
 				    		GetPlayerPos(playerid, player_pos[0], player_pos[1], player_pos[2]);
 
 							new Float:distance = GetDistanceBetweenPoints3D(police_pos[0], police_pos[1], police_pos[2], player_pos[0], player_pos[1], player_pos[2]);
-							if (distance >= 200.0) 
+							if(distance >= 200.0) 
 							{
 								CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
     							CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 600 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL];
@@ -8487,7 +8487,11 @@ CMD:duda(playerid, params[])
 		}
 	}
 
-	if (CheckFilterViolation(params)) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu duda tiene palabras inapropiadas.");
+	if(ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] <= 1)
+	{
+		if(CheckFilterViolation(params))
+			return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu duda tiene palabras inapropiadas.");
+	}
 
 	if (StringContainsIP(params))
 	{
@@ -32432,6 +32436,7 @@ CMD:reportar(playerid, params[])
 	PLAYER_TEMP[ params[0] ][py_TOTAL_REPORTS] ++;
 	return 1;
 }
+alias:reportar("re", "report")
 
 CMD:r(playerid, params[])
 {
