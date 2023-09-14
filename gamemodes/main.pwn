@@ -6473,7 +6473,7 @@ CALLBACK: TwoGraffitiAnnounce()
 {
 	SendGraffitiNotification("En 5 minutos se iniciara una disputa.");
 	SendDiscordWebhook("En 5 minutos se iniciara una disputa.", 2);
-	SetTimer("InitRandomGraffiti", 300000, false);
+	SetTimer("InitRandomGangEvent", 300000, false);
 	SetTimer("FinalGraffitiAnnounce", 240000, false);
 	return 1;
 }
@@ -6617,10 +6617,22 @@ InitGraffiti(graff_id)
 	}
 }
 
-CALLBACK: InitRandomGraffiti()
+CALLBACK: InitRandomGangEvent()
 {	
-	new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
-	InitGraffiti(graff_id);
+	new event = minrand(0, 10);
+	switch(event)
+	{
+		case 0, 1, 2, 3, 4, 5, 6, 8, 9:
+		{
+			new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
+			InitGraffiti(graff_id);
+		}
+		case 7:
+		{
+			new market_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
+			InitBlackMarket(market_id);
+		}
+	}
 	return 1;
 }
 
