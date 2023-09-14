@@ -8629,18 +8629,33 @@ CMD:duda(playerid, params[])
 			PLAYER_MISC[playerid][MISC_BANEOS] ++;
 			SavePlayerMisc(playerid);
 
-			new str[144];
+			new str[144], webhook[144];
 			format(str, 145, "[ADMIN] %s (%d) fue baneado: Spam (Dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
-			new webhook[144];
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+
+			format(str, 145, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 			SendDiscordWebhook(webhook, 1);
 			return 0;
 		}
 
 		if (CheckFilterViolation(params))
-			return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu duda tiene palabras inapropiadas.");
+		{
+			new str[144], webhook[144];
+			format(str, 145, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+
+			SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu duda tiene palabras inapropiadas.");
+			return 1;
+		}
 	}
 
 	if (StringContainsIP(params))
@@ -8660,6 +8675,12 @@ CMD:duda(playerid, params[])
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144];
+		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		SendDiscordWebhook(webhook, 1);
+		
+		format(str, 145, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 		return 1;
