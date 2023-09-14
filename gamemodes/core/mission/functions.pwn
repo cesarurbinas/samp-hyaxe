@@ -193,7 +193,7 @@ CheckMissionPlace(playerid)
                                 PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
                                 CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
                                 NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_FIRE] = false;
-                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_DAGAME] = false;
+                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_DAMAGE] = false;
 
                                 SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
                                 FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
@@ -260,7 +260,7 @@ CheckMissionPlace(playerid)
                                 PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
                                 CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
                                 NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_FIRE] = true;
-                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_DAGAME] = true;
+                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_DAMAGE] = true;
 
                                 SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
                                 FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
@@ -336,7 +336,7 @@ CheckMissionPlace(playerid)
                                 PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
                                 CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
                                 NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_FIRE] = true;
-                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_DAGAME] = true;
+                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_DAMAGE] = true;
 
                                 SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
                                 FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
