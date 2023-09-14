@@ -6043,7 +6043,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 	{
 		if (code == 47)
 		{
-			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Weapon Crasher");
+			//AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Weapon Crasher");
 			Kick(playerid);
 			return 1;
 		}
