@@ -1094,9 +1094,10 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 
 	if (PLAYER_TEMP[playerid][py_PLAYER_IN_PHONE]) return HidePlayerSpeedoMeter(playerid);
 
-	new td_str[64],
-		td_str_vel[64],
-		Float:size_gasoline;
+	new 
+		td_str[64],
+		Float:size_gasoline
+	;
 
 	/*if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] < 450.0)
 	{
@@ -1114,12 +1115,11 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 	}*/
 
 	size_gasoline = 516.0 + (GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] * 0.9);
-	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], COLOR_WHITE);
-	/*if (size_gasoline < 601.0)
+	if (size_gasoline < 601.0)
 	{
-		PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], size_gasoline, 0.000000);
-	}*/
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
+		PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], size_gasoline, 0.000000);
+	}
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1]);
 
 	//PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], AdjustDarkness(VEHICLE_COLORS[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_COLOR_2] ], 1.75));
 	//PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], VEHICLE_COLORS[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_COLOR_2] ]);
@@ -1129,8 +1129,8 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 	format(td_str, sizeof td_str, "%.1f", GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]);
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], td_str);
 
-	format(td_str_vel, sizeof td_str_vel, "%d", floatround(vel));
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], td_str_vel);
+	format(td_str, sizeof td_str, "%d", floatround(vel));
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], td_str);
 
 	GetVehiclePos(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][0], GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][1], GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][2]);
 	return 1;

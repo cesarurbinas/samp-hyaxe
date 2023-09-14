@@ -46,6 +46,7 @@ SendMessageToDoubtChannel(playerid, const message[])
 	return 1;
 }
 
+#if defined FINAL_BUILD
 ScanDoubt(playerid, const doubt[])
 {
 	new payload[264];
@@ -53,6 +54,7 @@ ScanDoubt(playerid, const doubt[])
 	HTTP(playerid, HTTP_POST, "51.222.21.190:6666/get_response", payload, "neuroadmin_BotGetResponse");
 	return 1;
 }
+#endif
 
 SendMessageToGlobalChannel(playerid, const message[])
 {

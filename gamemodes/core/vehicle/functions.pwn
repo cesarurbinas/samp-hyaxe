@@ -1233,11 +1233,7 @@ ShowPlayerSpeedoMeter(playerid)
 	if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return 0;
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][8]);
 
-	//new td_str[64];
-	//format(td_str, sizeof td_str, "%.1f", GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]);
-	//PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][11], td_str);
-
-	/*TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][0]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][0]);
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][1]);
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][2]);
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][3]);
@@ -1245,19 +1241,26 @@ ShowPlayerSpeedoMeter(playerid)
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][5]);
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][6]);
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][7]);
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][8]);
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][10]);*/
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][10]);
 
-	/*PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8]);*/
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8]);
 
+	// Fuel
+	new td_str[64];
+	format(td_str, sizeof td_str, "%.1f", GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]);
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], td_str);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][8]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1]); // bar
+
+	// Lock detail
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
 
 	PLAYER_TEMP[playerid][py_SPEEDOMETER] = true;
 	PLAYER_TEMP[playerid][py_FUEL_DOWN_TIME] = gettime();
