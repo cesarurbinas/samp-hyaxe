@@ -12227,6 +12227,39 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_YELLOW"Club de la pelea", "Reglas\nParticipar\nParticipantes\n", "Ver", "Cerrar");
 			return 1;
     	}
+    	case DIALOG_BOX_FIGHTERS:
+    	{
+    		for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
+
+    		new dialog[1024],
+    			total_fighters
+    		;
+
+    		format(dialog, sizeof dialog, ""COL_WHITE"Jugador\t"COL_WHITE"Total\n");
+
+    		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			{
+				if (IsPlayerConnected(i))
+				{
+					if (PLAYER_TEMP[i][py_BOXING])
+					{
+						PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_fighters] = i;
+
+						new line_str[128];
+						format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_GREEN"%d$\n", PLAYER_TEMP[i][py_NAME], PLAYER_TEMP[i][py_BOX_PAY]);
+						strcat(dialog, line_str);
+
+						total_fighters ++;
+					}
+				}
+			}
+			if (total_fighters == 0) strcat(dialog, ""COL_WHITE"No hay participantes\n");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_YELLOW"Participantes", dialog, "Apostar", "Atrás");
+    	}
+    	case DIALOG_BOX_BET:
+    	{
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_YELLOW"Ingrese apuesta", ""COL_WHITE"Ingrese la cantidad a apostar:", "Apostar", "Atrás");	
+    	}
 		default: return 0;
 	}
 	return 1;
@@ -20334,8 +20367,63 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SetPlayerPosEx(playerid, -25.222457, 88.172157, 1098.070190, 357.011596, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid), false);
 						ShowPlayerMessage(playerid, "Entra al ~y~ring~w~ para desmostrar quien manda", 5);
 					}
+					case 2: ShowDialog(playerid, DIALOG_BOX_FIGHTERS);
 				}
 			}
+		}
+		case DIALOG_BOX_FIGHTERS:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
+				new player = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
+
+				if (!IsPlayerConnected(player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado", 4);
+				if (!PLAYER_TEMP[player][py_BOXING]) return ShowPlayerMessage(playerid, "~r~Jugador fuera del ring", 4);
+
+				PLAYER_TEMP[playerid][py_BOX_PLAYER] = player;
+
+				ShowDialog(playerid, DIALOG_BOX_BET);
+				return 1;
+			}
+			else ShowDialog(playerid, DIALOG_BOX_CLUB);
+		}
+		case DIALOG_BOX_BET:
+		{
+			if (response)
+			{
+				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_BOX_PLAYER])) return ShowPlayerMessage(playerid, "~r~Jugador desconectado", 4);
+				if (!PLAYER_TEMP[ PLAYER_TEMP[playerid][py_BOX_PLAYER] ][py_BOXING]) return ShowPlayerMessage(playerid, "~r~Jugador fuera del ring", 4);
+				
+				if (sscanf(inputtext, "d", inputtext[0]))
+				{
+					ShowPlayerMessage(playerid, "Introduce un valor numérico.", 2);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+
+				if (inputtext[0] <= 0)
+				{
+					ShowPlayerMessage(playerid, "Introduce un valor positivo.", 2);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+
+				if (inputtext[0] > CHARACTER_INFO[playerid][ch_CASH])
+				{
+					ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 2);
+					ShowDialog(playerid, dialogid);
+					return 1;
+				}
+
+				GivePlayerCash(playerid, -inputtext[0], false);
+
+				new str_text[128];
+				format(str_text, sizeof(str_text), "Has apostado %d$ a %s.", inputtext[0], PLAYER_TEMP[ PLAYER_TEMP[playerid][py_BOX_PLAYER] ][py_NAME]);
+				ShowPlayerNotification(playerid, str_text, 6);
+				return 1;
+			}
+			else ShowDialog(playerid, DIALOG_BOX_FIGHTERS);
 		}
 	}
 	return 0;
