@@ -107,8 +107,8 @@ DropPlayerRock(playerid, place_id)
 			SetTimerEx("DeleteDroppedRock", 3000, false, "i", obj_id);
 
 			// Update proccessor usage
-			ROCK_PROCESSOR[i][rp_FUEL] -= frandom(0.5, 3.0, 2);
-			if (random(5) == 3) ROCK_PROCESSOR[i][rp_HEALTH] -= frandom(0.5, 7.0, 2);
+			ROCK_PROCESSOR[i][rp_FUEL] -= float(minrand(1, 6));
+			ROCK_PROCESSOR[i][rp_HEALTH] -= float(minrand(1, 3));
 			
 			UpdateRockProcessorLabel(i);
 			break;
@@ -183,14 +183,14 @@ SetRandomRockType(index)
 
 UpdateRockProcessorLabel(processor_id)
 {
-	if (ROCK_PROCESSOR[processor_id][rp_FUEL] < 0.0) ROCK_PROCESSOR[processor_id][rp_FUEL] = 0.0;
-	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] < 0.0) ROCK_PROCESSOR[processor_id][rp_HEALTH] = 0.0;
+	if (ROCK_PROCESSOR[processor_id][rp_FUEL] <= 0.0) ROCK_PROCESSOR[processor_id][rp_FUEL] = 0.0;
+	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] <= 0.0) ROCK_PROCESSOR[processor_id][rp_HEALTH] = 0.0;
 
 	new str_text[164];
-	format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquí­\n\nGasolina: %.1f\nEstado: %.1f%", processor_id, ROCK_PROCESSOR[processor_id][rp_FUEL], ROCK_PROCESSOR[processor_id][rp_HEALTH]);
+	format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquí­.\n\nGasolina: %.1f\nEstado: %.1f%", processor_id, ROCK_PROCESSOR[processor_id][rp_FUEL], ROCK_PROCESSOR[processor_id][rp_HEALTH]);
 	
-	if (ROCK_PROCESSOR[processor_id][rp_FUEL] < 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere gasolina");
-	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] < 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere reparación");
+	if (ROCK_PROCESSOR[processor_id][rp_FUEL] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere gasolina");
+	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere reparación");
 	
 	UpdateDynamic3DTextLabelText(ROCK_PROCESSOR[processor_id][rp_LABEL], 0xF7F7F7FF, str_text);
 	return 1;
@@ -200,11 +200,11 @@ CreateMinerRocks()
 {
 	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
 	{
-		ROCK_PROCESSOR[i][rp_FUEL] = frandom(10.0, 100.0, 2);
-		ROCK_PROCESSOR[i][rp_HEALTH] = frandom(10.0, 100.0, 2);
+		ROCK_PROCESSOR[i][rp_FUEL] = float(minrand(10, 100));
+		ROCK_PROCESSOR[i][rp_HEALTH] = float(minrand(10, 100));
 
 		new str_text[164];
-		format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquí­\n\nGasolina: %.1f\nEstado: %.1f%", i, ROCK_PROCESSOR[i][rp_FUEL], ROCK_PROCESSOR[i][rp_HEALTH]);
+		format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquí­.\n\nGasolina: %.1f\nEstado: %.1f%", i, ROCK_PROCESSOR[i][rp_FUEL], ROCK_PROCESSOR[i][rp_HEALTH]);
 		ROCK_PROCESSOR[i][rp_LABEL] = CreateDynamic3DTextLabel(str_text, 0xF7F7F7FF, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z] + 4.0, 35.0, .testlos = true, .worldid = -1, .interiorid = -1);
 	}
 
