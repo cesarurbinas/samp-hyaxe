@@ -37492,7 +37492,7 @@ AddPlayerPoliceHistory(playerid, const by[], const reason[])
 	return 1;
 }
 
-flags:ufo(CMD_OPERATOR)
+flags:ufo(CMD_MODERATOR)
 flags:staff(CMD_HELPER)
 flags:setveh(CMD_MODERATOR)
 flags:setvh(CMD_MODERATOR)
