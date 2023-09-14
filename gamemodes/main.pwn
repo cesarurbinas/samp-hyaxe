@@ -24350,28 +24350,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				printf("[account.pre.change] %s > %s", PLAYER_TEMP[playerid][py_NAME], inputtext);
 
+				PLAYER_TEMP[playerid][py_USER_VALID_NAME] = true;
+
+				if (!inputtext < 5) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+				if (strlen(inputtext) > 24) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+				if (strlen(inputtext) < 5) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+
 				if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] <= CMD_OWNER)
 				{
-					/* NAME CHECk */
-					PLAYER_TEMP[playerid][py_USER_VALID_NAME] = true;
-
-					if (!inputtext < 5) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
-					if (strlen(inputtext) > 24) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
-					if (strlen(inputtext) < 5) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
 					if (CheckNameFilterViolation(inputtext)) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
 					if (!IsValidRPName(inputtext)) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+				}
 
-					if (PLAYER_TEMP[playerid][py_USER_VALID_NAME] == false)
-					{
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
-							Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
-							no están permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
+				if (PLAYER_TEMP[playerid][py_USER_VALID_NAME] == false)
+				{
+					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
+						Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
+						no están permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
 
-						if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
-	    				if (in_main_menu[playerid]) return ShowMainMenu(playerid);
+					if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
+    				if (in_main_menu[playerid]) return ShowMainMenu(playerid);
 
-						return 0;
-					}
+					return 0;
 				}
 
 				printf("[account.post.change] %s > %s", PLAYER_TEMP[playerid][py_NAME], inputtext);
