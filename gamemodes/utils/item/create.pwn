@@ -90,3 +90,30 @@ AddItemToProperty(property_id, type, extra)
 
 	return id;
 }
+
+ItemAlreadyInProperty(property_id, type)
+{
+	new
+		DBResult:Result,
+		DB_Query[140],
+		id
+	;
+
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PROPERTY_STORAGE` WHERE `TPYE` = '%d' AND `ID_PROPERTY` = '%d';", type, property_id);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		for(new i; i < db_num_rows(Result); i++ )
+		{
+			id = db_get_field_assoc_int(Result, "ID");
+			break;
+		}
+		db_free_result(Result);
+
+		return id;
+	}
+
+	if (db_num_rows(Result)) return true;
+	return false;
+}

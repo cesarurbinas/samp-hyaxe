@@ -144,7 +144,6 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot);
 
-				new DB_Query[164];
 				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
 				{
 					AddItemToProperty(
@@ -153,8 +152,29 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 						PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]
 					);
 				}
+				else
+				{
+					new already_exists = ItemAlreadyInProperty(PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
-				db_free_result(db_query(Database, DB_Query));
+					if (already_exists)
+					{
+						new DB_Query[164];
+						format(DB_Query, sizeof DB_Query,
+							"UPDATE `PROPERTY_STORAGE` SET `EXTRA` = EXTRA + '%d' WHERE `ID` = '%d';",
+							1,
+							already_exists
+						);
+						db_free_result(db_query(Database, DB_Query));
+					}
+					else
+					{
+						AddItemToProperty(
+							PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED],
+							PLAYER_VISUAL_INV[playerid][slot_TYPE][slot],
+							1
+						);		
+					}
+				}
 
 				HideInventory(playerid);
 				ShowInventory(playerid, 2);
