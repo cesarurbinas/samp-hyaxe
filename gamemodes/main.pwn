@@ -4333,17 +4333,29 @@ EnterSite(playerid)
                 {
                 	if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
 
-                	if (CLUBS_INFO[ info[1] ][club_ENTER_PRICE] > 0)
+                	if (CLUBS_INFO[ info[1] ][club_USER_ID] != ACCOUNT_INFO[playerid][ac_ID])
                 	{
-                		if (CHARACTER_INFO[playerid][ch_CASH] <= CLUBS_INFO[ info[1] ][club_ENTER_PRICE])
-                		{
-                			new str_text[64];
-                			format(str_text, 64, "~r~La entrada al negocio vale %d$", CLUBS_INFO[ info[1] ][club_ENTER_PRICE]);
-                			ShowPlayerMessage(playerid, str_text, 4);
-                			return 0;
-                		}
-						GivePlayerCash(playerid, -CLUBS_INFO[ info[1] ][club_ENTER_PRICE], false);
-                	}
+	                	if (CLUBS_INFO[ info[1] ][club_ENTER_PRICE] > 0)
+	                	{
+	                		if (CHARACTER_INFO[playerid][ch_CASH] <= CLUBS_INFO[ info[1] ][club_ENTER_PRICE])
+	                		{
+	                			new str_text[64];
+	                			format(str_text, 64, "~r~La entrada al negocio vale %d$", CLUBS_INFO[ info[1] ][club_ENTER_PRICE]);
+	                			ShowPlayerMessage(playerid, str_text, 4);
+	                			return 0;
+	                		}
+
+	                		CLUBS_INFO[club][club_BALANCE] += CLUBS_INFO[ info[1] ][club_ENTER_PRICE];
+							format(DB_Query, sizeof(DB_Query), "\
+								UPDATE `CLUB_INFO` SET\
+									`BALANCE` = '%d' \
+								WHERE `ID` = '%d';\
+							", CLUBS_INFO[club][club_BALANCE], club);
+							db_free_result(db_query(Database, DB_Query));
+
+							GivePlayerCash(playerid, -CLUBS_INFO[ info[1] ][club_ENTER_PRICE], false);
+	                	}
+	                }
 
                 	new interior = CLUBS_INFO[ info[1] ][club_INTERIOR];
                     CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_INTERIOR;
@@ -5613,8 +5625,8 @@ Menu:CLUB_MENU(playerid, response, listitem)
 				", CLUBS_INFO[club][club_STATE], club);
 				db_free_result(db_query(Database, DB_Query));
 
-				new str_text[164];
-				format(str_text, 164, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), PLAYER_TEMP[playerid][py_NAME]);
+				new str_text[264];
+				format(str_text, 264, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), PLAYER_TEMP[playerid][py_NAME]);
 				UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
 
 				CheckClubOptions(playerid);
@@ -21830,8 +21842,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					", CLUBS_INFO[club][club_NAME], club);
 					db_free_result(db_query(Database, DB_Query));
 
-					new str_text[164];
-					format(str_text, 164, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), PLAYER_TEMP[playerid][py_NAME]);
+					new str_text[264];
+					format(str_text, 264, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), PLAYER_TEMP[playerid][py_NAME]);
 					UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
 
 					CheckClubOptions(playerid);
