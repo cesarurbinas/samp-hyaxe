@@ -37772,7 +37772,7 @@ SendMessageToDoubtChannel(playerid, message[])
 {
 	new str[364];
 
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"%s %s (%d): (( %s ))", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ], PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) format(str, COLOR_WHITE, "[Dudas] "COL_YELLOW"[%s]"COL_WHITE" %s (%d): (( %s ))", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ], PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
 	else
 	{
 		format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"Jugador %s (%d): (( %s ))", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
