@@ -8236,7 +8236,7 @@ public OnGameModeExit()
 	{
 		if(!IsPlayerConnected(i)) continue;
 
-		if(CHARACTER_INFO[i][ch_POLICE_JAIL_TIME > 0)
+		if(CHARACTER_INFO[i][ch_POLICE_JAIL_TIME] > 0)
 			CHARACTER_INFO[i][ch_POLICE_JAIL_TIME] -= gettime() - PLAYER_TEMP[i][py_ENTER_JAIL_TIME];
 			
 		SaveUserData(i);
