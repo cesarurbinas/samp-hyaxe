@@ -23346,7 +23346,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 
     if(PLAYER_TEMP[playerid][py_PLAYER_IN_ATM])
     {
-		if(PlayerTextdraws[playerid][ptextdraw_BANK_MENU][3])
+		if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][3])
 		{
 			HideBankMenu(playerid);
 			ShowDialog(playerid, DIALOG_BANK_DEPOSIT);
