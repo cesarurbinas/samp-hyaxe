@@ -21,8 +21,8 @@ CreateStalls()
 
 		CreateDynamicObject(
 			3039,
-			STALL_INFO[i][st_X],
-			STALL_INFO[i][st_Y],
+			x,
+			y,
 			STALL_INFO[i][st_Z],
 			0.0, 0.0, 0.0,
 			0, 0
