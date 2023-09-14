@@ -89,6 +89,9 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 #define COLOR_GREY_THREE 0xC1C1C1FF
 #define COL_GREY_THREE "{C1C1C1}"
 
+#define COLOR_OCTA 0x657EE3FF
+#define COL_OCTA "{657EE3}"
+
 #define COLOR_CYAN 0x1AC6DFFF
 
 #define COLOR_INV_ITEM 0x323030FF

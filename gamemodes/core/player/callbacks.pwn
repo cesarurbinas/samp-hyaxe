@@ -1521,23 +1521,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
 		    if (onFootData[PR_specialAction] == SPECIAL_ACTION_USEJETPACK)
 			{
-				new dialog[250];
-				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Jetpack");
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-				
-				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Jetpack");
-
-				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-				PLAYER_MISC[playerid][MISC_BANS] ++;
-				SavePlayerMisc(playerid);
-
-				new str[144];
-				format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-				new webhook[144];
-				format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-				SendDiscordWebhook(webhook, 1);
+				Anticheat_Ban(playerid, "Jetpak");
 				return 0;
 			}
 		}
