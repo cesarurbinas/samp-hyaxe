@@ -24586,31 +24586,13 @@ public OnPlayerUpdate(playerid)
 			{
 				case KEY_UP:
 	    		{
-					SetPlayerFacingAngle(playerid, angle + 20.0);
+	    			new Float:vector[3];
+					GetPlayerCameraFrontVector(playerid, vector[0], vector[1], vector[2]);
+
+					SetPlayerFacingAngle(playerid, atan2(vector[1], vector[2]) + 180.0);
 					ApplyAnimation(playerid, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
 					PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = true;
 					SetTimerEx("InjuredAnimationCut", 470, false, "i", playerid);
-				}
-
-				case KEY_DOWN:
-			    {
-			    	SetPlayerFacingAngle(playerid, 180);
-			    	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-			    }
-			}
-
-			switch(lr)
-			{
-				case KEY_LEFT:
-				{
-					SetPlayerFacingAngle(playerid, angle + 16.0);
-					ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-				}
-
-				case KEY_RIGHT:
-				{
-					SetPlayerFacingAngle(playerid, angle - 16.0);
-					ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
 				}
 			}
 		}
