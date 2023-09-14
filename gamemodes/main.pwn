@@ -114,6 +114,9 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Dialogs
 #include "core/dialog/dialog_id.pwn"
 
+// Areas
+#include "core/key_areas/areas.pwn"
+
 // Audio
 #include "core/audio/handlers.pwn"
 
@@ -3072,7 +3075,6 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_CHECK_OBJECT] =
 	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = INVALID_OBJECT_ID;
 	PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
-	//PLAYER_TEMP[playerid][py_CLEANER_INDEX] = 99;
 	for(new i = 0; i != MAX_OBJECTS_PER_ROUTE; i ++) TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
 
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
@@ -3119,11 +3121,6 @@ public OnPlayerConnect(playerid)
 		return 0;
 	}
 
-	new serial[41];
-	gpci(playerid, serial, sizeof(serial));
-
-	Log("gpci", serial);
-
 	EnablePlayerCameraTarget(playerid, true);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	TogglePlayerControllableEx(playerid, true);
@@ -3133,8 +3130,6 @@ public OnPlayerConnect(playerid)
 	ac_ResetPlayerWeapons(playerid);
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	CancelEdit(playerid);
-
-	SetIntroCamera(playerid);
 
 	new DB_Query[550], DBResult:ban_Result;
 	format(DB_Query, sizeof DB_Query, "SELECT DATETIME('NOW') AS `NOW`, `BANS`.*, `BAD_HISTORY`.* FROM `BANS`, `BAD_HISTORY` WHERE (`BANS`.`NAME` = '%q' OR `BANS`.`IP` = '%q') AND `BAD_HISTORY`.`ID` = `BANS`.`ID_HISTORY`;", PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[playerid][py_IP]);
@@ -3372,7 +3367,6 @@ public OnPlayerConnect(playerid)
 	db_free_result(Result);
 
 	CreatePlayerTextDraws(playerid);
-	PreloadAnimLibs(playerid);
 	return 1;
 }
 
@@ -5983,6 +5977,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 			ShowDialog(playerid, DIALOG_LOGIN);
             SetIntroCamera(playerid);
+            PreloadAnimLibs(playerid);
 		}
 		else
 		{
@@ -6664,15 +6659,13 @@ SanAndreas()
 	UpdateThePutis();
 	SetTimer("UpdateThePutis", 3000, true);
 
-	// Map Icons Hospitales
-	//for(new i = 0; i < sizeof Hospital_Spawn_Positions; i++) CreateDynamicMapIcon(Hospital_Spawn_Positions[i][0], Hospital_Spawn_Positions[i][1], Hospital_Spawn_Positions[i][2], 22, COLOR_WHITE, 0, 0);
-
 	// 3D Texts Ropas
 	for(new i = 0; i < sizeof Clothing_Shop_Positions; i++)
 	{
 		new label_str[128];
 		format(label_str, sizeof label_str, ""COL_WHITE"%s", Clothing_Shop_Positions[i][clothing_shop_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xF7F7F700, Clothing_Shop_Positions[i][clothing_shop_X], Clothing_Shop_Positions[i][clothing_shop_Y], Clothing_Shop_Positions[i][clothing_shop_Z] + 0.25, 10.0, .testlos = true, .interiorid = Clothing_Shop_Positions[i][clothing_shop_INTERIOR]);
+		AddKeyArea(Clothing_Shop_Positions[i][clothing_shop_X], Clothing_Shop_Positions[i][clothing_shop_Y], 0.8, "Y");
 	}
 
 	// 3D Texts Pedir comida
@@ -6681,16 +6674,14 @@ SanAndreas()
 		new label_str[128];
 		format(label_str, sizeof label_str, ""COL_RED"%s\n"COL_WHITE"7 productos disponibles", Fast_Food_Positions[i][fast_food_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xF7F7F7FF, Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], Fast_Food_Positions[i][fast_food_Z] + 0.25, 10.0, .testlos = true, .interiorid = Fast_Food_Positions[i][fast_food_INTERIOR]);
+		AddKeyArea(Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], 0.8, "Y");
 	}
 
-	// 3D Texts Bank
-	//for(new i = 0; i < sizeof Bank_Interior_Positions; i++) CreateDynamic3DTextLabel("Presione {5DE141}H "COL_WHITE"para realizar una operación", 0xF7F7F700, Bank_Interior_Positions[i][bank_X], Bank_Interior_Positions[i][bank_Y], Bank_Interior_Positions[i][bank_Z] + 0.25, 10.0, .testlos = true, .worldid = Bank_Interior_Positions[i][bank_WORLD], .interiorid = Bank_Interior_Positions[i][bank_INTERIOR]);
-	//for(new i = 0; i < sizeof BUY_PROPERTIES_SITES; i++) CreateDynamic3DTextLabel("Escribe {5DE141}/comprarcasa [ID] "COL_WHITE"para comprar una propiedad", 0xF7F7F700, BUY_PROPERTIES_SITES[i][site_X], BUY_PROPERTIES_SITES[i][site_Y], BUY_PROPERTIES_SITES[i][site_Z] + 0.25, 10.0, .testlos = true, .worldid = BUY_PROPERTIES_SITES[i][site_WORLD], .interiorid = BUY_PROPERTIES_SITES[i][site_INTERIOR]);
-
-	//Cajerosfo
-	for(new i = 0; i < sizeof ATM_BANK; i ++)//ATM_BANK[i][atm_modelid], //cajeros
+	//Cajeros
+	for(new i = 0; i < sizeof ATM_BANK; i ++)
 	{
 		CreateDynamicObject(19324, ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], ATM_BANK[i][atm_Z], ATM_BANK[i][atm_RX], ATM_BANK[i][atm_RY], ATM_BANK[i][atm_RZ], ATM_BANK[i][atm_WORLD], ATM_BANK[i][atm_INTERIOR]);
+		AddKeyArea(ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], 0.8, "Y");
 
 		ATM_BANK[i][atm_X] += (-0.5 * floatsin(-(ATM_BANK[i][atm_RZ] - 90.0), degrees));
 		ATM_BANK[i][atm_Y] += (-0.5 * floatcos(-(ATM_BANK[i][atm_RZ] - 90.0), degrees));
@@ -6704,8 +6695,11 @@ SanAndreas()
 	}
 
 	// 3D Texts Gasolinera
-	for(new i = 0; i < sizeof Fuel_Stations; i++) CreateDynamic3DTextLabel(""COL_RED"Gasolinera\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, Fuel_Stations[i][0], Fuel_Stations[i][1], Fuel_Stations[i][2] + 0.25, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
-
+	for(new i = 0; i < sizeof Fuel_Stations; i++)
+	{
+		CreateDynamic3DTextLabel(""COL_RED"Gasolinera\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, Fuel_Stations[i][0], Fuel_Stations[i][1], Fuel_Stations[i][2] + 0.25, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
+		AddKeyArea(Fuel_Stations[i][0], Fuel_Stations[i][1], 1.5, "Y");
+	}
 	//Mercado negro
 	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Armas)\n"COL_WHITE"7 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = 20, .worldid = 0);
 	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Balas)\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 2162.462158, -1169.053222, -16.871662, 10.0, .testlos = true, .interiorid = 20, .worldid = 0);
@@ -6933,11 +6927,13 @@ SanAndreas()
 	for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
 	{
 		TELE_MIRRORS[i][teleview_OBJECT_ID] = CreateDynamicObject(TELE_MIRRORS[i][teleview_MODELID], TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], TELE_MIRRORS[i][teleview_Z], 0.0, 0.0, TELE_MIRRORS[i][teleview_RZ], TELE_MIRRORS[i][teleview_WORLD], TELE_MIRRORS[i][teleview_INTERIOR]);
+		AddKeyArea(TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], 0.8, "Y");
 	}
 
 	for(new i = 0; i != sizeof HOTAIR_BALLOONS; i ++)
 	{
 		HOTAIR_BALLOONS[i][balloon_OBJECT_ID] = CreateDynamicObject(HOTAIR_BALLOONS[i][balloon_MODELID], HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], HOTAIR_BALLOONS[i][balloon_Z], 0.0, 0.0, HOTAIR_BALLOONS[i][balloon_RZ], HOTAIR_BALLOONS[i][balloon_WORLD], HOTAIR_BALLOONS[i][balloon_INTERIOR]);
+		AddKeyArea(HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], 0.8, "Y");
 	}
 
 	CreateDynamic3DTextLabel(""COL_RED"Balloon Express\n"COL_WHITE"Viaje en globo aerostático (200$)", 0xF7F7F7FF, -370.339721, -1634.205932, 25.057666, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -6963,6 +6959,8 @@ SanAndreas()
 				CreateDynamic3DTextLabel(label_str, 0xF7F7F700, obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], obtain_work_coords[i][obtain_work_Z], 10.0, .testlos = true, .interiorid = obtain_work_coords[i][obtain_work_INTERIOR]);
 				CreateDynamicPickup(1314, 1, obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], obtain_work_coords[i][obtain_work_Z], COLOR_WHITE, obtain_work_coords[i][obtain_work_INTERIOR]);
 				if (obtain_work_coords[i][obtain_work_MAP_ICON]) CreateDynamicMapIcon(obtain_work_coords[i][obtain_work_MAP_ICON_X], obtain_work_coords[i][obtain_work_MAP_ICON_Y], obtain_work_coords[i][obtain_work_MAP_ICON_Z], obtain_work_coords[i][obtain_work_MAP_ICON_ID], COLOR_WHITE, 0, 0);
+				
+				AddKeyArea(obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], 0.8, "Y");
 			}
 		}
 	}
@@ -6972,6 +6970,7 @@ SanAndreas()
 	{
 		CreateDynamic3DTextLabel(""COL_WHITE"Punto de carga", 0xF7F7F700, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2], 15.0, .testlos = true, .worldid = 0, .interiorid = 0);
 		CreateDynamicPickup(19607, 1, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2], 0, 0);
+		AddKeyArea(LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], 1.8, "Y");
 	}
 
 	//Mecánico
@@ -7000,6 +6999,7 @@ SanAndreas()
 		new str_text[128];
 		format(str_text, sizeof(str_text), ""COL_RED"Levantador nº %d\n"COL_WHITE"Acércate para usar", i + 1);
 		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2] + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+		AddKeyArea(MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], 1.5, "H");
 	}
 
 	CreateDynamic3DTextLabel(""COL_RED"Taller mecánico\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 1060.838256, -917.609741, 43.124679, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -7074,13 +7074,42 @@ SanAndreas()
 	CreateTrashCheckpoint(2, 1440, 677.09070, -878.62482, 67.03890, 0.00000, 11.50000, -121.20003);
 	CreateTrashCheckpoint(2, 1440, 125.15490, -1289.90332, 46.98190, 0.00000, 1.50000, 86.94010);
 
-	//Granjero
+	// Granjero
 	Farmer_Area = CreateDynamicCircle(1461.8894, -83.2621, 65.0, 0, 0);
 	CreateDynamicMapIcon(1461.8894, -83.2621, 65.0, 53, COLOR_WHITE, 0, 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Tienda de semillas", 0xF7F7F700, -382.580657, -1426.404296, 26.219505, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
-	//Cosechador
+	// Cosechador
 	Harvest_Area = CreateDynamicRectangle(-428.336059, -1667.658569, -116.565414, -1220.122070, 0, 0);
+
+	// Key areas
+	AddKeyArea(-27.964675, -89.948631, 0.8, "Y");
+	AddKeyArea(2125.901123, -65.776679, 0.8, "Y");
+	AddKeyArea(1060.838256, -917.609741, 0.8, "Y");
+	AddKeyArea(509.910125, -708.205383, 0.8, "Y");
+	AddKeyArea(2157.049560, -92.550987, 0.8, "Y");
+	AddKeyArea(-198.002197, -1762.759643, 0.8, "Y");
+	AddKeyArea(2164.021484, -1164.398925, 0.8, "Y");
+	AddKeyArea(2162.462158, -1169.053222, 0.8, "Y");
+	AddKeyArea(2310.057128, -1789.786865, 0.8, "Y");
+	AddKeyArea(219.244018, 69.982215, 0.8, "Y");
+	AddKeyArea(262.945587, 109.785270, 0.8, "Y");
+	AddKeyArea(222.683914, 186.956054, 0.8, "Y");
+	AddKeyArea(407.302886, 2531.673095, 0.8, "Y");
+	AddKeyArea(219.244018, 69.982215, 0.8, "Y");
+	AddKeyArea(-382.580657, -1426.404296, 0.8, "Y");
+	AddKeyArea(1796.071655, -1414.565307, 1.5, "H");
+	AddKeyArea(1207.234375, -29.231435, 1.5, "H");
+	AddKeyArea(496.589172, -76.033905, 1.5, "H");
+	AddKeyArea(1795.293823, -1407.773681, 1.5, "H");
+	AddKeyArea(-370.339721, -1634.205932, 0.8, "Y");
+	AddKeyArea(1722.2310, -1253.8021, 0.8, "Y");
+	AddKeyArea(726.2478, -1276.3830, 0.8, "Y");
+	AddKeyArea(976.715881, -1442.519775, 0.8, "Y");
+	AddKeyArea(3855.066162, -1290.975585, 0.8, "Y");
+	AddKeyArea(1626.089355, -2174.786132, 0.8, "H");
+	AddKeyArea(-212.521926, -1739.015014, 0.8, "H");
+	AddKeyArea(-11.283934, 88.862136, 0.8, "Y");
 	return 1;
 }
 
@@ -7143,298 +7172,6 @@ CreateTrashCheckpoint(route, modelid, Float:x, Float:y, Float:z, Float:rx, Float
 Float:GetDistanceBetweenPoints3D(Float:x1, Float:y1, Float:z1, Float:x2, Float:y2, Float:z2)
 {
     return VectorSize(x1 - x2, y1 - y2, z1 - z2);
-}
-
-UpdatePlayerZoneMessages(playerid)
-{
-	for(new i = 0; i < sizeof ATM_BANK; i ++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 2.0, ATM_BANK[i][atm_X], ATM_BANK[i][atm_Y], ATM_BANK[i][atm_Z]))
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	for(new i = 0; i != sizeof(ENTER_EXIT); i++ )
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 0.8, ENTER_EXIT[i][ee_EXT_X], ENTER_EXIT[i][ee_EXT_Y], ENTER_EXIT[i][ee_EXT_Z]))
-		{
-			if (GetPlayerVirtualWorld(playerid) == ENTER_EXIT[i][ee_EXT_WORLD])
-			{
-				if (GetPlayerInterior(playerid) == ENTER_EXIT[i][ee_EXT_INTERIOR])
-				{
-					ShowPlayerKeyMessage(playerid, "ENTER");
-					return 1;
-				}
-			}
-		}
-
-		if (IsPlayerInRangeOfPoint(playerid, 0.8, ENTER_EXIT[i][ee_INT_X], ENTER_EXIT[i][ee_INT_Y], ENTER_EXIT[i][ee_INT_Z]))
-		{
-			if (GetPlayerVirtualWorld(playerid) == ENTER_EXIT[i][ee_INT_WORLD])
-			{
-				if (GetPlayerInterior(playerid) == ENTER_EXIT[i][ee_INT_INTERIOR])
-				{
-					ShowPlayerKeyMessage(playerid, "ENTER");
-					return 1;
-				}
-			}
-		}
-	}
-
-	for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.0, TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], TELE_MIRRORS[i][teleview_Z]))
-		{
-			if (GetPlayerVirtualWorld(playerid) == TELE_MIRRORS[i][teleview_WORLD])
-			{
-				if (GetPlayerInterior(playerid) == TELE_MIRRORS[i][teleview_INTERIOR])
-				{
-					ShowPlayerKeyMessage(playerid, "Y");
-					return 1;
-				}
-			}
-		}
-	}
-
-	if (PLAYER_MISC[playerid][MISC_BALLOON])
-	{
-		for(new i = 0; i != sizeof HOTAIR_BALLOONS; i ++)
-		{
-			if (IsPlayerInRangeOfPoint(playerid, 1.5, HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], HOTAIR_BALLOONS[i][balloon_Z]))
-			{
-				if (HOTAIR_BALLOONS[i][balloon_ACTIVE] == false)
-				{
-					ShowPlayerKeyMessage(playerid, "Y");
-					return 1;
-				}
-			}
-		}
-	}
-
-	for(new i = 0; i < sizeof(Clothing_Shop_Positions); i++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.0, Clothing_Shop_Positions[i][clothing_shop_X], Clothing_Shop_Positions[i][clothing_shop_Y], Clothing_Shop_Positions[i][clothing_shop_Z]))
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	for(new i = 0; i < sizeof(Fast_Food_Positions); i++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.0, Fast_Food_Positions[i][fast_food_X], Fast_Food_Positions[i][fast_food_Y], Fast_Food_Positions[i][fast_food_Z]))
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	for(new i = 1; i != sizeof(obtain_work_coords); i ++)
-	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.0, obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], obtain_work_coords[i][obtain_work_Z]))
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	for(new i = 0; i < sizeof Fuel_Stations; i++)
-	{
-		if (IsPlayerInAnyVehicle(playerid))
-		{
-			if (IsPlayerInRangeOfPoint(playerid, 1.3, Fuel_Stations[i][0], Fuel_Stations[i][1], Fuel_Stations[i][2] + 0.25))
-			{
-				ShowPlayerKeyMessage(playerid, "Y");
-				return 1;
-			}
-		}
-	}
-
-	for(new i = 0; i != sizeof LoadTrucksPoints; i ++)
-	{
-		if (PLAYER_WORKS[playerid][WORK_TRUCK])
-		{
-			if (IsPlayerInAnyVehicle(playerid))
-			{
-				if (IsPlayerInRangeOfPoint(playerid, 3.5, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2]))
-				{
-					ShowPlayerKeyMessage(playerid, "H");
-					return 1;
-				}
-			}
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -27.964675, -89.948631, 1003.546875))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2125.901123, -65.776679, 1.585963))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 1060.838256, -917.609741, 43.124679))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 509.910125, -708.205383, 19.242210))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2157.049560, -92.550987, 2.798943))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -198.002197, -1762.759643, 675.768737))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2164.021484, -1164.398925, -16.871662))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2162.462158, -1169.053222, -16.871662))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2310.057128, -1789.786865, 1600.751953))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 2.0, 219.244018, 69.982215, 1005.039062) || IsPlayerInRangeOfPoint(playerid, 2.0, 262.945587, 109.785270, 1004.617187) || IsPlayerInRangeOfPoint(playerid, 2.0, 222.683914, 186.956054, 1003.031250) || IsPlayerInRangeOfPoint(playerid, 2.0, 407.302886,2531.673095,16.635936))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 219.244018, 69.982215, 1005.039062))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -382.580657, -1426.404296, 26.219505))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 1796.071655, -1414.565307, 2770.660156)) 
-    {
-    	ShowPlayerKeyMessage(playerid, "H");
-    	return 1;
-    }
-
-    if (IsPlayerInRangeOfPoint(playerid, 1.5, 1207.234375, -29.231435, 1000.953125) || IsPlayerInRangeOfPoint(playerid, 1.5, 496.589172, -76.033905, 998.757812))
-	{
-		ShowPlayerKeyMessage(playerid, "H");
-		return 1;
-	}
-
-    if (IsPlayerInRangeOfPoint(playerid, 1.0, 1795.293823, -1407.773681, 2770.660156)) 
-    {
-    	ShowPlayerKeyMessage(playerid, "H");
-        return 1;
-    }
-
-    if (IsPlayerInRangeOfPoint(playerid, 1.0, -370.339721, -1634.205932, 25.057666)) 
-    {
-    	ShowPlayerKeyMessage(playerid, "Y");
-        return 1;
-    }
-
-	if(IsPlayerInRangeOfPoint(playerid, 1.0, 1722.2310, -1253.8021, 471.1665))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-        return 1;
-	}
-
-    for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
-    {
-    	if (IsPlayerInRangeOfPoint(playerid, 1.2, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2]))
-    	{
-    		if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-			{
-				ShowPlayerKeyMessage(playerid, "H");
-	        	return 1;
-			}
-    	}
-    }
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.5, 726.2478, -1276.3830, 13.5662))
-	{
-		if (PLAYER_WORKS[playerid][WORK_MAFIA])
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.5, 976.715881, -1442.519775, 13.717537))
-	{
-		if (PLAYER_WORKS[playerid][WORK_OSBORN])
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.5, 3855.066162, -1290.975585, 7547.983398))
-	{
-		if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
-		{
-			ShowPlayerKeyMessage(playerid, "Y");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, 1626.089355, -2174.786132, 13.554687))
-	{
-		if (PLAYER_WORKS[playerid][WORK_TRASH])
-		{
-			ShowPlayerKeyMessage(playerid, "H");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -212.521926, -1739.015014, 675.768737))
-	{
-		if (PLAYER_WORKS[playerid][WORK_MEDIC])
-		{
-			ShowPlayerKeyMessage(playerid, "H");
-			return 1;
-		}
-	}
-
-	if (IsPlayerInRangeOfPoint(playerid, 1.5, -11.283934, 88.862136, 1101.522705))
-	{
-		ShowPlayerKeyMessage(playerid, "Y");
-		return 1;
-	}
-
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
-	return 1;
 }
 
 public OnGameModeExit()
@@ -20647,6 +20384,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						GivePlayerCash(playerid, pay, false);
 
 						DeletePropertyObject(PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_DB_ID], PLAYER_TEMP[playerid][py_FURNITURE_SELECTED]);
+						ShowDialog(playerid, DIALOG_FURNITURE_LIST);
 					}
 				}
 			}
@@ -20697,8 +20435,18 @@ SetPlayer_GPS_Checkpoint(playerid, Float:x, Float:y, Float:z, world, interior)//
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
 	//printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
-	new info[2];
+	new
+		info[2],
+		type
+	;
+	
+	type = Streamer_GetIntData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID);
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
+
+	switch(type)
+	{
+		case AREA_TYPE_KEY: ShowPlayerKeyMessage(playerid, KEY_AREAS[areaid][ka_KEY]);
+	}
 
 	switch(info[0])
 	{
@@ -20720,7 +20468,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 			if (TERRITORIES[index][territory_VALID])
 			{
 				PLAYER_TEMP[playerid][py_LAST_TERRITORY] = index;
-				if (TERRITORIES[index][territory_WAR])//territorio conquista
+				if (TERRITORIES[index][territory_WAR])
 				{
 					new str_text[164];
 					format(str_text, sizeof(str_text), "Este territorio está siendo atacado por la banda %s, es mejor alejarse.", CREW_INFO[ TERRITORIES[index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
@@ -20729,15 +20477,28 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 			}
 		}
 	}
-
 	return 1;
 }
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
 	//printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
-	new info[2];
+	new
+		info[2],
+		type
+	;
+
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
+	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
+
+	switch(type)
+	{
+		case AREA_TYPE_KEY:
+		{
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
+		}
+	}
 
 	switch(info[0])
 	{
@@ -22949,6 +22710,8 @@ LoadEnterExits()
 
 		format(label_str, sizeof(label_str), "{ffffff}%s", ENTER_EXIT[total_enterexits][ee_NAME]);
 		CreateDynamic3DTextLabel(label_str, 0xEAE9E900, ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], ENTER_EXIT[total_enterexits][ee_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = ENTER_EXIT[total_enterexits][ee_EXT_WORLD], .interiorid = ENTER_EXIT[total_enterexits][ee_EXT_INTERIOR]);
+		AddKeyArea(ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], 0.8, "ENTER");
+		AddKeyArea(ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], 0.8, "ENTER");
 
 		ENTER_EXIT[total_enterexits][ee_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], ENTER_EXIT[total_enterexits][ee_INT_Z] - 0.7, .worldid = ENTER_EXIT[total_enterexits][ee_INT_WORLD], .interiorid = ENTER_EXIT[total_enterexits][ee_INT_INTERIOR]);
 		ENTER_EXIT[total_enterexits][ee_EXT_PICKUP_ID] = CreateDynamicPickup(19902, 1, ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], ENTER_EXIT[total_enterexits][ee_EXT_Z] - 0.7, ENTER_EXIT[total_enterexits][ee_EXT_WORLD], ENTER_EXIT[total_enterexits][ee_EXT_INTERIOR]);
@@ -23083,6 +22846,8 @@ LoadProperties()//cargado propiedes
 		PROPERTY_INFO[total_houses][property_EXT_PICKUP_ID] = CreateDynamicPickup(pickup_modelid, 1, PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], PROPERTY_INFO[total_houses][property_EXT_Z], 0, PROPERTY_INFO[total_houses][property_EXT_INTERIOR]);
 		PROPERTY_INFO[total_houses][property_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INFO[total_houses][property_ID], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_INTERIOR]);
 
+		AddKeyArea(PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], 0.8, "ENTER");
+		AddKeyArea(PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], 0.8, "ENTER");
 
 		info[0] = PICKUP_TYPE_PROPERTY;
 		info[1] = total_houses; // Index
@@ -25074,7 +24839,6 @@ public OnPlayerUpdate(playerid)
 		}
     }
 
-    UpdatePlayerZoneMessages(playerid);
     CheckRobActor(playerid);
 	return 1;
 }
@@ -34167,7 +33931,6 @@ SendMessageToDoubtChannel(playerid, message[])
 		{
 			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL] && !PLAYER_TEMP[playerid][py_NEW_USER])
 			{
-				if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) continue;
 				SendResponsiveMessage(i, COLOR_DARK_GREEN, str, 125);
 			}
 		}
