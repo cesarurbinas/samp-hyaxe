@@ -35,10 +35,7 @@ DeleteIlegalInv(playerid, bool:drugs = false)
 
 	if (drugs)
 	{
-		PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
-		PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
-		PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
-		PLAYER_MISC[playerid][MISC_CRACK] = 0;
+		// RESETIAR DROGAS AKI
 		SavePlayerMisc(playerid);
 	}
 

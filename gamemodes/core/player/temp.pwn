@@ -461,8 +461,13 @@ enum Temp_Enum
 >>>>>>> ecf5348 (fixes)
 	py_DAMAGER_ALERTS,
 	py_TRUSTED_AIM,
+<<<<<<< HEAD
 	py_SING_AIM
 >>>>>>> a68591c (aimbot ban)
+=======
+	py_SING_AIM,
+	py_FISH
+>>>>>>> d1b24ed (comandos viejos eliminados)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

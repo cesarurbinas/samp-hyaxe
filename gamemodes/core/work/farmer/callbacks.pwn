@@ -32,12 +32,12 @@ public PlantingUp(playerid, seeds)
 
 		switch(seed_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][seed_info_PLANT_TYPE])
 		{
-			case PLANT_TYPE_MEDICINE: PLAYER_MISC[playerid][MISC_SEED_MEDICINE] += plant_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][plant_info_SEEDS];
-			case PLANT_TYPE_CANNABIS: PLAYER_MISC[playerid][MISC_SEED_CANNABIS] += plant_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][plant_info_SEEDS];
-			case PLANT_TYPE_CRACK: PLAYER_MISC[playerid][MISC_SEED_CRACK] += plant_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][plant_info_SEEDS];
+			case PLANT_TYPE_MEDICINE: AddPlayerItem(playerid, 6, plant_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][plant_info_SEEDS]);
+			case PLANT_TYPE_CANNABIS: AddPlayerItem(playerid, 7, plant_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][plant_info_SEEDS]);
+			case PLANT_TYPE_CRACK: AddPlayerItem(playerid, 8, plant_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][plant_info_SEEDS]);
 		}
 
-		ShowPlayerMessage(playerid, "~r~No queda espacio para m√°s plantas, prueba m√°s tarde.", 3);
+		ShowPlayerMessage(playerid, "~r~No queda espacio para m·s plantas, prueba m·s tarde.", 3);
 		return 1;
 	}
 
@@ -76,7 +76,7 @@ public PlantingUp(playerid, seeds)
 	PLANTS[index][plant_TIMER] = SetTimerEx("GrowPlantUp", 15000, false, "d", index);
 
 	SavePlayerSkills(playerid);
-	ShowPlayerMessage(playerid, "Ahora espera a que la planta crezca, si pasan m√°s de 5 minutos despu√©s~n~de que la planta haya crecido se destruir√°.", 4);
+	ShowPlayerMessage(playerid, "Ahora espera a que la planta crezca, si pasan m·s de 5 minutos despuÈs~n~de que la planta haya crecido se destruir·.", 4);
 	Streamer_Update(playerid);
 	return 1;
 }

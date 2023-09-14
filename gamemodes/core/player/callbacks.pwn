@@ -2069,7 +2069,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 			if (PLAYER_TEMP[playerid][py_NEW_USER])
 			{
 				PLAYER_MISC[playerid][MISC_CONFIG_HUD] = true;
-				PLAYER_MISC[playerid][MISC_CONFIG_ADMIN] = true;
 
 				SavePlayerMisc(playerid);
 				ApplyAnimation(playerid, "PED", "KO_SPIN_R", 4.1, 1, false, false, false, 0, false);
@@ -6098,10 +6097,8 @@ public ContinuePlayerIntro(playerid, step)
 			CHARACTER_INFO[playerid][ch_HUNGRY] = 90.0;
 			CHARACTER_INFO[playerid][ch_THIRST] = 95.0;
 			PLAYER_MISC[playerid][MISC_CONFIG_SOUNDS] = true;
-			PLAYER_MISC[playerid][MISC_CONFIG_AUDIO] = true;
 			PLAYER_MISC[playerid][MISC_CONFIG_HUD] = true;
 			PLAYER_MISC[playerid][MISC_CONFIG_FP] = false;
-			PLAYER_MISC[playerid][MISC_CONFIG_ADMIN] = false;
 			PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] = false;
 
 			SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
@@ -6133,7 +6130,6 @@ public ContinuePlayerIntro(playerid, step)
 
 			StopAudioStreamForPlayer(playerid);
 			PLAYER_MISC[playerid][MISC_CONFIG_HUD] = true;
-			PLAYER_MISC[playerid][MISC_CONFIG_ADMIN] = false;
 			SetPlayerHud(playerid);
 			PLAYER_TEMP[playerid][py_NEW_USER] = false;
 			PLAYER_TEMP[playerid][py_TUTORIAL] = true;

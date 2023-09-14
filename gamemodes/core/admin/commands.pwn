@@ -1455,30 +1455,6 @@ CMD:setarmour(playerid, params[])
 }
 alias:setarmour("setchaleco")
 
-CMD:setcrack(playerid, params[])
-{
-  new to_player, level;
-  if (sscanf(params, "ud", to_player, level)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setcrack <player_id> <nivel>");
-  if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-
-  PLAYER_MISC[to_player][MISC_CRACK] += level;
-
-  SendCmdLogToAdmins(playerid, "setcrack", params);
-  return 1;
-}
-
-CMD:setmedis(playerid, params[])
-{
-  new to_player, level;
-  if (sscanf(params, "ud", to_player, level)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setlevel <player_id> <nivel>");
-  if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-
-  PLAYER_MISC[to_player][MISC_MEDICINE] += level;
-
-  SendCmdLogToAdmins(playerid, "setmedis", params);
-  return 1;
-}
-
 CMD:setlevel(playerid, params[])
 {
 	new to_player, level;
@@ -3675,8 +3651,6 @@ flags:setinterior(CMD_MODERATOR)
 flags:v(CMD_MODERATOR2)
 flags:dv(CMD_MODERATOR)
 flags:setname(CMD_MODERATOR2)
-flags:setcrack(CMD_OPERATOR)
-flags:setmedis(CMD_OPERATOR)
 flags:exproperty(CMD_MODERATOR4)
 flags:gotoproperty(CMD_MODERATOR4)
 flags:comandosadmin(CMD_HELPER)

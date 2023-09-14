@@ -883,9 +883,9 @@ public CheckFish(playerid)
 		{
 			new str_text[128];
 
-			PLAYER_MISC[playerid][MISC_FISH] ++;
+			PLAYER_TEMP[playerid][py_FISH] ++;
 
-			format(str_text, sizeof(str_text), "Bien hecho, has tomado %s~w~. Ahora~n~tienes ~r~%d~w~ peces.", RandomFishName(), PLAYER_MISC[playerid][MISC_FISH]);
+			format(str_text, sizeof(str_text), "Bien hecho, has tomado %s~w~. Ahora~n~tienes ~r~%d~w~ peces.", RandomFishName(), PLAYER_TEMP[playerid][py_FISH]);
 
 			ApplyAnimation(playerid, "OTB", "WTCHRACE_WIN", 4.1, false, false, false, false, 0, true);
 			ShowPlayerMessage(playerid, str_text, 4);
@@ -1964,7 +1964,7 @@ public StandUpBotikin(medic, playerid)
 		printf("StandUpBotikin"); // debug juju
 	#endif
 
-	PLAYER_MISC[medic][MISC_BOTIKIN] --;
+	SubtractItem(medic, 0);
 	ResetItemBody(medic);
 	SavePlayerMisc(medic);
 	ShowPlayerMessage(medic, "~g~Has curado a esta persona.", 3);
@@ -2208,7 +2208,6 @@ SetPlayerPosEx(playerid, Float:x, Float:y, Float:z, Float:angle, interior, world
 		CHARACTER_INFO[playerid][ch_POS][2] = z;
 		CHARACTER_INFO[playerid][ch_ANGLE] = angle;
 		CHARACTER_INFO[playerid][ch_INTERIOR] = interior;
-		PLAYER_MISC[playerid][MISC_LAST_WORLD] = world;
 	}
 
 	SetPlayerPos(playerid, x, y, z);
@@ -2625,7 +2624,7 @@ CheckFishSell(playerid)
 {
 	if (IsPlayerInRangeOfPoint(playerid, 1.5, 2157.049560, -92.550987, 2.798943))
 	{
-		if (PLAYER_MISC[playerid][MISC_FISH])
+		if (PLAYER_TEMP[playerid][py_FISH])
 		{
 			ShowDialog(playerid, DIALOG_SELL_FISH);
 		}
@@ -3800,30 +3799,6 @@ ShowPlayerInventory(playerid, pid)
 		strcat(dialog, line_str);
 	}
 
-	if (PLAYER_MISC[pid][MISC_SEED_CANNABIS] > 0)
-	{
-		format(line_str, sizeof line_str, "Semillas Marihuana: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_SEED_CANNABIS]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_SEED_CRACK] > 0)
-	{
-		format(line_str, sizeof line_str, "Semillas Coca: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_SEED_CRACK]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_CANNABIS] > 0)
-	{
-		format(line_str, sizeof line_str, "Marihuana: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_CANNABIS]);
-		strcat(dialog, line_str);
-	}
-
-	if (PLAYER_MISC[pid][MISC_CRACK] > 0)
-	{
-		format(line_str, sizeof line_str, "Crack: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_CRACK]);
-		strcat(dialog, line_str);
-	}
-
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
 	return 1;
 }
@@ -3865,7 +3840,7 @@ ConvertTime_SecondsToHoursFloat(sec, &Float:hours)
 
 ActiveGeolocation(playerid)
 {
-	if (PLAYER_MISC[playerid][MISC_GEO])
+	if (PlayerAlreadyHasItem(playerid, 40))
 	{
 		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar el geolocalizador.", 3);
 		if ((gettime() - PLAYER_TEMP[playerid][py_LAST_GEO_USE]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 5 minutos para volver a hacer eso.", 4);

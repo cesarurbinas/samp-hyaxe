@@ -17,19 +17,19 @@ GrabPlant(playerid)
 			{
 				case PLANT_TYPE_MEDICINE:
 				{
-					PLAYER_MISC[playerid][MISC_MEDICINE] += 10;
+					AddPlayerItem(playerid, 1, 10);
 					ShowPlayerNotification(playerid, "~g~+10~w~ medicamentos", 4);
 					SavePlayerMisc(playerid);
 				}
 				case PLANT_TYPE_CANNABIS:
 				{
-					PLAYER_MISC[playerid][MISC_CANNABIS] += 10;
+					AddPlayerItem(playerid, 3, 10);
 					ShowPlayerNotification(playerid, "~g~+10~w~ marihuana", 4);
 					SavePlayerMisc(playerid);
 				}
 				case PLANT_TYPE_CRACK:
 				{
-					PLAYER_MISC[playerid][MISC_CRACK] += 10;
+					AddPlayerItem(playerid, 4, 10);
 					ShowPlayerNotification(playerid, "~g~+10~w~ crack", 4);
 				    SavePlayerMisc(playerid);
 				}
@@ -49,7 +49,7 @@ GrabPlant(playerid)
 
 StartPlanting(playerid, type)
 {
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estÃ¡s depie.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 	if (PLAYER_TEMP[playerid][py_PLANTING]) return ShowPlayerMessage(playerid, "~r~Ya estas plantado algo.", 3);
 
 	new str_text[128];
@@ -62,7 +62,7 @@ StartPlanting(playerid, type)
 		return 1;
 	}
 
-	if (GetPlayerPlantedPlants(playerid) > 25) return ShowPlayerMessage(playerid, "~r~Tienes muchas plantas, recÃ³gelas para seguir", 4);
+	if (GetPlayerPlantedPlants(playerid) > 25) return ShowPlayerMessage(playerid, "~r~Tienes muchas plantas, recógelas para seguir", 4);
 
 	for(new i = 0; i != MAX_PLANTS; i ++)
 	{
@@ -72,7 +72,7 @@ StartPlanting(playerid, type)
 		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], x, y, z);
 		if (IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
 		{
-			ShowPlayerMessage(playerid, "AquÃ­ ya hay una planta, alÃ©jate un poco para plantar.", 4);
+			ShowPlayerMessage(playerid, "Aquí ya hay una planta, aléjate un poco para plantar.", 4);
 			return 1;
 		}
 	}
@@ -81,30 +81,30 @@ StartPlanting(playerid, type)
 	{
 		case PLANT_TYPE_MEDICINE:
 		{
-			if (plant_info[type][plant_info_SEEDS] > PLAYER_MISC[playerid][MISC_SEED_MEDICINE])
+			if (PlayerAlreadyHasItem(playerid, 6))
 			{
 				ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
 				return 1;
 			}
-			PLAYER_MISC[playerid][MISC_SEED_MEDICINE] -= plant_info[type][plant_info_SEEDS];
+			SubtractItem(playerid, 6);
 		}
 		case PLANT_TYPE_CANNABIS:
 		{
-			if (plant_info[type][plant_info_SEEDS] > PLAYER_MISC[playerid][MISC_SEED_CANNABIS])
+			if (PlayerAlreadyHasItem(playerid, 7))
 			{
 				ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
 				return 1;
 			}
-			PLAYER_MISC[playerid][MISC_SEED_CANNABIS] -= plant_info[type][plant_info_SEEDS];
+			SubtractItem(playerid, 7);
 		}
 		case PLANT_TYPE_CRACK:
 		{
-			if (plant_info[type][plant_info_SEEDS] > PLAYER_MISC[playerid][MISC_SEED_CRACK])
+			if (PlayerAlreadyHasItem(playerid, 8))
 			{
 				ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
 				return 1;
 			}
-			PLAYER_MISC[playerid][MISC_SEED_CRACK] -= plant_info[type][plant_info_SEEDS];
+			SubtractItem(playerid, 8);
 		}
 	}
 
