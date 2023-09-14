@@ -55,7 +55,7 @@
 
 // Features
 #define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -3659,7 +3659,7 @@ public UpdateWantedLevelMark()
 	return 1;
 }
 
-SetPlayerRangePoliceSearchLevel(playerid, level, Float:range, const reason)
+SetPlayerRangePoliceSearchLevel(playerid, level, Float:range, const reason[])
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -7048,6 +7048,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 		GetPlayerPos(playerid, x, y, z);
 		SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+
+		SetPlayerRangePoliceSearchLevel(playerid, 2, 100.0, "Homicidio");
 	}
 
 	if (IsPlayerConnected(killerid))
