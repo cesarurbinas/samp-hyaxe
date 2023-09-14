@@ -33862,6 +33862,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags) 
 {
 	//printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
+	printf("%s (%d): /%s %s", PLAYER_TEMP[playerid][py_NAME], playerid, cmd, params);
     if (result == -1) 
     { 
 		SendClientMessageEx(playerid, COLOR_WHITE, "El comando "COL_RED"/%s "COL_WHITE"no existe, usa "COL_RED"/ayuda"COL_WHITE".", cmd);
