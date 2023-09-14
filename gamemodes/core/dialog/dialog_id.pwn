@@ -240,8 +240,14 @@ enum
 	DIALOG_BOOMBOX_OPTIONS,
 <<<<<<< HEAD
 	DIALOG_ROBBERY_PANEL,
+<<<<<<< HEAD
 	DIALOG_ROBBERY_MEMBERS
 =======
 	DIALOG_ELECTRONIC_SHOP
 >>>>>>> refs/rewritten/Arreglos-varios
+=======
+	DIALOG_ROBBERY_MEMBERS,
+	DIALOG_ELECTRONIC_SHOP,
+	DIALOG_FURNITURE_SHOP
+>>>>>>> 6f7ef17 (Guardar muebles comprados)
 };

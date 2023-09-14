@@ -157,6 +157,7 @@ enum property_obj_enum
 {
 	bool:pobj_VALID,
 	pobj_ID,
+	pobj_DB_ID,
 	pobj_PROPERTY_ID,
 	pobj_MODELID,
 	pobj_TYPE,

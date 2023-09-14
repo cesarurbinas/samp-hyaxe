@@ -1,4 +1,4 @@
-GetFurnitureTypeName(type)
+/*GetFurnitureTypeName(type)
 {
 	new name[64];
 
@@ -13,7 +13,7 @@ GetFurnitureTypeName(type)
 		case 6: name = "Silla";
 	}
 	return name;
-}
+}*/
 
 CreatePropertyObjects(property_id, interior, world)
 {
@@ -27,9 +27,10 @@ CreatePropertyObjects(property_id, interior, world)
 		{
 			PROPERTY_OBJECT[ property_id ][pobj_VALID] = true;
 			PROPERTY_OBJECT[ property_id ][pobj_PROPERTY_ID] = property_id;
+			PROPERTY_OBJECT[ property_id ][pobj_DB_ID] = db_get_field_assoc_int(Result, "ID");
 			PROPERTY_OBJECT[ property_id ][pobj_MODELID] = db_get_field_assoc_int(Result, "MODELID");
 			PROPERTY_OBJECT[ property_id ][pobj_TYPE] = db_get_field_assoc_int(Result, "TYPE");
-			PROPERTY_OBJECT[ property_id ][pobj_NAME] = GetFurnitureTypeName( PROPERTY_OBJECT[ property_id ][pobj_TYPE] );
+			db_get_field_assoc(Result, "NAME", PROPERTY_OBJECT[ property_id ][pobj_NAME], 264);
 			PROPERTY_OBJECT[ property_id ][pobj_POS][0] = db_get_field_assoc_float(Result, "X");
 			PROPERTY_OBJECT[ property_id ][pobj_POS][1] = db_get_field_assoc_float(Result, "Y");
 			PROPERTY_OBJECT[ property_id ][pobj_POS][2] = db_get_field_assoc_float(Result, "Z");
@@ -54,5 +55,62 @@ CreatePropertyObjects(property_id, interior, world)
 		}
 		db_free_result(Result);
 	}
+	return 1;
+}
+
+AddPropertyObject(playerid, property_id, name[], type, interior, world)
+{
+	PROPERTY_OBJECT[ property_id ][pobj_VALID] = true;
+	PROPERTY_OBJECT[ property_id ][pobj_PROPERTY_ID] = property_id;
+	PROPERTY_OBJECT[ property_id ][pobj_TYPE] = type;
+	PROPERTY_OBJECT[ property_id ][pobj_INTERIOR] = interior;
+	PROPERTY_OBJECT[ property_id ][pobj_WORLD] = world;
+	format(PROPERTY_OBJECT[ property_id ][pobj_NAME], 32, "%s", name);
+
+	PROPERTY_OBJECT[ property_id ][pobj_ID] = CreateDynamicObject(
+		PROPERTY_OBJECT[ property_id ][pobj_MODELID],
+		PROPERTY_OBJECT[ property_id ][pobj_POS][0],
+		PROPERTY_OBJECT[ property_id ][pobj_POS][1],
+		PROPERTY_OBJECT[ property_id ][pobj_POS][2],
+		PROPERTY_OBJECT[ property_id ][pobj_ROTATION][0],
+		PROPERTY_OBJECT[ property_id ][pobj_ROTATION][1],
+		PROPERTY_OBJECT[ property_id ][pobj_ROTATION][2],
+		PROPERTY_OBJECT[ property_id ][pobj_WORLD],
+		PROPERTY_OBJECT[ property_id ][pobj_INTERIOR]
+	);
+
+	new DBResult:Result, DB_Query[340];
+
+	Result = db_query(Database, "SELECT MAX(`ID`) FROM `PROPERTY_OBJECTS`;");
+	if (db_num_rows(Result)) PROPERTY_OBJECT[ property_id ][pobj_DB_ID] = db_get_field_int(Result, 0);
+	db_free_result(Result);
+
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `PROPERTY_OBJECTS`\
+		(\
+			`ID`, `ID_PROPERTY`, `MODELID`, `TYPE`, `X`, `Y`, `Z`, `RX`, `RY`, `RZ`, `NAME`\
+		)\
+		VALUES\
+		(\
+			'%d', '%d', '%d', '%d', '%f', '%f', '%f', '%f', '%f', '%f', '%s'\
+		);\
+	",
+		PROPERTY_OBJECT[ property_id ][pobj_DB_ID],
+		property_id,
+		PROPERTY_OBJECT[ property_id ][pobj_MODELID],
+		PROPERTY_OBJECT[ property_id ][pobj_TYPE],
+		PROPERTY_OBJECT[ property_id ][pobj_POS][0],
+		PROPERTY_OBJECT[ property_id ][pobj_POS][1],
+		PROPERTY_OBJECT[ property_id ][pobj_POS][2],
+		PROPERTY_OBJECT[ property_id ][pobj_ROTATION][0],
+		PROPERTY_OBJECT[ property_id ][pobj_ROTATION][1],
+		PROPERTY_OBJECT[ property_id ][pobj_ROTATION][2],
+		PROPERTY_OBJECT[ property_id ][pobj_NAME]
+	);
+	db_free_result(db_query(Database, DB_Query));
+
+	PLAYER_TEMP[playerid][py_EDITING_OBJ] = PROPERTY_OBJECT[ property_id ][pobj_ID];
+	EditingMode(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
 	return 1;
 }

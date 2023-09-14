@@ -4775,7 +4775,6 @@ Menu:PROPERTY_MENU(playerid, response, listitem)
 			case 2:
 			{
 				ShowFurnitureMenu(playerid);
-				ShowPlayerMessage(playerid, "~r~Esta opción no esta disponible por el momento", 4);
 			}
     	}
     }
@@ -4804,9 +4803,32 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
     	switch(listitem)
     	{
     		case 0: print("a");
-    		case 1:
+    		case 1..7:
     		{
-    			
+    			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
+    			PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
+
+    			new
+    				type = (listitem - 1),
+    				sub_string[64],
+    				dialog_string[32 * 32],
+    				total_objects
+    			;
+
+				for (new i; i < sizeof(FURNITURE_OBJECTS); i++)
+				{
+					if (FURNITURE_OBJECTS[i][furniture_object_TYPE] == type)
+					{
+						PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_objects] = i;
+
+	           			format(sub_string, sizeof(sub_string), "%i\t%s~n~~g~~h~$%d\n", FURNITURE_OBJECTS[i][furniture_object_MODELID], TextToSpanish(FURNITURE_OBJECTS[i][furniture_object_NAME]), FURNITURE_OBJECTS[i][furniture_object_PRICE]);
+	           			strcat(dialog_string, sub_string);
+
+	           			total_objects ++;
+	           		}
+				}
+
+				ShowPlayerDialog(playerid, DIALOG_FURNITURE_SHOP, DIALOG_STYLE_PREVIEW_MODEL, "Comprar muebles", dialog_string, "Comprar", "Cerrar");
     		}
     	}
     }
@@ -5690,7 +5712,7 @@ Log(const nombre[], const texto[])
     return 1;
 }
 
-CMD:editmodetestxd(playerid, params[])
+/*CMD:editmodetestxd(playerid, params[])
 {
 	new Float:pos[3];
 
@@ -5699,7 +5721,7 @@ CMD:editmodetestxd(playerid, params[])
 	PLAYER_TEMP[playerid][py_EDITING_OBJ] = CreateDynamicObject(2738, pos[0] + 0.6, pos[1] + 0.6, pos[2], 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 	EditingMode(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
 	return 1;
-}
+}*/
 
 CALLBACK: PurgeAnnounce()
 {
@@ -20578,6 +20600,25 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					default: return 0;
 				}
 			}
+		}
+		case DIALOG_FURNITURE_SHOP:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_ACTUAL_PROPERTY] > 0) return ShowPlayerMessage(playerid, "~r~Tienes que estar en una propiedad.", 5);
+				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
+				new index = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
+
+				if (CHARACTER_INFO[playerid][ch_CASH] <= FURNITURE_OBJECTS[index][furniture_object_PRICE]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+
+				new str_text[128];
+				format(str_text, sizeof(str_text), "~r~-%d$", FURNITURE_OBJECTS[index][furniture_object_PRICE]);
+     			GameTextForPlayer(playerid, str_text, 5000, 1);
+				GivePlayerCash(playerid, -FURNITURE_OBJECTS[index][furniture_object_PRICE], false);
+
+				AddPropertyObject(playerid, PLAYER_TEMP[playerid][py_ACTUAL_PROPERTY], FURNITURE_OBJECTS[index][furniture_object_NAME], FURNITURE_OBJECTS[index][furniture_object_TYPE], GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid));
+			}
+			else ShowFurnitureMenu(playerid);
 		}
 	}
 	return 0;
