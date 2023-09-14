@@ -532,6 +532,8 @@ new ROCKS_OBJ[][miner_rocks_info] =
 	{3930, 1163.794799, 1011.816040, -96.488059, -111.699996, 0.000000, -55.200004, 8, 36, 25}
 };
 
+new ServerInitTime;
+
 /* Tuning Object System */
 enum e_Tuning_Shop_Objects
 {
@@ -7420,6 +7422,7 @@ public OnGameModeInit()
 	
     Log("status", "Servidor iniciado.");
     SendDiscordWebhook(":fire: Servidor iniciado.", 1);
+    ServerInitTime = gettime();
     return 1;
 }
 
@@ -8869,6 +8872,12 @@ CMD:resetsans(playerid, params[])
 		PLAYER_MISC[i][MISC_JAILS] = 0;
 	}
 
+	return 1;
+}
+
+CMD:runtime(playerid, params[])
+{
+	SendClientMessageEx(playerid, COLOR_WHITE, "El servidor se ha iniciado: %s" ReturnTimelapse(ServerInitTime, gettime()));
 	return 1;
 }
 
