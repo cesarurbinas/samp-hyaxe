@@ -92,7 +92,7 @@ TextureCountryFlag(objectid, index, country)
 			font_size      = 55;
 			text_alignment = 1;
 		}
-		case 9: // EspaÃ±a
+		case 9: // España
 		{
 			text_flag      = "{c60b1e}ggg\n{ffc400}ggg\n{c60b1e}ggg";
 			material_size  = 60;
@@ -212,7 +212,7 @@ TextureCountryFlag(objectid, index, country)
 			font_size      = 55;
 			text_alignment = 1;
 		}
-		case 24: // MÃ©xico
+		case 24: // México
 		{
 			text_flag      = "{006847}g"COL_WHITE"g{ce1126}g\n{006847}g"COL_WHITE"g{ce1126}g\n{006847}g"COL_WHITE"g{ce1126}g";
 			material_size  = 60;
@@ -228,7 +228,7 @@ TextureCountryFlag(objectid, index, country)
 			font_size      = 55;
 			text_alignment = 1;
 		}
-		case 26: // PanamÃ¡
+		case 26: // Panamá
 		{
 			text_flag      = ""COL_WHITE"g{d21034}g\n{0067c6}g"COL_WHITE"g";
 			material_size  = 60;
@@ -244,7 +244,7 @@ TextureCountryFlag(objectid, index, country)
 			font_size      = 55;
 			text_alignment = 1;
 		}
-		case 28: // PerÃº
+		case 28: // Perú
 		{
 			text_flag      = "{e30000}g"COL_WHITE"g{e30000}g\n{e30000}g"COL_WHITE"g{e30000}g\n{e30000}g"COL_WHITE"g{e30000}g";
 			material_size  = 60;
@@ -534,8 +534,8 @@ SetVehicleLightsAction(playerid)
 
 			ShowPlayerMessage(playerid, "Luces ~r~apagadas", 2);
 
-			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) SetPlayerChatBubble(playerid, "\n\n\n\n* Ha apagado las luces de su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			else SetPlayerChatBubble(playerid, "\n\n\n\n* Ha apagado las luces de su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) SetPlayerChatBubble(playerid, "\n\n\n\n* Ha apagado las luces de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			else SetPlayerChatBubble(playerid, "\n\n\n\n* Ha apagado las luces de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		}
 		else
 		{
@@ -544,8 +544,8 @@ SetVehicleLightsAction(playerid)
 
 			ShowPlayerMessage(playerid, "Luces ~g~encendidas", 2);
 
-			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido las luces de su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			else SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido las luces de su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido las luces de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			else SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido las luces de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		}
 
 		if (PLAYER_TEMP[playerid][py_SPEEDOMETER])
@@ -594,7 +594,7 @@ CheckPlayerDoors(playerid)
 		GetVehiclePos(vehicleid, x, y, z);
 		if (GetPlayerDistanceFromPoint(playerid, x, y, z) < 10.0)
 		{
-			if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] == 0)
+			if (!GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS])
 			{
 			    CloseVehicle(playerid, vehicleid);
 			    return 0;
@@ -612,17 +612,26 @@ OpenVehicle(playerid, vehicleid)
 {
 	if (!ACCOUNT_INFO[playerid][ac_SU] && !PLAYER_VEHICLES[vehicleid][player_vehicle_ACCESSIBLE])
 	{
-		ShowPlayerMessage(playerid, "Este vehÃ­culo estÃ¡ bloqueado, desbloquÃ©alo siendo ~p~VIP", 3);
+		ShowPlayerMessage(playerid, "Este vehículo está bloqueado, desbloquéalo siendo ~p~VIP", 3);
 		return 1;
 	}
 
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] = 0;
 	UpdateVehicleParams(vehicleid);
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto las puertas de su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto las puertas de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 	new str_text[64];
 	format(str_text, sizeof(str_text), "~n~~n~%s ~g~destrabado", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 	ShowPlayerMessage(playerid, str_text, 1);
+
+	if (PLAYER_TEMP[playerid][py_SPEEDOMETER])
+	{
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 0x7EB564FF);
+		PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6], 0x7EB564FF);
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6]);
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
+		TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
+	}
 
 	PlayerPlaySound(playerid, 1145, 0.0, 0.0, 0.0);
 	return 1;
@@ -633,11 +642,20 @@ CloseVehicle(playerid, vehicleid)
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LAST_CLOSED_TIME] = gettime();
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] = 1;
 	UpdateVehicleParams(vehicleid);
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha cerrado las puertas de su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha cerrado las puertas de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 	new str_text[64];
 	format(str_text, sizeof(str_text), "~n~~n~%s ~r~trabado", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 	ShowPlayerMessage(playerid, str_text, 1);
+
+	if (PLAYER_TEMP[playerid][py_SPEEDOMETER])
+	{
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], -1153745921);
+		PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6], -1153745921);
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6]);
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
+		TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
+	}
 
 	PlayerPlaySound(playerid, 1145, 0.0, 0.0, 0.0);
 	return 1;
@@ -660,11 +678,11 @@ SetEngineAction(playerid)
 
         if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_WORK)
         {
-            if (TRUCK_VEHICLE[vehicleid][truck_vehicle_LOADING]) return ShowPlayerMessage(playerid, "~r~Debes esperar a que se termine de cargar el camiÃ³n.", 3);
-            if (TRUCK_VEHICLE[vehicleid][truck_vehicle_UNLOADING]) return ShowPlayerMessage(playerid, "~r~Debes esperar a que se termine de descargar el camiÃ³n.", 3);
+            if (TRUCK_VEHICLE[vehicleid][truck_vehicle_LOADING]) return ShowPlayerMessage(playerid, "~r~Debes esperar a que se termine de cargar el camión.", 3);
+            if (TRUCK_VEHICLE[vehicleid][truck_vehicle_UNLOADING]) return ShowPlayerMessage(playerid, "~r~Debes esperar a que se termine de descargar el camión.", 3);
         }
         
-        if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE]) return ShowPlayerMessage(playerid, "~r~Primero debes terminar de hacer lo que estÃ©s haciendo.", 2);
+        if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE]) return ShowPlayerMessage(playerid, "~r~Primero debes terminar de hacer lo que estés haciendo.", 2);
         
         KillTimer(PLAYER_TEMP[playerid][py_TIMERS][7]);
         if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
@@ -673,10 +691,10 @@ SetEngineAction(playerid)
             GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
             UpdateVehicleParams(vehicleid);
             
-            if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) ShowPlayerMessage(playerid, "VehÃ­culo ~r~detenido", 2);
-            else ShowPlayerMessage(playerid, "VehÃ­culo ~r~detenido", 2);
+            if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) ShowPlayerMessage(playerid, "Vehículo ~r~detenido", 2);
+            else ShowPlayerMessage(playerid, "Vehículo ~r~detenido", 2);
 
-            SetPlayerChatBubble(playerid, "\n\n\n\n* Ha apagado su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+            SetPlayerChatBubble(playerid, "\n\n\n\n* Ha apagado su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
         }
         else
         {
@@ -1178,9 +1196,9 @@ SetPlayerVehiclePark(playerid)
 	new vehicleid = INVALID_VEHICLE_ID;
 	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER) vehicleid = GetPlayerVehicleID(playerid);
 
-	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No estÃ¡s en tu vehÃ­culo para aparcarlo.", 2);
-	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es tÃº vehÃ­culo.", 2);
-	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es tÃº vehÃ­culo.", 2);
+	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No estás en tu vehículo para aparcarlo.", 2);
+	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 2);
+	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 2);
 
 	new Float:x, Float:y, Float:z, Float:angle;
 	GetVehiclePos(vehicleid, x, y, z);
@@ -1196,7 +1214,7 @@ SetPlayerVehiclePark(playerid)
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] = 0;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] = 1;
 	UpdateVehicleParams(vehicleid);
-	ShowPlayerNotification(playerid, "Has estacionado tu vehÃ­culo, cuando sea destruido o spawneado volverÃ¡ a aparecer aquÃ­.", 5);
+	ShowPlayerNotification(playerid, "Has estacionado tu vehículo, cuando sea destruido o spawneado volverá a aparecer aquí.", 5);
 	return 1;
 }
 
@@ -1268,8 +1286,6 @@ ShowPlayerSpeedoMeter(playerid)
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][10]);
 
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8]);
 
 	// Fuel
@@ -1278,9 +1294,6 @@ ShowPlayerSpeedoMeter(playerid)
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], td_str);
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][8]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1]); // bar
-
-	// Lock detail
-	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
 
 	// Lights status
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS])
@@ -1302,6 +1315,26 @@ ShowPlayerSpeedoMeter(playerid)
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5]);
+
+	// Engine
+	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 1570070015);
+	else PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 0x3D3D3DFF);
+
+	// Doors
+	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS])
+	{
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 0x7EB564FF);
+		PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6], 0x7EB564FF);
+	}
+	else
+	{
+		PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], -1153745921);
+		PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6], -1153745921);
+	}
+
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
 
 	PLAYER_TEMP[playerid][py_SPEEDOMETER] = true;
 	PLAYER_TEMP[playerid][py_FUEL_DOWN_TIME] = gettime();
