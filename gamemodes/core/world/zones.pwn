@@ -8,6 +8,7 @@ enum e_ZONEINFO
     Float:z_MaxY,
     Float:z_MaxZ
 };
+
 new g_Zones[][e_ZONEINFO] =
 {
 	// Indoor zones
@@ -409,3 +410,29 @@ new SAFE_ZONES[][enum_SAFE_ZONES] =
 	{INVALID_STREAMER_ID, 1423.0, -1737.0, 1583.0, -1587.0, 0, 0}, // LSPD
 	{INVALID_STREAMER_ID, 2760.0, -1843.0, 2810.0, -1793.0, 0, 0} // Futbolista
 };
+
+GetPointZone(Float:f_Pos_X, Float:f_Pos_Y, city[], zone[])
+{
+	format(city, 45, "San Andreas");
+    format(zone, 45, "Desconocida");
+
+	for(new i = 0; i < sizeof(g_Cities); i++)
+	{
+	    if (   (f_Pos_X >= g_Cities[i][z_MinX] && f_Pos_X < g_Cities[i][z_MaxX]) && (f_Pos_Y >= g_Cities[i][z_MinY] && f_Pos_Y < g_Cities[i][z_MaxY]) )
+		{
+			format(city, 45, g_Cities[i][z_Name]);
+		    break;
+		}
+	}
+
+	for(new i = 0; i < sizeof(g_Zones); i++)
+	{
+	    if (   (f_Pos_X >= g_Zones[i][z_MinX] && f_Pos_X < g_Zones[i][z_MaxX]) && (f_Pos_Y >= g_Zones[i][z_MinY] && f_Pos_Y < g_Zones[i][z_MaxY]) )
+		{
+			format(zone, 45, g_Zones[i][z_Name]);
+		    break;
+		}
+	}
+
+	return 1;
+}

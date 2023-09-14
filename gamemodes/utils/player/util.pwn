@@ -1558,3 +1558,88 @@ CheckNameFilterViolation(const str_text[])
     }
 	return false;
 }
+
+SendMafiaMessage(color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_WORKS[i][WORK_MAFIA])
+			{
+				SendResponsiveMessage(i, color, message, 135);
+			}
+		}
+	}
+	return 1;
+}
+
+SendEnemyMafiaMessage(color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_WORKS[i][WORK_ENEMY_MAFIA])
+			{
+				SendResponsiveMessage(i, color, message, 135);
+			}
+		}
+	}
+	return 1;
+}
+
+SendOsbornMafiaMessage(color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_WORKS[i][WORK_OSBORN])
+			{
+				SendResponsiveMessage(i, color, message, 135);
+			}
+		}
+	}
+	return 1;
+}
+
+SendConnorMafiaMessage(color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_WORKS[i][WORK_CONNOR])
+			{
+				SendResponsiveMessage(i, color, message, 135);
+			}
+		}
+	}
+	return 1;
+}
+
+SendDivisoMafiaMessage(color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_WORKS[i][WORK_DIVISO])
+			{
+				SendResponsiveMessage(i, color, message, 135);
+			}
+		}
+	}
+	return 1;
+}
+
+PutPlayerInVehicleEx(playerid, vehicleid, seat)
+{
+	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_VEHICLE_DOORS][p_ac_info_IMMUNITY] = gettime() + 5;
+	PLAYER_AC_INFO[playerid][CHEAT_VEHICLE_NOFUEL][p_ac_info_IMMUNITY] = gettime() + 15;
+	PLAYER_TEMP[playerid][py_VEHICLEID] = vehicleid;
+	return PutPlayerInVehicle(playerid, vehicleid, seat);
+}

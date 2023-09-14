@@ -47,3 +47,77 @@ DeleteIlegalInv(playerid, bool:drugs = false)
 
 	return 1;
 }
+
+SendPoliceNotification(const message[], time)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				if (PLAYER_WORKS[i][WORK_POLICE])
+				{
+					if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
+					{
+						ShowPlayerNotification(i, message, time);
+					}
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+CountPoliceRadioPlayers(radio)
+{
+	new total;
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				if (PLAYER_WORKS[i][WORK_POLICE])
+				{
+					if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
+					{
+						if (PLAYER_TEMP[i][py_POLICE_RADIO] == radio)
+						{
+							total ++;
+						}
+					}
+				}
+			}
+		}
+	}
+	return total;
+}
+
+SendPoliceRadioMessage(radio, color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				if (PLAYER_WORKS[i][WORK_POLICE])
+				{
+					if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
+					{
+						if (radio == -1) SendResponsiveMessage(i, color, message, 135);
+						else
+						{
+							if (PLAYER_TEMP[i][py_POLICE_RADIO] == radio)
+							{
+								SendResponsiveMessage(i, color, message, 135);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return 1;
+}
