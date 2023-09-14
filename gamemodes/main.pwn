@@ -28010,6 +28010,10 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 				}
 				case ACTOR_TYPE_DEALER:
 				{
+					new Float:angle, Float:x, Float:y, Float:z;
+					GetDynamicActorFacingAngle(actorid, angle);
+					GetDynamicActorPos(actorid, x, y, z);
+
 					// In-Front special drop
 					if (random(2) == 1)
 					{
