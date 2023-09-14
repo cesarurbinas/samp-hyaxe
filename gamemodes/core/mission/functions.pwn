@@ -24,7 +24,7 @@ CreateMissionsPlaces()
     }
 
     // Sweet come back
-    START_MISSION[SWEET_MISSION][ems_COME_BACK_AREA] = CreateDynamicCircle(490.1550, -1666.5117, 6.0);
+    START_MISSION[SWEET_MISSION][ems_COME_BACK_AREA] = CreateDynamicCircle(2530.2314, -1713.6471, 6.0);
 
     // Sweet NPC's
     for(new i = 0; i < sizeof(SWEET_DEALERS); i++)

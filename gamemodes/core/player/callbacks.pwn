@@ -3836,12 +3836,12 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 						{
 							if (PLAYER_TEMP[i][py_MISSION] == SWEET_MISSION)
 							{
-								ShowPlayerNotification(i, sprintf("%s ha capturado las drogas.", PLAYER_TEMP[playerid][py_NAME]),  3);
+								ShowPlayerNotification(i, sprintf("%s ha capturado las drogas.", PLAYER_TEMP[playerid][py_NAME]),  5);
 								SetPlayerMarkerForPlayer(i, playerid, 0x46ABE5FF);
 
 								SetPlayer_GPS_Checkpoint(
 									i,
-									490.1550, -1666.5117, 13.3438,
+									2530.2314, -1713.6471, 13.4735,
 									0, 0
 								);
 
