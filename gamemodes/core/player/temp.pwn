@@ -348,8 +348,13 @@ enum Temp_Enum
 >>>>>>> c1402b1 (Tipos de inventario)
 =======
 	py_INVENTORY_TYPE,
+<<<<<<< HEAD
 	py_SURFING_VEHICLE
 >>>>>>> ec45603 (valid surfing)
+=======
+	py_SURFING_VEHICLE,
+	py_BIG_PUNCH
+>>>>>>> b1c0b48 (mejoras en el fist slapper)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

@@ -178,13 +178,51 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 				if (dist >= 5.0)
 				{
-					new string[128];
-					format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): Fist slapper (wp: %d, dist: %f)", ACCOUNT_INFO[issuerid][ac_NAME], issuerid, weaponid, dist);
-					SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
-					SendDiscordWebhook(string, 1);
+					PLAYER_TEMP[playerid][py_BIG_PUNCH] ++;
+					if (PLAYER_TEMP[playerid][py_BIG_PUNCH] >= 5)
+					{
+						PLAYER_TEMP[playerid][py_BIG_PUNCH] = 0;
 
-					SendClientMessageEx(issuerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fist slapper");
-					KickEx(issuerid, 500);
+						new string[128];
+						format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): Fist slapper (wp: %d, dist: %f)", ACCOUNT_INFO[issuerid][ac_NAME], issuerid, weaponid, dist);
+						SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+						SendDiscordWebhook(string, 1);
+
+						SendClientMessageEx(issuerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fist slapper");
+						KickEx(issuerid, 500);
+					}
+				}
+			}
+			case 22..27, 33, 34:
+			{
+				if (bodypart == 9)
+				{
+					new current_gettime = gettime();
+
+					if (current_gettime - PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] > 30) PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] = 0;
+					else PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] ++;
+
+					PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] = current_gettime;
+					if (PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] >= 5)
+					{
+						new dialog[250];
+						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Aimbot");
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+						
+						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Aimbot");
+
+						KickEx(playerid, 500);
+						PLAYER_MISC[playerid][MISC_BANS] ++;
+						SavePlayerMisc(playerid);
+
+						new str[144];
+						format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Aimbot.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+						SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+						new webhook[144];
+						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+						SendDiscordWebhook(webhook, 1);
+					}
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-#if defined CORE_ANTICHEAT_H_
+t#if defined CORE_ANTICHEAT_H_
 	#endinput
 #endif
 
@@ -32,7 +32,8 @@ enum
 	CHEAT_UNOCCUPIED_VEHICLE_TP,
 	CHEAT_HIGH_POS,
 	CHEAT_CAR_JACKING,
-	CHEAT_RAPID_FIRE
+	CHEAT_RAPID_FIRE,
+	CHEAT_HEAD_AIM
 };
 
 enum e_ac_Info
@@ -72,6 +73,7 @@ new ac_Info[][e_ac_Info] =
 	{"high pos",                  true, true,         1, 0},
 	{"car jacking",               true, true,         1, 0},
 	{"rapid fire",                true, true,         1, 0}
+	{"head aim",                true, true,         1, 0}
 };
 
 enum e_PLAYER_AC_INFO
