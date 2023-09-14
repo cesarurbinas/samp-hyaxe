@@ -21,7 +21,7 @@ public StopShitting(playerid)
 	return 1;
 }
 
-BloodParticle(playerid)
+PlayerBloodParticle(playerid)
 {
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(playerid, x, y, z);

@@ -6933,6 +6933,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 	if (IsPlayerConnected(killerid) && CHARACTER_INFO[killerid][ch_STATE] == ROLEPLAY_STATE_NORMAL && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_NORMAL)
 	{
+		PlayerBloodParticle(playerid);
+
 		new 
 			str_victim[164],
 			str_killer[64],
@@ -6978,6 +6980,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 	if (IsPlayerConnected(killerid) && CHARACTER_INFO[killerid][ch_STATE] == ROLEPLAY_STATE_NORMAL && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
 	{
+		PlayerBloodParticle(playerid);
+		
 		new 
 			str_victim[164],
 			str_killer[64],
