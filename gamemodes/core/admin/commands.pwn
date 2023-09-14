@@ -2828,7 +2828,7 @@ CMD:ufo(playerid, params[])
 	return 1;
 }
 
-static const ALIEN_ITEMS[] =
+/*static const ALIEN_ITEMS[] =
 {
 	0, 1, 3, 28, 57, 32, 2, 4
 };
@@ -2937,7 +2937,7 @@ CMD:nuclearbomb(playerid, params[])
 	SendCmdLogToAdmins(playerid, "nuclearbomb", params);
 	return 1;
 }
-flags:nuclearbomb(CMD_LORD)
+flags:nuclearbomb(CMD_LORD)*/
 
 
 forward neuroadmin_BotLearning(index, response_code, data[]);
