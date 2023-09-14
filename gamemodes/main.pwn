@@ -24363,13 +24363,8 @@ public OnPlayerUpdate(playerid)
 
 	new 
 		player_action = GetPlayerSpecialAction(playerid),
-		Float:player_health,
-		Float:player_armour,
 		current_gettime = gettime()
 	;
-	
-	GetPlayerHealth(playerid, player_health);
-	GetPlayerArmour(playerid, player_armour);
 
 	if (ac_Info[CHEAT_JETPACK][ac_Enabled])
 	{
@@ -24569,8 +24564,8 @@ public OnPlayerUpdate(playerid)
 		}
 	}
 
-	CHARACTER_INFO[playerid][ch_HEALTH] = player_health;
-	CHARACTER_INFO[playerid][ch_ARMOUR] = player_armour;
+	CHARACTER_INFO[playerid][ch_HEALTH] = g_iPlayerHealth[playerid];
+	CHARACTER_INFO[playerid][ch_ARMOUR] = g_iPlayerArmour[playerid];
 	GetPlayerPos(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2]);
 	if (vehicleid)
 	{
