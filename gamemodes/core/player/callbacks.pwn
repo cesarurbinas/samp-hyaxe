@@ -5951,12 +5951,14 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 			else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Detección en %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 
 			TogglePlayerControllableEx(playerid, false);
-			
-			if (cheat == CHEAT_PLAYER_HEALTH) CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
-			if (cheat == CHEAT_PLAYER_ARMOUR) CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
 
 			switch(cheat)
 			{
+				case CHEAT_PLAYER_ARMOUR, CHEAT_PLAYER_HEALTH:
+				{
+					CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
+					CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
+				}
 				case CHEAT_AMMO, CHEAT_JETPACK, CHEAT_TEXT_SPAMMER, CHEAT_COMMAND_SPAMMER, CHEAT_STATE_SPAMMER, CHEAT_DEATH_SPAMMER: Anticheat_Ban(playerid, ac_Info[cheat][ac_Name]);
 				default: Anticheat_Kick(playerid, ac_Info[cheat][ac_Name]);
 			}
