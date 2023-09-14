@@ -80,7 +80,9 @@ public NPC_Update()
 					FCNPC_StopAim(npcid);
 
 					FCNPC_AimAtPlayer(npcid, forplayerid, true, 1000);
-					FCNPC_GoToPlayer(npcid, forplayerid);
+					
+					if (!NPC_INFO[npcid][ni_STATIC_FIRE])
+						FCNPC_GoToPlayer(npcid, forplayerid);
 
 					SetPlayerMarkerForPlayer(forplayerid, npcid, 0xCB2828FF);
 					SetPlayerColor(npcid, 0xCB2828FF);
