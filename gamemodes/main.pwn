@@ -8228,6 +8228,18 @@ public OnGameModeExit()
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
+		if(!IsPlayerConnected(i)) continue;
+
+		if(CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME > 0)
+			CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] -= gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME];
+			
+		SaveUserData(i);
+		SavePlayerToysData(i);
+		SavePlayerVehicles(i, false);
+		SavePlayerSkills(i);
+		SavePlayerWorks(i);
+		SavePlayerMisc(i);
+
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
 	}
 
@@ -8790,6 +8802,8 @@ CMD:accsaveall(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_WHITE, "Datos de usuarios guardados.");
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
+		if(!IsPlayerConnected(i)) continue;
+
 		SaveUserData(i);
 		SavePlayerToysData(i);
 		SavePlayerVehicles(i, false);
