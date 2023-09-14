@@ -7401,7 +7401,6 @@ FormatDialogStrings()
 	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/alentar\n");
 	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/hablar\n");
 	strcat(DIALOG_ANIMS_String, ""COL_WHITE"/asiento\n");
-
 	return 1;
 }
 
@@ -25275,17 +25274,20 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 		if (GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_SMOKE_CIGGY)
 		{
-			PLAYER_TEMP[playerid][py_JOINT_USES] ++;
-			GivePlayerHealthEx(playerid, 0.5);
-
-			if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
+			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_JOINT]) > 2)
 			{
-				PLAYER_TEMP[playerid][py_JOINT_USES] = 0;
-				PLAYER_MISC[playerid][MISC_JOINT] -= 1;
-				ResetItemBody(playerid);
-				ShowPlayerMessage(playerid, "~r~Porro acabado", 3);
-			}
+				PLAYER_TEMP[playerid][py_JOINT_USES] ++;
+				GivePlayerHealthEx(playerid, 0.5);
 
+				if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
+				{
+					PLAYER_TEMP[playerid][py_JOINT_USES] = 0;
+					PLAYER_MISC[playerid][MISC_JOINT] -= 1;
+					ResetItemBody(playerid);
+					ShowPlayerMessage(playerid, "~r~Porro acabado", 3);
+				}
+				PLAYER_TEMP[playerid][py_LIMIT_JOINT] = gettime();
+			}
 		}
 	}
 	else if (RELEASED(KEY_FIRE))
