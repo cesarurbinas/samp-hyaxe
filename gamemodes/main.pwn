@@ -176,7 +176,18 @@ new
 
 new Float:NewUserPos[][] =
 {
-	{1730.460571, -1266.631835, 13.543579, 142.924987}
+	{1090.567138, -1805.910156, 16.593750, 1.044739},
+	{1098.168090, -1805.921508, 16.593750, 358.225128},
+	{1109.456787, -1802.678344, 16.593750, 88.465942},
+	{1109.102416, -1799.647583, 16.593750, 88.465942},
+	{1108.857299, -1796.502441, 16.593750, 89.092605},
+	{1108.432617, -1793.480102, 16.593750, 89.092605},
+	{1108.954711, -1790.486816, 16.593750, 89.092605},
+	{1108.645629, -1785.879882, 16.593750, 89.092559},
+	{1109.832763, -1783.515502, 16.593750, 1.358403},
+	{1097.333251, -1800.550903, 13.604625, 33.295372},
+	{1096.499511, -1788.365478, 13.624750, 88.755897},
+	{1084.961181, -1795.690673, 13.670027, 359.768463}
 };
 
 //Raknet
@@ -4132,10 +4143,11 @@ public OnPlayerConnect(playerid)
 				{
 					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[0][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[0][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[0][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[0][3];
+					new index_pos = minrand(0, sizeof(NewUserPos));
+					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
 					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
 					CHARACTER_INFO[playerid][ch_WORLD] = 0;
 				}
@@ -4158,10 +4170,11 @@ public OnPlayerConnect(playerid)
 				{
 					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[0][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[0][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[0][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[0][3];
+					new index_pos = minrand(0, sizeof(NewUserPos));
+					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
 					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
 					CHARACTER_INFO[playerid][ch_WORLD] = 0;
 				}
@@ -4194,10 +4207,11 @@ public OnPlayerConnect(playerid)
 				{
 					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[0][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[0][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[0][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[0][3];
+					new index_pos = minrand(0, sizeof(NewUserPos));
+					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
 					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
 				}
 				else
@@ -6204,10 +6218,11 @@ public OnPlayerSpawn(playerid)
 				{
 					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[0][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[0][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[0][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[0][3];
+					new index_pos = minrand(0, sizeof(NewUserPos));
+					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
 					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
 
 					SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
@@ -9723,7 +9738,7 @@ ShowDialog(playerid, dialogid)
 			{
 				if (!PLAYER_GPS[playerid][i][player_gps_VALID]) continue;
 
-				format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_RED"%.2f Km\n", listitem + 1, PLAYER_GPS[playerid][listitem][player_gps_NAME], (GetPlayerDistanceFromPoint(playerid, PLAYER_GPS[playerid][listitem][player_gps_X], PLAYER_GPS[playerid][listitem][player_gps_Y], PLAYER_GPS[playerid][listitem][player_gps_Z]) * 0.01));
+				format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%.2f Km\n", listitem + 1, PLAYER_GPS[playerid][listitem][player_gps_NAME], (GetPlayerDistanceFromPoint(playerid, PLAYER_GPS[playerid][listitem][player_gps_X], PLAYER_GPS[playerid][listitem][player_gps_Y], PLAYER_GPS[playerid][listitem][player_gps_Z]) * 0.01));
 				strcat(dialog, line_str);
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = i;
 
@@ -9732,7 +9747,7 @@ ShowDialog(playerid, dialogid)
 			if (sites < MAX_PLAYER_GPS_SAVES)
 			{
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = MAX_PLAYER_GPS_SAVES + 10;
-				strcat(dialog, ""COL_GREEN"+"COL_WHITE"" Añadir lugar actual\n"); listitem ++;
+				strcat(dialog, ""COL_GREEN"+"COL_WHITE" Añadir lugar actual\n"); listitem ++;
 			}
 			if (sites > 0)
 			{
@@ -36752,10 +36767,11 @@ CALLBACK: ContinuePlayerIntro(playerid, step)
 			ClearPlayerChatBox(playerid);
 
             CHARACTER_INFO[playerid][ch_CASH] = 10000;
-			CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[0][0];
-			CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[0][1];
-			CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[0][2];
-			CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[0][3];
+			new index_pos = minrand(0, sizeof(NewUserPos));
+			CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+			CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+			CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+			CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
 			CHARACTER_INFO[playerid][ch_FIGHT_STYLE] = 4;
 			CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
 			CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
