@@ -1,4 +1,4 @@
-ShowNotification(playerid, const text[], time = 0)
+ShowPlayerNotification(playerid, const text[], time = 0)
 {
 	static
 		free_pos,

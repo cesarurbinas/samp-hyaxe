@@ -23,14 +23,14 @@ public DestroyNotification(playerid, notification_id)
 
 		if (NotificationData[playerid][j][nt_TIME_OUT] == 0)
 		{
-			ShowNotification(playerid, NotificationData[playerid][j][nt_TEXT], 0);
+			ShowPlayerNotification(playerid, NotificationData[playerid][j][nt_TEXT], 0);
 		}
 		else
 		{
 			time = NotificationData[playerid][j][nt_TIME_OUT] - gettime();
 			if (time > 0)
 			{
-				ShowNotification(playerid, NotificationData[playerid][j][nt_TEXT], time);
+				ShowPlayerNotification(playerid, NotificationData[playerid][j][nt_TEXT], time);
 			}
 		}
 

@@ -3524,18 +3524,6 @@ CMD:testnotification(playerid, params[])
 	return 1;
 }
 
-CMD:falsenotification(playerid, params[])
-{
-	g_ActiveNotification[playerid] = true;
-	return 1;
-}
-
-CMD:killnotification(playerid, params[])
-{
-	SetTimerEx("TIMER_NotificationHide", 100, false, "i", playerid);
-	return 1;
-}
-
 CMD:godmode(playerid, params[])
 {
 	if(!PLAYER_TEMP[playerid][py_GODMODE])

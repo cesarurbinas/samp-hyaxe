@@ -3947,7 +3947,7 @@ PlayerPayday(playerid)
 
 	strcat(str_payday, str_temp);
 
-	ShowPlayerNotification(playerid, str_payday, 6, false);
+	ShowPlayerNotification(playerid, str_payday, 6);
 	GivePlayerCash(playerid, money);
 	return 1;
 }
