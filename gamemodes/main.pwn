@@ -2557,7 +2557,7 @@ new
 	DIALOG_247_LIST_String[34 + 55 * sizeof Supermarket_Product_List],
 	DIALOG_PLAYER_GPS_SITE_0_String[90 * (sizeof(Hospital_Spawn_Positions) + 1)],
 	DIALOG_PLAYER_GPS_SITE_7_String[90 * (sizeof(SELL_VEHICLES_SHOPS_SPAWN) + 1)],
-	DIALOG_CREATE_CREW_COLOR_String[4200];
+	DIALOG_CREATE_CREW_COLOR_String[450];
 
 
 //armas mercado negro
@@ -6628,6 +6628,10 @@ FormatDialogStrings()
 		format(Dialog_Lines_String, sizeof(Dialog_Lines_String), "{%06x}%s\n", CrewColors[i] >>> 8, CrewNameColors[i]);
 		strcat(DIALOG_CREATE_CREW_COLOR_String, Dialog_Lines_String);
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/rewritten/hmsai
 	return 1;
 }
 

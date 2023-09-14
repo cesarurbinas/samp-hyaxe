@@ -2844,3 +2844,11 @@ CMD:setbankcash(playerid, params[])
 	return 1;
 }
 flags:setbankcash(CMD_ADMIN)
+
+/*CMD:godmode(playerid, params[])
+{
+	if(!PLAYER_TEMP[playerid][py_GODMODE])
+	{
+		TextDrawShowForPlayer(playerid, Textdraws[])
+	}
+}*/
