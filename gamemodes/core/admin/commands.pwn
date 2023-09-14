@@ -2666,4 +2666,5 @@ CMD:depositveh(playerid, params[])
 	SendClientMessage(playerid, COLOR_WHITE, "El vehículo fue enviado al estacionamiento municipal");
 
 	SendCmdLogToAdmins(playerid, "depositveh", params);
+	return 1;
 }
