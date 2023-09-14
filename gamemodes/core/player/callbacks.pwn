@@ -3918,7 +3918,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						{
 							if (IsPlayerInRangeOfPoint(playerid, 1.5, x, y, z))
 							{
-								if (DROP_ITEMS[i][itm_TYPE] == 64)
+								if (DROP_ITEMS[i][itm_TYPE] == 48)
 								{
 									ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
 
