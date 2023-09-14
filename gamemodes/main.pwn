@@ -28180,6 +28180,7 @@ SetVehicleHealthEx(vehicleid, Float:health, forplayerid = INVALID_PLAYER_ID)
 	if (forplayerid != INVALID_PLAYER_ID) PLAYER_AC_INFO[forplayerid][CHEAT_VEHICLE_HEALTH][p_ac_info_IMMUNITY] = gettime() + 1;
 
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] = health;
+	if (health > 375.0) GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] = VEHICLE_STATE_NORMAL;
 	SetVehicleHealth(vehicleid, health);
 	return 1;
 }
@@ -30043,6 +30044,7 @@ CALLBACK: FixVehicleUpdate(playerid, vehicleid)
 {
 	if (vehicleid == INVALID_VEHICLE_ID)
 	{
+		PLAYER_TEMP[playerid][py_FIX_VALUE] = 0;
 		ShowPlayerMessage(playerid, "~r~Cancelado", 3);
 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
 		ClearAnimations(playerid);
@@ -30062,6 +30064,7 @@ CALLBACK: FixVehicleUpdate(playerid, vehicleid)
 
 		if (PLAYER_TEMP[playerid][py_FIX_VALUE] > 99)
 		{
+			PLAYER_TEMP[playerid][py_FIX_VALUE] = 0;
 			ShowPlayerMessage(playerid, "Reparando ~r~100%", 2);
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
 			ClearAnimations(playerid);

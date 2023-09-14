@@ -85,7 +85,7 @@ GetTypePreviewRot(type, &Float:rx, &Float:ry, &Float:rz, &Float:zoom)
 
 	switch(type)
 	{
-		case 0, 5:
+		case 0, 5, 53:
 		{
 			rx = -15.000000;
 			ry = 0.000000;
@@ -206,7 +206,7 @@ inv_AccommodateItems(playerid)
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 53;
 			PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = 1;
-			inv_ItemToTextdraw(playerid, free_slot, 0);
+			inv_ItemToTextdraw(playerid, free_slot, 53);
 		}
 	}
 
