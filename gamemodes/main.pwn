@@ -14409,7 +14409,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (isnull(inputtext)) return ShowDialog(playerid, dialogid);
 
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Espere", ""COL_WHITE"Buscando resultados para su búsqueda ...", "X", "");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Espere", ""COL_WHITE"Buscando resultados para su búsqueda...", "X", "");
 
 				for(new i = 0; i < strlen(inputtext); i++)
 				{

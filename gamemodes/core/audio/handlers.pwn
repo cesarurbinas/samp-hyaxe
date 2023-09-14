@@ -13,9 +13,9 @@ forward OnDownloadResponse(playerid, response_code, data[]);
 public OnYouTubeQueryResponse(playerid, response_code, data[])
 {
 	printf("OnYouTubeQueryResponse - playerid %d - response_code %d - data [JSON]", playerid, response_code);
-	if(!PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return 1;
+	if (!PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return 1;
 
-	if(response_code == 200)
+	if (response_code == 200)
 	{
 		new Node:vidata, results, Node:arr_data, length;
 		JSON_Parse(data, vidata);
@@ -24,7 +24,7 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 		JSON_ArrayLength(arr_data, length);
 
 		new dialog[250 * 10], line[250];
-		format(dialog, sizeof(dialog), "Subido por\tTítulo\n");
+		format(dialog, sizeof(dialog), ""COL_WHITE"Subido por\t"COL_WHITE"Título\n");
 		for(new i = 0; i < length; i++)
 		{
 			new Node:object;
@@ -48,12 +48,12 @@ public OnDownloadResponse(playerid, response_code, data[])
 	printf("OnDownloadResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
 	PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
 
-	if(response_code != 200)
+	if (response_code != 200)
 	{
 		switch(response_code)
 		{
-			case 403: return SendClientMessage(playerid, COLOR_WHITE, ""COL_RED"No pudimos reproducir esta canción...");
-			case 429: return SendClientMessage(playerid, COLOR_WHITE, ""COL_RED"Se han estado solicitando muchas canciones ultimamente, intenta más tarde.");
+			case 403: return ShowPlayerMessage(playerid, "~r~No pudimos reproducir esta canción", 4);
+			case 429: return ShowPlayerNotification(playerid, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.", 6);
 			default: return 0;
 		}
 	}
@@ -70,7 +70,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 				if ( (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY || CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY) && CHARACTER_INFO[i][ch_INTERIOR_EXTRA] == CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA])
 				{
 					PlayAudioStreamForPlayer(i, url);
-					SendClientMessageEx(i, COLOR_WHITE, "Reproduciendo "COL_RED"%s. "COL_WHITE"Usa "COL_RED"/stop "COL_WHITE"para parar la música.", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]);
+					ShowPlayerNotification(i, sprintf("Reproduciendo %s", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]), 5);
 				}
 			}
 		}
@@ -87,7 +87,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 					if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
 					{
 						PlayAudioStreamForPlayer(i, url);
-						SendClientMessageEx(i, COLOR_WHITE, "Reproduciendo "COL_RED"%s. "COL_WHITE"Usa "COL_RED"/stop "COL_WHITE"para parar la música.", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]);
+						ShowPlayerNotification(i, sprintf("Reproduciendo %s", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]), 5);
 					}
 				}
 			}
@@ -97,7 +97,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 	else
 	{
 		PlayAudioStreamForPlayer(playerid, url);
-		SendClientMessageEx(playerid, COLOR_WHITE, "Reproduciendo "COL_RED"%s. "COL_WHITE"Usa "COL_RED"/stop "COL_WHITE"para parar la música.", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]);
+		ShowPlayerNotification(playerid, sprintf("Reproduciendo %s", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]), 5);
 	}
 
 	return 1;
