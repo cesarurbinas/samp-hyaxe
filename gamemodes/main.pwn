@@ -28163,7 +28163,8 @@ UpdateHospitalSizeTextdrawLife(playerid)
 	return 1;
 }
 
-CALLBACK: HealthUp(playerid)
+forward HealthUp(playerid);
+public HealthUp(playerid)
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_HOSPITAL) return 1;
 
@@ -28528,7 +28529,8 @@ UpdatePlayerHud(playerid)
 #define THIRST_HOURS_STOPPED  9 // 9 horas parado si agua esta a 100 va a 0
 #define HUNGRY_HOURS_STOPPED  12 // 12 horas parado si alimentacion esta a 100 va a 0
 
-CALLBACK: HungryThirstDown(playerid)
+forward HungryThirstDown(playerid);
+public HungryThirstDown(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return HidePlayerHud(playerid);
 	if (!PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS]) return HidePlayerHud(playerid);
@@ -30446,7 +30448,8 @@ SetPlayerVehiclePark(playerid)
 	return 1;
 }
 
-CALLBACK: StartVehicleEngine(playerid, vehicleid)
+forward StartVehicleEngine(playerid, vehicleid);
+public StartVehicleEngine(playerid, vehicleid)
 {
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] == VEHICLE_STATE_DAMAGED) return ShowPlayerMessage(playerid, "~r~Motor dañado.", 1);
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] <= 0.1) return ShowPlayerMessage(playerid, "~r~Sin gasolina.", 1);
@@ -30648,7 +30651,8 @@ HidePlayerSpeedoMeter(playerid)
 	return 1;
 }
 
-CALLBACK: UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
+forward UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel);
+public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 {
 	if (vehicleid != GetPlayerVehicleID(playerid))
 	{
@@ -31359,7 +31363,8 @@ ResetTrashInfo(vehicleid)
 	return 1;
 }
 
-CALLBACK: TruckLoadUp(playerid, vehicleid)
+forward TruckLoadUp(playerid, vehicleid);
+public TruckLoadUp(playerid, vehicleid)
 {
 	if (PLAYER_TEMP[playerid][py_TRUCK_LOADING_VALUE] < 100)
 	{
@@ -31384,7 +31389,8 @@ CALLBACK: TruckLoadUp(playerid, vehicleid)
 	return 1;
 }
 
-CALLBACK: TruckUnLoadUp(playerid, vehicleid)
+forward TruckUnLoadUp(playerid, vehicleid);
+public TruckUnLoadUp(playerid, vehicleid)
 {
 	if (PLAYER_TEMP[playerid][py_TRUCK_LOADING_VALUE] < 100)
 	{
@@ -31962,7 +31968,8 @@ UpdatePlayerTrashRecycleSize(playerid)
 	return 1;
 }
 
-CALLBACK: FixVehicleUpdate(playerid, vehicleid)
+forward FixVehicleUpdate(playerid, vehicleid);
+public FixVehicleUpdate(playerid, vehicleid)
 {
 	if (vehicleid == INVALID_VEHICLE_ID)
 	{
@@ -32011,7 +32018,8 @@ CALLBACK: FixVehicleUpdate(playerid, vehicleid)
 	return 1;
 }
 
-CALLBACK: RecycleUp(playerid)
+forward RecycleUp(playerid);
+public RecycleUp(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_RECYCLE_BIN_VALUE] < 100)
 	{
@@ -32077,7 +32085,8 @@ CreateFlashObject(Float:x, Float:y, Float:z)
 	return 1;
 }
 
-CALLBACK: DestroyFlashObject(objectid)
+forward DestroyFlashObject(objectid);
+public DestroyFlashObject(objectid)
 {
 	return DestroyObject(objectid);
 }
@@ -32249,7 +32258,8 @@ CreatePlayerFlashObject(playerid, Float:x, Float:y, Float:z)
 	return 1;
 }
 
-CALLBACK: DestroyPlayerFlashObject(playerid, objectid)
+forward DestroyPlayerFlashObject(playerid, objectid);
+public DestroyPlayerFlashObject(playerid, objectid)
 {
 	return DestroyPlayerObject(playerid, objectid);
 }
@@ -32273,7 +32283,8 @@ CancelPlayerPlanting(playerid)
 	return 1;
 }
 
-CALLBACK: PlantingUp(playerid, seeds)
+forward PlantingUp(playerid, seeds);
+public PlantingUp(playerid, seeds)
 {
 	if (PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] < 100)
 	{
@@ -32360,7 +32371,8 @@ GetAvaiblePlantIndex()
 	return -1;
 }
 
-CALLBACK: GrowPlantUp(plant)
+forward GrowPlantUp(plant);
+public GrowPlantUp(plant)
 {
 	if (!PLANTS[plant][plant_VALID] || !PLANTS[plant][plant_GROWING]) return 0;
 
@@ -32398,7 +32410,8 @@ CALLBACK: GrowPlantUp(plant)
 	return 1;
 }
 
-CALLBACK: ExpirePlantTime(plant)
+forward ExpirePlantTime(plant);
+public ExpirePlantTime(plant)
 {
 	if (!PLANTS[plant][plant_VALID]) return 0;
 
@@ -32459,7 +32472,8 @@ HidePlayerGpsMap(playerid)
 	return 1;
 }
 
-CALLBACK: UpdatePlayer_GPS_Map(playerid)
+forward UpdatePlayer_GPS_Map(playerid);
+public UpdatePlayer_GPS_Map(playerid)
 {
 	/*
 		0 - playerpos
@@ -33366,12 +33380,14 @@ PlayerPayday(playerid)
 	return 1;
 }
 
-CALLBACK: DestroyShitObject(objectid)
+forward DestroyShitObject(objectid);
+public DestroyShitObject(objectid)
 {
 	return DestroyDynamicObject(objectid);
 }
 
-CALLBACK: StopShitting(playerid)
+forward StopShitting(playerid);
+public StopShitting(playerid)
 {
 	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 	ClearAnimations(playerid);	
@@ -33977,7 +33993,8 @@ CMD:ref(playerid, params[])
 }
 alias:ref("refuerzos")
 
-CALLBACK: DisableRefMark(playerid)
+forward DisableRefMark(playerid);
+public DisableRefMark(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
@@ -34009,7 +34026,8 @@ CALLBACK: DisableRefMark(playerid)
     return 1;
 }
 
-CALLBACK: DisableGangRefMark(playerid)
+forward DisableGangRefMark(playerid);
+public DisableGangRefMark(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
@@ -34037,7 +34055,8 @@ CALLBACK: DisableGangRefMark(playerid)
     return 1;
 }
 
-CALLBACK: DisableMafiaRefMark(playerid)
+forward DisableMafiaRefMark(playerid);
+public DisableMafiaRefMark(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
@@ -34070,7 +34089,8 @@ CALLBACK: DisableMafiaRefMark(playerid)
     return 1;
 }
 
-CALLBACK: DisableCombatMode(playerid)
+forward DisableCombatMode(playerid);
+public DisableCombatMode(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][44]);
 	ShowPlayerNotification(playerid, "Has salido del modo de combate.");
@@ -34427,7 +34447,8 @@ CMD:mafia(playerid, params[])
 	return 1;
 }
 
-CALLBACK: CuffPlayer(playerid)
+forward CuffPlayer(playerid);
+public CuffPlayer(playerid)
 {
 	SetPlayerDrunkLevel(playerid, 0);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -34706,7 +34727,8 @@ JailPlayer(playerid, seconds = 300)
     return 1;
 }
 
-CALLBACK: UnjailPlayer(playerid)
+forward UnjailPlayer(playerid);
+public UnjailPlayer(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
 	CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 0;
@@ -35474,7 +35496,8 @@ DeleteIlegalInv(playerid, bool:drugs = false)
 	return 1;
 }
 
-CALLBACK: HealthDown(playerid)
+forward HealthDown(playerid);
+public HealthDown(playerid)
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK) return 1;
 
@@ -35488,7 +35511,8 @@ CALLBACK: HealthDown(playerid)
 	return 1;
 }
 
-CALLBACK: StandUpBotikin(medic, playerid)
+forward StandUpBotikin(medic, playerid);
+public StandUpBotikin(medic, playerid)
 {
 	PLAYER_MISC[medic][MISC_BOTIKIN] --;
 	ResetItemBody(medic);
@@ -36100,7 +36124,8 @@ StartTerritoryAttack(crew_index, territory_index, time)
 	return 1;
 }
 
-CALLBACK: UpdateTerritoryAttack(territory_index)
+forward UpdateTerritoryAttack(territory_index);
+public UpdateTerritoryAttack(territory_index)
 {
 	if (!TERRITORIES[territory_index][territory_VALID]) return 1;
 	if (!TERRITORIES[territory_index][territory_WAR]) return 1;
@@ -37461,7 +37486,8 @@ ShowPlayerNotification(playerid, const message[], time = 1, bool:auto_jump = tru
 	return 1;
 }
 
-CALLBACK: HidePlayerNotification(playerid)
+forward HidePlayerNotification(playerid);
+public HidePlayerNotification(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], "_");
@@ -37481,7 +37507,8 @@ TogglePlayerControllableEx(playerid, bool:controllable)
 	return TogglePlayerControllable(playerid, controllable);
 }
 
-CALLBACK: ContinuePlayerIntro(playerid, step)
+forward ContinuePlayerIntro(playerid, step);
+public ContinuePlayerIntro(playerid, step)
 {
 	switch(step)
 	{
@@ -37640,7 +37667,8 @@ FreezePlayer(playerid, ms = 2000)
 	return 1;
 }
 
-CALLBACK: CarJackingFinish(playerid)
+forward CarJackingFinish(playerid);
+public CarJackingFinish(playerid)
 {
 	TogglePlayerControllableEx(playerid, true);
 	return 1;
