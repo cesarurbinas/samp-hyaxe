@@ -1,3 +1,5 @@
+new g_iInvLastTick[MAX_PLAYERS];
+
 enum Visual_Inventory
 {
 	bool:slot_VALID[13],

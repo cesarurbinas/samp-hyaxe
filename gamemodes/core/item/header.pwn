@@ -5,7 +5,7 @@ enum Item_Info_Enum
 	bool:item_SINGLE_SLOT
 };
 new ITEM_INFO[][Item_Info_Enum] = {
-    {"Botiquí­n",                11738,     true},  // 0
+    {"Botiquin",                11738,     true},  // 0
     {"Medicamento",             11736,     false}, // 1
     {"Venda",                   11747,     false}, // 2
     {"Marihuana",               1578,      false}, // 3

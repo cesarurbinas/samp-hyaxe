@@ -185,7 +185,7 @@
 #include "core/player/phone.pwn"
 #include "core/player/toys.pwn"
 #include "core/player/crew.pwn"
-#include "core/player/visual_inventory.pwn"
+#include "core/inventory/header.pwn"
 #include "core/player/vehicles.pwn"
 #include "core/player/objects.pwn"
 
@@ -243,9 +243,7 @@
 #include "core/black_market/functions.pwn"
 
 // Visual inventory
-#include "utils/visual_inventory/show.pwn"
-#include "utils/visual_inventory/accommodate.pwn"
-#include "utils/visual_inventory/actions.pwn"
+#include "core/inventory/functions.pwn"
 
 // Club's
 #include "core/club/header.pwn"
@@ -2490,7 +2488,7 @@ public OnGameModeInit()
 		new Float:position = (2.0 * i);
 		CreateDropItem(
 			i,
-			2062.6035 + position, -2593.3059, 13.5469,
+			2062.6035 - position, -2593.3059 + 5.0, 13.5469,
 			0.0, 0.0, 0.0,
 			0, 0
 		);
