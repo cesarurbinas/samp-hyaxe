@@ -273,56 +273,30 @@ AddPlayerItem(playerid, type, extra = 1)
 	return false;
 }
 
-SubtractItem(playerid, type, slot, ammount = 1)
+SubtractItem(playerid, type, ammount = 1)
 {
-	switch(type)
+	new
+		DB_Query[164],
+		already_exists = PlayerAlreadyHasItem(playerid, type)
+	;
+
+	if (already_exists && !ITEM_INFO[type][item_SINGLE_SLOT])
 	{
-		case 0: return PLAYER_MISC[playerid][MISC_BOTIKIN] -= ammount;
-		case 1: return PLAYER_MISC[playerid][MISC_MEDICINE] -= ammount;
-		case 2: return PLAYER_MISC[playerid][MISC_VENDAS] -= ammount;
-		case 3: return PLAYER_MISC[playerid][MISC_CANNABIS] -= ammount;
-		case 4: return PLAYER_MISC[playerid][MISC_CRACK] -= ammount;
-		case 5: return PLAYER_MISC[playerid][MISC_FUEL_DRUM] = 0;
-		case 6: return PLAYER_MISC[playerid][MISC_SEED_MEDICINE] -= ammount;
-		case 7: return PLAYER_MISC[playerid][MISC_SEED_CANNABIS] -= ammount;
-		case 8: return PLAYER_MISC[playerid][MISC_SEED_CRACK] -= ammount;
-		case 9: return PLAYER_MISC[playerid][MISC_CARTRIDGE_1] -= ammount;
-		case 10: return PLAYER_MISC[playerid][MISC_CARTRIDGE_2] -= ammount;
-		case 11: return PLAYER_MISC[playerid][MISC_CARTRIDGE_3] -= ammount;
-		case 13: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 14: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 15: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 16: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 17: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 18: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 19: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 22: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 23: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 24: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 25: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 26: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 28: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 29: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 30: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 31: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 32: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 33: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 41: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 43: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 46: return RemovePlayerSlotWeapon(playerid, PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot], true);
-		case 51: return PLAYER_MISC[playerid][MISC_ROD] -= ammount;
-		case 52: return PLAYER_MISC[playerid][MISC_MALLET] -= ammount;
-		case 53: return PLAYER_MISC[playerid][MISC_FIXKIT] -= ammount;
-		case 54: return PLAYER_MISC[playerid][MISC_JOINT] -= ammount;
-		case 55: return PLAYER_MISC[playerid][MISC_CARTRIDGE_4] -= ammount;
-		case 56: return PLAYER_MISC[playerid][MISC_GEO] -= ammount;
-		case 57: return PLAYER_MISC[playerid][MISC_PUMPKIN] -= ammount;
-		case 58: return PLAYER_MISC[playerid][MISC_ROCKET] -= ammount;
-		case 59: return PLAYER_MISC[playerid][MISC_MORTERO] -= ammount;
-		case 60: return PLAYER_MISC[playerid][MISC_PETARDO] -= ammount;
-		case 61: return PLAYER_MISC[playerid][MISC_VOLCAN] -= ammount;
-		case 62: return PLAYER_MISC[playerid][MISC_LAVAKO] -= ammount;
-		case 63: return PLAYER_MISC[playerid][MISC_12TIROS] -= ammount;
+		format(DB_Query, sizeof DB_Query,
+			"UPDATE `PLAYER_INVENTORY` SET `EXTRA` = EXTRA - '%d' WHERE `ID` = '%d';",
+			extra,
+			already_exists
+		);
+		db_free_result(db_query(Database, DB_Query));
+	}
+	
+	if (already_exists && ITEM_INFO[type][item_SINGLE_SLOT])
+	{
+		format(DB_Query, sizeof DB_Query,
+			"DELETE FROM `PLAYER_INVENTORY` WHERE `ID` = '%d';",
+			already_exists
+		);
+		db_free_result(db_query(Database, DB_Query));
 	}
 	return 1;
 }
