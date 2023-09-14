@@ -42,6 +42,7 @@ GetItemNameByType(type)
 		case 51: name = "Caña de pescar";
 		case 52: name = "Mazo";
 		case 53: name = "Kit de reparación";
+		case 54: name = "Porro";
 	}
 	return name;
 }
@@ -122,6 +123,7 @@ GetItemObjectByType(type)
 		case 51: modelid = 18632;
 		case 52: modelid = 19631;
 		case 53: modelid = 19921;
+		case 54: modelid = 3027;
 	}
 	return modelid;
 }
