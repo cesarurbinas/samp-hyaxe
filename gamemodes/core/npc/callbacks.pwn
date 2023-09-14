@@ -62,7 +62,7 @@ public NPC_Update()
 
 								FCNPC_GetPosition(npcid, n_x, n_y, n_z);
 
-								if (GetPlayerDistanceFromPoint(x, n_x, n_y, n_z) <= 40.0)
+								if (GetPlayerDistanceFromPoint(x, n_x, n_y, n_z) <= 45.0)
 								{
 									forplayerid = x;
 									break;
@@ -76,6 +76,8 @@ public NPC_Update()
 						FCNPC_StopAim(npcid);
 						continue;
 					}
+
+					SetMissionPlayerMarkers(forplayerid);
 
 					FCNPC_StopAim(npcid);
 
