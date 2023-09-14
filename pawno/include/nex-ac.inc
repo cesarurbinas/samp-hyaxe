@@ -43,11 +43,11 @@
 
 #if AC_USE_CONFIG_FILES
 	#if !defined AC_CONFIG_FILE
-		#define AC_CONFIG_FILE			"nex-ac_settings.cfg"
+		#define AC_CONFIG_FILE			"CONFIG_FILES/ac_settings.cfg"
 	#endif
 
 	#if !defined AC_NOP_CONFIG_FILE
-		#define AC_NOP_CONFIG_FILE		"nex-ac_nop_settings.cfg"
+		#define AC_NOP_CONFIG_FILE		"CONFIG_FILES/ac_nop_settings.cfg"
 	#endif
 #else
 	#pragma unused CFG_OPENING_ERROR

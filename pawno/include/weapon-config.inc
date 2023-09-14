@@ -47,7 +47,7 @@
 
 // For modes that always have negative cash
 #if !defined WC_CUSTOM_VENDING_MACHINES
-	#define WC_CUSTOM_VENDING_MACHINES true
+	#define WC_CUSTOM_VENDING_MACHINES false
 #endif
 
 #if WC_USE_STREAMER && !defined Streamer_IncludeFileVersion
@@ -1474,8 +1474,8 @@ stock WC_SetPlayerHealth(playerid, Float:health, Float:armour = -1.0)
 		}
 		s_PlayerHealth[playerid] = health;
 
-		SetPlayerHealth(playerid, health);
-		SetPlayerArmour(playerid, armour);
+		SetFakeHealth(playerid, health);
+		SetFakeArmour(playerid, armour);
 
 		UpdateHealthBar(playerid, true);
 	}
@@ -1506,7 +1506,7 @@ stock WC_SetPlayerArmour(playerid, Float:armour)
 		armour = s_PlayerMaxArmour[playerid];
 	}
 	s_PlayerArmour[playerid] = armour;
-	SetPlayerArmour(playerid, armour);
+	SetFakeArmour(playerid, armour);
 	UpdateHealthBar(playerid, true);
 
 	return 1;
@@ -2340,7 +2340,6 @@ public OnPlayerSpawn(playerid)
 		ForceClassSelection(playerid);
 		SetPlayerHealth(playerid, 0.0);
 		SetPlayerVirtualWorld(playerid, WC_DEATH_WORLD);
-
 		return 1;
 	}
 
