@@ -5560,3 +5560,509 @@ ReturnTimelapse(start, till)
 	}
 	return ret;
 }
+
+
+GetPropertyIndexByID(id)
+{
+	for(new i = 0; i != MAX_PROPERTIES; i ++)
+	{
+		if (!PROPERTY_INFO[i][property_VALID]) continue;
+		if (PROPERTY_INFO[i][property_ID] == id) return i;
+	}
+	return -1;
+}
+
+SetPlayerToys(playerid)
+{
+	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
+
+	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++)
+	{
+		if (i >= MAX_NU_TOYS && !ACCOUNT_INFO[playerid][ac_SU]) break;
+
+		if (PLAYER_TOYS[playerid][i][player_toy_VALID])
+		{
+			if (PLAYER_TOYS[playerid][i][player_toy_ATTACHED])
+			{
+				SetPlayerAttachedObject
+				(
+					playerid,
+					i,
+					PLAYER_TOYS[playerid][ i ][player_toy_MODELID],
+					PLAYER_TOYS[playerid][ i ][player_toy_BONE],
+					PLAYER_TOYS[playerid][ i ][player_toy_OFFSET_X],
+					PLAYER_TOYS[playerid][ i ][player_toy_OFFSET_Y],
+					PLAYER_TOYS[playerid][ i ][player_toy_OFFSET_Z],
+					PLAYER_TOYS[playerid][ i ][player_toy_ROT_X],
+					PLAYER_TOYS[playerid][ i ][player_toy_ROT_Y],
+					PLAYER_TOYS[playerid][ i ][player_toy_ROT_Z],
+					PLAYER_TOYS[playerid][ i ][player_toy_SCALE_X],
+					PLAYER_TOYS[playerid][ i ][player_toy_SCALE_Y],
+					PLAYER_TOYS[playerid][ i ][player_toy_SCALE_Z],
+					PLAYER_TOYS[playerid][ i ][player_toy_COLOR_1],
+					PLAYER_TOYS[playerid][ i ][player_toy_COLOR_2]
+				);
+			}
+		}
+	}
+
+	return 1;
+}
+
+UpdatePlayerToy(playerid, index)
+{
+	RemovePlayerAttachedObject(playerid, index);
+	SetPlayerAttachedObject
+	(
+		playerid,
+		index,
+		PLAYER_TOYS[playerid][ index ][player_toy_MODELID],
+		PLAYER_TOYS[playerid][ index ][player_toy_BONE],
+		PLAYER_TOYS[playerid][ index ][player_toy_OFFSET_X],
+		PLAYER_TOYS[playerid][ index ][player_toy_OFFSET_Y],
+		PLAYER_TOYS[playerid][ index ][player_toy_OFFSET_Z],
+		PLAYER_TOYS[playerid][ index ][player_toy_ROT_X],
+		PLAYER_TOYS[playerid][ index ][player_toy_ROT_Y],
+		PLAYER_TOYS[playerid][ index ][player_toy_ROT_Z],
+		PLAYER_TOYS[playerid][ index ][player_toy_SCALE_X],
+		PLAYER_TOYS[playerid][ index ][player_toy_SCALE_Y],
+		PLAYER_TOYS[playerid][ index ][player_toy_SCALE_Z],
+		PLAYER_TOYS[playerid][ index ][player_toy_COLOR_1],
+		PLAYER_TOYS[playerid][ index ][player_toy_COLOR_2]
+	);
+	SavePlayerToysData(playerid);
+	return 1;
+}
+
+EditPlayerToy(playerid)
+{
+	if (PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ATTACHED]) RemovePlayerAttachedObject(playerid, PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]);
+
+	SetPlayerAttachedObject
+	(
+		playerid,
+		PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_MODELID],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_BONE],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_OFFSET_X],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_OFFSET_Y],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_OFFSET_Z],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ROT_X],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ROT_Y],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ROT_Z],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_SCALE_X],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_SCALE_Y],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_SCALE_Z],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_1],
+		PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_2]
+	);
+
+	EditAttachedObject(playerid, PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]);
+	return 1;
+}
+
+RegisterNewPlayerPhone(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DB_Query[200];
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `PHONE`\
+		(\
+			`PHONE_NUMBER`, `ID_USER`\
+		)\
+		VALUES\
+		(\
+			'%d', '%d'\
+		);\
+	",
+		PLAYER_PHONE[playerid][player_phone_NUMBER], ACCOUNT_INFO[playerid][ac_ID]
+	);
+	db_free_result(db_query(Database, DB_Query));
+	return 1;
+}
+
+RegisterNewPlayerPhoneBook(playerid, slot)
+{
+	new DBResult:Result, DB_Query[300];
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `PHONE_BOOK`\
+		(\
+			`PHONE_ID`, `NAME`, `PHONE_NUMBER`\
+		)\
+		VALUES\
+		(\
+			'%d', '%q', '%d'\
+		);\
+		SELECT MAX(`CONTACT_ID`) FROM `PHONE_BOOK`;\
+	",
+		PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_PHONE_NUMBER]
+	);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result)) PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_ID] = db_get_field_int(Result, 0);
+	db_free_result(Result);
+	return 1;
+}
+
+RegisterPhoneMessage(from, to, const message[], offline = 0)
+{
+	new DB_Query[300];
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `PHONE_MESSAGES`\
+		(\
+			`FROM`, `TO`, `MESSAGE`, `OFFLINE`\
+		)\
+		VALUES\
+		(\
+			'%d', '%d', '%q', '%d'\
+		);\
+	", from, to, message, offline);
+	db_free_result(db_query(Database, DB_Query));
+	return 1;
+}
+
+forward NoCallResponse(playerid);
+public NoCallResponse(playerid)
+{
+	#if DEBUG_MODE == 1
+		printf("NoCallResponse"); // debug juju
+	#endif
+
+	if (!PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return 0;
+	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] == INVALID_PLAYER_ID) return 0;
+	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_STATE] != CALL_STATE_WAITING_RESPONSE) return 0;
+
+	EndPhoneCall(playerid);
+	return 1;
+}
+
+EndPhoneCall(playerid)
+{
+	if (!PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return 0;
+
+	if (PLAYER_TEMP[playerid][py_POLICE_CALL_NAME] || PLAYER_TEMP[playerid][py_POLICE_CALL_DESCRIPTION])
+	{
+		PLAYER_TEMP[playerid][py_PLAYER_IN_CALL] = false;
+		PLAYER_TEMP[playerid][py_POLICE_CALL_NAME] = false;
+		PLAYER_TEMP[playerid][py_POLICE_CALL_DESCRIPTION] = false;
+		return 1;
+	}
+
+	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] == INVALID_PLAYER_ID) return 0;
+	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_STATE] == CALL_GAME_STATE_NONE) return 0;
+
+	new to_playerid = PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID];
+	switch(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_STATE])
+	{
+		case CALL_STATE_WAITING_RESPONSE:
+		{
+			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][6]);
+
+			PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL] = false;
+			PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_STATE] = CALL_GAME_STATE_NONE;
+			PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_PLAYERID] = INVALID_PLAYER_ID;
+		}
+		case CALL_STATE_INCOMING_CALL:
+		{
+		    ShowPlayerMessage(playerid, "~r~No respondieron el teléfono.", 2);
+			KillTimer(PLAYER_TEMP[to_playerid][py_TIMERS][6]);
+
+			PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL] = false;
+			PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_STATE] = CALL_GAME_STATE_NONE;
+			PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_PLAYERID] = INVALID_PLAYER_ID;
+		}
+		case CALL_STATE_ESTABLISHED:
+		{
+		    ShowPlayerMessage(to_playerid, "Llamada finalizada.", 2);
+			PLAYER_TEMP[to_playerid][py_PLAYER_IN_CALL] = false;
+			PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_STATE] = CALL_GAME_STATE_NONE;
+			PLAYER_TEMP[to_playerid][py_PLAYER_PHONE_CALL_PLAYERID] = INVALID_PLAYER_ID;
+
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
+			SetPlayerSpecialAction(to_playerid, SPECIAL_ACTION_STOPUSECELLPHONE);
+		}
+	}
+
+	PLAYER_TEMP[playerid][py_PLAYER_IN_CALL] = false;
+	PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_STATE] = CALL_GAME_STATE_NONE;
+	PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] = INVALID_PLAYER_ID;
+	return 1;
+}
+
+convertPhoneNumber(playerid, number)
+{
+	new f_string[24], bool:exists;
+	for(new i = 0; i != MAX_PHONE_CONTACTS; i ++)
+	{
+		if (!PLAYER_PHONE_BOOK[playerid][i][phone_book_contact_VALID]) continue;
+		if (number == PLAYER_PHONE_BOOK[playerid][i][phone_book_contact_PHONE_NUMBER])
+		{
+			exists = true;
+			format(f_string, sizeof f_string, "%s", PLAYER_PHONE_BOOK[playerid][i][phone_book_contact_NAME]);
+			break;
+		}
+	}
+
+	if (!exists) format(f_string, sizeof f_string, "%d", number);
+	return f_string;
+}
+
+GetEmptyPlayerPhoneBookSlot(playerid)
+{
+	for(new i = 0; i != MAX_PHONE_CONTACTS; i ++)
+	{
+		if (!PLAYER_PHONE_BOOK[playerid][i][phone_book_contact_VALID]) return i;
+	}
+	return -1;
+}
+
+/*RegisterNewPlayerPocketObject(playerid, slot)
+{
+	new DBResult:Result, DB_Query[350];
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `PLAYER_POCKET`\
+		(\
+			`ID_USER`, `NAME`, `HUNGRY`, `THIRST`, `DRUNK`\
+		)\
+		VALUES\
+		(\
+			'%d', '%q', '%f', '%f', '%d'\
+		);\
+		SELECT MAX(`ID_OBJECT`) FROM `PLAYER_POCKET`;\
+	",
+		ACCOUNT_INFO[playerid][ac_ID], PLAYER_POCKET[playerid][slot][player_pocket_object_NAME], PLAYER_POCKET[playerid][slot][player_pocket_object_HUNGRY], PLAYER_POCKET[playerid][slot][player_pocket_object_THIRST], PLAYER_POCKET[playerid][slot][player_pocket_object_DRUNK]
+	);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result)) PLAYER_POCKET[playerid][slot][player_pocket_object_ID] = db_get_field_int(Result, 0);
+	db_free_result(Result);
+	return 1;
+}*/
+
+LoadPlayerPocketData(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[90];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_POCKET` WHERE `ID_USER` = '%d' LIMIT %d;", ACCOUNT_INFO[playerid][ac_ID], MAX_PLAYER_POCKET_OBJECTS);
+	Result = db_query(Database, DB_Query);
+
+	new index;
+	for(new i; i < db_num_rows(Result); i++ )
+	{
+		if (index >= MAX_PLAYER_POCKET_OBJECTS)
+		{
+			printf("[debug]  Límite superado en array 'PP' al intentar cargar de la base de datos.");
+			break;
+		}
+
+		PLAYER_POCKET[playerid][index][player_pocket_VALID] = true;
+
+		PLAYER_POCKET[playerid][index][player_pocket_object_ID] = db_get_field_assoc_int(Result, "ID_OBJECT");
+		db_get_field_assoc(Result, "NAME", PLAYER_POCKET[playerid][index][player_pocket_object_NAME], 24);
+		PLAYER_POCKET[playerid][index][player_pocket_object_HUNGRY] = db_get_field_assoc_float(Result, "HUNGRY");
+		PLAYER_POCKET[playerid][index][player_pocket_object_THIRST] = db_get_field_assoc_float(Result, "THIRST");
+		PLAYER_POCKET[playerid][index][player_pocket_object_DRUNK] = db_get_field_assoc_int(Result, "DRUNK");
+
+		index ++;
+		db_next_row(Result);
+	}
+	db_free_result(Result);
+	return 1;
+}
+
+TransferPlayerPocketObject(from_playerid, from_slot, to_playerid, to_slot)
+{
+	new DB_Query[130];
+	format(DB_Query, sizeof(DB_Query), "UPDATE `PLAYER_POCKET` SET `ID_USER` = '%d' WHERE `ID_OBJECT` = '%d';", ACCOUNT_INFO[to_playerid][ac_ID], PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_ID]);
+	db_free_result(db_query(Database, DB_Query));
+
+	PLAYER_POCKET[to_playerid][to_slot][player_pocket_VALID] = true;
+	PLAYER_POCKET[to_playerid][to_slot][player_pocket_object_ID] = PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_ID];
+	format(PLAYER_POCKET[to_playerid][to_slot][player_pocket_object_NAME], 24, "%s", PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_NAME]);
+	PLAYER_POCKET[to_playerid][to_slot][player_pocket_object_HUNGRY] = PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_HUNGRY];
+	PLAYER_POCKET[to_playerid][to_slot][player_pocket_object_THIRST] = PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_THIRST];
+	PLAYER_POCKET[to_playerid][to_slot][player_pocket_object_DRUNK] = PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_DRUNK];
+
+	PLAYER_POCKET[from_playerid][from_slot][player_pocket_VALID] = false;
+	PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_ID] = 0;
+	format(PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_NAME], 24, "");
+	PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_HUNGRY] = 0.0;
+	PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_THIRST] = 0.0;
+	PLAYER_POCKET[from_playerid][from_slot][player_pocket_object_DRUNK] = 0;
+	return 1;
+}
+
+DeletePlayerPocketObject(playerid, slot)
+{
+	new DB_Query[140];
+	format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_POCKET` WHERE `ID_OBJECT` = '%d' AND `ID_USER` = '%d';", PLAYER_POCKET[playerid][slot][player_pocket_object_ID], ACCOUNT_INFO[playerid][ac_ID]);
+	db_free_result(db_query(Database, DB_Query));
+
+	PLAYER_POCKET[playerid][slot][player_pocket_VALID] = false;
+	PLAYER_POCKET[playerid][slot][player_pocket_object_ID] = 0;
+	format(PLAYER_POCKET[playerid][slot][player_pocket_object_NAME], 24, "");
+	PLAYER_POCKET[playerid][slot][player_pocket_object_HUNGRY] = 0.0;
+	PLAYER_POCKET[playerid][slot][player_pocket_object_THIRST] = 0.0;
+	PLAYER_POCKET[playerid][slot][player_pocket_object_DRUNK] = 0;
+	return 1;
+}
+
+GetEmptyPlayerPocketSlot(playerid)
+{
+	for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++)
+	{
+		if (!PLAYER_POCKET[playerid][i][player_pocket_VALID]) return i;
+	}
+	return -1;
+}
+
+LoadPlayerGPSData(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[90];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_GPS` WHERE `ID_USER` = '%d' LIMIT %d;", ACCOUNT_INFO[playerid][ac_ID], MAX_PLAYER_GPS_SAVES);
+	Result = db_query(Database, DB_Query);
+
+	new index;
+	for(new i; i < db_num_rows(Result); i++ )
+	{
+		if (index >= MAX_PLAYER_GPS_SAVES)
+		{
+			printf("[debug]  Límite superado en array 'P_GPS' al intentar cargar de la base de datos.");
+			break;
+		}
+
+		PLAYER_GPS[playerid][index][player_gps_VALID] = true;
+
+		PLAYER_GPS[playerid][index][player_gps_ID] = db_get_field_assoc_int(Result, "ID");
+		db_get_field_assoc(Result, "NAME", PLAYER_GPS[playerid][index][player_gps_NAME], 24);
+		PLAYER_GPS[playerid][index][player_gps_X] = db_get_field_assoc_float(Result, "Cerrar");
+		PLAYER_GPS[playerid][index][player_gps_Y] = db_get_field_assoc_float(Result, "Y");
+		PLAYER_GPS[playerid][index][player_gps_Z] = db_get_field_assoc_float(Result, "Z");
+		PLAYER_GPS[playerid][index][player_gps_WORLD] = db_get_field_assoc_int(Result, "WORLD");
+		PLAYER_GPS[playerid][index][player_gps_INTERIOR] = db_get_field_assoc_int(Result, "INTERIOR");
+
+		index ++;
+		db_next_row(Result);
+	}
+	db_free_result(Result);
+	return 1;
+}
+
+LoadPlayerToysData(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[90];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_TOYS` WHERE `ID_USER` = '%d' LIMIT %d;", ACCOUNT_INFO[playerid][ac_ID], MAX_PLAYER_ATTACHED_OBJECTS);
+	Result = db_query(Database, DB_Query);
+
+	new index;
+	for(new i; i < db_num_rows(Result); i++ )
+	{
+		if (index >= MAX_PLAYER_ATTACHED_OBJECTS)
+		{
+			printf("[debug]  Límite superado en array 'PTOYS' al intentar cargar de la base de datos.");
+			break;
+		}
+
+		PLAYER_TOYS[playerid][index][player_toy_VALID] = true;
+
+		PLAYER_TOYS[playerid][index][player_toy_ID] = db_get_field_assoc_int(Result, "ID_TOY");
+		db_get_field_assoc(Result, "NAME", PLAYER_TOYS[playerid][index][player_toy_NAME], 24);
+		PLAYER_TOYS[playerid][index][player_toy_ATTACHED] = db_get_field_assoc_int(Result, "ATTACHED");
+		PLAYER_TOYS[playerid][index][player_toy_MODELID] = db_get_field_assoc_int(Result, "MODELID");
+		PLAYER_TOYS[playerid][index][player_toy_BONE] = db_get_field_assoc_int(Result, "BONE");
+		PLAYER_TOYS[playerid][index][player_toy_OFFSET_X] = db_get_field_assoc_float(Result, "OFFSET_X");
+		PLAYER_TOYS[playerid][index][player_toy_OFFSET_Y] = db_get_field_assoc_float(Result, "OFFSET_Y");
+		PLAYER_TOYS[playerid][index][player_toy_OFFSET_Z] = db_get_field_assoc_float(Result, "OFFSET_Z");
+		PLAYER_TOYS[playerid][index][player_toy_ROT_X] = db_get_field_assoc_float(Result, "ROT_X");
+		PLAYER_TOYS[playerid][index][player_toy_ROT_Y] = db_get_field_assoc_float(Result, "ROT_Y");
+		PLAYER_TOYS[playerid][index][player_toy_ROT_Z] = db_get_field_assoc_float(Result, "ROT_Z");
+		PLAYER_TOYS[playerid][index][player_toy_SCALE_X] = db_get_field_assoc_float(Result, "SCALE_X");
+		PLAYER_TOYS[playerid][index][player_toy_SCALE_Y] = db_get_field_assoc_float(Result, "SCALE_Y");
+		PLAYER_TOYS[playerid][index][player_toy_SCALE_Z] = db_get_field_assoc_float(Result, "SCALE_Z");
+		PLAYER_TOYS[playerid][index][player_toy_COLOR_1] = db_get_field_assoc_int(Result, "COLOR_1");
+		PLAYER_TOYS[playerid][index][player_toy_COLOR_2] = db_get_field_assoc_int(Result, "COLOR_2");
+
+		index ++;
+		db_next_row(Result);
+	}
+	db_free_result(Result);
+	return 1;
+}
+
+SavePlayerToysData(playerid)
+{
+  	if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
+
+  	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++)
+  	{
+    	if (!PLAYER_TOYS[playerid][i][player_toy_VALID]) continue;
+
+    	new DB_Query[900];
+    	format(DB_Query, sizeof(DB_Query), "\
+			UPDATE `PLAYER_TOYS` SET \
+	   			`NAME` = '%q',\
+	   			`ATTACHED` = '%d',\
+	   			`MODELID` = '%d',\
+			   	`BONE` = '%d',\
+			   	`OFFSET_X` = '%f',\
+			   	`OFFSET_Y` = '%f',\
+			   	`OFFSET_Z` = '%f',\
+			   	`ROT_X` = '%f',\
+			   	`ROT_Y` = '%f',\
+			   	`ROT_Z` = '%f',\
+			   	`SCALE_X` = '%f',\
+			   	`SCALE_Y` = '%f',\
+			   	`SCALE_Z` = '%f',\
+			   	`COLOR_1` = '%d',\
+			   	`COLOR_2` = '%d' \
+	 		WHERE `ID_TOY` = '%d';\
+    	",
+	 		PLAYER_TOYS[playerid][i][player_toy_NAME], PLAYER_TOYS[playerid][i][player_toy_ATTACHED],
+	 		PLAYER_TOYS[playerid][i][player_toy_MODELID], PLAYER_TOYS[playerid][i][player_toy_BONE],
+	 		PLAYER_TOYS[playerid][i][player_toy_OFFSET_X], PLAYER_TOYS[playerid][i][player_toy_OFFSET_Y], PLAYER_TOYS[playerid][i][player_toy_OFFSET_Z],
+	 		PLAYER_TOYS[playerid][i][player_toy_ROT_X], PLAYER_TOYS[playerid][i][player_toy_ROT_Y], PLAYER_TOYS[playerid][i][player_toy_ROT_Z],
+	 		PLAYER_TOYS[playerid][i][player_toy_SCALE_X], PLAYER_TOYS[playerid][i][player_toy_SCALE_Y], PLAYER_TOYS[playerid][i][player_toy_SCALE_Z],
+	 		PLAYER_TOYS[playerid][i][player_toy_COLOR_1], PLAYER_TOYS[playerid][i][player_toy_COLOR_2],
+	 		PLAYER_TOYS[playerid][i][player_toy_ID]
+    	);
+    	db_free_result(db_query(Database, DB_Query));
+  	}
+  	return 1;
+}
+
+GetEmptyPlayerToySlot(playerid)
+{
+	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; ++i)
+	{
+		if (!PLAYER_TOYS[playerid][i][player_toy_VALID]) return i;
+	}
+	return -1;
+}
+
+GetOwnerIntProperty(id_house)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY)
+			{
+				if (CHARACTER_INFO[i][ch_INTERIOR_EXTRA] == id_house)
+				{
+					return i;
+				}
+			}
+		}
+	}
+	return -1;
+}
