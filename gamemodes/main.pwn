@@ -3176,7 +3176,11 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        }
 		    }
         }
-        else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
+        else
+        {
+        	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
+        	PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
+        }
 
         if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
         {
