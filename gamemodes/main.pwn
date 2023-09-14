@@ -3284,7 +3284,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				SavePlayerMisc(playerid);
 
 				new str[144];
-				format(str, 144, "[ADMIN] %s (%d) fue baneado: Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
