@@ -38,7 +38,12 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 
 		PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
 		ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", results), dialog, "Selecc", "Cancelar");
-	} else ShowPlayerMessage(playerid, "~r~No se pudo procesar su busqueda.", 3);
+	}
+	else
+	{
+		ShowPlayerMessage(playerid, "~r~No se pudo procesar su busqueda.", 3);
+		PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
+	}
 
 	return 1;
 }
@@ -50,7 +55,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 
 	ShowPlayerNotification(playerid, "Espere, estamos procesando el video...", 3);
 
-	if (response_code != 200)
+	if (response_code != 200) // data = OK
 	{
 		switch(response_code)
 		{
