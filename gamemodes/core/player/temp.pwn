@@ -289,8 +289,12 @@ enum Temp_Enum
 	py_CUTTING,
 	py_CUTTING_PROGRESS,
 	py_CUTTING_CHECKPOINT,
+<<<<<<< HEAD
 	bool:py_HOLDING_CART
 =======
+=======
+	bool:py_HOLDING_CART,
+>>>>>>> 93ebe19 (Usar ColAndreas para calcular la posición)
 	py_ANSWER_INDEX,
 	py_ANSWER_RESPONSE[32],
 	bool:py_STEAL_SUSPICION

@@ -95,10 +95,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				if(PLAYER_TEMP[playerid][py_HOLDING_CART])
 				{
 					new Float:x, Float:y, Float:z;
-					GetPlayerPos(playerid, x, y, z);
 					GetXYInFrontOfPlayer(playerid, x, y, 3.5);
+					CA_FindZ_For2DCoord(x, y, z);
 
-					LogCarts[playerid][cart_OBJECT] = CreateDynamicObject(1458, x, y, z - 0.6, 0.0, 0.0, 0.0);
+					LogCarts[playerid][cart_OBJECT] = CreateDynamicObject(1458, x, y, z, 0.0, 0.0, 0.0);
 					SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 					RemovePlayerAttachedObject(playerid, 1);
 					
@@ -122,15 +122,14 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				}
 			}
 
-			if((newkeys & KEY_WALK))
+			if((newkeys & KEY_WALK) && !PLAYER_TEMP[playerid][py_HOLDING_CART])
 			{
 				if(PLAYER_TEMP[playerid][py_CUTTING] == -1)
 				{
 					for(new i = 0; i != sizeof(Trees); ++i)
 					{
 						if(Trees[i][tree_CHOPPED] || Trees[i][tree_CHOPPING]) continue;
-						if(Trees[i][tree_TYPE] != TREE_TYPE_NORMAL && !IsPlayerInRangeOfPoint(playerid, 2.0, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z])) continue;
-						else if(Trees[i][tree_TYPE] == TREE_TYPE_NORMAL && !IsPlayerInRangeOfPoint(playerid, 2.0, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z] - 2.5)) continue;
+						if(!IsPlayerInRangeOfPoint(playerid, 4.0, Trees[i][tree_X], Trees[i][tree_Y], Trees[i][tree_Z])) continue;
 						new colors[5] = {0xe73939FF, 0x6ed854FF, 0xe3e145FF, 0x20aee7FF};
 						new color = minrand(0, sizeof(colors));
 
@@ -162,7 +161,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				}
 			}
 
-			if((newkeys & KEY_SPRINT))
+			if(newkeys & KEY_SPRINT)
 			{
 				if(PLAYER_TEMP[playerid][py_CUTTING] != -1)
 				{
@@ -223,12 +222,7 @@ public FinishTreeCutting(playerid, treeid)
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
 	ClearAnimations(playerid);
 
-	if(Trees[treeid][tree_TYPE] != TREE_TYPE_NORMAL && !IsPlayerInRangeOfPoint(playerid, 2.0, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z]))
-	{
-		PLAYER_TEMP[playerid][py_CUTTING] = -1;
-		return ShowPlayerNotification(playerid, "Te alejaste mucho del árbol y no lo pudiste cortar.", 3);
-	}
-	else if(Trees[treeid][tree_TYPE] == TREE_TYPE_NORMAL && !IsPlayerInRangeOfPoint(playerid, 2.0, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z] - 3.0))
+	if(!IsPlayerInRangeOfPoint(playerid, 5.0, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z]))
 	{
 		PLAYER_TEMP[playerid][py_CUTTING] = -1;
 		return ShowPlayerNotification(playerid, "Te alejaste mucho del árbol y no lo pudiste cortar.", 3);
@@ -242,13 +236,14 @@ public FinishTreeCutting(playerid, treeid)
 	PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] = 0;
 	PLAYER_SKILLS[playerid][WORK_WOODCUTTER]++;
 
-	new label[100];
+	new label[100], Float:z;
 	DestroyDynamicObject(Trees[treeid][tree_OBJECT]);
 	format(label, sizeof(label), ""COL_RED"Ramas de un arbol\n"COL_WHITE"Este árbol fue cortado hace poco. Crecera en unos minutos.");
 
+	CA_FindZ_For2DCoord(Trees[treeid][tree_X], Trees[treeid][tree_Y], z);
 	UpdateDynamic3DTextLabelText(Trees[treeid][tree_LABEL], 0xFFFFFF00, label);
-	if(Trees[treeid][tree_TYPE] == TREE_TYPE_NORMAL) Trees[treeid][tree_CHOPPED_OBJECT] = CreateDynamicObject(831, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z] - 3.0, 0.0, 0.0, 0.0);
-	else Trees[treeid][tree_CHOPPED_OBJECT] = CreateDynamicObject(831, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z], 0.0, 0.0, 0.0);
+
+	Trees[treeid][tree_CHOPPED_OBJECT] = CreateDynamicObject(831, Trees[treeid][tree_X], Trees[treeid][tree_Y], z, 0.0, 0.0, 0.0);
 
 	Trees[treeid][tree_CHOPPED] = true;
 	Trees[treeid][tree_CHOPPING] = false;

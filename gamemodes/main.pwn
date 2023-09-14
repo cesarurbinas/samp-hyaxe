@@ -6589,6 +6589,7 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
+	CA_RemoveBarriers();
 	CA_Init();
 
 	//print("OnGamemodeInit()"); // debug juju
