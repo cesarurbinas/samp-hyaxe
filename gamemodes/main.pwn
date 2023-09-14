@@ -3125,6 +3125,18 @@ IPacket:AIM_SYNC(playerid, BitStream:bs)
     return 1;
 }
 
+CALLBACK: IsValidVehicleAbuse(playerid, vehicleid)
+{
+	new Float:speed = GetPlayerSpeed(playerid);
+	if (speed > 1.2)
+	{
+ 		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
+ 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
+		SendClientMessage(playerid, -1, "pg");
+ 	}
+ 	return 1;
+}
+
 public OnIncomingPacket(playerid, packetid, BitStream:bs)
 {
     if (packetid == PLAYER_SYNC)
@@ -3148,15 +3160,21 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
             new modelid = GetVehicleModel(onFootData[PR_surfingVehicleId]);
 
-            if (ValidSurfingVehicle(modelid))
+            if (PLAYER_TEMP[playerid][py_SURFING_VEHICLE] != onFootData[PR_surfingVehicleId])
             {
-	            new Float:speed = GetPlayerSpeed(playerid);
-				if (speed > 1.2)
-				{
-	         		PLAYER_TEMP[playerid][PR_surfingVehicleId] = onFootData[PR_surfingVehicleId];
-	         	}
-	         	else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
-	        }
+	            if (ValidSurfingVehicle(modelid))
+	            {
+		            new Float:speed = GetPlayerSpeed(playerid);
+					if (speed > 1.2)
+					{
+		         		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = onFootData[PR_surfingVehicleId];
+		         		
+		         		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
+						PLAYER_TEMP[playerid][py_TIMERS][31] = SetTimerEx("IsValidVehicleAbuse", 10000, false, "ii", playerid, PLAYER_TEMP[playerid][py_SURFING_VEHICLE]);
+		         	}
+		         	else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
+		        }
+		    }
         }
         else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
 
