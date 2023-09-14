@@ -252,6 +252,13 @@ enum
 =======
 	DIALOG_FURNITURE_SHOP,
 	DIALOG_FURNITURE_LIST,
+<<<<<<< HEAD
 	DIALOG_FURNITURE_OPTIONS
 >>>>>>> d3504e5 (Opciones vender, editar, y otras cosas)
+=======
+	DIALOG_FURNITURE_OPTIONS,
+	DIALOG_SELECC_ANSWER,
+	DIALOG_QUESTION_CREATE,
+	DIALOG_QUESTION_RESPONSE
+>>>>>>> c4e0938 (Preguntas de seguridad)
 };

@@ -31,3 +31,14 @@ new BANK_ACCOUNT[MAX_PLAYERS][Bank_Account_Enum]; //BA (BankAccount)
 
 #define MIN_PASS_LENGTH  6
 #define MAX_PASS_LENGTH  18
+
+new const SECURITY_QUESTIONS[][40] =
+{
+	"¿Cuál es tu apodo?",
+	"¿Quién es tu mejor amigo?",
+	"¿Cómo se llama tu mascota?",
+	"¿Cuál fue tu primer celular?",
+	"¿Cuál es el nombre de tu escuela?",
+	"¿Cuál es tu película favorita?",
+	"¿Cuál es tu programa favorito?"
+};

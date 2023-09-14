@@ -3281,6 +3281,7 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = 9999;
 	SetRolePlayNames(playerid);
 
+	// Account pre-load
 	new DBResult:Result;
 	format(DB_Query, sizeof(DB_Query),
 	"\
@@ -6072,6 +6073,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 				ShowPlayerMessage(playerid, "~r~Tu dirección IP ha cambiado desde tu última conexión.", 5);
 				format(ACCOUNT_INFO[playerid][ac_IP], 16, "%s", PLAYER_TEMP[playerid][py_IP]);
+				PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = true;
 			}
 
 			ShowDialog(playerid, DIALOG_LOGIN);
@@ -12204,6 +12206,34 @@ ShowDialog(playerid, dialogid)
 			format(caption, 64, ""COL_RED"%s", PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar\nVender\n", "Ver", "Atrás");
 		}
+		case DIALOG_SELECC_ANSWER:
+		{
+			new dialog[40 * 7];
+			for (new i; i < sizeof(SECURITY_QUESTIONS); i++)
+			{
+			    strcat(dialog, SECURITY_QUESTIONS[i]);
+			    strcat(dialog, "\n");
+			}
+
+			ShowPlayerNotification(playerid, "Seleccione una pregunta de seguridad, esto es para prevenir que le roben su cuenta.", 6);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seguridad de la cuenta", dialog, "Selecc.", "Salir");
+		}
+		case DIALOG_QUESTION_CREATE:
+		{
+			new dialog[128];
+			format(dialog, sizeof(dialog), ""COL_WHITE"Escriba la respuesta a la pregunta:\n"COL_RED"%s", SECURITY_QUESTIONS[ PLAYER_TEMP[playerid][py_ANSWER_INDEX] ]);
+
+			ShowPlayerNotification(playerid, "Escriba la respuesta a su pregunta de seguridad.", 5);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Seguridad de la cuenta", dialog, "Terminar", "Atrás");
+		}
+		case DIALOG_QUESTION_RESPONSE:
+		{
+			new dialog[164];
+			format(dialog, sizeof(dialog), ""COL_WHITE"Hay actitudes sospechosas en su cuenta, por\nfavor escriba la respuesta a la pregunta:\n"COL_RED"%s", SECURITY_QUESTIONS[ PLAYER_TEMP[playerid][py_ANSWER_INDEX] ]);
+
+			ShowPlayerNotification(playerid, "Escriba la respuesta a su pregunta de seguridad.", 5);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Seguridad de la cuenta", dialog, "Seguir", "Salir");
+		}
 		default: return 0;
 	}
 	return 1;
@@ -12340,6 +12370,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new str_text[128];
 				format(str_text, sizeof str_text, "Bienvenido %s a Hyaxe Roleplay.", PLAYER_TEMP[playerid][py_RP_NAME]);
 				ShowPlayerNotification(playerid, str_text, 4);
+
+				if (PLAYER_TEMP[playerid][py_ANSWER_INDEX] == 1337) ShowDialog(playerid, DIALOG_SELECC_ANSWER);
+
+				if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) ShowDialog(playerid, DIALOG_QUESTION_RESPONSE);
 
 				// ONLY HOST
 				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 700000, true, "i", playerid);				
@@ -20271,6 +20305,70 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else ShowDialog(playerid, DIALOG_FURNITURE_LIST);
 		}
+		case DIALOG_SELECC_ANSWER:
+		{
+			if (response)
+			{
+				PLAYER_TEMP[playerid][py_ANSWER_INDEX] = listitem;
+				ShowDialog(playerid, DIALOG_QUESTION_CREATE);
+			}
+			else Kick(playerid);
+		}
+		case DIALOG_QUESTION_CREATE:
+		{
+			if (response)
+			{
+				if (strlen(inputtext) >= 32)
+				{
+					ShowPlayerMessage(playerid, "~r~La respuesta es muy larga.", 3);
+					ShowDialog(playerid, DIALOG_QUESTION_CREATE);
+					return 0;
+				}
+
+				new DB_Query[160];
+				format
+				(
+					DB_Query, sizeof DB_Query,
+					"\
+						INSERT INTO `SECURITY_QUESTIONS`\
+						(\
+							`ID_USER`, `QUESTION`, 'RESPONSE'\
+						)\
+						VALUES\
+						(\
+							'%d', '%d', '%q'\
+						);\
+					",
+					ACCOUNT_INFO[playerid][ac_ID],
+					PLAYER_TEMP[playerid][py_ANSWER_INDEX],
+					inputtext
+				);
+				db_free_result(db_query(Database, DB_Query));
+
+				ShowPlayerNotification(playerid, "Perfecto, ya tienes protegida tu cuenta, recuerda no darle la respuesta a nadie.", 5);
+			}
+			else ShowDialog(playerid, DIALOG_SELECC_ANSWER);
+		}
+		case DIALOG_QUESTION_RESPONSE:
+		{
+			if (response)
+			{
+				if (!strcmp(inputtext, PLAYER_TEMP[playerid][py_ANSWER_RESPONSE], false))
+				{
+					if (strlen(inputtext) >= 32)
+					{
+						ShowPlayerMessage(playerid, "~r~La respuesta es muy larga.", 3);
+						ShowDialog(playerid, DIALOG_QUESTION_RESPONSE);
+						return 0;
+					}
+
+					ShowPlayerNotification(playerid, "Respuesta correcta, ya puedes jugar nuevamente.", 4);
+					PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = false;
+				}
+				else Kick(playerid);
+			}
+			else Kick(playerid);
+		}
 	}
 	return 0;
 }
@@ -21240,7 +21338,7 @@ LoadCharacterData(playerid)
 {
 	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
 
-	new DBResult:Result, DB_Query[80];
+	new DBResult:Result, DB_Query[164];
 	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PERSONAJE` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 	Result = db_query(Database, DB_Query);
 
@@ -21260,6 +21358,19 @@ LoadCharacterData(playerid)
 		db_get_field_assoc(Result, "JAIL_REASON", CHARACTER_INFO[playerid][ch_JAIL_REASON]);
 		CHARACTER_INFO[playerid][ch_JAILED_BY] = db_get_field_assoc_int(Result, "JAILED_BY");
 	}
+	db_free_result(Result);
+
+	// Security question
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `SECURITY_QUESTIONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		PLAYER_TEMP[playerid][py_ANSWER_INDEX] = db_get_field_assoc_int(Result, "QUESTION");
+		db_get_field_assoc(Result, "RESPONSE", PLAYER_TEMP[playerid][py_ANSWER_RESPONSE], 32);
+	}
+	else PLAYER_TEMP[playerid][py_ANSWER_INDEX] = 1337;
+
 	db_free_result(Result);
 	return 1;
 }
@@ -33560,8 +33671,10 @@ CALLBACK: ContinuePlayerIntro(playerid, step)
 			ShowPlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay, versión experimental.", 12);
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 
+			ShowDialog(playerid, DIALOG_SELECC_ANSWER);
+
 			SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0);
-			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 13000, false, "id", playerid, 2);
+			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 40000, false, "id", playerid, 2);
 		}
 		case 2:
 		{
