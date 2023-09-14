@@ -53,7 +53,7 @@ Anticheat_Kick(playerid, reason[])
 		"COL_WHITE"Has sido expulsado del servidor por el anticheat.\n\
 		Razón: %s\n\
 		¿Fue un error? Si es así, reporte en nuestro foro: foro.hyaxe.com\
-	", reason, days_string);
+	", reason);
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Octa Anticheat", dialog, "Cerrar", "");
 	
 	// Send alert to admins/discord

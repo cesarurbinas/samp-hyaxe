@@ -5974,8 +5974,8 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 			switch(cheat)
 			{
-				case CHEAT_AMMO, CHEAT_JETPACK, CHEAT_TEXT_SPAMMER, CHEAT_COMMAND_SPAMMER, CHEAT_STATE_SPAMMER, CHEAT_DEATH_SPAMMER: AntiCheat_Ban(playerid, ac_Info[cheat][ac_Name]);
-				default: AntiCheat_Kick(playerid, ac_Info[cheat][ac_Name]);
+				case CHEAT_AMMO, CHEAT_JETPACK, CHEAT_TEXT_SPAMMER, CHEAT_COMMAND_SPAMMER, CHEAT_STATE_SPAMMER, CHEAT_DEATH_SPAMMER: Anticheat_Ban(playerid, ac_Info[cheat][ac_Name]);
+				default: Anticheat_Kick(playerid, ac_Info[cheat][ac_Name]);
 			}
 		}
 		else

@@ -1219,7 +1219,7 @@ public OnPlayerProxyFound(index, response_code, data[])
 	{
 		if (data[0] == 'Y')
 		{
-			Anticheat_Kick(playerid, "Proxy/VPN");
+			Anticheat_Kick(index, "Proxy/VPN");
 		}
 
 		if (data[0] == 'B')

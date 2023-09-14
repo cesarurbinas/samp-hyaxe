@@ -134,7 +134,7 @@ new CHEATS_NAMES[][] = {
 	"Tuning crasher",
 	"Invalid seat crasher",
 	"Dialog crasher",
-	"Attached object crasherv
+	"Attached object crasher",
 	"Weapon Crasher",
 	"One Slot",
 	"Flood",
