@@ -19,7 +19,7 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 		// Fix top spacing
 		new Regex:reg_exp = Regex_New("~.~"); 
 
-		if (reg_exp) 
+		if (reg_exp)
 		{
 			new RegexMatch:match;
 			new startpos, pos;
