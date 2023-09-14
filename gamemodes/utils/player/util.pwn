@@ -400,6 +400,7 @@ enum {
 GetAccountStatusValue(playerid)
 {
 	new value;
+	if (PLAYER_MISC[playerid][MISC_MUTES] >= 2) value ++;
 	if (PLAYER_MISC[playerid][MISC_MUTES] >= 4) value ++;
 	
 	if (PLAYER_MISC[playerid][MISC_KICKS] >= 1) value ++;
@@ -414,7 +415,7 @@ GetAccountStatusValue(playerid)
 	if (PLAYER_MISC[playerid][MISC_SANS] >= 3) value ++;
 	if (PLAYER_MISC[playerid][MISC_SANS] >= 10) value += 5;
 	
-	SendClientMessageEx(playerid, -1, "%d", value);
+	//SendClientMessageEx(playerid, -1, "%d", value);
 	return value;
 }
 

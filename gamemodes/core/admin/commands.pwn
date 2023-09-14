@@ -1971,7 +1971,6 @@ CMD:setgang(playerid, params[])
     if (sscanf(params, "d", gang)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setgang <gang_id>");
 
     if (!CREW_INFO[gang][crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta banda ya no existe.", 2);
-	if (!CREW_RANK_INFO[gang][ CREW_INFO[gang][crew_ID] ][crew_rank_VALID]) return ShowPlayerMessage(playerid, "~r~El rango principal ya no existe.", 2);
 	if (CREW_INFO[gang][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes unirte a la banda cuando la banda está en combate.", 2);
 
 	PLAYER_CREW[playerid][player_crew_VALID] = true;
@@ -1979,10 +1978,6 @@ CMD:setgang(playerid, params[])
 	PLAYER_CREW[playerid][player_crew_RANK] = 0;
 	PLAYER_CREW[playerid][player_crew_INDEX] = gang;
 	
-	CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MEMBERS] ++;
-	CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ONLINE_MEMBERS] ++;
-	
-	PLAYER_TEMP[playerid][py_LAST_GOT_CREW] = gettime();
 	SetPlayerGangZones(playerid);
 
 	new DB_Query[200];
