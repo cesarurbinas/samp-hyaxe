@@ -151,3 +151,19 @@ new FURNITURE_OBJECTS[][enum_furtniture_objects] =
 	{1704, "Sillon 4", 300, 6},
 	{11734, "Dou", 300, 6}	
 };
+
+#define MAX_FURNITURE_OBJECTS 50000
+enum property_obj_enum
+{
+	bool:pobj_VALID,
+	pobj_ID,
+	pobj_PROPERTY_ID,
+	pobj_MODELID,
+	pobj_TYPE,
+	pobj_NAME[64],
+	Float:pobj_POS[3],
+	Float:pobj_ROTATION[3],
+	pobj_WORLD,
+	pobj_INTERIOR
+};
+new PROPERTY_OBJECT[MAX_FURNITURE_OBJECTS][property_obj_enum];

@@ -100,6 +100,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 
 // Properties
 #include "core/furniture/properties.pwn"
+#include "core/furniture/list.pwn"
 
 // Global
 #include "core/global/textdraws.pwn"
@@ -161,6 +162,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 
 // Edit mode
 #include "utils/edit_mode/edit.pwn"
+#include "utils/furniture/object.pwn"
 
 // Bots
 #include "utils/world/bots.pwn"
@@ -6413,8 +6415,8 @@ CALLBACK: GiveAutoGift()
 		{
 			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
 			{
-				GivePlayerCash(i, 20000, false);
-				ShowPlayerMessage(i, "~r~[REGALO]~w~ Te han dado 20.000$", 4);
+				GivePlayerCash(i, 10000, false);
+				ShowPlayerMessage(i, "~r~[REGALO]~w~ Te han dado 10.000$", 4);
 			}
 		}
 	}
@@ -22926,6 +22928,12 @@ LoadProperties()//cargado propiedes
 		PROPERTY_INFO[total_houses][property_EXTRA] = db_get_field_assoc_int(Result, "EXTRA");
 		PROPERTY_INFO[total_houses][property_VIP_LEVEL] = db_get_field_assoc_int(Result, "VIP_LEVEL");
 
+		CreatePropertyObjects(
+			PROPERTY_INFO[total_houses][property_ID],
+			PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_INTERIOR],
+			PROPERTY_INFO[total_houses][property_ID]
+		);
+
 		if (PROPERTY_INFO[total_houses][property_EXTRA]) PROPERTY_INFO[total_houses][property_PRICE] = 0;
 		if (PROPERTY_INFO[total_houses][property_VIP_LEVEL]) PROPERTY_INFO[total_houses][property_LEVEL] = 1;
 
@@ -29588,17 +29596,17 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		if (!PLAYER_WORKS[playerid][WORK_POLICE])
 		{
 			new dialog[250];
-			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Usar tazin sin ser policia");
+			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Usar tazer sin ser policia");
 			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 			
-			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazin sin ser policia");
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazer sin ser policia");
 
 			KickEx(playerid, 500);
 			PLAYER_MISC[playerid][MISC_BANEOS] ++;
 			SavePlayerMisc(playerid);
 
 			new str[145];
-			format(str, 145, "[ADMIN] %s (%d) fue baneado: Usar tazin sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			format(str, 145, "[ADMIN] %s (%d) fue baneado: Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
 			new webhook[264];
