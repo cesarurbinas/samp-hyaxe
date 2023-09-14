@@ -14365,6 +14365,8 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_QUESTION_RESPONSE:
 		{
 			new dialog[164];
+
+			if (PLAYER_TEMP[playerid][py_ANSWER_INDEX] == 1337) PLAYER_TEMP[playerid][py_ANSWER_INDEX] = 0;
 			format(dialog, sizeof(dialog), ""COL_WHITE"Hay actitudes sospechosas en su cuenta, por\nfavor escriba la respuesta a la pregunta:\n"COL_RED"%s", SECURITY_QUESTIONS[ PLAYER_TEMP[playerid][py_ANSWER_INDEX] ]);
 
 			ShowPlayerNotification(playerid, "Escriba la respuesta a su pregunta de seguridad.", 5);
