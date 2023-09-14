@@ -8578,11 +8578,11 @@ CMD:duda(playerid, params[])
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar una duda primero debes activar el canal de dudas con "COL_RED"/dudas");
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/duda "COL_WHITE"[DUDA]");
 	
-	/*if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
+	if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
 	{
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Estás silenciado en el canal de dudas y anuncios de forma permanente.");
 		return 1;
-	}*/
+	}
 
 	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
 	{
@@ -8640,11 +8640,11 @@ CMD:anuncio(playerid, params[])
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar un anuncio primero debes activar el canal de dudas con "COL_RED"/dudas");
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/anuncio "COL_WHITE"[TEXTO]");
 	
-	/*if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
+	if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
 	{
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Estás silenciado en el canal de dudas y anuncios de forma permanente.");
 		return 1;
-	}*/
+	}
 
 	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
 	{
@@ -19569,6 +19569,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[playerid][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando esposado.", 3);
 						if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
+						if (CHARACTER_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ch_STATE] != ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~El jugador tiene que estar herido.", 3);
 
 						KillTimer(PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16]);
 						PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16] = SetTimerEx("StandUpBotikin", 7000, false, "ii", playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
@@ -23774,7 +23775,7 @@ RandomFemaleSkin(playerid)
 CheckBlockedWeapon(playerid)
 {
   	new weaponID = GetPlayerWeapon(playerid);
-  	if (weaponID == 31 || weaponID == 29 || weaponID == 23 || weaponID == 34 || weaponID == 24 || weaponID == 27 || weaponID == 30)
+  	if (weaponID == 31 || weaponID == 29 || weaponID == 23 || weaponID == 34 || weaponID == 24 || weaponID == 27 || weaponID == 30 || weaponID == 23 || weaponID == 29)
   	if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PLAYER_WORKS[playerid][WORK_MAFIA])
   	{
     	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
@@ -32023,6 +32024,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 		if (extra != 0.0) format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d, extra: %.1f)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval], extra);
 		else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 
+		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (%s)", ac_Info[cheat][ac_Name]);
 		KickEx(playerid);
 
 		if (cheat == CHEAT_PLAYER_HEALTH) CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
@@ -37446,7 +37448,7 @@ CMD:darskin(playerid, params[])
 
 	CHARACTER_INFO[to_player][ch_SKIN] = skin;
     SetPlayerSkin(to_player, CHARACTER_INFO[to_player][ch_SKIN]);
-    PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[to_player][ch_SKIN];
+    PLAYER_TEMP[to_player][py_SKIN] = CHARACTER_INFO[to_player][ch_SKIN];
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "Skin '%s (%d)' cambiado a '%d'.", ACCOUNT_INFO[to_player][ac_NAME], to_player, skin);
     return 1;
