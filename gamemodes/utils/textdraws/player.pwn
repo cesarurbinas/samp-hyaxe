@@ -113,7 +113,7 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 0);
 	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], true);
 
-	PlayerTextdraws[playerid][ptextdraw_INV][2] = CreatePlayerTextDraw(playerid, 235.000000, 96.666625, "Banda");
+	PlayerTextdraws[playerid][ptextdraw_INV][2] = CreatePlayerTextDraw(playerid, 240.000000, 96.666625, "Banda");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], 0.434165, 1.791556);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], 258.00000, 18.0000);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], 1);
@@ -126,7 +126,7 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], 0);
 	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], true);
 
-	PlayerTextdraws[playerid][ptextdraw_INV][3] = CreatePlayerTextDraw(playerid, 285.000000, 96.666625, "Mapa");
+	PlayerTextdraws[playerid][ptextdraw_INV][3] = CreatePlayerTextDraw(playerid, 290.000000, 96.666625, "Mapa");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3], 0.434165, 1.791556);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3], 330.00000, 18.0000);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3], 1);
@@ -139,7 +139,7 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3], 0);
 	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3], true);
 
-	PlayerTextdraws[playerid][ptextdraw_INV][40] = CreatePlayerTextDraw(playerid, 330.000000, 96.666625, "Ayuda");
+	PlayerTextdraws[playerid][ptextdraw_INV][40] = CreatePlayerTextDraw(playerid, 335.000000, 96.666625, "Ayuda");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40], 0.434165, 1.791556);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40], 400.00000, 18.0000);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40], 1);
@@ -563,9 +563,9 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], 0.000000, 0.350000);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], 458.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], 1);
-	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], COLOR_GREY);
+	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], COLOR_INV_ITEM);
 	PlayerTextDrawUseBox(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], 1);
-	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], COLOR_GREY);
+	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], COLOR_INV_ITEM);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], 0);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], 0);
 	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34], 255);
@@ -576,7 +576,7 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextdraws[playerid][ptextdraw_INV][35] = CreatePlayerTextDraw(playerid, 461.000000, 157.644439, "16/16");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], 0.196500, 1.021332);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], 1);
-	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], -1);
+	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], COLOR_INV_STOCK);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], 0);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], 0);
 	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], 255);
@@ -588,9 +588,9 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 0.000000, 0.350000);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 28.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 1);
-	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], COLOR_WHITE);
+	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], COLOR_INV_STOCK);
 	PlayerTextDrawUseBox(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 1);
-	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], COLOR_WHITE);
+	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], COLOR_INV_STOCK);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 0);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 0);
 	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 255);
