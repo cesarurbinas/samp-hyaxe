@@ -26106,7 +26106,7 @@ GivePlayerCash(playerid, ammount, bool:update = true, bool:game_text = true)
 			format(str_text, sizeof(str_text), "~g~+%d$", ammount);
 
 		if (ammount < 0)
-			format(str_text, sizeof(str_text), "~r~-%d$", ammount);
+			format(str_text, sizeof(str_text), "~r~%d$", ammount);
 		
 		GameTextForPlayer(playerid, str_text, 4000, 1);
 	}

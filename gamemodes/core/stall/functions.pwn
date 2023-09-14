@@ -66,8 +66,19 @@ CheckStallPoint(playerid)
 			
 			GivePlayerCash(playerid, -STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE], false);
 
-			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
-			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
+			switch(STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_TYPE])
+			{
+				case 0:
+				{
+					ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
+					ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
+				}
+				case 1:
+				{
+					ApplyAnimation(playerid, "GANGS", "DRNKBR_PRTL", 0, 0, 0, 0, 0, 0);
+					ApplyAnimation(playerid, "GANGS", "DRNKBR_PRTL", 4.1, false, true, true, false, 1000);
+				}
+			}
 
 			Add_Hungry_Thirst(
 				playerid,
