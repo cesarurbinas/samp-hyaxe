@@ -77,7 +77,7 @@ Menu:DEALER_MENU(playerid, response, listitem)
     	{
     		case 0:
     		{
-    			if (CHARACTER_INFO[playerid][ch_CASH] < DEALER_INFO[dealer][dl_PRICE]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+    			if (CHARACTER_INFO[playerid][ch_CASH] < DEALER_INFO[dealer][dl_PRICE]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
     			GivePlayerCash(playerid, -DEALER_INFO[dealer][dl_PRICE], false);
 
     			switch(DEALER_INFO[dealer][dl_PRODUCT_TYPE])
@@ -112,7 +112,7 @@ Menu:DEALER_MENU(playerid, response, listitem)
     		case 1:
     		{
     			if (!PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
-    			if (CHARACTER_INFO[playerid][ch_CASH] < DEALER_INFO[dealer][dl_PRICE_FOR_ASS]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+    			if (CHARACTER_INFO[playerid][ch_CASH] < DEALER_INFO[dealer][dl_PRICE_FOR_ASS]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
     			GivePlayerCash(playerid, -DEALER_INFO[dealer][dl_PRICE_FOR_ASS], false);
 
     			DEALER_INFO[dealer][dl_MAFIA] = GetPlayerMafia(playerid);

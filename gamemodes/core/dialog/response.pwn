@@ -870,7 +870,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 70) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 70) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
 						{
 							GivePlayerCash(playerid, -70);
 							PLAYER_MISC[playerid][MISC_VENDAS] += 5;
@@ -881,7 +881,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 1:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 170) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 170) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
 						{
 							GivePlayerCash(playerid, -170);
 							PLAYER_MISC[playerid][MISC_MEDICINE] += 10;
@@ -892,7 +892,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 2:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 720) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 720) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
 						{
 							if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
@@ -1865,7 +1865,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SavePlayerMisc(playerid);
 								PLAYER_MISC[playerid][MISC_FUEL_DRUM] = 20;
 							}
-							else ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+							else ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 						}
 						else
 						{
@@ -1881,7 +1881,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								SavePlayerMisc(playerid);
 								PLAYER_MISC[playerid][MISC_FUEL_DRUM] += ammount;
 							}
-							else ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+							else ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 						}
 					}
 				}
@@ -1912,7 +1912,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(str_text, sizeof(str_text), "Has puesto %.1f litros de gasolina a tu vehículo por %s$.", ammount, number_format_thousand(price));
 					ShowPlayerNotification(playerid, str_text, 3);
 				}
-				else ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+				else ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 			}
 			return 1;
 		}
@@ -2614,7 +2614,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					new current_component = GetVehicleComponentInSlot(vehicleid, slot);
 					if (current_component) RemoveVehicleComponent(vehicleid, current_component);
 
-					if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
+					if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
 
 					GLOBAL_VEHICLES[vehicleid][gb_vehicle_COMPONENTS][slot] = PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID];
 					AddVehicleComponent(vehicleid, PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID]);
@@ -3376,7 +3376,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (inputtext[0] <= 0 || inputtext[0] > 100000) return ShowPlayerMessage(playerid, "~r~Cantidad de semillas incorrecta.", 3);
 
 				new price = seed_info[ PLAYER_TEMP[playerid][py_SELECTED_BUY_SEED_ID] ][seed_info_PRICE] * inputtext[0];
-				if (price > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+				if (price > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 				switch(seed_info[ PLAYER_TEMP[playerid][py_SELECTED_BUY_SEED_ID] ][seed_info_PLANT_TYPE])
 				{
@@ -3522,7 +3522,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						PLAYER_MISC[playerid][MISC_CARTRIDGE_1]++;
 						SavePlayerMisc(playerid);
@@ -3535,7 +3535,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 1:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 100) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 100) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						PLAYER_MISC[playerid][MISC_CARTRIDGE_4]++;
 						SavePlayerMisc(playerid);
@@ -3548,7 +3548,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 2:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 400) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 400) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						PLAYER_MISC[playerid][MISC_CARTRIDGE_3]++;
 						SavePlayerMisc(playerid);
@@ -3561,7 +3561,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 3:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 250) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 250) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						PLAYER_MISC[playerid][MISC_CARTRIDGE_2] += 5;
 						SavePlayerMisc(playerid);
@@ -3603,7 +3603,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 450) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 450) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
 						{
 							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munición.", 3);
@@ -3630,7 +3630,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 1:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 650) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 650) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
 						{
 							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munición.", 3);
@@ -3657,7 +3657,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 2:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 850) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 850) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
 						{
 							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munición.", 3);
@@ -3684,7 +3684,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 3:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 1350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 1350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
 						{
 							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munición.", 3);
@@ -4905,7 +4905,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (inputtext[0] <= 0 || inputtext[0] > 9999) return ShowPlayerMessage(playerid, "~r~Cantidad de munición incorrecta.", 3);
 
 				new price = 2 * inputtext[0];
-				if (price > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+				if (price > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 				if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] + inputtext[0] > 9999)
 				{
@@ -5295,7 +5295,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new veh_money = (VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] ][gb_vehicle_MODELID] - 400][vehicle_info_PRICE] / 100) + 350;
 				if (veh_money > CHARACTER_INFO[playerid][ch_CASH])
 				{
-					ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 4);
+					ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 4, 1150);
 					return 1;
 				}
 
@@ -5317,7 +5317,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new veh_money = (VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_PRICE] / 100) + 350;
 				if (veh_money > CHARACTER_INFO[playerid][ch_CASH])
 				{
-					ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 4);
+					ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 4, 1150);
 					return 1;
 				}
 
@@ -7902,7 +7902,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 250) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 250) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
 
 						PLAYER_MISC[playerid][MISC_CANNABIS] += 5;
 						ShowPlayerNotification(playerid, "Has comprado 5 gramos de Marihuana.", 3);
@@ -7911,7 +7911,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 1:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 400) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 400) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
 
 						PLAYER_MISC[playerid][MISC_CRACK] += 5;
 						ShowPlayerNotification(playerid, "Has comprado 5 gramos de Crack.", 3);
@@ -7926,7 +7926,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (CHARACTER_INFO[playerid][ch_CASH] <= 455) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+				if (CHARACTER_INFO[playerid][ch_CASH] <= 455) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
@@ -7939,7 +7939,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (CHARACTER_INFO[playerid][ch_CASH] <= 799) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+				if (CHARACTER_INFO[playerid][ch_CASH] <= 799) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
@@ -8167,7 +8167,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 150) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= 150) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
@@ -8177,7 +8177,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 1..8:
 					{
 						new price = listitem * 1500; 
-						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
@@ -8360,7 +8360,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (inputtext[0] > CHARACTER_INFO[playerid][ch_CASH])
 				{
-					ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 2);
+					ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 2, 1150);
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
@@ -8393,7 +8393,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (ELECTRONIC_PRODUCTS[listitem][ep_PRICE] > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 2);
+				if (ELECTRONIC_PRODUCTS[listitem][ep_PRICE] > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 2, 1150);
 				
 				switch(ELECTRONIC_PRODUCTS[listitem][ep_TYPE])
 				{
@@ -8460,7 +8460,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
 				new index = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
 
-				if (CHARACTER_INFO[playerid][ch_CASH] <= FURNITURE_OBJECTS[index][furniture_object_PRICE]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+				if (CHARACTER_INFO[playerid][ch_CASH] <= FURNITURE_OBJECTS[index][furniture_object_PRICE]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 				GivePlayerCash(playerid, -FURNITURE_OBJECTS[index][furniture_object_PRICE], false);
 
@@ -8676,7 +8676,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						extra = db_get_field_assoc_int(Result, "EXTRA");
 						db_get_field_assoc(Result, "NAME", name, 32);
 
-						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						new str_text[128];
 						format(str_text, 128, "Compraste %s", name);
@@ -8735,7 +8735,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						extra = db_get_field_assoc_int(Result, "EXTRA");
 						db_get_field_assoc(Result, "NAME", name, 32);
 
-						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						new str_text[128];
 						format(str_text, 128, "Compraste %s", name);

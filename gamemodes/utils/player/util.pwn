@@ -6260,7 +6260,7 @@ BuyProperty(playerid, id)
 		PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX] = index;
 		ShowDialog(playerid, DIALOG_CONFIRM_BUY_PROPERTY);
 	}
-	else ShowPlayerMessage(playerid, "~r~No tienes el dinero suficiente.", 3);
+	else ShowPlayerMessage(playerid, "~r~No tienes el dinero suficiente.", 3, 1150);
 	return 1;
 }
 

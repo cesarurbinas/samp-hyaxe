@@ -3788,7 +3788,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				{
 					if (IsPlayerInRangeOfPoint(playerid, 1.5, 1208.744140, -34.261119, 1000.953125) || IsPlayerInRangeOfPoint(playerid, 1.5, 1213.738037, -33.667881, 1000.953125))
 		            {
-		                if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+		                if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
             			ApplyAnimation(playerid, "STRIP", RandomPayStripAnimations[random(sizeof(RandomPayStripAnimations))], 4.1, 0, 0, 0, 0, 0);
             		    GivePlayerCash(playerid, -random(25), false);

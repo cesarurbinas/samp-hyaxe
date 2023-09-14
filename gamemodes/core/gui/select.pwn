@@ -22,7 +22,7 @@ Menu:MECHANICPAINTJOB(playerid, response, listitem)
 
 		if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
 		{
-			if (CHARACTER_INFO[playerid][ch_CASH] <= 350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
+			if (CHARACTER_INFO[playerid][ch_CASH] <= 350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
 
 			GLOBAL_VEHICLES[vehicleid][gb_vehicle_PAINTJOB] = listitem - 1;
 			ChangeVehiclePaintjob(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_PAINTJOB]);
@@ -43,7 +43,7 @@ Menu:MECHANICTUNING(playerid, response, listitem)
 
     	if (listitem == 0)
         {
-        	if (CHARACTER_INFO[playerid][ch_CASH] <= 350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
+        	if (CHARACTER_INFO[playerid][ch_CASH] <= 350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
 
 			RepairVehicleEx(vehicleid, playerid);
 			GivePlayerCash(playerid, -350, false);

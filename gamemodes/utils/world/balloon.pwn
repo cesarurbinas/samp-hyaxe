@@ -43,7 +43,7 @@ CheckBallonAction(playerid)
 	if (IsPlayerInRangeOfPoint(playerid, 1.0, -370.339721, -1634.205932, 25.057666))
 	{
 		if (PLAYER_MISC[playerid][MISC_BALLOON]) return ShowPlayerMessage(playerid, "~r~Ya tienes un boleto", 2);
-		if (CHARACTER_INFO[playerid][ch_CASH] <= 200) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
+		if (CHARACTER_INFO[playerid][ch_CASH] <= 200) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
      	
      	PLAYER_MISC[playerid][MISC_BALLOON] = true;
      	ShowPlayerNotification(playerid, "Sube a un globo y presiona la tecla Y para comenzar el viaje.", 4);

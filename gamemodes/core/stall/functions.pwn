@@ -62,7 +62,7 @@ CheckStallPoint(playerid)
 		if (IsPlayerInRangeOfPoint(playerid, 2.6, STALL_INFO[i][st_X], STALL_INFO[i][st_Y], STALL_INFO[i][st_Z]))
 		{
 			if (CHARACTER_INFO[playerid][ch_CASH] <= STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE])
-				return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+				return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 			
 			GivePlayerCash(playerid, -STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE], false);
 
