@@ -16453,6 +16453,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
+				if (listitem == -1) return ShowDialog(playerid, DIALOG_PLAYER_GPS);
 				if (PLAYER_TEMP[playerid][py_PLAYER_GPS_SELECTED_PROPERTY][listitem] == -1) return ShowDialog(playerid, DIALOG_PLAYER_GPS);
 
 				new index = GetPropertyIndexByID(PLAYER_TEMP[playerid][py_PLAYER_GPS_SELECTED_PROPERTY][listitem]);
