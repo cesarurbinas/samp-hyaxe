@@ -61,7 +61,6 @@ enum Temp_Enum
 	bool:py_PLAYER_IN_INV,
 	bool:py_PLAYER_IN_SINV,
 	bool:py_PLAYER_IN_PHONE,
-	py_POCKET_SLOT_SELECTED,
 	bool:py_PHONE_COMMANDS_MESSAGE,
 	bool:py_PLAYER_IN_CALL,
 	py_PLAYER_PHONE_CALL_STATE,

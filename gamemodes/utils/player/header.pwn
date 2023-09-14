@@ -327,18 +327,6 @@ new RADIO_STATIONS[][radio_enum] =
 	ACCOUNT_STATE_TEMPBAN
 };*/
 
-#define MAX_PLAYER_POCKET_OBJECTS 10
-enum Player_Pocket_Enum
-{
-	bool:player_pocket_VALID,
-	player_pocket_object_ID,
-	player_pocket_object_NAME[24],
-	Float:player_pocket_object_HUNGRY,
-	Float:player_pocket_object_THIRST,
-	player_pocket_object_DRUNK
-};
-new PLAYER_POCKET[MAX_PLAYERS][MAX_PLAYER_POCKET_OBJECTS][Player_Pocket_Enum]; // PP (PlayerPocket)
-
 //armas mercado negro
 enum enum_BLACK_MARKT_WEAPONS
 {

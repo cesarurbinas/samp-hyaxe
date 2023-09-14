@@ -107,7 +107,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				LoadPlayerBankAccountData(playerid);
 				
 				LoadPlayerToysData(playerid);
-				LoadPlayerPocketData(playerid);
 				LoadPlayerGPSData(playerid);
 				LoadPlayerObjectsData(playerid);
 				LoadPlayerVehicles(playerid);
@@ -942,79 +941,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 			}
-			return 1;
-		}
-		case DIALOG_PLAYER_POCKET:
-		{
-			if (response)
-			{
-				if (listitem == MAX_PLAYER_POCKET_OBJECTS) return ShowDialog(playerid, DIALOG_PLAYER_POCKET_DELETE_ALL);
-				if (!PLAYER_POCKET[playerid][listitem][player_pocket_VALID])
-				{
-				    ShowPlayerMessage(playerid, "~r~Este slot está vació", 2);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-				PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED] = listitem;
-				ShowDialog(playerid, DIALOG_PLAYER_POCKET_OPTIONS);
-			}
-			return 1;
-		}
-		case DIALOG_PLAYER_POCKET_OPTIONS:
-		{
-			if (response)
-			{
-				switch(listitem)
-				{
-					case 0: //Consumir
-					{
-						if (CHARACTER_INFO[playerid][ch_HUNGRY] >= 99.0 && CHARACTER_INFO[playerid][ch_THIRST] >= 99.0)
-						{
-							PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED] = 0;
-							ShowPlayerMessage(playerid, "~r~No puedes consumir más.", 2);
-							return 1;
-						}
-
-						Add_Hungry_Thirst(playerid, PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_HUNGRY], PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_THIRST]);
-						GivePlayerDrunkLevel(playerid, PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_DRUNK]);
-
-						SetPlayerChatBubble(playerid, "\n\n\n\n* Consume algo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-
-						DeletePlayerPocketObject(playerid, PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]);
-						PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED] = 0;
-
-						ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
-						ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
-					}
-					case 1: //Eliminar
-					{
-						ShowPlayerNotification(playerid, "Alimento eliminado.", 3);
-						DeletePlayerPocketObject(playerid, PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]);
-						PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED] = 0;
-					}
-				}
-			}
-			else
-			{
-				PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED] = 0;
-				ShowDialog(playerid, DIALOG_PLAYER_POCKET);
-			}
-			return 1;
-		}
-		case DIALOG_PLAYER_POCKET_DELETE_ALL:
-		{
-			if (response)
-			{
-				new DB_Query[90];
-				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_POCKET` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-				db_free_result(db_query(Database, DB_Query));
-
-				new temp_PLAYER_POCKET[Player_Pocket_Enum];
-				for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++) PLAYER_POCKET[playerid][i] = temp_PLAYER_POCKET;
-
-				ShowPlayerMessage(playerid, "Ha eliminado todo lo que tenías en tus alimentos.", 2);
-			}
-			else ShowDialog(playerid, DIALOG_PLAYER_POCKET);
 			return 1;
 		}
 		case DIALOG_PHONE:

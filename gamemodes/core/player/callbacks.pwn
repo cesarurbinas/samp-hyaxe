@@ -6033,9 +6033,6 @@ ResetPlayerVariables(playerid)
 	new temp_PLAYER_TOYS[Player_Toys_Info];
 	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) PLAYER_TOYS[playerid][i] = temp_PLAYER_TOYS;
 
-	new temp_PLAYER_POCKET[Player_Pocket_Enum];
-	for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++) PLAYER_POCKET[playerid][i] = temp_PLAYER_POCKET;
-
 	new temp_PLAYER_PHONE[Phone_Info_Enum]; PLAYER_PHONE[playerid] = temp_PLAYER_PHONE;
 
 	new temp_PLAYER_PHONE_BOOK[Phone_Book_Enum];

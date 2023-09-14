@@ -299,35 +299,6 @@ ShowDialog(playerid, dialogid)
 				"COL_WHITE"1 Botiquín\t"COL_GREEN"720$\n", "Comprar", "Salir");
 			return 1;
 		}
-		case DIALOG_PLAYER_POCKET:
-		{
-			new dialog[50 * (MAX_PLAYER_POCKET_OBJECTS + 2)], line_str[50];
-			for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++)
-			{
-				if (PLAYER_POCKET[playerid][i][player_pocket_VALID])
-				{
-					format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\n", i + 1, PLAYER_POCKET[playerid][i][player_pocket_object_NAME]);
-					strcat(dialog, line_str);
-				}
-				else
-				{
-					format(line_str, sizeof line_str, "{666666}%d. Slot vacío\n", i + 1);
-					strcat(dialog, line_str);
-				}
-			}
-			strcat(dialog, ""COL_RED"Eliminar todo\n");
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Alimentos", dialog, "Selecc.", "Cerrar");
-			return 1;
-		}
-		case DIALOG_PLAYER_POCKET_OPTIONS:
-		{
-			new caption[40];
-			format(caption, sizeof caption, "Alimento - %s", PLAYER_POCKET[playerid][PLAYER_TEMP[playerid][py_POCKET_SLOT_SELECTED]][player_pocket_object_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Consumir\n"COL_WHITE"2. Eliminar", "Selecc.", "Atrás");
-			return 1;
-		}
-		case DIALOG_PLAYER_POCKET_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Alimentos - Eliminar todo", "¿Está seguro de que quiere eliminar todos sus alimentos?\nEsta opción no se puede deshacer y perderás todos lo que haya.", "Eliminar", "Atrás");
 		case DIALOG_PHONE:
 		{
 			new caption[50];

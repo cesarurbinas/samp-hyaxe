@@ -170,7 +170,7 @@ CMD:entregar(playerid, params[])
 	}
 	else if (IsPlayerInRangeOfPoint(playerid, 20.0, -1589.333496, 716.759521, -5.515106))
 	{
-		ShowPlayerMessage(playerid, "~g~La persona fue enviada a la cárcel", 3);//%s.", PLAYER_POCKET[playerid][slot][player_pocket_object_NAME]
+		ShowPlayerMessage(playerid, "~g~La persona fue enviada a la cárcel", 3);
 		CHARACTER_INFO[params[0]][ch_POLICE_JAIL_ID] = 1;
 		JailPlayer(params[0], params[1] * 60);
 		AddPlayerPoliceHistory(params[0], "Central", "Encarcelamiento");
