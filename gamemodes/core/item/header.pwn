@@ -53,7 +53,27 @@ new ITEM_INFO[][Item_Info_Enum] = {
     {"Volcan",                  3013,      false}, // 45
     {"Lavako",                  3013,      false}, // 46
     {"Canita 12 tiros",         3013,      false}, // 47
-    {"Regalo",                  19057,     false}  // 48
+    {"Regalo",                  19057,     false}, // 48
+    {"Hamburguesa",             2703,      false}, // 49
+    {"Burrito",                 2769,      false}, // 50
+    {"Carne cruda",             2804,      false}, // 51
+    {"Jamon",                   19847,     false}, // 52
+    {"Naranja",                 19574,     false}, // 53
+    {"Tostada",                 19883,     false}, // 54
+    {"Leche",                   19569,     false}, // 55
+    {"Jugo de naranja",         19563,     false}, // 56
+    {"Jugo de manzana",         19564,     false}, // 57
+    {"Ketchup",                 11722,     false}, // 58
+    {"Helado de chocolate",     19567,     false}, // 59
+    {"Helado de manzana",       19568,     false}, // 60
+    {"Pizza",                   2814,      false}, // 61
+    {"Jugo cepita",             19564,     false}, // 62
+    {"Cerveza",                 1484,      false}, // 63
+    {"Wisky",                   19823,     false}, // 64
+    {"Champagne",               19824,     false}, // 65
+    {"Cerveza artesanal",       1544,      false}, // 66
+    {"Pollo",                   2768,      false}, // 67
+    {"Cafe",                    19835,     false} // 68
 };
 
 #define MAX_DROP_ITEMS 600
