@@ -117,6 +117,7 @@
 #include "core/player/misc.pwn"
 #include "core/player/character.pwn"
 #include "core/player/textdraws.pwn"
+#include "core/work/data.pwn"
 
 // Damage
 #include "core/damage/callbacks.pwn"
@@ -129,7 +130,6 @@
 #include "core/notification/timers.pwn"
 
 // Work
-#include "core/work/data.pwn"
 #include "core/work/miner.pwn"
 #include "core/work/woodcutter/header.pwn"
 #include "core/work/woodcutter/callbacks.pwn"
