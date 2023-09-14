@@ -13,7 +13,11 @@ enum dealer_enum
 	dl_CASH,
 	dl_STOCK,
 	dl_MAFIA,
-	dl_ACTOR
+	dl_ACTOR,
+	dl_PRODUCT_TYPE,
+	dl_PRODUCT_COUNT,
+	dl_PRICE,
+	dl_PRICE_FOR_ASS
 };
 
 new DEALER_INFO[][dealer_enum] =

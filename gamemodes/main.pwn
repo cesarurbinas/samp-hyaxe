@@ -55,7 +55,7 @@
 
 // Features
 #define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -27809,6 +27809,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckBoxClub(playerid);
         CheckClubMenu(playerid);
         CheckRegister(playerid);
+        CheckDealerSite(playerid);
+        
         #if defined HALLOWEEN_MODE
        		CheckPumpkinWitch(playerid);
 		#endif

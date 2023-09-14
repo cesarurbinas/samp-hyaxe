@@ -359,8 +359,13 @@ enum Temp_Enum
 =======
 	py_BIG_PUNCH,
 	py_CREDIT[64],
+<<<<<<< HEAD
 	py_CREDIT_PRODUCT
 >>>>>>> a0867a3 (credit cache)
+=======
+	py_CREDIT_PRODUCT,
+	py_DEALER
+>>>>>>> e56e79e (dealer menu)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

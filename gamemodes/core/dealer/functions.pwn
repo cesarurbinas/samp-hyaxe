@@ -23,3 +23,39 @@ CreateDealers()
 	}
 	return 1;
 }
+
+CheckDealerSite(playerid)
+{
+	for (new i; i < sizeof(DEALER_INFO); i++)
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.0, DEALER_INFO[i][dl_X], DEALER_INFO[i][dl_Y], DEALER_INFO[i][dl_Z]))
+		{
+			if (IsDynamicActorInvulnerable(DEALER_INFO[i][dl_ACTOR])) return ShowPlayerMessage(playerid, "~r~Este vendedor esta muerto, vuelve mas tarde.", 3);
+			PLAYER_TEMP[playerid][py_DEALER] = i;
+
+			DEALER_INFO[i][dl_PRODUCT_TYPE] = random(3);
+			DEALER_INFO[i][dl_PRODUCT_COUNT] = minrand(5, 15);
+			DEALER_INFO[i][dl_PRICE] = ( DEALER_INFO[i][dl_PRODUCT_COUNT] * 80 ) + minrand(5, 100);
+			DEALER_INFO[i][dl_PRICE_FOR_ASS] = minrand(1000, 2300);
+
+			ShowPlayerMenu(playerid, DEALER_MENU, "Dealer");
+
+			new str_text[128]
+			switch(DEALER_INFO[i][dl_PRODUCT_TYPE])
+			{
+				case 1:
+				{
+					format(str_text, sizeof(str_text), "Comprar marihuana (x%d)", DEALER_INFO[i][dl_PRODUCT_COUNT]);
+					AddPlayerMenuItem(playerid, str_text, sprintf("Precio: %d$", DEALER_INFO[i][dl_PRICE]));
+				}
+				dafault:
+				{
+					format(str_text, sizeof(str_text), "Comprar crack (x%d)", DEALER_INFO[i][dl_PRODUCT_COUNT]);
+					AddPlayerMenuItem(playerid, str_text, sprintf("Precio: %d$", DEALER_INFO[i][dl_PRICE]));
+				}
+			}
+			AddPlayerMenuItem(playerid, "Sobornar", sprintf("Precio: %d$", DEALER_INFO[i][dl_PRICE_FOR_ASS]));
+		}
+	}
+	return 1;
+}
