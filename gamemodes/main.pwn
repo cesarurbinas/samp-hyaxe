@@ -3094,6 +3094,7 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] = INVALID_VEHICLE_ID;
 	PLAYER_TEMP[playerid][py_CHECK_OBJECT] =
 	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = INVALID_OBJECT_ID;
+	PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
 	//PLAYER_TEMP[playerid][py_CLEANER_INDEX] = 99;
 	for(new i = 0; i != MAX_OBJECTS_PER_ROUTE; i ++) TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
 
@@ -3512,6 +3513,13 @@ public OnPlayerDisconnect(playerid, reason)
 					if(BOOMBOX[i][bb_OWNER] == ACCOUNT_INFO[playerid][ac_ID])
 						DestroyBoombox(i);
 				}
+			}
+
+			if(PLAYER_TEMP[playerid][py_DL_LABEL] != INVALID_3DTEXT_ID)
+			{
+				DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_DL_LABEL]);
+				KillTimer(PLAYER_TEMP[playerid][py_DL_TIMER]);
+				PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
 			}
   		}
   	}
@@ -34307,3 +34315,4 @@ flags:jailoff(CMD_MODERATOR)
 flags:unjailloff(CMD_MODERATOR)
 flags:comandosadmin(CMD_HELPER)
 flags:freezedetect(CMD_MODERATOR2) // Detecta freezecolls
+flags:dlply(CMD_MODERATOR2)
