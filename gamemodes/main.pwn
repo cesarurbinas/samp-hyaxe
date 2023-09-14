@@ -26150,50 +26150,28 @@ ShowStore(playerid)
 	ShowPlayerMessage(playerid, "Conectando...", 10);
 	
 	new payload[264];
-	format(payload, sizeof(payload), "{\"author\": \"%s\", \"playerid\": %d, \"question\": \"%s\"}", PLAYER_TEMP[playerid][py_NAME], playerid, doubt);
-	HTTP(playerid, HTTP_POST, "51.161.31.157:6666/get_response", payload, "neuroadmin_BotGetResponse");
+	format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/get_credit/%d", ACCOUNT_INFO[playerid][ac_ID]);
+	HTTP(playerid, HTTP_GET, payload, "", "StoreMenuRecv");
 	return 1;
 }
 
-forward neuroadmin_BotGetResponse(index, response_code, const data[]);
-public neuroadmin_BotGetResponse(index, response_code, const data[])
+forward StoreMenuRecv(index, response_code, const data[]);
+public StoreMenuRecv(index, response_code, const data[])
 {
 	#if DEBUG_MODE == 1
-		printf("neuroadmin_BotGetResponse %d %d %s", index, response_code, data);
+		printf("StoreMenuRecv %d %d %s", index, response_code, data);
 	#endif
 
 	if (IsPlayerConnected(index))
 	{
-		new str_text[264];
 	    if (response_code == 200)
 	    {
-	    	printf("[NEUROADMIN] Data: %s", data);
-
-	    	format(str_text, sizeof(str_text), 
-	    		"[Dudas] "COL_WHITE"Jugador %s_%s (%d): (( @%d %s ))",
-	    		names[random(sizeof(names))],
-	    		surnames[random(sizeof(surnames))],
-	    		minrand(1, 100),
-	    		index,
-	    		data
-	    	);
-
-	    	printf("[NEUROADMIN] Doubt: %s", str_text);
-	    	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-			{
-				if (IsPlayerConnected(i))
-				{
-					if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL])
-					{
-						SendResponsiveMessage(i, COLOR_DARK_GREEN, str_text, 135);
-					}
-				}
-			}
+	    	PLAYER_TEMP[index][py_CREDIT] = data;
+	    	ShowDialog(index, DIALOG_STORE);
 	    }
 	    else
 	    {
-			format(str_text, sizeof(str_text), "{\"author\": \"%s\", \"playerid\": %d, \"message\": \"%s\"}", PLAYER_TEMP[index][py_NAME], index, PLAYER_TEMP[index][py_LAST_DOUBT]);
-			HTTP(index, HTTP_POST, "51.161.31.157:6666/check_bad_use", str_text, "neuroadmin_BotCheckBadUse");
+			ShowPlayerMessage(playerid, "~r~Hubo un error al intentar conectarse a la tienda", 7);
 	    }
 	}
 	return 1;
