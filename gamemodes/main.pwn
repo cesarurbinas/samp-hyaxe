@@ -233,6 +233,11 @@
 #include "core/soccer/functions.pwn"
 #include "core/soccer/callbacks.pwn"
 
+// Club's
+#include "core/club/header.pwn"
+#include "core/club/functions.pwn"
+#include "core/club/callbacks.pwn"
+
 new const Float:NewUserPos[][] =
 {
 	{1090.567138, -1805.910156, 16.593750, 1.044739},
@@ -5950,8 +5955,8 @@ public OnPlayerSpawn(playerid)
 	SetTracingColor(playerid, COLOR_RED);
 	PreloadAnims(playerid);
 
-	Player_SetHealth(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
-	Player_SetArmour(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
+	SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
+	SetPlayerArmourEx(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
 	lastShotTick[playerid] = GetTickCount();
 	
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
@@ -24761,24 +24766,30 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					Streamer_GetFloatData(STREAMER_TYPE_OBJECT, DROP_ITEMS[i][itm_ID], E_STREAMER_Y, y);
 					Streamer_GetFloatData(STREAMER_TYPE_OBJECT, DROP_ITEMS[i][itm_ID], E_STREAMER_Z, z);
 
-					if (IsPlayerInRangeOfPoint(playerid, 1.5, x, y, z))
+					if (GetPlayerInterior(playerid) == DROP_ITEMS[i][itm_INTERIOR])
 					{
-						if (PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+						if (GetPlayerVirtualWorld(playerid) == DROP_ITEMS[i][itm_WORLD])
+						{
+							if (IsPlayerInRangeOfPoint(playerid, 1.5, x, y, z))
+							{
+								if (PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-						new free_slot = inv_GetFreeSlot(playerid);
-						if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+								new free_slot = inv_GetFreeSlot(playerid);
+								if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-						DROP_ITEMS[i][itm_VALID] = false;
+								DROP_ITEMS[i][itm_VALID] = false;
 
-						new item_name[84];
-						format(item_name, sizeof(item_name), "~n~~n~~n~~w~%s", DROP_ITEMS[i][itm_NAME]);
-						GameTextForPlayer(playerid, TextToSpanish(item_name), 2000, 5);
+								new item_name[84];
+								format(item_name, sizeof(item_name), "~n~~n~~n~~w~%s", DROP_ITEMS[i][itm_NAME]);
+								GameTextForPlayer(playerid, TextToSpanish(item_name), 2000, 5);
 
-						ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
-						GrabItem(playerid, DROP_ITEMS[i][itm_TYPE], DROP_ITEMS[i][itm_AMMOUNT], DROP_ITEMS[i][itm_COLOR]);
-						DeleteDropItem(i);
-						if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV]) ShowInventory(playerid);
-						return 1;
+								ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
+								GrabItem(playerid, DROP_ITEMS[i][itm_TYPE], DROP_ITEMS[i][itm_AMMOUNT], DROP_ITEMS[i][itm_COLOR]);
+								DeleteDropItem(i);
+								if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV]) ShowInventory(playerid);
+								return 1;
+							}
+						}
 					}
 				}
 			}

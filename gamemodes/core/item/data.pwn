@@ -11,6 +11,8 @@ enum Droped_Items_Enum
 	itm_OWNER[24],
 	itm_TYPE,
 	itm_AMMOUNT,
-	itm_COLOR
+	itm_COLOR,
+	itm_INTERIOR,
+	itm_WORLD
 };
 new DROP_ITEMS[MAX_DROP_ITEMS][Droped_Items_Enum];
