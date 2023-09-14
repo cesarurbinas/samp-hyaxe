@@ -55,7 +55,7 @@
 
 // Features
 //#define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -1782,6 +1782,7 @@ static const INVALID_NAMES[][100] =
 	"Mierda",
 	"Caverga",
 	"Melano",
+	"Yahir_Kozel",
 	"Apellido",
 	"Sech",
 	"Nombre",
@@ -3143,8 +3144,21 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
             )
             {
                 return 0;
-            } 
+            }
+
+            new modelid = GetVehicleModel(onFootData[PR_surfingVehicleId]);
+
+            if (ValidSurfingVehicle(modelid))
+            {
+	            new Float:speed = GetPlayerSpeed(playerid);
+				if (speed > 1.2)
+				{
+	         		PLAYER_TEMP[playerid][PR_surfingVehicleId] = onFootData[PR_surfingVehicleId];
+	         	}
+	         	else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
+	        }
         }
+        else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
 
         if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
         {
@@ -26840,6 +26854,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			DropItemSlot(playerid);
 	}
 
+	if (PRESSED( KEY_HANDBRAKE | KEY_YES ))
+    {
+		CheckPlayerDoors(playerid);
+		return 1;
+	}
+	
 	if (PRESSED( KEY_YES ))
     {
     	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999) UseItemSlot(playerid);
@@ -27013,14 +27033,16 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		SetVehicleLightsAction(playerid);
 		return 1;
 	}
-	else if (PRESSED( KEY_HANDBRAKE | KEY_YES ))
+	else if (PRESSED( KEY_NO ))
+    {
+    	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
+    		ShowInventory(playerid);
+	}
+
+	if (PRESSED( KEY_SPRINT | KEY_YES ))
     {
 		CheckPlayerDoors(playerid);
 		return 1;
-	}
-	else if (PRESSED( KEY_NO ) && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
-    {
-    	ShowInventory(playerid);
 	}
 
 	if (PRESSED( KEY_SPRINT ))

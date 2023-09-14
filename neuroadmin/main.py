@@ -38,7 +38,6 @@ def get_response():
 
 	return 'RESPOSE_NOT_FOUND', 1
 
-
 @app.route('/check_bad_use', methods = ['GET', 'POST'])
 def check_bad_use():
 	try:
@@ -53,20 +52,7 @@ def check_bad_use():
 
 		final_data = json.loads(final_data)
 		
-		final_data['message'] = final_data['message'].lower()
-
-		final_data['message'] = final_data['message'].replace('**', '')
-		final_data['message'] = final_data['message'].replace('?', '')
-		final_data['message'] = final_data['message'].replace('¿', '')
-		final_data['message'] = final_data['message'].replace('"', '')
-
-		final_data['message'] = final_data['message'].replace('á', 'a')
-		final_data['message'] = final_data['message'].replace('ó', 'o')
-		final_data['message'] = final_data['message'].replace('í', 'i')
-		final_data['message'] = final_data['message'].replace('é', 'e')
-		final_data['message'] = final_data['message'].replace('ú', 'u')
-		final_data['message'] = final_data['message'].replace(',', '')
-		final_data['message'] = final_data['message'].replace('  ', ' ')
+		final_data['message'] = clean_text(final_data['message'])
 		
 		if final_data['message'] in bad_use.positive_msg:
 			print(f'[bad_use.debug] { final_data["message"] }')
@@ -77,16 +63,6 @@ def check_bad_use():
 			if word in bad_use.ban_msg:
 				print(f'[bad_use.debug] { final_data["message"] } (keyword: {word})')
 				return 'Y'
-		
-		#for keyword in bad_use.ban_msg:
-		#	search = final_data['message'].find(keyword)
-		#	
-		#	if search != -1:
-		#		print(f'[bad_use.debug] { final_data["message"] } (keyword: {keyword}, found: {search})')
-		#		return 'Y'
-
-		#if bad_use.is_message_bad_use( final_data['message'] ):
-		#	return 'Y'
 
 		return 'N'
 
@@ -96,7 +72,6 @@ def check_bad_use():
 		return 'INTERNAL_SERVER_ERROR', 1
 
 	return 'RESPOSE_NOT_FOUND', 1
-
 
 # Learning
 @app.route('/save_response', methods = ['GET', 'POST'])
@@ -113,8 +88,8 @@ def save_response():
 
 		final_data = json.loads(final_data)
 
-		final_data['question'] = utils.convert_text(final_data['question'])
-		final_data['answer'] = utils.convert_text(final_data['answer'])
+		final_data['question'] = utils.clean_text(final_data['question'])
+		final_data['answer'] = utils.clean_text(final_data['answer'])
 
 		f = open('dataset/learning/questions.lrn', 'a')
 		
@@ -127,7 +102,6 @@ def save_response():
 		return 'INTERNAL_SERVER_ERROR', 1
 
 	return 'RESPOSE_NOT_FOUND', 1
-
 
 @app.route('/save_bad_use', methods = ['GET', 'POST'])
 def save_bad_use():
@@ -153,7 +127,6 @@ def save_bad_use():
 		return 'INTERNAL_SERVER_ERROR', 1
 
 	return 'RESPOSE_NOT_FOUND', 1
-
 
 
 # Intialize Flask App

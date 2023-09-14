@@ -343,8 +343,13 @@ enum Temp_Enum
 >>>>>>> 45008c5 (neurodmin integrado)
 =======
 	py_LAST_DOUBT[144],
+<<<<<<< HEAD
 	py_INVENTORY_TYPE
 >>>>>>> c1402b1 (Tipos de inventario)
+=======
+	py_INVENTORY_TYPE,
+	py_SURFING_VEHICLE
+>>>>>>> ec45603 (valid surfing)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

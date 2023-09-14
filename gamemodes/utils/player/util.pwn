@@ -2,7 +2,8 @@ new NAME_WHITELIST[][24] =
 {
 	"Yahir_Kozel",
 	"Atom_Palomita",
-	"Pepe_Garcia"
+	"Pepe_Garcia",
+	"Radric_Dresta"
 };
 
 new g_iPlayerLastUpdate[MAX_PLAYERS];
@@ -349,4 +350,43 @@ stock RandomCordFromPoint(range, negative, &Float:x, &Float:y)
 	x = ( x + ( random( range ) - negative ) );
 	y = ( y + ( random( range ) - negative ) );
 	return 1;
+}
+
+ValidSurfingVehicle(modelid)
+{
+	switch(modelid)
+	{
+		case 403: return false;
+		case 406: return false;
+		case 422: return false;
+		case 430: return false;
+		case 433: return false;
+		case 441: return false;
+		case 443: return false;
+		case 444: return false;
+		case 446: return false;
+		case 403: return false;
+		case 449: return false;
+		case 452..455: return false;
+		case 464: return false;
+		case 472: return false;
+		case 473: return false;
+		case 478: return false;
+		case 484: return false;
+		case 493: return false;
+		case 500: return false;
+		case 514: return false;
+		case 515: return false;
+		case 519: return false;
+		case 543: return false;
+		case 554: return false;
+		case 556: return false;
+		case 557: return false;
+		case 564: return false;
+		case 578: return false;
+		case 595: return false;
+		case 600: return false;
+		case 605: return false;
+	}
+	return true;
 }
