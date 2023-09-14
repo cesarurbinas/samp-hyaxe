@@ -2857,12 +2857,13 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        }
 		        case 1538, 1539, 1543:
 		        {
-		        	if (!CA_IsPlayerInWater(playerid))
+		        	new Float:depth, Float:playerdepth;
+		        	if (!CA_IsPlayerInWater(playerid, depth, playerdepth))
 		        	{
 		        		if (onFootData[PR_position][2] > 1.0)
 						{
 							new str_text[144];
-							format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
+							format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (%f, %f)", PLAYER_TEMP[playerid][py_NAME], playerid, depth, playerdepth);
 						    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
 						    SendDiscordWebhook(str_text, 1);
 						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
@@ -5463,7 +5464,6 @@ public OnPlayerSpawn(playerid)
 				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
 				Streamer_UpdateEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], 0, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], .freezeplayer = 1);
 				new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te quedan {62d743}%s"COL_WHITE" minutos de condena.", TimeConvert(time));
 
 				new str_text[128];
 				format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
@@ -5510,7 +5510,6 @@ public OnPlayerSpawn(playerid)
 				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
 
 				new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
-				//SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te quedan {62d743}%s"COL_WHITE" minutos de condena.", TimeConvert(time));
 
 				new str_text[128];
 				format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
@@ -25288,7 +25287,6 @@ CALLBACK: HealthUp(playerid)
 			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 
 			new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
-			//SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te quedan {62d743}%s"COL_WHITE" minutos de condena.", TimeConvert(time));
 			
 			new str_text[128];
 			format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
@@ -29892,7 +29890,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	{
 		if (IsPlayerInSafeZone(playerid))
 		{
-			if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
+			if (!PLAYER_WORKS[playerid][WORK_POLICE])
 			{
 				FreezePlayer(playerid, 2000);
 				ShowPlayerMessage(playerid, "~r~No dispares en zona segura.", 3);
