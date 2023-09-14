@@ -29,6 +29,12 @@
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
 
+// TRASH
+#define YSI_NO_HEAP_MALLOC
+#define YSI_NO_MODE_CACHE	
+#define YSI_NO_OPTIMISATION_MESSAGE	
+#define YSI_NO_VERSION_CHECK
+
 // Other Library 
 #include <a_http>
 #include <crashdetect>
@@ -192,16 +198,6 @@ const UNOCCUPIED_SYNC = 209,
 
 main()
 {
-	SetGameModeText(SERVER_MODE);
-	SendRconCommand("hostname "SERVER_HOSTNAME"");
-	SendRconCommand("language "SERVER_LANGUAGE"");
-	SendRconCommand("weburl "SERVER_WEBSITE"");
-	SendRconCommand("minconnectiontime 50");
-	SendRconCommand("ackslimit 10000");
-	SendRconCommand("messageslimit 5000");
-	SendRconCommand("conncookies 0");
-	SendRconCommand("cookielogging 0");
-	SendRconCommand("chatlogging 0");
 	printf("[info: hostname] "SERVER_HOSTNAME"");
 	printf("[info: language] "SERVER_LANGUAGE"");
 	printf("[info: website] "SERVER_WEBSITE"");
@@ -7217,7 +7213,8 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
-	printf("ongamemodeini"); // debug juju
+	print("ongamemodeinit"); // debug juju
+
 	#if defined VOICE_CHAT
 		sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
 		printf("[VOICE] Frecuency: 24000, Rate: 60");
@@ -7241,6 +7238,17 @@ public OnGameModeInit()
     SetWeaponDamage(WEAPON_TEC9, DAMAGE_TYPE_RANGE, 10.0, 20.0, 10.0, 60.0, 7.0); //tec9
     SetWeaponDamage(WEAPON_MP5, DAMAGE_TYPE_RANGE, 12.0, 20.0, 10.0, 40.0, 7.0); //mp5
     SetWeaponDamage(WEAPON_KATANA, DAMAGE_TYPE_RANGE, 40.0, 20.0, 40.0, 20.0, 40.0); //katana
+
+	SetGameModeText(SERVER_MODE);
+	SendRconCommand("hostname "SERVER_HOSTNAME"");
+	SendRconCommand("language "SERVER_LANGUAGE"");
+	SendRconCommand("weburl "SERVER_WEBSITE"");
+	SendRconCommand("minconnectiontime 50");
+	SendRconCommand("ackslimit 10000");
+	SendRconCommand("messageslimit 5000");
+	SendRconCommand("conncookies 0");
+	SendRconCommand("cookielogging 0");
+	SendRconCommand("chatlogging 0");
 
 	ConnectDatabase();
 
