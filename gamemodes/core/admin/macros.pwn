@@ -11,3 +11,19 @@
 
 #define HOLDING(%0) \
 	((newkeys & (%0)) == (%0))
+
+stock GetXYInFrontOfPlayer(playerid, &Float:x2, &Float:y2, Float:distance) // ******
+{
+    new Float:a;
+
+    GetPlayerPos(playerid, x2, y2, a);
+    GetPlayerFacingAngle(playerid, a);
+
+    if(GetPlayerVehicleID(playerid))
+    {
+        GetVehicleZAngle(GetPlayerVehicleID(playerid), a);
+    }
+
+    x2 += (distance * floatsin(-a, degrees));
+    y2 += (distance * floatcos(-a, degrees));
+}
