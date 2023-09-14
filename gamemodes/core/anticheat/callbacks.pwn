@@ -105,7 +105,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 			case 47: Anticheat_Kick(playerid, "Weapon Crasher");
 			case 48: Anticheat_Kick(playerid, "One Slot");
 			case 49: Anticheat_Kick(playerid, "Flood");
-			case 50: Anticheat_Kick(playerid, "Seat");
+			case 50: Anticheat_Ban(playerid, "Seat");
 			case 51: Anticheat_Kick(playerid, "DoS");
 			case 52: Anticheat_Kick(playerid, "NOPs");
 			default: Anticheat_Kick(playerid, "Cheats");
