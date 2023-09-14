@@ -4228,14 +4228,14 @@ ShowDialog(playerid, dialogid)
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Minería", "\
 				"COL_WHITE"Mazo\t"COL_GREEN"$150\n\
-				"COL_WHITE"Potenciador x5\t"COL_GREEN"$1500\n\
-				"COL_WHITE"Potenciador x10\t"COL_GREEN"$2500\n\
-				"COL_WHITE"Potenciador x15\t"COL_GREEN"$3500\n\
-				"COL_WHITE"Potenciador x20\t"COL_GREEN"$4500\n\
-				"COL_WHITE"Potenciador x25\t"COL_GREEN"$5500\n\
-				"COL_WHITE"Potenciador x30\t"COL_GREEN"$6500\n\
-				"COL_WHITE"Potenciador x35\t"COL_GREEN"$7500\n\
-				"COL_WHITE"Potenciador x40\t"COL_GREEN"$8500\n",
+				"COL_WHITE"Potenciador x5\t"COL_GREEN"$500\n\
+				"COL_WHITE"Potenciador x10\t"COL_GREEN"$1000\n\
+				"COL_WHITE"Potenciador x15\t"COL_GREEN"$1500\n\
+				"COL_WHITE"Potenciador x20\t"COL_GREEN"$2000\n\
+				"COL_WHITE"Potenciador x25\t"COL_GREEN"$2500\n\
+				"COL_WHITE"Potenciador x30\t"COL_GREEN"$3000\n\
+				"COL_WHITE"Potenciador x35\t"COL_GREEN"$3500\n\
+				"COL_WHITE"Potenciador x40\t"COL_GREEN"$4000\n",
 			"Comprar", "Cerrar");
     		return 1;
     	}
