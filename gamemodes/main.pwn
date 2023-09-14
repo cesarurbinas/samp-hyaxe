@@ -102,10 +102,14 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // World
 #include "core/world/extra.pwn"
 
+// Textdraws
+#include "core/global/textdraws.pwn"
+
 // Player
 #include "core/player/temp.pwn"
 #include "core/player/misc.pwn"
 #include "core/player/character.pwn"
+#include "core/player/textdraws.pwn"
 
 // Damage
 #include "core/damage/callbacks.pwn"
@@ -115,13 +119,14 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Work
 #include "core/work/data.pwn"
 #include "core/work/miner.pwn"
+#include "core/work/woodcutter/header.pwn"
+#include "core/work/woodcutter/callbacks.pwn"
 
 // Player
 #include "core/player/weapons.pwn"
 #include "core/player/phone.pwn"
 #include "core/player/toys.pwn"
 #include "core/player/account.pwn"
-#include "core/player/textdraws.pwn"
 #include "core/player/crew.pwn"
 #include "core/player/visual_inventory.pwn"
 #include "core/player/vehicles.pwn"
@@ -133,9 +138,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Properties
 #include "core/furniture/properties.pwn"
 #include "core/furniture/list.pwn"
-
-// Global
-#include "core/global/textdraws.pwn"
 
 // Items
 #include "core/item/data.pwn"

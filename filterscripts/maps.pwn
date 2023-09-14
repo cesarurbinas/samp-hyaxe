@@ -18766,6 +18766,7 @@ public OnFilterScriptInit()
     CreateDynamicObject(18609, -1941.7657, -2454.6601, 30.8051, -1.2000, -0.7999, -136.0999); //Cs_Logs06
     CreateDynamicObject(18609, -1943.3387, -2456.1708, 30.7156, -1.2000, -0.7999, -136.0999); //Cs_Logs06
     CreateDynamicObject(18609, -1938.1464, -2460.5163, 30.0499, -178.5999, -0.7999, -142.9999); //Cs_Logs06
+    CreateDynamicObject(18228, -1846.15417, -2461.52173, 27.65077, 356.85840, 0.00000, 216.68089); // Rocas
     
 	BlockGarages();
 	return 1;
@@ -19053,6 +19054,24 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1438, -63.6719, -1125.6953, 0.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 1438, -63.4141, -1115.4141, 0.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 1415, -63.8125, -1106.4219, 0.2188, 0.25);
+
+    // Leñador
+    RemoveBuildingForPlayer(playerid, 785, -1878.7813, -2299.4531, 36.7578, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1851.1719, -2419.8906, 28.8672, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1916.5703, -2352.8203, 27.8984, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1921.7813, -2233.5547, 64.0625, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1868.4609, -2470.2734, 26.2813, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1934.3438, -2401.9297, 26.5000, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1868.4609, -2470.2734, 26.2813, 0.25);
+    RemoveBuildingForPlayer(playerid, 790, -1979.7188, -2371.9063, 34.7578, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1934.3438, -2401.9297, 26.5000, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1916.5703, -2352.8203, 27.8984, 0.25);
+    RemoveBuildingForPlayer(playerid, 790, -1891.0703, -2381.6875, 34.7578, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1878.7813, -2299.4531, 36.7578, 0.25);
+    RemoveBuildingForPlayer(playerid, 18228, -1856.6875, -2321.2891, 38.1484, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1851.1719, -2419.8906, 28.8672, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1921.7813, -2233.5547, 64.0625, 0.25);
+    
 	return 1;
 }
 
