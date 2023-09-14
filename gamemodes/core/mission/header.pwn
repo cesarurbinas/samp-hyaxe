@@ -7,6 +7,10 @@ new FAILED_MSGS[][] =
 	"Habia que disparar, no repartir abrazos!"
 };
 
+new BALLAS_SKINS[] =
+{
+	102, 103, 104, 102
+};
 
 enum e_start_mission
 {
