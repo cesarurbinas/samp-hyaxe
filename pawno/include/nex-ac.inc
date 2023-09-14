@@ -26,6 +26,8 @@
 	#include <es.lang>	//Localization
 #endif
 
+#include "utils/discord/webhook.pwn"
+
 #define	NEX_AC_VERSION				"1.9.53"
 
 #define AC_SERVER_VERSION			"0.3.7"
@@ -8828,6 +8830,12 @@ ac_fpublic ac_Timer(playerid)
 					static ac_strtmp[sizeof KICK_MSG];
 					format(ac_strtmp, sizeof ac_strtmp, KICK_MSG, code);
 					SendClientMessage(playerid, AC_DEFAULT_COLOR, ac_strtmp);
+					
+					new str_text[264], name[MAX_PLAYER_NAME];
+					GetPlayerName(playerid, name, sizeof(name));
+					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d). El codigo de motivo: %03d%s", name, playerid, code, ac_strtmp);
+					SendDiscordWebhook(str_text, 1);
+
 					#undef AC_DEFAULT_COLOR
 				}
 			}
