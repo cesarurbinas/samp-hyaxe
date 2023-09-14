@@ -326,8 +326,15 @@ enum Temp_Enum
 	py_PRODUCT_NAME[32],
 	py_PRODUCT_TYPE,
 	py_PRODUCT_EXTRA,
+<<<<<<< HEAD
 	py_PRODUCT_PRICE
 >>>>>>> 137a817 (Eliminar productos)
+=======
+	py_PRODUCT_PRICE,
+	Float:py_MAP_X,
+	Float:py_MAP_Y,
+	Float:py_MAP_Z
+>>>>>>> 94707da (Comando /gotopoint)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

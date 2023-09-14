@@ -24371,6 +24371,14 @@ CALLBACK: UpdateWorldTime()
 	return 1;
 }*/
 
+public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
+{
+	PLAYER_TEMP[playerid][py_MAP_X] = fX;
+	PLAYER_TEMP[playerid][py_MAP_Y] = fY;
+	PLAYER_TEMP[playerid][py_MAP_Z] = fZ;
+    return 1;
+}
+
 public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 {
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= CMD_MODERATOR)
@@ -30648,23 +30656,26 @@ OpenMafiaDoor(playerid)
 {
 	for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
 	{
-		if (PLAYER_SKILLS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ] > 0)
+		if (MAFIA_DOORS[i][mafia_door_TYPE] == DOOR_TYPE_MAFIA)
 		{
-			if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-			if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-
-			if (IsPlayerInRangeOfPoint(playerid, 33.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+			if (PLAYER_SKILLS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ] > 0)
 			{
-				KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-				MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
+				if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
+				if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
 
-				new Float:distance = 15.0;
-				if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
-					distance = 50.0;
+				if (IsPlayerInRangeOfPoint(playerid, 33.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+				{
+					KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
+					MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
 
-				MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-				MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-				break;
+					new Float:distance = 15.0;
+					if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
+						distance = 50.0;
+
+					MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
+					MAFIA_DOORS[i][mafia_door_CLOSED] = false;
+					break;
+				}
 			}
 		}
 	}

@@ -607,6 +607,16 @@ CMD:goto(playerid, params[])
 }
 alias:goto("ir")
 
+CMD:gotopoint(playerid, params[])
+{
+	SetPlayerPosEx(playerid, PLAYER_TEMP[playerid][py_MAP_X], PLAYER_TEMP[playerid][py_MAP_Y], PLAYER_TEMP[playerid][py_MAP_Z], 0.0, GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid), false, true);
+	SetPlayerPosFindZ(playerid, PLAYER_TEMP[playerid][py_MAP_X], PLAYER_TEMP[playerid][py_MAP_Y], PLAYER_TEMP[playerid][py_MAP_Z]);
+	
+	SendCmdLogToAdmins(playerid, "gotopoint", params);
+	return 1;
+}
+flags:gotopoint(CMD_MODERATOR)
+
 CMD:get(playerid, params[])
 {
 	new to_player;
