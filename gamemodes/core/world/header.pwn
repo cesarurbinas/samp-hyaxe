@@ -1,3 +1,4 @@
+new WorldCycleTimer;
 new Club_Strippers_Actor[6];
 new  Club_Bar_Actor[4];
 new Club_Actors[21];

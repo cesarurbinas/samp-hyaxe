@@ -8,8 +8,9 @@ SanAndreas()
 	LoadBlackMarkets();
 	LoadClubs();
 
-	gettime(SERVER_TIME[0], SERVER_TIME[1]);
-	SetTimer("UpdateWorldTime", 60000, true);
+	SERVER_TIME[0] = 7;
+	SERVER_TIME[1] = 1;
+	WorldCycleTimer = SetTimer("UpdateWorldTime", 60000, true);
 
 	//ptas
 	Club_Strippers_Actor[0] = CreateDynamicActor(246, 1209.416503, -36.272216, 1001.484375, 17.0, .worldid = 0, .interiorid = 3);
