@@ -7985,11 +7985,11 @@ DestroyPlayerCheckpoints(playerid)
 	return 1;
 }
 
-bool:IsShootingAnimation(anim)
+/*bool:IsShootingAnimation(anim)
 {
 	switch(anim)
 	{
 		case 220..225, 360..366, 532, 640, 1331..1335, 1365..1369, 1382..1386, 1431, 1434, 1449..1455, 1468, 1469, 1618..1621, 1643..1647: return true;
 	}
 	return false;
-}
+}*/

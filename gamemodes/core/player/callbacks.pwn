@@ -5759,6 +5759,7 @@ public OnPlayerSuspectedForAimbot(playerid, hitid, weaponid, warnings)
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 		SendDiscordWebhook(str_text, 1);
 	}
+	
 	if (warnings & WARNING_RANDOM_AIM)
 	{
 		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Aviso sobre %s (%d): Aimbot (%s)", PLAYER_TEMP[playerid][py_NAME], playerid, weapon_name);
