@@ -565,5 +565,71 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_PUMPKIN];
 		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 57);
 	}
+
+	if (PLAYER_MISC[playerid][MISC_ROCKET] > 0)
+	{
+		free_slot = inv_GetFreeSlot(playerid);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
+		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 58;
+		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_ROCKET];
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 58);
+	}
+
+	if (PLAYER_MISC[playerid][MISC_MORTERO] > 0)
+	{
+		free_slot = inv_GetFreeSlot(playerid);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
+		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 59;
+		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_MORTERO];
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 59);
+	}
+
+	if (PLAYER_MISC[playerid][MISC_PETARDO] > 0)
+	{
+		free_slot = inv_GetFreeSlot(playerid);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
+		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 60;
+		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_PETARDO];
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 60);
+	}
+
+	if (PLAYER_MISC[playerid][MISC_VOLCAN] > 0)
+	{
+		free_slot = inv_GetFreeSlot(playerid);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
+		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 61;
+		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_VOLCAN];
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 61);
+	}
+
+	if (PLAYER_MISC[playerid][MISC_LAVAKO] > 0)
+	{
+		free_slot = inv_GetFreeSlot(playerid);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
+		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 62;
+		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_LAVAKO];
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 62);
+	}
+
+	if (PLAYER_MISC[playerid][MISC_12TIROS] > 0)
+	{
+		free_slot = inv_GetFreeSlot(playerid);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
+		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 63;
+		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_12TIROS];
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 63);
+	}
 	return 1;
 }

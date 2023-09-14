@@ -275,6 +275,9 @@
 // Store
 #include "core/store/header.pwn"
 
+// Fireworks
+#include "core/fireworks/functions.pwn"
+
 /* Special Features */
 
 // Special maps
@@ -2460,7 +2463,7 @@ new Toys_Shop[][Toys_Info] =
 	#endif
 	#if defined CHRISTMAS_MODE
 		{"Gorro JOJO", 19064, 3000, 0},
-		{"HappyXmas", 19066, 3000, 0}
+		{"HappyXmas", 19066, 3000, 0},
 		{"Arbol", 19076, 10000, 0},
 		{"XmaxBox1", 19054, 3500, 0},
 		{"XmaxBox2", 19055, 3500, 0},
@@ -6071,6 +6074,17 @@ CheckRegister(playerid)
 	}
 #endif
 
+#if defined CHRISTMAS_MODE
+	CheckRocketStore(playerid)
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 2.0, 1537.7760, -1658.0721, 13.5469))
+		{
+			ShowDialog(playerid, DIALOG_BUY_ROCKET);
+		}
+		return 1;
+	}
+#endif
+
 CheckClubMenu(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
@@ -6757,7 +6771,9 @@ public OnPlayerSpawn(playerid)
 		PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
 	}
 
-	SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
+	if (PLAYER_TEMP[playerid][py_NOCHE_DE_SEXO]) SetPlayerTime(playerid, 0, 0);
+	else SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
+	
 	SetPlayerWeather(playerid, SERVER_WEATHER);
 
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_NORMAL;
@@ -9512,6 +9528,16 @@ CMD:ayuda(playerid, params[])
 CMD:testvlood(playerid, params[])
 {
 	PlayerBloodParticle(playerid);
+	return 1;
+}
+
+CMD:nochesexo(playerid, params[])
+{
+	PLAYER_TEMP[playerid][py_NOCHE_DE_SEXO] = !PLAYER_TEMP[playerid][py_NOCHE_DE_SEXO];
+
+	if (PLAYER_TEMP[playerid][py_NOCHE_DE_SEXO]) SetPlayerTime(playerid, 0, 0);
+	else SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
+
 	return 1;
 }
 
@@ -14878,6 +14904,16 @@ ShowDialog(playerid, dialogid)
     		}
 
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Comprar", "Cerrar");
+		}
+
+		case DIALOG_BUY_ROCKET:
+		{
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Fuegos artificiales", ""COL_WHITE"Pepaso Volador x10\t"COL_GREEN"1000$\n\
+    			"COL_WHITE"Mortero x5\t"COL_GREEN"2000$\n\
+    			"COL_WHITE"Petardo x5\t"COL_GREEN"1000$\n\
+    			"COL_WHITE"Volcan x10\t"COL_GREEN"500$\n\
+    			"COL_WHITE"Lavako x10\t"COL_GREEN"800$\n\
+    			"COL_WHITE"12 Tiros x10\t"COL_GREEN"1500$\n", "Comprar", "Cerrar");
 		}
 		default: return 0;
 	}
@@ -24054,6 +24090,57 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				HTTP(playerid, HTTP_GET, payload, "", "StoreBuyRecv");
 			}
 		}
+		case DIALOG_BUY_ROCKET:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0:
+					{
+						if (1000 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						PLAYER_MISC[playerid][MISC_ROCKET] += 10;
+						GivePlayerCash(playerid, -1000);
+						SavePlayerMisc(playerid);
+					}
+					case 1:
+					{
+						if (2000 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						PLAYER_MISC[playerid][MISC_MORTERO] += 5;
+						GivePlayerCash(playerid, -2000);
+						SavePlayerMisc(playerid);
+					}
+					case 2:
+					{
+						if (1000 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						PLAYER_MISC[playerid][MISC_PETARDO] += 5;
+						GivePlayerCash(playerid, -1000);
+						SavePlayerMisc(playerid);
+					}
+					case 3:
+					{
+						if (500 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						PLAYER_MISC[playerid][MISC_VOLCAN] += 10;
+						GivePlayerCash(playerid, -500);
+						SavePlayerMisc(playerid);
+					}
+					case 4:
+					{
+						if (800 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						PLAYER_MISC[playerid][MISC_LAVAKO] += 10;
+						GivePlayerCash(playerid, -800);
+						SavePlayerMisc(playerid);
+					}
+					case 5:
+					{
+						if (1500 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						PLAYER_MISC[playerid][MISC_12TIROS] += 10;
+						GivePlayerCash(playerid, -1500);
+						SavePlayerMisc(playerid);
+					}
+				}
+			}
+		}
 	}
 	return 0;
 }
@@ -25859,7 +25946,9 @@ public UpdateWorldTime()
 			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD)
 			{
 				new p_int = GetPlayerInterior(i);
-				SetPlayerTime(i, SERVER_TIME[0], SERVER_TIME[1]);
+				
+				if (PLAYER_TEMP[i][py_NOCHE_DE_SEXO]) SetPlayerTime(i, 0, 0);
+				else SetPlayerTime(i, SERVER_TIME[0], SERVER_TIME[1]);
 
 				switch(p_int)
 				{
@@ -28054,6 +28143,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
        		CheckPumpkinWitch(playerid);
 		#endif
 
+       	#if defined CHRISTMAS_MODE
+       		CheckRocketStore(playerid);
+		#endif
+
         for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
 		{
 			if (IsPlayerInRangeOfPoint(playerid, 1.0, TELE_MIRRORS[i][teleview_X], TELE_MIRRORS[i][teleview_Y], TELE_MIRRORS[i][teleview_Z]))
@@ -28170,6 +28263,34 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						{
 							if (IsPlayerInRangeOfPoint(playerid, 1.5, x, y, z))
 							{
+								if (DROP_ITEMS[i][itm_TYPE] == 64)
+								{
+									new gift = random(10);
+
+									switch(gift)
+									{
+										case 4:
+										{
+											new DB_Query[164], hycoins = minrand(1, 5);
+
+											ACCOUNT_INFO[playerid][ac_SD] += hycoins;
+
+											format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+											db_free_result(db_query(Database, DB_Query));
+
+											format(DB_Query, sizeof(DB_Query), "~g~[HYCOINS]~w~ Has encontrado %d Hycoins", hycoins);
+											ShowPlayerMessage(playerid, DB_Query, 4);
+										}
+										default:
+										{
+											GivePlayerCash(playerid, minrand(1000, 5000), false);
+										}
+									}
+
+									DeleteDropItem(i);
+									return 1;
+								}
+
 								if (PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
 								new free_slot = inv_GetFreeSlot(playerid);

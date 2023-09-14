@@ -1,35 +1,153 @@
+static Float:GIFT_POSITIONS[][] =
+{
+    {1201.5510, -1381.8387, 13.2459, 169.8299},
+    {1201.1536, -1345.4445, 13.4003, 359.3750},
+    {1201.3386, -1295.0685, 13.3826, 358.7483},
+    {1231.9214, -1290.2782, 13.4994, 269.1342},
+    {1253.2238, -1303.1219, 13.2013, 198.9468},
+    {1251.3732, -1327.8323, 13.1837, 175.7599},
+    {1252.0665, -1369.7852, 13.2064, 188.9201},
+    {1233.0996, -1371.1244, 13.3824, 76.1190},
+    {1585.7820, -1732.8544, 13.3828, 79.0645},
+    {1531.5203, -1715.6608, 13.3828, 357.5971},
+    {1539.3940, -1676.0413, 13.5469, 345.6903},
+    {1534.7567, -1628.6151, 13.3828, 4.4905},
+    {1534.7119, -1598.7633, 13.3906, 276.1297},
+    {1005.7455, -967.3745, 41.4781, 306.7956},
+    {1039.3651, -964.3748, 42.5378, 272.3286},
+    {1091.5908, -959.5134, 42.3346, 276.0887},
+    {2217.4075, -1165.0704, 25.7266, 155.0458},
+    {2487.6836, -1668.3090, 13.3438, 240.2331},
+    {2464.8323, -2653.7141, 13.6791, 239.2884},
+    {2511.6985, -2631.0115, 13.6442, 286.2888},
+    {1822.5807, -1859.3899, 13.4141, 245.8295},
+    {327.9432, -1795.7627, 4.2838, 343.2136},
+    {223.5688, -1843.6570, 2.9181, 110.6678},
+    {-373.6399, -1470.2950, 25.2283, 68.7713},
+    {-377.5725, -1421.2704, 25.2651, 358.5337},
+    {674.9318, -1237.6261, 14.5530, 297.1113},
+    {731.6790, -1192.9286, 19.2068, 317.1225},
+    {2356.3120, -1042.9607, 54.1484, 9.0887},
+    {2225.9824, -1339.0789, 23.5173, 64.4879},
+    {2455.1943, -1465.2347, 29.5316, 331.3669},
+    {2809.9270, -1546.9089, 10.9272, 201.5999},
+    {2786.3774, -1613.1483, 10.9219, 335.3711},
+    {2889.3281, -1165.3051, 11.3707, 352.7437},
+    {1793.0708, -1066.9917, 24.2438, 88.3436},
+    {1674.1914, -1081.6759, 24.8879, 276.4435},
+    {1580.2517, -1027.7449, 25.0031, 233.7436}
+};
+
 ChristmasMap()
 {
-	new g_Object[30];
-    g_Object[0] = CreateDynamicObject(19076, 2486.1899, -1667.6484, 12.2642, 0.0000, 0.0000, 0.0000); //XmasTree1
-    g_Object[1] = CreateDynamicObject(19054, 1183.2691, -1317.1289, 13.1984, 0.0000, 0.0000, 0.0000); //XmasBox1
-    g_Object[2] = CreateDynamicObject(19054, 2487.7216, -1667.9443, 12.9159, 0.0000, 0.0000, 0.0000); //XmasBox1
-    g_Object[3] = CreateDynamicObject(19055, 2486.3608, -1669.4365, 13.0259, 0.0000, 0.0000, 0.0000); //XmasBox2
-    g_Object[4] = CreateDynamicObject(19056, 2484.6984, -1667.8669, 12.8918, 0.0000, 0.0000, 0.0000); //XmasBox3
-    g_Object[5] = CreateDynamicObject(19057, 2486.1169, -1666.3732, 13.0059, 0.0000, 0.0000, 0.0000); //XmasBox4
-    g_Object[6] = CreateDynamicObject(19076, 1540.6708, -1658.1934, 12.6911, 0.0000, 0.0000, 0.0000); //XmasTree1
-    g_Object[7] = CreateDynamicObject(19055, 1541.0631, -1659.5408, 13.1128, 0.0000, 0.0000, 0.0000); //XmasBox2
-    g_Object[8] = CreateDynamicObject(19054, 1539.6727, -1658.1375, 13.1168, 0.0000, 0.0000, 0.0000); //XmasBox1
-    g_Object[9] = CreateDynamicObject(19057, 1541.5454, -1657.7524, 13.0403, 0.0000, 0.0000, 0.0000); //XmasBox4
-    g_Object[10] = CreateDynamicObject(19055, 1184.3615, -1315.5056, 13.0602, 0.0000, 0.0000, 0.0000); //XmasBox2
-    g_Object[11] = CreateDynamicObject(19055, 1183.2836, -1332.9768, 13.2251, 0.0000, 0.0000, 0.0000); //XmasBox2
-    g_Object[12] = CreateDynamicObject(19054, 1182.2093, -1334.6591, 13.2116, 0.0000, 0.0000, 0.0000); //XmasBox1
-    g_Object[13] = CreateDynamicObject(19054, 1585.2510, -1331.4737, 16.0306, 0.0000, 0.0000, 0.0000); //XmasBox1
-    g_Object[14] = CreateDynamicObject(19056, 1583.9500, -1330.3212, 15.9403, 0.0000, 0.0000, 0.0000); //XmasBox3
-    g_Object[15] = CreateDynamicObject(19055, 1575.3524, -1322.6915, 16.0731, 0.0000, 0.0000, 0.0000); //XmasBox2
-    g_Object[16] = CreateDynamicObject(19057, 1576.5000, -1324.2160, 16.0043, 0.0000, 0.0000, 0.0000); //XmasBox4
-    g_Object[17] = CreateDynamicObject(19076, 595.2000, -690.5059, 9.4060, 0.0000, 0.0000, 0.0000); //XmasTree1
-    g_Object[18] = CreateDynamicObject(19054, 594.8959, -692.2261, 10.5127, 0.0000, 0.0000, 0.0000); //XmasBox1
-    g_Object[19] = CreateDynamicObject(19055, 593.7955, -690.3787, 10.4727, 0.0000, 0.0000, 0.0000); //XmasBox2
-    g_Object[20] = CreateDynamicObject(19056, 594.6095, -688.9426, 10.3008, 0.0000, 0.0000, 0.0000); //XmasBox3
-    g_Object[21] = CreateDynamicObject(19058, 596.6934, -690.1602, 10.3368, 0.0000, 0.0000, 0.0000); //XmasBox5
-    g_Object[22] = CreateDynamicObject(19076, 2510.0000, -2626.3757, 12.4582, 0.0000, 0.0000, 0.0000); //XmasTree1
-    g_Object[23] = CreateDynamicObject(19058, 2508.9328, -2625.1889, 13.1992, 0.0000, 0.0000, 0.0000); //XmasBox5
-    g_Object[24] = CreateDynamicObject(19057, 2511.1516, -2626.8054, 13.2761, 0.0000, 0.0000, 0.0000); //XmasBox4
-    g_Object[25] = CreateDynamicObject(19056, 2509.0083, -2627.0256, 13.2060, 0.0000, 0.0000, 0.0000); //XmasBox3
-    g_Object[26] = CreateDynamicObject(19076, 1056.8581, -956.6851, 41.5019, 0.0000, 0.0000, 0.0000); //XmasTree1
-    g_Object[27] = CreateDynamicObject(19054, 1056.6790, -955.3916, 42.1740, 0.0000, 0.0000, 0.0000); //XmasBox1
-    g_Object[28] = CreateDynamicObject(19055, 1057.9996, -956.3269, 42.0977, 0.0000, 0.0000, 0.0000); //XmasBox2
-    g_Object[29] = CreateDynamicObject(19058, 1055.8996, -957.2544, 42.1737, 0.0000, 0.0000, 0.0000); //XmasBox5
-	return 1;
+	new basic[30];
+    basic[0] = CreateDynamicObject(19076, 2486.1899, -1667.6484, 12.2642, 0.0000, 0.0000, 0.0000); //XmasTree1
+    basic[1] = CreateDynamicObject(19054, 1183.2691, -1317.1289, 13.1984, 0.0000, 0.0000, 0.0000); //XmasBox1
+    basic[2] = CreateDynamicObject(19054, 2487.7216, -1667.9443, 12.9159, 0.0000, 0.0000, 0.0000); //XmasBox1
+    basic[3] = CreateDynamicObject(19055, 2486.3608, -1669.4365, 13.0259, 0.0000, 0.0000, 0.0000); //XmasBox2
+    basic[4] = CreateDynamicObject(19056, 2484.6984, -1667.8669, 12.8918, 0.0000, 0.0000, 0.0000); //XmasBox3
+    basic[5] = CreateDynamicObject(19057, 2486.1169, -1666.3732, 13.0059, 0.0000, 0.0000, 0.0000); //XmasBox4
+    basic[6] = CreateDynamicObject(19076, 1540.6708, -1658.1934, 12.6911, 0.0000, 0.0000, 0.0000); //XmasTree1
+    basic[7] = CreateDynamicObject(19055, 1541.0631, -1659.5408, 13.1128, 0.0000, 0.0000, 0.0000); //XmasBox2
+    basic[8] = CreateDynamicObject(19054, 1539.6727, -1658.1375, 13.1168, 0.0000, 0.0000, 0.0000); //XmasBox1
+    basic[9] = CreateDynamicObject(19057, 1541.5454, -1657.7524, 13.0403, 0.0000, 0.0000, 0.0000); //XmasBox4
+    basic[10] = CreateDynamicObject(19055, 1184.3615, -1315.5056, 13.0602, 0.0000, 0.0000, 0.0000); //XmasBox2
+    basic[11] = CreateDynamicObject(19055, 1183.2836, -1332.9768, 13.2251, 0.0000, 0.0000, 0.0000); //XmasBox2
+    basic[12] = CreateDynamicObject(19054, 1182.2093, -1334.6591, 13.2116, 0.0000, 0.0000, 0.0000); //XmasBox1
+    basic[13] = CreateDynamicObject(19054, 1585.2510, -1331.4737, 16.0306, 0.0000, 0.0000, 0.0000); //XmasBox1
+    basic[14] = CreateDynamicObject(19056, 1583.9500, -1330.3212, 15.9403, 0.0000, 0.0000, 0.0000); //XmasBox3
+    basic[15] = CreateDynamicObject(19055, 1575.3524, -1322.6915, 16.0731, 0.0000, 0.0000, 0.0000); //XmasBox2
+    basic[16] = CreateDynamicObject(19057, 1576.5000, -1324.2160, 16.0043, 0.0000, 0.0000, 0.0000); //XmasBox4
+    basic[17] = CreateDynamicObject(19076, 595.2000, -690.5059, 9.4060, 0.0000, 0.0000, 0.0000); //XmasTree1
+    basic[18] = CreateDynamicObject(19054, 594.8959, -692.2261, 10.5127, 0.0000, 0.0000, 0.0000); //XmasBox1
+    basic[19] = CreateDynamicObject(19055, 593.7955, -690.3787, 10.4727, 0.0000, 0.0000, 0.0000); //XmasBox2
+    basic[20] = CreateDynamicObject(19056, 594.6095, -688.9426, 10.3008, 0.0000, 0.0000, 0.0000); //XmasBox3
+    basic[21] = CreateDynamicObject(19058, 596.6934, -690.1602, 10.3368, 0.0000, 0.0000, 0.0000); //XmasBox5
+    basic[22] = CreateDynamicObject(19076, 2510.0000, -2626.3757, 12.4582, 0.0000, 0.0000, 0.0000); //XmasTree1
+    basic[23] = CreateDynamicObject(19058, 2508.9328, -2625.1889, 13.1992, 0.0000, 0.0000, 0.0000); //XmasBox5
+    basic[24] = CreateDynamicObject(19057, 2511.1516, -2626.8054, 13.2761, 0.0000, 0.0000, 0.0000); //XmasBox4
+    basic[25] = CreateDynamicObject(19056, 2509.0083, -2627.0256, 13.2060, 0.0000, 0.0000, 0.0000); //XmasBox3
+    basic[26] = CreateDynamicObject(19076, 1056.8581, -956.6851, 41.5019, 0.0000, 0.0000, 0.0000); //XmasTree1
+    basic[27] = CreateDynamicObject(19054, 1056.6790, -955.3916, 42.1740, 0.0000, 0.0000, 0.0000); //XmasBox1
+    basic[28] = CreateDynamicObject(19055, 1057.9996, -956.3269, 42.0977, 0.0000, 0.0000, 0.0000); //XmasBox2
+    basic[29] = CreateDynamicObject(19058, 1055.8996, -957.2544, 42.1737, 0.0000, 0.0000, 0.0000); //XmasBox5
+
+    new snow[6];
+    snow[0] = CreateDynamicObject(19334, 248.2092, -1842.7589, -25.5702, 0.0000, 0.0000, 0.0000); //Hot_Air_Balloon03
+    SetDynamicObjectMaterial(snow[0], 3, 3922, "bistro", "mp_snow", 0x00000000);
+    snow[1] = CreateDynamicObject(19076, 248.1655, -1842.6285, 3.3893, 0.0000, 0.0000, 0.0000); //XmasTree1
+    snow[2] = CreateDynamicObject(19057, 247.7010, -1841.3067, 3.9013, 0.0000, 0.0000, 0.0000); //XmasBox4
+    snow[3] = CreateDynamicObject(19058, 249.3170, -1842.3615, 4.0122, 0.0000, 0.0000, 0.0000); //XmasBox5
+    snow[4] = CreateDynamicObject(19056, 247.2471, -1843.1722, 3.9122, 0.0000, 0.0000, 0.0000); //XmasBox3
+    snow[5] = CreateDynamicObject(19055, 248.5922, -1843.1098, 3.7553, 17.9000, 20.3000, 0.0000); //XmasBox2
+
+    new party[26];
+    party[0] = CreateDynamicObject(19076, 2202.7465, -1654.4316, 14.0127, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[1] = CreateDynamicObject(19076, 2219.5671, -1658.9721, 14.0127, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[2] = CreateDynamicObject(19076, 2313.2077, -1742.3790, 12.2300, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[3] = CreateDynamicObject(19055, 2312.2814, -1741.6253, 12.8305, 0.0000, 0.0000, 0.0000); //XmasBox2
+    party[4] = CreateDynamicObject(19057, 2313.9416, -1743.5253, 12.7105, 0.0000, 0.0000, 0.0000); //XmasBox4
+    party[5] = CreateDynamicObject(19076, 2218.2885, -1163.2335, 24.5025, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[6] = CreateDynamicObject(19076, 756.2448, -1260.3598, 12.4728, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[7] = CreateDynamicObject(19054, 755.3488, -1261.2812, 12.9440, 0.0000, 0.0000, 0.0000); //XmasBox1
+    party[8] = CreateDynamicObject(19058, 757.3503, -1259.4425, 12.8609, 0.0000, 0.0000, 0.0000); //XmasBox5
+    party[9] = CreateDynamicObject(19076, 1262.8297, -2035.6931, 58.1315, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[10] = CreateDynamicObject(19076, 301.3705, -1783.4267, 3.1961, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[11] = CreateDynamicObject(19076, 301.3705, -1800.0770, 3.1961, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[12] = CreateDynamicObject(19076, 301.3705, -1819.2167, 3.1961, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[13] = CreateDynamicObject(19076, 301.7405, -1836.9678, 3.1961, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[14] = CreateDynamicObject(19076, 146.2922, -1775.9549, 3.1186, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[15] = CreateDynamicObject(19076, 164.3322, -1775.9549, 3.1186, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[16] = CreateDynamicObject(19061, 335.6676, -1874.8037, 4.9126, 0.0000, 0.0000, 0.0000); //XmasOrb3
+    party[17] = CreateDynamicObject(19059, 339.2076, -1870.9281, 4.9327, 0.0000, 0.0000, 0.0000); //XmasOrb1
+    party[18] = CreateDynamicObject(19060, 287.3853, -1870.9162, 4.7561, 0.0000, 0.0000, 0.0000); //XmasOrb2
+    party[19] = CreateDynamicObject(19059, 291.0350, -1874.8293, 4.7401, 0.0000, 0.0000, 0.0000); //XmasOrb1
+    party[20] = CreateDynamicObject(19060, 247.2750, -1874.6451, 4.2068, 0.0000, 0.0000, 0.0000); //XmasOrb2
+    party[21] = CreateDynamicObject(19059, 243.7807, -1870.9241, 4.1959, 0.0000, 0.0000, 0.0000); //XmasOrb1
+    party[22] = CreateDynamicObject(19062, 202.1258, -1874.8161, 4.5873, 0.0000, 0.0000, 0.0000); //XmasOrb4
+    party[23] = CreateDynamicObject(19063, 198.8961, -1871.0611, 4.5835, 0.0000, 0.0000, 0.0000); //XmasOrb5
+    party[24] = CreateDynamicObject(19076, 275.1376, -1778.7523, 3.2678, 0.0000, 0.0000, 0.0000); //XmasTree1
+    party[25] = CreateDynamicObject(19076, 252.8477, -1777.6315, 3.2678, 0.0000, 0.0000, 0.0000); //XmasTree1
+	
+    CreateDynamic3DTextLabel(""COL_RED"Comprar fuegos artificiales"COL_WHITE"\n6 Productos disponibles", 0xF7F7F7FF, 1537.7760, -1658.0721, 13.5469, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+    AddKeyArea(817.2799, -1103.3270, 1.5, KEY_TYPE_Y);
+
+    SetTimer("SpawnGift", 600000, true);
+    SpawnGift();
+    return 1;
+}
+
+forward SpawnGift();
+public SpawnGift()
+{
+    for(new i = 0, j = 100; i <= j; i++)
+    {
+        new 
+            index = random(sizeof(GIFT_POSITIONS)),
+            Float:x,
+            Float:y
+        ;
+
+        x = GIFT_POSITIONS[index][0];
+        y = GIFT_POSITIONS[index][1];
+        
+        RandomCordFromPoint(minrand(10, 50), minrand(3, 5), x, y);
+
+        CreateDropItem(
+            minrand(19054, 19058),
+            x,
+            y,
+            100.0,
+            0.0,
+            0.0,
+            0.0,
+            0,
+            0,
+            "Regalo",
+            "Null",
+            64,
+            1
+        );
+    }
+    return 1;
 }

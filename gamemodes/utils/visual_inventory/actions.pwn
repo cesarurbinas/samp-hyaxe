@@ -559,6 +559,66 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
+		case 58:
+		{
+			if (PLAYER_MISC[playerid][MISC_ROCKET] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			PLAYER_MISC[playerid][MISC_ROCKET] --;
+			SavePlayerMisc(playerid);
+
+			PlayerFirework(playerid, 0);
+			return 1;
+		}
+
+		case 59:
+		{
+			if (PLAYER_MISC[playerid][MISC_MORTERO] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			PLAYER_MISC[playerid][MISC_MORTERO] --;
+			SavePlayerMisc(playerid);
+
+			PlayerFirework(playerid, 1);
+			return 1;
+		}
+
+		case 60:
+		{
+			if (PLAYER_MISC[playerid][MISC_PETARDO] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			PLAYER_MISC[playerid][MISC_PETARDO] --;
+			SavePlayerMisc(playerid);
+
+			PlayerFirework(playerid, 2);
+			return 1;
+		}
+
+		case 61:
+		{
+			if (PLAYER_MISC[playerid][MISC_VOLCAN] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			PLAYER_MISC[playerid][MISC_VOLCAN] --;
+			SavePlayerMisc(playerid);
+
+			PlayerFirework(playerid, 3);
+			return 1;
+		}
+
+		case 62:
+		{
+			if (PLAYER_MISC[playerid][MISC_LAVAKO] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			PLAYER_MISC[playerid][MISC_LAVAKO] --;
+			SavePlayerMisc(playerid);
+
+			PlayerFirework(playerid, 4);
+			return 1;
+		}
+
+		case 63:
+		{
+			if (PLAYER_MISC[playerid][MISC_12TIROS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			PLAYER_MISC[playerid][MISC_12TIROS] --;
+			SavePlayerMisc(playerid);
+
+			PlayerFirework(playerid, 5);
+			return 1;
+		}
+
 		default: CheckAndReload(playerid);
 	}
 	return 1;

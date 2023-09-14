@@ -337,6 +337,11 @@ enum
 	DIALOG_DIVISO_MAFIA_MODIFY,
 >>>>>>> b35a666 (arreglos en el anti aimbot)
 	DIALOG_CLUB_SELL,
+<<<<<<< HEAD
 	DIALOG_STORE
 >>>>>>> 6a4c3ab (store module)
+=======
+	DIALOG_STORE,
+	DIALOG_BUY_ROCKET
+>>>>>>> e78b0f6 (tienda de cuetes)
 };
