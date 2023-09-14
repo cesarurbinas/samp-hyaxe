@@ -140,7 +140,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{
 				new count = GetPropertyItemsCount(PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED]);
-				if (count >= 12) return ShowPlayerMessage(playerid, "~r~El amacenamiento de la propiedad se encuentra lleno.", 4);
+				if (count >= 11) return ShowPlayerMessage(playerid, "~r~El amacenamiento de la propiedad se encuentra lleno.", 4);
 
 				GameTextForPlayer(playerid, "Item guardado", 2000, 5);
 				ResetItemBody(playerid);

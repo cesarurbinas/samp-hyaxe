@@ -126,10 +126,10 @@ GetPropertyItemsCount(property_id)
 		count
 	;
 
-	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PROPERTY_STORAGE` WHERE `ID_PROPERTY` = '%d';" property_id);
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PROPERTY_STORAGE` WHERE `ID_PROPERTY` = '%d';", property_id);
 	Result = db_query(Database, DB_Query);
 
-	count = db_num_rows(Result)
+	count = db_num_rows(Result);
 	db_free_result(Result);
 
 	return count;
