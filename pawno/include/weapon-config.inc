@@ -7,7 +7,7 @@
 
 // Print debug messages in the chat and server log
 #if !defined WC_DEBUG
-	#define WC_DEBUG true
+	#define WC_DEBUG false
 #endif
 
 // Print debug messages to the console but not the chat
@@ -65,6 +65,10 @@
 
 #if !defined _inc_y_iterate
 	#tryinclude <YSI_Data\y_iterate>
+
+	#if !defined _inc_y_iterate
+		forward OnScriptInit();
+	#endif
 #endif
 
 // Pre-hooks for hooking callbacks
@@ -158,7 +162,6 @@ enum {
 	SHOOTING_RATE_TOO_FAST_MULTIPLE,
 	HIT_RATE_TOO_FAST,
 	HIT_RATE_TOO_FAST_MULTIPLE,
-	HIT_KNIFE_FAILED,
 	HIT_TOO_FAR_FROM_ORIGIN,
 	HIT_INVALID_DAMAGE,
 	HIT_SAME_VEHICLE,
@@ -187,7 +190,6 @@ stock const g_HitRejectReasons[][] = {
 	"Shooting rate too fast: %d (%d samples, multiple weapons)",
 	"Hit rate too fast: %d (%d samples, max %d)",
 	"Hit rate too fast: %d (%d samples, multiple weapons)",
-	"The knife kill did not sync",
 	"Damage inflicted too far from current position (dist %f)",
 	"Invalid weapon damage (%.4f)",
 	"Hit a player in the same vehicle",
@@ -1532,16 +1534,23 @@ stock WC_SetPlayerTeam(playerid, team)
 
 stock WC_SendDeathMessage(killer, killee, weapon)
 {
-	if (weapon == WEAPON_CARPARK) {
-		weapon = WEAPON_VEHICLE;
-	} else if (weapon == WEAPON_PISTOLWHIP) {
-		weapon = WEAPON_UNARMED;
-	} else if (weapon == WEAPON_UNKNOWN) {
-		weapon = WEAPON_DROWN;
-	} else if (weapon == WEAPON_VEHICLE_M4) {
-		weapon = WEAPON_M4;
-	} if (weapon == WEAPON_VEHICLE_MINIGUN) {
-		weapon = WEAPON_MINIGUN;
+	switch (weapon) {
+
+		case WEAPON_CARPARK: {
+			weapon = WEAPON_VEHICLE;
+		}
+		case WEAPON_PISTOLWHIP: {
+			weapon = WEAPON_UNARMED;
+		}
+		case WEAPON_UNKNOWN: {
+			weapon = WEAPON_DROWN;
+		}
+		case WEAPON_VEHICLE_M4: {
+			weapon = WEAPON_M4;
+		}
+		case WEAPON_VEHICLE_MINIGUN: {
+			weapon = WEAPON_MINIGUN;
+		}
 	}
 
 	SendDeathMessage(killer, killee, weapon);

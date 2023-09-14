@@ -303,7 +303,7 @@ stock ToggleActorName(actorid,bool:toggle)
 	return 1;
 }
 
-stock SetActorChatBubble(actorid, const text[], color, Float:drawdistance, expiretime)
+stock SetActorChatBubble(actorid, text[], color, Float:drawdistance, expiretime)
 {
 	if(IsValidActor(actorid))
 	{

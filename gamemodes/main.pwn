@@ -1,4 +1,6 @@
 #pragma option -d2 // un debuj medio como kn dise
+#pragma warning disable 239
+#pragma warning disable 214
 
 #include <a_samp>
 
@@ -38,13 +40,13 @@
 //#tryinclude <profiler>
 
 // Must fix
-#include <hy_anticheat>
+#include <nex-ac>
 #include <weapon-config>
-#include <hy_preview>
+#include <PreviewModelDialog>
 #include <route-tracing>
-#include <hy_string>
-#include <hy_actor>
-#include <hy_selection>
+#include <strlib>
+#include <ExtendedActorFunctions>
+#include <gmenu>
 
 #if defined VOICE_CHAT
     #include <sampvoice>
@@ -52,6 +54,9 @@
 
 // Lang
 #include "core/languages/es.pwn"
+
+// Webhooks
+#include "utils/discord/webhook.pwn"
 
 // Database
 #include "utils/database/db.pwn"
@@ -6393,7 +6398,7 @@ public OnPlayerSpawn(playerid)
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_NORMAL;
 	SetPlayerSkin(playerid, PLAYER_TEMP[playerid][py_SKIN]);
 	SetPlayerToys(playerid);
-	ac_SetPlayerArmedWeapon(playerid, 0);
+	SetPlayerArmedWeapon(playerid, 0);
 	SetPlayerNormalColor(playerid);
 	SetTracingColor(playerid, COLOR_RED);
 	PreloadAnims(playerid);
@@ -26530,7 +26535,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			}
 		}
 
-		ac_SetPlayerArmedWeapon(playerid, 0);
+		SetPlayerArmedWeapon(playerid, 0);
 		PLAYER_AC_INFO[playerid][CHEAT_VEHICLE_HEALTH][p_ac_info_IMMUNITY] = gettime() + 1;
 		PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 		PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] = vehicleid;
@@ -26770,7 +26775,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 		//drive-by
 		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
 		{
-			ac_SetPlayerArmedWeapon(playerid, 0);
+			SetPlayerArmedWeapon(playerid, 0);
 		}
 
 		PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
@@ -30763,7 +30768,7 @@ RemovePlayerSlotWeapon(playerid, slot, bool:db_delete = false)
 	PLAYER_WEAPONS[playerid][slot][player_weapon_AMMO] = 0;
 
 	//SetWeaponsForPlayer(playerid);
-	ac_SetPlayerArmedWeapon(playerid, current_weapon);
+	SetPlayerArmedWeapon(playerid, current_weapon);
 	SavePlayerWeaponsData(playerid);
 	return 1;
 }
@@ -32124,7 +32129,7 @@ CALLBACK: UnjailPlayer(playerid)
 	CHARACTER_INFO[playerid][ch_JAIL_REASON][0] = EOS;
 	
 	//SetWeaponsForPlayer(playerid);
-	ac_SetPlayerArmedWeapon(playerid, 0);
+	SetPlayerArmedWeapon(playerid, 0);
 	TogglePlayerControllableEx(playerid, true);
 
 	for(new i = 0; i != sizeof ENTER_EXIT; i ++)
