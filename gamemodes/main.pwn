@@ -8947,6 +8947,26 @@ CMD:do(playerid, params[])
 	return 1;
 }
 
+CMD:intentar(playerid, params[])
+{
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /intentar "COL_WHITE"[TEXTO]");
+
+    new 
+    	str_text[190],
+    	status[15]
+    ;
+
+    switch( minrand(0, 1) )
+    {
+    	case 0: format(status, sizeof(status), "falla");
+    	case 1: format(status, sizeof(status), "lo logra");
+    }
+    
+    format(str_text, sizeof(str_text), "* %s intenta %s y %s.", PLAYER_TEMP[playerid][py_RP_NAME], params, status);
+	ProxDetector(playerid, 15.0, str_text, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 85);
+	return 1;
+}
+
 CMD:me(playerid, params[])
 {
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /me "COL_WHITE"[TEXTO]");
