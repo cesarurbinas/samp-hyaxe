@@ -1,0 +1,151 @@
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[17:51:09] 
+[17:51:09] Server Plugins
+[17:51:09] --------------
+[17:51:09]  Loading plugin: crashdetect.dll
+[17:51:09]   CrashDetect v4.18.1 is OK.
+[17:51:09]   Loaded.
+[17:51:09]  Loading plugin: streamer.dll
+[17:51:09] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[17:51:09]   Loaded.
+[17:51:09]  Loading plugin: sscanf.dll
+[17:51:10] 
+
+[17:51:10]  ===============================
+
+[17:51:10]       sscanf plugin loaded.     
+
+[17:51:10]          Version:  2.8.3        
+
+[17:51:10]   (c) 2018 Alex "Y_Less" Cole  
+
+[17:51:10]  ===============================
+
+[17:51:10]   Loaded.
+[17:51:10]  Loading plugin: pawnraknet.dll
+[17:51:10] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[17:51:10]   Loaded.
+[17:51:10]  Loading plugin: SKY.dll
+[17:51:13] 
+[17:51:13]  ===============================
+[17:51:13]    
+[17:51:13]    ## SKY - 2.1.1 ## 
+[17:51:13]    
+[17:51:13]    (c) 2008 - Present | YSF Maintainers
+[17:51:13]    (c) 2015 | Oscar "Slice" Broman
+[17:51:13]    
+[17:51:13]    Server Version: 0.3.7 R2
+[17:51:13]    Operating System: Windows
+[17:51:13]    Built on: Dec 12 2019 at 12:21:36
+[17:51:13]    
+[17:51:13]  ===============================
+[17:51:13] 
+[17:51:13]   Loaded.
+[17:51:13]  Loading plugin: sampvoice.dll
+[17:51:14]   Failed.
+[17:51:14]  Loading plugin: pawncmd.dll
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[17:51:34] 
+[17:51:34] Server Plugins
+[17:51:34] --------------
+[17:51:34]  Loading plugin: crashdetect.dll
+[17:51:34]   CrashDetect v4.18.1 is OK.
+[17:51:34]   Loaded.
+[17:51:34]  Loading plugin: streamer.dll
+[17:51:34] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[17:51:34]   Loaded.
+[17:51:34]  Loading plugin: sscanf.dll
+[17:51:34] 
+
+[17:51:34]  ===============================
+
+[17:51:34]       sscanf plugin loaded.     
+
+[17:51:34]          Version:  2.8.3        
+
+[17:51:34]   (c) 2018 Alex "Y_Less" Cole  
+
+[17:51:34]  ===============================
+
+[17:51:34]   Loaded.
+[17:51:34]  Loading plugin: pawnraknet.dll
+[17:51:34] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[17:51:34]   Loaded.
+[17:51:34]  Loading plugin: SKY.dll
+[17:51:34] 
+[17:51:34]  ===============================
+[17:51:34]    
+[17:51:34]    ## SKY - 2.1.1 ## 
+[17:51:34]    
+[17:51:34]    (c) 2008 - Present | YSF Maintainers
+[17:51:34]    (c) 2015 | Oscar "Slice" Broman
+[17:51:34]    
+[17:51:34]    Server Version: 0.3.7 R2
+[17:51:34]    Operating System: Windows
+[17:51:34]    Built on: Dec 12 2019 at 12:21:36
+[17:51:34]    
+[17:51:34]  ===============================
+[17:51:34] 
+[17:51:34]   Loaded.
+[17:51:34]  Loading plugin: pawncmd.dll
+[17:51:34] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[17:51:34]   Loaded.
+[17:51:34]  Loading plugin: pawnregex.dll
+[17:51:34] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[17:51:34]   Loaded.
+[17:51:34]  Loading plugin: GPS.dll
+[17:51:37] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[17:51:37]   Loaded.
+[17:51:37]  Loading plugin: profiler.dll
+[17:51:37]   Profiler plugin 2.15.3
+[17:51:37]   Loaded.
+[17:51:37]  Loaded 9 plugins.
+
+[17:51:37] 
+[17:51:37] Filterscripts
+[17:51:37] ---------------
+[17:51:37]   Loading filterscript 'maps.amx'...
+[17:51:40]   Loaded 1 filterscripts.
+
+[17:51:43] [ANTI-CHEAT] Cargado
+[17:51:43] [ANTI-CHEAT] Version: 1.9.46
+[17:51:43] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[17:51:43] [debug] Base de datos conectada
+[17:51:55] [debug] Lugares cargados: 38
+[17:51:58] [debug] Propiedades libres: 1681.
+[17:51:58] [debug] Propiedades totales: 1775.
+[17:52:00] [debug] Bandas cargadas: 158
+[17:52:00] [debug] Territorios totales: 13
+[17:52:02] [info: hostname] Hyaxe | Roleplay en español
+[17:52:02] [info: language] Español - Spanish
+[17:52:02] [info: website] www.hyaxe.com
+[17:52:02] [info: discord] www.hyaxe.com/discord
+[17:52:02] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 46
+
+[17:52:02] Number of vehicle models: 120
+[17:54:48] [connection] incoming connection: 127.0.0.1:49373 id: 0
+[17:54:50] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[17:57:36] [part] Yahir_Kozel has left the server (0:1)
