@@ -32443,7 +32443,12 @@ CMD:r(playerid, params[])
 	new message[128];
 	if (sscanf(params, "s[128]", message)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /r "COL_WHITE"[MENSAJE]");
 
-	if (PLAYER_TEMP[playerid][py_ADMIN_PM_PID] == INVALID_PLAYER_ID || !PLAYER_TEMP[playerid][py_ADMIN_PM_AID]) return ShowPlayerMessage(playerid, "~r~Nada que responder.", 2);
+	if (PLAYER_TEMP[playerid][py_ADMIN_PM_PID] == INVALID_PLAYER_ID || !PLAYER_TEMP[playerid][py_ADMIN_PM_AID]) 
+	{
+		SendClientMessage(playerid, COLOR_WHITE, "Usaste el comando /r pero no tienes nada que responder. ¿Quisiste usar /re(portar)?");
+		return ShowPlayerMessage(playerid, "~r~Nada que responder.", 2);
+	}
+	
 	if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_ADMIN_PM_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_ADMIN_PM_AID])
 	{
 		PLAYER_TEMP[playerid][py_ADMIN_PM_PID] = INVALID_PLAYER_ID;
