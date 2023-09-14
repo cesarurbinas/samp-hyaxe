@@ -4048,7 +4048,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			PLAYER_TEMP[playerid][py_ACTUAL_SLOT] --;
 			if (PLAYER_TEMP[playerid][py_ACTUAL_SLOT] < 0) PLAYER_TEMP[playerid][py_ACTUAL_SLOT] = 11;
-			SendClientMessageEx(playerid, -1, "slot: %d", PLAYER_TEMP[playerid][py_ACTUAL_SLOT]);
+			//SendClientMessageEx(playerid, -1, "slot: %d", PLAYER_TEMP[playerid][py_ACTUAL_SLOT]);
 			ClickInventorySlot(playerid, PLAYER_TEMP[playerid][py_ACTUAL_SLOT], true);
 		}
 
@@ -4059,7 +4059,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			
 			PLAYER_TEMP[playerid][py_ACTUAL_SLOT] ++;
 			if (PLAYER_TEMP[playerid][py_ACTUAL_SLOT] > 11) PLAYER_TEMP[playerid][py_ACTUAL_SLOT] = 0;
-			SendClientMessageEx(playerid, -1, "slot: %d", PLAYER_TEMP[playerid][py_ACTUAL_SLOT]);
+			//SendClientMessageEx(playerid, -1, "slot: %d", PLAYER_TEMP[playerid][py_ACTUAL_SLOT]);
 			ClickInventorySlot(playerid, PLAYER_TEMP[playerid][py_ACTUAL_SLOT], true);
 		}
 	}
