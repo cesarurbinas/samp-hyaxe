@@ -10859,14 +10859,12 @@ ShowDialog(playerid, dialogid)
 				"COL_WHITE"Precio del vehículo:{df423d} %s$\n\
 				"COL_WHITE"Velocidad máxima: %d Km/h\n\
 				"COL_WHITE"Capacidad de tanque:{67df3d} %.1f Litros\n\
-				"COL_WHITE"Espacio maletero: %d\n\
 				"COL_WHITE"Seguro: {dfbf3d}%s$"COL_GREEN"\n\n",
 				VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME],
 				SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_LEVEL],
 				number_format_thousand(SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_PRICE]),
 				floatround(VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_MAX_VEL]),
 				VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_MAX_GAS],
-				VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_BOOT_SLOTS],
 				number_format_thousand(VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_MODELID] - 400][vehicle_info_PRICE] / 100)
 			);
 
