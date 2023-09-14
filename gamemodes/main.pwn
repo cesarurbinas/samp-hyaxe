@@ -8728,7 +8728,7 @@ public OnPlayerText(playerid, text[])
 
 	if (PLAYER_TEMP[playerid][py_COMBAT_MODE])
 	{
-		if (CheckKillEvadeAttemp(text))
+		if (CheckKillEvadeAttemp(str_text))
 		{
 			ResetPlayerWeaponsEx(playerid);
 			SavePlayerWeaponsData(playerid);
