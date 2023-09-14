@@ -157,7 +157,10 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 	if (!PLAYER_TEMP[playerid][py_COMBAT_MODE] && IsPlayerPaused(playerid)) return 0;
 	if (PLAYER_TEMP[playerid][py_GODMODE] && issuerid != INVALID_PLAYER_ID) return 0;
 
-	if (IsShortDistanceWeapon(weaponid, distance)) return 0;
+	new Float:x, Float:y, Float:z;
+	
+	GetPlayerPos(playerid, x, y, z);
+	if (IsShortDistanceWeapon(weaponid, GetPlayerDistanceFromPoint(playerid, x, y, z))) return 0;
 
 	if (issuerid != INVALID_PLAYER_ID && weaponid == 23)
 	{
@@ -174,11 +177,9 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 		{
 			case 0:
 			{
-				new Float:x, Float:y, Float:z;
 				GetPlayerPos(issuerid, x, y, z);
-				new Float:dist = GetPlayerDistanceFromPoint(playerid, x, y, z);
 
-				if (dist >= 5.0)
+				if (GetPlayerDistanceFromPoint(playerid, x, y, z) >= 5.0)
 				{
 					PLAYER_TEMP[playerid][py_BIG_PUNCH] ++;
 					if (PLAYER_TEMP[playerid][py_BIG_PUNCH] >= 5)
