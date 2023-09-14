@@ -3827,6 +3827,8 @@ SetPlayerPoliceSearchLevel(playerid, level)
 		PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] = level;
 		SetPlayerWantedLevel(playerid, 0);
 		SavePlayerMisc(playerid);
+		
+		format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Ninguna");
 		return 1;
 	}
 
@@ -13310,7 +13312,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetDamageFeedForPlayer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
 				EnableHealthBarForPlayer(playerid, false);
 
-				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Desconicida");
+				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Ninguna");
 
 				/*ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Chat de voz", ""COL_WHITE"\
 					Hemos removido el chat de voz ya que nadie lo usaba, pero tranquilo\n\
