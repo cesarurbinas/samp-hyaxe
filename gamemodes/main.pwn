@@ -36950,7 +36950,6 @@ flags:moderador(CMD_MODERATOR);
 flags:pnot(CMD_MODERATOR);
 flags:addcode(CMD_COFUNDER);
 //flags:pgeo(CMD_SUPER_MODERATOR);
-//flags:showplayer(CMD_SUPER_MODERATOR);
 flags:supermoderador(CMD_SUPER_MODERATOR);
 flags:operador(CMD_GAME_OPERATOR);
 flags:administrador(CMD_ADMIN);
