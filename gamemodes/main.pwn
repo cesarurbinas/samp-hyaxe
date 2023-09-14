@@ -9421,7 +9421,7 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Depositar", dialog, ">>", "Atrás");
 			return 1;
 		}
-		case DIALOG_BANK_TRANSFER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", ""COL_WHITE"Ingrese el número de cuenta a donde quiere transferir dinero.", ">>", "Atrás");
+		case DIALOG_BANK_TRANSFER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_GREEN"Transferir", ""COL_WHITE"Ingrese el número de cuenta a donde quiere transferir dinero.\nAviso: Número de cuenta no es lo mismo que el id del jugador.\nPidale al otro jugador que le de su Número de cuenta.", ">>", "Atrás");
 		case DIALOG_BANK_TRANSFER_SEND:
 		{
 			if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2 para transferir.", 3);
@@ -9509,7 +9509,7 @@ ShowDialog(playerid, dialogid)
 			db_free_result(Result);
 
 			new caption[40];
-			format(caption, sizeof caption, ""COL_GREEN"ID de cuenta: %d", BANK_ACCOUNT[playerid][bank_account_ID]);
+			format(caption, sizeof caption, ""COL_GREEN"Número de cuenta: %d", BANK_ACCOUNT[playerid][bank_account_ID]);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Salir", "Atrás");
 			return 1;
