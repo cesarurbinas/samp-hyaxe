@@ -810,7 +810,7 @@ ResyncWeapon(playerid, weapon)
 	return 1;
 }
 
-CheckAndReload(playerid)
+/*CheckAndReload(playerid)
 {
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL && GetPlayerAnimationIndex(playerid) != 1537 && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 	{
@@ -867,7 +867,7 @@ CheckAndReload(playerid)
 		}
 	}
 	return 1;
-}
+}*/
 
 GetPlayerZones(playerid, city[], zone[])
 {

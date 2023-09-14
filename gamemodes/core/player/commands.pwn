@@ -817,7 +817,7 @@ CMD:tirar(playerid, params[])
 		GetPlayerPos(playerid, x, y, z);
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
 		
-		if (!PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+		if (!IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]))
 		{
 			CreateDropItem(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], x, y, z - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), PLAYER_TEMP[playerid][py_NAME], ammount);
 			
@@ -857,7 +857,7 @@ CMD:guardar(playerid, params[])
 			if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50) return 0;
 
 			
-			if (!PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+			if (!IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]))
 			{
 				new count = GetVehicleItemsCount(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID]);
 				if (count >= 11) return ShowPlayerMessage(playerid, "~r~El maletero se encuentra lleno.", 4);

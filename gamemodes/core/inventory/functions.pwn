@@ -121,8 +121,6 @@ inv_AccommodatePropertyItems(playerid, property_id)
 		PROPERTY_VISUAL_INV[playerid][slot_VALID][x] = false;
 		PROPERTY_VISUAL_INV[playerid][slot_TYPE][x] = 0;
 		PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][x] = 0;
-		PROPERTY_VISUAL_INV[playerid][slot_WEAPON][x] = false;
-		PROPERTY_VISUAL_INV[playerid][slot_WEAPON_SLOT][x] = 0;
 	}
 
 	new
@@ -188,8 +186,6 @@ inv_AccommodateVehicleItems(playerid, vehicle_id)
 		PROPERTY_VISUAL_INV[playerid][slot_VALID][x] = false;
 		PROPERTY_VISUAL_INV[playerid][slot_TYPE][x] = 0;
 		PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][x] = 0;
-		PROPERTY_VISUAL_INV[playerid][slot_WEAPON][x] = false;
-		PROPERTY_VISUAL_INV[playerid][slot_WEAPON_SLOT][x] = 0;
 	}
 
 	new
@@ -1203,6 +1199,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{
 				if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
+				
 				new item_str[64];
 				format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", ITEM_INFO[ PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] ][item_NAME]);
 				GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
@@ -1211,10 +1208,9 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				ResetItemBody(playerid);
 
 				if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV]) HideInventory(playerid);
-
 				SetItemToBody(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
-				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+				if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]))
 				{
 					if (!PLAYER_WORKS[playerid][WORK_POLICE])
 					{
@@ -1228,17 +1224,24 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 					}
 
 					ResetPlayerWeapons(playerid);
-					//CheckBlockedWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID]);
-					
+
 					if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK)
 					{
 						if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 						{
-							GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
+							GivePlayerWeapon(
+								playerid,
+								TypeToWeapon(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]),
+								PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]
+							);
 						}
 						else if (PLAYER_WORKS[playerid][WORK_POLICE] || PlayerIsInMafia(playerid))
 						{
-							GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
+							GivePlayerWeapon(
+								playerid,
+								TypeToWeapon(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]),
+								PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]
+							);
 						}
 					}
 				}
@@ -1326,7 +1329,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
-				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+				if (IdWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]))
 				{
 					AddItemToProperty(
 						PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],
@@ -1441,7 +1444,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
-				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+				if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]))
 				{
 					AddItemToVehicle(
 						PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID],
@@ -1514,7 +1517,7 @@ DropItemSlot(playerid, anim = true)
 
 	if (anim) ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
 	
-	if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+	if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]))
 	{
 		CreateDropItem(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), PLAYER_TEMP[playerid][py_NAME], PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 	}
@@ -1794,7 +1797,7 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
-		default: CheckAndReload(playerid);
+		//default: CheckAndReload(playerid);
 	}
 	return 1;
 }

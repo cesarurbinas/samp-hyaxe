@@ -1,3 +1,44 @@
+IsWeaponType(type)
+{
+	switch(type)
+	{
+		12..33: return true;
+	}
+	return false;
+}
+
+TypeToWeapon(type)
+{
+	switch(type)
+	{
+		12: return 5;
+		13: return 3;
+		14: return 4;
+		15: return 6;
+		16: return 7;
+		17: return 17;
+		18: return 2;
+		19: return 1;
+		20: return 22;
+		21: return 22;
+		22: return 24;
+		23: return 25;
+		24: return 26;
+		25: return 28;
+		26: return 29;
+		27: return 30;
+		28: return 31;
+		29: return 32;
+		30: return 33;
+		31: return 41;
+		32: return 43;
+		33: return 46;
+		
+		default: return 0;
+	}
+	return false;
+}
+
 GetFreeDropItemSlot()
 {
     new i = MAX_DROP_ITEMS;
