@@ -1,9 +1,9 @@
 enum store_product_enum
 {
-	st_NAME[32],
-	st_PRICE,
-	st_TYPE,
-	st_EXTRA
+	store_NAME[32],
+	store_PRICE,
+	store_TYPE,
+	store_EXTRA
 };
 
 new STORE_PRODUCTS[][store_product_enum] =

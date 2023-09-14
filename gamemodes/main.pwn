@@ -14728,12 +14728,12 @@ ShowDialog(playerid, dialogid)
 				caption[128]
 			;
 
-			format(caption, sizeof(caption), ""COL_RED"Tienda | Crédito: %s$", PLAYER_TEMP[playerid][py_CREDIT])
+			format(caption, sizeof(caption), ""COL_RED"Tienda | Crédito: %s$", PLAYER_TEMP[playerid][py_CREDIT]);
 
     		for(new i = 0; i != sizeof STORE_PRODUCTS; i ++)
     		{
-    			new line[164];
-    			format(line, sizeof(line), ""COL_WHITE"%s\t"COL_GREEN"%s$\n", STORE_PRODUCTS[i][st_NAME], STORE_PRODUCTS[i][st_PRICE]);
+    			new line[264];
+    			format(line, sizeof(line), ""COL_WHITE"%s\t"COL_GREEN"%s$\n", STORE_PRODUCTS[i][store_NAME], STORE_PRODUCTS[i][store_PRICE]);
     			strcat(dialog, line);
     		}
 
@@ -26147,8 +26147,6 @@ CMD:tienda(playerid, params[])
 
 ShowStore(playerid)
 {
-	ShowPlayerMessage(playerid, "Conectando...", 10);
-	
 	new payload[264];
 	format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/get_credit/%d", ACCOUNT_INFO[playerid][ac_ID]);
 	HTTP(playerid, HTTP_GET, payload, "", "StoreMenuRecv");
@@ -26166,12 +26164,12 @@ public StoreMenuRecv(index, response_code, const data[])
 	{
 	    if (response_code == 200)
 	    {
-	    	PLAYER_TEMP[index][py_CREDIT] = data;
+	    	format(PLAYER_TEMP[index][py_CREDIT], 32, "%s", data);
 	    	ShowDialog(index, DIALOG_STORE);
 	    }
 	    else
 	    {
-			ShowPlayerMessage(playerid, "~r~Hubo un error al intentar conectarse a la tienda", 7);
+			ShowPlayerMessage(index, "~r~Hubo un error al intentar conectarse a la tienda", 7);
 	    }
 	}
 	return 1;
