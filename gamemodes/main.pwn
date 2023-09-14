@@ -33414,19 +33414,19 @@ CMD:guardar(playerid, params[])
 	return 1;
 }
 
-CheckAndOpenBoot(playerid)
+CheckAndOpenBoot(playerid, type)
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
 
 	new vehicleid = GetPlayerCameraTargetVehicle(playerid);
 	if (vehicleid == INVALID_VEHICLE_ID) return 0;
-
 	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return 0;
-	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return 0;
-
-	PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] = vehicleid;
-	ShowDialog(playerid, DIALOG_VEHICLE_BOOT);
-	ResetItemBody(playerid);
+	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID] || IsPlayerInKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], ACCOUNT_INFO[playerid][ac_ID]))
+	{
+		PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] = vehicleid;
+		ShowDialog(playerid, DIALOG_VEHICLE_BOOT);
+		ResetItemBody(playerid);
+	}
 	return 1;
 }
 
