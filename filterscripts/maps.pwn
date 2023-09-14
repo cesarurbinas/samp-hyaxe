@@ -10,7 +10,7 @@ public OnFilterScriptInit()
 	new Unused_Object;
 	new CinemaFix[6];
 	new Techo;
-	new MecanicoJobxd;
+	//new MecanicoJobxd;
 	new Pintura[5];
 	new Apttext;
 	new Merkafalopi;
@@ -11910,7 +11910,7 @@ public OnFilterScriptInit()
 	Pintura[4] = CreateDynamicObject(2749, 2380.1499, -1242.8997, 23.9324, -79.3999, -29.4000, 0.0000); //CJ_hairspray
 
 	//MecanicoJobxd = CreateObject(17301, -49.390598, -1140.869995, 5.203125, 0.000000, 0.000000, 0.000000, 800.00);
-    CreateDynamicObject(17301, -49.390598, -1140.869995, 5.203125, 0.000000, 0.000000, 0.000000); // piso
+    /*CreateDynamicObject(17301, -49.390598, -1140.869995, 5.203125, 0.000000, 0.000000, 0.000000); // piso
 	SetObjectMaterial(MecanicoJobxd, 0, 9254, "carparkssfn", "parking2plain", 0x00000000);
 	SetObjectMaterial(MecanicoJobxd, 4, 9254, "carparkssfn", "parking2plain", 0x00000000);
 	SetObjectMaterial(MecanicoJobxd, 11, 9254, "carparkssfn", "parking2plain", 0x00000000);
@@ -12495,7 +12495,7 @@ public OnFilterScriptInit()
 	MecanicoJobxd = CreateDynamicObject(19903, -74.057037, -1169.187622, 1.023985, 0.000000, 0.000000, 106.900016, -1, -1, -1, 800.00, 800.00); 
 	MecanicoJobxd = CreateDynamicObject(19903, -70.859855, -1163.710327, 1.023985, 0.000000, 0.000000, -146.699981, -1, -1, -1, 800.00, 800.00); 
 	MecanicoJobxd = CreateDynamicObject(19900, -102.229446, -1176.104003, 1.402647, 0.000000, 0.000000, 132.500015, -1, -1, -1, 800.00, 800.00); 
-	MecanicoJobxd = CreateDynamicObject(19900, -105.046661, -1180.612670, 1.402647, 0.000000, 0.000000, -158.899978, -1, -1, -1, 800.00, 800.00); 
+	MecanicoJobxd = CreateDynamicObject(19900, -105.046661, -1180.612670, 1.402647, 0.000000, 0.000000, -158.899978, -1, -1, -1, 800.00, 800.00);*/
 
 	// escondite
 	CreateDynamicActor(143, 2158.872558, -1867.587768, 13.585937, 87.292053, true, 100.0, 2, 3);
@@ -16702,7 +16702,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1369, 2104.020, -105.265, 1.703, 0.250);
 
 	//Mecanico
-	RemoveBuildingForPlayer(playerid, 1676, -85.242, -1165.030, 2.632, 0.250);
+	/*RemoveBuildingForPlayer(playerid, 1676, -85.242, -1165.030, 2.632, 0.250);
 	RemoveBuildingForPlayer(playerid, 17065, -90.195, -1169.670, 5.312, 0.250);
 	RemoveBuildingForPlayer(playerid, 1676, -90.140, -1176.630, 2.632, 0.250);
 	RemoveBuildingForPlayer(playerid, 1676, -97.070, -1173.750, 3.031, 0.250);
@@ -16747,7 +16747,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1447, -107.085, -1196.089, 3.039, 0.250);
 	RemoveBuildingForPlayer(playerid, 1412, -112.171, -1194.750, 3.039, 0.250);
 	RemoveBuildingForPlayer(playerid, 17301, -49.390, -1140.869, 5.203, 0.250);
-	RemoveBuildingForPlayer(playerid, 17421, -49.390, -1140.869, 5.203, 0.250);
+	RemoveBuildingForPlayer(playerid, 17421, -49.390, -1140.869, 5.203, 0.250);*/
 
 	/*//shop1
 	RemoveBuildingForPlayer(playerid, 18521, -2213.9688, -2295.9609, 29.6172, 0.25);
