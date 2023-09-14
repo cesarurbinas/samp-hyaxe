@@ -2845,10 +2845,22 @@ CMD:setbankcash(playerid, params[])
 }
 flags:setbankcash(CMD_ADMIN)
 
-/*CMD:godmode(playerid, params[])
+CMD:godmode(playerid, params[])
 {
 	if(!PLAYER_TEMP[playerid][py_GODMODE])
 	{
-		TextDrawShowForPlayer(playerid, Textdraws[])
+		TextDrawShowForPlayer(playerid, Textdraws[textdraw_GODMODE][0]);
+		TextDrawShowForPlayer(playerid, Textdraws[textdraw_GODMODE][1]);
+		PLAYER_TEMP[playerid][py_GODMODE] = true;
 	}
-}*/
+	else
+	{
+		TextDrawHideForPlayer(playerid, Textdraws[textdraw_GODMODE][0]);
+		TextDrawHideForPlayer(playerid, Textdraws[textdraw_GODMODE][1]);
+		PLAYER_TEMP[playerid][py_GODMODE] = false;
+	}
+
+	return 1;
+}
+alias:godmode("god")
+flags:godmode(CMD_MODERATOR2)

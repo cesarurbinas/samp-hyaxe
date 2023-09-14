@@ -29673,7 +29673,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 {
-	if(IsPlayerPaused(playerid)) return 0;
+	if(IsPlayerPaused(playerid) || PLAYER_TEMP[playerid][py_GODMODE]) return 0;
 
 	//printf("damage %d %d", playerid, weapon);
 
@@ -29700,7 +29700,7 @@ public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 			if (IsPlayerInRangeOfPoint(issuerid, 30.0, -17.344648, 99.261329, 1100.822021))
 			{
 				SetPlayerPosEx(issuerid, 950.341247, -987.135864, 38.743835, 322.0, 0, 0);
-				ShowPlayerMessage(issuerid, "~r~Solos los boxeadores pueden pegar", 4);
+				ShowPlayerMessage(issuerid, "~r~Solo los boxeadores pueden pegar", 4);
 			}
 		}
 	}
@@ -30039,7 +30039,7 @@ CALLBACK: StopShitting(playerid)
 CMD:no(playerid, params[])
 {
 	if(IsPlayerJumping(playerid)) return 1;
-	
+
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	ClearAnimations(playerid);
 
