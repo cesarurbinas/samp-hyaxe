@@ -2351,6 +2351,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 				}
 			}
 
+			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) MissionFailed(playerid);
+
 			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL)
 			{
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);

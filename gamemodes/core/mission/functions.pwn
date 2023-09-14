@@ -39,11 +39,32 @@ CreateMissionsPlaces()
         );
 
         FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 1);
+        FCNPC_SetInvulnerable(SWEET_DEALERS[i][sd_ID], true);
     }
 
     // Init NPC AI Process
-    SetTimer("NPC_Update", 30000, true); // 30 seconds
+    SetTimer("NPC_Update", 5000, true); // 5 seconds
     return 1;
+}
+
+MissionFailed(playerid)
+{
+    PLAYER_TEMP[playerid][py_IN_MISSION] = false;
+    ShowPlayerAlert(playerid, "~r~MISIÓN FALLIDA", 0xd5900aFF, 4);
+
+    // Exit message
+    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+    {
+        if (!IsPlayerConnected(i)) continue;
+
+        if (PLAYER_TEMP[i][py_IN_MISSION])
+        {
+            if (PLAYER_TEMP[i][py_MISSION] == PLAYER_TEMP[playerid][py_MISSION])
+            {
+                ShowPlayerNotification(i, sprintf("%s ha fracasado la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
+            }
+        }
+    }
 }
 
 CheckMissionPlace(playerid)
@@ -62,24 +83,32 @@ CheckMissionPlace(playerid)
 
         if (type == KEY_TYPE_MISSION)
         {
+            if (PLAYER_TEMP[playerid][py_IN_MISSION])
+                return ShowPlayerMessage(playerid, "~r~Primero termina la misión actual.", 4);
+            
             // Init
             new players_in_mission;
 
             PLAYER_TEMP[playerid][py_IN_MISSION] = true;
             PLAYER_TEMP[playerid][py_MISSION] = index;
+            PLAYER_TEMP[playerid][py_MISSION_POINTS] = 0;
 
             // Enter message
             for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
             {
                 if (!IsPlayerConnected(i)) continue;
-                if (PLAYER_TEMP[i][py_IN_MISSION] && PLAYER_TEMP[i][py_MISSION] == index)
+
+                if (PLAYER_TEMP[i][py_IN_MISSION])
                 {
-                    ShowPlayerMessage(i, sprintf("%s se ha unido a la misión.", PLAYER_TEMP[playerid][py_NAME]),  4);
-                    players_in_mission ++;
+                    if (PLAYER_TEMP[i][py_MISSION] == index)
+                    {
+                        ShowPlayerNotification(i, sprintf("%s se ha unido a la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
+                        players_in_mission ++;
+                    }
                 }
             }
 
-            if (players_in_mission > 1) START_MISSION[index][ems_TYPE] = random(START_MISSION[index][ems_MAX_MISSIONS]);
+            if (!players_in_mission > 1) START_MISSION[index][ems_TYPE] = random(START_MISSION[index][ems_MAX_MISSIONS]);
 
             // Show message
             switch(index)
@@ -95,18 +124,22 @@ CheckMissionPlace(playerid)
                         {
                             for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
                             {
-                                FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
-	                            FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
+                                if (!players_in_mission > 1)
+                                {
+                                    FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
+                                    FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
 
-                                FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 0);
+                                    FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 0);
 
-                                NPC_Update();
+                                    FCNPC_SetInvulnerable(SWEET_DEALERS[i][sd_ID], false);
+                                }
 
                                 SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
                                 SetPlayerColor(SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
                             }
                             
-                            ShowPlayerMessage(playerid, "Elimina a los ~r~Dealers~w~ colados en el barrio.", 5);
+                            ShowPlayerMessage(playerid, "Elimina a los ~r~Dealers~w~ colados en el barrio.", 10);
+                            SetTimer("NPC_Update", 3000, false);
                         }
                     }
                 }

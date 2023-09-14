@@ -410,8 +410,13 @@ enum Temp_Enum
 	py_TEMP_CP,
 	bool:py_IN_MISSION,
 	py_MISSION,
+<<<<<<< HEAD
 	py_LAST_AREA
 >>>>>>> fa92fd6 (misiones base)
+=======
+	py_LAST_AREA,
+	py_MISSION_POINTS
+>>>>>>> e6faa9e (mision fallida, mejoras de la ai)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
