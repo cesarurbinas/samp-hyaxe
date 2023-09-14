@@ -13494,8 +13494,8 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_POLICE_PENALTY:
 		{
 			new dialog[128];
-			format(dialog, sizeof dialog, "El policía %s te ha puesto una multa.\nImporte: %s$\n", PLAYER_TEMP[ PLAYER_TEMP[playerid][py_POLICE_PEN_PID] ][py_RP_NAME], number_format_thousand(PLAYER_TEMP[playerid][py_POLICE_PEN_IM]));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Multa", dialog, "Pagar", "Salir");
+			format(dialog, sizeof dialog, ""COL_WHITE"El policía %s te ha puesto una multa de "COL_GREEN"%s$\n", PLAYER_TEMP[ PLAYER_TEMP[playerid][py_POLICE_PEN_PID] ][py_RP_NAME], number_format_thousand(PLAYER_TEMP[playerid][py_POLICE_PEN_IM]));
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Multa", dialog, "Pagar", "Salir");
 			return 1;
 		}
 		case DIALOG_SERVER_ECO:
