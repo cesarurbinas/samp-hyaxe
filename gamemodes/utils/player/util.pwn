@@ -231,7 +231,7 @@ CheckProxy(playerid)
 
 	for(new i = 0; i < sizeof(NAME_WHITELIST); i ++)
     {
-        if (strfind(PLAYER_TEMP[playerid][py_NAME], NAME_WHITELIST[i], true) != -1) return 0;
+        if (!strcmp(PLAYER_TEMP[playerid][py_NAME], NAME_WHITELIST[i], true)) return 0;
     }
 
 	new str_text[128];
