@@ -5767,6 +5767,13 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 		{
 			PLAYER_TEMP[playerid][py_TOTAL_SHOT] = 0;
 
+			// Anti damager
+			if (!IsShootingAnimation(GetPlayerAnimationIndex(playerid)))
+			{
+				return Anticheat_Ban(playerid, "Damager");
+			}
+
+			// Wall shot
 			if (bulletData[PR_hitType] == 1)
 			{
 				new Float:ray_x, Float:ray_y, Float:ray_z;
