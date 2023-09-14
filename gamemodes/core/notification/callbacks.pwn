@@ -1,63 +1,41 @@
-#if defined CORE_NOTIFICATIONS_CALLBACKS
-	#endinput
-#endif
-
-#define CORE_NOTIFICATIONS_CALLBACKS
-
-public OnPlayerConnect(playerid)
+forward DestroyNotification(playerid, notification_id);
+public DestroyNotification(playerid, notification_id)
 {
-	g_ptdNotification{playerid} = CreatePlayerTextDraw(playerid, 24.000000, 139.000000, "_");
-	PlayerTextDrawFont(playerid, g_ptdNotification{playerid}, 1);
-	PlayerTextDrawLetterSize(playerid, g_ptdNotification{playerid}, 0.341666, 1.750000);
-	PlayerTextDrawTextSize(playerid, g_ptdNotification{playerid}, 187.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, g_ptdNotification{playerid}, 0);
-	PlayerTextDrawSetShadow(playerid, g_ptdNotification{playerid}, 0);
-	PlayerTextDrawAlignment(playerid, g_ptdNotification{playerid}, 1);
-	PlayerTextDrawColor(playerid, g_ptdNotification{playerid}, -741092353);
-	PlayerTextDrawBackgroundColor(playerid, g_ptdNotification{playerid}, 255);
-	PlayerTextDrawBoxColor(playerid, g_ptdNotification{playerid}, 195);
-	PlayerTextDrawUseBox(playerid, g_ptdNotification{playerid}, 1);
-	PlayerTextDrawSetProportional(playerid, g_ptdNotification{playerid}, 1);
-	PlayerTextDrawSetSelectable(playerid, g_ptdNotification{playerid}, 0);
+	static pos;
 
-	#if defined Notifications_OnPlayerConnect
-		return Notifications_OnPlayerConnect(playerid);
-	#else
+	pos = FindNotificationPosById(playerid, notification_id);
+	if (pos == -1) return 0;
+
+	if (NotificationData[playerid][pos][nt_TIMER] != 0)
+	{
+		KillTimer(NotificationData[playerid][pos][nt_TIMER]);
+	}
+
+	PlayerTextDrawHide(playerid, NotificationData[playerid][pos][nt_TD]);
+	PlayerTextDrawDestroy(playerid, NotificationData[playerid][pos][nt_TD]);
+	NotificationData[playerid][pos][nt_ID] = 0;
+
+	if (pos + 1 >= MAX_NOTIFICATIONS) return 1;
+
+	for(new j = pos + 1, time; j < MAX_NOTIFICATIONS; j++)
+	{
+		if (NotificationData[playerid][j][nt_ID] == 0) continue;
+
+		if (NotificationData[playerid][j][nt_TIME_OUT] == 0)
+		{
+			ShowNotification(playerid, NotificationData[playerid][j][nt_TEXT], 0);
+		}
+		else
+		{
+			time = NotificationData[playerid][j][nt_TIME_OUT] - gettime();
+			if (time > 0)
+			{
+				ShowNotification(playerid, NotificationData[playerid][j][nt_TEXT], time);
+			}
+		}
+
+		DestroyNotification(playerid, NotificationData[playerid][j][nt_ID]);
 		return 1;
-	#endif
+	}
+	return 1;
 }
-
-public OnPlayerDisconnect(playerid, reason)
-{
-	g_ActiveNotification[playerid] = false;
-
-	#if defined Notifications_OPDisconnect
-		return Notifications_OPDisconnect(playerid, reason);
-	#else
-		return 1;
-	#endif
-}
-
-#if defined Notifications_OPDisconnect
-	forward Notifications_OPDisconnect(playerid, reason);
-#endif
-
-#if defined _ALS_OnPlayerDisconnect
-	#undef OnPlayerDisconnect
-#else
-	#define _ALS_OnPlayerDisconnect
-#endif
-
-#define OnPlayerDisconnect Notifications_OPDisconnect
-
-#if defined Notifications_OnPlayerConnect
-	forward Notifications_OnPlayerConnect(playerid);
-#endif
-
-#if defined _ALS_OnPlayerConnect
-	#undef OnPlayerConnect
-#else
-	#define _ALS_OnPlayerConnect
-#endif
-
-#define OnPlayerConnect Notifications_OnPlayerConnect

@@ -1,49 +1,100 @@
-#if defined CORE_NOTIFICATIONS_FUNCTIONS
-	#endinput
-#endif
-
-#define CORE_NOTIFICATIONS_FUNCTIONS
-
-// /testsound 1137
-ShowPlayerNotification(playerid, const message[], time = 3, sound = 0)
+ShowNotification(playerid, const text[], time = 0)
 {
-	if (!IsPlayerConnected(playerid))
-		return 0;
+	static
+		free_pos,
+		Float:pos_y,
+		PlayerText:temp_td
+	;
 
-	new str_text[264];
-	format(str_text, sizeof(str_text), "%s", TextToSpanish(message));
+	free_pos = GetFreeNotificationSlot(playerid);
+	if (free_pos == -1) return 0;
 
-	//printf("active: %d", g_ActiveNotification[playerid]);
+	pos_y = 143.333282;
 
-	if (g_ActiveNotification[playerid])
+	for(new i; i < free_pos; i++)
 	{
-		//print("active");
-		for (new i = (MAX_NOTIFICATIONS_WAITING_MSGS - 1); i != -1; --i)
-		{
-			if (!WAITING_NOTIFICATIONS[i][wn_VALID])
-			{
-				//print("added");
-				//printf("new (%d, %d seconds): %s", i, time, str_text);
-				WAITING_NOTIFICATIONS[i][wn_VALID] = true;
-				WAITING_NOTIFICATIONS[i][wn_TIME] = time;
-				WAITING_NOTIFICATIONS[i][wn_SOUND] = sound;
-				format(WAITING_NOTIFICATIONS[i][wn_TEXT], 264, "%s", str_text);
-				break;
-			}
-		}
+		pos_y += 16.0 + (strlen(NotificationData[playerid][i][nt_TEXT]) * 0.4);
+	}
+
+	format(NotificationData[playerid][free_pos][nt_TEXT], 128, text);
+
+	temp_td = CreatePlayerTextDraw(playerid, 25.000000, pos_y + 6.0, NotificationData[playerid][free_pos][nt_TEXT]);
+	PlayerTextDrawLetterSize(playerid, temp_td, 0.287999, 1.249997);
+	PlayerTextDrawTextSize(playerid, temp_td, 160.000000, 0.000000);
+	PlayerTextDrawAlignment(playerid, temp_td, 1);
+	PlayerTextDrawColor(playerid, temp_td, -1);
+	PlayerTextDrawUseBox(playerid, temp_td, 1);
+	PlayerTextDrawBoxColor(playerid, temp_td, 255);
+	PlayerTextDrawSetShadow(playerid, temp_td, 0);
+	PlayerTextDrawSetOutline(playerid, temp_td, 0);
+	PlayerTextDrawBackgroundColor(playerid, temp_td, 255);
+	PlayerTextDrawFont(playerid, temp_td, 1);
+	PlayerTextDrawSetProportional(playerid, temp_td, 1);
+	PlayerTextDrawSetShadow(playerid, temp_td, 0);
+	PlayerTextDrawShow(playerid, temp_td);
+
+	NotificationData[playerid][free_pos][nt_TD] = temp_td;
+
+	LastNotificationID ++;
+
+	if (time == 0)
+	{
+		NotificationData[playerid][free_pos][nt_TIME_OUT] = 0;
+		NotificationData[playerid][free_pos][nt_TIMER] = 0;
 	}
 	else
 	{
-		//print("normal");
-		g_ActiveNotification[playerid] = true;
-		
-		PlayerTextDrawSetString(playerid, g_ptdNotification{playerid}, str_text);
-		PlayerTextDrawShow(playerid, g_ptdNotification{playerid});
-		
-		if (sound)
-			PlayerPlaySoundEx(playerid, sound, 0.0, 0.0, 0.0);
-
-		SetTimerEx("TIMER_NotificationHide", time * 1000, false, "i", playerid);
+		NotificationData[playerid][free_pos][nt_TIME_OUT] = time + gettime();
+		NotificationData[playerid][free_pos][nt_TIMER] = SetTimerEx("DestroyNotification", time * 1000, false, "dd", playerid, LastNotificationID);
 	}
+
+	NotificationData[playerid][free_pos][nt_ID] = LastNotificationID;
+	return LastNotificationID;
+}
+
+
+FindNotificationPosById(playerid, notification_id)
+{
+	for(new i = 0; i < MAX_NOTIFICATIONS; i++)
+	{
+		if (NotificationData[playerid][i][nt_ID] == notification_id) return i;
+	}
+	return -1;
+}
+
+GetFreeNotificationSlot(playerid)
+{
+	for(new i = 0; i < MAX_NOTIFICATIONS; i++)
+	{
+		if (NotificationData[playerid][i][nt_ID] == 0)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+ShowPlayerMessage(playerid, const message[], seconds = 0, sound = 0)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][17]);
+
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE], TextToSpanish(message));
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE]);
+
+	if (seconds) PLAYER_TEMP[playerid][py_TIMERS][17] = SetTimerEx("HidePlayerMessage", seconds * 1000, false, "i", playerid);
+	if (sound) PlayerPlaySoundEx(playerid, sound, 0.0, 0.0, 0.0);
+	return 1;
+}
+
+ShowPlayerAlert(playerid, const message[], color = -1, seconds = 0, sound = 0)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][20]);
+
+	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], color);
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], TextToSpanish(message));
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT]);
+
+	if (seconds) PLAYER_TEMP[playerid][py_TIMERS][20] = SetTimerEx("HidePlayerAlert", seconds * 1000, false, "i", playerid);
+	if (sound) PlayerPlaySoundEx(playerid, sound, 0.0, 0.0, 0.0);
 	return 1;
 }

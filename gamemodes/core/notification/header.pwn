@@ -1,19 +1,16 @@
-#if defined CORE_NOTIFICATIONS_H_
-	#endinput
-#endif
+#define MAX_NOTIFICATIONS 10
 
-#define CORE_NOTIFICATIONS_H_
+enum notification_enum
+{
+	nt_ID,
+	PlayerText:nt_TD,
+	nt_TEXT[128],
+	nt_POS[2],
+	nt_TIME_OUT,
+	nt_TIMER
+}
 
-#define MAX_NOTIFICATIONS_WAITING_MSGS 		30
-
-enum waiting_notifications_enum {
-	bool:wn_VALID,
-	wn_TEXT[264],
-	wn_TIME,
-	wn_SOUND
-};
-new 
-	WAITING_NOTIFICATIONS[MAX_PLAYERS][waiting_notifications_enum],
-	PlayerText:g_ptdNotification[MAX_PLAYERS char],
-	bool:g_ActiveNotification[MAX_PLAYERS]
+new
+	NotificationData[MAX_PLAYERS][MAX_NOTIFICATIONS][notification_enum],
+	LastNotificationID = 0
 ;
