@@ -28,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.7 Build 20"
+#define SERVER_VERSION 			"v0.7 Build 23"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -234,9 +234,9 @@
 #include "core/soccer/callbacks.pwn"
 
 // Club's
-#include "core/club/header.pwn"
+/*#include "core/club/header.pwn"
 #include "core/club/functions.pwn"
-#include "core/club/callbacks.pwn"
+#include "core/club/callbacks.pwn"*/
 
 new const Float:NewUserPos[][] =
 {
@@ -3376,6 +3376,44 @@ GetPlayersInIP(const ip[])
 	return count;
 }
 
+CALLBACK: UpdateBotPing(playerid)
+{
+	SetPlayerColorEx(playerid, PLAYER_COLOR);
+	SetPlayerFakePing(playerid, minrand(170, 345));
+
+	if (GetPlayerScore(playerid) == 0) SetPlayerScore(playerid, minrand(1, 7));
+	return 1;
+}
+
+CALLBACK: UpdateBotName(playerid)
+{
+	new name[MAX_PLAYER_NAME];
+	format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);
+	SetPlayerName(playerid, name);
+	PLAYER_TEMP[playerid][py_NAME] = name;
+	return 1;
+}
+
+Bot(playerid)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][37]);
+
+	SetPlayerColorEx(playerid, PLAYER_COLOR);
+	SetPlayerScore(playerid, minrand(1, 7));
+
+	TogglePlayerFakePing(playerid, true);
+    SetPlayerFakePing(playerid, minrand(170, 345));
+
+	new name[MAX_PLAYER_NAME];
+	format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);
+	SetPlayerName(playerid, name);
+	PLAYER_TEMP[playerid][py_NAME] = name;
+
+	PLAYER_TEMP[playerid][py_TIMERS][37] = SetTimerEx("UpdateBotPing", 30000, true, "i", playerid);
+	PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("UpdateBotName", 900000 + minrand(60000, 420000), true, "i", playerid);
+	return 1;
+}
+
 public OnPlayerConnect(playerid)
 {
 	//printf("OnPlayerConnect %d",playerid); // debug juju
@@ -3435,32 +3473,40 @@ public OnPlayerConnect(playerid)
 		}
 	#endif
 
-	CheckProxy(playerid);
-
-	if (GetPlayersInIP(PLAYER_TEMP[playerid][py_IP]) > 5)
+	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "31.214.141.206"))
 	{
-		GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
-
-		/*new str_text[144];
-		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el máximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
-	    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-	    SendDiscordWebhook(str_text, 1);*/
-	    
-	    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el máximo de conexiones");
-	    KickEx(playerid, 500);
+		Bot(playerid);
 		return 0;
 	}
-
-	if (IsFakeClient(playerid))
+	else
 	{
-		/*new str_text[144];
-		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Cliente inválido", PLAYER_TEMP[playerid][py_NAME], playerid);
-	    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-	    SendDiscordWebhook(str_text, 1);*/
-	    
-	    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inválido");
-	    KickEx(playerid, 500);
-		return 0;	
+		CheckProxy(playerid);
+
+		if (GetPlayersInIP(PLAYER_TEMP[playerid][py_IP]) > 5)
+		{
+			GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
+
+			/*new str_text[144];
+			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el máximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
+		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+		    SendDiscordWebhook(str_text, 1);*/
+		    
+		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el máximo de conexiones");
+		    KickEx(playerid, 500);
+			return 0;
+		}
+
+		if (IsFakeClient(playerid))
+		{
+			/*new str_text[144];
+			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Cliente inválido", PLAYER_TEMP[playerid][py_NAME], playerid);
+		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+		    SendDiscordWebhook(str_text, 1);*/
+		    
+		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inválido");
+		    KickEx(playerid, 500);
+			return 0;	
+		}
 	}
 
 	EnablePlayerCameraTarget(playerid, true);
@@ -5955,8 +6001,13 @@ public OnPlayerSpawn(playerid)
 	SetTracingColor(playerid, COLOR_RED);
 	PreloadAnims(playerid);
 
+	if (CHARACTER_INFO[playerid][ch_HEALTH] <= 0.0) CHARACTER_INFO[playerid][ch_HEALTH] = 1.0;
+	if (CHARACTER_INFO[playerid][ch_HEALTH] >= 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
+	if (CHARACTER_INFO[playerid][ch_ARMOUR] >= 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
+
 	SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
 	SetPlayerArmourEx(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
+
 	lastShotTick[playerid] = GetTickCount();
 	
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
@@ -7229,7 +7280,7 @@ SanAndreas()
 	LoadCrews();
 	LoadGangZones();
 	LoadBlackMarkets();
-	LoadClubs();
+	//LoadClubs();
 
 	gettime(SERVER_TIME[0], SERVER_TIME[1]);
 	SetTimer("UpdateWorldTime", 60000, true);
@@ -30422,6 +30473,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 {
+	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "31.214.141.206")) return 0;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
@@ -32153,12 +32205,17 @@ CMD:id(playerid, params[])
 
 	new
 		player_version[32],
-		acid
+		acid,
+		ping = GetPlayerPing(to_player)
 	;
 
 	GetPlayerVersion(to_player, player_version, sizeof player_version);
 
-	if (ACCOUNT_INFO[to_player][ac_ID] == 0) acid = minrand(80000, 90000);
+	if (ACCOUNT_INFO[to_player][ac_ID] == 0)
+	{
+		acid = minrand(80000, 90000);
+		ping = minrand(170, 370);
+	}
 	else acid = ACCOUNT_INFO[to_player][ac_ID];
 
 	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Nombre: %s (%d) [Nivel %d] "COL_RED"|"COL_WHITE" ID de cuenta: %d",
@@ -32171,7 +32228,7 @@ CMD:id(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Versión: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f "COL_RED"|"COL_WHITE" Ping: %d",
 		player_version,
 		NetStats_PacketLossPercent(to_player),
-		GetPlayerPing(to_player)
+		ping
 	);
 	return 1;
 }
@@ -34732,11 +34789,15 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 	//printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
-	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL || PLAYER_TEMP[playerid][py_NEW_USER])
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < 8)
 	{
-		ShowPlayerMessage(playerid, "~r~Ahora no puedes usar comandos.", 3);
-		return 0;
+		if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL || PLAYER_TEMP[playerid][py_NEW_USER])
+		{
+			ShowPlayerMessage(playerid, "~r~Ahora no puedes usar comandos.", 3);
+			return 0;
+		}
 	}
+
 	if (PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW]) { ShowPlayerMessage(playerid, "Ahora no puedes usar comandos, pulsa 'ESCAPE' para cerrar el menú.", 4); return 0; }
 
 
