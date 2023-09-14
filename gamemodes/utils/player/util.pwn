@@ -711,7 +711,7 @@ CheckMedicJobSite(playerid)
 	return 1;
 }
 
-CheckIsFireWeapon(weapon)
+/*CheckIsFireWeapon(weapon)
 {
 	switch(weapon)
 	{
@@ -808,7 +808,7 @@ ResyncWeapon(playerid, weapon)
 		}
 	}
 	return 1;
-}
+}*/
 
 /*CheckAndReload(playerid)
 {

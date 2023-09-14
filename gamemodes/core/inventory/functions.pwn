@@ -1232,7 +1232,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 							GivePlayerWeapon(
 								playerid,
 								TypeToWeapon(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]),
-								PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]
+								PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]
 							);
 						}
 						else if (PLAYER_WORKS[playerid][WORK_POLICE] || PlayerIsInMafia(playerid))
@@ -1240,7 +1240,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 							GivePlayerWeapon(
 								playerid,
 								TypeToWeapon(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]),
-								PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]
+								PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]
 							);
 						}
 					}
@@ -1329,7 +1329,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
-				if (IdWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]))
+				if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]))
 				{
 					AddItemToProperty(
 						PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],

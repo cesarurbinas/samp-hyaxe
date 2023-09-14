@@ -2,7 +2,7 @@ IsWeaponType(type)
 {
 	switch(type)
 	{
-		12..33: return true;
+		case 12..33: return true;
 	}
 	return false;
 }
@@ -11,28 +11,28 @@ TypeToWeapon(type)
 {
 	switch(type)
 	{
-		12: return 5;
-		13: return 3;
-		14: return 4;
-		15: return 6;
-		16: return 7;
-		17: return 17;
-		18: return 2;
-		19: return 1;
-		20: return 22;
-		21: return 22;
-		22: return 24;
-		23: return 25;
-		24: return 26;
-		25: return 28;
-		26: return 29;
-		27: return 30;
-		28: return 31;
-		29: return 32;
-		30: return 33;
-		31: return 41;
-		32: return 43;
-		33: return 46;
+		case 12: return 5;
+		case 13: return 3;
+		case 14: return 4;
+		case 15: return 6;
+		case 16: return 7;
+		case 17: return 17;
+		case 18: return 2;
+		case 19: return 1;
+		case 20: return 22;
+		case 21: return 22;
+		case 22: return 24;
+		case 23: return 25;
+		case 24: return 26;
+		case 25: return 28;
+		case 26: return 29;
+		case 27: return 30;
+		case 28: return 31;
+		case 29: return 32;
+		case 30: return 33;
+		case 31: return 41;
+		case 32: return 43;
+		case 33: return 46;
 		
 		default: return 0;
 	}
@@ -340,37 +340,6 @@ SubtractItem(playerid, type, extra = 1)
 		db_free_result(db_query(Database, DB_Query));
 	}
 	return 1;
-}
-
-TypeToWeapon(type)
-{
-	new weapon;
-	switch(type)
-	{
-		case 12: weapon = 5;//bat
-		case 13: weapon = 3;//porra
-		case 14: weapon = 4;//knife
-		case 15: weapon = 6;//pala
-		case 16: weapon = 7;//pool
-		case 17: weapon = 17;
-		case 18: weapon = 2;//golf
-		case 19: weapon = 1;//punio
-		case 22: weapon = 22;
-		case 23: weapon = 23;
-		case 24: weapon = 24;
-		case 25: weapon = 25;
-		case 26: weapon = 26;
-		case 28: weapon = 28;
-		case 29: weapon = 29;
-		case 30: weapon = 30;
-		case 31: weapon = 31;
-		case 32: weapon = 32;
-		case 33: weapon = 33;
-		case 41: weapon = 41;
-		case 43: weapon = 43;
-		case 46: weapon = 46;
-	}
-	return weapon;
 }
 
 IsFullInventory(playerid)
