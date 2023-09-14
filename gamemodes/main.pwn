@@ -512,9 +512,6 @@ new Tuning_Shop_Objects[][e_Tuning_Shop_Objects] =
 	{19624, "case1", 600},
 	{19621, "obj1", 150},
 	{19833, "Cow1", 600},
-    //{2404, "CJ_SURF_BOARD", 2000},
-    //{2405, "CJ_SURF_BOARD2", 2000},
-    //{2406, "CJ_SURF_BOARD3", 2000},
     {19317, "bassguitar01", 1000},
     {19318, "flyingv01", 1000},
     {2232, "MED_SPEAKER_4", 2000},
@@ -19730,6 +19727,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				    ShowPlayerMessage(playerid, "~r~No hay más espacio para objetos en este vehículo.", 3);
 					return 1;
 				}
+
+				if (listitem > sizeof(Tuning_Shop_Objects)) return ShowPlayerMessage(playerid, "~r~Index invalido", 3);
 
 				if (Tuning_Shop_Objects[listitem][tuning_object_PRICE] > CHARACTER_INFO[playerid][ch_CASH])
 				{
