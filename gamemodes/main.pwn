@@ -26,7 +26,7 @@
 #include <a_samp>
 
 #undef MAX_PLAYERS
-#define MAX_PLAYERS 300
+#define MAX_PLAYERS 150
 
 #define SERVER_VERSION 			"v0.8 Build 30"
 #define SERVER_NAME 			"Hyaxe"
@@ -48,7 +48,7 @@
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 #define NO_SUSPICION_LOGS
 
@@ -33022,7 +33022,18 @@ CMD:boxear(playerid, params[])
 CMD:saludar(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	ApplyAnimation(playerid,"GANGS","hndshkfa_swt",4.1,0,0,0,0,0);//saludar
+	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /saludar "COL_WHITE"<playerid>");
+	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador Desconectado.", 2);
+
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 30.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+
+	new str_text[144]
+	format(str_text, sizeof(str_text), "* %s saluda a %s.", PLAYER_TEMP[playerid][py_RP_NAME], PLAYER_TEMP[params[0]][py_RP_NAME]);
+	ProxDetector(playerid, 15.0, str_text, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 85);
+
+	ApplyAnimation(playerid,"GANGS", "hndshkfa_swt", 4.1, 0, 0, 0, 0, 0); //saludar
 	return 1;
 }
 
