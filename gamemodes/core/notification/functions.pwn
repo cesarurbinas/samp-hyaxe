@@ -14,7 +14,7 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 	// Top spacing
 	for(new i; i < free_pos; i++)
 	{
-		pos_y += 16.0 + (strlen(NotificationData[playerid][i][nt_TEXT]) * 0.4);
+		pos_y += 16.8 + (strlen(NotificationData[playerid][i][nt_TEXT]) * 0.4);
 
 		// Fix top spacing
 		new Regex:reg_exp = Regex_New("~.~"); 
@@ -40,6 +40,20 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 
 	format(NotificationData[playerid][free_pos][nt_TEXT], 128, "~w~%s", text);
  
+	new PlayerText:notification_bg = CreatePlayerTextDraw(playerid, 24.000000, pos_y + 6.0, NotificationData[playerid][free_pos][nt_TEXT]);
+	PlayerTextDrawFont(playerid, notification_bg, 1);
+	PlayerTextDrawLetterSize(playerid, notification_bg, 0.237499, 1.299999 + 0.1);
+	PlayerTextDrawTextSize(playerid, notification_bg, 166.000000 + 2.0, 17.000000);
+	PlayerTextDrawSetOutline(playerid, notification_bg, 0);
+	PlayerTextDrawSetShadow(playerid, notification_bg, 0);
+	PlayerTextDrawAlignment(playerid, notification_bg, 1);
+	PlayerTextDrawColor(playerid, notification_bg, 0x17171700);
+	PlayerTextDrawBackgroundColor(playerid, notification_bg, 0x171717FF);
+	PlayerTextDrawBoxColor(playerid, notification_bg, 0x171717FF);
+	PlayerTextDrawUseBox(playerid, notification_bg, 1);
+	PlayerTextDrawSetProportional(playerid, notification_bg, 1);
+	PlayerTextDrawShow(playerid, notification_bg);
+
 	temp_td = CreatePlayerTextDraw(playerid, 24.000000, pos_y + 6.0, NotificationData[playerid][free_pos][nt_TEXT]);
 	PlayerTextDrawFont(playerid, temp_td, 1);
 	PlayerTextDrawLetterSize(playerid, temp_td, 0.237499, 1.299999);
@@ -48,13 +62,14 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 	PlayerTextDrawSetShadow(playerid, temp_td, 0);
 	PlayerTextDrawAlignment(playerid, temp_td, 1);
 	PlayerTextDrawColor(playerid, temp_td, -1);
-	PlayerTextDrawBackgroundColor(playerid, temp_td, 255);
-	PlayerTextDrawBoxColor(playerid, temp_td, 286331342);
+	PlayerTextDrawBackgroundColor(playerid, temp_td, 471604479);
+	PlayerTextDrawBoxColor(playerid, temp_td, 471604479); // Old: 286331342
 	PlayerTextDrawUseBox(playerid, temp_td, 1);
 	PlayerTextDrawSetProportional(playerid, temp_td, 1);
 	PlayerTextDrawShow(playerid, temp_td);
 
 	NotificationData[playerid][free_pos][nt_TD] = temp_td;
+	NotificationData[playerid][free_pos][nt_BG_TD] = notification_bg;
 
 	LastNotificationID ++;
 

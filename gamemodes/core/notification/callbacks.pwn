@@ -13,6 +13,8 @@ public DestroyNotification(playerid, notification_id)
 
 	PlayerTextDrawHide(playerid, NotificationData[playerid][pos][nt_TD]);
 	PlayerTextDrawDestroy(playerid, NotificationData[playerid][pos][nt_TD]);
+	PlayerTextDrawHide(playerid, NotificationData[playerid][pos][nt_BG_TD]);
+	PlayerTextDrawDestroy(playerid, NotificationData[playerid][pos][nt_BG_TD]);
 	NotificationData[playerid][pos][nt_ID] = 0;
 
 	if (pos + 1 >= MAX_NOTIFICATIONS) return 1;
