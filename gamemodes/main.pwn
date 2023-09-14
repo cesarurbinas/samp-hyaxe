@@ -27995,8 +27995,6 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 		
 		SetDynamicActorHealth(actorid, new_health);
 	}
-	
-	SendClientMessageEx(playerid, -1, "playerid: %d, actorid: %d, amount: %f, weaponid: %d, bodypart: %d, health: %f", playerid, actorid, amount, weaponid, bodypart, health);
 	return 1;
 }
 
@@ -28009,12 +28007,12 @@ public RespawnDynamicActor(actorid, type)
 	{
 		case ACTOR_TYPE_DEALER:
 		{
-			ApplyDynamicActorAnimation(DEALER_INFO[i][dl_ACTOR], "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
+			ApplyDynamicActorAnimation(actorid, "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
 			return 1;
 		}
 	}
 
-	SetDynamicActorInvulnerable(acortid, true);
+	SetDynamicActorInvulnerable(actorid, true);
 	SetDynamicActorHealth(actorid, 100.0);
 	return 1;
 }
