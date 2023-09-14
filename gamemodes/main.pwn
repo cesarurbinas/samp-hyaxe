@@ -6227,13 +6227,13 @@ PayPlayerMiner(playerid)
 		case 2: pay = 95;
 		case 3: pay = 100;
 		case 4: pay = 200;
-		case 5: pay = 800;
+		case 5: pay = 700;
 		case 6: pay = 450;
-		case 7: pay = 600;
-		case 8: pay = 950;
-		case 9: pay = 350;
-		case 10: pay = 480;
-		case 11: pay = 860;	
+		case 7: pay = 500;
+		case 8: pay = 850;
+		case 9: pay = 300;
+		case 10: pay = 380;
+		case 11: pay = 760;	
 	}
 
 	if (ACCOUNT_INFO[playerid][ac_SU]) pay += minrand(200, 500);
