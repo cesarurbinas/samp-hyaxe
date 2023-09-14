@@ -13260,7 +13260,7 @@ ShowDialog(playerid, dialogid)
     			Mapa\t%s\n\
     			Ventana\t%s\n\
     			Estacionar\t\n\
-    			Gestioanr llaves\t",
+    			Gestionar llaves\t",
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			radio_station,
