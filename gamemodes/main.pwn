@@ -3732,9 +3732,9 @@ public OnPlayerConnect(playerid)
 		printf("OnPlayerConnect %d",playerid); // debug juju
 	#endif
 
-	printf("[%d] OnPlayerConnect 1", playerid);
+	//printf("[%d] OnPlayerConnect 1", playerid);
 	SetPlayerColor(playerid, PLAYER_COLOR);
-	printf("[%d] OnPlayerConnect 2", playerid);
+	//printf("[%d] OnPlayerConnect 2", playerid);
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
 	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = 0;
 	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = 0;
@@ -3757,15 +3757,15 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_CHECK_OBJECT] = 0;
 	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = INVALID_OBJECT_ID;
 	PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
-	printf("[%d] OnPlayerConnect 2", playerid);
+	//printf("[%d] OnPlayerConnect 2", playerid);
 	for(new i = 0; i != MAX_OBJECTS_PER_ROUTE; i ++) TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
-	printf("[%d] OnPlayerConnect 3", playerid);
+	//printf("[%d] OnPlayerConnect 3", playerid);
 	PLAYER_TEMP[playerid][py_SERIAL] = EOS;
-	printf("[%d] OnPlayerConnect 4", playerid);
+	//printf("[%d] OnPlayerConnect 4", playerid);
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
 	GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 	gpci(playerid, PLAYER_TEMP[playerid][py_SERIAL], 50);
-	printf("[%d] OnPlayerConnect 5", playerid);
+	//printf("[%d] OnPlayerConnect 5", playerid);
 	#if defined VOICE_CHAT
 		if (!SvGetVersion(playerid))
 		{
@@ -3785,7 +3785,7 @@ public OnPlayerConnect(playerid)
 		}
 	#endif
 
-	printf("[%d] OnPlayerConnect 5", playerid);
+	//printf("[%d] OnPlayerConnect 5", playerid);
 	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "95.156.227.96"))
 	{
 		Bot(playerid);
@@ -3821,7 +3821,7 @@ public OnPlayerConnect(playerid)
 			return 0;	
 		}
 	}
-	printf("[%d] OnPlayerConnect 6", playerid);
+	//printf("[%d] OnPlayerConnect 6", playerid);
 	EnablePlayerCameraTarget(playerid, true);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	TogglePlayerControllableEx(playerid, true);
@@ -3831,11 +3831,11 @@ public OnPlayerConnect(playerid)
 	ResetPlayerWeapons(playerid);
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	CancelEdit(playerid);
-	printf("[%d] OnPlayerConnect 7", playerid);
+	//printf("[%d] OnPlayerConnect 7", playerid);
 	new DB_Query[550], DBResult:ban_Result;
 	format(DB_Query, sizeof DB_Query, "SELECT DATETIME('NOW') AS `NOW`, `BANS`.*, `BAD_HISTORY`.* FROM `BANS`, `BAD_HISTORY` WHERE (`BANS`.`NAME` = '%q' OR `BANS`.`IP` = '%q' OR `BANS`.`GPCI` = '%q') AND `BAD_HISTORY`.`ID` = `BANS`.`ID_HISTORY`;", PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_SERIAL]);
 	ban_Result = db_query(Database, DB_Query);
-	printf("[%d] OnPlayerConnect 8", playerid);
+	//printf("[%d] OnPlayerConnect 8", playerid);
 	if (db_num_rows(ban_Result))
 	{
 		new now[24], name[24], expire_date[24], type, by, text[128], date[24];
@@ -3915,13 +3915,13 @@ public OnPlayerConnect(playerid)
 		}
 	}
 	db_free_result(ban_Result);
-	printf("[%d] OnPlayerConnect 9", playerid);
+	//printf("[%d] OnPlayerConnect 9", playerid);
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
-	printf("[%d] OnPlayerConnect 10", playerid);
+	//printf("[%d] OnPlayerConnect 10", playerid);
 	PLAYER_TEMP[playerid][py_USER_VALID_NAME] = true;
 	PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = 9999;
 	SetRolePlayNames(playerid);
-	printf("[%d] OnPlayerConnect 11", playerid);
+	//printf("[%d] OnPlayerConnect 11", playerid);
 	// Account pre-load
 	new DBResult:Result;
 	format(DB_Query, sizeof(DB_Query),
@@ -3930,7 +3930,7 @@ public OnPlayerConnect(playerid)
 		UPDATE `CUENTA` SET `CONNECTED` = '1', `PLAYERID` = '%d' WHERE `NAME` = '%q';\
 	", PLAYER_TEMP[playerid][py_NAME], playerid, PLAYER_TEMP[playerid][py_NAME]);
 	Result = db_query(Database, DB_Query);
-	printf("[%d] OnPlayerConnect 12", playerid);
+	//printf("[%d] OnPlayerConnect 12", playerid);
 	if (db_num_rows(Result))
 	{
 		ACCOUNT_INFO[playerid][ac_ID] = db_get_field_assoc_int(Result, "ID");
@@ -4094,9 +4094,9 @@ public OnPlayerConnect(playerid)
 		ClearPlayerChatBox(playerid);
 	}
 	db_free_result(Result);
-	printf("[%d] OnPlayerConnect 13", playerid);
+	//printf("[%d] OnPlayerConnect 13", playerid);
 	CreatePlayerTextDraws(playerid);
-	printf("[%d] OnPlayerConnect 14", playerid);
+	//printf("[%d] OnPlayerConnect 14", playerid);
 	return 1;
 }
 
