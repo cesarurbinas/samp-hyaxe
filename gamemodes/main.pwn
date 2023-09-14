@@ -1929,7 +1929,8 @@ new POLICE_SHOP_WEAPONS[][enum_POLICE_SHOP_WEAPONS] =
 	{2, 29, 0}, //mp5
 	{2, 30, 0}, //ak 47
 	{2, 31, 0}, //m4
-	{2, 33, 0} //rifle
+	{2, 33, 0}, //rifle
+	{2, 46, 0} //paracaidas
 };
 
 
