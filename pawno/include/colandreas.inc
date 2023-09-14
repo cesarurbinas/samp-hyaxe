@@ -503,7 +503,7 @@ static stock CA_ObjectList[MAX_CA_OBJECTS][CAOBJECTINFO];
 
 	stock CA_CreateDynamicObject_DC(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, vw = -1, interior = -1, playerid = -1, Float:streamdistance = STREAMER_OBJECT_SD, Float:drawdistance = STREAMER_OBJECT_DD, STREAMER_TAG_AREA:areaid = STREAMER_TAG_AREA:-1, priority = 0)
 	{
-		static index = -1;
+		new index = -1;
 		#if defined _Y_ITERATE_LOCAL_VERSION
 			index = Iter_Free(CA_Objects);
 		#else

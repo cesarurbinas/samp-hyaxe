@@ -2399,11 +2399,11 @@ stock acc_EnableStuntBonusForPlayer(playerid, enable)
 #endif
 #define EnableStuntBonusForPlayer acc_EnableStuntBonusForPlayer
 
-stock orig_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[]) return ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2);
+stock orig_ShowPlayerDialog(playerid, dialogid, style, caption[], d_info[], button1[], button2[]) return ShowPlayerDialog(playerid, dialogid, style, caption, d_info, button1, button2);
 
-stock acc_ShowPlayerDialog(playerid, dialogid, style, caption[], info[], button1[], button2[])
+stock acc_ShowPlayerDialog(playerid, dialogid, style, caption[], d_info[], button1[], button2[])
 {
-	if(ShowPlayerDialog(playerid, dialogid, style, caption, info, button1, button2))
+	if(ShowPlayerDialog(playerid, dialogid, style, caption, d_info, button1, button2))
 	{
 		#if defined FILTERSCRIPT
 			return CallRemoteFunction("ac_fs_ShowPlayerDialog", "id", playerid, dialogid);

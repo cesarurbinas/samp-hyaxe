@@ -285,10 +285,16 @@ enum Temp_Enum
 	py_FURNITURE_SELECTED,
 	py_PASSWORD[18],
 	bool:py_GODMODE,
+<<<<<<< HEAD
 	py_CUTTING,
 	py_CUTTING_PROGRESS,
 	py_CUTTING_CHECKPOINT,
 	bool:py_HOLDING_CART
+=======
+	py_ANSWER_INDEX,
+	py_ANSWER_RESPONSE[32],
+	bool:py_STEAL_SUSPICION
+>>>>>>> refs/rewritten/aa
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

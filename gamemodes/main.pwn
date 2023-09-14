@@ -7,7 +7,7 @@
  *  - 1: Saldrán mensajes de debug solamente en la consola.
  *  - 2: Saldrán mensajes de debug en la consola y en el juego.
 */
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 #if DEBUG_MODE != 0
 	#pragma option -d3
@@ -21,7 +21,9 @@
 #include <a_samp>
 
 #undef MAX_PLAYERS
-#define MAX_PLAYERS 300 
+#define MAX_PLAYERS 300
+
+#include <ColAndreas>
 
 #define SERVER_VERSION 			"v0.6 Build 5"
 #define SERVER_NAME 			"Hyaxe"
@@ -57,7 +59,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 
 // Other Library 
 #include <a_http>
-#include <streamer>
 #include <sscanf2>
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
@@ -73,6 +74,8 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <strlib>
 #include <ExtendedActorFunctions>
 #include <gmenu>
+
+#include <streamer>
 
 #define safe_db_query(%0) db_free_result(db_query(Database, %0))
 
@@ -2797,6 +2800,19 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					return 0;
 	            }
 	        }
+	        case 695:
+	        {
+	            if (GetPlayerInterior(playerid) == 0)
+	            {
+	            	new str_text[144];
+					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): SleepAnim", PLAYER_TEMP[playerid][py_NAME], playerid);
+				    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+				    SendDiscordWebhook(str_text, 1);
+				    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: SleepAnim");
+					KickEx(playerid, 500);
+					return 0;
+	            }
+	        }
 	        /*case 1538, 1539, 1543:
 	        {
 	        	if (onFootData[PR_position][2] > 1.0)
@@ -3285,6 +3301,7 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = 9999;
 	SetRolePlayNames(playerid);
 
+	// Account pre-load
 	new DBResult:Result;
 	format(DB_Query, sizeof(DB_Query),
 	"\
@@ -3568,8 +3585,8 @@ public OnPlayerDisconnect(playerid, reason)
 	{
 		if (GetPlayerState(playerid) != PLAYER_STATE_SPECTATING)
 		{
-			new Float:pos[3];
-			GetPlayerPos(playerid, pos[0], pos[1], pos[2]); 
+			new Float:x, Float:y, Float:z;
+			GetPlayerPos(playerid, x, y, z); 
 
 			SetPlayerChatBubble(playerid, "Hablando...", 0x67DA5BFF, 10.00, 1000);
 
@@ -3579,7 +3596,7 @@ public OnPlayerDisconnect(playerid, reason)
 				if (GetPlayerState(i) == PLAYER_STATE_SPECTATING) continue;
 				if (VALID_CLIENT[i] == false) continue;
 
-				if (IsPlayerInRangeOfPoint(i, 20.00, pos[0], pos[1], pos[2]))
+				if (IsPlayerInRangeOfPoint(i, 20.00, x, y, z))
 				{
 					sv_send_packet(packet, PLAYER_STREAM[i]);
 				}
@@ -3738,12 +3755,12 @@ ExitSite(playerid)
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
     if (info[0] == PICKUP_TYPE_NONE) return 0;
 
-    new Float:pos[3]; 
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, pos[0]);
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, pos[1]);
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, pos[2]);
+    new Float:x, Float:y, Float:z; 
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
 
-    if (!IsPlayerInRangeOfPoint(playerid, 1.0, pos[0], pos[1], pos[2])) return 0;
+    if (!IsPlayerInRangeOfPoint(playerid, 1.0, x, y, z)) return 0;
 
     PLAYER_TEMP[playerid][py_IN_MARKET] = false;
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
@@ -3803,12 +3820,12 @@ EnterSite(playerid)
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
     if (info[0] == PICKUP_TYPE_NONE) return 0;
     
-    new Float:pos[3]; 
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, pos[0]);
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, pos[1]);
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, pos[2]);
+    new Float:x, Float:y, Float:z; 
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
     
-    if (!IsPlayerInRangeOfPoint(playerid, 1.0, pos[0], pos[1], pos[2])) return 0;
+    if (!IsPlayerInRangeOfPoint(playerid, 1.0, x, y, z)) return 0;
     
     switch(info[0])
     {
@@ -4556,9 +4573,9 @@ GrabPlant(playerid)
 	{
 		if (!PLANTS[i][plant_VALID] || PLANTS[i][plant_GROWING]) continue;
 
-		new Float:pos[3];
-		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], pos[0], pos[1], pos[2]);
-		if (IsPlayerInRangeOfPoint(playerid, 1.5, pos[0], pos[1], pos[2]))
+		new Float:x, Float:y, Float:z;
+		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], x, y, z);
+		if (IsPlayerInRangeOfPoint(playerid, 1.5, x, y, z))
 		{
 			if (PLANTS[i][plant_PLANTED_BY_ACCOUNT_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Esta planta no es tuya", 3);
 
@@ -4618,12 +4635,12 @@ CheckPlayerHouseDoor(playerid)
 	Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
 	if (info[0] != PICKUP_TYPE_PROPERTY) return 0;
 
-	new Float:pos[3];
-	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, pos[0]);
-	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, pos[1]);
-	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, pos[2]);
+	new Float:x, Float:y, Float:z;
+	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
 
-	if (!IsPlayerInRangeOfPoint(playerid, 3.0, pos[0], pos[1], pos[2])) return 0;
+	if (!IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z)) return 0;
 
 	if (info[2] == 1) // Está en el Pickup Interior
 	{
@@ -4886,12 +4903,12 @@ ShowPropertyOptions(playerid)
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
     if (info[0] != PICKUP_TYPE_PROPERTY) return 0;
 
-    new Float:pos[3];
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, pos[0]);
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, pos[1]);
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, pos[2]);
+    new Float:x, Float:y, Float:z;
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
 
-    if (!IsPlayerInRangeOfPoint(playerid, 80.0, pos[0], pos[1], pos[2])) return 0;
+    if (!IsPlayerInRangeOfPoint(playerid, 80.0, x, y, z)) return 0;
 
     if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY)
     {
@@ -4997,12 +5014,12 @@ ShowRangeUser(playerid)
 {
 	new 
 		target_player = GetPlayerCameraTargetPlayer(playerid),
-		Float:pos[4];
+		Float:x, Float:y, Float:z;
 	
 	PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] = target_player;
-	GetPlayerPos(target_player, pos[0], pos[1], pos[2]);
+	GetPlayerPos(target_player, x, y, z);
 
-	if (IsPlayerInRangeOfPoint(playerid, 1.2, pos[0], pos[1], pos[2]))
+	if (IsPlayerInRangeOfPoint(playerid, 1.2, x, y, z))
 	{
 		ShowDialog(playerid, DIALOG_RANGE_USER);
 	}
@@ -5262,9 +5279,9 @@ CheckPlayerDoors(playerid)
 	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return 0;
 	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return 0;
 
-	new Float:pos[3];
-	GetVehiclePos(vehicleid, pos[0], pos[1], pos[2]);
-	if (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) < 10.0)
+	new Float:x, Float:y, Float:z;
+	GetVehiclePos(vehicleid, x, y, z);
+	if (GetPlayerDistanceFromPoint(playerid, x, y, z) < 10.0)
 	{
 		if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] == 0)
 		{
@@ -5901,24 +5918,24 @@ public OnPlayerDeath(playerid, killerid, reason)
 			str_victim[164],
 			str_killer[64],
 			gunname[32],
-			Float:pos[4];
+			Float:x, Float:y, Float:z;
 
 		format(str_killer, sizeof str_killer, "Heriste a ~y~%s", ACCOUNT_INFO[playerid][ac_NAME]);
 		ShowPlayerMessage(killerid, str_killer, 3);
 
 		GetWeaponName(reason, gunname, sizeof(gunname));
 
-		GetPlayerPos(killerid, pos[0], pos[1], pos[2]);
+		GetPlayerPos(killerid, x, y, z);
 
-		format(str_victim, sizeof(str_victim), "%s te hirió con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]));
+		format(str_victim, sizeof(str_victim), "%s te hirió con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 		ShowPlayerNotification(playerid, str_victim, 4);
 		SavePlayerNotification(playerid, str_victim);
 
-		format(str_victim, sizeof(str_victim), "[KILL] %s hirió a %s con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], PLAYER_TEMP[playerid][py_NAME], gunname, GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]));
+		format(str_victim, sizeof(str_victim), "[KILL] %s hirió a %s con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], PLAYER_TEMP[playerid][py_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 		SendMessageToAdmins(COLOR_ANTICHEAT, str_victim);
 
-		GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-		SetPlayerPosEx(playerid, pos[0], pos[1], pos[2] + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+		GetPlayerPos(playerid, x, y, z);
+		SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 
 		new p_interior = GetPlayerInterior(playerid);
 
@@ -6051,12 +6068,32 @@ public OnPlayerRequestClass(playerid, classid)
 
 			if (strcmp(PLAYER_TEMP[playerid][py_IP], ACCOUNT_INFO[playerid][ac_IP], false)) // La IP actual no es la misma IP de la última conexión
 			{
-				new ip_change[264];
-				format(ip_change, sizeof(ip_change), "%s: %s > %s", PLAYER_TEMP[playerid][py_NAME], ACCOUNT_INFO[playerid][ac_IP], PLAYER_TEMP[playerid][py_IP]);
-				Log("address", ip_change);
+				new ip_change[40];
+				format(ip_change, sizeof(ip_change), "%s > %s", ACCOUNT_INFO[playerid][ac_IP], PLAYER_TEMP[playerid][py_IP]);
+
+				new DB_Query[160];
+				format
+				(
+					DB_Query, sizeof DB_Query,
+					"\
+						INSERT INTO `ADDRESS_LOG`\
+						(\
+							`ID_USER`, `CONTENT`, 'DATE'\
+						)\
+						VALUES\
+						(\
+							'%d', '%q', '%d'\
+						);\
+					",
+					ACCOUNT_INFO[playerid][ac_ID],
+					ip_change,
+					gettime()
+				);
+				db_free_result(db_query(Database, DB_Query));
 
 				ShowPlayerMessage(playerid, "~r~Tu dirección IP ha cambiado desde tu última conexión.", 5);
 				format(ACCOUNT_INFO[playerid][ac_IP], 16, "%s", PLAYER_TEMP[playerid][py_IP]);
+				PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = true;
 			}
 
 			ShowDialog(playerid, DIALOG_LOGIN);
@@ -6552,6 +6589,8 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
+	CA_Init();
+
 	//print("OnGamemodeInit()"); // debug juju
 
 	#if defined VOICE_CHAT
@@ -6590,6 +6629,16 @@ public OnGameModeInit()
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
 	SetTimer("GiveAutoGift", 300000, false);
+	//SetTimer("SendGift", 60000, true);
+<<<<<<< HEAD
+=======
+>>>>>>> refs/rewritten/Retoques
+=======
+<<<<<<< HEAD
+>>>>>>> 96c70ef (Optimizaciones)
+=======
+>>>>>>> 5643c50 (Arreglar cagada de atom)
+>>>>>>> refs/rewritten/master-45
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
@@ -7650,12 +7699,12 @@ CMD:desbug(playerid, params[])
 {
 	if (PLAYER_TEMP[playerid][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando esposado.", 3);
 	new
-		Float:pos[3],
+		Float:x, Float:y, Float:z,
 		interior = GetPlayerInterior(playerid)
 	;
 
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-	// if(interior != 0) SetPlayerPos(playerid, pos[0], pos[1], pos[2] + 0.5);
+	GetPlayerPos(playerid, x, y, z);
+	// if(interior != 0) SetPlayerPos(playerid, x, y, z + 0.5);
 
 	if(CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_NORMAL) return 1;
 
@@ -7675,10 +7724,10 @@ CMD:desbug(playerid, params[])
 
 CMD:pos(playerid, params[])
 {
-	new Float:pos[4];
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-	GetPlayerFacingAngle(playerid, pos[3]);
-	SendClientMessageEx(playerid, COLOR_WHITE, "X: %f Y: %f Z: %f ANGLE: %f "COL_RED"|"COL_WHITE" Virtual World: %d "COL_RED"|"COL_WHITE" Interior: %d", pos[0], pos[1], pos[2], pos[3], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+	new Float:x, Float:y, Float:z, Float:angle;
+	GetPlayerPos(playerid, x, y, z);
+	GetPlayerFacingAngle(playerid, angle);
+	SendClientMessageEx(playerid, COLOR_WHITE, "X: %f Y: %f Z: %f ANGLE: %f "COL_RED"|"COL_WHITE" Virtual World: %d "COL_RED"|"COL_WHITE" Interior: %d", x, y, z, angle, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 	return 1;
 }
 
@@ -8002,12 +8051,12 @@ CheckAtmPlayerAndExecute(playerid)
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
     if (info[0] != PICKUP_TYPE_ATM) return 0;
     
-    new Float:pos[3]; 
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, pos[0]);
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, pos[1]);
-    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, pos[2]);
+    new Float:x, Float:y, Float:z; 
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
     
-    if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return 0;
+    if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return 0;
 
     if (BANK_ACCOUNT[playerid][bank_account_ID] == 0)
     {
@@ -8028,8 +8077,8 @@ CMD:vender(playerid, params[])
 
 	if (price <= 0 || price > 10000000) return ShowPlayerMessage(playerid, "~r~El precio no es válido.", 3);
 	if (!IsPlayerConnected(to_playerid)) return ShowPlayerMessage(playerid, "~r~El jugador no está conectado", 3);
-	new Float:pos[3]; GetPlayerPos(to_playerid, pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~Este jugador no está cerca tuya.", 3);
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_playerid, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Este jugador no está cerca tuya.", 3);
 	if (PLAYER_TEMP[to_playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No le puedes vender nada a este jugador por ahora.", 3);
 	if (ACCOUNT_INFO[to_playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~El jugador no es nivel 2.", 3);
 
@@ -8072,18 +8121,18 @@ CMD:tirar(playerid, params[])
 	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 	{
 		new 
-			Float:pos[3],
+			Float:x, Float:y, Float:z,
 			slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
 
 		if (ammount > PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad", 4);
 		if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50) return 0;
 
-		GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+		GetPlayerPos(playerid, x, y, z);
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
 		
 		if (!PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
 		{
-			CreateDropItem(GetItemObjectByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), PLAYER_TEMP[playerid][py_NAME], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], ammount);
+			CreateDropItem(GetItemObjectByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), x, y, z - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), PLAYER_TEMP[playerid][py_NAME], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], ammount);
 			
 			SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot, ammount);
 			ResetItemBody(playerid);
@@ -8927,14 +8976,14 @@ ShowDialog(playerid, dialogid)
 				{
 					if (properties >= MAX_SU_PROPERTIES) break;
 
-					new property_name[24], Float:pos[3];
+					new property_name[24], Float:x, Float:y, Float:z;
 					PLAYER_TEMP[playerid][py_PLAYER_GPS_SELECTED_PROPERTY][properties] = db_get_field_assoc_int(Result, "ID_PROPERTY");
 					db_get_field_assoc(Result, "PROPERTY_NAME", property_name, 24);
-					pos[0] = db_get_field_assoc_float(Result, "EXT_X");
-					pos[1] = db_get_field_assoc_float(Result, "EXT_Y");
-					pos[2] = db_get_field_assoc_float(Result, "EXT_Z");
+					x = db_get_field_assoc_float(Result, "EXT_X");
+					y = db_get_field_assoc_float(Result, "EXT_Y");
+					z = db_get_field_assoc_float(Result, "EXT_Z");
 
-					format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%.2f Km\n", properties + 1, property_name, (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
+					format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%.2f Km\n", properties + 1, property_name, (GetPlayerDistanceFromPoint(playerid, x, y, z) * 0.01));
 					strcat(dialog, line_str);
 
 					properties ++;
@@ -8962,12 +9011,12 @@ ShowDialog(playerid, dialogid)
 				{
 					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_vehicles] = i;
 
-					new Float:pos[3];
-					GetVehiclePos(i, pos[0], pos[1], pos[2]);
+					new Float:x, Float:y, Float:z;
+					GetVehiclePos(i, x, y, z);
 
 					new line_str[115];
-					if (PLAYER_VEHICLES[i][player_vehicle_ACCESSIBLE]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s (%d)\t"COL_WHITE"%s\t"COL_WHITE"%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
-					else format(line_str, sizeof line_str, "{666666}%d. %s (%d)\t{666666}%s\t{666666}%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
+					if (PLAYER_VEHICLES[i][player_vehicle_ACCESSIBLE]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s (%d)\t"COL_WHITE"%s\t"COL_WHITE"%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, x, y, z) * 0.01));
+					else format(line_str, sizeof line_str, "{666666}%d. %s (%d)\t{666666}%s\t{666666}%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, x, y, z) * 0.01));
 
 					strcat(dialog, line_str);
 					total_vehicles ++;
@@ -11810,6 +11859,7 @@ ShowDialog(playerid, dialogid)
 					Sexo\t%s\n\
 					Recargar mapeos\t\n\
 					Damage informer\t%s\n\
+					Ver registros de IP\t\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
@@ -12178,6 +12228,34 @@ ShowDialog(playerid, dialogid)
 			format(caption, 64, ""COL_RED"%s", PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Editar\nVender\n", "Ver", "Atrás");
 		}
+		case DIALOG_SELECC_ANSWER:
+		{
+			new dialog[40 * 7];
+			for (new i; i < sizeof(SECURITY_QUESTIONS); i++)
+			{
+			    strcat(dialog, SECURITY_QUESTIONS[i]);
+			    strcat(dialog, "\n");
+			}
+
+			ShowPlayerNotification(playerid, "Seleccione una pregunta de seguridad, esto es para prevenir que le roben su cuenta.", 6);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seguridad de la cuenta", dialog, "Selecc.", "Salir");
+		}
+		case DIALOG_QUESTION_CREATE:
+		{
+			new dialog[180];
+			format(dialog, sizeof(dialog), ""COL_WHITE"Escriba la respuesta a la pregunta:\n"COL_RED"%s"COL_WHITE"\n\nAVISO: Si se olvida la respuesta no hay\nforma alguna de recuperar la cuenta.", SECURITY_QUESTIONS[ PLAYER_TEMP[playerid][py_ANSWER_INDEX] ]);
+
+			ShowPlayerNotification(playerid, "Escriba la respuesta a su pregunta de seguridad.", 5);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Seguridad de la cuenta", dialog, "Terminar", "Atrás");
+		}
+		case DIALOG_QUESTION_RESPONSE:
+		{
+			new dialog[164];
+			format(dialog, sizeof(dialog), ""COL_WHITE"Hay actitudes sospechosas en su cuenta, por\nfavor escriba la respuesta a la pregunta:\n"COL_RED"%s", SECURITY_QUESTIONS[ PLAYER_TEMP[playerid][py_ANSWER_INDEX] ]);
+
+			ShowPlayerNotification(playerid, "Escriba la respuesta a su pregunta de seguridad.", 5);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Seguridad de la cuenta", dialog, "Seguir", "Salir");
+		}
 		default: return 0;
 	}
 	return 1;
@@ -12314,6 +12392,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new str_text[128];
 				format(str_text, sizeof str_text, "Bienvenido %s a Hyaxe Roleplay.", PLAYER_TEMP[playerid][py_RP_NAME]);
 				ShowPlayerNotification(playerid, str_text, 4);
+
+				if (PLAYER_TEMP[playerid][py_ANSWER_INDEX] == 1337) ShowDialog(playerid, DIALOG_SELECC_ANSWER);
+
+				if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) ShowDialog(playerid, DIALOG_QUESTION_RESPONSE);
 
 				// ONLY HOST
 				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 700000, true, "i", playerid);				
@@ -13985,9 +14067,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 
-				new Float:pos[3];
-				GetVehiclePos(PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem], pos[0], pos[1], pos[2]);
-				SetPlayer_GPS_Checkpoint(playerid, pos[0], pos[1], pos[2], 0, 0);
+				new Float:x, Float:y, Float:z;
+				GetVehiclePos(PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem], x, y, z);
+				SetPlayer_GPS_Checkpoint(playerid, x, y, z, 0, 0);
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_GPS);
 			return 1;
@@ -14292,15 +14374,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerMessage(playerid, "¡Vehículo comprado! Utiliza ~y~/ayuda~w~ para ver que puedes hacer con tu nuevo vehículo.", 4);
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 
-				new Float:pos[4];
-				pos[0] = SELL_VEHICLES_SHOPS_SPAWN[ SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_SHOP] ][0];
-				pos[1] = SELL_VEHICLES_SHOPS_SPAWN[ SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_SHOP] ][1];
-				pos[2] = SELL_VEHICLES_SHOPS_SPAWN[ SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_SHOP] ][2];
-				pos[3] = SELL_VEHICLES_SHOPS_SPAWN[ SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_SHOP] ][3];
+				new Float:x, Float:y, Float:z, Float:angle;
+				x = SELL_VEHICLES_SHOPS_SPAWN[ SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_SHOP] ][0];
+				y = SELL_VEHICLES_SHOPS_SPAWN[ SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_SHOP] ][1];
+				z = SELL_VEHICLES_SHOPS_SPAWN[ SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_SHOP] ][2];
+				angle = SELL_VEHICLES_SHOPS_SPAWN[ SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_SHOP] ][3];
 
-				pos[0] += (2.0 * floatsin(-(pos[3] + 90.0), degrees));
-				pos[1] += (2.0 * floatcos(-(pos[3] + 90.0), degrees));
-				SetPlayerPosEx(playerid, pos[0], pos[1], pos[2], pos[3], 0, 0);
+				x += (2.0 * floatsin(-(angle + 90.0), degrees));
+				y += (2.0 * floatcos(-(angle + 90.0), degrees));
+				SetPlayerPosEx(playerid, x, y, z, angle, 0, 0);
 
 				if (!ACCOUNT_INFO[playerid][ac_SU]) ReLockPlayerVehicles(playerid);
 			}
@@ -15217,8 +15299,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_MECHANIC_PID])) return ShowPlayerMessage(playerid, "~r~El mecánico no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_MECHANIC_AID]) return ShowPlayerMessage(playerid, "~r~El mecánico no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_MECHANIC_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 10.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El mecánico está muy lejos.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_MECHANIC_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 10.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El mecánico está muy lejos.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El mecánico ya no está disponible.", 3);
 
 				if (PLAYER_TEMP[playerid][py_MECHANIC_PRICE] > CHARACTER_INFO[playerid][ch_CASH])
@@ -15241,7 +15323,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
-				if (GetVehicleDistanceFromPoint(PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID], pos[0], pos[1], pos[2]) > 10.0)
+				if (GetVehicleDistanceFromPoint(PLAYER_TEMP[playerid][py_MECHANIC_VEHICLE_ID], x, y, z) > 10.0)
 				{
 					ShowPlayerMessage(playerid, "~r~El vehículo está muy lejos del mecánico.", 3);
 					ShowPlayerMessage(PLAYER_TEMP[playerid][py_MECHANIC_PID], "~r~El vehículo está muy lejos.", 3);
@@ -15963,8 +16045,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor está desconectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 
 
@@ -16002,8 +16084,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 
 
@@ -16037,8 +16119,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 
 
@@ -16071,8 +16153,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 
 
@@ -16106,8 +16188,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 
 
@@ -16140,8 +16222,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 
 
@@ -16174,8 +16256,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 
 
@@ -16208,8 +16290,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 
 
@@ -16260,8 +16342,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 
 
@@ -17932,8 +18014,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_CREW_INVITE_PID])) return ShowPlayerMessage(playerid, "~r~El jugador no está conectado.", 2);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_CREW_INVITE_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_CREW_INVITE_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 				if (PLAYER_WORKS[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Esta persona es policía y no puede tener banda.", 3);
 				if (PLAYER_CREW[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona pertenece a otra banda.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_CREW_INVITE_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) ShowPlayerMessage(playerid, "~r~No puedes invitar a este jugador ahora, prueba despues.", 3);
@@ -18693,8 +18775,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_POLICE_PEN_PID])) return ShowPlayerMessage(playerid, "~r~El policía no está conectado.", 3);
 				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_POLICE_PEN_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_POLICE_PEN_AID]) return ShowPlayerMessage(playerid, "~r~El policía no está conectado.", 3);
 
-				new Float:pos[3]; GetPlayerPos(PLAYER_TEMP[playerid][py_POLICE_PEN_PID], pos[0], pos[1], pos[2]);
-				if (!IsPlayerInRangeOfPoint(playerid, 5.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El policía no estpa cerca tuya.", 3);
+				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_POLICE_PEN_PID], x, y, z);
+				if (!IsPlayerInRangeOfPoint(playerid, 5.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El policía no estpa cerca tuya.", 3);
 
 				if (PLAYER_TEMP[playerid][py_POLICE_PEN_IM] > CHARACTER_INFO[playerid][ch_CASH])
 				{
@@ -19444,6 +19526,37 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						SavePlayerMisc(playerid);
 						ShowDialog(playerid, dialogid);
+					}
+					case 9:
+					{
+						new dialog[64 * 10];
+
+						new DBResult:Result, DB_Query[140];
+						format(DB_Query, sizeof DB_Query, "SELECT * FROM `ADDRESS_LOG` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT 10;", ACCOUNT_INFO[playerid][ac_ID]);
+						Result = db_query(Database, DB_Query);
+
+						if (db_num_rows(Result) == 0) strcat(dialog, ""COL_WHITE"No hay registros.");
+						else
+						{
+							for(new i; i < db_num_rows(Result); i++ )
+							{
+								new 
+									line_str[125],
+									message[128],
+									date;
+
+								date = db_get_field_assoc_int(Result, "DATE");
+								db_get_field_assoc(Result, "CONTENT", message, 128);
+
+								format(line_str, sizeof line_str, ""COL_WHITE"%s\t%s\n", message, ReturnTimelapse(date, gettime()));
+								strcat(dialog, line_str);
+
+								db_next_row(Result);
+							}
+							db_free_result(Result);
+						}
+
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", dialog, "Cerrar", "");
 					}
 				}
 			}
@@ -20213,6 +20326,70 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 			else ShowDialog(playerid, DIALOG_FURNITURE_LIST);
+		}
+		case DIALOG_SELECC_ANSWER:
+		{
+			if (response)
+			{
+				PLAYER_TEMP[playerid][py_ANSWER_INDEX] = listitem;
+				ShowDialog(playerid, DIALOG_QUESTION_CREATE);
+			}
+			else Kick(playerid);
+		}
+		case DIALOG_QUESTION_CREATE:
+		{
+			if (response)
+			{
+				if (strlen(inputtext) >= 32)
+				{
+					ShowPlayerMessage(playerid, "~r~La respuesta es muy larga.", 3);
+					ShowDialog(playerid, DIALOG_QUESTION_CREATE);
+					return 0;
+				}
+
+				new DB_Query[160];
+				format
+				(
+					DB_Query, sizeof DB_Query,
+					"\
+						INSERT INTO `SECURITY_QUESTIONS`\
+						(\
+							`ID_USER`, `QUESTION`, 'RESPONSE'\
+						)\
+						VALUES\
+						(\
+							'%d', '%d', '%q'\
+						);\
+					",
+					ACCOUNT_INFO[playerid][ac_ID],
+					PLAYER_TEMP[playerid][py_ANSWER_INDEX],
+					inputtext
+				);
+				db_free_result(db_query(Database, DB_Query));
+
+				ShowPlayerNotification(playerid, "Perfecto, ya tienes protegida tu cuenta, recuerda no darle la respuesta a nadie.", 5);
+			}
+			else ShowDialog(playerid, DIALOG_SELECC_ANSWER);
+		}
+		case DIALOG_QUESTION_RESPONSE:
+		{
+			if (response)
+			{
+				if (!strcmp(inputtext, PLAYER_TEMP[playerid][py_ANSWER_RESPONSE], false))
+				{
+					if (strlen(inputtext) >= 32)
+					{
+						ShowPlayerMessage(playerid, "~r~La respuesta es muy larga.", 3);
+						ShowDialog(playerid, DIALOG_QUESTION_RESPONSE);
+						return 0;
+					}
+
+					ShowPlayerNotification(playerid, "Respuesta correcta, ya puedes jugar nuevamente.", 4);
+					PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = false;
+				}
+				else Kick(playerid);
+			}
+			else Kick(playerid);
 		}
 	}
 	return 0;
@@ -21183,7 +21360,7 @@ LoadCharacterData(playerid)
 {
 	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
 
-	new DBResult:Result, DB_Query[80];
+	new DBResult:Result, DB_Query[164];
 	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PERSONAJE` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 	Result = db_query(Database, DB_Query);
 
@@ -21203,6 +21380,19 @@ LoadCharacterData(playerid)
 		db_get_field_assoc(Result, "JAIL_REASON", CHARACTER_INFO[playerid][ch_JAIL_REASON]);
 		CHARACTER_INFO[playerid][ch_JAILED_BY] = db_get_field_assoc_int(Result, "JAILED_BY");
 	}
+	db_free_result(Result);
+
+	// Security question
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `SECURITY_QUESTIONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		PLAYER_TEMP[playerid][py_ANSWER_INDEX] = db_get_field_assoc_int(Result, "QUESTION");
+		db_get_field_assoc(Result, "RESPONSE", PLAYER_TEMP[playerid][py_ANSWER_RESPONSE], 32);
+	}
+	else PLAYER_TEMP[playerid][py_ANSWER_INDEX] = 1337;
+
 	db_free_result(Result);
 	return 1;
 }
@@ -21904,19 +22094,19 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 			HidePhone(playerid);
 			PLAYER_TEMP[playerid][py_SELFIE] = true;
 
-			new Float:pos[3],
+			new Float:x, Float:y, Float:z,
 				Float:angle,
-				Float:cam[2];
+				Float:cam_x, Float:cam_y;
 
-			GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+			GetPlayerPos(playerid, x, y, z);
 			GetPlayerFacingAngle(playerid, angle);
 
 			if (angle >= 360.0) angle = 0.0;
 			angle += 1.25;
-			cam[0] = pos[0] + 1.4 * floatcos(angle, degrees);
-			cam[1] = pos[1] + 1.4 * floatsin(angle, degrees);
-			SetPlayerCameraPos(playerid, cam[0], cam[1], pos[2] + 1.0);
-			SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2] + 1);
+			cam_x = x + 1.4 * floatcos(angle, degrees);
+			cam_y = y + 1.4 * floatsin(angle, degrees);
+			SetPlayerCameraPos(playerid, cam_x, cam_y, z + 1.0);
+			SetPlayerCameraLookAt(playerid, x, y, z + 1);
 			SetPlayerFacingAngle(playerid, angle - 90.0);
 			TogglePlayerControllableEx(playerid, false);
 			ApplyAnimation(playerid, "PED", "gang_gunstand", 4.1, 1, 1, 1, 1, 1, 1);
@@ -23895,12 +24085,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				if (DROP_ITEMS[i][itm_VALID] == true)
 				{
-					new Float:pos[3]; 
-					Streamer_GetFloatData(STREAMER_TYPE_OBJECT, DROP_ITEMS[i][itm_ID], E_STREAMER_X, pos[0]);
-					Streamer_GetFloatData(STREAMER_TYPE_OBJECT, DROP_ITEMS[i][itm_ID], E_STREAMER_Y, pos[1]);
-					Streamer_GetFloatData(STREAMER_TYPE_OBJECT, DROP_ITEMS[i][itm_ID], E_STREAMER_Z, pos[2]);
+					new Float:x, Float:y, Float:z; 
+					Streamer_GetFloatData(STREAMER_TYPE_OBJECT, DROP_ITEMS[i][itm_ID], E_STREAMER_X, x);
+					Streamer_GetFloatData(STREAMER_TYPE_OBJECT, DROP_ITEMS[i][itm_ID], E_STREAMER_Y, y);
+					Streamer_GetFloatData(STREAMER_TYPE_OBJECT, DROP_ITEMS[i][itm_ID], E_STREAMER_Z, z);
 
-					if (IsPlayerInRangeOfPoint(playerid, 1.5, pos[0], pos[1], pos[2]))
+					if (IsPlayerInRangeOfPoint(playerid, 1.5, x, y, z))
 					{
 						if (PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
@@ -23943,12 +24133,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
     	{
-    		new Float:pos[3];
+    		new Float:x, Float:y, Float:z;
     		if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
     		{
-				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] - 0.1);
-				SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z - 0.1);
+				SetPlayerCameraLookAt(playerid, x, y, z);
 			}
 		}
 	}
@@ -24191,12 +24381,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
     	{
-    		new Float:pos[3];
+    		new Float:x, Float:y, Float:z;
     		if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
     		{
-				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] + 0.1);
-				SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z + 0.1);
+				SetPlayerCameraLookAt(playerid, x, y, z);
 			}
 		}
 
@@ -24215,6 +24405,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		GrabPlant(playerid);
 		return 1;
 	}
+
+	if ((newkeys & (KEY_FIRE | KEY_CROUCH)) == (KEY_FIRE | KEY_CROUCH) && (oldkeys & (KEY_FIRE | KEY_CROUCH)) != (KEY_FIRE | KEY_CROUCH))
+    {
+    	ApplyAnimation(playerid, "GYMNASIUM", "gym_tread_falloff", 1.0, 0, 0, 0, 0, 0);
+    }
 
 	if (newkeys & KEY_HANDBRAKE && !IsPlayerInAnyVehicle(playerid)) PLAYER_TEMP[playerid][py_AIM_DATA] = 1;
 	else if (oldkeys & KEY_HANDBRAKE) PLAYER_TEMP[playerid][py_AIM_DATA] = 0;
@@ -24352,13 +24547,8 @@ public OnPlayerUpdate(playerid)
 
 	new 
 		player_action = GetPlayerSpecialAction(playerid),
-		Float:player_health,
-		Float:player_armour,
 		current_gettime = gettime()
 	;
-	
-	GetPlayerHealth(playerid, player_health);
-	GetPlayerArmour(playerid, player_armour);
 
 	if (ac_Info[CHEAT_JETPACK][ac_Enabled])
 	{
@@ -24558,8 +24748,8 @@ public OnPlayerUpdate(playerid)
 		}
 	}
 
-	CHARACTER_INFO[playerid][ch_HEALTH] = player_health;
-	CHARACTER_INFO[playerid][ch_ARMOUR] = player_armour;
+	CHARACTER_INFO[playerid][ch_HEALTH] = g_iPlayerHealth[playerid];
+	CHARACTER_INFO[playerid][ch_ARMOUR] = g_iPlayerArmour[playerid];
 	GetPlayerPos(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2]);
 	if (vehicleid)
 	{
@@ -24571,8 +24761,7 @@ public OnPlayerUpdate(playerid)
 		Keys,
 		ud,
 		lr,
-		Float:angle,
-		Float:pos[3]
+		Float:x, Float:y, Float:z
 	;
 
     GetPlayerKeys(playerid, Keys, ud, lr);
@@ -24581,37 +24770,15 @@ public OnPlayerUpdate(playerid)
 	{
 		if (PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] == false)
 		{
-			GetPlayerFacingAngle(playerid, angle);
-
 			switch(ud)
 			{
 				case KEY_UP:
 	    		{
-					SetPlayerFacingAngle(playerid, angle + 20.0);
 					ApplyAnimation(playerid, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
+					SetPlayerFacingAngle(playerid, CameraLookToAngle(playerid) + 90.0);
+
 					PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = true;
 					SetTimerEx("InjuredAnimationCut", 470, false, "i", playerid);
-				}
-
-				case KEY_DOWN:
-			    {
-			    	SetPlayerFacingAngle(playerid, 180);
-			    	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-			    }
-			}
-
-			switch(lr)
-			{
-				case KEY_LEFT:
-				{
-					SetPlayerFacingAngle(playerid, angle + 16.0);
-					ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-				}
-
-				case KEY_RIGHT:
-				{
-					SetPlayerFacingAngle(playerid, angle - 16.0);
-					ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
 				}
 			}
 		}
@@ -24625,14 +24792,14 @@ public OnPlayerUpdate(playerid)
 			{
 				if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
 				{
-					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 0.1, pos[1], pos[2]);
-					SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x + 0.1, y, z);
+					SetPlayerCameraLookAt(playerid, x, y, z);
 				}
 				else
 				{
-					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 3.0, pos[1], pos[2]);
+					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], x + 3.0, y, z);
 				}
 			}
 
@@ -24640,14 +24807,14 @@ public OnPlayerUpdate(playerid)
 		    {
 		    	if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
 		    	{
-					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] - 0.1, pos[1], pos[2]);
-					SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x - 0.1, y, z);
+					SetPlayerCameraLookAt(playerid, x, y, z);
 				}
 				else
 				{
-					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 3.0, pos[2]);
+					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y + 3.0, z);
 				}
 		    }
 		}
@@ -24658,14 +24825,14 @@ public OnPlayerUpdate(playerid)
 			{
 				if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
 				{
-					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 0.1, pos[2]);
-					SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y + 0.1, z);
+					SetPlayerCameraLookAt(playerid, x, y, z);
 				}
 				else
 				{
-					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] - 1.5);
+					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z - 1.5);
 				}
 			}
 
@@ -24673,14 +24840,14 @@ public OnPlayerUpdate(playerid)
 			{
 				if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
 				{
-					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] - 0.1, pos[2]);
-					SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+					GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+					SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y - 0.1, z);
+					SetPlayerCameraLookAt(playerid, x, y, z);
 				}
 				else
 				{
-					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] + 1.5);
+					GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
+					SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z + 1.5);
 				}
 			}
 		}
@@ -24875,141 +25042,141 @@ CreateInteriorActor(interior_type, world, interior)
 {
 	if (interior_type == INTERIOR_NO_INFO) return 0;
 
-	new skin, Float:pos[4];
+	new skin, Float:x, Float:y, Float:z, Float:angle;
 
 	switch(interior_type)
 	{
 		case INTERIOR_BINCO:
 		{
 			skin      = 119;
-			pos[0]    = 208.376373;
-			pos[1]    = -98.703956;
-			pos[2]    = 1005.257812;
-			pos[3]    = 180.0;
+			x    = 208.376373;
+			y    = -98.703956;
+			z    = 1005.257812;
+			angle    = 180.0;
 		}
 		case INTERIOR_SUBURBAN:
 		{
 			skin      = 191;
-			pos[0]    = 203.826187;
-			pos[1]    = -41.667518;
-			pos[2]    = 1001.804687;
-			pos[3]    = 180.0;
+			x    = 203.826187;
+			y    = -41.667518;
+			z    = 1001.804687;
+			angle    = 180.0;
 		}
 		case INTERIOR_PROLAPS:
 		{
 			skin      = 190;
-			pos[0]    = 207.139907;
-			pos[1]    = -127.805473;
-			pos[2]    = 1003.507812;
-			pos[3]    = 180.0;
+			x    = 207.139907;
+			y    = -127.805473;
+			z    = 1003.507812;
+			angle    = 180.0;
 		}
 		case INTERIOR_DIDIER_SACHS:
 		{
 			skin      = 169;
-			pos[0]    = 204.275909;
-			pos[1]    = -157.829010;
-			pos[2]    = 1000.523437;
-			pos[3]    = 180.0;
+			x    = 204.275909;
+			y    = -157.829010;
+			z    = 1000.523437;
+			angle    = 180.0;
 		}
 		case INTERIOR_VICTIM:
 		{
 			skin      = 217;
-			pos[0]    = 204.853225;
-			pos[1]    = -8.764448;
-			pos[2]    = 1001.210937;
-			pos[3]    = 270.0;
+			x    = 204.853225;
+			y    = -8.764448;
+			z    = 1001.210937;
+			angle    = 270.0;
 		}
 		case INTERIOR_ZIP:
 		{
 			skin      = 211;
-			pos[0]    = 162.226135;
-			pos[1]    = -81.191978;
-			pos[2]    = 1001.804687;
-			pos[3]    = 180.0;
+			x    = 162.226135;
+			y    = -81.191978;
+			z    = 1001.804687;
+			angle    = 180.0;
 		}
 		case INTERIOR_247:
 		{
 			skin      = 184;
-			pos[0]    = -27.483411;
-			pos[1]    = -91.628837;
-			pos[2]    = 1003.546875;
-			pos[3]    = 0.0;
+			x    = -27.483411;
+			y    = -91.628837;
+			z    = 1003.546875;
+			angle    = 0.0;
 		}
 		case INTERIOR_PIZZA:
 		{
 			skin      = 155;
-			pos[0]    = 375.114501;
-			pos[1]    = -117.272621;
-			pos[2]    = 1001.492187;
-			pos[3]    = 180.0;
+			x    = 375.114501;
+			y    = -117.272621;
+			z    = 1001.492187;
+			angle    = 180.0;
 		}
 		case INTERIOR_CLUCKIN_BELL:
 		{
 			skin      = 167;
-			pos[0]    = 368.652679;
-			pos[1]    = -4.492218;
-			pos[2]    = 1001.851562;
-			pos[3]    = 180.0;
+			x    = 368.652679;
+			y    = -4.492218;
+			z    = 1001.851562;
+			angle    = 180.0;
 		}
 		case INTERIOR_BURGER_SHOT:
 		{
 			skin      = 205;
-			pos[0]    = 376.114227;
-			pos[1]    = -65.848991;
-			pos[2]    = 1001.507812;
-			pos[3]    = 180.0;
+			x    = 376.114227;
+			y    = -65.848991;
+			z    = 1001.507812;
+			angle    = 180.0;
 		}
 		case INTERIOR_BANK_LS:
 		{
 			skin      = 59;
-			pos[0]    = 1407.526489;
-			pos[1]    = 1321.833496;
-			pos[2]    = 1501.091918;
-			pos[3]    = 180.0;
+			x    = 1407.526489;
+			y    = 1321.833496;
+			z    = 1501.091918;
+			angle    = 180.0;
 		}
 		case INTERIOR_BANK_SF:
 		{
 			skin      = 59;
-			pos[0]    = 1104.802001;
-			pos[1]    = 1531.275634;
-			pos[2]    = 1452.475097;
-			pos[3]    = 180.0;
+			x    = 1104.802001;
+			y    = 1531.275634;
+			z    = 1452.475097;
+			angle    = 180.0;
 		}
 		case INTERIOR_BANK_LV:
 		{
 			skin      = 59;
-			pos[0]    = 2692.497558;
-			pos[1]    = -610.933593;
-			pos[2]    = -71.658203;
-			pos[3]    = 90.0;
+			x    = 2692.497558;
+			y    = -610.933593;
+			z    = -71.658203;
+			angle    = 90.0;
 		}
 		case INTERIOR_CITY_HALL_LS:
 		{
 			skin      = 186;
-			pos[0]    = -474.572387;
-			pos[1]    = 287.982879;
-			pos[2]    = 2004.584960;
-			pos[3]    = 0.0;
+			x    = -474.572387;
+			y    = 287.982879;
+			z    = 2004.584960;
+			angle    = 0.0;
 		}
 		case INTERIOR_UNITY_STATION:
 		{
 			skin      = 184;
-			pos[0]    = 1489.038818;
-			pos[1]    = 1305.631591;
-			pos[2]    = 1093.296386;
-			pos[3]    = 270.0;
+			x    = 1489.038818;
+			y    = 1305.631591;
+			z    = 1093.296386;
+			angle    = 270.0;
 		}
 		case INTERIOR_TRUCK:
 		{
 			skin      = 127;
-			pos[0]    = 1297.120117;
-			pos[1]    = -66.351226;
-			pos[2]    = 1002.497375;
-			pos[3]    = 0.0;
+			x    = 1297.120117;
+			y    = -66.351226;
+			z    = 1002.497375;
+			angle    = 0.0;
 		}
 	}
 
-	CreateDynamicActor(skin, pos[0], pos[1], pos[2], pos[3], 0, 50.0, world, interior);
+	CreateDynamicActor(skin, x, y, z, angle, 0, 50.0, world, interior);
 	return 1;
 }
 
@@ -27003,13 +27170,13 @@ SetPlayerVehiclePark(playerid)
 	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 2);
 	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 2);
 
-	new Float:pos[3], Float:angle;
-	GetVehiclePos(vehicleid, pos[0], pos[1], pos[2]);
+	new Float:x, Float:y, Float:z, Float:angle;
+	GetVehiclePos(vehicleid, x, y, z);
 	GetVehicleZAngle(vehicleid, angle);
 
-	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_X] = pos[0];
-	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_Y] = pos[1];
-	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_Z] = pos[2];
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_X] = x;
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_Y] = y;
+	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_Z] = z;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWN_ANGLE] = angle;
 
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LAST_CLOSED_TIME] = gettime();
@@ -27048,11 +27215,11 @@ CMD:motor(playerid, params[])
 
 CMD:testedit666(playerid, params[])
 {
-	new Float:pos[3];
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(playerid, x, y, z);
 	PLAYER_TEMP[playerid][py_EDITING_OBJ] = CreateDynamicObject(
 		19912,
-		pos[0], pos[1], pos[2], 0.0, 0.0, 0.0,0,0);
+		x, y, z, 0.0, 0.0, 0.0,0,0);
 
 	EditingMode(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
 	return 1;
@@ -27650,12 +27817,12 @@ SetMedicPlayerMarkers(playerid)
 SendAlertToMedics(playerid)
 {
 	new
-		Float:pos[3],
+		Float:x, Float:y, Float:z,
 		str_text[128],
 		total_medics = 0
 	;
 
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+	GetPlayerPos(playerid, x, y, z);
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -27666,7 +27833,7 @@ SendAlertToMedics(playerid)
 			if (PLAYER_TEMP[i][py_WORKING_IN] != WORK_MEDIC) continue;
 
 			SetPlayerMarkerForPlayer(i, playerid, COLOR_GREEN);
-			format(str_text, sizeof(str_text), "~g~%s~w~ esta solicitando ayuda (%.2f Km).", PLAYER_TEMP[playerid][py_NAME], (GetPlayerDistanceFromPoint(i, pos[0], pos[1], pos[2]) * 0.01));
+			format(str_text, sizeof(str_text), "~g~%s~w~ esta solicitando ayuda (%.2f Km).", PLAYER_TEMP[playerid][py_NAME], (GetPlayerDistanceFromPoint(i, x, y, z) * 0.01));
 			ShowPlayerNotification(i, str_text, 4);
 
 			total_medics ++;
@@ -27681,8 +27848,8 @@ SendAlertToMedics(playerid)
 
 SendAlertToMechanic(playerid)
 {
-	new Float:pos[3];
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(playerid, x, y, z);
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -27696,7 +27863,7 @@ SendAlertToMechanic(playerid)
 
 				SetPlayerMarkerForPlayer(i, playerid, 0xf4c242FF);
 				ShowPlayerMessage(i, "~y~Hay un nuevo cliente solicitando un mecánico.", 2);
-				SendClientMessageEx(i, COLOR_WHITE, "Hay un nuevo cliente solicitando un mecánico, distancia: "COL_RED"%.2f Km.", (GetPlayerDistanceFromPoint(i, pos[0], pos[1], pos[2]) * 0.01));
+				SendClientMessageEx(i, COLOR_WHITE, "Hay un nuevo cliente solicitando un mecánico, distancia: "COL_RED"%.2f Km.", (GetPlayerDistanceFromPoint(i, x, y, z) * 0.01));
 			}
 		}
 	}
@@ -28153,9 +28320,9 @@ StartPlanting(playerid, type)
 	{
 		if (!PLANTS[i][plant_VALID]) continue;
 
-		new Float:pos[3];
-		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], pos[0], pos[1], pos[2]);
-		if (IsPlayerInRangeOfPoint(playerid, 3.0, pos[0], pos[1], pos[2]))
+		new Float:x, Float:y, Float:z;
+		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], x, y, z);
+		if (IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
 		{
 			ShowPlayerMessage(playerid, "Aquí ya hay una planta, aléjate un poco para plantar.", 4);
 			return 1;
@@ -28234,9 +28401,9 @@ CMD:plantar(playerid, params[])
 	{
 		if (!PLANTS[i][plant_VALID]) continue;
 
-		new Float:pos[3];
-		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], pos[0], pos[1], pos[2]);
-		if (IsPlayerInRangeOfPoint(playerid, 3.0, pos[0], pos[1], pos[2]))
+		new Float:x, Float:y, Float:z;
+		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], x, y, z);
+		if (IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
 		{
 			ShowPlayerMessage(playerid, "Aquí ya hay una planta, aléjate un poco para plantar.", 4);
 			return 1;
@@ -28923,9 +29090,9 @@ CALLBACK: ExpirePlantTime(plant)
 		return 1;
 	}
 
-	new Float:pos[3];
-	GetDynamicObjectPos(PLANTS[plant][plant_OBJECT_ID], pos[0], pos[1], pos[2]);
-	CreateFlashObject(pos[0], pos[1], pos[2] - 1.3);
+	new Float:x, Float:y, Float:z;
+	GetDynamicObjectPos(PLANTS[plant][plant_OBJECT_ID], x, y, z);
+	CreateFlashObject(x, y, z - 1.3);
 
 	DestroyDynamicObject(PLANTS[plant][plant_OBJECT_ID]);
 	DestroyDynamic3DTextLabel(PLANTS[plant][plant_LABEL_ID]);
@@ -28978,23 +29145,23 @@ CALLBACK: UpdatePlayer_GPS_Map(playerid)
 	*/
 	if (!PLAYER_TEMP[playerid][py_GPS_MAP]) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][13]);
 
-	new Float:pos[3];
+	new Float:x, Float:y, Float:z;
 
 	switch(CHARACTER_INFO[playerid][ch_STATE])
 	{
 		case ROLEPLAY_STATE_INTERIOR:
 		{
-			pos[0] = ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X];
-			pos[1] = ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y];
+			x = ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X];
+			y = ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y];
 		}
 		case ROLEPLAY_STATE_OWN_PROPERTY, ROLEPLAY_STATE_GUEST_PROPERTY:
 		{
-			pos[0] = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PROPERTY_INDEX] ][property_EXT_X];
-			pos[1] = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PROPERTY_INDEX] ][property_EXT_Y];
+			x = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PROPERTY_INDEX] ][property_EXT_X];
+			y = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PROPERTY_INDEX] ][property_EXT_Y];
 		}
-		default: GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+		default: GetPlayerPos(playerid, x, y, z);
 	}
-	SetPlayerPoint_GPS_Map(0, playerid, "hud:radar_waypoint", COLOR_WHITE, 5.0, 5.0, pos[0], pos[1]);
+	SetPlayerPoint_GPS_Map(0, playerid, "hud:radar_waypoint", COLOR_WHITE, 5.0, 5.0, x, y);
 
 	if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_GPS_CHECKPOINT]))
 	{
@@ -29443,12 +29610,12 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		FreezePlayer(playerid, 3000);
 	}
 
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
+	/*if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
 	{
 		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar estando herido.");
 		TogglePlayerControllableEx(playerid, false);
 		KickEx(playerid, 500);
-	}
+	}*/
 
 	if (PLAYER_TEMP[playerid][py_EXPLOSION_BULLET] == true)
 	{
@@ -29844,10 +30011,10 @@ CMD:cagar(playerid, params[])
 	ApplyAnimation(playerid, "ped", "SEAT_down", 4.000000, 0, 1, 1, 1, 0);
 	SetTimerEx("StopShitting", 3000, false, "i", playerid);
 
-	new Float:pos[3];
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(playerid, x, y, z);
 
-	new shit_particle = CreateDynamicObject(18678, pos[0], pos[1], pos[2] - 2.8, 0.0, 0.0, 0.0);
+	new shit_particle = CreateDynamicObject(18678, x, y, z - 2.8, 0.0, 0.0, 0.0);
 	SetTimerEx("DestroyShitObject", 1000, false, "i", shit_particle);
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Se baja los pantalones para cagar.\n\n\n", 0xffcb90FF, 20.0, 5000);
@@ -30197,8 +30364,8 @@ CMD:esposar(playerid, params[])
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
-	new Float:pos[3]; GetPlayerPos(params[0], pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 30.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 30.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes esposar a este jugador ahora.", 3);
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para esposar a esta persona tiene que estar depie.", 3);
 
@@ -30246,8 +30413,8 @@ CMD:placa(playerid, params[])
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /placa [ID o nombre]");
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
-	new Float:pos[3]; GetPlayerPos(params[0], pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes enseñarle tu placa a este jugador ahora.", 3);
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Le enseña su placa a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
@@ -30264,8 +30431,8 @@ CMD:revisar(playerid, params[])
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
-	new Float:pos[3]; GetPlayerPos(params[0], pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes revisar a este jugador ahora.", 3);
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar depie.", 3);
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
@@ -30285,8 +30452,8 @@ CMD:requisar(playerid, params[])
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
-	new Float:pos[3]; GetPlayerPos(params[0], pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes revisar a este jugador ahora.", 3);
 	if (GetPlayerState(params[0]) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar depie.", 3);
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
@@ -30395,13 +30562,13 @@ CMD:control(playerid, params[])
 	POLICE_OBJECTS[index][police_object_VALID] = true;
 	format(POLICE_OBJECTS[index][police_object_USER], 24, "%s", ACCOUNT_INFO[playerid][ac_NAME]);
 
-	new Float:pos[3], Float:angle;
-	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+	new Float:x, Float:y, Float:z, Float:angle;
+	GetPlayerPos(playerid, x, y, z);
 	GetPlayerFacingAngle(playerid, angle);
-	pos[0] += (1.5 * floatsin(-angle, degrees));
-	pos[1] += (1.5 * floatcos(-angle, degrees));
+	x += (1.5 * floatsin(-angle, degrees));
+	y += (1.5 * floatcos(-angle, degrees));
 
-	POLICE_OBJECTS[index][police_object_OBJECT_ID] = CreateDynamicObject(modelid, pos[0], pos[1], pos[2], 0.0, 0.0, angle, 0, 0);
+	POLICE_OBJECTS[index][police_object_OBJECT_ID] = CreateDynamicObject(modelid, x, y, z, 0.0, 0.0, angle, 0, 0);
 	Streamer_Update(playerid);
 	new info[2];
 	info[0] = WORK_POLICE;
@@ -30507,8 +30674,8 @@ CMD:multar(playerid, params[])
 	else if (params[1] > 500000) return ShowPlayerMessage(playerid, "~r~El precio no puede ser mayor a 500.000$.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
-	new Float:pos[3]; GetPlayerPos(params[0], pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 5.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 5.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes multar a este jugador ahora.", 3);
 	if (CHARACTER_INFO[params[0]][ch_STATE] == ROLEPLAY_STATE_ARRESTED || CHARACTER_INFO[params[0]][ch_STATE] == ROLEPLAY_STATE_JAIL) return ShowPlayerMessage(playerid, "~r~No puedes multar a este jugador ahora.", 3);
 
@@ -30539,8 +30706,8 @@ CMD:arrestar(playerid, params[])
 	if ( (params[1] + 1) > VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_SEATS]) return SendClientMessageEx(playerid, COLOR_WHITE, "Este vehículo policial es de %d pasajeros, así que no puedes llevar arrestados en él.", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_SEATS]);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
-	new Float:pos[3]; GetPlayerPos(params[0], pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 20.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 20.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes arrestar a este jugador ahora.", 3);
 
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para arrestar a esta persona tiene que estar esposada.", 3);
@@ -30626,8 +30793,8 @@ CMD:entregar(playerid, params[])
 	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~Para entregar tienes que estar dentro de un vehículo policial.", 3);
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
-	new Float:pos[3]; GetPlayerPos(params[0], pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 5.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+	new Float:x, Float:y, Float:z; GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 5.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes arrestar a este jugador ahora.", 3);
 	if (GetPlayerState(params[0]) != PLAYER_STATE_PASSENGER) return ShowPlayerMessage(playerid, "~r~Para entregar a esta persona tiene que estar dentro del vehículo policial.", 3);
 	if (GetPlayerVehicleID(params[0]) != vehicleid) return ShowPlayerMessage(playerid, "~r~Para entregar a esta persona tiene que estar dentro del vehículo policial.", 3);
@@ -31755,8 +31922,8 @@ InviteToSAPD(playerid, to_player)
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 	if (to_player == playerid) return 1;
 
-	new Float:pos[3]; GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
 	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es policía.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
@@ -31803,8 +31970,8 @@ InviteToLCN(playerid, to_player)
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 	if (to_player == playerid) return 1;
 
-	new Float:pos[3]; GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
 	if (PLAYER_WORKS[to_player][WORK_MAFIA]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
@@ -31844,8 +32011,8 @@ InviteToTCC(playerid, to_player)
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 	if (to_player == playerid) return 1;
 
-	new Float:pos[3]; GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
 	if (PLAYER_WORKS[to_player][WORK_ENEMY_MAFIA]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
@@ -31885,8 +32052,8 @@ InviteToFO(playerid, to_player)
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 	if (to_player == playerid) return 1;
 
-	new Float:pos[3]; GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, pos[0], pos[1], pos[2])) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
 	if (PLAYER_WORKS[to_player][WORK_ENEMY_MAFIA]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
@@ -32976,10 +33143,10 @@ EditVehicleObject(playerid, vehicleid, slot)
 	PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;
 	GetVehiclePos(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][0], GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][1], GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][2]);
 	
-	new Float:pos[3];
-	pos[0] = GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][0] + VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][0];
-	pos[1] = GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][1] + VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][1];
-	pos[2] = GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][2] + VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][2];
+	new Float:x, Float:y, Float:z;
+	x = GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][0] + VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][0];
+	y = GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][1] + VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][1];
+	z = GLOBAL_VEHICLES[vehicleid][gb_vehicle_POS][2] + VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][2];
 	
 	PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][0] = VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][0];
 	PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][1] = VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][1];
@@ -32988,7 +33155,7 @@ EditVehicleObject(playerid, vehicleid, slot)
 	PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][4] = VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][1];
 	PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][5] = VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][2];
 	
-	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = CreatePlayerObject(playerid, 999, pos[0], pos[1], pos[2], VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][0], VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][1], VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][2]);
+	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = CreatePlayerObject(playerid, 999, x, y, z, VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][0], VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][1], VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][2]);
 	SetPlayerObjectMaterial(playerid, PLAYER_TEMP[playerid][py_PIVOT_OBJECT], 0, 0, "null", "null");
 	SetPlayerObjectMaterial(playerid, PLAYER_TEMP[playerid][py_PIVOT_OBJECT], 1, 0, "null", "null");
 	
@@ -33550,8 +33717,10 @@ CALLBACK: ContinuePlayerIntro(playerid, step)
 			ShowPlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay, versión experimental.", 12);
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 
+			ShowDialog(playerid, DIALOG_SELECC_ANSWER);
+
 			SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0);
-			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 13000, false, "id", playerid, 2);
+			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 40000, false, "id", playerid, 2);
 		}
 		case 2:
 		{
@@ -33891,6 +34060,7 @@ flags:giftvip(CMD_OPERATOR)
 flags:setpd(CMD_OPERATOR)
 flags:moderador(CMD_MODERATOR)
 flags:pnot(CMD_MODERATOR)
+flags:plog(CMD_MODERATOR)
 flags:addcode(CMD_OPERATOR)
 flags:muteard(CMD_HELPER)
 flags:desmuteard(CMD_HELPER)
@@ -33997,5 +34167,17 @@ flags:depositveh(CMD_MODERATOR)
 CMD:aaaaaaaa(playerid, params[])
 {
 	SetPlayerHealthEx(playerid, 0.0);
+	return 1;
+}
+
+CMD:findz(playerid, params[])
+{
+	extract params -> new Float:x, Float:y; else
+		return SendClientMessage(playerid, -1, "no");
+	
+	new Float:z;
+
+	CA_FindZ_For2DCoord(x, y, z);
+	SetPlayerPos(playerid, x, y, z);
 	return 1;
 }
