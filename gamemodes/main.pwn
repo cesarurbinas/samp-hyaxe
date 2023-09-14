@@ -28002,7 +28002,7 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 
 			switch(type)
 			{
-				case ACTOR_TYPE_SHOP
+				case ACTOR_TYPE_SHOP:
 				{
 					SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 2);
 					format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Homicidio");
@@ -28011,12 +28011,8 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 				case ACTOR_TYPE_DEALER:
 				{
 					// In-Front special drop
-					if (rangom(2) == 1)
+					if (random(2) == 1)
 					{
-						new Float:angle, Float:x, Float:y, Float:z;
-						GetDynamicActorFacingAngle(actorid, angle);
-						GetDynamicActorPos(actorid, x, y, z);
-
 						GetXYFromAngle(x, y, angle, 1.1);
 						CreateDropItem(GetItemObjectByType(22), x, y, z, 0.0, 0.0, 0.0, 0, 0, GetItemNameByType(22), PLAYER_TEMP[playerid][py_NAME], 22, minrand(10, 50));
 					}
