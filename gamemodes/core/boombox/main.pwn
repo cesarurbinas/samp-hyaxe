@@ -43,8 +43,8 @@ CreateBoombox(playerid)
 	GetPlayerPos(playerid, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2]);
 	BOOMBOX[id][bb_INTERIOR] = GetPlayerInterior(playerid);
 	BOOMBOX[id][bb_WORLD] = GetPlayerVirtualWorld(playerid);
-	BOOMBOX[id][bb_OBJECT] = CreateDynamicObject(2226, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2], 0.0, 0.0, 0.0, .worldid = BOOMBOX[id][bb_WORLD], .interiorid = BOOMBOX[id][bb_INTERIOR]);
-	BOOMBOX[id][bb_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_RED"Boombox de %s\n"COL_WHITE"Pública: "COL_RED"No", ACCOUNT_INFO[playerid][ac_NAME]), 0xFFFFFFFF, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2] + 2.5, 5.0, .testlos = 1, .worldid = BOOMBOX[id][bb_WORLD], .interiorid = BOOMBOX[id][bb_INTERIOR]);
+	BOOMBOX[id][bb_OBJECT] = CreateDynamicObject(2226, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2] - 1.0, 0.0, 0.0, 0.0, .worldid = BOOMBOX[id][bb_WORLD], .interiorid = BOOMBOX[id][bb_INTERIOR]);
+	BOOMBOX[id][bb_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_RED"Parlante de %s\n"COL_WHITE"Público: "COL_RED"No", ACCOUNT_INFO[playerid][ac_NAME]), 0xFFFFFFFF, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2], 5.0, .testlos = 1, .worldid = BOOMBOX[id][bb_WORLD], .interiorid = BOOMBOX[id][bb_INTERIOR]);
 	BOOMBOX[id][bb_PUBLIC] =
 	BOOMBOX[id][bb_PLAYING] = false;
 	BOOMBOX[id][bb_OWNER] = ACCOUNT_INFO[playerid][ac_ID];
@@ -72,8 +72,8 @@ UpdateBoombox(id, bool:ispublic)
 {
 	if(!BOOMBOX[id][bb_VALID]) return 0;
 	BOOMBOX[id][bb_PUBLIC] = ispublic;
-	if(ispublic) UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_RED"Boombox de %s\n"COL_WHITE"Pública: "COL_RED"Sí", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME]));
-	else UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_RED"Boombox de %s\n"COL_WHITE"Pública: "COL_RED"No", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME]));
+	if(ispublic) UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_RED"Parlante de %s\n"COL_WHITE"Público: "COL_RED"Sí", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME]));
+	else UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_RED"Parlante de %s\n"COL_WHITE"Público: "COL_RED"No", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME]));
 	return 1;
 }
 
@@ -187,7 +187,7 @@ CMD:parlante(playerid, params[])
 		new bbid = IsPlayerNearBoombox(playerid);
 		if(bbid == -1) return ShowPlayerMessage(playerid, "~r~No estás cerca de un parlante.", 4);
 		if(!BOOMBOX[bbid][bb_PUBLIC] && BOOMBOX[bbid][bb_OWNER] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~No puedes usar este parlante porque no es público.", 4);
-		if(BOOMBOX[bbid][bb_PLAYING]) return ShowPlayerMessage(playerid, "~r~Este parlante ya esta reproduciendo algo. Usa /parlante parar.", 4);
+		if(BOOMBOX[bbid][bb_PLAYING]) return ShowPlayerMessage(playerid, "~r~Este parlante ya está reproduciendo algo. Usa /parlante parar.", 4);
 		
 		PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = bbid;
 		ShowDialog(playerid, DIALOG_PLAYER_MP3);
@@ -206,7 +206,7 @@ CMD:parlante(playerid, params[])
 		new bbid = IsPlayerNearBoombox(playerid);
 		if(bbid == -1) return ShowPlayerMessage(playerid, "~r~No estás cerca de un parlante.", 4);
 		if(!BOOMBOX[bbid][bb_PUBLIC] && BOOMBOX[bbid][bb_OWNER] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~No puedes usar este parlante porque no es público.", 4);
-		if(!BOOMBOX[bbid][bb_PLAYING]) return ShowPlayerMessage(playerid, "~r~Este parlante no esta reproduciendo nada.", 4);
+		if(!BOOMBOX[bbid][bb_PLAYING]) return ShowPlayerMessage(playerid, "~r~Este parlante no está reproduciendo nada.", 4);
 
 		BOOMBOX[bbid][bb_PLAYING] = false;
 		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)

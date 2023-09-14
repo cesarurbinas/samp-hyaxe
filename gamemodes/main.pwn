@@ -12363,9 +12363,9 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_BOOMBOX_OPTIONS:
 		{
 			new dialog[350];
-			if(BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), "Opción\tEstado\nBoombox pública\t< "COL_GREEN"Sí\n");
-			else format(dialog, sizeof(dialog), "Opción\tEstado\nBoombox pública\t< "COL_RED"No\n");
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Opciones de boombox", dialog, "Cambiar", "Salir");
+			if(BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), "Opción\tEstado\nParlante público\t< "COL_GREEN"Sí\n");
+			else format(dialog, sizeof(dialog), "Opción\tEstado\nParlante público\t< "COL_RED"No\n");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Opciones del parlante", dialog, "Cambiar", "Salir");
 		}
 		default: return 0;
 	}
