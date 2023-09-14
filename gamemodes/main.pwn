@@ -8602,7 +8602,7 @@ public OnPlayerText(playerid, text[])
 CMD:duda(playerid, params[])
 {
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar una duda primero debes activar el canal de dudas con "COL_RED"/dudas");
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/duda "COL_WHITE"[DUDA]");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /duda "COL_WHITE"[DUDA]");
 	
 	/*if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
 	{
@@ -8664,7 +8664,7 @@ CMD:dudas(playerid, params[])
 CMD:anuncio(playerid, params[])
 {
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar un anuncio primero debes activar el canal de dudas con "COL_RED"/dudas");
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/anuncio "COL_WHITE"[TEXTO]");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /anuncio "COL_WHITE"[TEXTO]");
 	
 	/*if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
 	{
@@ -8721,7 +8721,7 @@ CMD:anuncio(playerid, params[])
 
 CMD:g(playerid, params[])
 {
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/g"COL_WHITE"ritar [TEXTO]");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /g"COL_WHITE"ritar [TEXTO]");
 
 	new str_text[190];
 	format(str_text, 190, "%s grita: ¡%s!", PLAYER_TEMP[playerid][py_RP_NAME], params);
@@ -8741,7 +8741,7 @@ alias:g("gritar");
 
 CMD:s(playerid, params[])
 {
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/s"COL_WHITE"usurrar [TEXTO]");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /s"COL_WHITE"usurrar [TEXTO]");
 
 	new str_text[190];
 	format(str_text, sizeof(str_text), "%s susurra: %s", PLAYER_TEMP[playerid][py_RP_NAME], params);
@@ -8820,7 +8820,7 @@ CMD:masflot3(playerid, params[])
 
 CMD:b(playerid, params[])
 {
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/b "COL_WHITE"[TEXTO]");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /b "COL_WHITE"[TEXTO]");
 
     new str_text[190];
     format(str_text, sizeof(str_text), "[ID: %d] %s: (( %s ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME], params);
@@ -8830,7 +8830,7 @@ CMD:b(playerid, params[])
 
 CMD:do(playerid, params[])
 {
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/do "COL_WHITE"[TEXTO]");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /do "COL_WHITE"[TEXTO]");
 
     new str_text[190];
     format(str_text, sizeof(str_text), "* %s (( %s ))", params, PLAYER_TEMP[playerid][py_RP_NAME]);
@@ -8840,7 +8840,7 @@ CMD:do(playerid, params[])
 
 CMD:me(playerid, params[])
 {
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/me "COL_WHITE"[TEXTO]");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /me "COL_WHITE"[TEXTO]");
 
 	SendPlayerAction(playerid, params);
 	return 1;
@@ -9229,7 +9229,7 @@ CMD:guia(playerid, params[])
 		return 1;
 	}
 
-	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/guia "COL_WHITE"[ID o nombre]");
+	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guia "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador Desconectado.", 2);
 
 	if (!PLAYER_PHONE[params[0]][player_phone_VALID]) return ShowPlayerMessage(playerid, "~r~Este jugador no tiene teléfono.", 2);
@@ -9292,7 +9292,7 @@ CMD:guia(playerid, params[])
 		}
 		db_free_result(Result);
 	}
-	else return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/sms "COL_WHITE"[Número o contacto de /agenda] [Mensaje 1-64 caracteres]");
+	else return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sms "COL_WHITE"[Número o contacto de /agenda] [Mensaje 1-64 caracteres]");
 
 	if (!found) return ShowPlayerNotification(playerid, "No se encontro al contacto en tu agenda.", 3);
 	if (to_number <= 0) return ShowPlayerMessage(playerid, "~r~El número del destinario no es válido.", 2);
@@ -9389,7 +9389,7 @@ CMD:guia(playerid, params[])
 		}
 		db_free_result(Result);
 	}
-	else return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/llamar "COL_WHITE"[Número o contacto de /agenda]");
+	else return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /llamar "COL_WHITE"[Número o contacto de /agenda]");
 
 	if (!found) return ShowPlayerNotification(playerid, "No se encontro el contacto en tu agenda.", 3);
 	if (call_number <= 0) return ShowPlayerNotification(playerid, "El número del destinario no es válido.", 3);
@@ -9659,7 +9659,7 @@ CMD:dar(playerid, params[])
 	}
 	else if (!strcmp(option, "alimento", true))
 	{
-		if (extra < 1 || extra > MAX_PLAYER_POCKET_OBJECTS) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/dar alimento "COL_WHITE"[ID o Nombre] [Slot /alimentos]");
+		if (extra < 1 || extra > MAX_PLAYER_POCKET_OBJECTS) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dar alimento "COL_WHITE"[ID o Nombre] [Slot /alimentos]");
 
 		extra --;
 
@@ -9779,7 +9779,7 @@ CMD:dar(playerid, params[])
 	else if (!strcmp(option, "arma", true))
 	{
 		if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Los policías no pueden vender armas.", 3);
-		if (extra < 0 || extra > 12) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/dar arma "COL_WHITE"[ID o Nombre] [Slot /armas]");
+		if (extra < 0 || extra > 12) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dar arma "COL_WHITE"[ID o Nombre] [Slot /armas]");
 
 		if (!PLAYER_WEAPONS[playerid][extra][player_weapon_VALID]) return ShowPlayerMessage(playerid, "~r~No tienes una arma en ese slor.", 3);
 
@@ -9856,7 +9856,7 @@ CMD:vender(playerid, params[])
 	{
 		if (!strcmp(option, "alimento", true))
 		{
-			if (slot < 1 || slot > MAX_PLAYER_POCKET_OBJECTS) return SendClientMessageEx(playerid, COLOR_WHITE, "Syntax: "COL_RED"/usar alimento "COL_WHITE"[SLOT 1-%d]", MAX_PLAYER_POCKET_OBJECTS);
+			if (slot < 1 || slot > MAX_PLAYER_POCKET_OBJECTS) return SendClientMessageEx(playerid, COLOR_WHITE, "Syntax: /usar alimento "COL_WHITE"[SLOT 1-%d]", MAX_PLAYER_POCKET_OBJECTS);
 
 			slot --;
 
@@ -9876,7 +9876,7 @@ CMD:vender(playerid, params[])
 			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
 			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
 		}
-		else SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/usar "COL_WHITE"[medicamento - venda - botiquin - marihuana - crack - alimento]");
+		else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /usar "COL_WHITE"[medicamento - venda - botiquin - marihuana - crack - alimento]");
 	}
 	else if (!sscanf(params, "s[24]", option))
 	{
@@ -9936,17 +9936,17 @@ CMD:vender(playerid, params[])
 			SetTimerEx("StopDrugEffect", 15000, false, "i", playerid);
 			PLAYER_TEMP[playerid][py_LIMIT_CRACK] = gettime();
 		}
-		else if (!strcmp(option, "alimento", true)) SendClientMessageEx(playerid, COLOR_WHITE, "Syntax: "COL_RED"/usar alimento "COL_WHITE"[SLOT 1-%d]", MAX_PLAYER_POCKET_OBJECTS);
-		else SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/usar "COL_WHITE"[medicamento - botiquin - venda - marihuana - crack - alimento]");
+		else if (!strcmp(option, "alimento", true)) SendClientMessageEx(playerid, COLOR_WHITE, "Syntax: /usar alimento "COL_WHITE"[SLOT 1-%d]", MAX_PLAYER_POCKET_OBJECTS);
+		else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /usar "COL_WHITE"[medicamento - botiquin - venda - marihuana - crack - alimento]");
 	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/usar "COL_WHITE"[medicamento - botiquin - venda - marihuana - crack - alimento]");
+	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /usar "COL_WHITE"[medicamento - botiquin - venda - marihuana - crack - alimento]");
 	return 1;
 }*/
 
 /*CMD:comandos(playerid, params[])
 {
 	new option[24];
-	if (sscanf(params, "s[24]", option)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/comandos "COL_WHITE"[dar]");
+	if (sscanf(params, "s[24]", option)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /comandos "COL_WHITE"[dar]");
 
 	if (!strcmp(option, "dar", true))
 	{
@@ -10040,7 +10040,7 @@ CMD:vender(playerid, params[])
 		);
 		return 1;
 	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/comandos "COL_WHITE"[dar]");
+	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /comandos "COL_WHITE"[dar]");
 	return 1;
 }*/
 
@@ -10062,7 +10062,7 @@ CMD:vender(playerid, params[])
 	}
 	else if (!strcmp(option, "alimento", true))
 	{
-		if (extra < 1 || extra > MAX_PLAYER_POCKET_OBJECTS) return SendClientMessageEx(playerid, COLOR_WHITE, "Syntax: "COL_RED"/tirar alimento "COL_WHITE"[SLOT 1-%d]", MAX_PLAYER_POCKET_OBJECTS);
+		if (extra < 1 || extra > MAX_PLAYER_POCKET_OBJECTS) return SendClientMessageEx(playerid, COLOR_WHITE, "Syntax: /tirar alimento "COL_WHITE"[SLOT 1-%d]", MAX_PLAYER_POCKET_OBJECTS);
 
 		extra --;
 
@@ -10140,7 +10140,7 @@ CMD:vender(playerid, params[])
 	}
 	else if (!strcmp(option, "arma", true))
 	{
-		if (extra < 0 || extra > 12) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/tirar arma "COL_WHITE"[Slot /armas]");
+		if (extra < 0 || extra > 12) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tirar arma "COL_WHITE"[Slot /armas]");
 
 		if (!PLAYER_WEAPONS[playerid][extra][player_weapon_VALID]) return ShowPlayerMessage(playerid, "~r~No tienes una arma en ese slot.", 3);
 
@@ -10212,7 +10212,7 @@ CMD:vender(playerid, params[])
 
 CMD:echar(playerid, params[])
 {
-	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/echar "COL_WHITE"[ID o nombre]");
+	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /echar "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~El jugador no esta conectado.", 3);
 	if (playerid == params[0]) return ShowPlayerMessage(playerid, "~r~No puedes expulsar a ti mismo.", 3);
 
@@ -10274,7 +10274,7 @@ SavePlayerNotification(playerid, const message[])
 		return 1;
 	}
 
-	if (sscanf(params, "d", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/vertir "COL_WHITE"[Cantidad de litros]");
+	if (sscanf(params, "d", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vertir "COL_WHITE"[Cantidad de litros]");
 	if (params[0] <= 0) return ShowPlayerMessage(playerid, "~r~Cantidad de litros no válida.", 3);
 	if (params[0] > PLAYER_MISC[playerid][MISC_FUEL_DRUM]) return ShowPlayerNotification(playerid, "No te alcanza para llenar el tanque.", 3);
 
@@ -30528,7 +30528,7 @@ UpdatePlayerLoadingTruckSize(playerid)
 	if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_MECHANIC) return ShowPlayerMessage(playerid, "~r~No estás conduciendo una grua", 3);
 
 	new to_player;
-	if (sscanf(params, "d", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/remolcar "COL_WHITE"[playerid o nombre]");
+	if (sscanf(params, "d", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /remolcar "COL_WHITE"[playerid o nombre]");
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~El jugador no está conectado.", 2);
 
 	new Float:pos[3]; GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
@@ -30838,8 +30838,8 @@ CMD:piezas(playerid, params[])
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 	if (!IsPlayerInRangeOfPoint(playerid, 1.0, -82.038078, -1208.153564, 2.704517)) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
 
-	if (sscanf(params, "d", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/piezas "COL_WHITE"[cantidad]");
-	if (params[0] <= 0 || params[0] >= 10000) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/piezas "COL_WHITE"[cantidad > 0]");
+	if (sscanf(params, "d", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /piezas "COL_WHITE"[cantidad]");
+	if (params[0] <= 0 || params[0] >= 10000) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /piezas "COL_WHITE"[cantidad > 0]");
 
 	new price = params[0] * 50;
 	if (price > CHARACTER_INFO[playerid][ch_CASH])
@@ -32873,7 +32873,7 @@ CMD:guardar(playerid, params[])
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
 	new option[24], extra;
-	if (sscanf(params, "s[24]d", option, extra)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/sacar arma "COL_WHITE"[slot /maletero]");
+	if (sscanf(params, "s[24]d", option, extra)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sacar arma "COL_WHITE"[slot /maletero]");
 
 	if (!strcmp(option, "arma", true))
 	{
@@ -32886,7 +32886,7 @@ CMD:guardar(playerid, params[])
 			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo", 3);
 
 
-			if (extra < 0 || extra > MAX_BOOT_SLOTS) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/sacar arma "COL_WHITE"[slot /maletero]");
+			if (extra < 0 || extra > MAX_BOOT_SLOTS) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sacar arma "COL_WHITE"[slot /maletero]");
 
 			if (!VEHICLE_BOOT[vehicleid][extra][vehicle_boot_VALID]) return ShowPlayerMessage(playerid, "~r~No hay nada en ese slot", 3);
 			if (VEHICLE_BOOT[vehicleid][extra][vehicle_boot_TYPE] != BOOT_TYPE_WEAPON) return ShowPlayerMessage(playerid, "~r~En ese slot no hay armas.", 3);
@@ -32913,7 +32913,7 @@ CMD:guardar(playerid, params[])
 		}
 		else ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/sacar arma "COL_WHITE"[slot /maletero]");
+	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sacar arma "COL_WHITE"[slot /maletero]");
 	return 1;
 }*/
 
@@ -33159,7 +33159,7 @@ CMD:control(playerid, params[])
 	if (GetPlayerVirtualWorld(playerid) != 0 || GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No puedes colocar objetos policiales aquí.", 3);
 
 	new type;
-	if (sscanf(params, "d", type)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/control "COL_WHITE"[Tipo 1-6]");
+	if (sscanf(params, "d", type)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /control "COL_WHITE"[Tipo 1-6]");
 
 	new modelid;
 	switch(type)
@@ -33312,7 +33312,7 @@ CMD:multar(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
-	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/multar "COL_WHITE"[ID o nombre] [precio$]");
+	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /multar [ID o nombre] [precio$]");
 	if (params[1] < 0) return ShowPlayerMessage(playerid, "~r~El precio no puede ser menor a 0$.", 3);
 	else if (params[1] > 500000) return ShowPlayerMessage(playerid, "~r~El precio no puede ser mayor a 500.000$.", 3);
 
@@ -33939,7 +33939,7 @@ CMD:reportar(playerid, params[])
 	PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT] = gettime();
 
 	new reason[128];
-	if (sscanf(params, "us[128]", params[0], reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/reportar "COL_WHITE"[ID o nombre] [Razón]");
+	if (sscanf(params, "us[128]", params[0], reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /reportar "COL_WHITE"[ID o nombre] [Razón]");
     if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 
 	ShowPlayerMessage(playerid, "~g~Tu reporte fue enviado a los administradores en línea.", 3);
@@ -33965,7 +33965,7 @@ CMD:reportar(playerid, params[])
 CMD:r(playerid, params[])
 {
 	new message[128];
-	if (sscanf(params, "s[128]", message)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/r "COL_WHITE"[MENSAJE]");
+	if (sscanf(params, "s[128]", message)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /r "COL_WHITE"[MENSAJE]");
 
 	if (PLAYER_TEMP[playerid][py_ADMIN_PM_PID] == INVALID_PLAYER_ID || !PLAYER_TEMP[playerid][py_ADMIN_PM_AID]) return ShowPlayerMessage(playerid, "~r~Nada que responder.", 2);
 	if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_ADMIN_PM_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_ADMIN_PM_AID])
@@ -33996,7 +33996,7 @@ CMD:r(playerid, params[])
 CMD:id(playerid, params[])
 {
 	new to_player;
-	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/id "COL_WHITE"[ID o nombre]");
+	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /id "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
 
 	new
@@ -34027,7 +34027,7 @@ CMD:id(playerid, params[])
 CMD:jailtime(playerid, params[])
 {
 	new to_player;
-	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/jailtime "COL_WHITE"[ID o nombre]");
+	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /jailtime "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
 
 	if (CHARACTER_INFO[to_player][ch_STATE] == ROLEPLAY_STATE_JAIL)
@@ -36530,9 +36530,9 @@ CALLBACK: HealthDown(playerid)
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
 	new to_player;
-	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/curar "COL_WHITE"[ID o nombre]");
+	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /curar "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
-	if (to_player == playerid) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/curar "COL_WHITE"[ID o nombre]");
+	if (to_player == playerid) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /curar "COL_WHITE"[ID o nombre]");
 
 	new Float:pos[3];
 	GetPlayerPos(to_player, pos[0], pos[1], pos[2]);
@@ -36612,7 +36612,7 @@ alias:banda("crew");*/
 	if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MEMBERS] >= 30) return ShowPlayerMessage(playerid, "~r~La banda ya está llena.", 3);
 
 	new to_player;
-	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/invitar "COL_WHITE"[ID o nombre]");
+	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /invitar "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~El jugador no está conectado.", 2);
 	if (to_player == playerid) return SendClientMessage(playerid, COLOR_WHITE, "No puedes invitarte a tu mismo.");
 
