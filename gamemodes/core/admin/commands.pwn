@@ -3496,12 +3496,6 @@ CMD:setbankcash(playerid, params[])
 }
 flags:setbankcash(CMD_ADMIN)
 
-CMD:testnotification(playerid, params[])
-{
-	ShowPlayerNotification(playerid, sprintf("BUabu bua, random: ~y~%d~w~.", random(50)), 3);
-	return 1;
-}
-
 CMD:godmode(playerid, params[])
 {
 	if(!PLAYER_TEMP[playerid][py_GODMODE])

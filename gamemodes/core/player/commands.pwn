@@ -286,7 +286,9 @@ CMD:discord(playerid, params[])
 
 CMD:testnot(playerid, params[])
 {
-	ShowPlayerNotification(playerid, "Te hemos devuelto el dinero porque el luchador que apostaste se ha ido del ring.", 3);
+	new string[422];
+	format(string, 422, "%s", params);
+	ShowPlayerNotification(playerid, string, 5);
 	return 1;
 }
 

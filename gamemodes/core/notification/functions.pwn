@@ -11,13 +11,35 @@ ShowPlayerNotification(playerid, const text[], time = 3)
 
 	pos_y = 141.000000;
 
+	// Top spacing
 	for(new i; i < free_pos; i++)
 	{
 		pos_y += 16.0 + (strlen(NotificationData[playerid][i][nt_TEXT]) * 0.4);
+
+		// Fix top spacing
+		new Regex:reg_exp = Regex_New("~.~"); 
+
+		if (reg_exp)
+		{
+			new RegexMatch:match;
+			new startpos, pos;
+
+			while (Regex_Search(NotificationData[playerid][i][nt_TEXT], reg_exp, match, pos, startpos))
+			{
+				new word[128], length;
+				if (!Match_GetGroup(match, 0, word, length)) break;
+				printf("word: %s, length: %d", word, length);
+				pos_y -= (length * 0.4);
+				startpos += pos + length;
+				Match_Free(match);
+			}
+
+			Regex_Delete(reg_exp);
+		}
 	}
 
-	format(NotificationData[playerid][free_pos][nt_TEXT], 128, text);
-
+	format(NotificationData[playerid][free_pos][nt_TEXT], 128, "~w~%s", text);
+ 
 	temp_td = CreatePlayerTextDraw(playerid, 24.000000, pos_y + 6.0, NotificationData[playerid][free_pos][nt_TEXT]);
 	PlayerTextDrawFont(playerid, temp_td, 1);
 	PlayerTextDrawLetterSize(playerid, temp_td, 0.237499, 1.299999);
