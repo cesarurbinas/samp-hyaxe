@@ -12967,6 +12967,33 @@ ShowDialog(playerid, dialogid)
     			"COL_WHITE"Pedir un médico\t"COL_YELLOW"Tarda en llegar\n", "Selecc.", "Cerrar");
     		return 1;
     	}
+    	case DIALOG_PASSENGER_OPTIONS:
+    	{
+    		new vehicleid = GetPlayerVehicleID(playerid);
+			if (vehicleid == INVALID_VEHICLE_ID) return 1;
+			if (!GLOBAL_VEHICLES[vehicleid][gb_vehicle_VALID]) return 1;
+
+			if (VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_SEATS] > 4) return 1;
+
+    		new 
+    			dialog[128],
+    			caption[128],
+    			seat = GetPlayerVehicleSeat(playerid),
+    			windows[4]
+    		;
+
+    		GetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], windows[2], windows[3]);
+
+    		format(caption, sizeof(caption), ""COL_RED"%s", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
+
+    		format(dialog, sizeof(dialog), "\
+    			Ventana\t%s\n",
+    			(windows[seat] ? ""COL_RED"Cerrada" : ""COL_GREEN"Abierta")
+    		);
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Cambiar", "Cerrar");
+			return 1;
+    	}
 		default: return 0;
 	}
 	return 1;
@@ -21195,6 +21222,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto la ventana de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 							ShowPlayerMessage(playerid, "Ventana ~g~abierta", 2);
 						}
+
+						ShowDialog(playerid, dialogid);
 					}
 					case 5:
 					{
@@ -21273,6 +21302,52 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0: ExitCrack(playerid);
 					case 1: SendAlertToMedics(playerid);
+				}
+			}
+		}
+		case DIALOG_PASSENGER_OPTIONS:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0:
+					{
+						new 
+							windows[4],
+							seat = GetPlayerVehicleSeat(playerid),
+							vehicleid = GetPlayerVehicleID(playerid)
+						;
+
+						GetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], windows[2], windows[3]);
+
+						if (windows[seat] == 0)
+						{
+							switch(seat)
+							{
+								case 0: SetVehicleParamsCarWindows(vehicleid, 1, windows[1], windows[2], windows[3]);
+								case 1: SetVehicleParamsCarWindows(vehicleid, windows[0], 1, windows[2], windows[3]);
+								case 2: SetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], 1, windows[3]);
+								case 3: SetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], windows[2], 1);
+							}
+
+							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha cerrado la ventana de su asiento.\n\n\n", 0xffcb90FF, 20.0, 5000);
+							ShowPlayerMessage(playerid, "Ventana ~r~cerrada", 2);
+						}
+						else
+						{
+							switch(seat)
+							{
+								case 0: SetVehicleParamsCarWindows(vehicleid, 0, windows[1], windows[2], windows[3]);
+								case 1: SetVehicleParamsCarWindows(vehicleid, windows[0], 0, windows[2], windows[3]);
+								case 2: SetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], 0, windows[3]);
+								case 3: SetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], windows[2], 0);
+							}
+
+							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto la ventana de su asiento.\n\n\n", 0xffcb90FF, 20.0, 5000);
+							ShowPlayerMessage(playerid, "Ventana ~g~abierta", 2);
+						}
+					}
 				}
 			}
 		}
@@ -25334,6 +25409,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
     	{
     		ShowDialog(playerid, DIALOG_VEHICLE_OPTIONS);
+    	}
+    	else if (GetPlayerState(playerid) == PLAYER_STATE_PASSENGER)
+    	{
+    		ShowDialog(playerid, DIALOG_PASSENGER_OPTIONS);
     	}
     }
 
