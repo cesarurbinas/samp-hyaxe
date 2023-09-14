@@ -4487,8 +4487,7 @@ CALLBACK: UnfreezeBastard(playerid)
 ExitSite(playerid)
 {   
     if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
-    if (PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] == 0) return 1;
-
+    
     if (IsPlayerInRangeOfPoint(playerid, 2.0, 1881.801635, -1688.519531, 5216.709960))
     {
     	SetPlayerPosEx(playerid, 1555.400390, -1675.611694, 16.195312, 180.0, 0, 0, false);
@@ -4506,6 +4505,8 @@ ExitSite(playerid)
     	SetPlayerPosEx(playerid, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, false);
         return 1;
     }
+
+    if (PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] == 0) return 1;
 
     new info[3];
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
@@ -33417,6 +33418,43 @@ CMD:setpass(playerid, params[])
 	return 1;
 }
 
+CMD:setip(playerid, params[])
+{
+	new to_account, new_ip[16];
+	if (sscanf(params, "ds[16]", to_account, new_ip)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setip <DB-ID> <ip>");
+
+	new DBResult:Result, DB_Query[160];
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		new id, get_name[24], connected, player_id, admin_level;
+
+		id = db_get_field_assoc_int(Result, "ID");
+		db_get_field_assoc(Result, "NAME", get_name, 24);
+		connected = db_get_field_assoc_int(Result, "CONNECTED");
+		player_id = db_get_field_assoc_int(Result, "PLAYERID");
+		admin_level = db_get_field_assoc_int(Result, "ADMIN_LEVEL");
+
+		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= admin_level)
+		{
+			if (connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado, no se puede cambiar.", get_name, id, player_id);
+			else
+			{
+				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `IP` = '%q' WHERE `ID` = '%d';", new_ip, id);
+				db_query(Database, DB_Query);
+
+				SendClientMessageEx(playerid, COLOR_WHITE, "La ip de '%s' ahora es: %s", get_name, new_ip);
+			}
+		}
+		else SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	}
+	else SendClientMessage(playerid, COLOR_WHITE, "No se encontro la DB-ID.");
+	db_free_result(Result);
+	return 1;
+}
+
 CMD:delete(playerid, params[])
 {
 	new to_account;
@@ -37047,6 +37085,7 @@ flags:setmedis(CMD_COFUNDER);
 flags:exproperty(CMD_ADMIN);
 flags:gotoproperty(CMD_ADMIN);
 flags:setpass(CMD_ADMIN);
+flags:setip(CMD_ADMIN);
 flags:resetsans(CMD_COFUNDER);
 flags:accsaveall(CMD_ADMIN);
 flags:delete(CMD_COFUNDER);
