@@ -34186,7 +34186,9 @@ ShowPlayerStats(playerid, pid)
 	    "COL_WHITE"  Advertencias: "COL_RED"%d\n\
 	    "COL_WHITE"  Jails: "COL_RED"%d\n\
 	    "COL_WHITE"  Dudas enviadas: "COL_GREEN"%d\n\
-		"COL_WHITE"  VIP: "COL_YELLOW"%s",
+		"COL_WHITE"  VIP: "COL_YELLOW"%s\n\
+		"COL_WHITE"  DNI: "COL_YELLOW"%s\n\
+		"COL_WHITE"  Licencia de conducir: "COL_YELLOW"%s",
 
 			ACCOUNT_INFO[pid][ac_ID],
 			ACCOUNT_INFO[pid][reg_DATE],
@@ -35133,21 +35135,24 @@ CMD:documento(playerid, params[])
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
-	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Revisa el documento de alguien\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 	new
 		caption[64],
 		dialog[144],
-		drive[3]
+		drive[3],
+		dni[64]
 	;
 
-	if (PLAYER_MISC[to_player][MISC_DNI] != 0) drive = "Si";
+	if (PLAYER_MISC[to_player][MISC_DRIVE] != 0) drive = "Si";
 	else drive = "No";
 
+	if (PLAYER_MISC[to_player][MISC_DNI]) format(dni, sizeof(dni), "%d", PLAYER_MISC[to_player][MISC_DNI]);
+	else dni = "No";
+
 	format(caption, sizeof(caption), ""COL_RED"%s", PLAYER_TEMP[to_player][py_NAME]);
-	format(dialog, sizeof(dialog), ""COL_WHITE"Documento: %d\nLicencia de conducir: %s", PLAYER_MISC[to_player][MISC_DNI], drive);
+	format(dialog, sizeof(dialog), ""COL_WHITE"Documento: %s\nLicencia de conducir: %s", dni, drive);
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
 	return 1;
