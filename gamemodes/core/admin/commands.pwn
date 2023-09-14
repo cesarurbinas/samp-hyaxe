@@ -2915,7 +2915,7 @@ CMD:nuclearbomb(playerid, params[])
 		GetPlayerPos(playerid, x, y, z);
 		CA_FindZ_For2DCoord(x, y, z);
 
-		RandomCordFromPoint(minrand(10, 50), minrand(3, 5), x, y);
+		RandomCordFromPoint(minrand(10, 200), minrand(10, 200), x, y);
 
 		CreateExplosion(x, y, z, 10, 5.0);
 	}
