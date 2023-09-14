@@ -8733,7 +8733,7 @@ public OnPlayerText(playerid, text[])
 			ResetPlayerWeaponsEx(playerid);
 			SavePlayerWeaponsData(playerid);
 
-			if (CHARACTER_INFO[playerid][ch_CASH] >= 5000) GivePlayerCash(playerid, -5000, false);;
+			if (CHARACTER_INFO[playerid][ch_CASH] > 5000) GivePlayerCash(playerid, -5000, false);;
 		
 			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Tus armas fueron reseteados y te sacamos 5.000$ por\nintentar evadir muerte.", "Cerrar", "");
 		}
