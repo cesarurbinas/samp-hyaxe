@@ -422,7 +422,7 @@ GetAccountStatusValue(playerid)
 	return value;
 }
 
-GetAccountStatus(playerid)
+/*GetAccountStatus(playerid)
 {
 	new status = GetAccountStatusValue(playerid);
 
@@ -436,7 +436,7 @@ GetAccountStatus(playerid)
 		return STATUS_WASTED;
 	
 	return 0;
-} 
+}*/
 
 GetAccountStatusName(playerid)
 {
