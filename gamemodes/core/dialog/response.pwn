@@ -8470,7 +8470,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						}
 
 						RegisterNewPlayerWeapon(playerid, weapon_slot);
-						GivePlayerWeaponEx(playerid, weapon_id, 1000, 0x00F0F0F0);
+						GivePlayerWeaponEx(playerid, weapon_id, 1000);
 
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
 						ShowPlayerNotification(playerid, "Has comprado una cámara.", 4);

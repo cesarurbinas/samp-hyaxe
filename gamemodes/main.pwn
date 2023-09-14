@@ -2483,6 +2483,19 @@ public OnGameModeInit()
 	Log("status", "Servidor iniciado ("SERVER_VERSION").");
 	SendDiscordWebhook(":fire: Servidor iniciado ("SERVER_VERSION").", 1);
 	ServerInitTime = gettime();
+
+	#if !defined FINAL_BUILD
+	for(new i = 0; i < sizeof(ITEM_INFO); i++)
+	{
+		new Float:position = (2.0 * i);
+		CreateDropItem(
+			i,
+			2062.6035 + position, -2593.3059, 13.5469,
+			0.0, 0.0, 0.0,
+			0, 0
+		);
+	}
+	#endif
 	return 1;
 }
 

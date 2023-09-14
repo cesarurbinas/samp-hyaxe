@@ -148,7 +148,7 @@ inv_ItemToTextdraw(playerid, slot, type)
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
 
 	GetTypePreviewRot(type, rot[0], rot[1], rot[2], rot[3]);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], GetItemObjectByType(type));
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], ITEM_INFO[type][item_NAME]);
 	PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], rot[0], rot[1], rot[2], rot[3]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);
@@ -204,7 +204,7 @@ inv_AccommodatePropertyItems(playerid, property_id)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
 
 			GetTypePreviewRot(type, rot[0], rot[1], rot[2], rot[3]);
-			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], GetItemObjectByType(type));
+			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], ITEM_INFO[type][item_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], rot[0], rot[1], rot[2], rot[3]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);
@@ -270,7 +270,7 @@ inv_AccommodateVehicleItems(playerid, vehicle_id)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
 
 			GetTypePreviewRot(type, rot[0], rot[1], rot[2], rot[3]);
-			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], GetItemObjectByType(type));
+			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], ITEM_INFO[type][item_MODELID]);
 			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], rot[0], rot[1], rot[2], rot[3]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);

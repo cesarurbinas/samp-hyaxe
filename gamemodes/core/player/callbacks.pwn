@@ -3956,11 +3956,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 								DROP_ITEMS[i][itm_VALID] = false;
 
 								new item_name[84];
-								format(item_name, sizeof(item_name), "~n~~n~~n~~w~%s", DROP_ITEMS[i][itm_NAME]);
+								format(item_name, sizeof(item_name), "~n~~n~~n~~w~%s", ITEM_INFO[ DROP_ITEMS[i][itm_TYPE] ][item_NAME]);
 								GameTextForPlayer(playerid, TextToSpanish(item_name), 2000, 5);
 
 								ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
-								GrabItem(playerid, DROP_ITEMS[i][itm_TYPE], DROP_ITEMS[i][itm_AMMOUNT], DROP_ITEMS[i][itm_COLOR]);
+								GrabItem(playerid, DROP_ITEMS[i][itm_TYPE], DROP_ITEMS[i][itm_AMMOUNT]);
 								DeleteDropItem(i);
 								if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV]) ShowInventory(playerid);
 								return 1;

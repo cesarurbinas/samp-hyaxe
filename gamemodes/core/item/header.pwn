@@ -4,7 +4,7 @@ enum Item_Info_Enum
 	item_MODELID,
 	bool:item_SINGLE_SLOT
 };
-new ITEM_INFO[100][Item_Info_Enum] = {
+new ITEM_INFO[][Item_Info_Enum] = {
     {"Botiquí­n",                11738,     true},  // 0
     {"Medicamento",             11736,     false}, // 1
     {"Venda",                   11747,     false}, // 2

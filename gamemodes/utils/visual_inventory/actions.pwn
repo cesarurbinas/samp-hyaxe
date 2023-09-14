@@ -12,7 +12,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			{
 				if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
 				new item_str[64];
-				format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]));
+				format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", ITEM_INFO[ PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] ][item_NAME]);
 				GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
 
 				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
@@ -87,7 +87,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				if (grab_status)
 				{
 					new item_str[64];
-					format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", GetItemNameByType(PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]));
+					format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_NAME]);
 					GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
 
 					PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
@@ -203,7 +203,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				if (grab_status)
 				{
 					new item_str[64];
-					format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", GetItemNameByType(PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]));
+					format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_NAME]);
 					GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
 
 					PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
