@@ -7002,10 +7002,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 	{
 		if (PLAYER_TEMP[killerid][py_BOXING] && PLAYER_TEMP[playerid][py_BOXING])
 		{
-			new 
-				str_text[128],
-				final_pay = 100
-			;
+			new final_pay = 100;
 
 			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 			{
@@ -22394,9 +22391,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				new 
-					str_text[32],
 					payment = (PLAYER_MISC[playerid][MISC_FISH] * 200),
-					vip_payment = 0;
+					vip_payment = 0
+				;
 
 	    		if (ACCOUNT_INFO[playerid][ac_SU])
 				{
@@ -22642,10 +22639,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
-				new
-					DB_Query[140],
-					str_text[32]
-				;
+				new DB_Query[140];
 
 				ACCOUNT_INFO[playerid][ac_SD] -= inputtext[0];
 
