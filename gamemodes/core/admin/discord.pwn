@@ -700,6 +700,8 @@ DC_CMD:asay(DCC_User:userid, params[], DCC_Message:message)
 
 DC_CMD:dudas(DCC_User:userid, params[], DCC_Message:message)
 {
+	new DCC_Channel:channelid;
+	DCC_GetMessageChannel(message, channelid);
 	if(!DCC_IsUserModerator(userid)) return SendDiscordMessage(channelid, ":x: No tienes permisos suficientes");
 	
 	if (isnull(params)) return SendDiscordMessage(channelid, ":warning: Uso: `!dudas <message>`");
@@ -724,9 +726,9 @@ DC_CMD:dudas(DCC_User:userid, params[], DCC_Message:message)
 		}
 	}
 
-	new DCC_Channel:channelid;
-	channelid = DCC_FindChannelById("790742732829491230");
-	SendDiscordMessage(channelid, "%s", str);
+	new DCC_Channel:channel;
+	channel = DCC_FindChannelById("790742732829491230");
+	SendDiscordMessage(channel, "%s", str);
 	return 1;
 }
 
