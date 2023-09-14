@@ -13297,6 +13297,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				Log("obj", pass_str);
 
 				SetDamageFeedForPlayer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
+				EnableHealthBarForPlayer(playerid, false);
 
 				/*ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Chat de voz", ""COL_WHITE"\
 					Hemos removido el chat de voz ya que nadie lo usaba, pero tranquilo\n\
