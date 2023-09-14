@@ -8,6 +8,7 @@
 #include <crashdetect>
 #include <streamer>
 #include <sscanf2>
+#include <profiler>
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
@@ -3413,7 +3414,7 @@ IRPC:VehicleDestroyed(playerid, BitStream:bs)
 forward OnVehicleRequestDeath(vehicleid, killerid);
 public OnVehicleRequestDeath(vehicleid, killerid)
 {
-	printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
+	//printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
     new Float:health;
 
     GetVehicleHealth(vehicleid, health);
@@ -3848,7 +3849,7 @@ MakeBotFacha(playerid)
 
     SetPlayerFakePing(playerid, minrand(170, 345));
 
-	PLAYER_TEMP[playerid][py_TIMERS][37] = SetTimerEx("UploadFacha", 30000, true, "i", playerid);
+	PLAYER_TEMP[playerid][py_TIMERS][37] = SetTimerEx("UploadFacha", 600000, true, "i", playerid);
 	return 1;
 }
 
@@ -3872,7 +3873,7 @@ GetPlayersInIP(const ip[])
 
 public OnPlayerConnect(playerid)
 {
-	printf("OnPlayerConnect %d",playerid); // debug juju
+	//printf("OnPlayerConnect %d",playerid); // debug juju
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
 	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
 	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
@@ -3927,21 +3928,6 @@ public OnPlayerConnect(playerid)
 		GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 		SendMessageToAdmins(-1 , "{ff0000}La IP %s superó el máximo de jugadores conectados.", PLAYER_TEMP[playerid][py_IP]);
 		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Has sido expulsado por exceder el máximo de conexiones desde una misma ip.", "Aceptar", "");
-		KickEx(playerid, 500);
-		return 0;
-	}
-
-	/* NAME CHECk */
-	PLAYER_TEMP[playerid][py_USER_VALID_NAME] = true;
-
-	if (CheckNameFilterViolation(PLAYER_TEMP[playerid][py_NAME])) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
-	if (!IsValidRPName(PLAYER_TEMP[playerid][py_NAME])) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
-
-	if (PLAYER_TEMP[playerid][py_USER_VALID_NAME] == false)
-	{
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
-			Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
-			no están permitidos, procura ponerte un nombre que parezca real.", "X", "");
 		KickEx(playerid, 500);
 		return 0;
 	}
@@ -4207,7 +4193,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
+	//printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
 	if (ACCOUNT_INFO[playerid][ac_ID] != 0)
 	{
 		new DB_Query[128];
@@ -4462,7 +4448,7 @@ GetEnterExitIndexById(id)
 
 public OnRconLoginAttempt(ip[], password[], success)
 {
-	printf("rcon %s %s",ip,password); // debug juju
+	//printf("rcon %s %s",ip,password); // debug juju
     new temp_ip[16];
 
     for(new i = 0; i < MAX_PLAYERS; i++)
@@ -6056,7 +6042,7 @@ SetEngineAction(playerid)
 
 public OnPlayerSpawn(playerid)
 {
-	printf("OnPlayerSpawn",playerid); // debug juju
+	//printf("OnPlayerSpawn",playerid); // debug juju
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_OCCUPIED) // Primer spawn
 	{
 		PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
@@ -6484,7 +6470,7 @@ CMD:marselobotikin(playerid, params[])
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	printf("OnPlayerDeat %d %d %d",playerid,killerid,reason); // debug juju
+	//printf("OnPlayerDeat %d %d %d",playerid,killerid,reason); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
@@ -6674,7 +6660,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
+	//printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
 	SetPlayerColor(playerid, PLAYER_COLOR);
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) // Recién conectado
@@ -6707,6 +6693,21 @@ public OnPlayerRequestClass(playerid, classid)
 		}
 		else
 		{
+			/* NAME CHECk */
+			PLAYER_TEMP[playerid][py_USER_VALID_NAME] = true;
+
+			if (CheckNameFilterViolation(PLAYER_TEMP[playerid][py_NAME])) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+			if (!IsValidRPName(PLAYER_TEMP[playerid][py_NAME])) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+
+			if (PLAYER_TEMP[playerid][py_USER_VALID_NAME] == false)
+			{
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
+					Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
+					no están permitidos, procura ponerte un nombre que parezca real.", "X", "");
+				KickEx(playerid, 500);
+				return 0;
+			}
+			
 			SetIntroCamera(playerid);
 			ShowDialog(playerid, DIALOG_REGISTER);
 		}
@@ -6724,7 +6725,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 public OnPlayerRequestSpawn(playerid)
 {
-	printf("OnPlayerrequestSpawn %d",playerid); // debug juju
+	//printf("OnPlayerrequestSpawn %d",playerid); // debug juju
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) CallLocalFunction("OnPlayerRequestClass", "dd", playerid, 0);
     return 0;
 }
@@ -7135,7 +7136,7 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
-	printf("ongamemodeini"); // debug juju
+	//printf("ongamemodeini"); // debug juju
 	sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
 
     SetWeaponDamage(WEAPON_SNIPER, DAMAGE_TYPE_RANGE, 7.0, 10.0, 25.0, 40.0, 30.0); //sniper
@@ -8100,7 +8101,7 @@ public OnGameModeExit()
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
 	}
 
-	printf("OnGameModeExit()"); // debug juju
+	//printf("OnGameModeExit()"); // debug juju
 	printf("Deteniendo servidor...");
 	db_close(Database);
 	Log("status", "Servidor detenido.");
@@ -8141,7 +8142,7 @@ CMD:a(playerid, params[])
 #define MIN_SECONDS_BETWEEN_TALKS 150 // Deben pasar al menos 1 segundos para volver a hablar.
 public OnPlayerText(playerid, text[])
 {
-	printf("OnPlayerText %d %s",playerid,text); // debug juju
+	//printf("OnPlayerText %d %s",playerid,text); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
@@ -12815,7 +12816,7 @@ ShowDialog(playerid, dialogid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	printf("OnDialogresponde %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
+	//printf("OnDialogresponde %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
 	if (PLAYER_TEMP[playerid][py_DIALOG_RESPONDED]) return 1;
 	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = true;
 
@@ -21079,7 +21080,7 @@ SetPlayer_GPS_Checkpoint(playerid, Float:x, Float:y, Float:z, world, interior)//
 
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
-	printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
+	//printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
 
@@ -21118,7 +21119,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
-	printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
+	//printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
 
@@ -21162,7 +21163,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
 {
-	printf("OnPlayerEnterDynamicCp %d %d",playerid, checkpointid); // debug juju
+	//printf("OnPlayerEnterDynamicCp %d %d",playerid, checkpointid); // debug juju
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -21448,7 +21449,7 @@ EditPlayerToy(playerid)
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {
-	printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
+	//printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
 	if (index != PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]) return 0;
 
 	if (response)
@@ -23937,7 +23938,7 @@ LoadBlackMarkets()
 
 public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 {
-	printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
+	//printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
     PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] = pickupid;
     return 1;
 }
@@ -25276,11 +25277,16 @@ CheckRobActor(playerid)
 							ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
 							SetPlayerPoliceSearchLevel(playerid, 1);
 
-							new city[45], zone[45], message[145];
+							new
+								city[45],
+								zone[45],
+								message[145]
+							;
+
 						    GetPointZone(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X], ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y], city, zone);
 						    format(message, sizeof message, "~r~%s~w~ esta robando un negocio (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+						    format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Robo");
 						    SendPoliceNotification(message, 6);
-						    PLAYER_TEMP[playerid][py_POLICE_REASON] = "Robo";
 
 							a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
 							return 0;
@@ -25432,6 +25438,112 @@ public OnPlayerUpdate(playerid)
 					}
 				}
 			}
+
+			new 
+				Keys,
+				ud,
+				lr,
+				Float:angle,
+				Float:pos[3];
+
+		    GetPlayerKeys(playerid, Keys, ud, lr);
+
+		    if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
+			{
+				if (PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] == false)
+				{
+					GetPlayerFacingAngle(playerid, angle);
+
+					if (ud == KEY_UP)
+		    		{
+						SetPlayerFacingAngle(playerid, angle + 20.0);
+						ApplyAnimation(playerid, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
+						PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = true;
+						SetTimerEx("InjuredAnimationCut", 470, false, "i", playerid);
+					}
+
+					if (ud == KEY_DOWN)
+				    {
+				    	SetPlayerFacingAngle(playerid, 180);
+				    	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+				    }
+
+					if (lr == KEY_LEFT)
+					{
+						SetPlayerFacingAngle(playerid, angle + 16.0);
+						ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+					}
+
+					if (lr == KEY_RIGHT)
+					{
+						SetPlayerFacingAngle(playerid, angle - 16.0);
+						ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
+					}
+				}
+		    }
+
+		    if (PLAYER_TEMP[playerid][py_EDITING_MODE])
+		    {
+		    	if (ud == KEY_UP)
+				{
+					if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+					{
+						GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+						SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 0.1, pos[1], pos[2]);
+						SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+					}
+					else
+					{
+						GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+						SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 3.0, pos[1], pos[2]);
+					}
+				}
+
+				if (ud == KEY_DOWN)
+			    {
+			    	if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+			    	{
+						GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+						SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] - 0.1, pos[1], pos[2]);
+						SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+					}
+					else
+					{
+						GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+						SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 3.0, pos[2]);
+					}
+			    }
+
+				if (lr == KEY_LEFT)
+				{
+					if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+					{
+						GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+						SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 0.1, pos[2]);
+						SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+					}
+					else
+					{
+						GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+						SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] - 1.5);
+					}
+				}
+
+				if (lr == KEY_RIGHT)
+				{
+					if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
+					{
+						GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+						SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] - 0.1, pos[2]);
+						SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
+					}
+					else
+					{
+						GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
+						SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] + 1.5);
+					}
+				}
+		    }
 		}
 		case PLAYER_STATE_DRIVER:
 		{
@@ -25523,112 +25635,6 @@ public OnPlayerUpdate(playerid)
 			}
 		}
 	}
-
-	new 
-		Keys,
-		ud,
-		lr,
-		Float:angle,
-		Float:pos[3];
-
-    GetPlayerKeys(playerid, Keys, ud, lr);
-
-    if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
-	{
-		if (PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] == false)
-		{
-			GetPlayerFacingAngle(playerid, angle);
-
-			if (ud == KEY_UP)
-    		{
-				SetPlayerFacingAngle(playerid, angle + 20.0);
-				ApplyAnimation(playerid, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
-				PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = true;
-				SetTimerEx("InjuredAnimationCut", 470, false, "i", playerid);
-			}
-
-			if (ud == KEY_DOWN)
-		    {
-		    	SetPlayerFacingAngle(playerid, 180);
-		    	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-		    }
-
-			if (lr == KEY_LEFT)
-			{
-				SetPlayerFacingAngle(playerid, angle + 16.0);
-				ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-			}
-
-			if (lr == KEY_RIGHT)
-			{
-				SetPlayerFacingAngle(playerid, angle - 16.0);
-				ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
-			}
-		}
-    }
-
-    if (PLAYER_TEMP[playerid][py_EDITING_MODE])
-    {
-    	if (ud == KEY_UP)
-		{
-			if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
-			{
-				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 0.1, pos[1], pos[2]);
-				SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-			}
-			else
-			{
-				GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] + 3.0, pos[1], pos[2]);
-			}
-		}
-
-		if (ud == KEY_DOWN)
-	    {
-	    	if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
-	    	{
-				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0] - 0.1, pos[1], pos[2]);
-				SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-			}
-			else
-			{
-				GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 3.0, pos[2]);
-			}
-	    }
-
-		if (lr == KEY_LEFT)
-		{
-			if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
-			{
-				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] + 0.1, pos[2]);
-				SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-			}
-			else
-			{
-				GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] - 1.5);
-			}
-		}
-
-		if (lr == KEY_RIGHT)
-		{
-			if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
-			{
-				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1] - 0.1, pos[2]);
-				SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
-			}
-			else
-			{
-				GetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2]);
-				SetDynamicObjectRot(PLAYER_TEMP[playerid][py_EDITING_OBJ], pos[0], pos[1], pos[2] + 1.5);
-			}
-		}
-    }
 
 	CHARACTER_INFO[playerid][ch_HEALTH] = player_health;
 	CHARACTER_INFO[playerid][ch_ARMOUR] = player_armour;
@@ -26249,7 +26255,7 @@ GetPlayerIdByBankAccountId(account_id)
 
 public OnPlayerStateChange(playerid, newstate, oldstate)
 {
-	printf("OnPlayerStaeChnagge %d %d %d",playerid, newstate, oldstate); // debug juju
+	//printf("OnPlayerStaeChnagge %d %d %d",playerid, newstate, oldstate); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	switch(oldstate)
@@ -26806,7 +26812,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
+	//printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
 	StopAudioStreamForPlayer(playerid);
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
@@ -26815,7 +26821,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
-	printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
+	//printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
 
@@ -27450,7 +27456,7 @@ SavePlayerVehicles(playerid, destroy = false)
 
 public OnVehicleSpawn(vehicleid)
 {
-	printf("OnVehicleId %d",vehicleid); // debug juju
+	//printf("OnVehicleId %d",vehicleid); // debug juju
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_TP_IMMUNITY] = gettime() + 5;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = true;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_ATTACHED_TO] = INVALID_VEHICLE_ID;
@@ -27576,7 +27582,7 @@ SetVehicleToRespawnEx(vehicleid)
 
 public OnVehicleDeath(vehicleid, killerid)
 {
-	printf("OnVehicleDeat",vehicleid,killerid); // debug juju
+	//printf("OnVehicleDeat",vehicleid,killerid); // debug juju
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = false;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] = INVALID_PLAYER_ID;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LAST_DRIVER] = INVALID_PLAYER_ID;
@@ -27972,7 +27978,7 @@ AddVehicleComponents(vehicleid)
 
 public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
-	printf("OnEnterExitMoDsHOP",playerid); // debug juju
+	//printf("OnEnterExitMoDsHOP",playerid); // debug juju
     if (enterexit) // Entra
     {
 		ShowPlayerMessage(playerid, "~r~Solo puedes tunear vehículos en el mecánico, búscalo con el /GPS.", 2);
@@ -27993,7 +27999,7 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
-	printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
+	//printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -28014,7 +28020,7 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 
 public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
-	printf("OnVehiclePaintJob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
+	//printf("OnVehiclePaintJob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -29130,7 +29136,7 @@ Set_HARVEST_Checkpoint(playerid)
 
 public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 {
-	printf("OnPlayerEnterDynamicRaceCp %d %d",playerid,checkpointid); // debug juju
+	//printf("OnPlayerEnterDynamicRaceCp %d %d",playerid,checkpointid); // debug juju
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_RACE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -31142,7 +31148,7 @@ CMD:econtrol(playerid, params[])
 
 public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, modelid, Float:x, Float:y, Float:z)
 {
-	printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
+	//printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
 	if (info[0] == WORK_POLICE)
@@ -31176,7 +31182,7 @@ public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, model
 
 public OnPlayerEditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
-	printf("OnPlayerEditDynamicObject",playerid); // debug juju
+	//printf("OnPlayerEditDynamicObject",playerid); // debug juju
 	if (response == EDIT_RESPONSE_CANCEL)
 	{
 		new info[2];
@@ -31647,7 +31653,7 @@ JailPlayer(playerid, seconds = 300)
 	PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
-	PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 900, true, "i", playerid);
+	PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
 
     ResetPlayerWeaponsEx(playerid);
     SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -36022,7 +36028,7 @@ EditVehicleObject(playerid, vehicleid, slot)
 
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
-	printf("OnPlayerEditObject %d",playerid); // debug juju
+	//printf("OnPlayerEditObject %d",playerid); // debug juju
 	if (playerobject)
 	{
 		if (objectid == PLAYER_TEMP[playerid][py_PIVOT_OBJECT])
@@ -36716,7 +36722,7 @@ SetPlayerNormalColor(playerid)
 #define MIN_SECONDS_BETWEEN_COMMANDS 1 // Deben pasar al menos 1 segundos entre comando y comando.
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 {
-	printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
+	//printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL || PLAYER_TEMP[playerid][py_NEW_USER])
@@ -36777,7 +36783,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 
 public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags) 
 {
-	printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
+	//printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
     if (result == -1) 
     { 
 		SendClientMessageEx(playerid, COLOR_WHITE, "El comando "COL_RED"/%s "COL_WHITE"no existe, usa "COL_RED"/ayuda"COL_WHITE".", cmd);
