@@ -333,8 +333,13 @@ enum Temp_Enum
 	py_PRODUCT_PRICE,
 	Float:py_MAP_X,
 	Float:py_MAP_Y,
+<<<<<<< HEAD
 	Float:py_MAP_Z
 >>>>>>> 94707da (Comando /gotopoint)
+=======
+	Float:py_MAP_Z,
+	py_LAST_DOUBT[144]
+>>>>>>> 45008c5 (neurodmin integrado)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

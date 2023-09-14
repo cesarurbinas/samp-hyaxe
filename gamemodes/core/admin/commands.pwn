@@ -2623,6 +2623,51 @@ CMD:ufo(playerid, params[])
 	return 1;
 }
 
+forward neuroadmin_BotLearning(index, response_code, data[]);
+public neuroadmin_BotLearning(index, response_code, data[])
+{
+	return 1;
+}
+
+CMD:dreply(playerid, params[])
+{
+	new to_player, content[144];
+	if (sscanf(params, "us[144]", to_player, content)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dreply <player_id> <content>");
+	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
+	if (strlen(content) > 132) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Su duda es muy larga");
+
+	new str[145];
+    format(str, 145, "[Dudas] "COL_WHITE"Ayudante %s (%d): (( {4db6ac}@%d{F7F7F7} %s ))",
+    	ACCOUNT_INFO[playerid][ac_NAME],
+    	playerid,
+    	to_player,
+    	content
+    );
+
+    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL] && !PLAYER_TEMP[playerid][py_NEW_USER])
+			{
+				SendResponsiveMessage(i, COLOR_DARK_GREEN, str, 125);
+			}
+		}
+	}
+
+	PLAYER_MISC[playerid][MISC_DOUBT_SENT]++;
+	SavePlayerMisc(playerid);
+
+	if (strlen( PLAYER_TEMP[to_player][py_LAST_DOUBT] ) > 3)
+	{
+		new payload[264];
+		format(payload, sizeof(payload), "{\"question\": \"%s\", \"answer\": \"%s\"},", PLAYER_TEMP[to_player][py_LAST_DOUBT], content);
+		HTTP(0, HTTP_POST, "51.161.31.157:6666/save_response", payload, "neuroadmin_BotLearning");
+	}
+	return 1;
+}
+flags:dreply(CMD_HELPER)
+
 CMD:muteard(playerid, params[])
 {
 	new to_player, reason[32], time;
@@ -2658,6 +2703,13 @@ CMD:muteard(playerid, params[])
 		}
 	}
 	SendCmdLogToAdmins(playerid, "mute", params);
+
+	if (strlen( PLAYER_TEMP[to_player][py_LAST_DOUBT] ) > 3)
+	{
+		new payload[264];
+		format(payload, sizeof(payload), "%s", PLAYER_TEMP[to_player][py_LAST_DOUBT]);
+		HTTP(0, HTTP_POST, "51.161.31.157:6666/save_bad_use", payload, "neuroadmin_BotLearning");
+	}
 	return 1;
 }
 alias:muteard("mute")

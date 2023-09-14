@@ -10,25 +10,31 @@ req = requests.get(
 	headers = {'Content-Type': 'application/json', 'Authorization': f'Bot {discord_bot}'}
 ).json()
 
-f = open(output, 'a')
+f = open(output, 'w')
+
+f.write('[\n')
 
 for message in req:
 	try:
 		content = message['content']
-		content = content.replace('Duda: ', '')
+		content = content.lower()
 		content = content.replace('duda: ', '')
-		content = content.replace('Duda:', '')
 		content = content.replace('duda:', '')
 
-		content = content.replace('Respuesta: ', '')
 		content = content.replace('respuesta: ', '')
-		content = content.replace('Respuesta:', '')
 		content = content.replace('respuesta:', '')
 
 		content = content.replace('**', '')
 		content = content.replace('?', '')
 		content = content.replace('¿', '')
 		content = content.replace('"', '')
+
+		content = content.replace('á', 'a')
+		content = content.replace('ó', 'o')
+		content = content.replace('í', 'i')
+		content = content.replace('é', 'e')
+		content = content.replace('ú', 'u')
+		content = content.replace('  ', ' ')
 
 		content = content.split('\n')
 
@@ -44,9 +50,10 @@ for message in req:
 
 		separator_1 = '{'
 		separator_2 = '}'
-		f.write(f'{separator_1}"{content[0]}", "{content[1]}"{separator_2},\n')
+		f.write(f'\t{separator_1}"question": "{content[0]}", "answer": "{content[1]}"{separator_2},\n')
 
 	except Exception as e:
 		print(f'Error: {e}')
 
+f.write(']')
 f.close()
