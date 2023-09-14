@@ -3076,8 +3076,9 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] =
 	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = 
 	PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
+	PLAYER_TEMP[playerid][py_GODMODE] = 
 	PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS] = false;
-	PLAYER_TEMP[playerid][py_SEE_ACMD_LOG] = true;
+	PLAYER_TEMP[playerid][py_SEE_ACMD_LOG] =
 	PLAYER_TEMP[playerid][py_SEE_AC_LOG] = true;
 	PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] = INVALID_PLAYER_ID;
 	PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID] = INVALID_PLAYER_ID;

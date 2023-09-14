@@ -2852,12 +2852,14 @@ CMD:godmode(playerid, params[])
 		TextDrawShowForPlayer(playerid, Textdraws[textdraw_GODMODE][0]);
 		TextDrawShowForPlayer(playerid, Textdraws[textdraw_GODMODE][1]);
 		PLAYER_TEMP[playerid][py_GODMODE] = true;
+		SetPlayerHealthEx(playerid, Float:0x7F800000);
 	}
 	else
 	{
 		TextDrawHideForPlayer(playerid, Textdraws[textdraw_GODMODE][0]);
 		TextDrawHideForPlayer(playerid, Textdraws[textdraw_GODMODE][1]);
 		PLAYER_TEMP[playerid][py_GODMODE] = false;
+		SetPlayerHealthEx(playerid, 100.0);
 	}
 
 	return 1;
