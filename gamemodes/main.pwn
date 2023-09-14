@@ -944,10 +944,11 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 1001.3682, -1432.7248, 13.0867, 172.2203, 205, 205, 0}, //FCR-900
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 986.3114, -1435.7031, 13.1173, 170.8002, 205, 205, 0}, //FCR-900
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 991.5056, -1435.7352, 12.9658, 176.0558, 205, 205, 0}, //FCR-900
-	{VEHICLE_TYPE_WORK, WORK_MEDIC, 416, 1178.3592, -1307.1132, 13.9921, 269.3424, 1, 1, 0}, //Ambulance
-	{VEHICLE_TYPE_WORK, WORK_MEDIC, 416, 1177.1497, -1340.5240, 14.0583, 267.7389, 1, 1, 0}, //Ambulance
-	{VEHICLE_TYPE_WORK, WORK_MEDIC, 416, 1177.3006, -1337.4774, 14.0541, 269.2554, 1, 1, 0}, //Ambulance
-	{VEHICLE_TYPE_WORK, WORK_MEDIC, 416, 1178.1733, -1310.3139, 14.0096, 267.6561, 1, 1, 0} //Ambulance
+	// medico
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1178.3592, -1307.1132, 13.9921, 269.3424, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1177.1497, -1340.5240, 14.0583, 267.7389, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1177.3006, -1337.4774, 14.0541, 269.2554, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1178.1733, -1310.3139, 14.0096, 267.6561, 1, 198, 0} //Ambulance
 	/*{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1613.2410, -1886.6025, 13.2697, 281.5541, 1, 7, 0},
 	{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1612.5444, -1883.5178, 13.2577, 274.7869, 1, 7, 0},
 	{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1616.1304, -1895.8029, 13.2565, 357.8182, 1, 7, 0},
@@ -7612,6 +7613,10 @@ SanAndreas()
 	CreateDynamicPickup(1239, 1, 1626.089355, -2174.786132, 13.554687, 0, 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Punto de control", 0xF7F7F700, 1626.089355, -2174.786132, 13.554687, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	
+	//medico
+	CreateDynamicPickup(1239, 1, -212.521926, -1739.015014, 675.768737, 2, 3);
+	CreateDynamic3DTextLabel(""COL_WHITE"Punto de control", 0xF7F7F700, -212.521926, -1739.015014, 675.768737, 20.0, .testlos = true, .worldid = 2, .interiorid = 3);
+
 	//base mafia
 	CreateDynamic3DTextLabel("{ca3535}La cosa nostra\n"COL_WHITE"Equipamiento", 0xF7F7F700, 726.2478, -1276.3830, 13.5662, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel("{ff9b00}The Crew Criminals\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
