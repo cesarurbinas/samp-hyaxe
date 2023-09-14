@@ -3544,3 +3544,5 @@ CMD:allradio(playerid, params[])
 	return 1;
 }
 flags:allradio(CMD_OWNER)
+
+// Other flags
