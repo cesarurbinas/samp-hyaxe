@@ -300,3 +300,18 @@ GetDatabaseUserName(db_id)
 	db_free_result(Result);
 	return name;
 }
+
+SendEmail(const email[], const title[], const content[])
+{
+	new payload[1024];
+	format(payload, sizeof(payload), "{\"email\": \"%s\", \"title\": \"%s\", \"content\": \"%s\"}", email, title, content);
+	HTTP(0, HTTP_POST, "51.161.31.157:9991/send_email", payload, "response_SendEmail");
+	return 1;
+}
+
+forward response_SendEmail(index, response_code, const data[]);
+public response_SendEmail(index, response_code, const data[])
+{
+	//printf("[EMAIL_DEBUG] Data: %s", data);
+	return 1;
+}

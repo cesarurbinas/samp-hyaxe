@@ -28,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.8 Build 21"
+#define SERVER_VERSION 			"v0.8 Build 25"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -311,7 +311,7 @@ enum
 19 = anti cj
 */
 
-#define MIN_VEHICLE_HEALTH         375.0
+#define MIN_VEHICLE_HEALTH 375.0
 forward Float:GetDistanceBetweenPoints3D(Float:x1, Float:y1, Float:z1, Float:x2, Float:y2, Float:z2);
 forward Float:GetVehicleSpeed(vehicleid);
 forward Float:frandom(Float:max, Float:min, dp);
@@ -1864,7 +1864,6 @@ static const BAN_KEYWORDS[][100] =
 	"sampdroid",
 	"samp droid",
 	"samp_droid",
-	"sls",
 	"B-O-T-S",
 	"H-U-B",
 	"b-o-t-s",
@@ -1882,7 +1881,16 @@ static const BAN_KEYWORDS[][100] =
 	"B 0 T S",
 	"V 0 T S",
 	"V O T S",
-	"H.U.B"
+	"H.U.B",
+	"170.83.221.2",
+	"BREÑAS",
+	"cable color",
+	"CABLE COLOR",
+	"170.83.220.0/22",
+	"doxbin",
+	"wearelegal",
+	"bit.ly",
+	"dox"
 };
 
 enum
@@ -3193,7 +3201,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 			{
 				new dialog[250];
 				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Jetpack");
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 				
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Jetpack");
 
@@ -3694,7 +3702,7 @@ public OnPlayerConnect(playerid)
 					Tu nombre: %s\n\
 					\n\
 					Nombre: %s\n\
-					Expulsado por: %d\n\
+					Expulsado por: %s\n\
 					Fecha expulsión: %s\n\
 					Razón: %s\n\
 					\n\
@@ -3704,7 +3712,7 @@ public OnPlayerConnect(playerid)
 				name, GetDatabaseUserName(by), date, text
 			);
 
-			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 			KickEx(playerid, 500);
 		}
 		else if (type == TYPE_TEMP_BAN)
@@ -3730,7 +3738,7 @@ public OnPlayerConnect(playerid)
 						Tu IP: %s\n\
 						\n\
 						Nombre: %s\n\
-						Expulsado por: %d\n\
+						Expulsado por: %s\n\
 						Fecha expulsión: %s\n\
 						Razón: %s\n\
 						\n\
@@ -3743,7 +3751,7 @@ public OnPlayerConnect(playerid)
 					name, GetDatabaseUserName(by), date, text, now, expire_date
 				);
 
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 				KickEx(playerid, 500);
 			}
 			db_free_result(still_banned_Result);
@@ -7174,7 +7182,7 @@ CALLBACK: CancelGraffiti()
 			SendDiscordWebhook(str_text, 2);
 
 			format(str_text, sizeof(str_text), "[GRAFFITI] Nadie ha ganado el graffiti en %s.", GRAFFITIS_OBJ[i][g_ZONE_NAME]);
-			SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 1);
 		}
 	}
 
@@ -7228,7 +7236,7 @@ InitBlackMarket(market_id)
 	TextDrawSetString(Textdraws[textdraw_GRAFFITI_PLUS][2], "hud:radar_locosyndicate");
 
 	format(str_text, sizeof(str_text), "[MERCADO] Mercado en %s.", BLACK_MARKET_OBJ[market_id][bm_ZONE_NAME]);
-    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 1);
 
     format(str_text, 144, "Mercado en %s.", BLACK_MARKET_OBJ[market_id][bm_ZONE_NAME]);
     SendDiscordWebhook(str_text, 3);
@@ -7278,7 +7286,7 @@ InitGraffiti(graff_id)
 
 	new str[144];
 	format(str, 144, "[GRAFFITI] Graffiti en %s.", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
-    SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+    SendMessageToAdmins(COLOR_ANTICHEAT, str, 1);
 
     format(str, 144, "Graffiti en %s.", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
     SendDiscordWebhook(str, 2);
@@ -8519,7 +8527,7 @@ public OnPlayerText(playerid, text[])
 	{
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Superar 10 jails");
 
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado automáticamente, razón: Superar los 10 jails", "Entiendo", "");
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado automáticamente, razón: Superar los 10 jails", "Cerrar", "");
 		KickEx(playerid, 500);
 		PLAYER_MISC[playerid][MISC_BANEOS] ++;
 		SavePlayerMisc(playerid);
@@ -8639,7 +8647,7 @@ CMD:duda(playerid, params[])
 		{
 			new dialog[250];
 			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (Dudas)");
-			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Dudas)");
 
@@ -8679,7 +8687,7 @@ CMD:duda(playerid, params[])
 		{
 			new dialog[250];
 			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (IP en el dudas)");
-			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el dudas)");
 
@@ -8756,7 +8764,7 @@ CMD:anuncio(playerid, params[])
 		{
 			new dialog[250];
 			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (Anuncios)");
-			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Anuncios)");
 
@@ -8798,7 +8806,7 @@ CMD:anuncio(playerid, params[])
 	{
 		new dialog[250];
 		format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (IP en el anuncio)");
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 		
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el anuncio)");
 
@@ -12626,7 +12634,7 @@ ShowDialog(playerid, dialogid)
 
 			if (PLAYER_WORKS[playerid][WORK_OSBORN])
 			{
-				if (PLAYER_SKILLS[playerid][WORK_OSBORN] >= 5)
+				if (PLAYER_SKILLS[playerid][WORK_OSBORN] >= 19)
 				{
 					strcat(dialog, "Invitar a Familia Osborn\n");
 					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 9;
@@ -18628,7 +18636,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else
 				{
-					if (PLAYER_SKILLS[playerid][WORK_OSBORN] >= 5)
+					if (PLAYER_SKILLS[playerid][WORK_OSBORN] >= 19)
 					{
 						PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
 						ShowDialog(playerid, DIALOG_OSBORN_MAFIA_MODIFY);
@@ -19258,7 +19266,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (gettime() < PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT] + 5) return 1;
+				if ((gettime() - PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT]) < 60) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 60 segundos para volver a reportar.", 3);
 				PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT] = gettime();
 
 				new reason[128];
@@ -22322,6 +22330,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else
 				{
+					new str_text[264];
+					format(str_text, sizeof(str_text), ""COL_WHITE"La repuesta "COL_RED"%s"COL_WHITE" es incorrecta, te hemos\nenviado un correo en caso que te hayas olvidado.", inputtext);
+					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Respuesta incorrecta", str_text, "Cerrar", "");
+
+					format(str_text, sizeof(str_text), "Hola <b>%s</b>, alguien ha intentado acceder a tu cuenta desde la IP <code>%s</code>. En el caso que eras tu y te hayas olvidado la respuesta a la pregunta de seguridad, es la siguiente (respete las mayusculas y minusculas): <code>%s</code>",
+						PLAYER_TEMP[playerid][py_NAME],
+						PLAYER_TEMP[playerid][py_IP],
+						PLAYER_TEMP[playerid][py_ANSWER_RESPONSE]
+					);
+					SendEmail(ACCOUNT_INFO[playerid][ac_EMAIL], "Respuesta de seguridad", str_text);
+
 					SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Respuesta incorrecta");
 					KickEx(playerid, 500);
 				}
@@ -25821,7 +25840,7 @@ CheckMarketProgress(playerid)
 				SendDiscordWebhook(str_text, 3);
 
 				new str[144]; format(str, 144, "[MERCADO] %s ha ganado el mercado en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], BLACK_MARKET_OBJ[i][bm_ZONE_NAME]);
-    			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+    			SendMessageToAdmins(COLOR_ANTICHEAT, str, 1);
 
     			format(str_text, sizeof(str_text), "\n"COL_WHITE"Dominado por: {%06x}%s",  CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
     			UpdateDynamic3DTextLabelText(BLACK_MARKET_OBJ[i][bm_LABEL], 0xF7F7F700, str_text);
@@ -25925,7 +25944,7 @@ CheckGraffitiProgress(playerid)
 				SendDiscordWebhook(str_text, 2);
 
 				new str[144]; format(str, 144, "[GRAFFITI] %s ha ganado el graffiti en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], GRAFFITIS_OBJ[i][g_ZONE_NAME]);
-    			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+    			SendMessageToAdmins(COLOR_ANTICHEAT, str, 1);
 
 				SetDynamicObjectMaterialText(GRAFFITIS_OBJ[i][g_ID], 0, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], OBJECT_MATERIAL_SIZE_512x64, GRAFFITIS_OBJ[i][g_FONT], 60, 0, CrewColorGraffiti_ARGB, 0x00000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
 
@@ -26973,15 +26992,18 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		return 1;
 	}
 
-	if ((newkeys & (KEY_FIRE | KEY_CROUCH)) == (KEY_FIRE | KEY_CROUCH) && (oldkeys & (KEY_FIRE | KEY_CROUCH)) != (KEY_FIRE | KEY_CROUCH))
-    {
-    	ApplyAnimation(playerid, "GYMNASIUM", "gym_tread_falloff", 1.0, 0, 0, 0, 0, 0);
-    }
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+	{
+		if ((newkeys & (KEY_FIRE | KEY_CROUCH)) == (KEY_FIRE | KEY_CROUCH) && (oldkeys & (KEY_FIRE | KEY_CROUCH)) != (KEY_FIRE | KEY_CROUCH))
+	    {
+	    	ApplyAnimation(playerid, "GYMNASIUM", "gym_tread_falloff", 1.0, 0, 0, 0, 0, 0);
+	    }
 
-    if ((newkeys & KEY_CROUCH) && !((newkeys & KEY_FIRE) || (newkeys & KEY_HANDBRAKE)) && GetPlayerSpecialAction(playerid) != SPECIAL_ACTION_DUCK )
-    {
-    	ApplyAnimation(playerid, "GYMNASIUM", "gym_tread_falloff", 1.0, 0, 0, 0, 0, 0);
-    }
+	    if ((newkeys & KEY_CROUCH) && !((newkeys & KEY_FIRE) || (newkeys & KEY_HANDBRAKE)) && GetPlayerSpecialAction(playerid) != SPECIAL_ACTION_DUCK )
+	    {
+	    	ApplyAnimation(playerid, "GYMNASIUM", "gym_tread_falloff", 1.0, 0, 0, 0, 0, 0);
+	    }
+	}
 
 	if (newkeys & KEY_HANDBRAKE && !IsPlayerInAnyVehicle(playerid)) PLAYER_TEMP[playerid][py_AIM_DATA] = 1;
 	else if (oldkeys & KEY_HANDBRAKE) PLAYER_TEMP[playerid][py_AIM_DATA] = 0;
@@ -32092,7 +32114,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			{
 				new dialog[250];
 				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Usar tazer sin ser policia");
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 				
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazer sin ser policia");
 
@@ -34017,7 +34039,7 @@ AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, cons
 // Comandos admins
 CMD:reportar(playerid, params[])
 {
-	if (gettime() < PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT] + 5) return SendClientMessage(playerid, COLOR_RED, "Aviso:"COL_WHITE" Estás enviando mensajes demasiado rápido.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT]) < 60) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 60 segundos para volver a reportar.", 3);
 	PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT] = gettime();
 
 	new reason[128];
@@ -35104,7 +35126,7 @@ StartTerritoryAttack(crew_index, territory_index, time)
 
 	new str_text[144];
 	format(str_text, sizeof(str_text), "[TERRITORIO] %s", message);
-	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 1);
 
 	format(str_text, sizeof(str_text), "%s", message);
 	SendDiscordWebhook(str_text, 4);
@@ -35147,7 +35169,7 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 
 		new str_text[144];
 		format(str_text, sizeof(str_text), "[TERRITORIO] %s", message);
-		SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 1);
 
 		format(str_text, sizeof(str_text), "%s", message);
 		SendDiscordWebhook(str_text, 4);
@@ -35237,7 +35259,7 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 
 		new str_text[144];
 		format(str_text, sizeof(str_text), "[TERRITORIO] %s", message);
-		SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 1);
 
 		format(str_text, sizeof(str_text), "%s", message);
 		SendDiscordWebhook(str_text, 4);
@@ -36767,7 +36789,11 @@ CheckSpamViolation(const str_text[])
 {
 	for(new x = 0; x < sizeof(BAN_KEYWORDS); x ++)
     {
-        if (strfind(str_text, BAN_KEYWORDS[x], true) != -1) return true;
+        if (strfind(str_text, BAN_KEYWORDS[x], true) != -1)
+        {
+        	printf("[SPAM-CHECK] %s - %s", BAN_KEYWORDS[x], str_text);
+        	return true;
+    	}
     }
 	return false;
 }
@@ -36790,23 +36816,7 @@ CheckNameFilterViolation(const str_text[])
 	return false;
 }
 
-CALLBACK: SendBotResponse(const content[])
-{
-	printf("%s", content);
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL])
-			{
-				SendResponsiveMessage(i, COLOR_DARK_GREEN, content, 135);
-			}
-		}
-	}
-	return 1;	
-}
-
-ScanDoubt(playerid, doubt[])
+ScanDoubt(playerid, const doubt[])
 {
 	new payload[264];
 	format(payload, sizeof(payload), "{\"author\": \"%s\", \"playerid\": %d, \"question\": \"%s\"}", PLAYER_TEMP[playerid][py_NAME], playerid, doubt);
@@ -36814,14 +36824,16 @@ ScanDoubt(playerid, doubt[])
 	return 1;
 }
 
-forward neuroadmin_BotGetResponse(index, response_code, data[]);
-public neuroadmin_BotGetResponse(index, response_code, data[])
+forward neuroadmin_BotGetResponse(index, response_code, const data[]);
+public neuroadmin_BotGetResponse(index, response_code, const data[])
 {
 	if (IsPlayerConnected(index))
 	{
+		new str_text[264];
 	    if (response_code == 200)
 	    {
-	    	new str_text[264];
+	    	printf("[NEUROADMIN] Data: %s", data);
+
 	    	format(str_text, sizeof(str_text), 
 	    		"[Dudas] "COL_WHITE"Jugador %s_%s (%d): (( @%d %s ))",
 	    		names[random(sizeof(names))],
@@ -36831,20 +36843,29 @@ public neuroadmin_BotGetResponse(index, response_code, data[])
 	    		data
 	    	);
 
-	        SetTimerEx("SendBotResponse", 500 + minrand(500, 1500), false, "s[264]", str_text);
+	    	printf("[NEUROADMIN] Doubt: %s", str_text);
+	    	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			{
+				if (IsPlayerConnected(i))
+				{
+					if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL])
+					{
+						SendResponsiveMessage(i, COLOR_DARK_GREEN, str_text, 135);
+					}
+				}
+			}
 	    }
 	    else
 	    {
-	    	new payload[264];
-			format(payload, sizeof(payload), "{\"author\": \"%s\", \"playerid\": %d, \"message\": \"%s\"}", PLAYER_TEMP[index][py_NAME], index, PLAYER_TEMP[index][py_LAST_DOUBT]);
-			HTTP(index, HTTP_POST, "51.161.31.157:6666/check_bad_use", payload, "neuroadmin_BotCheckBadUse");
+			format(str_text, sizeof(str_text), "{\"author\": \"%s\", \"playerid\": %d, \"message\": \"%s\"}", PLAYER_TEMP[index][py_NAME], index, PLAYER_TEMP[index][py_LAST_DOUBT]);
+			HTTP(index, HTTP_POST, "51.161.31.157:6666/check_bad_use", str_text, "neuroadmin_BotCheckBadUse");
 	    }
 	}
 	return 1;
 }
 
-forward neuroadmin_BotCheckBadUse(index, response_code, data[]);
-public neuroadmin_BotCheckBadUse(index, response_code, data[])
+forward neuroadmin_BotCheckBadUse(index, response_code, const data[]);
+public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 {
 	if (IsPlayerConnected(index))
 	{
@@ -36852,16 +36873,33 @@ public neuroadmin_BotCheckBadUse(index, response_code, data[])
 	    {
 	    	if (data[0] == 'Y')
 			{
-		    	new str_text[264];
-		    	format(str_text, sizeof(str_text), "[DUDAS] Posible mal uso de %s (%d).", PLAYER_TEMP[index][py_NAME], index);
-				SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-		    }
+				new seconds = 60 * 60;
+
+				SendClientMessageEx(index, COLOR_ORANGE, "[Alerta]"COL_WHITE" NeuroAdmin te silenció del canal de dudas y anuncios por Mal uso - Tiempo: 60");
+				PLAYER_MISC[index][MISC_MUTES] ++;
+				PLAYER_MISC[index][MISC_MUTE] = gettime() + seconds;
+				SavePlayerMisc(index);
+
+				new str_text[145];
+			    format(str_text, 145, "[Dudas] "COL_WHITE"NeuroAdmin silenció a %s (%d) del canal de dudas/anuncios: Mal uso", ACCOUNT_INFO[index][ac_NAME], index);
+
+			    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+				{
+					if (IsPlayerConnected(i))
+					{
+						if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL])
+						{
+							SendResponsiveMessage(i, COLOR_DARK_GREEN, str_text, 135);
+						}
+					}
+				}
+			}
 	    }
 	}
 	return 1;
 }
 
-SendMessageToDoubtChannel(playerid, message[])
+SendMessageToDoubtChannel(playerid, const message[])
 {
 	new str[364];
 

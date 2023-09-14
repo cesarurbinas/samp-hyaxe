@@ -100,16 +100,27 @@ ENEMY_MAFIA_RANKS[][] =
 OSBORN_RANKS[][] =
 {
 	"Civil",
-	/* 0 */ "Associato",
-	/* 1 */ "Soldato",
-	/* 2 */ "Avvocato",
-	/* 3 */ "Caporegime",
-	/* 4 */ "Casetto",
-	/* 5 */ "Numerale",
-	/* 6 */ "Sottocapo",
-	/* 7 */ "Consigliere",
-	/* 8 */ "Don",
-	/* 9 */ "Capo di tutti capo"
+	"ASOCCIATO",
+	"FIDUCCIA",
+	"SOLDATO 1",
+	"SOLDATO 2", 
+	"SOLDATO 3",
+	"GRAN SOLDATO",
+	"MASTER SOLDATO",
+	"CAPODECIME 1",
+	"CAPODECIME 2",
+	"CAPODECIME 3",
+	"CAPOREGIME 1",
+	"CAPOREGIME 2",
+	"CAPOREGIME 3",
+	"AVVOCTO",
+	"NUMERALE",
+	"CASETTO",
+	"SOTTOCAPO",
+	"CONSIGLIERE",
+	"DON / DONA",
+	"THE VENDETTA",
+	"CAPO DI TUTI CAPI"
 };
 
 TextToSpanish(const base[])

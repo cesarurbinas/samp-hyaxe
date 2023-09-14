@@ -1,13 +1,30 @@
 import os
 import json
 import requests
-from discord_webhooks import DiscordWebhook, DiscordEmbed
-from flask import Flask, request, jsonify
 from datetime import date
+from flask import Flask, request, url_for, render_template, jsonify
+from flask_mail import Mail, Message
+from discord_webhooks import DiscordWebhook, DiscordEmbed
 
 
+# Config
 app = Flask(__name__)
 
+
+# Email
+app.config['MAIL_SERVER'] = 'mail.privateemail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'contact@hyaxe.com'
+app.config['MAIL_PASSWORD'] = 'RUSSIAN09082004'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+
+# Intialize Mail
+mail = Mail(app)
+
+
+# Utils
 def IsValidKey(key):
 	if key == 'I88B7B7F7Es6bKkNS9SB77svJA':
 		return True
@@ -15,6 +32,7 @@ def IsValidKey(key):
 	return False
 
 
+# Webhooks
 def SendWebhookMessage(message, msg_type):
 	if msg_type == 1:
 		try:
@@ -34,7 +52,7 @@ def SendWebhookMessage(message, msg_type):
 			try:
 				webhook = DiscordWebhook(url = crews[x])
 				embed = DiscordEmbed(description = message, color = 0x289058)
-				embed.set_author(name = 'Graffitis', url = 'https://wiki.sa-mp.com/wroot/images2/d/db/Icon_63.gif', icon_url = 'https://wiki.sa-mp.com/wroot/images2/d/db/Icon_63.gif')
+				embed.set_author(name = 'Graffitis', url = 'https://www.hyaxe.com/static/files/mxdzdqdpqooafkxricon63.gif', icon_url = 'https://www.hyaxe.com/static/files/mxdzdqdpqooafkxricon63.gif')
 				webhook.add_embed(embed)
 				response = webhook.execute()
 
@@ -49,7 +67,7 @@ def SendWebhookMessage(message, msg_type):
 			try:
 				webhook = DiscordWebhook(url = crews[x])
 				embed = DiscordEmbed(description = message, color = 0x40bcb8)
-				embed.set_author(name = 'Mercados', url = 'https://wiki.sa-mp.com/wroot/images2/a/a7/Icon_23.gif', icon_url = 'https://wiki.sa-mp.com/wroot/images2/a/a7/Icon_23.gif')
+				embed.set_author(name = 'Mercados', url = 'https://www.hyaxe.com/static/files/zmkqublzeoapzmiiicon23.gif', icon_url = 'https://www.hyaxe.com/static/files/zmkqublzeoapzmiiicon23.gif')
 				webhook.add_embed(embed)
 				response = webhook.execute()
 
@@ -64,7 +82,7 @@ def SendWebhookMessage(message, msg_type):
 			try:
 				webhook = DiscordWebhook(url = crews[x])
 				embed = DiscordEmbed(description = message, color = 0xd08820)
-				embed.set_author(name = 'Territorios', url = 'https://wiki.sa-mp.com/wroot/images2/8/8c/Icon_60.gif', icon_url = 'https://wiki.sa-mp.com/wroot/images2/8/8c/Icon_60.gif')
+				embed.set_author(name = 'Territorios', url = 'https://www.hyaxe.com/static/files/rxvuhabadibhptpjicon60.gif', icon_url = 'https://www.hyaxe.com/static/files/rxvuhabadibhptpjicon60.gif')
 				webhook.add_embed(embed)
 				response = webhook.execute()
 
@@ -99,7 +117,7 @@ def webhook():
 		return 'very yas'
 
 	else:
-		return 'ola tomi karakuel komo lo iebas mi pana, saludillos al pana andres y al pana gabi'
+		return 'Access denied'
 		
 	return 'yas'
 
@@ -132,6 +150,7 @@ def add_webhook():
 	return 'yas'
 
 
+# Proxy check
 @app.route('/proxycheck/<ip>')
 def proxy_check(ip):
 	whitelist = ['138.204.13.179', '31.214.141.206']
@@ -173,6 +192,36 @@ def proxy_check(ip):
 		return 'Y'
 
 	return 'N'
+
+
+# Email
+@app.route('/send_email', methods = ['GET', 'POST'])
+def send_emil():
+	try:
+		if not request.data:
+			request_data = request.form.to_dict()
+			for item in request_data:
+				final_data = item
+				break
+
+		else:
+			final_data = request.data.decode('latin1')
+
+		final_data = json.loads(final_data)
+		print(f'[EMAIL] Data: {final_data}')
+		
+		email_info = Message(final_data['title'], sender = 'contact@hyaxe.com', recipients = [ final_data['email'] ])
+		email_info.body = render_template('email.html', title = final_data['title'], content = final_data['content'])
+		email_info.html = email_info.body
+		mail.send(email_info)
+
+		return 'sent'
+
+	except Exception as e:
+		print(f'[DEBUG] Internal error (send_emil): {e}')
+		return 'INTERNAL_SERVER_ERROR', 1
+
+	return 'very yas'
 
 
 if __name__ == '__main__':

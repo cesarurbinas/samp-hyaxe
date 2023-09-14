@@ -126,6 +126,7 @@ class DiscordWebhook:
                         index=i+1, length=urls_len
                     )
                 )
+            """
             else:
                 logger.error(
                     "[{index}/{length}] Webhook status code {status_code}: {content}".format(
@@ -135,6 +136,7 @@ class DiscordWebhook:
                         content=response.content.decode("utf-8"),
                     )
                 )
+            """
             responses.append(response)
         return responses[0] if len(responses) == 1 else responses
 

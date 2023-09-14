@@ -1,5 +1,20 @@
 new ADMIN_LEVEL_AC_IMMUNITY = 2;
 
+SendCommandAlert(playerid, to_player, const command[])
+{
+	new string[144];
+	format(string, sizeof(string), "[ALERTA]"COL_WHITE" %s (%d) ha intentado usar el comando %s sobre %s (%d).",
+		PLAYER_TEMP[playerid][py_NAME],
+		playerid,
+		command,
+		PLAYER_TEMP[to_player][py_NAME],
+		to_player
+	);
+	SendMessageToAdminsAC(COLOR_RED, string);
+	SendDiscordWebhook(string, 1);
+	return 1;
+}
+
 CMD:comandosadmin(playerid, params[])
 {
     new level;
@@ -282,7 +297,12 @@ CMD:adv(playerid, params[])
 	new to_player, reason[64];
 	if (sscanf(params, "us[64]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /adv <player_id> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "adv");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	AddPlayerBadHistory(ACCOUNT_INFO[to_player][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_WARNING, reason);
 
@@ -308,7 +328,12 @@ CMD:kick(playerid, params[])
 	new to_player, reason[64];
 	if (sscanf(params, "us[64]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /kick <player_id> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "kick");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	if (PLAYER_TEMP[to_player][py_KICKED]) return SendClientMessage(playerid, COLOR_WHITE, "El jugador ya está expulsado.");
 	if (!ACCOUNT_INFO[to_player][ac_ID]) return KickEx(to_player, 100);
@@ -336,7 +361,12 @@ CMD:spec(playerid, params[])
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /spec <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "spec");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	if (GetPlayerState(playerid) != PLAYER_STATE_SPECTATING)
     {
@@ -424,7 +454,12 @@ CMD:pest(playerid, params[])
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /pest <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "pest");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	ShowPlayerStats(playerid, to_player);
 	SendCmdLogToAdmins(playerid, "pest", params);
@@ -436,7 +471,12 @@ CMD:pinv(playerid, params[])
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /pinv <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "pinv");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	ShowPlayerInventory(playerid, to_player);
 	SendCmdLogToAdmins(playerid, "pinv", params);
@@ -448,7 +488,12 @@ CMD:pexp(playerid, params[])
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /pexp <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "pexp");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	ShowPlayerSkills(playerid, to_player);
 	SendCmdLogToAdmins(playerid, "pexp", params);
@@ -460,7 +505,12 @@ CMD:pbank(playerid, params[])
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /pbank <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "pbank");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	if (!BANK_ACCOUNT[to_player][bank_account_ID]) SendClientMessage(playerid, COLOR_WHITE, "El jugador no tiene cuenta bancaria.");
 	else SendClientMessageEx(playerid, COLOR_WHITE, "Cuenta bancaria ID: '%d' Balance: '%s'", BANK_ACCOUNT[to_player][bank_account_ID], number_format_thousand(BANK_ACCOUNT[to_player][bank_account_BALANCE]));
@@ -472,7 +522,12 @@ CMD:unjail(playerid, params[])
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /unjail <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "unjail");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	if (CHARACTER_INFO[to_player][ch_STATE] != ROLEPLAY_STATE_JAIL) return SendClientMessage(playerid, COLOR_WHITE, "El jugador no está en jail.");
 
@@ -482,17 +537,70 @@ CMD:unjail(playerid, params[])
 	SendCmdLogToAdmins(playerid, "unjail", params);
 	return 1;
 }
-
+// 170 83 220 2
 CMD:ip(playerid, params[])
 {
 	new to_player;
 	if (sscanf(params, "r", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ip <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	SendCmdLogToAdmins(playerid, "ip", params);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
-	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Yahir_Kozel")) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No puedes hacer eso con este usuario.");
+	
+	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Yahir_Kozel"))
+	{
+		SendClientMessageEx(playerid, COLOR_RED, "%s (%d):"COL_WHITE" 181.118.101.219", ACCOUNT_INFO[to_player][ac_NAME], to_player);
+		
+		new dialog[250];
+		format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Subnormal");
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+				
+		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Subnormal");
+
+		KickEx(playerid, 500);
+		PLAYER_MISC[playerid][MISC_BANEOS] ++;
+		SavePlayerMisc(playerid);
+
+		new str[144];
+		format(str, 144, "[ADMIN] %s (%d) fue baneado: Subnormal.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+		new webhook[144];
+		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		SendDiscordWebhook(webhook, 1);
+		return 1;
+	}
+
+	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Giovanni_Dobrev"))
+	{
+		SendClientMessageEx(playerid, COLOR_RED, "%s (%d):"COL_WHITE" 181.118.101.219", ACCOUNT_INFO[to_player][ac_NAME], to_player);
+		
+		new dialog[250];
+		format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Subnormal");
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+				
+		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Subnormal");
+
+		KickEx(playerid, 500);
+		PLAYER_MISC[playerid][MISC_BANEOS] ++;
+		SavePlayerMisc(playerid);
+
+		new str[144];
+		format(str, 144, "[ADMIN] %s (%d) fue baneado: Subnormal.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+		new webhook[144];
+		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		SendDiscordWebhook(webhook, 1);
+		return 1;
+	}
+
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "ip");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	SendClientMessageEx(playerid, COLOR_RED, "%s (%d):"COL_WHITE" %s", ACCOUNT_INFO[to_player][ac_NAME], to_player, ACCOUNT_INFO[to_player][ac_IP]);
+	SendCmdLogToAdmins(playerid, "ip", params);
 	return 1;
 }
 
@@ -593,7 +701,12 @@ CMD:goto(playerid, params[])
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /goto <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "goto");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	new Float:p[4];
 	GetPlayerPos(to_player, p[0], p[1], p[2]);
@@ -622,7 +735,12 @@ CMD:get(playerid, params[])
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /get <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "get");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	new Float:p[4];
 	GetPlayerPos(playerid, p[0], p[1], p[2]);
@@ -674,7 +792,13 @@ CMD:jail(playerid, params[])
     if (sscanf(params, "uds[64]", to_player, time, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /jail <player_id> <minutos> <razón>");
 	if (time < 0 || time > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Intervalo de minutos incorrecto.");
     if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "jail");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
+
 	if(CHARACTER_INFO[to_player][ch_STATE] == ROLEPLAY_STATE_JAIL) return SendClientMessage(playerid, COLOR_WHITE, "Este jugador ya esta encarcelado.");
     StopAudioStreamForPlayer(to_player);
     CancelEdit(to_player);
@@ -723,7 +847,12 @@ CMD:ban(playerid, params[])
 	new to_player, reason[32];
 	if (sscanf(params, "us[32]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ban <player_id> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "ban");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	if (PLAYER_TEMP[to_player][py_KICKED]) return SendClientMessage(playerid, COLOR_WHITE, "El jugador ya está expulsado.");
 	if (!ACCOUNT_INFO[to_player][ac_ID]) return KickEx(to_player, 100);
@@ -762,7 +891,12 @@ CMD:gpciban(playerid, params[])
 	new to_player, reason[32];
 	if (sscanf(params, "us[32]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ban <player_id> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "gpciban");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	if (PLAYER_TEMP[to_player][py_KICKED]) return SendClientMessage(playerid, COLOR_WHITE, "El jugador ya está expulsado.");
 	if (!ACCOUNT_INFO[to_player][ac_ID]) return KickEx(to_player, 100);
@@ -874,7 +1008,13 @@ CMD:tban(playerid, params[])
 	new to_player, days, reason[32];
 	if (sscanf(params, "uds[32]", to_player, days, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tban <player_id> <dias> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "tban");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
+
 	if (days <= 0 || days > 9999) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ban <player_id> <dias> <razon>");
 
 	if (PLAYER_TEMP[to_player][py_KICKED]) return SendClientMessage(playerid, COLOR_WHITE, "El jugador ya está expulsado.");
@@ -1095,7 +1235,12 @@ CMD:darstaff(playerid, params[])
 	new to_player, level;
 	if (sscanf(params, "ud", to_player, level)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /givemod <player_id> <rango>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "givemod");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 	if (level < 0 || level >= sizeof ADMIN_LEVELS) return SendClientMessage(playerid, COLOR_WHITE, "El rango no es válido.");
 	if (level > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "No puedes dar este rango por ser un rango superior al tuyo.");
 
@@ -1124,7 +1269,12 @@ CMD:setthirst(playerid, params[])
 	if (sscanf(params, "uf", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setthirst <player_id> <valor>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (ammount < 0.0 || ammount > 100.0) return SendClientMessage(playerid, COLOR_WHITE, "Cantidad no válida.");
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "setthirst");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	CHARACTER_INFO[to_player][ch_THIRST] = ammount;
 	SendClientMessageEx(playerid, COLOR_WHITE, "La hidratación de %s (%d) ahora es %.1f.", ACCOUNT_INFO[to_player][ac_NAME], to_player, ammount);
@@ -1140,7 +1290,12 @@ CMD:sethungry(playerid, params[])
 	if (sscanf(params, "uf", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sethungry <player_id> <valor>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (ammount < 0.0 || ammount > 100.0) return SendClientMessage(playerid, COLOR_WHITE, "Cantidad no válida.");
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "sethungry");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	CHARACTER_INFO[to_player][ch_HUNGRY] = ammount;
 	SendClientMessageEx(playerid, COLOR_WHITE, "La alimentación de %s (%d) ahora es %.1f.", ACCOUNT_INFO[to_player][ac_NAME], to_player, ammount);
@@ -1205,7 +1360,12 @@ CMD:sethealth(playerid, params[])
 	if (sscanf(params, "uf", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sethealth <player_id> <valor>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (ammount < 0.0 || ammount > 100.0) return SendClientMessage(playerid, COLOR_WHITE, "Valor no válido.");
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "sethealth");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	SetPlayerHealthEx(to_player, ammount);
 	SendClientMessageEx(playerid, COLOR_WHITE, "La vida de %s (%d) ahora es %.1f.", ACCOUNT_INFO[to_player][ac_NAME], to_player, ammount);
@@ -1221,7 +1381,12 @@ CMD:setarmour(playerid, params[])
 	if (sscanf(params, "uf", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setarmour <player_id> <valor>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (ammount < 0.0 || ammount > 100.0) return SendClientMessage(playerid, COLOR_WHITE, "Valor no válido.");
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "setarmour");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	SetPlayerArmourEx(to_player, ammount);
 	SendClientMessageEx(playerid, COLOR_WHITE, "El chaleco de %s (%d) ahora es %.1f.", ACCOUNT_INFO[to_player][ac_NAME], to_player, ammount);
@@ -1260,7 +1425,12 @@ CMD:setlevel(playerid, params[])
 	new to_player, level;
 	if (sscanf(params, "ud", to_player, level)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /level <player_id> <nivel>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "setlevel");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	KillTimer(PLAYER_TEMP[to_player][py_TIMERS][2]);
 
@@ -1301,7 +1471,12 @@ CMD:setwork(playerid, params[])
 	new to_player, work, set;
 	if (sscanf(params, "udd", to_player, work, set)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setwork <player_id> <work> <set>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "setwork");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	if (work < 0 || work >= sizeof work_info) return SendClientMessage(playerid, COLOR_WHITE, "El trabajo no es válido, para verlos usa /works.");
 
@@ -1628,7 +1803,12 @@ CMD:pnot(playerid, params[])
 	new to_player;
     if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /pnot <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
-    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "pnot");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	new dialog[128 * 10];
 
@@ -1667,7 +1847,12 @@ CMD:plog(playerid, params[])
 	new to_player;
     if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /plog <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
-    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "plog");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	new dialog[64 * 10];
 
@@ -1770,7 +1955,12 @@ CMD:setworkexp(playerid, params[])
 	new to_player, work, exp;
 	if (sscanf(params, "udd", to_player, work, exp)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setworkexp <player_id> <work, para verlos /works> <exp>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "setworkexp");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	if (work < 0 || work >= sizeof work_info) return SendClientMessage(playerid, COLOR_WHITE, "El trabajo no es válido, para verlos usa /works.");
 
@@ -1794,7 +1984,12 @@ CMD:setcash(playerid, params[])
 	new to_player, value;
 	if (sscanf(params, "ud", to_player, value)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setcash <player_id> <ammount>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "setcash");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	SetPlayerCash(to_player, value);
 	SendClientMessageEx(playerid, COLOR_WHITE, "El dinero de %s (%d) ahora es %d.", ACCOUNT_INFO[to_player][ac_NAME], to_player, value);
@@ -1811,7 +2006,12 @@ CMD:givecash(playerid, params[])
 	new to_player, value;
 	if (sscanf(params, "ud", to_player, value)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /givecash <player_id> <ammount>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "givecash");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	GivePlayerCash(to_player, value);
 	SendClientMessageEx(playerid, COLOR_WHITE, "El jugador %s (%d) ha recibido %d.", ACCOUNT_INFO[to_player][ac_NAME], to_player, value);
@@ -1827,7 +2027,12 @@ CMD:setbmlevel(playerid, params[])
 	new to_player, value;
 	if (sscanf(params, "ud", to_player, value)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setbmlevel <player_id> <level>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "setbmlevel");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	CHARACTER_INFO[to_player][ch_BLACK_MARKET_LEVEL] = value;
 	SendClientMessageEx(playerid, COLOR_WHITE, "El nivel 'black_market' de %s (%d) ahora es %d.", ACCOUNT_INFO[to_player][ac_NAME], to_player, value);
@@ -2675,7 +2880,12 @@ CMD:muteard(playerid, params[])
 	if (time > 65535 || -1 >= time) return SendClientMessage(playerid, COLOR_WHITE, "Intervalo de minutos incorrecto. (0 - 65535)");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (PLAYER_MISC[to_player][MISC_MUTE] > gettime()) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) ya esta muteado", to_player);
-	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "mute");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 	if(!time)
 	{
 		if(!PLAYER_MISC[to_player][MISC_MUTES]) return SendClientMessage(playerid, COLOR_WHITE, "No puedes usar el valor 0 con usuarios sin muteos.");
@@ -2684,7 +2894,7 @@ CMD:muteard(playerid, params[])
 	
 	new seconds = time * 60;
 
-	SendClientMessageEx(to_player, COLOR_ORANGE, "%s te silenció del canal de dudas y anuncios por %s - Tiempo: %d", ACCOUNT_INFO[playerid][ac_NAME], reason, time);
+	SendClientMessageEx(to_player, COLOR_ORANGE, "[Alerta]"COL_WHITE" %s te silenció del canal de dudas y anuncios por %s - Tiempo: %d", ACCOUNT_INFO[playerid][ac_NAME], reason, time);
 	PLAYER_MISC[to_player][MISC_MUTES] ++;
 	PLAYER_MISC[to_player][MISC_MUTE] = gettime() + seconds;
 	SavePlayerMisc(to_player);
@@ -2719,7 +2929,12 @@ CMD:desmuteard(playerid, params[])
     new to_player;
     if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /desmuteard <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
-    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+    if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "unmute");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
 
 	if (gettime() > PLAYER_MISC[to_player][MISC_MUTE]) return SendClientMessage(playerid, COLOR_WHITE, "Este jugador no está silenciado.");
 
