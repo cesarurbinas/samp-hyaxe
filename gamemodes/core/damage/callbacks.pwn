@@ -159,9 +159,6 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 	new Float:x, Float:y, Float:z;
 	
-	GetPlayerPos(playerid, x, y, z);
-	if (IsShortDistanceWeapon(weaponid, GetPlayerDistanceFromPoint(playerid, x, y, z))) return 0;
-
 	if (issuerid != INVALID_PLAYER_ID && weaponid == 23)
 	{
 	   SetPlayerChatBubble(playerid, "\n\n\n\n* Cae al piso al recibir el choque eléctrico de un tazer.\n\n\n", 0xffcb90FF, 20.0, 5000);
@@ -173,6 +170,10 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 	if (IsPlayerConnected(issuerid))
 	{
+		GetPlayerPos(playerid, x, y, z);
+		if (IsShortDistanceWeapon(weaponid, GetPlayerDistanceFromPoint(issuerid, x, y, z))) return 0;
+
+
 		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL && !PLAYER_WORKS[issuerid][WORK_POLICE])
 		{
 			ShowPlayerAlert(issuerid, "No matar", -1, 4);
@@ -208,31 +209,35 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 			{
 				if (bodypart == 9)
 				{
-					new current_gettime = gettime();
-
-					if (current_gettime - PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] > 30) PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] = 0;
-					else PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] ++;
-
-					PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] = current_gettime;
-					if (PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] >= 5)
+					GetPlayerPos(playerid, x, y, z);
+					if (GetPlayerDistanceFromPoint(issuerid, x, y, z) >= 30.0)
 					{
-						new dialog[250];
-						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Aimbot");
-						ShowPlayerDialog(issuerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-						
-						AddPlayerBan(ACCOUNT_INFO[issuerid][ac_ID], ACCOUNT_INFO[issuerid][ac_NAME], ACCOUNT_INFO[issuerid][ac_IP], 11, TYPE_BAN, "Aimbot");
+						new current_gettime = gettime();
 
-						KickEx(issuerid, 500);
-						PLAYER_MISC[issuerid][MISC_BANS] ++;
-						SavePlayerMisc(issuerid);
+						if (current_gettime - PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] > 30) PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] = 0;
+						else PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] ++;
 
-						new str[144];
-						format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Aimbot.", ACCOUNT_INFO[issuerid][ac_NAME], issuerid);
-						SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+						PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] = current_gettime;
+						if (PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] >= 5)
+						{
+							new dialog[250];
+							format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Aimbot");
+							ShowPlayerDialog(issuerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+							
+							AddPlayerBan(ACCOUNT_INFO[issuerid][ac_ID], ACCOUNT_INFO[issuerid][ac_NAME], ACCOUNT_INFO[issuerid][ac_IP], 11, TYPE_BAN, "Aimbot");
 
-						new webhook[144];
-						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-						SendDiscordWebhook(webhook, 1);
+							KickEx(issuerid, 500);
+							PLAYER_MISC[issuerid][MISC_BANS] ++;
+							SavePlayerMisc(issuerid);
+
+							new str[144];
+							format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Aimbot.", ACCOUNT_INFO[issuerid][ac_NAME], issuerid);
+							SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+							new webhook[144];
+							format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+							SendDiscordWebhook(webhook, 1);
+						}
 					}
 				}
 			}

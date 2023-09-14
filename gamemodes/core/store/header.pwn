@@ -10,7 +10,7 @@ new STORE_PRODUCTS[][store_product_enum] =
 {
 	{"VIP Turbo de un mes", 3, 3, 31},
 	{"20 HyCoins", 5, 0, 20},
-	{"50 HyCoins", 10, 3, 50},
+	{"50 HyCoins", 10, 0, 50},
 	{"1.000.000 Cash", 8, 1, 1000000},
 	{"10 Niveles", 10, 4, 10},
 	{"HotDog Móvil", 3, 5, 588},
@@ -22,7 +22,9 @@ new STORE_PRODUCTS[][store_product_enum] =
 	{"Dinghy (Lancha)", 3, 5, 473},
 	{"Marquis (Barco)", 5, 5, 484},
 	{"Jetmax (Barco)", 5, 5, 493},
-	{"Skin de CJ", 3, 6, 0}
+	{"Skin de CJ", 3, 6, 0},
+	{"Skin de Payaso", 1, 6, 264},
+	{"Skin de Pollo", 1, 6, 167}
 };
 
 /*

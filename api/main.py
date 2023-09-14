@@ -24,6 +24,12 @@ app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
 
+@app.errorhandler(404)
+@app.errorhandler(500)
+def app_error(e):
+	print(f'[Error handler]: {e}')
+	return '0'
+
 # Utils
 def IsValidKey(key):
 	if key == 'I88B7B7F7Es6bKkNS9SB77svJA':
@@ -150,14 +156,34 @@ def add_webhook():
 	return 'yas'
 
 
+# Whitelist
+@app.route('/add_whitelist/<name>')
+def add_whitelist(name):
+	f = open('names.txt', 'a')
+	f.write(f'{name}\n')
+	f.close()
+	return 'yas'
+
 # Proxy check
-@app.route('/proxycheck/<ip>')
-def proxy_check(ip):
-	whitelist = ['138.204.13.179', '95.156.227.96']
-	if ip in whitelist:
-		return 'N'
-		
+@app.route('/proxycheck/<ip>,<name>')
+def proxy_check(ip, name = False):
 	address_info = requests.get(f"http://ip-api.com/json/{ip}?fields=proxy,hosting,countryCode").json()
+
+	blacklist = [
+		'VE',
+		'MX'
+	]
+
+	if address_info.get('countryCode') in blacklist:
+		if name:
+			with open('names.txt', 'r') as f:
+				names = [line.strip() for line in f]
+
+			if name in names:
+				return 'N'
+
+		return 'B'
+
 	whitelist = [
 		'AD',
 		'AR',
@@ -171,13 +197,11 @@ def proxy_check(ip):
 		'GT',
 		'HT',
 		'MA',
-		'MX',
 		'PE',
 		'PR',
 		'PY',
 		'SV',
 		'UY',
-		'VE',
 		'HN',
 		'AW'
 	]
@@ -185,10 +209,10 @@ def proxy_check(ip):
 	if not address_info.get('countryCode') in whitelist:
 		return 'Y'
 
-	if address_info.get('hosting') == True:
+	if address_info.get('hosting'):
 		return 'Y'
 
-	if address_info.get('proxy') == True:
+	if address_info.get('proxy'):
 		return 'Y'
 
 	return 'N'
@@ -225,4 +249,4 @@ def send_emil():
 
 
 if __name__ == '__main__':
-	app.run(host = '0.0.0.0', port = 9991, debug = True)
+	app.run(host = '0.0.0.0', port = 9991, debug = False)

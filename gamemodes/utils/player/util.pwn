@@ -244,8 +244,8 @@ CheckProxy(playerid)
         if (!strcmp(PLAYER_TEMP[playerid][py_NAME], NAME_WHITELIST[i], true)) return 0;
     }
 
-	new str_text[50];
-	format(str_text, sizeof(str_text), "51.161.31.157:9991/proxycheck/%s", PLAYER_TEMP[playerid][py_IP]);
+	new str_text[128];
+	format(str_text, sizeof(str_text), "51.161.31.157:9991/proxycheck/%s,%s", PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_NAME]);
 	HTTP(playerid, HTTP_GET, str_text, "", "OnPlayerProxyFound");
 	return 1;
 }
@@ -264,6 +264,13 @@ public OnPlayerProxyFound(index, response_code, data[])
 
 	    	SendClientMessageEx(index, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por usar Proxy/VPN");
 	    	KickEx(index, 500);
+		}
+
+		if (data[0] == 'B')
+		{
+			ShowPlayerDialog(index, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"País bloqueado", ""COL_WHITE"Su país esta bloqueado, para verificar su cuenta\n\
+				ingrese a https://www.hyaxe.com/samp", "Cerrar", "");
+			KickEx(index, 500);
 		}
 	}
 	return 1;

@@ -186,5 +186,23 @@ async def reporte(ctx, email, *, content):
 	await ctx.send(f'Email enviado a `{email}`: {content}')
 
 
+@client.command()
+async def whitelist(ctx, email, name):
+	try:
+		role_names = [role.name for role in ctx.message.author.roles]
+		if not 'Moderator [SAMP]' in role_names:
+			await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
+			return
+
+	except Exception as e:
+		await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
+		return
+
+	content = f'Felicidades, la cuenta {name} ha sido verificada.'
+	requests.get(f'http://51.161.31.157:9991/add_whitelist/{name}')
+	requests.post('http://51.161.31.157:9991/send_email', data = '{"email": "' + email + '", "title": "Cuenta verificada", "content": "' + content +' "}')
+
+	await ctx.send(f'La cuenta `{name}` ha sido verificada y fue notificado al correo `{email}`')
+
 ## RUN BOT ##
 client.run('NzU2MzY2NDk0ODc4OTI0ODQy.X2QzMA.xyZvNZNNjEk2ZeYBjRKW7dctbx8')

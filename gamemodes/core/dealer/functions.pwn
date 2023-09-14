@@ -83,7 +83,7 @@ Menu:DEALER_MENU(playerid, response, listitem)
     			switch(DEALER_INFO[dealer][dl_PRODUCT_TYPE])
 				{
 					case 1: PLAYER_MISC[playerid][MISC_CANNABIS] += DEALER_INFO[dealer][dl_PRODUCT_COUNT];
-					default: PLAYER_MISC[playerid][MISC_CANNABIS] += DEALER_INFO[dealer][dl_PRODUCT_COUNT];
+					default: PLAYER_MISC[playerid][MISC_CRACK] += DEALER_INFO[dealer][dl_PRODUCT_COUNT];
 				}
 
 				SavePlayerMisc(playerid);

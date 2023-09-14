@@ -750,7 +750,6 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_RENT, WORK_NONE, 0, 481, 1729.1182, -1329.1241, 13.2093, 0.0000, -1, -1, 0}, //BMX
 	{VEHICLE_TYPE_RENT, WORK_NONE, 0, 539, 1542.1032, -1352.4088, 328.7123, 0.0000, -1, -1, 0}, //Vortex
 	{VEHICLE_TYPE_RENT, WORK_NONE, 0, 481, 1726.6379, -1329.1241, 13.2093, 0.0000, -1, -1, 0}, //BMX
-
 	{VEHICLE_TYPE_RENT, WORK_NONE, 0, 527, 1098.8806, -1775.5668, 12.9943, 89.7796, -1, -1, 0}, //Cadrona
 	{VEHICLE_TYPE_RENT, WORK_NONE, 0, 527, 1098.9241, -1772.5975, 12.9950, 90.2871, -1, -1, 0}, //Cadrona
 	{VEHICLE_TYPE_RENT, WORK_NONE, 0, 527, 1098.5743, -1766.7537, 12.9988, 91.7078, -1, -1, 0}, //Cadrona
@@ -769,7 +768,6 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_RENT, WORK_NONE, 0, 510, 1074.2915, -1775.2633, 12.8711, 358.3530, -1, -1, 0}, //Mountain Bike
 	{VEHICLE_TYPE_RENT, WORK_NONE, 0, 510, 1072.8282, -1775.4273, 12.9167, 358.3446, -1, -1, 0}, //Mountain Bike
 	{VEHICLE_TYPE_RENT, WORK_NONE, 0, 510, 1073.5644, -1775.3420, 12.9274, 358.3515, -1, -1, 0}, //Mountain Bike
-
 	//Camionero
 	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, 2461.737060, -2636.311035, 13.731491, 60.189689, -1, -1, 0},
 	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, 2459.911376, -2627.436767, 13.731758, 60.189689, -1, -1, 0},
@@ -784,42 +782,6 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, 2493.6884, -2671.2441, 16.8844, 0.0000, -1, -1, 0},
 	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, 2488.4882, -2671.2441, 16.8844, 0.0000, -1, -1, 0},
 	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, 2483.3762, -2671.2441, 16.8844, 0.0000, -1, -1, 0},
-	/*{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -494.4160, -472.8649, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -499.3518, -473.3605, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -504.5551, -473.4075, 25.4323, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -510.0538, -473.4275, 25.4323, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -529.0538, -473.4275, 25.4323, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -544.5538, -473.4275, 25.4323, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -559.5538, -473.4275, 25.4323, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -572.5538, -473.4275, 25.4323, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -589.0538, -473.4275, 25.4323, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -514.8518, -473.3605, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -533.8518, -473.3605, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -564.8518, -473.3605, 25.5408, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -577.3518, -473.3605, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -583.3518, -473.3605, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -519.4160, -472.8649, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -550.4160, -472.8649, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -489.3518, -473.3605, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -483.3518, -473.3605, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -478.4160, -472.8649, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -473.4160, -472.8649, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -469.7829, -488.2091, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -489.7829, -488.2091, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -540.2829, -488.2091, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -564.7829, -488.2091, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 414, -589.2829, -488.2091, 25.5098, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -579.6942, -488.2058, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -549.6942, -488.2058, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 456, -510.6942, -488.2058, 25.5404, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -500.5240, -488.8626, 25.4323, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -556.0240, -488.8626, 25.4323, 180.0000, COLOR_WHITE, -1, 0},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -615.4958, -480.0750, 25.5963, 269.0000, 0, 0, 1},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -615.3096, -490.5564, 25.5963, 269.0000, 0, 0, 1},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -615.4363, -500.5580, 25.5963, 269.0000, 0, 0, 1},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -615.4330, -527.0305, 25.5963, 269.0000, 0, 0, 1},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -615.8846, -537.6530, 25.5963, 269.0000, 0, 0, 1},
-	{VEHICLE_TYPE_WORK, WORK_TRUCK, 0, 498, -616.0970, -547.9350, 25.5963, 269.0000, 0, 0, 1},*/
 	//Cosechador
 	{VEHICLE_TYPE_WORK, WORK_HARVESTER, 0, 532, -390.604370, -1476.015747, 26.704042, 259.474060, 1, 1, 0},
 	{VEHICLE_TYPE_WORK, WORK_HARVESTER, 0, 532, -385.473022, -1464.722900, 26.711814, 227.251434, 1, 1, 0},
@@ -918,7 +880,7 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 1, 523, 2299.8755, 2460.9136, 2.8170, 90.0000, 0, 1, 0},
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 1, 523, 2299.8306, 2463.0632, 2.8170, 90.0000, 0, 1, 0},
 	//EJERCITO
-	{VEHICLE_TYPE_WORK, WORK_POLICE, 5, 563, 407.0349, 2455.8659, 19.6386, 268.3708, 1, 6, 0},
+	/*{VEHICLE_TYPE_WORK, WORK_POLICE, 5, 563, 407.0349, 2455.8659, 19.6386, 268.3708, 1, 6, 0},
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 5, 548, 418.3270, 2536.8161, 18.2189, 359.9979, 0, 0, 0},
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 3, 470, 360.7741, 2544.1281, 16.6378, 0.3733, 0, 0, 0},
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 3, 470, 356.0309, 2544.5363, 16.7030, 359.2844, 0, 0, 0},
@@ -949,7 +911,6 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 4, 522, 265.4736, 2550.7290, 16.3836, 357.5233, 60, 61, 0},
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 4, 522, 262.9520, 2550.8071, 16.3388, 359.7757, 60, 61, 0},
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 4, 522, 268.8313, 2551.4245, 16.3569, 358.3872, 60, 61, 0},
-
 	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2112.1623, -84.6228, 0.0383, 22.0205, 1, 7, 0},
 	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2106.7312, -111.7312, -0.3355, 209.4933, 1, 7, 0},
 	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2108.3979, -88.5186, -0.2576, 37.4940, 1, 7, 0},
@@ -958,8 +919,7 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2096.0083, -98.9689, -0.3847, 37.5265, 1, 7, 0},
 	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2112.2666, -108.5957, -0.3203, -144.5012, 1, 7, 0},
 	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2117.8344, -104.6239, -0.3203, -139.0010, 1, 7, 0},
-	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2124.2175, -100.6259, -0.3203, -139.0010, 1, 7, 0},
-
+	{VEHICLE_TYPE_WORK, WORK_FISHER, 0, 453, 2124.2175, -100.6259, -0.3203, -139.0010, 1, 7, 0},*/
 	// Family SaintBlood'S
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 487, -1036.8830, -929.7128, 140.5439, 87.0861, 0, 3, 0}, //Maverick
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 593, -1017.1211, -1032.6289, 129.7097, 92.7841, 0, 3, 0}, //Dodo-finca
@@ -974,17 +934,6 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 409, 679.6872, -1227.8555, 15.4913, 117.8353, 0, 3, 0}, //Stretch
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 521, 669.6936, -1256.8299, 13.0307, 177.2782, 0, 3, 0}, //FCR-900
 	// Triade di San Andreas
-	/*{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 560, 2770.7566, -1625.6304, 10.6675, 90.0000, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 560, 2770.7566, -1622.4185, 10.6675, 90.0000, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 560, 2770.7566, -1619.4664, 10.6675, 90.0000, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 579, 2768.9116, -1615.4073, 10.9255, 90.0000, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 579, 2768.9116, -1606.8473, 10.9255, 90.0000, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 579, 2791.4524, -1625.2480, 10.9255, 85.6083, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 579, 2791.4524, -1621.5740, 10.9255, 85.6083, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 521, 2767.0242, -1612.1864, 10.4805, 90.0000, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 521, 2767.0242, -1610.8544, 10.4805, 90.0000, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 521, 2767.0242, -1609.7168, 10.4805, 90.0000, 0, 158, 0},
-	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 521, 2767.0242, -1609.7168, 10.4805, 90.0000, 0, 158, 0},*/
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 579, 2768.649, -1617.026, 10.921, 268.936, 0, 158, 0}, //Huntley
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 579, 2769.019, -1613.867, 10.921, 270.459, 0, 158, 0}, //Huntley
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 579, 2768.706, -1610.527, 10.921, 266.538, 0, 158, 0}, //Huntley
@@ -1055,22 +1004,24 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_CONNOR, 0, 487, 447.9253, -960.5263, 88.7503, 166.9194, 0, 1, 0}, 
 	{VEHICLE_TYPE_WORK, WORK_CONNOR, 0, 487, 423.1604, -954.4913, 88.7512, 165.3443, 0, 1, 0},
 	//diviso
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 487, 1186.8962, -2012.3369, 77.6798, 178.0000, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 487, 1186.6643, -2058.3447, 77.6798, 0.0000, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1250.0845, -2011.8575, 59.3228, 178.4079, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1245.4482, -2011.6694, 59.3228, 178.4079, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1255.7230, -2012.4436, 59.3228, 178.4079, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1259.9800, -2012.1954, 59.3228, 178.4079, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1265.3773, -2012.0748, 59.3228, 178.4079, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.1433, -2038.8334, 59.3228, 85.7791, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1270.4635, -2012.0087, 59.3228, 178.4079, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.7798, -2018.3516, 59.3228, 85.7791, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.4720, -2023.0597, 59.3228, 85.7791, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.3765, -2027.1842, 59.3228, 85.7791, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.4176, -2033.6124, 59.3228, 85.7791, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 458, 1253.3151, -2041.1340, 59.3983, 0.0000, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 458, 1249.9777, -2041.2307, 59.8012, 0.0000, 0, 145, 145},
-	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 458, 1245.8676, -2041.3871, 59.6971, 0.0000, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 487, 1187.0557, -2058.9849, 76.7743, 0.0000, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 487, 1186.4268, -2011.4244, 76.7743, 0.0000, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 522, 1253.3352, -2043.9410, 59.3489, 0.0000, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 522, 1251.5930, -2043.8015, 59.3489, 0.0000, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 522, 1249.4722, -2043.8234, 59.3489, 0.0000, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 522, 1247.4406, -2043.7626, 59.3489, 0.0000, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 560, 1275.0579, -2022.7844, 58.6801, 89.8541, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 560, 1274.9276, -2018.4855, 58.6801, 89.8541, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 413, 1256.9177, -2011.8304, 59.4414, 180.3275, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 413, 1250.4512, -2011.1957, 59.7424, 180.3275, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 413, 1246.7472, -2010.2787, 59.7424, 180.3275, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 413, 1261.0398, -2011.6971, 59.4414, 180.3275, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 444, 1275.3461, -2028.3514, 59.1012, 90.7619, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 444, 1275.4916, -2043.8811, 58.9991, 91.1680, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 560, 1271.2743, -2011.2844, 58.6801, 180.0000, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 444, 1275.8252, -2038.9524, 58.9991, 91.1680, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 444, 1275.5260, -2033.9301, 59.1012, 90.7619, 145, 145, 0},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 560, 1267.1476, -2011.0891, 58.6801, 180.0000, 145, 145, 0},
 	// medico
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1178.3592, -1307.1132, 13.9921, 269.3424, 1, 198, 0}, //Ambulance
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1177.1497, -1340.5240, 14.0583, 267.7389, 1, 198, 0}, //Ambulance
@@ -1090,12 +1041,6 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1140.9035, -1380.3851, 13.9015, 178.2289, 1, 198, 0}, //Ambulance
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1135.7231, -1339.8988, 13.9399, 357.7536, 1, 198, 0}, //Ambulance
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1096.2836, -1319.2452, 13.8689, 269.6707, 1, 198, 0} //Ambulance
-	/*{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1613.2410, -1886.6025, 13.2697, 281.5541, 1, 7, 0},
-	{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1612.5444, -1883.5178, 13.2577, 274.7869, 1, 7, 0},
-	{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1616.1304, -1895.8029, 13.2565, 357.8182, 1, 7, 0},
-	{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1612.4306, -1889.9323, 13.2620, 273.0070, 1, 7, 0},
-	{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1612.6135, -1892.8798, 13.2146, 270.0488, 1, 7, 0},
-	{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1619.2185, -1895.7360, 13.2436, 0.0000, 1, 7, 0}*/
 };
 
 enum San_Andreas_Barriers_Info
@@ -2191,12 +2136,13 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 0, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 693.761047, 1967.498168, 5.539062, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 1, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 1145.013916,-1131.447998, 23.828125, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 2, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 2421.501953,-1219.768432, 25.527839, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "Mike Santander", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, -245.578720, -2193.103271, 29.839702, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Maik Santander", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, -245.578720, -2193.103271, 29.839702, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Club de la pelea", INTERIOR_NO_INFO, -1, false, 0, 16, -14.497008, 100.967079, 1101.521118, 180.0, -1, false, 0, 0, 950.341247, -987.135864, 38.743835, 322.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Osborn", INTERIOR_NO_INFO, -1, true, 0, 29, 887.343566, 1918.198364, -88.974365, 93.182411, -1, false, 0, 0, -2517.1223, -664.4894, 139.3531, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Estadio", INTERIOR_NO_INFO, -1, true, 1336, 0, 2684.587890, -1733.565185, 424.386718, 180.0, -1, false, 0, 0, 2781.461181, -1813.566162, 11.843750, 211.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	//{-1, "Moriarty Luxury Bar", INTERIOR_NO_INFO, -1, true, 0, 64, 2627.9360, 490.5309, 2621.2078, 173.315292, -1, false, 0, 0, 2851.3330, -1532.3297, 11.0991, 271.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "TFC", INTERIOR_NO_INFO, -1, true, 0, 55, 436.9655, -996.6303, 931.0529, -90.0, -1, false, 0, 0, 437.3256, -999.9439, 93.1982, 92.18, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "DPT", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, 1132.5565, -2034.1417, 69.1477, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
@@ -2403,7 +2349,8 @@ new ATM_BANK[][atm_bank_info] =
 	{2942, -1927.5317, 719.1495, 45.0831, 0.0000, 0.0000, -179.6000},
 	{2942, -1529.3118, 1015.6362, 6.7715, 0.0000, 0.0000, 0.0000},
 	{2942, -1718.2503, 1355.0715, 6.8231, 0.0000, 0.0000, -46.3000},
-	{2942, -1917.7750, 558.0651, 34.7785, 0.0000, 0.0000, 91.0000}
+	{2942, -1917.7750, 558.0651, 34.7785, 0.0000, 0.0000, 91.0000},
+	{19324, 1146.10986, -2068.84424, 68.59467, 0.00000, 0.00000, 179.49406}
 };
 
 #define MAX_BANK_TRANSACTIONS_DIALOG 5
@@ -3680,6 +3627,8 @@ public UpdateWantedLevelMark()
 
 SetPlayerRangePoliceSearchLevel(playerid, level, Float:range, const reason[])
 {
+	if (PLAYER_WORKS[playerid][WORK_POLICE]) return 0;
+
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if (IsPlayerConnected(i))
@@ -3688,15 +3637,18 @@ SetPlayerRangePoliceSearchLevel(playerid, level, Float:range, const reason[])
 			{
 				if (PLAYER_WORKS[i][WORK_POLICE])
 				{
-					new Float:x, Float:y, Float:z;
-					GetPlayerPos(playerid, x, y, z);
-					if (GetPlayerDistanceFromPoint(playerid, x, y, z) <= range)
+					if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
 					{
-						SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + level);
-						
-						format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "%s", reason);
-						ShowPlayerMessage(playerid, sprintf("~b~Has cometido un crimen: %s", reason), 5);
-						break;
+						new Float:x, Float:y, Float:z;
+						GetPlayerPos(playerid, x, y, z);
+						if (GetPlayerDistanceFromPoint(playerid, x, y, z) <= range)
+						{
+							SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + level);
+							
+							format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "%s", reason);
+							ShowPlayerMessage(playerid, sprintf("~b~Has cometido un crimen: %s", reason), 5);
+							break;
+						}
 					}
 				}
 			}
@@ -3737,9 +3689,9 @@ SetPlayerPoliceSearchLevel(playerid, level, bool:message = true)
 forward UpdatePrisionTime(playerid);
 public UpdatePrisionTime(playerid)
 {
-	#if DEBUG_MODE == 1
+	/*#if DEBUG_MODE == 1
 		printf("UpdatePrisionTime"); // debug juju
-	#endif
+	#endif*/
 
 	new 
 		time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]),
@@ -6304,7 +6256,7 @@ CheckMafiaEquipeSite(playerid)
 
 	if (PLAYER_WORKS[playerid][WORK_DIVISO])
 	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.3, 419.4871, -1001.7376, 92.8918))
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 1141.0912, -2064.0176, 69.0259))
 		{
 			ShowDialog(playerid, DIALOG_POLICE_SHOP);
 		}
@@ -7076,7 +7028,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		GetPlayerPos(playerid, x, y, z);
 		SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 
-		SetPlayerRangePoliceSearchLevel(playerid, 2, 100.0, "Homicidio");
+		SetPlayerRangePoliceSearchLevel(killerid, 2, 100.0, "Homicidio");
 	}
 
 	if (IsPlayerConnected(killerid))
@@ -8636,7 +8588,7 @@ SanAndreas()
 	CreateDynamic3DTextLabel("{f5e30a}Triade di San Andreas\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 882.789611, 1896.002319, -93.898712, 20.0, .testlos = true, .worldid = 0, .interiorid = 29);
 	CreateDynamic3DTextLabel("{FFFFFF}The Family Connor\n"COL_WHITE"Equipamiento", 0xF7F7F700, 419.4871, -1001.7376, 92.8918, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel("{a9ee70}Diviso Per Tutti\n"COL_WHITE"Equipamiento", 0xF7F7F700, 419.4871, -1001.7376, 92.8918, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{a9ee70}Diviso Per Tutti\n"COL_WHITE"Equipamiento", 0xF7F7F700, 1141.0912, -2064.0176, 69.0259, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF7F7F700, -187.830596, -2249.291503, 24.332202, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
@@ -25186,6 +25138,8 @@ IsValidRPName(const string[])
 
 StringContainsIP(const string[])
 {
+	if (strfind(string, "51.161.31.157", true) != -1) return false;
+
     new Regex:reg_exp = Regex_New("([0-9]{1,3}[\\.]){3}[0-9]{1,3}"), RegexMatch:results, pos;
     new result = Regex_Search(string, reg_exp, results, pos);
     Regex_Delete(reg_exp); 
@@ -26506,6 +26460,8 @@ public AddPlayerReputation(playerid)
 			",
 				ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID]
 		);
+		printf("%s", DB_Query);
+
 		db_free_result(db_query(Database, DB_Query));
 
 		ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
@@ -27439,8 +27395,7 @@ public UpdateGraffitiProgress(playerid)
 		printf("UpdateGraffitiProgress"); // debug juju
 	#endif
 
-	if (IsPlayerPaused(playerid)) return 0;
-
+	if (IsPlayerPaused(playerid)) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 	if (GetPlayerWeapon(playerid) != 41) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 
 	//Strings
@@ -27453,6 +27408,10 @@ public UpdateGraffitiProgress(playerid)
 	{
 		if (GRAFFITIS_OBJ[x][g_ACTIVATED] == true)
 		{
+			new Float:distance = GetPlayerDistanceFromPoint(playerid, GRAFFITIS_OBJ[x][g_X], GRAFFITIS_OBJ[x][g_Y], GRAFFITIS_OBJ[x][g_Z]);
+			if (distance > 2.5)
+				return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
+
 			//Give crew text slot
 			if (GRAFFITIS_OBJ[x][g_CREW_ONE] == 0)
 			{
@@ -27916,9 +27875,9 @@ SendBoxMessage(const message[], time)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	#if DEBUG_MODE == 1
+	/*#if DEBUG_MODE == 1
 		printf("OnPlayerKeyStateChange %d %d %d",playerid, newkeys, oldkeys); // debug juju
-    #endif
+    #endif*/
 
 	if (!IsPlayerConnected(playerid)) return 0;
 	if (IsPlayerPaused(playerid)) return 0;
@@ -34106,7 +34065,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 		PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] ++;
 
-		if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 5)
+		if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 3)
 		{
 			format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): Max AC Adv (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 			SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
@@ -36634,7 +36593,7 @@ InviteToLCN(playerid, to_player)
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
 
 	new player_jobs = CountPlayerJobs(to_player);
@@ -36675,7 +36634,7 @@ InviteToTCC(playerid, to_player)
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
 
 	new player_jobs = CountPlayerJobs(to_player);
@@ -36716,7 +36675,7 @@ InviteToFO(playerid, to_player)
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
 
 	new player_jobs = CountPlayerJobs(to_player);
@@ -36757,7 +36716,7 @@ InviteToFC(playerid, to_player)
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
 
 	new player_jobs = CountPlayerJobs(to_player);
@@ -36798,7 +36757,7 @@ InviteToDS(playerid, to_player)
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PlayerIsInMafia(to_player)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
 
 	new player_jobs = CountPlayerJobs(to_player);
