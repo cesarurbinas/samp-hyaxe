@@ -3541,27 +3541,29 @@ CMD:exclub(playerid, params[])
 }
 flags:exclub(CMD_MODERATOR4)
 
-/*CMD:profilerstart(playerid, params[])
-{
-	Profiler_Start();
-	return 1;
-}
-flags:profilerstart(CMD_OWNER)
+#if defined PROFILER_PROFILER_INC
+	CMD:profilerstart(playerid, params[])
+	{
+		Profiler_Start();
+		return 1;
+	}
+	flags:profilerstart(CMD_OWNER)
 
-CMD:profilerstop(playerid, params[])
-{
-	Profiler_Stop();
-	return 1;
-}
-flags:profilerstop(CMD_OWNER)
+	CMD:profilerstop(playerid, params[])
+	{
+		Profiler_Stop();
+		return 1;
+	}
+	flags:profilerstop(CMD_OWNER)
 
-CMD:profilerdump(playerid, params[])
-{
-	Profiler_Dump();
-	return 1;
-}
-flags:profilerdump(CMD_OWNER)*/
-
+	CMD:profilerdump(playerid, params[])
+	{
+		Profiler_Dump();
+		return 1;
+	}
+	flags:profilerdump(CMD_OWNER)
+#endif
+	
 CMD:allradio(playerid, params[])
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)

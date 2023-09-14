@@ -251,10 +251,10 @@ UpdateRockProcessorLabel(processor_id)
 
 	new str_text[164];
 	format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aqui.\n\nGasolina: %.1f\nEstado: %.1f%", processor_id, ROCK_PROCESSOR[processor_id][rp_FUEL], ROCK_PROCESSOR[processor_id][rp_HEALTH]);
-	printf("update 1: %s", str_text);
+	//printf("update 1: %s", str_text);
 	if (ROCK_PROCESSOR[processor_id][rp_FUEL] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere gasolina");
 	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere reparación");
-	printf("update 2: %s", str_text);
+	//printf("update 2: %s", str_text);
 	UpdateDynamic3DTextLabelText(ROCK_PROCESSOR[processor_id][rp_LABEL], 0xF7F7F7FF, str_text);
 	return 1;
 }

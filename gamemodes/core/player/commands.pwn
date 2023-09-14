@@ -203,6 +203,37 @@ CMD:b(playerid, params[])
 {
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /b "COL_WHITE"[TEXTO]");
 
+	if (GetPlayerScore(playerid) <= 1)
+	{
+		if (CheckSpamViolation(params))
+		{
+			new dialog[250];
+			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (OOC)");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+			
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (OOC)");
+
+			KickEx(playerid, 500);
+			PLAYER_MISC[playerid][MISC_BANS] ++;
+			SavePlayerMisc(playerid);
+
+			new str[144];
+			format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (OOC).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			new webhook[144];
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+
+			format(str, 144, "[OOC] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+			return 0;
+		}
+	}
+
     new str_text[190];
     format(str_text, sizeof(str_text), "[ID: %d] %s: (( %s ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME], params);
 	ProxDetector(playerid, 15.0, str_text, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5, 85);
@@ -1791,7 +1822,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 
 	PLAYER_TEMP[playerid][py_ANTIFLOOD_COMMANDS] = GetTickCount();
 
-	#if CMD_LOGGIN
+	#if DEBUG_MODE != 0
 		printf("[CMD] %s (%d): /%s %s", ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_ID], cmd, params);
 	#endif
 	return 1;

@@ -2549,6 +2549,37 @@ public OnPlayerText(playerid, text[])
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);	
 	}
+
+	if (GetPlayerScore(playerid) <= 1)
+	{
+		if (CheckSpamViolation(text))
+		{
+			new dialog[250];
+			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (IC)");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+			
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IC)");
+
+			KickEx(playerid, 500);
+			PLAYER_MISC[playerid][MISC_BANS] ++;
+			SavePlayerMisc(playerid);
+
+			new str[144];
+			format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (IC).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			new webhook[144];
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+
+			format(str, 144, "[IC] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, text);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+			return 0;
+		}
+	}
 	// end general
 
 	switch(PLAYER_MISC[playerid][MISC_GAMEMODE])

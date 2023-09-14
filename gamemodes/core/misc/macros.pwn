@@ -5,7 +5,6 @@
 #define REP_MULTIPLIER 			64 // Original: 12
 #define TIME_FOR_REP 			1020000
 #define REP_FOR_PAYDAY 			3 // Original: 3
-#define CMD_LOGGIN 				0
 
 // VIP
 #define MAX_NU_VEHICLES 		3

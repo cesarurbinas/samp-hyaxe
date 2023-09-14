@@ -272,7 +272,9 @@ new BAN_KEYWORDS[][100] =
 	"SAMPFIVE",
 	"kreisel",
 	"KREISEL",
-	"SAMP FIVE"
+	"SAMP FIVE",
+	"aguante gs",
+	"aguante golden"
 };
 
 new g_iPlayerLastUpdate[MAX_PLAYERS];
