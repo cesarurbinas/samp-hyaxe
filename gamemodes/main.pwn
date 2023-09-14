@@ -7229,6 +7229,7 @@ SanAndreas()
 	LoadCrews();
 	LoadGangZones();
 	LoadBlackMarkets();
+	LoadClubs();
 
 	gettime(SERVER_TIME[0], SERVER_TIME[1]);
 	SetTimer("UpdateWorldTime", 60000, true);
