@@ -62,7 +62,7 @@ public DeleteDropItem(index)
 AddItemToProperty(property_id, type, extra)
 {
 	new
-		id
+		id,
 		DB_Query[164],
 		DBResult:Result
 	;
