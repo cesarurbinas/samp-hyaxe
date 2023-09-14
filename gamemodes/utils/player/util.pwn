@@ -216,3 +216,31 @@ PreloadAnimLib(playerid, const animlib[])
 {
 	ApplyAnimation(playerid, animlib, "null", 0.0, 0, 0, 0, 0, 0);
 }
+
+CheckProxy(playerid)
+{
+	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "127.0.0.1")) return 0;
+
+	new str_text[128];
+	format(str_text, sizeof(str_text), "51.161.31.157:9991/%s", PLAYER_TEMP[playerid][py_IP]);
+	HTTP(playerid, HTTP_GET, str, "", "OnPlayerProxyFound");
+	return 1;
+}
+
+CALLBACK: OnPlayerProxyFound(index, response_code, data[])
+{
+	if (response_code == 200)
+	{
+		if (data[0] == 'Y')
+		{
+			new str_text[144]
+			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Proxy/VPN", PLAYER_TEMP[playerid][py_NAME], playerid);
+	    	SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+	    	SendDiscordWebhook(str_text, 1);
+	    	
+	    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por usar Proxy/VPN");
+	    	KickEx(playerid, 500);
+		}
+	}
+	return 1;
+}

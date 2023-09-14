@@ -3951,12 +3951,19 @@ public OnPlayerConnect(playerid)
 		}
 	#endif
 
+	CheckProxy(playerid);
+
 	if (GetPlayersInIP(PLAYER_TEMP[playerid][py_IP]) > 5)
 	{
 		GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
-		SendMessageToAdmins(-1 , "{ff0000}La IP %s superó el máximo de jugadores conectados.", PLAYER_TEMP[playerid][py_IP]);
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Has sido expulsado por exceder el máximo de conexiones desde una misma ip.", "Aceptar", "");
-		KickEx(playerid, 500);
+
+		new str_text[144]
+		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el máximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
+	    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+	    SendDiscordWebhook(str_text, 1);
+	    	
+	    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el máximo de conexiones");
+	    KickEx(playerid, 500);
 		return 0;
 	}
 
