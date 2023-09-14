@@ -14,7 +14,7 @@ DCC_IsUserModerator(DCC_User:user)
 		new role_name[64];
 		DCC_GetRoleName(role, role_name);
 		
-		if (strfind(role_name, "Moderator [SAMP]", true) != -1) return true;
+		if (strfind(role_name, "Moderador", true) != -1) return true;
 	}
 	return false;
 }
