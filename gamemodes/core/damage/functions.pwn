@@ -57,7 +57,7 @@ Damage_Send(to, from, Float:amount, weaponid)
 			OnPlayerDeath(to, from, weaponid);
 			g_rgbitsPlayerFlags[to] |= e_bmPlayerDead;
 
-			Player_SetHealth(to, 0);
+			Player_SetHealth(to, 1);
 		}
 		else
 		{
