@@ -82,3 +82,18 @@ new ENEMY_MAFIA_RANKS[][] =
 	"Representante",
 	"Lider"
 };
+
+new OSBORN_RANKS[][] =
+{
+	"Civil",
+	/* 0 */ "Associato",
+	/* 1 */ "Soldato",
+	/* 2 */ "Avvocato",
+	/* 3 */ "Caporegime",
+	/* 4 */ "Casetto",
+	/* 5 */ "Numerale",
+	/* 6 */ "Sottocapo",
+	/* 7 */ "Consigliere",
+	/* 8 */ "Don",
+	/* 9 */ "Capo di tutti capo"
+};
