@@ -9743,12 +9743,9 @@ ShowDialog(playerid, dialogid)
 					GetVehiclePos(i, pos[0], pos[1], pos[2]);
 
 					new line_str[115];
-					if (ACCOUNT_INFO[playerid][ac_SU]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s\t"COL_WHITE"%s\t"COL_WHITE"%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
-					else
-					{
-						if (PLAYER_VEHICLES[i][player_vehicle_ACCESSIBLE]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s (%d)\t"COL_RED"%s\t"COL_WHITE"%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
-						else format(line_str, sizeof line_str, "{666666}%d. %s (%d)\t{666666}%s\t{666666}%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
-					}
+					if (PLAYER_VEHICLES[i][player_vehicle_ACCESSIBLE]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s (%d)\t"COL_RED"%s\t"COL_WHITE"%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
+					else format(line_str, sizeof line_str, "{666666}%d. %s (%d)\t{666666}%s\t{666666}%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
+
 					strcat(dialog, line_str);
 					total_vehicles ++;
 				}
