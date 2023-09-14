@@ -1035,7 +1035,7 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 			UpdateVehicleParams(vehicleid);
 			ShowPlayerMessage(playerid, "~r~Motor dañado.", 2);
 
-			if (random(100) == 25)
+			if (random(10) == 5)
 			{
 				GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] = 20.0;
 				SetVehicleHealthEx(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH]);
@@ -2207,6 +2207,9 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 				format(str_victim, sizeof(str_victim), "[KILL] %s (%d) hirió a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 1);
+
+				if (!PLAYER_WORKS[killerid][WORK_POLICE])
+					AddMentalState(killerid, 1);
 
 				GetPlayerPos(playerid, x, y, z);
 				SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));

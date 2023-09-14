@@ -1572,6 +1572,74 @@ ShowPlayerNotification(playerid, const message[], time = 1, bool:auto_jump = tru
 	return 1;
 }
 
+GetMentalState(playerid)
+{
+
+	new 
+		name[128],
+		value = PLAYER_MISC[playerid][MISC_MENTAL_STATE]
+	;
+
+	if (value < 10)
+		format(name, sizeof(name), ""COL_GREEN"Saludable"COL_WHITE"");
+
+	if (value >= 10)
+		format(name, sizeof(name), ""COL_GREEN"Casi saludable"COL_WHITE"");
+	
+	if (value >= 20)
+		format(name, sizeof(name), ""COL_GREEN"Poco saludable"COL_WHITE"");
+
+	if (value >= 30)
+		format(name, sizeof(name), ""COL_GREEN"Fuera de casillas"COL_WHITE"");
+
+	if (value >= 50)
+		format(name, sizeof(name), ""COL_GREEN"Sin tornillos"COL_WHITE"");
+
+	if (value >= 80)
+		format(name, sizeof(name), ""COL_GREEN"Sin remate"COL_WHITE"");
+
+	if (value >= 100)
+		format(name, sizeof(name), ""COL_GREEN"Inestable"COL_WHITE"");
+
+	if (value >= 150)
+		format(name, sizeof(name), ""COL_GREEN"Sin control"COL_WHITE"");
+
+	if (value >= 200)
+		format(name, sizeof(name), ""COL_GREEN"Psicópata"COL_WHITE"");
+	
+	return name;
+}
+
+AddMentalState(playerid, points)
+{
+	PLAYER_MISC[playerid][MISC_MENTAL_STATE] += points;
+	SavePlayerMisc(playerid);
+
+	// Check state
+	switch(PLAYER_MISC[playerid][MISC_MENTAL_STATE])
+	{
+		case 10: ShowPlayerNotification(playerid, "Tu salud mental ahora es: ~r~Casi saludable", 8);
+		case 20: ShowPlayerNotification(playerid, "Tu salud mental ahora es: ~r~Poco saludable", 8);
+		case 30: ShowPlayerNotification(playerid, "Tu salud mental ahora es: ~r~Fuera de casillas", 8);
+		case 50: ShowPlayerNotification(playerid, "Tu salud mental ahora es: ~r~Sin tornillos", 8);
+		case 80: ShowPlayerNotification(playerid, "Tu salud mental ahora es: ~r~Sin remate", 8);
+		case 100: ShowPlayerNotification(playerid, "Tu salud mental ahora es: ~r~Inestable", 8);
+		case 150: ShowPlayerNotification(playerid, "Tu salud mental ahora es: ~r~Sin control", 8);
+		case 200: ShowPlayerNotification(playerid, "Tu salud mental ahora es: ~r~Psicópata", 8);
+	}
+	return 1;
+}
+
+ReduceMentalState(playerid, points)
+{
+	PLAYER_MISC[playerid][MISC_MENTAL_STATE] -= points;
+	if (PLAYER_MISC[playerid][MISC_MENTAL_STATE] < 0)
+		PLAYER_MISC[playerid][MISC_MENTAL_STATE] = 0;
+	
+	SavePlayerMisc(playerid);
+	return 1;
+}
+
 forward HidePlayerNotification(playerid);
 public HidePlayerNotification(playerid)
 {
@@ -2438,7 +2506,8 @@ ShowPlayerStats(playerid, pid)
 		"COL_WHITE"  VIP: "COL_YELLOW"%s\n\
 		"COL_WHITE"  DNI: %s\n\
 		"COL_WHITE"  Licencia de conducir: %s\n\
-		"COL_WHITE"  Estado social: %s",
+		"COL_WHITE"  Estado social: %s\n\
+		"COL_WHITE"  Salud mental: %s",
 
 			ACCOUNT_INFO[pid][ac_ID],
 			ACCOUNT_INFO[pid][reg_DATE],
@@ -2458,7 +2527,8 @@ ShowPlayerStats(playerid, pid)
 			getPlayerVip(pid),
 			dni,
 			drive,
-			GetAccountStatusName(playerid)
+			GetAccountStatusName(playerid),
+			GetMentalState(playerid)
 	);
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
@@ -3500,6 +3570,8 @@ CheckWorkSite(playerid)
 				format(str_text, sizeof(str_text), "Felicidades, ahora eres %s.", work_info[i][work_info_NAME]);
 				ShowPlayerNotification(playerid, str_text, 3);
 			    SavePlayerWorks(playerid);
+
+				ReduceMentalState(playerid, 1);
 
 			    switch(i)
 				{

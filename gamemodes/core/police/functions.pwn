@@ -144,6 +144,7 @@ SetPlayerRangePoliceSearchLevel(playerid, level, Float:range, const reason[])
 							
 							format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "%s", reason);
 							ShowPlayerMessage(playerid, sprintf("~b~Has cometido un crimen: %s", reason), 5);
+							AddMentalState(playerid, 1);
 							break;
 						}
 					}
