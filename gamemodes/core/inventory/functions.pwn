@@ -1198,7 +1198,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 	
 	switch(PLAYER_TEMP[playerid][py_INVENTORY_TYPE])
 	{
-		case 0:
+		case PLAYER_INVENTORY:
 		{
 			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{
@@ -1254,18 +1254,15 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				return 1;
 			}
 		}
-		case 1:
+		case PROPERTY_INVENTORY_TAKE:
 		{
 			if (PROPERTY_VISUAL_INV[playerid][slot_VALID][slot])
 			{
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-				new 
-					is_weapon = IsWeaponType(PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]),
-					grab_status
-				;
+				new grab_status;
 
-				if (is_weapon)
+				if (ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_SINGLE_SLOT])
 				{
 					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
@@ -1315,7 +1312,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				return 1;
 			}
 		}
-		case 2:
+		case PROPERTY_INVENTORY_PUT:
 		{
 			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{
@@ -1370,18 +1367,15 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				return 1;
 			}
 		}
-		case 3:
+		case VEHICLE_INVENTORY_TAKE:
 		{
 			if (PROPERTY_VISUAL_INV[playerid][slot_VALID][slot])
 			{
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-				new 
-					is_weapon = IsWeaponType(PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]),
-					grab_status
-				;
+				new grab_status;
 
-				if (is_weapon)
+				if (ITEM_INFO[ PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot] ][item_SINGLE_SLOT])
 				{
 					grab_status = AddPlayerItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
@@ -1433,7 +1427,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				return 1;
 			}
 		}
-		case 4:
+		case VEHICLE_INVENTORY_PUT:
 		{
 			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{

@@ -1,5 +1,14 @@
 new g_iInvLastTick[MAX_PLAYERS];
 
+enum Inventory_Types
+{
+	PLAYER_INVENTORY,
+	PROPERTY_INVENTORY_TAKE,
+	PROPERTY_INVENTORY_PUT,
+	VEHICLE_INVENTORY_TAKE,
+	VEHICLE_INVENTORY_PUT
+}
+
 enum Visual_Inventory
 {
 	bool:slot_VALID[13],

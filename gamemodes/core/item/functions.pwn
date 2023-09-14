@@ -332,36 +332,6 @@ TypeToWeapon(type)
 	return weapon;
 }
 
-IsWeaponType(type)
-{
-	switch(type)
-	{
-		case 12: return true;//bat
-		case 13: return true;//porra
-		case 14: return true;//knife
-		case 15: return true;//pala
-		case 16: return true;//pool
-		case 17: return true;
-		case 18: return true;//golf
-		case 19: return true;//punio
-		case 22: return true;
-		case 23: return true;
-		case 24: return true;
-		case 25: return true;
-		case 26: return true;
-		case 28: return true;
-		case 29: return true;
-		case 30: return true;
-		case 31: return true;
-		case 32: return true;
-		case 33: return true;
-		case 41: return true;
-		case 43: return true;
-		case 46: return true;
-	}
-	return false;
-}
-
 IsFullInventory(playerid)
 {
 	new free_slot = inv_GetFreeSlot(playerid);
