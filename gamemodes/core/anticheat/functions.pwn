@@ -42,3 +42,27 @@ Anticheat_Ban(playerid, reason[], days = 0)
 	KickEx(playerid, 500);
 	return 1;
 }
+
+Anticheat_Kick(playerid, reason[])
+{
+	// Alert user kick
+	SendClientMessageEx(playerid, COLOR_OCTA, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado, razón: %s.", reason);
+
+	new dialog[250];
+	format(dialog, sizeof dialog, "\
+		"COL_WHITE"Has sido expulsado del servidor por el anticheat.\n\
+		Razón: %s\n\
+		¿Fue un error? Si es así, reporte en nuestro foro: foro.hyaxe.com\
+	", reason, days_string);
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Octa Anticheat", dialog, "Cerrar", "");
+	
+	// Send alert to admins/discord
+	new str_text[144];
+	format(str_text, sizeof(str_text), "[ADMIN] Octa kickeó a %s (%d): %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, reason);
+	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+	SendDiscordWebhook(str_text, 1);
+
+	// Kick user
+	KickEx(playerid, 500);
+	return 1;
+}

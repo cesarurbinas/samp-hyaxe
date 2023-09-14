@@ -289,14 +289,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 					if (PLAYER_TEMP[playerid][py_BIG_PUNCH] >= 5)
 					{
 						PLAYER_TEMP[playerid][py_BIG_PUNCH] = 0;
-
-						new string[128];
-						format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): Fist slapper (wp: %d, dist: %f)", ACCOUNT_INFO[issuerid][ac_NAME], issuerid, weaponid, dist);
-						SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
-						SendDiscordWebhook(string, 1);
-
-						SendClientMessageEx(issuerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fist slapper");
-						KickEx(issuerid, 500);
+						Anticheat_Kick(playerid, "Fist Slapper");
 					}
 				}
 			}
