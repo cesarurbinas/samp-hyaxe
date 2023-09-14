@@ -34114,15 +34114,6 @@ SendMessageToDoubtChannel(playerid, message[])
 			}
 		}
 	}
-
-	for(new i = 0; i != sizeof(DOUBT_RESPONSES); i++ )
-	{
-		if (strfind(message, DOUBT_RESPONSES[i][d_QUESTION], true) != -1)
-		{
-			SetTimerEx("BotDoubtResponse", 4000, false, "id", playerid, i);
-			break;
-		}
-	}
 	return 1;
 }
 
