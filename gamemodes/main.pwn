@@ -3422,32 +3422,6 @@ new ADMIN_LEVELS[][] = //aca quede
 
 CALLBACK: DisablePlayerPoliceSearchLevel(playerid)
 {
-	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
-
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-    {
-	   	if (IsPlayerConnected(i))
-	    {
-	    	if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
-	    	{
-	    		new
-	    			Float:police_pos[3],
-	    			Float:player_pos[3]
-	    		;
-
-	    		GetPlayerPos(i, police_pos[0], police_pos[1], police_pos[2]);
-	    		GetPlayerPos(playerid, player_pos[0], player_pos[1], player_pos[2]);
-
-				new Float:distance = GetDistanceBetweenPoints3D(police_pos[0], police_pos[1], police_pos[2], player_pos[0], player_pos[1], player_pos[2]);
-				if (distance >= 200.0) 
-				{
-					PLAYER_TEMP[playerid][py_TIMERS][43] = SetTimerEx("DisablePlayerPoliceSearchLevel", 300000 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL], false, "i", playerid);
-					return 0;
-				}
-			}
-		}
-	}
-
 	SetPlayerPoliceSearchLevel(playerid, 0);
 	SetPlayerWantedLevel(playerid, 0);
 	SendPoliceMark(playerid, PLAYER_COLOR);
@@ -3837,7 +3811,7 @@ CALLBACK: UpdateWantedLevelMark()
 
 SetPlayerPoliceSearchLevel(playerid, level)
 {
-	if (level == 0)
+	if(!level)
 	{
 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
 		SendPoliceMark(playerid, PLAYER_COLOR);
