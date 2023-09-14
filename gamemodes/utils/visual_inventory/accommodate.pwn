@@ -122,7 +122,7 @@ inv_ItemToTextdraw(playerid, slot, type)
 
 	switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
 	{
-		case 0, 53, 51: format(str_text, sizeof(str_text), " ");
+		case 0, 53, 51, 54: format(str_text, sizeof(str_text), " ");
 		case 41: format(str_text, sizeof(str_text), "Spray");
 	}
 

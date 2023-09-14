@@ -146,6 +146,7 @@ SetItemToBody(playerid, type)
 		case 51: SetPlayerAttachedObject(playerid, 9, 18632, 6, 0.0620, 0.0199, 0.0149, 9.1999, 171.9999, 103.0999, 0.8920, 0.9029, 1.0589, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 52: SetPlayerAttachedObject(playerid, 9, 19631, 6, 0.0789, 0.0000, 0.2580, -86.0000, -97.5000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 53: SetPlayerAttachedObject(playerid, 9, 19921, 6, 0.0699, 0.0289, 0.0000, -75.9000, -5.8000, -84.7999, 0.6219, 0.6579, 0.5109, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 54: SetPlayerSpecialAction(playerid, SPECIAL_ACTION_SMOKE_CIGGY);
 	}
 	return 1;
 }
