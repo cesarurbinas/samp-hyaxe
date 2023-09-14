@@ -484,5 +484,16 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 			if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 56);
 		}
 	}
+
+	if (PLAYER_MISC[playerid][MISC_PUMPKIN] > 0)
+	{
+		free_slot = inv_GetFreeSlot(playerid);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
+		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 57;
+		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][free_slot] = PLAYER_MISC[playerid][MISC_PUMPKIN];
+		if (is_visual) inv_ItemToTextdraw(playerid, free_slot, 57);
+	}
 	return 1;
 }

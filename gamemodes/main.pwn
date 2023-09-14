@@ -55,7 +55,7 @@
 
 // Features
 //#define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 // Special events
 #define HALLOWEEN_MODE // Modo de halloween
@@ -97,7 +97,7 @@
 // Debes notifications
 #include "core/notification/header.pwn"
 
-// Must fix
+// Libs
 #include <nex-ac>
 #include <PreviewModelDialog>
 #include <route-tracing>
@@ -110,14 +110,16 @@
 // Anticheats
 #include "core/anticheat/header.pwn"
 
-// Ojito con esto q se revienta el cpeu
+// Voice Chat
 #if defined VOICE_CHAT
     #include <sampvoice>
 #endif
 
+// Logger and flags
 #include "core/logger/header.pwn"
 #include "core/player/flags.pwn"
 
+// Discord webhooks
 #include "utils/discord/webhook.pwn"
 
 // Lang
