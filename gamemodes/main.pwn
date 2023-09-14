@@ -5949,6 +5949,9 @@ public OnPlayerSpawn(playerid)
 	SetPlayerNormalColor(playerid);
 	SetTracingColor(playerid, COLOR_RED);
 	PreloadAnims(playerid);
+
+	Player_SetHealth(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
+	Player_SetArmour(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
 	lastShotTick[playerid] = GetTickCount();
 	
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
@@ -6191,6 +6194,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 					GivePlayerCash(i, final_pay, false);
 					format(str_text, sizeof(str_text), "~g~+%d$", final_pay);
 					GameTextForPlayer(i, str_text, 5000, 1);
+					GivePlayerReputation(i);
 				}
 			}
 
@@ -6198,6 +6202,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 			format(str_text, sizeof(str_text), "~g~+%d$", PLAYER_TEMP[killerid][py_BOX_PAY]);
 			GameTextForPlayer(killerid, str_text, 5000, 1);
 			ShowPlayerNotification(killerid, "Pelea ganada, espera a que alguien vuelva a apostar por ti.", 4);
+			GivePlayerReputation(killerid);
 			PLAYER_TEMP[killerid][py_BOX_PAY] = 0;
 			GivePlayerHealthEx(killerid, 25.0);
 			PLAYER_SKILLS[killerid][WORK_BOX] ++;
@@ -6450,6 +6455,7 @@ PayPlayerMiner(playerid)
 	SavePlayerSkills(playerid);
 
 	GameTextForPlayer(playerid, str_text, 5000, 1);
+	GivePlayerReputation(playerid);
 	return 1;
 }
 
@@ -20405,6 +20411,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
             	format(str_text, 32, "~g~+%d$", payment);
      			GameTextForPlayer(playerid, str_text, 5000, 1);
+     			GivePlayerReputation(playerid);
 			}
 			return 1;
 		}
@@ -21232,6 +21239,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			format(str_text,sizeof(str_text), "~g~+%s$", number_format_thousand(Truck_Contents[ TRUCK_VEHICLE[vehicleid][truck_vehicle_POINT] ][truck_content_MONEY] + work_extra_payment));
 			GameTextForPlayer(playerid, str_text, 5000, 1);
 			SetVehicleToRespawnEx(vehicleid);
+			GivePlayerReputation(playerid);
 		}
 		case CHECKPOINT_TYPE_TRASH:
 		{
@@ -21285,6 +21293,8 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			SavePlayerSkills(playerid);
 			PLAYER_SKILLS[playerid][WORK_TRASH] ++;
 			SavePlayerSkills(playerid);
+			GivePlayerReputation(playerid);
+			GivePlayerReputation(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID]);
 
 			GivePlayerCash(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], money + passenger_work_extra_payment);
 			GameTextForPlayer(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], str_text, 5000, 1);
@@ -22996,8 +23006,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 				time = (gettime() - GraffitiGetTime);
 
 			format(dialog, sizeof dialog, "\
-				"COL_WHITE"Los graffitis son cada 45 minutos, el último fue hace %s.\n\
-				Los mercados son cada 7 días, el último fue hace %d.", TimeConvert(time), ReturnTimelapse(MarketGetTime, gettime()));
+				"COL_WHITE"Las disputas son cada 50 minutos, la última fue hace %s.", TimeConvert(time));
 
 			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Disputas", dialog, "Cerrar", "");
 			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
@@ -23148,6 +23157,18 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 =======
 >>>>>>> refs/rewritten/Algunos-arreglos
     return 1;
+}
+
+GivePlayerReputation(playerid)
+{
+	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
+	if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
+	{
+		ACCOUNT_INFO[playerid][ac_REP] ++;
+		if (ACCOUNT_INFO[playerid][ac_REP] >= neccessary_rep) NextLevel(playerid);
+		return 1;
+	}
+	return 0;
 }
 
 CALLBACK: AddPlayerReputation(playerid)
@@ -23301,8 +23322,7 @@ NextLevel(playerid)
 	//UpdateReputationTextDraws(playerid);
 	SetPlayerSkillLevels(playerid);
 
-	SendClientMessageEx(playerid, COLOR_WHITE, ""COL_RED"¡Felicidades! "COL_WHITE"Has subido al nivel %d.", ACCOUNT_INFO[playerid][ac_LEVEL]);
-	GameTextForPlayer(playerid, "SUBISTE DE NIVEL", 6000, 0);
+	ShowPlayerNotification(playerid, sprintf("~r~SUBISTE DE NIVEL~w~~n~Felicidades, has subido al nivel %d.", ACCOUNT_INFO[playerid][ac_LEVEL]), 5);
 	SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 
 	ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
@@ -29223,6 +29243,7 @@ public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 					ApplyAnimation(playerid, "OTB", "WTCHRACE_WIN", 4.1, false, false, false, false, 0, false);
 			    }
 
+			    GivePlayerReputation(playerid);
 				EndPlayerJob(playerid);
 				return 1;
 			}
@@ -30362,6 +30383,8 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	GetPlayerWeaponData(playerid, WEAPON_INFO[weaponid][weapon_info_SLOT], weapon_id, ammo);
 	if (ammo <= 0)
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] = 0;
+    else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;
+
     return 1;
 }
 
@@ -30602,15 +30625,8 @@ PlayerPayday(playerid)
 
 	if (PLAYER_WORKS[playerid][WORK_POLICE])
 	{
-		new work_payment;
-		if (work_info[WORK_POLICE][work_info_EXTRA_PAY] > 0 && work_info[WORK_POLICE][work_info_EXTRA_PAY_EXP] > 0)
-		{
-			work_payment = (work_info[WORK_POLICE][work_info_EXTRA_PAY] * floatround(floatdiv(PLAYER_SKILLS[playerid][WORK_POLICE], work_info[WORK_POLICE][work_info_EXTRA_PAY_EXP])));
-			if (work_info[WORK_POLICE][work_info_EXTRA_PAY_LIMIT] != 0) if (work_payment > work_info[WORK_POLICE][work_info_EXTRA_PAY_LIMIT]) work_payment = work_info[WORK_POLICE][work_info_EXTRA_PAY_LIMIT];
-		}
-
-		if(work_payment > 10000) work_payment = 10000;
-		money += (work_payment + 8000);
+		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_POLICE]);
+		money += work_payment;
 
 		format(str_temp, sizeof(str_temp), "~n~SAPD: ~g~%s$~w~", number_format_thousand(work_payment));
 		strcat(str_payday, str_temp);
@@ -32667,6 +32683,7 @@ CALLBACK: StandUpBotikin(medic, playerid)
 
 			PLAYER_SKILLS[medic][WORK_MEDIC] += 5;
 			SavePlayerSkills(medic);
+			GivePlayerReputation(medic);
 		}
 		else ShowPlayerNotification(playerid, "Este jugador no ha pedido un medico entonces no has ganado nada.", 4);
 	}
@@ -34921,6 +34938,7 @@ flags:closeserver(CMD_ADMIN)
 flags:pmaletero(CMD_MODERATOR4)
 flags:stopall(CMD_OPERATOR)
 flags:gift(CMD_OPERATOR)
+flags:giftrep(CMD_OPERATOR)
 flags:giftvip(CMD_OPERATOR)
 flags:setpd(CMD_OPERATOR)
 flags:pnot(CMD_MODERATOR)

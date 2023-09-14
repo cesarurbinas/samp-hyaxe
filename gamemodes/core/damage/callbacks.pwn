@@ -41,9 +41,6 @@ public OnPlayerConnect(playerid)
 	g_iLastDamageTick[playerid] = g_iLastDamageTick[MAX_PLAYERS];
 	
 	Player_SetTeam(playerid, NO_TEAM);
-
-	/*Player_SetHealth(playerid, 100);
-	Player_SetArmour(playerid, 0);*/
 	
 	#if defined Damage_OnPlayerConnect
 		return Damage_OnPlayerConnect(playerid);

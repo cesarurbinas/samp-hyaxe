@@ -1532,6 +1532,22 @@ CMD:gift(playerid, params[])
 	return 1;
 }
 
+CMD:giftrep(playerid, params[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				GivePlayerReputation(playerid);
+				ShowPlayerMessage(i, "~r~[REGALO]~w~ Te han dado 1 EXP", 4);
+			}
+		}
+	}
+	return 1;
+}
+
 CMD:giftvip(playerid, params[])
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
