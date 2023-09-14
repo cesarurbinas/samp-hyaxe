@@ -25487,6 +25487,12 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         return 1;
     }
 
+	if(PRESSED(KEY_CTRL_BACK))
+	{
+		if(PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+			DropItemSlot(playerid);
+	}
+
 	if (PRESSED( KEY_YES ))
     {
     	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999) UseItemSlot(playerid);
@@ -25627,8 +25633,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				}
 			}
 		}
-
-		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999) DropItemSlot(playerid);
 	}
 
 	if (PRESSED( KEY_HANDBRAKE | KEY_NO ))
@@ -25643,12 +25647,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 	if (PRESSED( KEY_SPRINT ))
 	{
-		//printf("sprint %d 1",playerid);
 		if (PLAYER_TEMP[playerid][py_FISHING] && PLAYER_WORKS[playerid][WORK_FISHER])
 		{
-			//printf("sprint %d 2",playerid);
 			ManualUpdateFish(playerid);
-			//printf("sprint %d 3",playerid);
 		}
 
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
