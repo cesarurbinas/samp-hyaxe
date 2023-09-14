@@ -878,6 +878,20 @@ DC_CMD:dudas(DCC_User:userid, params[], DCC_Message:message)
 	SendDiscordMessage(channel, "%s", str);
 	return 1;
 }
+
+DC_CMD:playerip(DCC_User:userid, params[], DCC_Message:message)
+{
+	new DCC_Channel:channelid;
+	DCC_GetMessageChannel(message, channelid);
+	if(!DCC_IsUserAdministrator(userid)) return SendDiscordMessage(channelid, ":x: No tienes permisos suficientes");
+	
+	new to_player;
+    if (sscanf(params, "u", to_player)) return SendDiscordMessage(channelid, ":warning: `!playerip <player_id>`");
+    if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
+
+	SendDiscordMessage(channelid, "%s (%d): %s", ACCOUNT_INFO[to_player][ac_NAME], to_player, ACCOUNT_INFO[to_player][ac_IP]);
+	return 1;
+}
 #endif
 
 // Callbacks
