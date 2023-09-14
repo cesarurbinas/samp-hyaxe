@@ -3,7 +3,7 @@ enum Player_Textdraws_Enum
 	PlayerText:ptextdraw_PROPERTY_CONSTRUCTOR[6],
 	PlayerText:ptextdraw_INV[90],
 	PlayerText:ptextdraw_INV_CREW[42],
-	PlayerText:ptextdraw_SPEEDO_METER[12],
+	PlayerText:ptextdraw_SPEEDO_METER[9],
 	PlayerText:ptextdraw_PLANT_PLANT[4],
 	PlayerText:ptextdraw_PLAYER_GPS_MAP[20],
 	PlayerText:ptextdraw_SHOP_ARTICLES_PAGE,
