@@ -13216,7 +13216,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							GivePlayerCash(playerid, -Supermarket_Product_List[listitem][product_PRICE]);
 
 							PLAYER_OBJECT[playerid][po_MP3] = true;
-							SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"usa "COL_RED"/MP3 "COL_WHITE"para usarlo.", Supermarket_Product_List[listitem][product_NAME], Supermarket_Product_List[listitem][product_PRICE]);
+							SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"usa "COL_RED"/mp3 "COL_WHITE"para usarlo.", Supermarket_Product_List[listitem][product_NAME], Supermarket_Product_List[listitem][product_PRICE]);
 							ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
 							PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 						}
@@ -14429,7 +14429,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if(response)
 			{
 				new url[128];
-				format(url, 128, "127.0.0.1:12345/download/%s/pipe_addr_returning", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
+				PLAYER_TEMP[playerid][py_RESULT_INDEX] = listitem;
+				format(url, 128, "51.178.211.161:12345/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
 				printf("%s", url);
 				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
 			}

@@ -52,14 +52,14 @@ public OnDownloadResponse(playerid, response_code, data[])
 	{
 		switch(response_code)
 		{
-			case 403: return SendClientMessage(playerid, COLOR_WHITE, "No pudimos reproducir esta canción...");
-			case 429: return SendClientMessage(playerid, COLOR_WHITE, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.");
+			case 403: return SendClientMessage(playerid, COLOR_WHITE, ""COL_RED"No pudimos reproducir esta canción...");
+			case 429: return SendClientMessage(playerid, COLOR_WHITE, ""COL_RED"Se han estado solicitando muchas canciones ultimamente, intenta más tarde.");
 			default: return 0;
 		}
 	}
 
 	new url[128];
-	format(url, sizeof(url), "127.0.0.1:12345%s", data); // /pipe/%d
+	format(url, sizeof(url), "http://51.178.211.161:12345/stream/%s.mp3", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_ID]);
 
 	if (PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY])
 	{
@@ -70,12 +70,11 @@ public OnDownloadResponse(playerid, response_code, data[])
 				if ( (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY || CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY) && CHARACTER_INFO[i][ch_INTERIOR_EXTRA] == CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA])
 				{
 					PlayAudioStreamForPlayer(i, url);
-					SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
+					SendClientMessageEx(i, COLOR_WHITE, "Reproduciendo "COL_RED"%s. "COL_WHITE"Usa "COL_RED"/stop "COL_WHITE"para parar la música.", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]);
 				}
 			}
 		}
 		PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su propiedad.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	}
 	else if (PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE])
 	{
@@ -88,19 +87,17 @@ public OnDownloadResponse(playerid, response_code, data[])
 					if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
 					{
 						PlayAudioStreamForPlayer(i, url);
-						SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
+						SendClientMessageEx(i, COLOR_WHITE, "Reproduciendo "COL_RED"%s. "COL_WHITE"Usa "COL_RED"/stop "COL_WHITE"para parar la música.", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]);
 					}
 				}
 			}
 		}
 		PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = false;
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	}
 	else
 	{
 		PlayAudioStreamForPlayer(playerid, url);
-		SendClientMessage(playerid, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Escucha música en sus auriculares.\n\n\n", 0xffcb90FF, 20.0, 5000);
+		SendClientMessageEx(playerid, COLOR_WHITE, "Reproduciendo "COL_RED"%s. "COL_WHITE"Usa "COL_RED"/stop "COL_WHITE"para parar la música.", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]);
 	}
 
 	return 1;
