@@ -2766,69 +2766,72 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
             } 
         }
 
-        switch(onFootData[PR_animationId])
+        if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
         {
-			case 157, 159, 161:
+	        switch(onFootData[PR_animationId])
 	        {
-	            if (!IsPlayerInAnyVehicle(playerid))
-	            {
-	            	new str_text[144];
-					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
-				    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-				    SendDiscordWebhook(str_text, 1);
-				    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
-					KickEx(playerid, 500);
-					return 0;
-	            }
-	        }
-	        case 958, 959:
-	        {
-	        	if (onFootData[PR_weaponId] != WEAPON_PARACHUTE)
-				{
-					new str_text[144];
-					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
-				    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-				    SendDiscordWebhook(str_text, 1);
-				    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
-					KickEx(playerid, 500);
-					return 0;
-				}
-	        }
-	        case 799:
-	        {
-	            if (!IsPlayerInAnyVehicle(playerid))
-	            {
-	            	new str_text[144];
-					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Anti-L", PLAYER_TEMP[playerid][py_NAME], playerid);
-				    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-				    SendDiscordWebhook(str_text, 1);
-				    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Anti-L");
-					KickEx(playerid, 500);
-					return 0;
-	            }
-	        }
-	        case 695:
-	        {
-	            if (GetPlayerInterior(playerid) == 0)
-	            {
-	            	new str_text[144];
-					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): SleepAnim", PLAYER_TEMP[playerid][py_NAME], playerid);
-				    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-				    SendDiscordWebhook(str_text, 1);
-				    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: SleepAnim");
-					KickEx(playerid, 500);
-					return 0;
-	            }
-	        }
-	        /*case 1538, 1539, 1543:
-	        {
-	        	if (onFootData[PR_position][2] > 1.0)
-				{
-					KickEx(playerid, 500);
-					return 0;
-				}
-	        }*/
-	    }
+				case 157, 159, 161:
+		        {
+		            if (!IsPlayerInAnyVehicle(playerid))
+		            {
+		            	new str_text[144];
+						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendDiscordWebhook(str_text, 1);
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
+						KickEx(playerid, 500);
+						return 0;
+		            }
+		        }
+		        case 958, 959:
+		        {
+		        	if (onFootData[PR_weaponId] != WEAPON_PARACHUTE)
+					{
+						new str_text[144];
+						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly", PLAYER_TEMP[playerid][py_NAME], playerid);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendDiscordWebhook(str_text, 1);
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly");
+						KickEx(playerid, 500);
+						return 0;
+					}
+		        }
+		        case 799:
+		        {
+		            if (!IsPlayerInAnyVehicle(playerid))
+		            {
+		            	new str_text[144];
+						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Anti-L", PLAYER_TEMP[playerid][py_NAME], playerid);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendDiscordWebhook(str_text, 1);
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Anti-L");
+						KickEx(playerid, 500);
+						return 0;
+		            }
+		        }
+		        case 695:
+		        {
+		            if (GetPlayerInterior(playerid) == 0)
+		            {
+		            	new str_text[144];
+						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): SleepAnim", PLAYER_TEMP[playerid][py_NAME], playerid);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendDiscordWebhook(str_text, 1);
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: SleepAnim");
+						KickEx(playerid, 500);
+						return 0;
+		            }
+		        }
+		        /*case 1538, 1539, 1543:
+		        {
+		        	if (onFootData[PR_position][2] > 1.0)
+					{
+						KickEx(playerid, 500);
+						return 0;
+					}
+		        }*/
+		    }
+		}
 
 	    /*Slapper*/
 	    if (onFootData[PR_animationId] == 1666 && onFootData[PR_animationFlags] == 4356)
@@ -4301,7 +4304,8 @@ Menu:MECHANICTUNING(playerid, response, listitem)
        	
        	else if (listitem == 3)
         {
-        	ShowObjTuning(playerid);
+        	ShowPlayerMessage(playerid, "~r~Esto no esta disponible", 4);
+        	//ShowObjTuning(playerid);
         }
 
        	else if (listitem == 4)
@@ -21971,6 +21975,7 @@ SetIntroCamera(playerid)
 
 CheckBlockedWeapon(playerid, weapon_ip)
 {
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PLAYER_WORKS[playerid][WORK_MAFIA] && !PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA] && !PLAYER_WORKS[playerid][WORK_OSBORN] && !ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
   	{
 		new bool:blocked = false;
@@ -29526,23 +29531,26 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	{
 		if (!PLAYER_WORKS[playerid][WORK_POLICE])
 		{
-			new dialog[250];
-			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Usar tazer sin ser policia");
-			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
-			
-			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazer sin ser policia");
+			if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+			{
+				new dialog[250];
+				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Usar tazer sin ser policia");
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+				
+				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazer sin ser policia");
 
-			KickEx(playerid, 500);
-			PLAYER_MISC[playerid][MISC_BANEOS] ++;
-			SavePlayerMisc(playerid);
+				KickEx(playerid, 500);
+				PLAYER_MISC[playerid][MISC_BANEOS] ++;
+				SavePlayerMisc(playerid);
 
-			new str[145];
-			format(str, 145, "[ADMIN] %s (%d) fue baneado: Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-			SendMessageToAdmins(COLOR_ANTICHEAT, str);
+				new str[145];
+				format(str, 145, "[ADMIN] %s (%d) fue baneado: Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-			new webhook[145];
-			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-			SendDiscordWebhook(webhook, 1);
+				new webhook[145];
+				format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+				SendDiscordWebhook(webhook, 1);
+			}
 		}
 	}
 
@@ -29637,36 +29645,40 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		PLAYER_TEMP[playerid][py_LAST_SHOT_TIME] = gettime();
 	}
 
-	if (IsPlayerInSafeZone(playerid))
+
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
-		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
+		if (IsPlayerInSafeZone(playerid))
 		{
-			FreezePlayer(playerid, 2000);
-			ShowPlayerMessage(playerid, "~r~No dispares en zona segura.", 3);
+			if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
+			{
+				FreezePlayer(playerid, 2000);
+				ShowPlayerMessage(playerid, "~r~No dispares en zona segura.", 3);
+				SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 3);
+				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Disturbios");
+			}
+		}
+
+		if (ACCOUNT_INFO[playerid][ac_LEVEL] == 1)
+		{
+			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar siendo nivel 1.");
+			TogglePlayerControllableEx(playerid, false);
+			KickEx(playerid, 500);
+		}
+
+		if (PLAYER_WORKS[playerid][WORK_MEDIC] && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_MEDIC)
+		{
+			ShowPlayerMessage(playerid, "~r~No puedes disparar estando de medico.", 3);
+			FreezePlayer(playerid, 3000);
+		}
+
+		if (GetPlayerVirtualWorld(playerid) == 1336)
+		{
+			ShowPlayerMessage(playerid, "~r~No puedes disparar dentro del estadio.", 3);
+			FreezePlayer(playerid, 3000);
 			SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 3);
 			format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Disturbios");
 		}
-	}
-
-	if (ACCOUNT_INFO[playerid][ac_LEVEL] == 1)
-	{
-		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar siendo nivel 1.");
-		TogglePlayerControllableEx(playerid, false);
-		KickEx(playerid, 500);
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_MEDIC] && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_MEDIC)
-	{
-		ShowPlayerMessage(playerid, "~r~No puedes disparar estando de medico.", 3);
-		FreezePlayer(playerid, 3000);
-	}
-
-	if (GetPlayerVirtualWorld(playerid) == 1336)
-	{
-		ShowPlayerMessage(playerid, "~r~No puedes disparar dentro del estadio.", 3);
-		FreezePlayer(playerid, 3000);
-		SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 3);
-		format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Disturbios");
 	}
 
 	/*if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
@@ -33118,25 +33130,6 @@ UpdateVehicleAttachedObject(vehicleid, slot, material = false)
 	{
 		if (VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] == INVALID_STREAMER_ID)
 		{
-			new Float:v_size[3];
-			GetVehicleModelInfo(GLOBAL_VEHICLES[ vehicleid ][gb_vehicle_MODELID], VEHICLE_MODEL_INFO_SIZE, v_size[0], v_size[1], v_size[2]);
-
-			if	(
-					(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0] >= v_size[0] || -v_size[0] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0]) || 
-					(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1] >= v_size[1] || -v_size[1] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1]) ||
-					(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2] >= v_size[2] || -v_size[2] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2])
-				)
-			{
-				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0] = 0.0;
-				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1] = 0.0;
-				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2] = 0.0;
-				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][0] = 0.0;
-				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][1] = 0.0;
-				VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][2] = 0.0;
-				UpdateVehicleAttachedObject(vehicleid, slot);
-				return 0;
-			}
-
 			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = 	CreateDynamicObject
 																	(
 																		VEHICLE_OBJECTS[vehicleid][slot][vobject_MODELID],
@@ -33181,6 +33174,24 @@ UpdateVehicleAttachedObject(vehicleid, slot, material = false)
 			}
 		}
 		
+		new Float:v_size[3];
+		GetVehicleModelInfo(GLOBAL_VEHICLES[ vehicleid ][gb_vehicle_MODELID], VEHICLE_MODEL_INFO_SIZE, v_size[0], v_size[1], v_size[2]);
+
+		if	(
+				(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0] >= v_size[0] || -v_size[0] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0]) || 
+				(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1] >= v_size[1] || -v_size[1] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1]) ||
+				(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2] >= v_size[2] || -v_size[2] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2])
+			)
+		{
+			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0] = 0.0;
+			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1] = 0.0;
+			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2] = 0.0;
+			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][0] = 0.0;
+			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][1] = 0.0;
+			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][2] = 0.0;
+			return 0;
+		}
+
 		AttachDynamicObjectToVehicle
 		(
 			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID],
@@ -33307,6 +33318,26 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][0] = fRotX;
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][1] = fRotY;
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][2] = fRotZ;
+					
+					new Float:v_size[3];
+					GetVehicleModelInfo(GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_MODELID], VEHICLE_MODEL_INFO_SIZE, v_size[0], v_size[1], v_size[2]);
+
+					if	(
+							(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][0] >= v_size[0] || -v_size[0] >= VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][0]) || 
+							(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][1] >= v_size[1] || -v_size[1] >= VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][1]) ||
+							(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][2] >= v_size[2] || -v_size[2] >= VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][2])
+						)
+					{
+						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][0] = 0.0;
+						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][1] = 0.0;
+						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_OFFSET][2] = 0.0;
+						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_ROT][0] = 0.0;
+						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_ROT][1] = 0.0;
+						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_ROT][2] = 0.0;
+						ShowPlayerNotification(playerid, "No alejes mucho el objeto.", 0);
+						return 0;
+					}
+
 					UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 				}
 			}
