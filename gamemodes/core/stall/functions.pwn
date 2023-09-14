@@ -11,8 +11,7 @@ CreateStalls()
 			STALL_INFO[i][st_Y],
 			STALL_INFO[i][st_Z],
 			STALL_INFO[i][st_ANGLE],
-			true, 100.0,
-			0, 0
+			true, 100.0, 0, 0
 		);
 
 		new Float:x, Float:y;

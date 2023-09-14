@@ -7,8 +7,8 @@ enum stall_product_enum
 {
 	stp_NAME[32],
 	stp_PRICE,
-	stp_HUNGRY,
-	stp_THIRST
+	Float:stp_HUNGRY,
+	Float:stp_THIRST
 };
 
 new STALL_PRODUCT[][stall_product_enum] =
