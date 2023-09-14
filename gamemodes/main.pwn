@@ -55,7 +55,7 @@
 
 // Features
 #define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -5294,6 +5294,12 @@ CheckHeliPort(playerid)
 		ShowDialog(playerid, DIALOG_HELI_OPTIONS);
 		return 1;
 	}
+
+	if (IsPlayerInRangeOfPoint(playerid, 20.0, 729.8204, -1512.3397, -0.5818))
+	{
+		ShowDialog(playerid, DIALOG_HELI_OPTIONS);
+		return 1;
+	}
 	return 1;
 }
 
@@ -8610,7 +8616,8 @@ SanAndreas()
 	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 2\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1055.9615, -910.1790, 49.1911 + 1, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 3\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1037.1727, -911.3947, 49.1911 + 1, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	
-
+	CreateDynamic3DTextLabel(""COL_RED"Muelle nº 1\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 729.8204, -1512.3397, -0.5818 + 1, 40.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	
 	//Ruta 0
 	CreateTrashCheckpoint(0, 1440, 1576.18823, -1881.10181, 13.07472, 0.00000, 0.00000, 34.68000);
 	CreateTrashCheckpoint(0, 1440, 1917.53015, -1759.69678, 13.03518, 0.00000, 0.00000, 55.38003);
@@ -11097,7 +11104,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_HELI_OPTIONS:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Helipuerto", "Cargar gasolina\nModificar", "Comprar", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Vehículo", "Cargar gasolina\nModificar", "Comprar", "Cerrar");
 			return 1;
 		}
 		case DIALOG_LOAD_GASOLINE:
@@ -19929,7 +19936,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = HELI_POINTS[crane_point][2];
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = HELI_POINTS[crane_point][3];
 								
-								ShowPlayerNotification(playerid, "El vehículo ha sido remolcado al ~y~LS Airport~w~.", 4);
+								ShowPlayerMessage(playerid, "El vehículo ha sido remolcado al ~y~LS Airport~w~.", 6);
 							}
 
 							// Aviones
@@ -19941,7 +19948,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = PLANE_POINTS[crane_point][2];
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = PLANE_POINTS[crane_point][3];
 								
-								ShowPlayerNotification(playerid, "El vehículo ha sido remolcado al ~y~LS Airport~w~.", 4);
+								ShowPlayerMessage(playerid, "El vehículo ha sido remolcado al ~y~LS Airport~w~.", 6);
 							}
 
 							// Barcos
@@ -19953,7 +19960,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = BOAT_POINTS[crane_point][2];
 								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = BOAT_POINTS[crane_point][3];
 								
-								ShowPlayerNotification(playerid, "El vehículo ha sido remolcado a la ~y~Playa de Santa Maria~w~.", 4);
+								ShowPlayerMessage(playerid, "El vehículo ha sido remolcado a la ~y~Playa de Santa Maria~w~.", 6);
 							}
 
 							// Autos, motos, etc
