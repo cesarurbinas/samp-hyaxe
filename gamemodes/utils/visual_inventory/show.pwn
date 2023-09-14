@@ -132,9 +132,9 @@ ShowInventory(playerid, type = 0)
 		case 1:
 		{
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Almacenamiento");
-			layerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
-			layerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
-			layerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
 		}
 	}
 
