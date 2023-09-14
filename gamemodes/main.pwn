@@ -1834,7 +1834,6 @@ enum
 	PRODUCT_TYPE_FOOD,
 	PRODUCT_TYPE_PHONE,
 	PRODUCT_TYPE_GPS,
-	PRODUCT_TYPE_MP3,
 	PRODUCT_TYPE_PHONE_RESOLVER
 };
 enum Supermarket_Enum
@@ -1851,7 +1850,6 @@ new Supermarket_Product_List[][Supermarket_Enum] =
 	{PRODUCT_TYPE_PHONE, NAME_PHONE, 350, 0.0, 0.0, 0},
 	{PRODUCT_TYPE_PHONE_RESOLVER, NAME_PHONE_R, 200, 0.0, 0.0, 0},
 	{PRODUCT_TYPE_GPS, "GPS", 300, 0.0, 0.0, 0},
-	//{PRODUCT_TYPE_MP3, "Reproductor MP3", 200, 0.0, 0.0, 0},
 	{PRODUCT_TYPE_FOOD, "Botella de agua", 80, 0.0, 25.0, 0},
 	{PRODUCT_TYPE_FOOD, "Sprunk", 40, 0.0, 12.0, 0},
 	//{PRODUCT_TYPE_FOOD, "Lata de refresco cola", 30, 0.0, 10.0, 0},
@@ -13180,30 +13178,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
 						}
 					}
-					case PRODUCT_TYPE_MP3:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] >= Supermarket_Product_List[listitem][product_PRICE])
-						{
-							if (PLAYER_OBJECT[playerid][po_MP3])
-							{
-								ShowPlayerMessage(playerid, "~r~Ya tienes un MP3", 2);
-								PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-								return 1;
-							}
-
-							GivePlayerCash(playerid, -Supermarket_Product_List[listitem][product_PRICE]);
-
-							PLAYER_OBJECT[playerid][po_MP3] = true;
-							SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"usa "COL_RED"/mp3 "COL_WHITE"para usarlo.", Supermarket_Product_List[listitem][product_NAME], Supermarket_Product_List[listitem][product_PRICE]);
-							ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false); // pagar
-							PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
-						}
-						else
-						{
-							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-							ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						}
-					}
 					case PRODUCT_TYPE_PHONE_RESOLVER:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] >= Supermarket_Product_List[listitem][product_PRICE])
@@ -21577,6 +21551,7 @@ LoadPlayerObjectsData(playerid)
 		PLAYER_OBJECT[playerid][po_GPS] = db_get_field_assoc_int(Result, "GPS");
 		PLAYER_OBJECT[playerid][po_MP3] = db_get_field_assoc_int(Result, "MP3");
 		PLAYER_OBJECT[playerid][po_PHONE_RESOLVER] = db_get_field_assoc_int(Result, "PHONE_RESOLVER");
+		PLAYER_OBJECT[playerid][po_BOOMBOX] = db_get_field_assoc_int(Result, "BOOMBOX");
 	}
 	db_free_result(Result);
 	return 1;
