@@ -1561,12 +1561,10 @@ TogglePlayerControllableEx(playerid, bool:controllable)
 ShowPlayerKeyMessage(playerid, const key[])
 {
 	new str_text[64];
-	format(str_text, sizeof(str_text), "Pulsa %s", key);
+	format(str_text, sizeof(str_text), "Pulsa la tecla ~r~%s~w~ para interactuar.", key);
 
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], str_text);
-	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
+	DestroyNotification(playerid, PLAYER_TEMP[playerid][py_KEY_NOT]);
+	PLAYER_TEMP[playerid][py_KEY_NOT] = ShowPlayerNotification(playerid, str_text, 2);
 	return 1;
 }
 
