@@ -30,7 +30,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.7 Build 1"
+#define SERVER_VERSION 			"v0.7 Build 5"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -71,6 +71,7 @@
 #include "core/notification/header.pwn"
 
 // Must fix
+#include <nex-ac>
 #include <PreviewModelDialog>
 #include <route-tracing>
 #include <strlib>
@@ -30060,6 +30061,24 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
     return 1;
 }
 
+OnCheatDetected(playerid, ip_address[], type, code)
+{
+	#pragma unused ip_address, type
+
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
+	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
+
+	new ac_message[145];
+	format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d). El código de motivo: #%03d.", PLAYER_TEMP[playerid][py_NAME], playerid, code);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
+	SendDiscordWebhook(ac_message, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
+	TogglePlayerControllableEx(playerid, false);
+	KickEx(playerid, 500);
+	return 1;
+}
+
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 {
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
@@ -30613,7 +30632,7 @@ CMD:astrip(playerid, params[])
 CMD:bailar(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-    if (sscanf(params, "d", params[0])) return SendClientMessage(playerid, 0xFF4500FF, "Syntax: /bailar [1-4]");
+    if (sscanf(params, "d", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /bailar [1-4]");
 
 	switch(params[0])
 	{
@@ -30621,7 +30640,7 @@ CMD:bailar(playerid, params[])
 		case 2: SetPlayerSpecialAction(playerid,SPECIAL_ACTION_DANCE2);
 		case 3: SetPlayerSpecialAction(playerid,SPECIAL_ACTION_DANCE3);
 		case 4: SetPlayerSpecialAction(playerid,SPECIAL_ACTION_DANCE4);
-		default: SendClientMessage(playerid, 0xFF4500FF, "Syntax: /bailar [1-4]");
+		default: SendClientMessage(playerid, COLOR_WHITE, "Syntax: /bailar [1-4]");
 	}
 	return 1;
 }
