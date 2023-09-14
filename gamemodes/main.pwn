@@ -1838,6 +1838,8 @@ static const INVALID_NAMES[][100] =
 	"Pingo",
 	"Heix",
 	"Avant",
+	"Come_",
+	"_Tela",
 	"Morgan_Skulls",
 	"Imgui",
 	"ImGui",
@@ -28461,7 +28463,7 @@ public HealthUp(playerid)
 		}
 
 		new pay_str[64];
-		if (ACCOUNT_INFO[playerid][ac_SU] >= 2)
+		if (PLAYER_WORKS[playerid][WORK_POLICE] || ACCOUNT_INFO[playerid][ac_SU] >= 2)
 		{
 			ShowPlayerNotification(playerid, "No se te ha cobrado por ser VIP", 4);
 		}
