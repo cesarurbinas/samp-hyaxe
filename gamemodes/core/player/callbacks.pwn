@@ -4040,32 +4040,27 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
 	{
-		if (PRESSED( KEY_ANALOG_UP  ))
+
+		if (PRESSED( KEY_ANALOG_LEFT  )) // Atras
 		{
 			if (IsPlayerInAnyVehicle(playerid)) return 0;
 			inv_AccommodateItems(playerid, false);
-			ClickInventorySlot(playerid, 6, true);
+
+			PLAYER_TEMP[playerid][py_ACTUAL_SLOT] --;
+			if (PLAYER_TEMP[playerid][py_ACTUAL_SLOT] < 0) PLAYER_TEMP[playerid][py_ACTUAL_SLOT] = 11;
+			SendClientMessageEx(playerid, -1, "slot: %d", PLAYER_TEMP[playerid][py_ACTUAL_SLOT]);
+			ClickInventorySlot(playerid, PLAYER_TEMP[playerid][py_ACTUAL_SLOT], true);
 		}
 
-		if (PRESSED( KEY_ANALOG_DOWN  ))
+		if (PRESSED( KEY_ANALOG_RIGHT  )) // Adelante
 		{
 			if (IsPlayerInAnyVehicle(playerid)) return 0;
 			inv_AccommodateItems(playerid, false);
-			ClickInventorySlot(playerid, 5, true);
-		}
-
-		if (PRESSED( KEY_ANALOG_LEFT  ))
-		{
-			if (IsPlayerInAnyVehicle(playerid)) return 0;
-			inv_AccommodateItems(playerid, false);
-			ClickInventorySlot(playerid, 10, true);
-		}
-
-		if (PRESSED( KEY_ANALOG_RIGHT  ))
-		{
-			if (IsPlayerInAnyVehicle(playerid)) return 0;
-			inv_AccommodateItems(playerid, false);
-			ClickInventorySlot(playerid, 2, true);
+			
+			PLAYER_TEMP[playerid][py_ACTUAL_SLOT] ++;
+			if (PLAYER_TEMP[playerid][py_ACTUAL_SLOT] > 11) PLAYER_TEMP[playerid][py_ACTUAL_SLOT] = 0;
+			SendClientMessageEx(playerid, -1, "slot: %d", PLAYER_TEMP[playerid][py_ACTUAL_SLOT]);
+			ClickInventorySlot(playerid, PLAYER_TEMP[playerid][py_ACTUAL_SLOT], true);
 		}
 	}
 

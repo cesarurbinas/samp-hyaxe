@@ -474,8 +474,13 @@ enum Temp_Enum
 >>>>>>> 905e9a5 (items migrados)
 =======
 	py_FISHS,
+<<<<<<< HEAD
 	py_EATING
 >>>>>>> e31f7fb (alimentos usables)
+=======
+	py_EATING,
+	py_ACTUAL_SLOT
+>>>>>>> b558bff (inventory scroll)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

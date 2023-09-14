@@ -42,11 +42,11 @@ Listado de cosas para hacer
 
 ❌ Agregar mas tiendas de ropa
 
-❌ Que las vestimentas se vayan guardando
-
 ❌ Agregar logros
 
 ✅ Cambiar colores del selective dialog
+
+✅ Mejor forma de moverse por el inventario con el numpad
 
 ❌ Acortar el nombre de los toys
 
