@@ -23831,109 +23831,149 @@ public StoreBuyRecv(index, response_code, const data[])
 	{
 	    if (response_code == 200)
 	    {
-	    	new playerid = index;
-
 	    	if (data[0] == 'Y')
 			{
-				switch( STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_TYPE] )
+				switch( STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_TYPE] )
 				{
 					// HyCoins
 					case 0:
 					{
 						new DB_Query[140];
-						ACCOUNT_INFO[playerid][ac_SD] += STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA];
+						ACCOUNT_INFO[index][ac_SD] += STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA];
 
-						format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+						format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[index][ac_SD], ACCOUNT_INFO[index][ac_ID]);
 						db_free_result(db_query(Database, DB_Query));
 					}
 
 					// Dinero
 					case 1:
 					{
-						GivePlayerCash(playerid, STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA], false);
+						GivePlayerCash(index, STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA], false);
 					}
 
 					// VIP Classic
 					case 2:
 					{
-						SetPlayerVip(playerid, 1, 0, STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA]);
+						SetPlayerVip(index, 1, 0, STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA]);
 					}
 
 					// VIP Turbo
 					case 3:
 					{
-						SetPlayerVip(playerid, 2, 0, STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA]);
+						SetPlayerVip(index, 2, 0, STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA]);
 					}
 
 					// Nivel
 					case 4:
 					{
-						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][2]);
+						KillTimer(PLAYER_TEMP[index][py_TIMERS][2]);
 
-						ACCOUNT_INFO[playerid][ac_REP] = 1;
-						ACCOUNT_INFO[playerid][ac_LEVEL] += STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA];
-						SetPlayerSkillLevels(playerid);
+						ACCOUNT_INFO[index][ac_REP] = 1;
+						ACCOUNT_INFO[index][ac_LEVEL] += STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA];
+						SetPlayerSkillLevels(index);
 
-						SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
+						SetPlayerScore(index, ACCOUNT_INFO[index][ac_LEVEL]);
 
-						ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
-						PLAYER_TEMP[playerid][py_TIME_PASSED_LAST_REP] = gettime() * 1000;
+						ACCOUNT_INFO[index][ac_TIME_FOR_REP] = TIME_FOR_REP;
+						PLAYER_TEMP[index][py_TIME_PASSED_LAST_REP] = gettime() * 1000;
 
-						ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
-						PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
+						ACCOUNT_INFO[index][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[index][py_TIME_PLAYING];
+						PLAYER_TEMP[index][py_TIME_PLAYING] = gettime();
 						new DB_Query[256];
 						format(DB_Query, sizeof DB_Query,
 
 							"\
 								UPDATE `CUENTA` SET `TIME-PLAYING` = '%d', `LEVEL` = '%d', `REP` = '%d', `TIME_FOR_REP` = '%d', `PAYDAY_REP` = '%d' WHERE `ID` = '%d';\
 							",
-								ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID]
+								ACCOUNT_INFO[index][ac_TIME_PLAYING], ACCOUNT_INFO[index][ac_LEVEL], ACCOUNT_INFO[index][ac_REP], TIME_FOR_REP, ACCOUNT_INFO[index][ac_PAYDAY_REP], ACCOUNT_INFO[index][ac_ID]
 						);
 						db_free_result(db_query(Database, DB_Query));
 
-						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][2]);
-						PLAYER_TEMP[playerid][py_TIMERS][2] = SetTimerEx("AddPlayerReputation", ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], false, "i", playerid);
+						KillTimer(PLAYER_TEMP[index][py_TIMERS][2]);
+						PLAYER_TEMP[index][py_TIMERS][2] = SetTimerEx("AddPlayerReputation", ACCOUNT_INFO[index][ac_TIME_FOR_REP], false, "i", index);
 					}
 
 					// Vehiculo
 					case 5:
 					{
-						new Float:pos[4];
-						GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-						GetPlayerFacingAngle(playerid, pos[3]);
+						new
+							Float:x, Float:y, Float:z, Float:angle
+							modelid = STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA],
+							vehicle_type = GetVehicleType( GetVehicleModel(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]) )
+						;
 
-						new vid = AddPersonalVehicle
-						(
-							playerid,
-							STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA],
-							pos[0],
-							pos[1],
-							pos[2],
-							pos[3],
+						switch(vehicle_type)
+						{
+							// Helicópteros
+							case 0:
+							{
+								new crane_point = random(sizeof(HELI_POINTS));
+								x = HELI_POINTS[crane_point][0];
+								y = HELI_POINTS[crane_point][1];
+								z = HELI_POINTS[crane_point][2];
+								angle = HELI_POINTS[crane_point][3];
+							}
+
+							// Aviones
+							case 1:
+							{
+								new crane_point = random(sizeof(PLANE_POINTS));
+								x = PLANE_POINTS[crane_point][0];
+								y = PLANE_POINTS[crane_point][1];
+								z = PLANE_POINTS[crane_point][2];
+								angle = PLANE_POINTS[crane_point][3];
+							}
+
+							// Barcos
+							case 2:
+							{
+								new crane_point = random(sizeof(BOAT_POINTS));
+								x = BOAT_POINTS[crane_point][0];
+								y = BOAT_POINTS[crane_point][1];
+								z = BOAT_POINTS[crane_point][2];
+								angle = BOAT_POINTS[crane_point][3];
+							}
+
+							// Autos, motos, etc
+							default:
+							{
+								new crane_point = random(sizeof(CRANE_POINTS));
+								x = CRANE_POINTS[crane_point][0];
+								y = CRANE_POINTS[crane_point][1];
+								z = CRANE_POINTS[crane_point][2];
+								angle = CRANE_POINTS[crane_point][3];
+							}
+						}
+
+						new vid = AddPersonalVehicle(
+							index,
+							modelid,
+							x, y, z,
+							angle,
 							1,
 							1,
-							VEHICLE_INFO[ STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA] - 400 ][vehicle_info_MAX_GAS]
+							VEHICLE_INFO[ STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA] - 400 ][vehicle_info_MAX_GAS]
 						);
-						if (!vid) ShowPlayerNotification(playerid, "Tu vehículo se ha comprado correctamente pero no pudo spawnear debido a que ya hay muchos vehículos creados.", 4);
+						if (!vid) ShowPlayerNotification(index, "Tu vehículo se ha comprado correctamente pero no pudo spawnear debido a que ya hay muchos vehículos creados.", 4);
 					}
 
 					// Skin
 					case 6:
 					{
-						CHARACTER_INFO[playerid][ch_SKIN] = STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA];
-    					SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
-    					PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
+						CHARACTER_INFO[index][ch_SKIN] = STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA];
+    					SetPlayerSkin(index, CHARACTER_INFO[index][ch_SKIN]);
+    					PLAYER_TEMP[index][py_SKIN] = CHARACTER_INFO[index][ch_SKIN];
 					}
 				}
 
 				new str_text[232];
 				format(str_text, sizeof(str_text), "Has comprado el producto \"%s\" por %d$. Felicidades.",
-					STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_NAME],
-					STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_PRICE]
+					STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_NAME],
+					STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_PRICE]
 				);
-				ShowPlayerNotification(playerid, str_text, 4);
+				ShowPlayerNotification(index, str_text, 4);
 			}
-			else ShowPlayerNotification(playerid, "No tienes los créditos suficientes para realizar esta compra en la tienda.", 4);
+			else ShowPlayerNotification(index, "No tienes los créditos suficientes para realizar esta compra en la tienda.", 4);
 	    }
 	    else
 	    {
