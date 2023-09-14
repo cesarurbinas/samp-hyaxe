@@ -55,6 +55,17 @@ ShowInventory(playerid, type = 0)
 
 HideInventory(playerid)
 {
+	switch(PLAYER_TEMP[playerid][py_INVENTORY_TYPE])
+	{
+		case 3, 4:
+		{
+			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = true;
+			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
+		}
+	}
+
+	PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = 0;
+
 	PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0;
 	TextDrawHideForPlayer(playerid, Textdraws[textdraw_INV_BG]);
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][0]);
@@ -380,7 +391,6 @@ RefreshItemList(playerid)
 				Float:size_items = 335.000000
 			;
 			
-			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0;
 			format(str_text, sizeof(str_text), "%d/12", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
 
@@ -401,6 +411,9 @@ RefreshItemList(playerid)
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = true;
+			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
 
 			ShowPlayerMessage(playerid, "Seleccione un item para sacar del maletero.", 5);
 		}
@@ -440,6 +453,9 @@ RefreshItemList(playerid)
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = true;
+			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
 
 			ShowPlayerMessage(playerid, "Seleccione un item para meter al maletero.", 5);
 		}
