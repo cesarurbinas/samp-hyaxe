@@ -23866,6 +23866,7 @@ public StoreBuyRecv(index, response_code, const data[])
 							1,
 							VEHICLE_INFO[ STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA] - 400 ][vehicle_info_MAX_GAS]
 						);
+						if (!vid) return SendClientMessage(playerid, COLOR_WHITE, "No se pueden añadir más vehículos.");
 					}
 
 					// Skin
@@ -23882,6 +23883,7 @@ public StoreBuyRecv(index, response_code, const data[])
 					STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_NAME],
 					STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_PRICE]
 				);
+				ShowPlayerNotification(playerid, str_text, 4);
 			}
 			else ShowPlayerNotification(playerid, "No tienes los créditos suficientes para realizar esta compra en la tienda.", 4);
 	    }
