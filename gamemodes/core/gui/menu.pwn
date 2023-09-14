@@ -184,7 +184,7 @@ Menu:OBJTUNINGMENU(playerid, response, listitem)
 				VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][slot][vobject_text_FONT_COLOR] = 0xFF000000;
 
 				RegisterNewVehicleObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
-				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
+				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot, true);
 
 				ShowPlayerMessage(playerid, "El objeto de texto fue añadido.", 2);
 				PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;

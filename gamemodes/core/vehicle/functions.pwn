@@ -428,7 +428,7 @@ GetVehicleFreeObjectSlot(vehicleid)
 	return -1;
 }
 
-UpdateVehicleMaterialObject(vehicleid, slot)
+/*UpdateVehicleMaterialObject(vehicleid, slot)
 {
 	switch(VEHICLE_OBJECTS[vehicleid][slot][vobject_TYPE])
 	{
@@ -459,63 +459,9 @@ UpdateVehicleMaterialObject(vehicleid, slot)
 		case VOBJECT_TYPE_COUNTRY_PANEL: TextureCountryFlag(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], 0, VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][0]);
 	}
 	return 1;
-}
-
-/*UpdateVehicleAttachedObject(vehicleid, slot)
-{
-	if (VEHICLE_OBJECTS[vehicleid][slot][vobject_ATTACHED])
-	{
-		if (VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] == INVALID_STREAMER_ID)
-		{
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = CreateDynamicObject( VEHICLE_OBJECTS[vehicleid][slot][vobject_MODELID], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-		}
-
-		for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
-		{
-			SetDynamicObjectMaterial(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][i]);
-		}
-		
-		new Float:v_size[3];
-		GetVehicleModelInfo(GLOBAL_VEHICLES[ vehicleid ][gb_vehicle_MODELID], VEHICLE_MODEL_INFO_SIZE, v_size[0], v_size[1], v_size[2]);
-
-		if (
-				(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0] >= v_size[0] || -v_size[0] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0]) || 
-				(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1] >= v_size[1] || -v_size[1] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1]) ||
-				(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2] >= v_size[2] || -v_size[2] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2])
-			)
-		{
-			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0] = 0.0;
-			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1] = 0.0;
-			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2] = 0.0;
-			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][0] = 0.0;
-			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][1] = 0.0;
-			VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_ROT][2] = 0.0;
-			return 0;
-		}
-
-		AttachDynamicObjectToVehicle(
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID],
-			vehicleid,
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_OFFSET][0],
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_OFFSET][1],
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_OFFSET][2],
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][0],
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][1],
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][2]
-		);
-	}
-	else
-	{
-		if (VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] != INVALID_STREAMER_ID)
-		{
-			DestroyDynamicObject(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID]);
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = INVALID_STREAMER_ID;
-		}
-	}
-	return 1;
 }*/
 
-UpdateVehicleAttachedObject(vehicleid, slot, material = true)
+UpdateVehicleAttachedObject(vehicleid, slot, material = false)
 {
 	if(VEHICLE_OBJECTS[vehicleid][slot][vobject_ATTACHED])
 	{
@@ -601,11 +547,6 @@ EditVehicleObject(playerid, vehicleid, slot)
 	PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][3] = VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][0];
 	PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][4] = VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][1];
 	PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][5] = VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][2];
-	
-	for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
-	{
-		SetDynamicObjectMaterial(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][i]);
-	}
 
 	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = CreatePlayerObject(playerid, 999, x, y, z, VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][0], VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][1], VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][2]);
 	SetPlayerObjectMaterial(playerid, PLAYER_TEMP[playerid][py_PIVOT_OBJECT], 0, 0, "null", "null");

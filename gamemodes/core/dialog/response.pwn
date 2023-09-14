@@ -7123,7 +7123,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][slot][vobject_text_FONT_COLOR] = 0xFF000000;
 
 						RegisterNewVehicleObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
-						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
+						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot, true);
 
 						ShowPlayerMessage(playerid, "El objeto de texto fue añadido.", 2);
 						PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;
@@ -7235,8 +7235,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][slot][vobject_COLORS][0] = listitem;
 
 				RegisterNewVehicleObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
-				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
-				UpdateVehicleMaterialObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
+				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot, true);
 
 				ShowPlayerMessage(playerid, "El objeto fue añadido.", 3);
 				PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;
