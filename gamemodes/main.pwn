@@ -12857,8 +12857,11 @@ ShowDialog(playerid, dialogid)
     		new 
     			dialog[564],
     			caption[128],
-    			radio_station[64]
+    			radio_station[64],
+    			windows[4]
     		;
+
+    		GetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], windows[2], windows[3]);
 
     		if (PLAYER_MISC[playerid][MISC_RADIO_STATION] == 100) radio_station = ""COL_RED"Apagada";
     		else format(radio_station, sizeof(radio_station), ""COL_YELLOW"%s", RADIO_STATIONS[ PLAYER_MISC[playerid][MISC_RADIO_STATION] ][r_NAME]);
@@ -12870,11 +12873,13 @@ ShowDialog(playerid, dialogid)
     			Luces\t%s\n\
     			Estación de radio\t%s\n\
     			Mapa\t%s\n\
+    			Ventana\t%s\n\
     			Estacionar\t",
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			radio_station,
-    			(PLAYER_TEMP[playerid][py_GPS_MAP] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado")
+    			(PLAYER_TEMP[playerid][py_GPS_MAP] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
+    			(windows[0] ? ""COL_GREEN"Abierta" : ""COL_RED"Cerrada")
     		);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Cambiar", "Cerrar");
@@ -21094,10 +21099,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 3:
 					{
+						new windows[4];
+						GetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], windows[2], windows[3]);
+
+						if (windows[0] == 0)
+						{
+							SetVehicleParamsCarWindows(vehicleid, 1, windows[1], windows[2], windows[3]);
+							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto la Ventana de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+							ShowPlayerMessage(playerid, "Ventana ~g~abierta", 2);
+						}
+						else
+						{
+							SetVehicleParamsCarWindows(vehicleid, 0, windows[1], windows[2], windows[3]);
+							SetPlayerChatBubble(playerid, "\n\n\n\n* Ha cerrado la Ventana de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+							ShowPlayerMessage(playerid, "Ventana ~r~cerrada", 2);
+						}
+					}
+					case 4:
+					{
 						if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
 						else ShowPlayerGpsMap(playerid);
 					}
-					case 4:
+					case 5:
 					{
 						SetPlayerVehiclePark(playerid);
 					}
