@@ -2584,10 +2584,6 @@ new JAIL_POSITIONS[][enum_JAIL_POSITIONS] =
 
 new Float:MECHANIC_POSITIONS[][] =
 {
-	{-64.154220, -1162.446533, 2.148341},
-	{-70.391883, -1175.106201, 2.148341},
-	{-75.486938, -1185.539672, 2.148341},
-	{-94.757438, -1170.204589, 2.504477},
 	{1048.312622, -923.895812, 43.018077},
 	{1058.781250, -890.199401, 43.618721},
 	{1053.702758, -890.891235, 43.494247},
@@ -5662,7 +5658,7 @@ CheckRodShop(playerid)
 
 CheckFixKitShop(playerid)
 {
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -101.229499, -1179.570800, 2.342527) || IsPlayerInRangeOfPoint(playerid, 1.0, 1060.838256, -917.609741, 43.124679))
+	if (IsPlayerInRangeOfPoint(playerid, 1.0, 1060.838256, -917.609741, 43.124679))
 	{
 		ShowDialog(playerid, DIALOG_BUY_FIXKIT);
 	}
@@ -7813,7 +7809,6 @@ SanAndreas()
 		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2] + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	}
 
-	CreateDynamic3DTextLabel(""COL_RED"Taller mecánico\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, -101.229499, -1179.570800, 2.342527, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_RED"Taller mecánico\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 1060.838256, -917.609741, 43.124679, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	//pescador
@@ -8091,7 +8086,7 @@ UpdatePlayerZoneMessages(playerid)
 		return 1;
 	}
 
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -101.229499, -1179.570800, 2.342527) || IsPlayerInRangeOfPoint(playerid, 1.0, 1060.838256, -917.609741, 43.124679))
+	if (IsPlayerInRangeOfPoint(playerid, 1.0, 1060.838256, -917.609741, 43.124679))
 	{
 		ShowPlayerKeyMessage(playerid, "Y");
 		return 1;
