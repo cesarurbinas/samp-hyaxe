@@ -5788,6 +5788,10 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 					format(string, sizeof(string), "[ANTI-CHEAT] Aviso sobre %s (%d): WallShot (object: %d, weaponId: %d, hitId: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, ray, bulletData[PR_weaponId], bulletData[PR_hitId]);
 					SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 					SendDiscordWebhook(string, 1);
+
+					PLAYER_TEMP[playerid][py_WALLSHOT_ALERTS] ++;
+					if (PLAYER_TEMP[playerid][py_WALLSHOT_ALERTS] >= 3)
+						Anticheat_Ban(playerid, "Wallshot");
 				}
 			}
 		}

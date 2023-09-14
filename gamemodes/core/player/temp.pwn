@@ -435,8 +435,13 @@ enum Temp_Enum
 >>>>>>> b339f02 (fix logs)
 =======
 	bool:py_BOT,
+<<<<<<< HEAD
 	py_NOFUEL_ALERTS
 >>>>>>> 039c29d (ammo ban)
+=======
+	py_NOFUEL_ALERTS,
+	py_WALLSHOT_ALERTS
+>>>>>>> 12b2049 (wallshot ban)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
