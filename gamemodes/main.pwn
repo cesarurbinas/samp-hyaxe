@@ -149,6 +149,9 @@
 // Areas
 #include "core/key_areas/areas.pwn"
 
+// Properties 
+#include "core/furniture/properties.pwn"
+
 // Player
 #include "core/player/account.pwn"
 #include "core/player/temp.pwn"
@@ -207,8 +210,7 @@
 #include "core/player/vehicles.pwn"
 #include "core/player/objects.pwn"
 
-// Properties 
-#include "core/furniture/properties.pwn"
+// Propierties
 #include "core/furniture/list.pwn"
 
 // Items

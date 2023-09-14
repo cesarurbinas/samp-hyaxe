@@ -2796,6 +2796,37 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 	PLAYER_TEMP[playerid][py_LAST_AREA] = areaid;
 
+	if (areaid == START_MISSION[SWEET_MISSION][ems_COME_BACK_AREA] && START_MISSION[SWEET_MISSION][ems_COME_BACK])
+	{
+		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+		{
+			if (!IsPlayerConnected(i)) continue;
+
+			if (PLAYER_TEMP[i][py_IN_MISSION])
+			{
+				if (PLAYER_TEMP[i][py_MISSION] == SWEET_MISSION)
+				{
+					// Mission win
+					GivePlayerReputation(i, 1, false);
+					ShowPlayerAlert(i, "COMPLETADA~n~~w~+EXP", 0xd5900aFF, 5);
+					
+					SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
+					SetPlayerMarkerForPlayer(playerid, i, PLAYER_COLOR);
+
+					GivePlayerCash(i, 1000 + (300 * PLAYER_TEMP[i][py_MISSION_POINTS]));
+					Cancel_GPS(i);
+					PLAYER_TEMP[i][py_IN_MISSION] = false;
+				}
+			}
+		}
+
+		for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+		{
+			FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 1);
+		}
+		return 1;
+	}
+
 	new
 		info[2],
 		type
@@ -3773,12 +3804,57 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 
 	new info[3];
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, pickupid, E_STREAMER_EXTRA_ID, info);
-    if (info[0] == PICKUP_TYPE_MONEY)
-    {
-    	GivePlayerCash(playerid, minrand(10, 350), false);
-    	DestroyDynamicPickup(pickupid);
-    	return 0;
-    }
+    
+	switch(info[0])
+	{
+		case PICKUP_TYPE_MONEY:
+		{
+			GivePlayerCash(playerid, minrand(10, 350), false);
+			DestroyDynamicPickup(pickupid);
+			return 0;
+		}
+
+		case PICKUP_TYPE_DRUG:
+		{
+			if (PLAYER_TEMP[playerid][py_IN_MISSION])
+			{
+				if (PLAYER_TEMP[playerid][py_MISSION] == SWEET_MISSION)
+				{
+					// Give mission participation points
+					PLAYER_TEMP[playerid][py_MISSION_POINTS] ++;
+					DestroyDynamicPickup(pickupid);
+
+					// Come back
+					START_MISSION[SWEET_MISSION][ems_COME_BACK] = true;
+					SetPlayerRangePoliceSearchLevel(playerid, 2, 200.0, "Narcotrafico");
+
+					for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+					{
+						if (!IsPlayerConnected(i)) continue;
+
+						if (PLAYER_TEMP[i][py_IN_MISSION])
+						{
+							if (PLAYER_TEMP[i][py_MISSION] == SWEET_MISSION)
+							{
+								ShowPlayerNotification(i, sprintf("%s ha capturado las drogas.", PLAYER_TEMP[playerid][py_NAME]),  3);
+								SetPlayerMarkerForPlayer(i, playerid, 0x46ABE5FF);
+
+								SetPlayer_GPS_Checkpoint(
+									i,
+									490.1550, -1666.5117, 13.3438,
+									0, 0
+								);
+
+								ShowPlayerMessage(i, "Vuelve a ~g~Ganton~w~ para entregar la mercancía.", 20);
+							}
+						}
+					}
+
+					return 0;
+				}
+			}
+		}
+	}
 
     PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] = pickupid;
     return 1;

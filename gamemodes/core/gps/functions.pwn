@@ -7,6 +7,17 @@ GetEmptyPlayer_GPS_Slot(playerid)
 	return -1;
 }
 
+Cancel_GPS(playerid)
+{
+	if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_GPS_CHECKPOINT]))
+	{
+		DestroyDynamicCP(PLAYER_TEMP[playerid][py_GPS_CHECKPOINT]);
+    	CancelTracing(playerid);
+		PLAYER_TEMP[playerid][py_GPS_CHECKPOINT] = INVALID_STREAMER_ID;
+	}
+	return 1;
+}
+
 SetPlayer_GPS_Checkpoint(playerid, Float:x, Float:y, Float:z, world, interior)//spgps
 {
 	if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_GPS_CHECKPOINT]))

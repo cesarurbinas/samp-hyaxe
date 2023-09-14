@@ -23,6 +23,9 @@ CreateMissionsPlaces()
         }
     }
 
+    // Sweet come back
+    START_MISSION[SWEET_MISSION][ems_COME_BACK_AREA] = CreateDynamicCircle(490.1550, -1666.5117, 6.0);
+
     // Sweet NPC's
     for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
     {
@@ -165,6 +168,7 @@ CheckMissionPlace(playerid)
 
         if (players_in_mission <= 1) START_MISSION[index][ems_TYPE] = random(START_MISSION[index][ems_MAX_MISSIONS]);
         PLAYER_TEMP[playerid][py_MISSION_TYPE] = START_MISSION[index][ems_TYPE];
+        START_MISSION[index][ems_COME_BACK] = false;
 
         // Show message
         switch(index)
@@ -223,7 +227,24 @@ CheckMissionPlace(playerid)
                     // Drug stealer
                     case 1:
                     {
-                        new drug_index = random( sizeof(INIT_DRUG_STEAL) );
+                        if (players_in_mission <= 1)
+                        {
+                            START_MISSION[index][ems_SPECIAL_INDEX] = random( sizeof(INIT_DRUG_STEAL) );
+
+                            new drug_pickup = CreateDynamicPickup(
+                                1212, 1,
+                                INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][0],
+                                INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][1],
+                                INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][2],
+                                0, 0
+                            );
+                        
+                            new info[3];
+                            info[0] = PICKUP_TYPE_DRUG;
+                            info[1] = 0; // Index
+                            info[2] = 0; // Nada
+                            Streamer_SetArrayData(STREAMER_TYPE_PICKUP, drug_pickup, E_STREAMER_EXTRA_ID, info);
+                        }
 
                         for(new i = 0; i < 6; i++)
                         {
@@ -241,14 +262,13 @@ CheckMissionPlace(playerid)
                                 FCNPC_SetSkin(SWEET_DEALERS[i][sd_ID], BALLAS_SKINS[ random(sizeof(BALLAS_SKINS))]);
 
                                 new
-                                    Float:x = INIT_DRUG_STEAL[drug_index][0],
-                                    Float:y = INIT_DRUG_STEAL[drug_index][1],
-                                    Float:z = INIT_DRUG_STEAL[drug_index][2],
-                                    negative
+                                    Float:x = INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][0],
+                                    Float:y = INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][1],
+                                    Float:z = INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][2]
                                 ;
 
-                                x = ( x + ( float_random( 20.0 ) - float_random( 20.0 ) ) );
-	                            y = ( y + ( float_random( 20.0 ) - float_random( 20.0 ) ) );
+                                x = ( x + ( float_random( 20.0 ) - mathfrandom( -20.0, 20.0 ) ) );
+	                            y = ( y + ( float_random( 20.0 ) - mathfrandom( -20.0, 20.0 ) ) );
 
                                 CA_FindZ_For2DCoord(x, y, z);
 
@@ -256,7 +276,7 @@ CheckMissionPlace(playerid)
                                     SWEET_DEALERS[i][sd_ID],
                                     x,
                                     y,
-                                    z
+                                    z + 0.3
                                 );
                                 FCNPC_SetAngle(SWEET_DEALERS[i][sd_ID], mathfrandom(10.0, 180.0));
 
@@ -277,13 +297,20 @@ CheckMissionPlace(playerid)
 
                         SetPlayer_GPS_Checkpoint(
                             playerid,
-                            INIT_DRUG_STEAL[drug_index][0],
-                            INIT_DRUG_STEAL[drug_index][1],
-                            INIT_DRUG_STEAL[drug_index][2],
+                            INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][0],
+                            INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][1],
+                            INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][2],
                             0, 0
                         );
 
-                        ShowPlayerMessage(playerid, "Roba la ~b~cocaina~w~ de la banda rival.", 15);
+                        new city[45], zone[45];
+	                    GetPointZone(
+                            INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][0],
+                            INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][1],
+                            city, zone
+                        );
+                        
+                        ShowPlayerMessage(playerid, sprintf("Roba la ~b~cocaina~w~ de los Ballas en %s.", zone), 20);
                     }
                 }
             }

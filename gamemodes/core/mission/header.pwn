@@ -29,7 +29,10 @@ enum e_start_mission
 	Float:ems_Z,
 	ems_MAX_MISSIONS,
 	bool:ems_STARTED,
-	ems_TYPE
+	ems_TYPE,
+	bool:ems_COME_BACK,
+	ems_COME_BACK_AREA,
+	ems_SPECIAL_INDEX
 };
 
 new START_MISSION[][e_start_mission] =

@@ -139,7 +139,7 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 
 					switch(PLAYER_TEMP[killerid][py_MISSION_TYPE])
 					{
-						case 0:
+						case 0, 2:
 						{
 							// Check lives npc's
 							new npc_lives;
@@ -148,6 +148,8 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 								if (FCNPC_IsSpawned(SWEET_DEALERS[i][sd_ID]) && !FCNPC_IsDead(SWEET_DEALERS[i][sd_ID]))
 									npc_lives ++;
 							}
+
+							SetPlayerRangePoliceSearchLevel(killerid, 2, 200.0, "Homicidio");
 
 							// Change color and check mission win
 							for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -161,17 +163,20 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 									{
 										SetPlayerMarkerForPlayer(i, npcid, PLAYER_COLOR);
 										SetPlayerColor(npcid, PLAYER_COLOR);
-									}
-								}
 
-								// Mission win
-								if (npc_lives <= 0)
-								{
-									GivePlayerReputation(i, 1, false);
-									ShowPlayerAlert(i, "COMPLETADA~n~~w~+EXP", 0xd5900aFF, 5);
-									SetPlayerMarkerForPlayer(i, killerid, PLAYER_COLOR);
-									GivePlayerCash(i, 1000 + (300 * PLAYER_TEMP[i][py_MISSION_POINTS]));
-									PLAYER_TEMP[i][py_IN_MISSION] = false;
+										// Mission win
+										if (npc_lives <= 0)
+										{
+											GivePlayerReputation(i, 1, false);
+											ShowPlayerAlert(i, "COMPLETADA~n~~w~+EXP", 0xd5900aFF, 5);
+											
+											SetPlayerMarkerForPlayer(i, killerid, PLAYER_COLOR);
+											SetPlayerMarkerForPlayer(killerid, i, PLAYER_COLOR);
+
+											GivePlayerCash(i, 1000 + (300 * PLAYER_TEMP[i][py_MISSION_POINTS]));
+											PLAYER_TEMP[i][py_IN_MISSION] = false;
+										}
+									}
 								}
 							}
 
