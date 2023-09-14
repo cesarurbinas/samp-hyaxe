@@ -55,7 +55,7 @@
 
 // Features
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -3125,7 +3125,7 @@ IPacket:AIM_SYNC(playerid, BitStream:bs)
     return 1;
 }
 
-NeuroJail(playerid, time, reason[])
+NeuroJail(playerid, time, const reason[])
 {
     StopAudioStreamForPlayer(playerid);
     CancelEdit(playerid);
@@ -3134,19 +3134,6 @@ NeuroJail(playerid, time, reason[])
     PLAYER_MISC[playerid][MISC_JAILS] ++;
     SavePlayerMisc(playerid);
 
-    PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE] = false;
-    PLAYER_TEMP[playerid][py_THIRST_MESSAGE] = false;
-    PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = false;
-    PLAYER_TEMP[playerid][py_PLAYER_IN_INV] = false;
-    PLAYER_TEMP[playerid][py_CUFFED] = false;
-    PLAYER_TEMP[playerid][py_CUFFING] = false;
-    PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
-
-    if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-    {
-	   PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-	   DisablePlayerMechanicMark(playerid);
-    }
     if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
     if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
 
@@ -3163,7 +3150,7 @@ NeuroJail(playerid, time, reason[])
 
 	new dialog[250];
 	format(dialog, sizeof dialog, ""COL_WHITE"NeuroAdmin te jaileó, razón: %s.\nRecuerde que a los 10 jails sera baneado permanentemente.", reason);
-	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	return 1;
 }
 
@@ -6860,7 +6847,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 				return 1;
 			}
 
-			if (reason == 49)
+			if (reason == 49 || reason == 50)
 			{
 				NeuroJail(killerid, 30, "VK");
 				return 1;
@@ -33484,7 +33471,7 @@ SavePlayerWeaponInVehicleBoot(playerid, weapon_slot, vehicleid, boot_slot)
 	return 1;
 }
 
-CMD:guardar(playerid, params[])
+/*CMD:guardar(playerid, params[])
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
@@ -33523,7 +33510,7 @@ CMD:guardar(playerid, params[])
 	}
 	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guardar arma "COL_WHITE"[slot]");
 	return 1;
-}
+}*/
 
 CheckAndOpenBoot(playerid, type)
 {
