@@ -71,10 +71,14 @@ new MAFIA_RANKS[][] =
 new ENEMY_MAFIA_RANKS[][] =
 {
 	"Civil",
-	/* 0 */ "Traficante",
-	/* 1 */ "Armeros",
-	/* 2 */ "Renta de seguridad",
-	/* 3 */ "Seguridad privada",
-	/* 4 */ "Representante",
-	/* 5 */ "Lider"
+	/* 0 */ "Seguridad",
+	/* 1 */ "Traficante",
+	/* 2 */ "Armero",
+	/* 3 */ "Negociante",
+	/* 4 */ "Jefe de Seguridad",
+	/* 5 */ "Jefe de Traficantes",
+	"Jefe de Armeros",
+	"Jefe de Negociantes",
+	"Representante",
+	"Lider"
 };
