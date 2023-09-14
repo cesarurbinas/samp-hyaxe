@@ -2943,7 +2943,7 @@ new Intro_Music[][] =
 	"https://cdn.discordapp.com/attachments/579738771075891221/725410357035794512/intro1.mp3",
 	"https://cdn.discordapp.com/attachments/579738771075891221/725410384646897755/intro2.mp3"
 };
-
+ 
 new Float:Fuel_Stations[][] =
 {
 	{1942.679443, -1771.374511, 13.390598},
