@@ -6586,10 +6586,12 @@ public OnGameModeInit()
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
 	SetTimer("GiveAutoGift", 300000, false);
-<<<<<<< HEAD
 	//SetTimer("SendGift", 60000, true);
+<<<<<<< HEAD
 =======
 >>>>>>> refs/rewritten/Retoques
+=======
+>>>>>>> 5643c50 (Arreglar cagada de atom)
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
