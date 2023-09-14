@@ -3920,14 +3920,16 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				{
 					if (IsPlayerInRangeOfPoint(playerid, 1.8, DROP_ROCK_POS[i][mp_X], DROP_ROCK_POS[i][mp_Y], DROP_ROCK_POS[i][mp_Z]))
 					{
-						PLAYER_TEMP[playerid][py_ROCK] = false;
-						PLAYER_TEMP[playerid][py_MINING] = false;
-						SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-						ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.1, false, false, false, false, 0, false);
-						RemovePlayerAttachedObject(playerid, 9);
-						PayPlayerMiner(playerid);
-						DropPlayerRock(playerid, i);
-						EquipItemByType(playerid, 52);
+						if (DropPlayerRock(playerid, i))
+						{	PLAYER_TEMP[playerid][py_ROCK] = false;
+							PLAYER_TEMP[playerid][py_MINING] = false;
+							SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+							ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.1, false, false, false, false, 0, false);
+							RemovePlayerAttachedObject(playerid, 9);
+							PayPlayerMiner(playerid);
+							EquipItemByType(playerid, 52);
+						}
+						else return ShowPlayerMessage(playerid, "~r~La procesadora no se encuentra estable para trabajar.", 4);
 					}	
 				}
 			}
