@@ -79,7 +79,7 @@
 //#tryinclude <profiler>
 
 // Admin
- #include "core/admin/level.pwn"
+#include "core/admin/level.pwn"
 
 // Dialogs
 #include "core/dialog/dialog_id.pwn"

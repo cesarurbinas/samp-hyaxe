@@ -173,6 +173,13 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 	if (IsPlayerConnected(issuerid))
 	{
+		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL && !PLAYER_WORKS[issuerid][WORK_POLICE])
+		{
+			ShowPlayerAlert(issuerid, "No matar", -1, 4);
+			ShowPlayerMessage(issuerid, "No intentes matar en prisión.", 4);
+			GivePlayerHealthEx(issuerid, -10.0);
+		}
+
 		switch(weaponid)
 		{
 			case 0:
