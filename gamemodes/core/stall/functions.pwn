@@ -50,7 +50,7 @@ CreateStalls()
 		);
 
 		// Key area
-		AddKeyArea(x, y, 1.3, KEY_TYPE_ALT);
+		AddKeyArea(x, y, 1.6, KEY_TYPE_ALT);
 	}
 	return 1;
 }
