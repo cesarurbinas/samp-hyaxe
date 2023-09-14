@@ -2866,6 +2866,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 		case KEY_TYPE_ENTER, KEY_TYPE_Y, KEY_TYPE_H, KEY_TYPE_ALT:
 		{
 			DestroyNotification(playerid, PLAYER_TEMP[playerid][py_KEY_NOT]);
+			PLAYER_TEMP[playerid][py_KEY_NOT] = MAX_NOTIFICATIONS;
 		}
 	}
 
