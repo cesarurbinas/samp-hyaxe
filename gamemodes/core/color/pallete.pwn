@@ -91,6 +91,9 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 
 #define COLOR_CYAN 0x1AC6DFFF
 
+#define COLOR_INV_ITEM 0x323030FF
+#define COLOR_INV_STOCK 0xF7F7F777
+
 #define COLOR_FADE1 0xE6E6E6E6
 #define COLOR_FADE2 0xE6E6E6E6
 #define COLOR_FADE3 0xE6E6E6E6

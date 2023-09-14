@@ -1,13 +1,15 @@
-ShowPlayerNotification(playerid, const text[], time = 0)
+ShowPlayerNotification(playerid, const text[], time = 3)
 {
 	static
 		free_pos,
-		Float:pos_y = 141.000000,
+		Float:pos_y,
 		PlayerText:temp_td
 	;
 
 	free_pos = GetFreeNotificationSlot(playerid);
 	if (free_pos == -1) return 0;
+
+	pos_y = 141.000000;
 
 	for(new i; i < free_pos; i++)
 	{
@@ -28,13 +30,13 @@ ShowPlayerNotification(playerid, const text[], time = 0)
 	PlayerTextDrawBoxColor(playerid, temp_td, 286331342);
 	PlayerTextDrawUseBox(playerid, temp_td, 1);
 	PlayerTextDrawSetProportional(playerid, temp_td, 1);
-	PlayerTextDrawSetSelectable(playerid, temp_td, 0);
+	PlayerTextDrawShow(playerid, temp_td);
 
 	NotificationData[playerid][free_pos][nt_TD] = temp_td;
 
 	LastNotificationID ++;
 
-	if (time == 0)
+	if (time == -1)
 	{
 		NotificationData[playerid][free_pos][nt_TIME_OUT] = 0;
 		NotificationData[playerid][free_pos][nt_TIMER] = 0;
@@ -48,6 +50,7 @@ ShowPlayerNotification(playerid, const text[], time = 0)
 	NotificationData[playerid][free_pos][nt_ID] = LastNotificationID;
 	return LastNotificationID;
 }
+
 
 FindNotificationPosById(playerid, notification_id)
 {

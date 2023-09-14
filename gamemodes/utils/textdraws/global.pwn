@@ -48,7 +48,7 @@ CreateTextDraws()
 	TextDrawAlignment(Textdraws[textdraw_INV_BG], 1);
 	TextDrawColor(Textdraws[textdraw_INV_BG], -1);
 	TextDrawUseBox(Textdraws[textdraw_INV_BG], 1);
-	TextDrawBoxColor(Textdraws[textdraw_INV_BG], 238);
+	TextDrawBoxColor(Textdraws[textdraw_INV_BG], 286331342); //238
 	TextDrawSetShadow(Textdraws[textdraw_INV_BG], 0);
 	TextDrawSetOutline(Textdraws[textdraw_INV_BG], 0);
 	TextDrawBackgroundColor(Textdraws[textdraw_INV_BG], 255);

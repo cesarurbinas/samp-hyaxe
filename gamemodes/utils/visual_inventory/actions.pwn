@@ -18,24 +18,8 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 				ResetItemBody(playerid);
 
-				if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV])
-				{
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21], COLOR_GREY_TWO);
-					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], COLOR_RED);
-					HideInventory(playerid);
-				}
-				
+				if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV]) HideInventory(playerid);
+
 				SetItemToBody(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
 				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])

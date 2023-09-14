@@ -1,6 +1,7 @@
 forward DestroyNotification(playerid, notification_id);
 public DestroyNotification(playerid, notification_id)
 {
+	printf("destroy");
 	static pos;
 
 	pos = FindNotificationPosById(playerid, notification_id);
@@ -23,7 +24,7 @@ public DestroyNotification(playerid, notification_id)
 
 		if (NotificationData[playerid][j][nt_TIME_OUT] == 0)
 		{
-			ShowPlayerNotification(playerid, NotificationData[playerid][j][nt_TEXT], 0);
+			ShowPlayerNotification(playerid, NotificationData[playerid][j][nt_TEXT], -1);
 		}
 		else
 		{
