@@ -35173,9 +35173,9 @@ DeleteIlegalInv(playerid, bool:drugs = false)
 
 	if(drugs)
 	{
-		PLAYER_MISC[playerid][MISC_SEED_CANNABIS] =
-		PLAYER_MISC[playerid][MISC_SEED_CRACK] = 
-		PLAYER_MISC[playerid][MISC_CANNABIS] = 
+		PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
+		PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
+		PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
 		PLAYER_MISC[playerid][MISC_CRACK] = 0;
 		SavePlayerMisc(playerid);
 	}
