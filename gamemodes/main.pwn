@@ -32347,7 +32347,12 @@ CMD:r(playerid, params[])
 	new message[128];
 	if (sscanf(params, "s[128]", message)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /r "COL_WHITE"[MENSAJE]");
 
-	if (PLAYER_TEMP[playerid][py_ADMIN_PM_PID] == INVALID_PLAYER_ID || !PLAYER_TEMP[playerid][py_ADMIN_PM_AID]) return ShowPlayerMessage(playerid, "~r~Nada que responder.", 2);
+	if (PLAYER_TEMP[playerid][py_ADMIN_PM_PID] == INVALID_PLAYER_ID || !PLAYER_TEMP[playerid][py_ADMIN_PM_AID]) 
+	{
+		SendClientMessage(playerid, COLOR_WHITE, "Usaste el comando /r pero no tienes nada que responder. ¿Quisiste usar /re(portar)?");
+		return ShowPlayerMessage(playerid, "~r~Nada que responder.", 2);
+	}
+	
 	if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_ADMIN_PM_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_ADMIN_PM_AID])
 	{
 		PLAYER_TEMP[playerid][py_ADMIN_PM_PID] = INVALID_PLAYER_ID;
@@ -32949,8 +32954,10 @@ CMD:jail(playerid, params[])
     CancelEdit(to_player);
     if (!BOTS[playerid][b_ACTIVE]) HidePlayerDialog(to_player);
     EndPlayerJob(to_player);
+
     PLAYER_MISC[to_player][MISC_JAILS] ++;
     SavePlayerMisc(to_player);
+
     PLAYER_TEMP[to_player][py_HUNGRY_MESSAGE] = false;
     PLAYER_TEMP[to_player][py_THIRST_MESSAGE] = false;
     PLAYER_TEMP[to_player][py_PLAYER_IN_ATM] = false;
@@ -35794,18 +35801,11 @@ CMD:darmaverick(playerid, params[])
 
 CMD:explode(playerid, params[])
 {
-	static Float:X;
-    static Float:Y;
-    static Float:Z;
-    new to_player;
+	new to_player;
     if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /explode <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
 
-	CHARACTER_INFO[to_player][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-	CHARACTER_INFO[to_player][ch_INTERIOR_EXTRA] = 0;
-	PLAYER_TEMP[to_player][py_INTERIOR_INDEX] = 0;
-	CHARACTER_INFO[to_player][ch_INTERIOR] = 0;
-	CHARACTER_INFO[to_player][ch_POLICE_JAIL_TIME] = 0;
+	new Float:X, Float:Y, Float:Z;
 	GetPlayerPos(to_player, X, Y, Z);
 	CreateExplosion( X, Y, Z, 7, 10.0);
 	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador '%s (%d)' fue explotado.", ACCOUNT_INFO[to_player][ac_NAME], to_player);
@@ -35819,12 +35819,8 @@ CMD:jetpack(playerid, params[])
     new to_player;
     if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /jetpack <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+	if(CHARACTER_INFO[to_player][ch_STATE] != ROLEPLAY_STATE_NORMAL || !ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "No le puedes dar jetpack a este usuario.");
 
-	CHARACTER_INFO[to_player][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-	CHARACTER_INFO[to_player][ch_INTERIOR_EXTRA] = 0;
-	PLAYER_TEMP[to_player][py_INTERIOR_INDEX] = 0;
-	CHARACTER_INFO[to_player][ch_INTERIOR] = 0;
-	CHARACTER_INFO[to_player][ch_POLICE_JAIL_TIME] = 0;
     SetPlayerSpecialAction(to_player, SPECIAL_ACTION_USEJETPACK);
 	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador '%s (%d)' tiene jetpack.", ACCOUNT_INFO[to_player][ac_NAME], to_player);
 	SendCmdLogToAdmins(playerid, "jetpack", params);
@@ -35867,8 +35863,7 @@ CMD:explosionbullet(playerid, params[])
 
 CMD:ultradebug(playerid, params[])
 {
-    if (PLAYER_TEMP[playerid][py_DEBUG] == false) PLAYER_TEMP[playerid][py_DEBUG] = true;
-	else PLAYER_TEMP[playerid][py_DEBUG] = false;
+    PLAYER_TEMP[playerid][py_DEBUG] = !PLAYER_TEMP[playerid][py_DEBUG];
 
 	SendCmdLogToAdmins(playerid, "ultradebug", params);
     return 1;
