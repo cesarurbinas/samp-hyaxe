@@ -6284,3 +6284,1648 @@ ShowPropertyOptions(playerid)
     else return 0;
     return 1;
 }
+
+Log(const nombre[], const texto[])
+{
+    new dir[32], File:arc, txt[256];
+    new log_D, log_M, log_A;
+    new log_Seg, log_Min, log_Hor;
+
+    getdate(log_A, log_M, log_D);
+    gettime(log_Hor, log_Min, log_Seg);
+
+    format(dir, sizeof(dir), "/LOGS_FILES/%s.log", nombre);
+    format(txt, sizeof(txt), "[%02d/%02d/%d|%02d:%02d:%02d] %s\r\n", log_D, log_M, log_A,
+    log_Hor, log_Min, log_Seg, texto);
+
+    if (!fexist(dir))
+    arc = fopen(dir, io_write);
+    else
+    arc = fopen(dir, io_append);
+    fwrite(arc, txt);
+    fclose(arc);
+    return 1;
+}
+
+forward InitRandomGangEvent();
+public InitRandomGangEvent()
+{
+	#if DEBUG_MODE == 1
+		printf("InitRandomGangEvent"); // debug juju
+	#endif
+
+	/*new event = minrand(0, 6);
+	switch(event)
+	{
+		case 3:
+		{
+			new market_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
+			InitBlackMarket(market_id);
+		}
+		default:
+		{
+			new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
+			InitGraffiti(graff_id);
+		}
+	}*/
+	new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
+	InitGraffiti(graff_id);
+	return 1;
+}
+
+/*GenString(strDest[], strLen = 10)
+{
+    while(strLen --)
+        strDest[strLen] = random(2) ? (random(26) + (random(2) ? 'a' : 'A')) : (random(10) + '0');
+}
+
+AddGiftCode(code[], type, extra)
+{
+	new DB_Query[160];
+	format
+	(
+		DB_Query, sizeof DB_Query,
+		"\
+			INSERT INTO `GIFTS_CODES`\
+			(\
+				`CODE`, `TYPE`, `EXTRA`, `USED`\
+			)\
+			VALUES\
+			(\
+				'%q', '%d', '%d', '0'\
+			);\
+		",
+		code,
+		type,
+		extra
+	);
+	db_free_result(db_query(Database, DB_Query));
+	return 1;
+}*/
+
+/*forward SendGift();
+public SendGift()
+{
+	#if DEBUG_MODE == 1
+		printf("SendGift"); // debug juju
+	#endif
+
+	for(new i = 0, j = 10; i <= j; i++)
+	{
+		new
+			code[10],
+			type = minrand(0, 5),
+			extra
+		;
+
+		switch(type)
+		{
+			case 0, 1, 2, 3, 5: type = 0;
+			case 4: type = 3;
+		}
+
+		if (type == 0) extra = minrand(300, 1000);
+		else extra = minrand(1, 2);
+
+		GenString(code, 8);
+
+		AddGiftCode(code, type, extra);
+		HTTP(0, HTTP_HEAD, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "");
+	}
+	return 1;
+}*/
+
+forward GiveAutoGift();
+public GiveAutoGift()
+{
+	#if DEBUG_MODE == 1
+		printf("GiveAutoGift"); // debug juju
+	#endif
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				GivePlayerCash(i, 10000, false);
+				ShowPlayerMessage(i, "~r~[REGALO]~w~ Te han dado 10.000$", 4);
+			}
+		}
+	}
+	return 1;
+}
+
+StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
+{
+	switch(work)
+	{
+		case WORK_TRUCK:
+		{
+			if (TRUCK_VEHICLE[vehicleid][truck_vehicle_LOADED])
+			{
+				if (TRUCK_VEHICLE[vehicleid][truck_vehicle_DELIVERED]) ShowPlayerMessage(playerid, "Vuelve a la ~y~estación", 7);
+				else ShowPlayerMessage(playerid, "Ve a entregar la mercancía", 7);
+
+				new Float:val = 70.0;
+				if (val + GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] > GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS]) val = GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS];
+				GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] = val;
+
+				SetPlayerTruckCheckpoint(playerid, vehicleid);
+			}
+			else ShowPlayerMessage(playerid, "Ve a los ~b~puntos de carga", 7);
+
+			DisableRemoteVehicleCollisions(playerid, 1);
+		}
+		case WORK_HARVESTER:
+		{
+			PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] = 0;
+			ShowPlayerMessage(playerid, "Ve hasta los ~y~puntos de control~w~.", 3);
+			Set_HARVEST_Checkpoint(playerid);
+			DisableRemoteVehicleCollisions(playerid, 1);
+		}
+		case WORK_TRASH:
+		{
+			if (CHARACTER_INFO[playerid][ch_SEX] == SEX_MALE)
+			{
+				DisableRemoteVehicleCollisions(playerid, 1);
+				SetPlayerSkin(playerid, 16);
+				PLAYER_TEMP[playerid][py_SKIN] = 16;
+				for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
+			}
+		}
+		case WORK_MECHANIC:
+		{
+			if (CHARACTER_INFO[playerid][ch_SEX] == SEX_MALE)
+			{
+				SetPlayerSkin(playerid, 50);
+				PLAYER_TEMP[playerid][py_SKIN] = 50;
+				for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
+			}
+			SetMechanicPlayerMarkers(playerid);
+		}
+		case WORK_POLICE:
+		{
+			new label_str[128];
+			format(label_str, sizeof label_str, "%s | Nº%d | %c. %s", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_MISC[playerid][MISC_PLACA_PD], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME]);
+
+			if (IsValidDynamic3DTextLabel(PLAYER_TEMP[playerid][py_POLICE_LABEL]))
+			{
+				DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_POLICE_LABEL]);
+				PLAYER_TEMP[playerid][py_POLICE_LABEL] = Text3D:INVALID_STREAMER_ID;
+			}
+			PLAYER_TEMP[playerid][py_POLICE_LABEL] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, 0.0, 0.0, 0.3, 20.0, playerid, .testlos = true);
+
+			//for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) RemovePlayerAttachedObject(playerid, i);
+		}
+		case WORK_MEDIC:
+		{
+			if (CHARACTER_INFO[playerid][ch_SEX] == SEX_MALE) SetPlayerSkin(playerid, minrand(274, 276));
+			else SetPlayerSkin(playerid, 308);
+
+			SetMedicPlayerMarkers(playerid);
+			ShowPlayerMessage(playerid, "Ve hasta los puntos marcados en el mapa.", 3);
+		}
+		case WORK_WOODCUTTER:
+		{
+			for(new i = 0; i != 10; ++i) RemovePlayerAttachedObject(playerid, i);
+			SetPlayerAttachedObject(playerid, 0, 18638, 2, 0.152999, 0.007999, -0.005000, 0.0, 0.0, -16.199993, 1.0, 1.0, 1.0);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 1458, 6, 1.840000, -0.546001, 0.419000, 62.100097, -158.799804, 78.600196, 0.474999, 1.000000, 1.000000);
+			// SetPlayerAttachedObject(playerid, 2, 341, 6, 0.026999, -0.015000, -0.096999, 0.000000, -35.600006, 0.000000, 1.000000, 1.000000, 1.000000);
+
+			LogCarts[playerid][cart_VALID] = true;
+			LogCarts[playerid][cart_AMOUNT] = 0;
+			LogCarts[playerid][cart_OBJECT] = INVALID_OBJECT_ID;
+			PLAYER_TEMP[playerid][py_HOLDING_CART] = true;
+
+			ShowPlayerNotification(playerid, "Ahora estas de servicio como leñador, ve al bosque y tala algunos arboles. Usa ~r~ALT ~w~+ ~r~CLICK ~w~para soltar tu carro.", 5);
+		}
+	}
+
+	PLAYER_TEMP[playerid][py_WORKING_IN] = work;
+	return 1;
+}
+
+EndPlayerJob(playerid, changeskin = true)
+{
+	switch(PLAYER_TEMP[playerid][py_WORKING_IN])
+	{
+		case WORK_TRUCK:
+		{
+			if (PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] != INVALID_VEHICLE_ID)
+			{
+				if (TRUCK_VEHICLE[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][truck_vehicle_DRIVER_USER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+				{
+					if (TRUCK_VEHICLE[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][truck_vehicle_LOADING])
+					{
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][9]);
+						SetVehicleToRespawnEx(PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID]);
+					}
+					if (TRUCK_VEHICLE[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][truck_vehicle_UNLOADING])
+					{
+						TRUCK_VEHICLE[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][truck_vehicle_UNLOADING] = false;
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][9]);
+					}
+				}
+			}
+			if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_TRUCK_CHECKPOINT]))
+			{
+				DestroyDynamicCP(PLAYER_TEMP[playerid][py_TRUCK_CHECKPOINT]);
+	   			CancelTracing(playerid);
+				PLAYER_TEMP[playerid][py_TRUCK_CHECKPOINT] = INVALID_STREAMER_ID;
+			}
+		}
+		case WORK_HARVESTER:
+		{
+			if (IsValidDynamicRaceCP(PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT]))
+			{
+				DestroyDynamicRaceCP(PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT]);
+				PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT] = INVALID_STREAMER_ID;
+			}
+			if (PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] != INVALID_VEHICLE_ID)
+			{
+				if (WORK_VEHICLES[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][work_vehicle_WORK] == WORK_HARVESTER) SetVehicleToRespawnEx(PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID]);
+			}
+		}
+		case WORK_FARMER: CancelPlayerPlanting(playerid);
+		case WORK_TRASH:
+		{
+			if (changeskin)
+			{
+				SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
+				PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
+				SetPlayerToys(playerid);
+			}
+
+			if (PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] != INVALID_VEHICLE_ID)
+			{
+				if (TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_JOB_STARTED])
+				{
+					if (PLAYER_TEMP[playerid][py_TRASH_DRIVER])
+					{
+						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], "~r~El trabajo se ha cancelado porque tu compañero ha dejado de trabajar.", 3);
+						CancelTrashWork(playerid, TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID]);
+					}
+					if (PLAYER_TEMP[playerid][py_TRASH_PASSENGER])
+					{
+						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID], "~r~El trabajo se ha cancelado porque tu compañero ha dejado de trabajar.", 3);
+						CancelTrashWork(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID], playerid, PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID]);
+					}
+				}
+			}
+		}
+		case WORK_POLICE:
+		{
+			PLAYER_TEMP[playerid][py_POLICE_RADIO] = 0;
+			if (IsValidDynamic3DTextLabel(PLAYER_TEMP[playerid][py_POLICE_LABEL]))
+			{
+				DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_POLICE_LABEL]);
+				PLAYER_TEMP[playerid][py_POLICE_LABEL] = Text3D:INVALID_STREAMER_ID;
+			}
+
+			if (changeskin)
+			{
+				SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
+				PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
+				//SetPlayerToys(playerid);
+			}
+
+			SetPlayerColorEx(playerid, PLAYER_COLOR);
+			SetNormalPlayerMarkers(playerid);
+		}
+		case WORK_MECHANIC:
+		{
+			if (changeskin)
+			{
+				SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
+				PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
+				SetPlayerToys(playerid);
+			}
+			SetNormalPlayerMarkers(playerid);
+		}
+		case WORK_MEDIC:
+		{
+			SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
+			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
+			SetNormalPlayerMarkers(playerid);
+		}
+		case WORK_WOODCUTTER:
+		{
+			RemovePlayerAttachedObject(playerid, 0);
+			RemovePlayerAttachedObject(playerid, 1);
+			RemovePlayerAttachedObject(playerid, 2);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			ClearAnimations(playerid);
+			
+			SetPlayerToys(playerid);
+
+			if (IsValidDynamicObject(LogCarts[playerid][cart_OBJECT]))
+				DestroyDynamicObject(LogCarts[playerid][cart_OBJECT]);
+
+			if (IsValidDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]))
+				DestroyDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]);
+
+			if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT]))
+			{
+				TogglePlayerDynamicCP(playerid, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], false);
+				DestroyDynamicCP(PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT]);
+			}
+			
+			LogCarts[playerid][cart_VALID] = false;
+		}
+	}
+
+	PLAYER_TEMP[playerid][py_WORKING_IN] = WORK_NONE;
+
+	SavePlayerSkills(playerid);
+	return 1;
+}
+
+new
+	DIALOG_FOOD_PIZZA_String[400],
+	DIALOG_FOOD_CLUCKIN_String[400],
+	DIALOG_FOOD_BURGER_String[400],
+	DIALOG_247_LIST_String[34 + 55 * sizeof Supermarket_Product_List],
+	DIALOG_PLAYER_GPS_SITE_0_String[90 * (sizeof(Hospital_Spawn_Positions) + 1)],
+	DIALOG_PLAYER_GPS_SITE_7_String[90 * (sizeof(SELL_VEHICLES_SHOPS_SPAWN) + 1)],
+	DIALOG_CREATE_CREW_COLOR_String[164];
+
+RemoveObjectCollisions()
+{
+	//taller temple
+    CA_RemoveBuilding(5849, 1046.6797, -935.1953, 46.9922, 0.25);
+    CA_RemoveBuilding(5854, 992.5313, -962.7344, 60.7813, 0.25);
+    CA_RemoveBuilding(1266, 1029.1797, -939.5156, 52.7500, 0.25);
+    CA_RemoveBuilding(1260, 1029.1797, -939.5156, 52.7500, 0.25);
+    CA_RemoveBuilding(1294, 1034.7891, -950.3750, 46.4297, 0.25);
+    CA_RemoveBuilding(5848, 1046.6797, -935.1953, 46.9922, 0.25);
+
+    // base mc maik
+    CA_RemoveBuilding(3276, -300.9375, -2148.4219, 28.3203, 0.25);
+    CA_RemoveBuilding(3276, -297.1875, -2141.5703, 28.3203, 0.25);
+    CA_RemoveBuilding(705, -220.5391, -2281.0156, 27.3906, 0.25);
+    CA_RemoveBuilding(705, -208.9766, -2306.9531, 27.8906, 0.25);
+    CA_RemoveBuilding(3276, -257.5625, -2241.5234, 28.3203, 0.25);
+    CA_RemoveBuilding(3276, -263.8672, -2231.5781, 28.3203, 0.25);
+    CA_RemoveBuilding(3276, -245.3984, -2225.9922, 28.6875, 0.25);
+    CA_RemoveBuilding(3276, -245.4375, -2236.6875, 28.4141, 0.25);
+    CA_RemoveBuilding(3276, -249.2031, -2244.3984, 28.4141, 0.25);
+    CA_RemoveBuilding(703, -234.4453, -2259.2188, 28.0781, 0.25);
+    CA_RemoveBuilding(17038, -280.1875, -2167.7031, 27.7891, 0.25);
+    CA_RemoveBuilding(17037, -288.2734, -2163.5000, 30.0938, 0.25);
+    CA_RemoveBuilding(17036, -285.3984, -2151.0469, 27.3828, 0.25);
+    CA_RemoveBuilding(3276, -285.9297, -2139.2734, 28.3203, 0.25);
+    CA_RemoveBuilding(3276, -274.5781, -2138.6328, 28.4922, 0.25);
+    CA_RemoveBuilding(17039, -260.5391, -2182.6094, 26.6875, 0.25);
+    CA_RemoveBuilding(17040, -257.5313, -2202.8359, 27.5781, 0.25);
+    CA_RemoveBuilding(3276, -254.1406, -2170.7969, 29.0234, 0.25);
+    CA_RemoveBuilding(3276, -263.3906, -2140.5938, 28.8281, 0.25);
+    CA_RemoveBuilding(3276, -258.0000, -2148.1094, 29.0234, 0.25);
+    CA_RemoveBuilding(3276, -256.2500, -2159.3203, 29.0234, 0.25);
+    CA_RemoveBuilding(3276, -251.3047, -2181.8047, 29.0234, 0.25);
+    CA_RemoveBuilding(3276, -248.0391, -2192.8125, 29.0234, 0.25);
+    CA_RemoveBuilding(3276, -244.8594, -2203.8672, 29.0234, 0.25);
+    CA_RemoveBuilding(3276, -243.7266, -2214.7266, 28.8984, 0.25);
+
+	//Objetos removidos de LCN HQ
+    CA_RemoveBuilding(726, 743.2422, -1151.4766, 20.8750, 0.25);
+    CA_RemoveBuilding(733, 778.2109, -1207.2031, 13.5391, 0.25);
+    CA_RemoveBuilding(729, 731.3906, -1223.1641, 12.5078, 0.25);
+    CA_RemoveBuilding(733, 717.1172, -1236.2266, 12.0625, 0.25);
+    CA_RemoveBuilding(726, 680.8594, -1293.3984, 12.3984, 0.25);
+    CA_RemoveBuilding(732, 782.7969, -1304.0781, 12.3906, 0.25);
+    CA_RemoveBuilding(620, 651.1094, -1305.9766, 12.5859, 0.25);
+    CA_RemoveBuilding(620, 678.4844, -1251.7891, 12.0313, 0.25);
+    CA_RemoveBuilding(620, 746.4922, -1303.4141, 11.6719, 0.25);
+    CA_RemoveBuilding(620, 760.4531, -1304.1328, 12.2813, 0.25);
+    CA_RemoveBuilding(620, 782.3438, -1277.8359, 12.2031, 0.25);
+    CA_RemoveBuilding(620, 783.0625, -1245.7969, 12.5938, 0.25);
+
+	// heix
+	CA_RemoveBuilding(3578, 2526.4297, -2561.3047, 13.1719, 0.25);
+
+	// plaza
+	CA_RemoveBuilding(4057, 1479.5547, -1693.1406, 19.5781, 0.25);
+	CA_RemoveBuilding(4210, 1479.5625, -1631.4531, 12.0781, 0.25);
+	CA_RemoveBuilding(713, 1457.9375, -1620.6953, 13.4531, 0.25);
+	CA_RemoveBuilding(713, 1496.8672, -1707.8203, 13.4063, 0.25);
+	CA_RemoveBuilding(1283, 1430.1719, -1719.4688, 15.6250, 0.25);
+	CA_RemoveBuilding(1226, 1451.6250, -1727.6719, 16.4219, 0.25);
+	CA_RemoveBuilding(1226, 1467.9844, -1727.6719, 16.4219, 0.25);
+	CA_RemoveBuilding(1226, 1485.1719, -1727.6719, 16.4219, 0.25);
+	CA_RemoveBuilding(1280, 1468.9844, -1713.5078, 13.4531, 0.25);
+	CA_RemoveBuilding(1231, 1479.6953, -1716.7031, 15.6250, 0.25);
+	CA_RemoveBuilding(1226, 1505.1797, -1727.6719, 16.4219, 0.25);
+	CA_RemoveBuilding(1280, 1488.7656, -1713.7031, 13.4531, 0.25);
+	CA_RemoveBuilding(1289, 1504.7500, -1711.8828, 13.5938, 0.25);
+	CA_RemoveBuilding(1258, 1445.0078, -1704.7656, 13.6953, 0.25);
+	CA_RemoveBuilding(1226, 1433.7109, -1702.3594, 16.4219, 0.25);
+	CA_RemoveBuilding(1226, 1433.7109, -1676.6875, 16.4219, 0.25);
+	CA_RemoveBuilding(1258, 1445.0078, -1692.2344, 13.6953, 0.25);
+	CA_RemoveBuilding(1226, 1433.7109, -1656.2500, 16.4219, 0.25);
+	CA_RemoveBuilding(1226, 1433.7109, -1636.2344, 16.4219, 0.25);
+	CA_RemoveBuilding(712, 1445.8125, -1650.0234, 22.2578, 0.25);
+	CA_RemoveBuilding(1226, 1433.7109, -1619.0547, 16.4219, 0.25);
+	CA_RemoveBuilding(1283, 1443.2031, -1592.9453, 15.6250, 0.25);
+	CA_RemoveBuilding(673, 1457.7266, -1710.0625, 12.3984, 0.25);
+	CA_RemoveBuilding(620, 1461.6563, -1707.6875, 11.8359, 0.25);
+	CA_RemoveBuilding(1280, 1468.9844, -1704.6406, 13.4531, 0.25);
+	CA_RemoveBuilding(700, 1463.0625, -1701.5703, 13.7266, 0.25);
+	CA_RemoveBuilding(1231, 1479.6953, -1702.5313, 15.6250, 0.25);
+	CA_RemoveBuilding(673, 1457.5547, -1697.2891, 12.3984, 0.25);
+	CA_RemoveBuilding(1280, 1468.9844, -1694.0469, 13.4531, 0.25);
+	CA_RemoveBuilding(1231, 1479.3828, -1692.3906, 15.6328, 0.25);
+	CA_RemoveBuilding(4186, 1479.5547, -1693.1406, 19.5781, 0.25);
+	CA_RemoveBuilding(620, 1461.1250, -1687.5625, 11.8359, 0.25);
+	CA_RemoveBuilding(700, 1463.0625, -1690.6484, 13.7266, 0.25);
+	CA_RemoveBuilding(641, 1458.6172, -1684.1328, 11.1016, 0.25);
+	CA_RemoveBuilding(625, 1457.2734, -1666.2969, 13.6953, 0.25);
+	CA_RemoveBuilding(1280, 1468.9844, -1682.7188, 13.4531, 0.25);
+	CA_RemoveBuilding(712, 1471.4063, -1666.1797, 22.2578, 0.25);
+	CA_RemoveBuilding(1231, 1479.3828, -1682.3125, 15.6328, 0.25);
+	CA_RemoveBuilding(625, 1458.2578, -1659.2578, 13.6953, 0.25);
+	CA_RemoveBuilding(712, 1449.8516, -1655.9375, 22.2578, 0.25);
+	CA_RemoveBuilding(1231, 1477.9375, -1652.7266, 15.6328, 0.25);
+	CA_RemoveBuilding(1280, 1479.6094, -1653.2500, 13.4531, 0.25);
+	CA_RemoveBuilding(625, 1457.3516, -1650.5703, 13.6953, 0.25);
+	CA_RemoveBuilding(625, 1454.4219, -1642.4922, 13.6953, 0.25);
+	CA_RemoveBuilding(1280, 1467.8516, -1646.5938, 13.4531, 0.25);
+	CA_RemoveBuilding(1280, 1472.8984, -1651.5078, 13.4531, 0.25);
+	CA_RemoveBuilding(1280, 1465.9375, -1639.8203, 13.4531, 0.25);
+	CA_RemoveBuilding(1231, 1466.4688, -1637.9609, 15.6328, 0.25);
+	CA_RemoveBuilding(625, 1449.5938, -1635.0469, 13.6953, 0.25);
+	CA_RemoveBuilding(1280, 1467.7109, -1632.8906, 13.4531, 0.25);
+	CA_RemoveBuilding(1232, 1465.8906, -1629.9766, 15.5313, 0.25);
+	CA_RemoveBuilding(1280, 1472.6641, -1627.8828, 13.4531, 0.25);
+	CA_RemoveBuilding(1280, 1479.4688, -1626.0234, 13.4531, 0.25);
+	CA_RemoveBuilding(3985, 1479.5625, -1631.4531, 12.0781, 0.25);
+	CA_RemoveBuilding(4206, 1479.5547, -1639.6094, 13.6484, 0.25);
+	CA_RemoveBuilding(1232, 1465.8359, -1608.3750, 15.3750, 0.25);
+	CA_RemoveBuilding(1229, 1466.4844, -1598.0938, 14.1094, 0.25);
+	CA_RemoveBuilding(1226, 1451.3359, -1596.7031, 16.4219, 0.25);
+	CA_RemoveBuilding(1226, 1471.3516, -1596.7031, 16.4219, 0.25);
+	CA_RemoveBuilding(1280, 1488.7656, -1704.5938, 13.4531, 0.25);
+	CA_RemoveBuilding(700, 1494.2109, -1694.4375, 13.7266, 0.25);
+	CA_RemoveBuilding(1280, 1488.7656, -1693.7344, 13.4531, 0.25);
+	CA_RemoveBuilding(620, 1496.9766, -1686.8516, 11.8359, 0.25);
+	CA_RemoveBuilding(641, 1494.1406, -1689.2344, 11.1016, 0.25);
+	CA_RemoveBuilding(1280, 1488.7656, -1682.6719, 13.4531, 0.25);
+	CA_RemoveBuilding(712, 1480.6094, -1666.1797, 22.2578, 0.25);
+	CA_RemoveBuilding(712, 1488.2266, -1666.1797, 22.2578, 0.25);
+	CA_RemoveBuilding(1280, 1486.4063, -1651.3906, 13.4531, 0.25);
+	CA_RemoveBuilding(1280, 1491.3672, -1646.3828, 13.4531, 0.25);
+	CA_RemoveBuilding(1280, 1493.1328, -1639.4531, 13.4531, 0.25);
+	CA_RemoveBuilding(1280, 1486.1797, -1627.7656, 13.4531, 0.25);
+	CA_RemoveBuilding(1280, 1491.2188, -1632.6797, 13.4531, 0.25);
+	CA_RemoveBuilding(1232, 1494.4141, -1629.9766, 15.5313, 0.25);
+	CA_RemoveBuilding(1232, 1494.3594, -1608.3750, 15.3750, 0.25);
+	CA_RemoveBuilding(1226, 1488.5313, -1596.7031, 16.4219, 0.25);
+	CA_RemoveBuilding(1229, 1498.0547, -1598.0938, 14.1094, 0.25);
+	CA_RemoveBuilding(1288, 1504.7500, -1705.4063, 13.5938, 0.25);
+	CA_RemoveBuilding(1287, 1504.7500, -1704.4688, 13.5938, 0.25);
+	CA_RemoveBuilding(1286, 1504.7500, -1695.0547, 13.5938, 0.25);
+	CA_RemoveBuilding(1285, 1504.7500, -1694.0391, 13.5938, 0.25);
+	CA_RemoveBuilding(673, 1498.9609, -1684.6094, 12.3984, 0.25);
+	CA_RemoveBuilding(625, 1504.1641, -1662.0156, 13.6953, 0.25);
+	CA_RemoveBuilding(625, 1504.7188, -1670.9219, 13.6953, 0.25);
+	CA_RemoveBuilding(620, 1503.1875, -1621.1250, 11.8359, 0.25);
+	CA_RemoveBuilding(673, 1501.2813, -1624.5781, 12.3984, 0.25);
+	CA_RemoveBuilding(673, 1498.3594, -1616.9688, 12.3984, 0.25);
+	CA_RemoveBuilding(1226, 1504.8906, -1596.7031, 16.4219, 0.25);
+	CA_RemoveBuilding(712, 1508.4453, -1668.7422, 22.2578, 0.25);
+	CA_RemoveBuilding(625, 1505.6953, -1654.8359, 13.6953, 0.25);
+	CA_RemoveBuilding(625, 1508.5156, -1647.8594, 13.6953, 0.25);
+	CA_RemoveBuilding(625, 1513.2734, -1642.4922, 13.6953, 0.25);
+	CA_RemoveBuilding(1258, 1510.8906, -1607.3125, 13.6953, 0.25);
+	CA_RemoveBuilding(1226, 1524.8281, -1721.6328, 16.4219, 0.25);
+	CA_RemoveBuilding(1226, 1524.8281, -1705.2734, 16.4219, 0.25);
+	CA_RemoveBuilding(1229, 1524.2188, -1693.9688, 14.1094, 0.25);
+	CA_RemoveBuilding(1226, 1524.8281, -1688.0859, 16.4219, 0.25);
+	CA_RemoveBuilding(1229, 1524.2188, -1673.7109, 14.1094, 0.25);
+	CA_RemoveBuilding(1226, 1524.8281, -1668.0781, 16.4219, 0.25);
+	CA_RemoveBuilding(1226, 1524.8281, -1621.9609, 16.4219, 0.25);
+	CA_RemoveBuilding(1226, 1525.3828, -1611.1563, 16.4219, 0.25);
+	CA_RemoveBuilding(1283, 1528.9531, -1605.8594, 15.6250, 0.25);
+
+	// minero
+	CA_RemoveBuilding(791, 495.3439, -677.4840, 15.5468, 0.10); // vbg_fir_copse
+	CA_RemoveBuilding(785, 495.3439, -677.4840, 15.5468, 0.10); // LOD Model of vbg_fir_copse
+	CA_RemoveBuilding(791, 552.7189, -724.0310, 12.0546, 0.10); // vbg_fir_copse
+	CA_RemoveBuilding(785, 552.7189, -724.0310, 12.0546, 0.10); // LOD Model of vbg_fir_copse
+	CA_RemoveBuilding(791, 438.1409, -628.6480, 26.8593, 0.10); // vbg_fir_copse
+	CA_RemoveBuilding(785, 438.1409, -628.6480, 26.8593, 0.10); // LOD Model of vbg_fir_copse
+
+	// conce
+	CA_RemoveBuilding(6409, 607.695, -1768.851, 15.234, 0.250);
+	CA_RemoveBuilding(6406, 607.695, -1768.851, 15.234, 0.250);
+	CA_RemoveBuilding(1308, 592.695, -1753.062, 13.750, 0.250);
+	// Pescador
+	CA_RemoveBuilding(933, 2159.409, -93.921, 1.804, 0.250);
+	CA_RemoveBuilding(933, 2158.110, -94.140, 2.296, 0.250);
+	CA_RemoveBuilding(923, 2160.350, -100.859, 2.609, 0.250);
+	CA_RemoveBuilding(12991, 2161.629, -102.476, 1.750, 0.250);
+	CA_RemoveBuilding(935, 2122.379, -83.382, 0.460, 0.250);
+	CA_RemoveBuilding(935, 2119.820, -84.406, -0.070, 0.250);
+	CA_RemoveBuilding(935, 2119.530, -82.890, -0.164, 0.250);
+	CA_RemoveBuilding(935, 2120.520, -79.085, 0.218, 0.250);
+	CA_RemoveBuilding(935, 2119.489, -73.617, 0.125, 0.250);
+	CA_RemoveBuilding(935, 2117.840, -67.835, 0.132, 0.250);
+	CA_RemoveBuilding(935, 2119.469, -69.734, 0.226, 0.250);
+	CA_RemoveBuilding(1369, 2104.020, -105.265, 1.703, 0.250);
+	
+	//garaje tunin
+	CA_RemoveBuilding(13062, 266.3594, 20.1328, 5.4844, 0.25);
+	CA_RemoveBuilding(1440, 243.9531, 24.6172, 2.0156, 0.25);
+	CA_RemoveBuilding(1684, 276.8438, -2.4297, 2.8828, 0.25);
+	CA_RemoveBuilding(13059, 266.3594, 20.1328, 5.4844, 0.25);
+	CA_RemoveBuilding(1440, 255.2734, 22.7734, 1.8984, 0.25);
+	
+	//Cosechador
+	CA_RemoveBuilding(3276, -378.7734, -1459.0234, 25.4766, 0.25);
+
+	//Camionero productos limpieza
+	CA_RemoveBuilding(985, 2497.4063, 2777.0703, 11.5313, 0.25);
+	CA_RemoveBuilding(986, 2497.4063, 2769.1094, 11.5313, 0.25);
+	
+	//Grua
+	CA_RemoveBuilding(17350, -54.9922, -1130.7266, 4.5781, 0.25);
+	CA_RemoveBuilding(1447, -89.9297, -1133.7500, 1.3906, 0.25);
+	CA_RemoveBuilding(1438, -87.0547, -1132.6797, 0.0469, 0.25);
+	CA_RemoveBuilding(1462, -79.2500, -1137.7188, 0.0547, 0.25);
+	CA_RemoveBuilding(3285, -73.8047, -1141.4219, 1.9844, 0.25);
+	CA_RemoveBuilding(17072, -54.9922, -1130.7266, 4.5781, 0.25);
+	CA_RemoveBuilding(17073, -56.1250, -1130.1719, 4.4922, 0.25);
+	CA_RemoveBuilding(1462, -84.3750, -1116.0938, 0.2578, 0.25);
+	CA_RemoveBuilding(1447, -84.0547, -1117.2188, 1.3906, 0.25);
+	CA_RemoveBuilding(1415, -68.3516, -1104.9922, 0.2188, 0.25);
+	CA_RemoveBuilding(1462, -60.3594, -1116.9375, 0.2578, 0.25);
+	CA_RemoveBuilding(1438, -63.6719, -1125.6953, 0.0469, 0.25);
+	CA_RemoveBuilding(1438, -63.4141, -1115.4141, 0.0469, 0.25);
+	CA_RemoveBuilding(1415, -63.8125, -1106.4219, 0.2188, 0.25);
+	
+	// Leñador
+	CA_RemoveBuilding(785, -1878.7813, -2299.4531, 36.7578, 0.25);
+    CA_RemoveBuilding(785, -1851.1719, -2419.8906, 28.8672, 0.25);
+    CA_RemoveBuilding(785, -1916.5703, -2352.8203, 27.8984, 0.25);
+    CA_RemoveBuilding(785, -1921.7813, -2233.5547, 64.0625, 0.25);
+    CA_RemoveBuilding(785, -1868.4609, -2470.2734, 26.2813, 0.25);
+    CA_RemoveBuilding(785, -1934.3438, -2401.9297, 26.5000, 0.25);
+    CA_RemoveBuilding(791, -1868.4609, -2470.2734, 26.2813, 0.25);
+    CA_RemoveBuilding(790, -1979.7188, -2371.9063, 34.7578, 0.25);
+    CA_RemoveBuilding(791, -1934.3438, -2401.9297, 26.5000, 0.25);
+    CA_RemoveBuilding(791, -1916.5703, -2352.8203, 27.8984, 0.25);
+    CA_RemoveBuilding(790, -1891.0703, -2381.6875, 34.7578, 0.25);
+    CA_RemoveBuilding(791, -1878.7813, -2299.4531, 36.7578, 0.25);
+    CA_RemoveBuilding(18228, -1856.6875, -2321.2891, 38.1484, 0.25);
+    CA_RemoveBuilding(791, -1851.1719, -2419.8906, 28.8672, 0.25);
+    CA_RemoveBuilding(791, -1921.7813, -2233.5547, 64.0625, 0.25);
+
+	return 1;
+}
+
+FormatDialogStrings()
+{
+	new Dialog_Lines_String[256];
+
+		/* PIZZA FOOD */
+	format(DIALOG_FOOD_PIZZA_String, sizeof DIALOG_FOOD_PIZZA_String, ""COL_WHITE"Producto\tPrecio\n");
+	for(new i; i != sizeof PIZZA_FOOD; i ++)
+	{
+		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"%d. %s\t"COL_RED""COL_GREEN"%d$\n", i + 1, PIZZA_FOOD[i][food_NAME], PIZZA_FOOD[i][food_PRICE]);
+		strcat(DIALOG_FOOD_PIZZA_String, Dialog_Lines_String);
+	}
+
+		/* CLUCKIN FOOD */
+	format(DIALOG_FOOD_CLUCKIN_String, sizeof DIALOG_FOOD_CLUCKIN_String, ""COL_WHITE"Producto\t"COL_WHITE"Precio\n");
+	for(new i; i != sizeof CLUCKIN_BELL_FOOD; i ++)
+	{
+		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"%d. %s\t"COL_RED""COL_GREEN"%d$\n", i + 1, CLUCKIN_BELL_FOOD[i][food_NAME], CLUCKIN_BELL_FOOD[i][food_PRICE]);
+		strcat(DIALOG_FOOD_CLUCKIN_String, Dialog_Lines_String);
+	}
+
+		/* BURGER_SHOT FOOD */
+	format(DIALOG_FOOD_BURGER_String, sizeof DIALOG_FOOD_BURGER_String, ""COL_WHITE"Producto\t"COL_WHITE"Precio\n");
+	for(new i; i != sizeof BURGER_SHOT_FOOD; i ++)
+	{
+		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"%d. %s\t"COL_RED""COL_GREEN"%d$\n", i + 1, BURGER_SHOT_FOOD[i][food_NAME], BURGER_SHOT_FOOD[i][food_PRICE]);
+		strcat(DIALOG_FOOD_BURGER_String, Dialog_Lines_String);
+	}
+
+		/* 24/7 LIST */
+	format(DIALOG_247_LIST_String, sizeof DIALOG_247_LIST_String, ""COL_WHITE"Producto\t"COL_WHITE"Precio\n");
+	for(new i = 0; i != sizeof Supermarket_Product_List; i ++)
+	{
+		format(Dialog_Lines_String, sizeof(Dialog_Lines_String), ""COL_WHITE"%d. %s\t"COL_RED""COL_GREEN"%d$\n", i + 1, Supermarket_Product_List[i][product_NAME], Supermarket_Product_List[i][product_PRICE]);
+		strcat(DIALOG_247_LIST_String, Dialog_Lines_String);
+	}
+
+	//GPS
+	new city[45], zone[45];
+
+	//GPS Hospitales
+	format(DIALOG_PLAYER_GPS_SITE_0_String, sizeof DIALOG_PLAYER_GPS_SITE_0_String, ""COL_WHITE"Lugar\t"COL_WHITE"Zona\n");
+	for(new i = 0; i != sizeof(Hospital_Spawn_Positions); i++ )
+	{
+		GetPointZone(Hospital_Spawn_Positions[i][0], Hospital_Spawn_Positions[i][1], city, zone);
+		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"Hospital %d\t"COL_WHITE"%s, %s\n", i + 1, city, zone);
+		strcat(DIALOG_PLAYER_GPS_SITE_0_String, Dialog_Lines_String);
+	}
+
+	//GPS CONCES
+	format(DIALOG_PLAYER_GPS_SITE_7_String, sizeof DIALOG_PLAYER_GPS_SITE_7_String, ""COL_WHITE"Lugar\t"COL_WHITE"Zona\n");
+	for(new i = 0; i != sizeof(SELL_VEHICLES_SHOPS_SPAWN); i++ )
+	{
+		GetPointZone(SELL_VEHICLES_SHOPS_SPAWN[i][0], SELL_VEHICLES_SHOPS_SPAWN[i][1], city, zone);
+		format(Dialog_Lines_String, sizeof Dialog_Lines_String, ""COL_WHITE"Concesionario %d\t"COL_WHITE"%s, %s\n", i + 1, city, zone);
+		strcat(DIALOG_PLAYER_GPS_SITE_7_String, Dialog_Lines_String);
+	}
+
+	//Colores CREWS
+	format(DIALOG_CREATE_CREW_COLOR_String, sizeof DIALOG_CREATE_CREW_COLOR_String, "");
+	for(new i = 0; i != sizeof(CrewColors); i++)
+	{
+		format(Dialog_Lines_String, sizeof(Dialog_Lines_String), "{%06x}%s\n", CrewColors[i] >>> 8, CrewNameColors[i]);
+		strcat(DIALOG_CREATE_CREW_COLOR_String, Dialog_Lines_String);
+	}
+	return 1;
+}
+
+LoadEnterExits()
+{
+	new total_enterexits, label_str[256], info[3];
+
+	for(new i = 0; i != sizeof ENTER_EXIT; i ++)
+	{
+		ENTER_EXIT[total_enterexits][ee_ID] = total_enterexits + 1;
+
+		if (ENTER_EXIT[total_enterexits][ee_INT_MAPICON] != -1) ENTER_EXIT[total_enterexits][ee_INT_MAPICON_ID] = CreateDynamicMapIcon(ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], ENTER_EXIT[total_enterexits][ee_INT_Z], ENTER_EXIT[total_enterexits][ee_INT_MAPICON], COLOR_WHITE, ENTER_EXIT[total_enterexits][ee_INT_WORLD], ENTER_EXIT[total_enterexits][ee_INT_INTERIOR]);
+		if (ENTER_EXIT[total_enterexits][ee_EXT_MAPICON] != -1) ENTER_EXIT[total_enterexits][ee_EXT_MAPICON_ID] = CreateDynamicMapIcon(ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], ENTER_EXIT[total_enterexits][ee_EXT_Z], ENTER_EXIT[total_enterexits][ee_EXT_MAPICON], COLOR_WHITE, ENTER_EXIT[total_enterexits][ee_EXT_WORLD], ENTER_EXIT[total_enterexits][ee_EXT_INTERIOR]);
+
+		format(label_str, sizeof(label_str), "{ffffff}%s", ENTER_EXIT[total_enterexits][ee_NAME]);
+		CreateDynamic3DTextLabel(label_str, 0xEAE9E900, ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], ENTER_EXIT[total_enterexits][ee_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = ENTER_EXIT[total_enterexits][ee_EXT_WORLD], .interiorid = ENTER_EXIT[total_enterexits][ee_EXT_INTERIOR]);
+		AddKeyArea(ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], 0.8, KEY_TYPE_ENTER);
+		AddKeyArea(ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], 0.8, KEY_TYPE_ENTER);
+
+		ENTER_EXIT[total_enterexits][ee_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, ENTER_EXIT[total_enterexits][ee_INT_X], ENTER_EXIT[total_enterexits][ee_INT_Y], ENTER_EXIT[total_enterexits][ee_INT_Z] - 0.7, .worldid = ENTER_EXIT[total_enterexits][ee_INT_WORLD], .interiorid = ENTER_EXIT[total_enterexits][ee_INT_INTERIOR]);
+		ENTER_EXIT[total_enterexits][ee_EXT_PICKUP_ID] = CreateDynamicPickup(19902, 1, ENTER_EXIT[total_enterexits][ee_EXT_X], ENTER_EXIT[total_enterexits][ee_EXT_Y], ENTER_EXIT[total_enterexits][ee_EXT_Z] - 0.7, ENTER_EXIT[total_enterexits][ee_EXT_WORLD], ENTER_EXIT[total_enterexits][ee_EXT_INTERIOR]);
+		
+		info[0] = PICKUP_TYPE_ENTER_EXIT;
+		info[1] = total_enterexits; // Index
+		info[2] = 1; // Pickup Interior
+		Streamer_SetArrayData(STREAMER_TYPE_PICKUP, ENTER_EXIT[total_enterexits][ee_INT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+
+		info[0] = PICKUP_TYPE_ENTER_EXIT;
+		info[1] = total_enterexits; // Index
+		info[2] = 2; // Pickup Exterior
+		Streamer_SetArrayData(STREAMER_TYPE_PICKUP, ENTER_EXIT[total_enterexits][ee_EXT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+		CreateInteriorActor(ENTER_EXIT[total_enterexits][ee_INTERIOR_TYPE], ENTER_EXIT[total_enterexits][ee_INT_WORLD], ENTER_EXIT[total_enterexits][ee_INT_INTERIOR]);
+
+		total_enterexits ++;
+	}
+
+	printf("[debug] Lugares cargados: %d", total_enterexits);
+	return 1;
+}
+
+LoadProperties()//cargado propiedes
+{
+	new DBResult:Result;
+	Result = db_query(Database, "SELECT `PROPERTY`.*, `PROPERTY_INFO`.* FROM `PROPERTY`, `PROPERTY_INFO` WHERE `PROPERTY_INFO`.ID_PROPERTY = `PROPERTY`.ID;");
+
+	new total_houses, total_houses_free, city[45], zone[45];
+	for(new i = 0; i < db_num_rows(Result); i ++)
+	{
+		if (total_houses >= MAX_PROPERTIES)
+		{
+			printf("[debug]  Límite superado en array 'PROPERTY_INFO' al intentar cargar de la base de datos.");
+			break;
+		}
+
+		PROPERTY_INFO[total_houses][property_VALID] = true;
+		PROPERTY_INFO[total_houses][property_ID] = db_get_field_assoc_int(Result, "ID");
+
+		PROPERTY_INFO[total_houses][property_EXT_X] = db_get_field_assoc_float(Result, "EXT_X");
+		PROPERTY_INFO[total_houses][property_EXT_Y] = db_get_field_assoc_float(Result, "EXT_Y");
+		PROPERTY_INFO[total_houses][property_EXT_Z] = db_get_field_assoc_float(Result, "EXT_Z");
+		PROPERTY_INFO[total_houses][property_EXT_ANGLE] = db_get_field_assoc_float(Result, "EXT_ANGLE");
+		PROPERTY_INFO[total_houses][property_EXT_INTERIOR] = db_get_field_assoc_int(Result, "EXT_INTERIOR");
+		PROPERTY_INFO[total_houses][property_EXT_FREEZE] = db_get_field_assoc_int(Result, "EXT_FREEZE");
+		PROPERTY_INFO[total_houses][property_ID_INTERIOR] = db_get_field_assoc_int(Result, "ID_INTERIOR");
+
+		PROPERTY_INFO[total_houses][property_PRICE] = db_get_field_assoc_int(Result, "PRICE");
+		PROPERTY_INFO[total_houses][property_PRICE_BASE] = PROPERTY_INFO[total_houses][property_PRICE];
+		PROPERTY_INFO[total_houses][property_LEVEL] = db_get_field_assoc_int(Result, "LEVEL");
+		PROPERTY_INFO[total_houses][property_EXTRA] = db_get_field_assoc_int(Result, "EXTRA");
+		PROPERTY_INFO[total_houses][property_VIP_LEVEL] = db_get_field_assoc_int(Result, "VIP_LEVEL");
+
+		CreatePropertyObjects(
+			PROPERTY_INFO[total_houses][property_ID],
+			PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_INTERIOR],
+			PROPERTY_INFO[total_houses][property_ID]
+		);
+
+		if (PROPERTY_INFO[total_houses][property_EXTRA]) PROPERTY_INFO[total_houses][property_PRICE] = 0;
+		if (PROPERTY_INFO[total_houses][property_VIP_LEVEL]) PROPERTY_INFO[total_houses][property_LEVEL] = 1;
+
+		new DBResult:Result_info_owner, DB_Query[600], owner[24], info[3], label_str[256], pickup_modelid;
+		format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PROPERTY_OWNER`.`ID_USER`, `PROPERTY_OWNER`.`PROPERTY_NAME` FROM `CUENTA`, `PROPERTY_OWNER` WHERE `PROPERTY_OWNER`.`ID_PROPERTY` = '%d' AND `CUENTA`.`ID` = `PROPERTY_OWNER`.`ID_USER`;", PROPERTY_INFO[total_houses][property_ID]);
+		Result_info_owner = db_query(Database, DB_Query);
+
+		if (db_num_rows(Result_info_owner))
+		{
+			pickup_modelid = 1272;
+			PROPERTY_INFO[total_houses][property_SOLD] = true;
+			PROPERTY_INFO[total_houses][property_CREW] = false;
+			db_get_field_assoc(Result_info_owner, "NAME", owner, 24);
+			PROPERTY_INFO[total_houses][property_OWNER_ID] = db_get_field_assoc_int(Result_info_owner, "ID_USER");
+			PROPERTY_INFO[total_houses][property_CREW_ID] = 0;
+			db_get_field_assoc(Result_info_owner, "PROPERTY_NAME", PROPERTY_INFO[total_houses][property_NAME], 24);
+			GetPointZone(PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], city, zone);
+
+			format
+			(
+				label_str,
+				sizeof label_str,
+				""COL_WHITE"\
+					Propiedad en %s (%d)\n\
+					Propietario:{35A7FF} %s\n\
+				", zone, PROPERTY_INFO[total_houses][property_ID], owner
+			);
+		}
+		else
+		{
+			new DBResult:Result_info_crew, crew_name[24];
+			format(DB_Query, sizeof DB_Query, "SELECT `CREW`.`ID`, `CREW`.`NAME` FROM `PROPERTY_TERRITORY`, `CREW` WHERE `PROPERTY_TERRITORY`.`ID_PROPERTY` = '%d' AND `CREW`.`ID` = (SELECT `CREW_TERRITORIES`.`ID_CREW` FROM `CREW_TERRITORIES` WHERE `CREW_TERRITORIES`.`ID_TERRITORY` = `PROPERTY_TERRITORY`.`ID_TERRITORY`);", PROPERTY_INFO[total_houses][property_ID]);
+			Result_info_crew = db_query(Database, DB_Query);
+
+			if (db_num_rows(Result_info_crew))
+			{
+				pickup_modelid = 1272;
+				PROPERTY_INFO[total_houses][property_SOLD] = true;
+				PROPERTY_INFO[total_houses][property_CREW] = true;
+				db_get_field_assoc(Result_info_crew, "NAME", crew_name, 24);
+				PROPERTY_INFO[total_houses][property_CREW_ID] = db_get_field_assoc_int(Result_info_crew, "ID");
+				PROPERTY_INFO[total_houses][property_OWNER_ID] = 0;
+				GetPointZone(PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], city, zone);
+				format(PROPERTY_INFO[total_houses][property_NAME], 24, "%s (%d)", zone, PROPERTY_INFO[total_houses][property_ID]);
+
+				format
+				(
+					label_str,
+					sizeof label_str,
+					""COL_WHITE"\
+						Propiedad en %s (%d)\n\
+						Banda: %s\n\
+					", zone, PROPERTY_INFO[total_houses][property_ID], crew_name
+				);
+			}
+			else
+			{
+				pickup_modelid = 1273;
+				PROPERTY_INFO[total_houses][property_SOLD] = false;
+				PROPERTY_INFO[total_houses][property_OWNER_ID] = 0;
+				GetPointZone(PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], city, zone);
+				format(PROPERTY_INFO[total_houses][property_NAME], 24, "%s (%d)", zone, PROPERTY_INFO[total_houses][property_ID]);
+
+				format(label_str, sizeof label_str, ""COL_WHITE"Propiedad en %s (%d)\n"COL_GREEN"En venta", zone, PROPERTY_INFO[total_houses][property_ID]);
+				total_houses_free ++;
+			}
+			db_free_result(Result_info_crew);
+		}
+		db_free_result(Result_info_owner);
+
+
+		PROPERTY_INFO[total_houses][property_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], PROPERTY_INFO[total_houses][property_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = PROPERTY_INFO[total_houses][property_EXT_INTERIOR]);
+		PROPERTY_INFO[total_houses][property_EXT_PICKUP_ID] = CreateDynamicPickup(pickup_modelid, 1, PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], PROPERTY_INFO[total_houses][property_EXT_Z], 0, PROPERTY_INFO[total_houses][property_EXT_INTERIOR]);
+		PROPERTY_INFO[total_houses][property_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INFO[total_houses][property_ID], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_INTERIOR]);
+
+		AddKeyArea(PROPERTY_INFO[total_houses][property_EXT_X], PROPERTY_INFO[total_houses][property_EXT_Y], 0.8, KEY_TYPE_ENTER);
+		AddKeyArea(PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[total_houses][property_ID_INTERIOR] ][property_INT_Y], 0.8, KEY_TYPE_ENTER);
+
+		info[0] = PICKUP_TYPE_PROPERTY;
+		info[1] = total_houses; // Index
+		info[2] = 1; // Pickup Interior
+		Streamer_SetArrayData(STREAMER_TYPE_PICKUP, PROPERTY_INFO[total_houses][property_INT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+
+		info[0] = PICKUP_TYPE_PROPERTY;
+		info[1] = total_houses; // Index
+		info[2] = 2; // Pickup Exterior
+		Streamer_SetArrayData(STREAMER_TYPE_PICKUP, PROPERTY_INFO[total_houses][property_EXT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+
+		TOTAL_PROPERTIES_LOADED ++;
+		total_houses ++;
+		db_next_row(Result);
+	}
+	db_free_result(Result);
+
+    printf("[debug] Propiedades libres: %d.", total_houses_free);
+	printf("[debug] Propiedades totales: %d.", total_houses);
+	return 1;
+}
+
+LoadCrews()
+{
+	new DBResult:Result, DB_Query[140];
+	Result = db_query(Database, "SELECT * FROM `CREW`;");
+
+	new total_crews;
+	for(new i = 0; i < db_num_rows(Result); i ++)
+	{
+		if (total_crews >= MAX_CREWS)
+		{
+			printf("[debug]  Límite superado en array 'CREW_INFO' al intentar cargar de la base de datos.");
+			break;
+		}
+
+		CREW_INFO[total_crews][crew_VALID] = true;
+		CREW_INFO[total_crews][crew_ID] = db_get_field_assoc_int(Result, "ID");
+		db_get_field_assoc(Result, "NAME", CREW_INFO[total_crews][crew_NAME], 32);
+		strreplace(CREW_INFO[total_crews][crew_NAME], "~", "");
+
+		db_get_field_assoc(Result, "DESC", CREW_INFO[total_crews][crew_DESCRIPTION], 32);
+		CREW_INFO[total_crews][crew_COLOR] = db_get_field_assoc_int(Result, "COLOR");
+		CREW_INFO[total_crews][crew_GRAFFITIS_COUNT] = db_get_field_assoc_int(Result, "GRAFFITIS_COUNT");
+		CREW_INFO[total_crews][crew_MARKET_COUNT] = db_get_field_assoc_int(Result, "MARKETS_COUNT");
+		CREW_INFO[total_crews][crew_ONLINE_MEMBERS] = 0;
+
+		if (CREW_INFO[total_crews][crew_GRAFFITIS_COUNT] < 0)
+		{
+			CREW_INFO[total_crews][crew_GRAFFITIS_COUNT] = 0;
+		}
+
+		if (CREW_INFO[total_crews][crew_GRAFFITIS_COUNT] > 54)
+		{
+			CREW_INFO[total_crews][crew_GRAFFITIS_COUNT] = 0;
+		}
+
+		if (CREW_INFO[total_crews][crew_MARKET_COUNT] < 0)
+		{
+			CREW_INFO[total_crews][crew_MARKET_COUNT] = 0;
+		}
+
+		if (CREW_INFO[total_crews][crew_MARKET_COUNT] > 3)
+		{
+			CREW_INFO[total_crews][crew_MARKET_COUNT] = 0;
+		}
+
+		RecalculeCrewGraffitis(total_crews);
+		RecalculeCrewMarkets(total_crews);
+
+		new DBResult:Result_members;
+		format(DB_Query, sizeof DB_Query, "SELECT COUNT() FROM `PLAYER_CREW` WHERE `ID_CREW` = '%d';", CREW_INFO[total_crews][crew_ID]);
+		Result_members = db_query(Database, DB_Query);
+
+		if (db_num_rows(Result_members)) CREW_INFO[total_crews][crew_MEMBERS] = db_get_field_int(Result_members, 0);
+		db_free_result(Result_members);
+
+
+		new DBResult:Result_ranks;
+		format(DB_Query, sizeof DB_Query, "SELECT * FROM `CREW_RANKS` WHERE `ID_CREW` = '%d' LIMIT %d;", CREW_INFO[total_crews][crew_ID], MAX_CREW_RANKS);
+		Result_ranks = db_query(Database, DB_Query);
+		for(new x = 0; x < db_num_rows(Result_ranks); x ++)
+		{
+			new pos = db_get_field_assoc_int(Result_ranks, "RANK_POS");
+			if (pos < 0 || pos > MAX_CREW_RANKS) continue;
+
+			CREW_RANK_INFO[total_crews][pos][crew_rank_VALID] = true;
+			CREW_RANK_INFO[total_crews][pos][crew_rank_ID] = db_get_field_assoc_int(Result_ranks, "ID");
+			db_get_field_assoc(Result_ranks, "RANK_NAME", CREW_RANK_INFO[total_crews][pos][crew_rank_NAME], 32);
+
+			new DBResult:Result_ranks_permissions;
+			format(DB_Query, sizeof DB_Query, "SELECT * FROM `RANK_PERMISSIONS` WHERE `ID_RANK` = '%d' LIMIT %d;", CREW_RANK_INFO[total_crews][pos][crew_rank_ID], CREW_RANK_SIZE);
+			Result_ranks_permissions = db_query(Database, DB_Query);
+			for(new z = 0; z < db_num_rows(Result_ranks_permissions); z ++)
+			{
+				new permission = db_get_field_assoc_int(Result_ranks_permissions, "PERMISSION");
+				if (permission < 0 || permission > CREW_RANK_SIZE) continue;
+
+				CREW_RANK_INFO[total_crews][pos][crew_rank_PERMISSION][permission] = db_get_field_assoc_int(Result_ranks_permissions, "SET");
+				db_next_row(Result_ranks_permissions);
+			}
+			db_free_result(Result_ranks_permissions);
+			db_next_row(Result_ranks);
+		}
+		db_free_result(Result_ranks);
+
+		total_crews ++;
+		db_next_row(Result);
+	}
+
+	printf("[debug] Bandas cargadas: %d", total_crews);
+	db_free_result(Result);
+	return 1;
+}
+
+LoadGangZones()
+{
+	new DBResult:Result, DB_Query[320];
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `SA_ZONES` WHERE `GANG_ZONE` = '1' LIMIT %d;", MAX_TERRITORIES);
+	Result = db_query(Database, DB_Query);
+
+	new total_territories;
+	for(new i = 0; i < db_num_rows(Result); i ++)
+	{
+		if (total_territories >= MAX_TERRITORIES)
+		{
+			printf("[debug]  Límite superado en array 'TERRITORIES' al intentar cargar de la base de datos.");
+			break;
+		}
+
+		TERRITORIES[total_territories][territory_VALID] = true;
+		TERRITORIES[total_territories][territory_ID] = db_get_field_assoc_int(Result, "ID");
+		db_get_field_assoc(Result, "NAME", TERRITORIES[total_territories][territory_NAME], 32);
+		TERRITORIES[total_territories][territory_MIN_X] = db_get_field_assoc_float(Result, "MIN_X");
+		TERRITORIES[total_territories][territory_MIN_Y] = db_get_field_assoc_float(Result, "MIN_Y");
+		TERRITORIES[total_territories][territory_MIN_Z] = db_get_field_assoc_float(Result, "MIN_Z");
+		TERRITORIES[total_territories][territory_MAX_X] = db_get_field_assoc_float(Result, "MAX_X");
+		TERRITORIES[total_territories][territory_MAX_Y] = db_get_field_assoc_float(Result, "MAX_Y");
+		TERRITORIES[total_territories][territory_MAX_Z] = db_get_field_assoc_float(Result, "MAX_Z");
+		TERRITORIES[total_territories][territory_WAR] = false;
+		TERRITORIES[total_territories][territory_ATTACKER_CREW_INDEX] = 0;
+
+		new DBResult:Result_territory_crew;
+		format(DB_Query, sizeof DB_Query, "SELECT `CREW_TERRITORIES`.`ID_CREW`, `CREW`.`COLOR` FROM `CREW_TERRITORIES`, `CREW` WHERE `ID_TERRITORY` = '%d' AND `CREW`.`ID` = `CREW_TERRITORIES`.`ID_CREW`;", TERRITORIES[total_territories][territory_ID]);
+		Result_territory_crew = db_query(Database, DB_Query);
+		if (db_num_rows(Result_territory_crew))
+		{
+			TERRITORIES[total_territories][territory_OCCUPIED] = true;
+			TERRITORIES[total_territories][territory_CREW_ID] = db_get_field_assoc_int(Result_territory_crew, "ID_CREW");
+			new gang_color = db_get_field_assoc_int(Result_territory_crew, "COLOR");
+
+			new r, g, b, a;
+			hy_HexToRGBA(gang_color, r, g, b, a);
+			TERRITORIES[total_territories][territory_COLOR] = hy_RGBAToHex(r, g, b, 135);
+
+			for(new x = 0; x != MAX_CREWS; x ++)
+			{
+				if (!CREW_INFO[x][crew_VALID]) continue;
+
+				if (CREW_INFO[x][crew_ID] == TERRITORIES[total_territories][territory_CREW_ID])
+				{
+					TERRITORIES[total_territories][territory_CREW_INDEX] = x;
+					break;
+				}
+			}
+		}
+		else
+		{
+			TERRITORIES[total_territories][territory_OCCUPIED] = false;
+			TERRITORIES[total_territories][territory_CREW_ID] = 0;
+			TERRITORIES[total_territories][territory_CREW_INDEX] = 0;
+			TERRITORIES[total_territories][territory_COLOR] = 0xCCCCCC55;
+		}
+		db_free_result(Result_territory_crew);
+
+
+		TERRITORIES[total_territories][territory_AREA] =  CreateDynamicCube
+															(
+																TERRITORIES[total_territories][territory_MIN_X],
+																TERRITORIES[total_territories][territory_MIN_Y],
+																TERRITORIES[total_territories][territory_MIN_Z],
+																TERRITORIES[total_territories][territory_MAX_X],
+																TERRITORIES[total_territories][territory_MAX_Y],
+																TERRITORIES[total_territories][territory_MAX_Z],
+																0, 0
+															);
+
+		new info[2];
+		info[0] = AREA_TYPE_GANGZONE;
+		info[1] = total_territories;
+		Streamer_SetArrayData(STREAMER_TYPE_AREA, TERRITORIES[total_territories][territory_AREA], E_STREAMER_EXTRA_ID, info);
+
+
+		TERRITORIES[total_territories][territory_GANG_ZONE] =  GangZoneCreate
+																(
+																	TERRITORIES[total_territories][territory_MIN_X],
+																	TERRITORIES[total_territories][territory_MIN_Y],
+																	TERRITORIES[total_territories][territory_MAX_X],
+																	TERRITORIES[total_territories][territory_MAX_Y]
+																);
+
+		TERRITORIES[total_territories][territory_TEXTDRAW] = TextDrawCreate(320.000000, 406.000000, "Progreso de conquista:_0");
+		TextDrawLetterSize(TERRITORIES[total_territories][territory_TEXTDRAW], 0.286000, 1.276444);
+		TextDrawAlignment(TERRITORIES[total_territories][territory_TEXTDRAW], 2);
+		TextDrawColor(TERRITORIES[total_territories][territory_TEXTDRAW], -76);
+		TextDrawSetShadow(TERRITORIES[total_territories][territory_TEXTDRAW], 0);
+		TextDrawSetOutline(TERRITORIES[total_territories][territory_TEXTDRAW], 0);
+		TextDrawBackgroundColor(TERRITORIES[total_territories][territory_TEXTDRAW], 255);
+		TextDrawFont(TERRITORIES[total_territories][territory_TEXTDRAW], 1);
+		TextDrawSetProportional(TERRITORIES[total_territories][territory_TEXTDRAW], 1);
+		TextDrawSetShadow(TERRITORIES[total_territories][territory_TEXTDRAW], 0);
+
+		total_territories ++;
+		db_next_row(Result);
+	}
+
+	printf("[debug] Territorios totales: %d", total_territories);
+	db_free_result(Result);
+	return 1;
+}
+
+CheckBoxClub(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 1.5, -11.283934, 88.862136, 1101.522705)) return ShowDialog(playerid, DIALOG_BOX_CLUB);
+	return 1;
+}
+
+SendBoxMessage(const message[], time)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (IsPlayerInRangeOfPoint(i, 30.0, -17.344648, 99.261329, 1100.822021))
+			{
+				ShowPlayerNotification(i, message, time);
+			}
+		}
+	}
+	return 1;
+}
+
+forward RespawnDynamicActor(actorid, type);
+public RespawnDynamicActor(actorid, type)
+{
+	ClearDynamicActorAnimations(actorid);
+
+	switch(type)
+	{
+		case ACTOR_TYPE_DEALER:
+		{
+			SetDynamicActorInvulnerable(actorid, false);
+			SetDynamicActorHealth(actorid, 50.0);
+			ApplyDynamicActorAnimation(actorid, "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
+			return 1;
+		}
+		case ACTOR_TYPE_SHOP:
+		{
+			SetDynamicActorInvulnerable(actorid, false);
+			SetDynamicActorHealth(actorid, 50.0);
+			return 1;
+		}
+	}
+
+	SetDynamicActorInvulnerable(actorid, true);
+	SetDynamicActorHealth(actorid, 100.0);
+	return 1;
+}
+
+CheckRobActor(playerid)
+{
+	if (GetPlayerInterior(playerid) > 0 && PLAYER_TEMP[playerid][py_INTERIOR_INDEX] > 0)
+	{
+		if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CLUB)
+		{
+			new ActorTarget = GetPlayerCameraTargetActor(playerid);
+			new maxprogress = minrand(5, 20);
+			if (ActorTarget != INVALID_ACTOR_ID)
+			{
+				new keys, updown, leftright;
+				new randompay = minrand(30, 300);
+
+				GetPlayerKeys(playerid, keys, updown, leftright);
+
+				if (!PLAYER_WORKS[playerid][WORK_POLICE])
+				{
+					if (IsPlayerInRangeOfPoint(playerid, 50.0, -198.002197, -1762.759643, 675.768737)) return 0;
+					if (!a_TMP[ActorTarget][a_IN_ROB] && GetPlayerWeapon(playerid) >= 22 && GetPlayerWeapon(playerid) <= 33 && keys & KEY_HANDBRAKE)
+					{
+						new Float:health;
+						GetDynamicActorHealth(ActorTarget, health);
+						if (health > 0.0)
+						{
+							if ((gettime() - a_TMP[ActorTarget][a_LAST_ROB]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Este negocio ya fue robado recientemente", 3);
+							{
+								if ((gettime() - a_TMP[ActorTarget][a_IN_ROB_PROGRESS]) < 2) return 0;
+								
+								new str_text[128];
+								if (PLAYER_TEMP[playerid][py_ROB_PROGRESS] > maxprogress)
+								{
+									SetActorChatBubble(ActorTarget, "{E6E6E6}¡Ya le he dado todo!", 0xE6E6E600, 5.0, 3000);
+									SetActorRespawnTime(ActorTarget, 15000);
+									ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
+									ShowPlayerNotification(playerid, "La policía viene en camino, es mejor que corras.", 3);
+									PLAYER_TEMP[playerid][py_ROB_PROGRESS] = 0;
+									a_TMP[ActorTarget][a_LAST_ROB] = gettime() + 5; // Fix delay
+									a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime() + 5;
+									PLAYER_TEMP[playerid][py_INITIAL_ROB] = false;
+									return 1;
+								}
+
+								if (PLAYER_TEMP[playerid][py_INITIAL_ROB] == false)
+								{
+									PLAYER_TEMP[playerid][py_INITIAL_ROB] = true;
+									ShowPlayerNotification(playerid, "Apuntale al vendedor hasta que te de todo el dinero de la caja.", 4);
+									SetActorChatBubble(ActorTarget, "{E6E6E6}¡No me lastime por favor!\n¡Le daré el dinero!", 0xE6E6E600, 5.0, 3000);
+									ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
+									SetPlayerPoliceSearchLevel(playerid, 1);
+
+									new
+										city[45],
+										zone[45],
+										message[144]
+									;
+
+								    GetPointZone(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X], ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y], city, zone);
+								    format(message, sizeof message, "~r~%s~w~ esta robando un negocio (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+								    format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Robo");
+								    ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Robo", 5);
+								    SendPoliceNotification(message, 6);
+
+									a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
+									return 0;
+								}
+									
+								GivePlayerCash(playerid, randompay);
+								PLAYER_TEMP[playerid][py_ROB_PROGRESS] ++;
+
+								ApplyActorAnimation(ActorTarget, "INT_SHOP", "shop_cashier", 4.1, 1, 0, 0, 1, 0);
+								a_TMP[ActorTarget][a_IN_ROB] = true;
+
+								format(str_text, sizeof(str_text), "{E6E6E6}* Le da a %s {85DA74}%d$", PLAYER_TEMP[playerid][py_NAME], randompay);
+								SetActorChatBubble(ActorTarget, str_text, 0xE6E6E600, 5.0, 3000);
+
+
+								a_TMP[ActorTarget][a_IN_ROB] = false;
+								a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+CreateInteriorActor(interior_type, world, interior)
+{
+	if (interior_type == INTERIOR_NO_INFO) return 0;
+
+	new skin, Float:x, Float:y, Float:z, Float:angle;
+
+	switch(interior_type)
+	{
+		case INTERIOR_BINCO:
+		{
+			skin      = 119;
+			x    = 208.376373;
+			y    = -98.703956;
+			z    = 1005.257812;
+			angle    = 180.0;
+		}
+		case INTERIOR_SUBURBAN:
+		{
+			skin      = 191;
+			x    = 203.826187;
+			y    = -41.667518;
+			z    = 1001.804687;
+			angle    = 180.0;
+		}
+		case INTERIOR_PROLAPS:
+		{
+			skin      = 190;
+			x    = 207.139907;
+			y    = -127.805473;
+			z    = 1003.507812;
+			angle    = 180.0;
+		}
+		case INTERIOR_DIDIER_SACHS:
+		{
+			skin      = 169;
+			x    = 204.275909;
+			y    = -157.829010;
+			z    = 1000.523437;
+			angle    = 180.0;
+		}
+		case INTERIOR_VICTIM:
+		{
+			skin      = 217;
+			x    = 204.853225;
+			y    = -8.764448;
+			z    = 1001.210937;
+			angle    = 270.0;
+		}
+		case INTERIOR_ZIP:
+		{
+			skin      = 211;
+			x    = 162.226135;
+			y    = -81.191978;
+			z    = 1001.804687;
+			angle    = 180.0;
+		}
+		case INTERIOR_247:
+		{
+			skin      = 184;
+			x    = -27.483411;
+			y    = -91.628837;
+			z    = 1003.546875;
+			angle    = 0.0;
+		}
+		case INTERIOR_PIZZA:
+		{
+			skin      = 155;
+			x    = 375.114501;
+			y    = -117.272621;
+			z    = 1001.492187;
+			angle    = 180.0;
+		}
+		case INTERIOR_CLUCKIN_BELL:
+		{
+			skin      = 167;
+			x    = 368.652679;
+			y    = -4.492218;
+			z    = 1001.851562;
+			angle    = 180.0;
+		}
+		case INTERIOR_BURGER_SHOT:
+		{
+			skin      = 205;
+			x    = 376.114227;
+			y    = -65.848991;
+			z    = 1001.507812;
+			angle    = 180.0;
+		}
+		case INTERIOR_BANK_LS:
+		{
+			skin      = 59;
+			x    = 1407.526489;
+			y    = 1321.833496;
+			z    = 1501.091918;
+			angle    = 180.0;
+		}
+		case INTERIOR_BANK_SF:
+		{
+			skin      = 59;
+			x    = 1104.802001;
+			y    = 1531.275634;
+			z    = 1452.475097;
+			angle    = 180.0;
+		}
+		case INTERIOR_BANK_LV:
+		{
+			skin      = 59;
+			x    = 2692.497558;
+			y    = -610.933593;
+			z    = -71.658203;
+			angle    = 90.0;
+		}
+		case INTERIOR_CITY_HALL_LS:
+		{
+			skin      = 186;
+			x    = -474.572387;
+			y    = 287.982879;
+			z    = 2004.584960;
+			angle    = 0.0;
+		}
+		case INTERIOR_UNITY_STATION:
+		{
+			skin      = 184;
+			x    = 1489.038818;
+			y    = 1305.631591;
+			z    = 1093.296386;
+			angle    = 270.0;
+		}
+		case INTERIOR_TRUCK:
+		{
+			skin      = 127;
+			x    = 1297.120117;
+			y    = -66.351226;
+			z    = 1002.497375;
+			angle    = 0.0;
+		}
+	}
+
+	new actor = CreateDynamicActor(skin, x, y, z, angle, false, 50.0, world, interior);
+	Streamer_SetIntData(STREAMER_TYPE_ACTOR, actor, E_STREAMER_EXTRA_ID, ACTOR_TYPE_SHOP);
+	return 1;
+}
+
+GetFastFoodLocalIndexByIntType(interior_type)
+{
+	for(new i = 0; i != sizeof Fast_Food_Positions; i ++)
+	{
+		if (Fast_Food_Positions[i][fast_food_INTERIOR_TYPE] == interior_type) return i;
+	}
+	return -1;
+}
+
+GetClothingShopIndexByIntType(interior_type)
+{
+	for(new i = 0; i != sizeof Clothing_Shop_Positions; i ++)
+	{
+		if (Clothing_Shop_Positions[i][clothing_shop_INTERIOR_TYPE] == interior_type) return i;
+	}
+	return -1;
+}
+
+UpdatePlayerPropertyContructor(playerid)
+{
+	SetPlayerPosEx
+	(
+		playerid,
+		PROPERTY_INTERIORS[ PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_INTERIO] ][property_INT_X],
+		PROPERTY_INTERIORS[ PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_INTERIO] ][property_INT_Y],
+		PROPERTY_INTERIORS[ PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_INTERIO] ][property_INT_Z],
+		PROPERTY_INTERIORS[ PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_INTERIO] ][property_INT_ANGLE],
+		PROPERTY_INTERIORS[ PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_INTERIO] ][property_INT_INTERIOR],
+		0, false, true
+	);
+
+	new td_str[45]; format(td_str, sizeof td_str, "Interior:_%d/%d", PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_INTERIO], sizeof PROPERTY_INTERIORS - 1);
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROPERTY_CONSTRUCTOR][1], td_str);
+	SelectTextDrawEx(playerid, 0xe8d08fFF);
+	return 1;
+}
+
+ExitPlayerPropertyConstructor(playerid)
+{
+	CancelSelectTextDrawEx(playerid);
+	PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_ENABLED] = false;
+
+	SetPlayerPosEx
+	(
+		playerid,
+		PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_X],
+		PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_Y],
+		PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_Z],
+		PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_ANG],
+		PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_INT],
+		0, false, true
+	);
+
+	for(new i = 0; i != 6; i ++) PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROPERTY_CONSTRUCTOR][i]);
+	return 1;
+}
+
+Create_PlayerPropertyConstructo(playerid)
+{
+	new slot = GetEmptyPropertySlot();
+	if (slot == -1)
+	{
+	    ShowPlayerMessage(playerid, "~r~No hay mas slots.", 2);
+		ExitPlayerPropertyConstructor(playerid);
+		return 1;
+	}
+
+	PROPERTY_INFO[slot][property_VALID] = true;
+	PROPERTY_INFO[slot][property_EXT_X] = PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_X];
+	PROPERTY_INFO[slot][property_EXT_Y] = PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_Y];
+	PROPERTY_INFO[slot][property_EXT_Z] = PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_Z];
+	PROPERTY_INFO[slot][property_EXT_ANGLE] = PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_ANG];
+	PROPERTY_INFO[slot][property_EXT_INTERIOR] = PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_EXT_INT];
+	PROPERTY_INFO[slot][property_EXT_FREEZE] = false;
+	PROPERTY_INFO[slot][property_ID_INTERIOR] = PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_INTERIO];
+
+	PROPERTY_INFO[slot][property_SOLD] = false;
+	PROPERTY_INFO[slot][property_OWNER_ID] = 0;
+	PROPERTY_INFO[slot][property_PRICE] = PLAYER_TEMP[playerid][py_PROPERTY_CINFO][1];
+	PROPERTY_INFO[slot][property_LEVEL] = PLAYER_TEMP[playerid][py_PROPERTY_CINFO][0];
+	PROPERTY_INFO[slot][property_EXTRA] = PLAYER_TEMP[playerid][py_PROPERTY_CINFO][3];
+	PROPERTY_INFO[slot][property_VIP_LEVEL] = PLAYER_TEMP[playerid][py_PROPERTY_CINFO][2];
+	PROPERTY_INFO[slot][property_PRICE_BASE] = floatround(floatdiv(PROPERTY_INFO[slot][property_PRICE], MULTIPLIER_PROPERITES));
+
+	if (PROPERTY_INFO[slot][property_EXTRA]) PROPERTY_INFO[slot][property_PRICE] = 0;
+	if (PROPERTY_INFO[slot][property_VIP_LEVEL]) PROPERTY_INFO[slot][property_LEVEL] = 1;
+
+	new DBResult:Result, DB_Query[600];
+	format
+	(
+		DB_Query, sizeof DB_Query,
+		"\
+			INSERT INTO `PROPERTY`\
+			(\
+				`EXT_X`, `EXT_Y`, `EXT_Z`, `EXT_ANGLE`, `EXT_INTERIOR`, `EXT_FREEZE`, `ID_INTERIOR`\
+			)\
+			VALUES\
+			(\
+				'%f', '%f', '%f', '%f', '%d', '%d', '%d'\
+			);\
+			SELECT MAX(`ID`) FROM `PROPERTY`;\
+		",
+		PROPERTY_INFO[slot][property_EXT_X], PROPERTY_INFO[slot][property_EXT_Y], PROPERTY_INFO[slot][property_EXT_Z], PROPERTY_INFO[slot][property_EXT_ANGLE], PROPERTY_INFO[slot][property_EXT_INTERIOR], PROPERTY_INFO[slot][property_EXT_FREEZE],
+		PROPERTY_INFO[slot][property_ID_INTERIOR]
+	);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result)) PROPERTY_INFO[slot][property_ID] = db_get_field_int(Result, 0);
+	db_free_result(Result);
+
+	DB_Query[0] = EOS;
+	format
+	(
+		DB_Query, sizeof DB_Query,
+		"\
+			INSERT INTO `PROPERTY_INFO`\
+			(\
+				`ID_PROPERTY`, `PRICE`, `LEVEL`, `EXTRA`, `VIP_LEVEL`\
+			)\
+			VALUES\
+			(\
+				'%d', '%d', '%d', '%d', '%d'\
+			);\
+		",
+		PROPERTY_INFO[slot][property_ID], PROPERTY_INFO[slot][property_PRICE_BASE], PROPERTY_INFO[slot][property_LEVEL], PROPERTY_INFO[slot][property_EXTRA], PROPERTY_INFO[slot][property_VIP_LEVEL]
+	);
+	db_free_result(db_query(Database, DB_Query));
+
+	new label_str[256], city[45], zone[45];
+	GetPointZone(PROPERTY_INFO[slot][property_EXT_X], PROPERTY_INFO[slot][property_EXT_Y], city, zone);
+	format(PROPERTY_INFO[slot][property_NAME], 24, "%s (%d)", zone, PROPERTY_INFO[slot][property_ID]);
+
+	if (PROPERTY_INFO[slot][property_VIP_LEVEL])
+	{
+		if (PROPERTY_INFO[slot][property_EXTRA])
+		{
+			format
+			(
+				label_str,
+				sizeof label_str,
+				"\
+					{F4DC42}Se requiere VIP (%d)\n\
+					\n\
+					"COL_WHITE"Propiedad {5DE141}#%d "COL_WHITE"está en venta\n\n\
+					Interior: {5DE141}%d\n\
+					"COL_WHITE"Coste: {5DE141}%d "SERVER_COIN"\n\
+					"COL_WHITE"Nivel necesario: {5DE141}%d\n\
+					"COL_WHITE"Usa {5DE141}/ayuda "COL_WHITE"para ver como adquirirla.\
+				", PROPERTY_INFO[slot][property_VIP_LEVEL], PROPERTY_INFO[slot][property_ID], PROPERTY_INFO[slot][property_ID_INTERIOR], PROPERTY_INFO[slot][property_EXTRA], PROPERTY_INFO[slot][property_LEVEL]
+			);
+		}
+		else
+		{
+			format
+			(
+				label_str,
+				sizeof label_str,
+				"\
+					{F4DC42}Se requiere VIP (%d)\n\
+					\n\
+					"COL_WHITE"Propiedad {5DE141}#%d "COL_WHITE"está en venta\n\n\
+					Interior: {5DE141}%d\n\
+					"COL_WHITE"Precio: {5DE141}%s$\n\
+					"COL_WHITE"Nivel: {5DE141}%d\n\
+					"COL_WHITE"Usa {5DE141}/ayuda "COL_WHITE"para ver como adquirirla.\
+				", PROPERTY_INFO[slot][property_VIP_LEVEL], PROPERTY_INFO[slot][property_ID], PROPERTY_INFO[slot][property_ID_INTERIOR], number_format_thousand(PROPERTY_INFO[slot][property_PRICE]), PROPERTY_INFO[slot][property_LEVEL]
+			);
+		}
+	}
+	else
+	{
+		if (PROPERTY_INFO[slot][property_EXTRA])
+		{
+			format
+			(
+				label_str,
+				sizeof label_str,
+				"\
+					"COL_WHITE"Propiedad {5DE141}#%d "COL_WHITE"está en venta\n\n\
+					Interior: {5DE141}%d\n\
+					"COL_WHITE"Coste: {5DE141}%d "SERVER_COIN"\n\
+					"COL_WHITE"Nivel necesario: {5DE141}%d\n\
+					"COL_WHITE"Usa {5DE141}/ayuda "COL_WHITE"para ver como adquirirla.\
+				", PROPERTY_INFO[slot][property_ID], PROPERTY_INFO[slot][property_ID_INTERIOR], PROPERTY_INFO[slot][property_EXTRA], PROPERTY_INFO[slot][property_LEVEL]
+			);
+		}
+		else
+		{
+			format
+			(
+				label_str,
+				sizeof label_str,
+				"\
+					"COL_WHITE"Propiedad {5DE141}#%d "COL_WHITE"está en venta\n\n\
+					Interior: {5DE141}%d\n\
+					"COL_WHITE"Precio: {5DE141}%s$\n\
+					"COL_WHITE"Nivel necesario: {5DE141}%d\n\
+					"COL_WHITE"Usa {5DE141}/ayuda "COL_WHITE"para ver como adquirirla.\
+				", PROPERTY_INFO[slot][property_ID], PROPERTY_INFO[slot][property_ID_INTERIOR], number_format_thousand(PROPERTY_INFO[slot][property_PRICE]), PROPERTY_INFO[slot][property_LEVEL]
+			);
+		}
+	}
+
+	PROPERTY_INFO[slot][property_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, PROPERTY_INFO[slot][property_EXT_X], PROPERTY_INFO[slot][property_EXT_Y], PROPERTY_INFO[slot][property_EXT_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = PROPERTY_INFO[slot][property_EXT_INTERIOR]);
+	PROPERTY_INFO[slot][property_EXT_PICKUP_ID] = CreateDynamicPickup(1273, 1, PROPERTY_INFO[slot][property_EXT_X], PROPERTY_INFO[slot][property_EXT_Y], PROPERTY_INFO[slot][property_EXT_Z], 0, PROPERTY_INFO[slot][property_EXT_INTERIOR]);
+	PROPERTY_INFO[slot][property_INT_PICKUP_ID] = CreateDynamicPickup(19902, 1, PROPERTY_INTERIORS[ PROPERTY_INFO[slot][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[slot][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[slot][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INFO[slot][property_ID], PROPERTY_INTERIORS[ PROPERTY_INFO[slot][property_ID_INTERIOR] ][property_INT_INTERIOR]);
+
+	new info[3];
+	info[0] = PICKUP_TYPE_PROPERTY;
+	info[1] = slot; // Index
+	info[2] = 1; // Pickup Interior
+	Streamer_SetArrayData(STREAMER_TYPE_PICKUP, PROPERTY_INFO[slot][property_INT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+
+	info[0] = PICKUP_TYPE_PROPERTY;
+	info[1] = slot; // Index
+	info[2] = 2; // Pickup Exterior
+	Streamer_SetArrayData(STREAMER_TYPE_PICKUP, PROPERTY_INFO[slot][property_EXT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+
+	TOTAL_PROPERTIES_LOADED ++;
+
+	SendClientMessageEx(playerid, COLOR_WHITE, "PROPIEDAD %d AÑADIDA.", PROPERTY_INFO[slot][property_ID]);
+	SendClientMessageEx(playerid, COLOR_WHITE, "PROPIEDADES: %d/%d", TOTAL_PROPERTIES_LOADED, MAX_PROPERTIES);
+	ExitPlayerPropertyConstructor(playerid);
+	return 1;
+}
+
+GetEmptyPropertySlot()
+{
+	for(new i = 0; i != MAX_PROPERTIES; i ++)
+	{
+		if (!PROPERTY_INFO[i][property_VALID]) return i;
+	}
+	return -1;
+}
+
+Set_HARVEST_Checkpoint(playerid)
+{
+	if (IsValidDynamicRaceCP(PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT]))
+	{
+		DestroyDynamicRaceCP(PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT]);
+		PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT] = INVALID_STREAMER_ID;
+	}
+
+	if (PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] == sizeof(HARVEST_CHECKPOINTS) - 1)
+	{
+		PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT] =    CreateDynamicRaceCP
+														(
+															1,
+															HARVEST_CHECKPOINTS[ PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] ][0],
+															HARVEST_CHECKPOINTS[ PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] ][1],
+															HARVEST_CHECKPOINTS[ PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] ][2],
+															0.0,
+															0.0,
+															0.0,
+															5.0,
+															0,
+															0,
+															playerid
+														);
+	}
+	else
+	{
+		PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT] =    CreateDynamicRaceCP
+														(
+															0,
+															HARVEST_CHECKPOINTS[ PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] ][0],
+															HARVEST_CHECKPOINTS[ PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] ][1],
+															HARVEST_CHECKPOINTS[ PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] ][2],
+															HARVEST_CHECKPOINTS[ PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] + 1 ][0],
+															HARVEST_CHECKPOINTS[ PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] + 1 ][1],
+															HARVEST_CHECKPOINTS[ PLAYER_TEMP[playerid][py_HARVERT_PROCCESS] + 1 ][2],
+															5.0,
+															0,
+															0,
+															playerid
+														);
+	}
+
+	new info[1];
+	info[0] = CHECKPOINT_TYPE_HARVEST;
+	Streamer_SetArrayData(STREAMER_TYPE_RACE_CP, PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT], E_STREAMER_EXTRA_ID, info);
+
+	return 1;
+}
+
+DestroyPlayerCheckpoints(playerid)
+{
+	if (IsValidDynamic3DTextLabel(PLAYER_TEMP[playerid][py_POLICE_LABEL]))
+	{
+		DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_POLICE_LABEL]);
+		PLAYER_TEMP[playerid][py_POLICE_LABEL] = Text3D:INVALID_STREAMER_ID;
+	}
+
+	if (IsValidDynamic3DTextLabel(PLAYER_TEMP[playerid][py_ADMIN_LABEL]))
+	{
+		DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_ADMIN_LABEL]);
+		PLAYER_TEMP[playerid][py_ADMIN_LABEL] = Text3D:INVALID_STREAMER_ID;
+	}
+
+	if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_GPS_CHECKPOINT]))
+	{
+		DestroyDynamicCP(PLAYER_TEMP[playerid][py_GPS_CHECKPOINT]);
+    	CancelTracing(playerid);
+		PLAYER_TEMP[playerid][py_GPS_CHECKPOINT] = INVALID_STREAMER_ID;
+	}
+
+	if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_TRUCK_CHECKPOINT]))
+	{
+		DestroyDynamicCP(PLAYER_TEMP[playerid][py_TRUCK_CHECKPOINT]);
+    	CancelTracing(playerid);
+		PLAYER_TEMP[playerid][py_TRUCK_CHECKPOINT] = INVALID_STREAMER_ID;
+	}
+
+	if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_TRASH_CHECKPOINT]))
+	{
+		DestroyDynamicCP(PLAYER_TEMP[playerid][py_TRASH_CHECKPOINT]);
+    	CancelTracing(playerid);
+		PLAYER_TEMP[playerid][py_TRASH_CHECKPOINT] = INVALID_STREAMER_ID;
+	}
+
+	if (IsValidDynamicRaceCP(PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT]))
+	{
+		DestroyDynamicRaceCP(PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT]);
+		PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT] = INVALID_STREAMER_ID;
+	}
+	return 1;
+}

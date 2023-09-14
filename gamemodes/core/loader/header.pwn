@@ -153,7 +153,7 @@ SanAndreas()
 		SELL_VEHICLES[vehicle_id][sell_vehicle_VALID] = true;
 		SELL_VEHICLES[vehicle_id][sell_vehicle_SHOP] = SELL_INFO_VEHICLES[i][sell_info_SHOP];
 		SELL_VEHICLES[vehicle_id][sell_vehicle_PRICE] = VEHICLE_INFO[GLOBAL_VEHICLES[vehicle_id][gb_vehicle_MODELID] - 400][vehicle_info_PRICE];
-		SELL_VEHICLES[vehicle_id][sell_vehicle_LEVEL] = 1; /*VEHICLE_INFO[GLOBAL_VEHICLES[vehicle_id][gb_vehicle_MODELID] - 400][vehicle_info_LEVEL];*/
+		SELL_VEHICLES[vehicle_id][sell_vehicle_LEVEL] = 1;
 		SELL_VEHICLES[vehicle_id][sell_vehicle_EXTRA] = VEHICLE_INFO[GLOBAL_VEHICLES[vehicle_id][gb_vehicle_MODELID] - 400][vehicle_info_COINS];
 		SELL_VEHICLES[vehicle_id][sell_vehicle_VIP_LEVEL] = VEHICLE_INFO[GLOBAL_VEHICLES[vehicle_id][gb_vehicle_MODELID] - 400][vehicle_info_VIP_LEVEL];
 
@@ -519,8 +519,6 @@ SanAndreas()
 	AddKeyArea(-212.521926, -1739.015014, 0.8, KEY_TYPE_H);
 	AddKeyArea(-11.283934, 88.862136, 0.8, KEY_TYPE_Y);
 
-	/* v1.0 Features */
-
 	// Stall
 	CreateStalls();
 
@@ -531,112 +529,5 @@ SanAndreas()
 	CreateBall();
 	Soccer_LoadCollisions();
 	Soccer_LoadMap();
-	return 1;
-}
-
-Hyaxe_Initialize()
-{
-	CA_RemoveBarriers();
-	RemoveObjectCollisions();
-
-	CA_Init();
-
-	//SvDebug(SV_TRUE);
-
-    // Server
-	SetGameModeText(SERVER_MODE);
-
-	SendRconCommand("hostname Hyaxe Dev | "SERVER_VERSION"");
-	
-	#if defined FINAL_BUILD
-		SetTimer("GiveAutoGift", 300000, false);
-		SendRconCommand("hostname "SERVER_HOSTNAME"");
-    	//SetTimer("SendGift", 120000, true);
-	#endif
-
-	#if defined HALLOWEEN_MODE
-		SendRconCommand("hostname "HALLOWEEN_HOSTNAME"");
-		HalloweenMap();
-	#endif
-
-	#if defined CHRISTMAS_MODE
-		SendRconCommand("hostname "CHRISTMAS_HOSTNAME"");
-		ChristmasMap();
-	#endif
-
-	#if defined EASTER_MODE
-		SendRconCommand("hostname "EASTER_HOSTNAME"");
-		EasterMap();
-	#endif
-
-	SendRconCommand("language "SERVER_LANGUAGE"");
-	SendRconCommand("weburl "SERVER_WEBSITE"");
-	SendRconCommand("minconnectiontime 50");
-	SendRconCommand("ackslimit 10000");
-	SendRconCommand("messageslimit 5000");
-	//SendRconCommand("conncookies 0");
-	//SendRconCommand("cookielogging 0");
-	SendRconCommand("chatlogging 1");
-
-	UsePlayerPedAnims();
-	DisableInteriorEnterExits();
-	ShowPlayerMarkers(PLAYER_MARKERS_MODE_GLOBAL);
-	SetNameTagDrawDistance(25.0);
-	EnableStuntBonusForAll(false);
-	ManualVehicleEngineAndLights();
-	FormatDialogStrings();
-
-	SanAndreas();
-
-	LoadServerInfo();
-	UpdateEconomy();
-	CreateGraffitis();
-	CreateMinerRocks();
-
-	SetTimer("UpdateWantedLevelMark", 30000, true);
-
-	SetTimer("FirstGraffitiAnnounce", 1500000, false);
-	SetTimer("InitLastGraffiti", 60000, false);
-
-	GraffitiGetTime = gettime();
-	MarketGetTime = gettime();
-	
-	/*lgbt_timers[0] = SetTimer("ChangeLgbtMap", 600000, false);
-	lgbt_map_index = random(sizeof(LGBT_MAPS));*/
-
-    Log("status", "Servidor iniciado ("SERVER_VERSION").");
-    SendDiscordWebhook(":fire: Servidor iniciado ("SERVER_VERSION").", 1);
-    ServerInitTime = gettime();
-    return 1;
-}
-
-Hyaxe_Stop()
-{
-	SendDiscordWebhook(":grey_exclamation: Servidor detenido.", 1);
-
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (!IsPlayerConnected(i)) continue;
-
-		if (CHARACTER_INFO[i][ch_POLICE_JAIL_TIME] > 0)
-			CHARACTER_INFO[i][ch_POLICE_JAIL_TIME] -= gettime() - PLAYER_TEMP[i][py_ENTER_JAIL_TIME];
-			
-		SaveUserData(i);
-		SavePlayerToysData(i);
-		SavePlayerVehicles(i, false);
-		SavePlayerSkills(i);
-		SavePlayerWorks(i);
-		SavePlayerMisc(i);
-
-		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
-	}
-
-	#if DEBUG_MODE == 1
-		printf("OnGameModeExit"); // debug juju
-	#endif
-
-	printf("Deteniendo servidor...");
-	db_close(Database);
-	Log("status", "Servidor detenido.");
 	return 1;
 }

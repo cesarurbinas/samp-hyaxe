@@ -93,7 +93,7 @@
 
 // Voice Chat
 #if defined VOICE_CHAT
-    #include <hyaxe>
+	#include <hyaxe>
 #endif
 
 // Logger and flags
@@ -333,6 +333,16 @@
 // Select menu
 #include "core/gui/select.pwn"
 
+// Dialogs
+#include "core/dialog/show.pwn"
+#include "core/dialog/response.pwn"
+
+// Player callbacks
+#include "core/player/callbacks.pwn"
+
+// World configuration
+#include "core/world/config.pwn"
+
 // Gamemodes
 //#include "core/lgbt_infection/functions.pwn"
 //#include "core/lgbt_infection/callbacks.pwn"
@@ -353,6 +363,9 @@
 	#include "core/maps/easter.pwn"
 #endif
 
+// Loader
+#include "core/loader/header.pwn"
+
 main()
 {
 	printf("[info: hostname] "SERVER_HOSTNAME"");
@@ -362,6 +375,7 @@ main()
 	printf("\n[build] Hyaxe SA-MP "SERVER_VERSION"\n");
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2406,6 +2420,8 @@ SanAndreas()
 	return 1;
 }
 
+=======
+>>>>>>> 9077738 (modulation finishied)
 public OnGameModeInit()
 {
 	CA_RemoveBarriers();
@@ -2415,7 +2431,7 @@ public OnGameModeInit()
 
 	//SvDebug(SV_TRUE);
 
-    // Server
+	// Server
 	SetGameModeText(SERVER_MODE);
 
 	SendRconCommand("hostname Hyaxe Dev | "SERVER_VERSION"");
@@ -2423,7 +2439,7 @@ public OnGameModeInit()
 	#if defined FINAL_BUILD
 		SetTimer("GiveAutoGift", 300000, false);
 		SendRconCommand("hostname "SERVER_HOSTNAME"");
-    	//SetTimer("SendGift", 120000, true);
+		//SetTimer("SendGift", 120000, true);
 	#endif
 
 	#if defined HALLOWEEN_MODE
@@ -2476,10 +2492,10 @@ public OnGameModeInit()
 	/*lgbt_timers[0] = SetTimer("ChangeLgbtMap", 600000, false);
 	lgbt_map_index = random(sizeof(LGBT_MAPS));*/
 
-    Log("status", "Servidor iniciado ("SERVER_VERSION").");
-    SendDiscordWebhook(":fire: Servidor iniciado ("SERVER_VERSION").", 1);
-    ServerInitTime = gettime();
-    return 1;
+	Log("status", "Servidor iniciado ("SERVER_VERSION").");
+	SendDiscordWebhook(":fire: Servidor iniciado ("SERVER_VERSION").", 1);
+	ServerInitTime = gettime();
+	return 1;
 }
 
 public OnGameModeExit()
@@ -2511,6 +2527,7 @@ public OnGameModeExit()
 	db_close(Database);
 	Log("status", "Servidor detenido.");
 	return 1;
+<<<<<<< HEAD
 }
 
 RemoveObjectCollisions()
@@ -6061,3 +6078,6 @@ GetPlayerZones(playerid, city[], zone[])
 
 // World configuration
 #include "core/world/config.pwn"
+=======
+}
+>>>>>>> 9077738 (modulation finishied)

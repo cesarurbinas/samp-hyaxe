@@ -6037,3 +6037,53 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 	return 1;
 }
+
+ResetPlayerVariables(playerid)
+{
+	minigames_page[playerid] = 0;
+	in_main_menu[playerid] = false;
+	in_gamemode_menu[playerid] = false;
+
+	new temp_PLAYER_TEMP[Temp_Enum]; PLAYER_TEMP[playerid] = temp_PLAYER_TEMP;
+	new temp_ACCOUNT_INFO[Account_Enum]; ACCOUNT_INFO[playerid] = temp_ACCOUNT_INFO;
+	new temp_CHARACTER_INFO[Character_Enum]; CHARACTER_INFO[playerid] = temp_CHARACTER_INFO;
+	new temp_BANK_ACCOUNT[Bank_Account_Enum]; BANK_ACCOUNT[playerid] = temp_BANK_ACCOUNT;
+
+	CancelTracing(playerid);
+
+	new temp_PLAYER_TOYS[Player_Toys_Info];
+	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) PLAYER_TOYS[playerid][i] = temp_PLAYER_TOYS;
+
+	new temp_PLAYER_POCKET[Player_Pocket_Enum];
+	for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++) PLAYER_POCKET[playerid][i] = temp_PLAYER_POCKET;
+
+	new temp_PLAYER_PHONE[Phone_Info_Enum]; PLAYER_PHONE[playerid] = temp_PLAYER_PHONE;
+
+	new temp_PLAYER_PHONE_BOOK[Phone_Book_Enum];
+	for(new i = 0; i != MAX_PHONE_CONTACTS; i ++) PLAYER_PHONE_BOOK[playerid][i] = temp_PLAYER_PHONE_BOOK;
+
+	new temp_PLAYER_GPS[Player_GPS_Enum];
+	for(new i = 0; i != MAX_PLAYER_GPS_SAVES; i ++) PLAYER_GPS[playerid][i] = temp_PLAYER_GPS;
+
+	new temp_PLAYER_OBJECT[Player_Objects_Enum]; PLAYER_OBJECT[playerid] = temp_PLAYER_OBJECT;
+
+	for(new i = 0; i != sizeof(PLAYER_SKILLS[]); i ++) PLAYER_SKILLS[playerid][i] = 0;
+
+	for(new i = 0; i != sizeof(PLAYER_WORKS[]); i ++) PLAYER_WORKS[playerid][i] = 0;
+
+	for(new i = 0; i != sizeof(PLAYER_MISC[]); i ++) PLAYER_MISC[playerid][E_MISC_DATA:i] = 0;
+
+	new temp_PLAYER_PROPERTY_CONSTRUCTO[PLAYER_PROPERTY_CONSTRUCTOR_ENU]; PLAYER_PROPERTY_CONSTRUCTOR[playerid] = temp_PLAYER_PROPERTY_CONSTRUCTO;
+
+	PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] = INVALID_PLAYER_ID;
+	PLAYER_TEMP[playerid][py_ADMIN_SERVICE] = false;
+
+	new tmp_PLAYER_WEAPONS[enum_PLAYER_WEAPONS];
+	for(new i = 0; i != 13; i ++) PLAYER_WEAPONS[playerid][i] = tmp_PLAYER_WEAPONS;
+
+	new tmp_PLAYER_AC_INFO[e_PLAYER_AC_INFO];
+	for(new i = 0; i != sizeof(ac_Info); i ++) PLAYER_AC_INFO[playerid][i] = tmp_PLAYER_AC_INFO;
+
+	new tmp_PLAYER_CREW[enum_PLAYER_CREW]; PLAYER_CREW[playerid] = tmp_PLAYER_CREW;
+	return 1;
+}
