@@ -40,5 +40,28 @@ def update_credit(key, identificator, credit):
 
 	return '0'
 
+# Buy product
+@app.route('/<key>/product_buy/<identificator>/<credit>')
+def product_buy(key, identificator, credit):
+	if key == auth_key:
+		try:
+			f = open(f'data/{identificator}', 'r')
+			actual_credit = int(f.read())
+			negative_credit = int(credit)
+
+			if actual_credit > negative_credit:
+				new_credit = (actual_credit - negative_credit)
+				if new_credit < 0:
+					new_credit = 0
+
+				update_credit(auth_key, identificator, str(new_credit))
+				return 'Y'
+		
+		except Exception as e:
+			print(f'[Error - product_buy]: {e}')
+			pass
+
+	return 'N'
+
 if __name__ == '__main__':
 	app.run(host = '0.0.0.0', port = 54777, debug = False)
