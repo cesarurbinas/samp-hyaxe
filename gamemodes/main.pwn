@@ -19912,21 +19912,51 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
-						new crane_point = random(sizeof(CRANE_POINTS));
-						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_X] = CRANE_POINTS[crane_point][0];
-						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Y] = CRANE_POINTS[crane_point][1];
-						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = CRANE_POINTS[crane_point][2];
-						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = CRANE_POINTS[crane_point][3];
+						// Spawn type
+						new vehicle_type = GetVehicleType( GetVehicleModel(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]) );
 
+						switch(vehicle_type)
+						{
+							// Helicópteros
+							case 0:
+							{
+
+							}
+
+							// Aviones
+							case 1:
+							{
+
+							}
+
+							// Barcos
+							case 2:
+							{
+								
+							}
+
+							// Autos, motos, etc
+							default:
+							{
+								new crane_point = random(sizeof(CRANE_POINTS));
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_X] = CRANE_POINTS[crane_point][0];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Y] = CRANE_POINTS[crane_point][1];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_Z] = CRANE_POINTS[crane_point][2];
+								GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_SPAWN_ANGLE] = CRANE_POINTS[crane_point][3];
+								
+								ShowPlayerNotification(playerid, "El vehículo ha sido remolcado al ~y~Depósito municipal~w~.", 4);
+							}
+						}
+
+						// Reset
 						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_LAST_CLOSED_TIME] = gettime();
 						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_PARAMS_ENGINE] = 0;
 						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_PARAMS_LIGHTS] = 0;
 						GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_CRANE_VEHICLE] ][gb_vehicle_PARAMS_DOORS] = 1;
+
 						UpdateVehicleParams(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
 						SetVehicleToRespawnEx(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
 						RepairVehicleEx(PLAYER_TEMP[playerid][py_CRANE_VEHICLE]);
-
-						ShowPlayerNotification(playerid, "El vehículo ha sido remolcado hasta el depósito municipal.", 4);
 					}
 					case 1:
 					{

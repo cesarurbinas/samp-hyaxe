@@ -483,3 +483,18 @@ stock AngleInRangeOfAngle(Float:a1, Float:a2, Float:range) {
 	return (a1 < range) && (a1 > -range);
 
 }
+
+// Vehicles
+GetVehicleType(modelid)
+{
+	switch(modelid)
+	{
+		// Helicopteros
+		case 548, 425, 417, 487, 488, 497, 563, 447, 469: return 0;
+		// Aviones
+		case 592, 577, 511, 512, 593, 520, 553, 476, 519, 460, 513: return 1;
+		// Barcos
+		case 472, 473, 493, 595, 484, 430, 453, 452, 446, 454: return 2;
+	}
+	return 3;
+}
