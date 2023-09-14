@@ -3564,9 +3564,23 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 	    }
 
 	    /*Slapper*/
-	    if(onFootData[PR_animationId] == 1666 && onFootData[PR_animationFlags] == 4356)
+	    if (onFootData[PR_animationId] == 1666 && onFootData[PR_animationFlags] == 4356)
 	    {
 	    	return 0;
+	    }
+
+	    /*NOP Freeze*/
+	    if (PLAYER_TEMP[playerid][py_CONTROL])
+	    {
+	    	if (IsPlayerMoving(playerid))
+            {
+            	new string[128];
+				format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): NOP Animation", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+				SendDiscordWebhook(string, 1);
+				KickEx(playerid);
+				return 0;
+            }
 	    }
     }
 
@@ -3816,6 +3830,7 @@ SetPlayerPoliceSearchLevel(playerid, level)
 	SendPoliceMark(playerid, 0xCB2828FF);
 
     SavePlayerMisc(playerid);
+    ShowPlayerNotification(playerid, "Sera mejor que corras, la policía te esta buscando", 3);
     return 1;
 }
 
@@ -4214,6 +4229,7 @@ public OnPlayerDisconnect(playerid, reason)
   		{
   			SavePlayerVehicles(playerid, true);
 	  		SaveUserData(playerid);
+	  		SavePlayerMisc(playerid);
 
   			if (PLAYER_CREW[playerid][player_crew_VALID]) CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ONLINE_MEMBERS] --;
 
@@ -4452,7 +4468,7 @@ public OnRconLoginAttempt(ip[], password[], success)
 
 FreezeThenAutoUnfreeze(playerid, time)
 {
-    TogglePlayerControllable(playerid, 0);
+    TogglePlayerControllableEx(playerid, 0);
     SetTimerEx("UnfreezeBastard", time, false, "i", playerid);
 }
 
@@ -6076,7 +6092,7 @@ public OnPlayerSpawn(playerid)
     			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
     			TogglePlayerControllableEx(playerid, false);
     			DeleteIlegalInv(playerid);
-    			TogglePlayerControllable(playerid, 1);
+    			TogglePlayerControllableEx(playerid, 1);
     			SetPlayerColorEx(playerid, PLAYER_COLOR);
 
 				SetPlayerHud(playerid);
@@ -8612,6 +8628,7 @@ CALLBACK: SavePlayerData(playerid)
 {
 	SaveUserData(playerid);
 	SavePlayerVehicles(playerid, false);
+	SavePlayerMisc(playerid);
 	SavePlayerWeaponsData(playerid);
 	return 1;
 }
@@ -9886,7 +9903,7 @@ ShowDialog(playerid, dialogid)
 				format(str, sizeof str, "{dc0606}Necesitas ser al menos nivel %d para poder comprar este vehículo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_LEVEL]);
 				strcat(dialog, str);
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_WHITE"Comprar vehículo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
@@ -9895,7 +9912,7 @@ ShowDialog(playerid, dialogid)
 				format(str, sizeof str, "{dc0606}Necesitas membresía VIP%d para poder comprar este vehículo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_VIP_LEVEL]);
 				strcat(dialog, str);
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_WHITE"Comprar vehículo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
@@ -9903,7 +9920,7 @@ ShowDialog(playerid, dialogid)
 			{
 				strcat(dialog, "{dc0606}Necesitas una cuenta bancaria para poder comprar vehículos.");
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_WHITE"Comprar vehículo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
@@ -9913,7 +9930,7 @@ ShowDialog(playerid, dialogid)
 				format(str, sizeof str, "{dc0606}Te faltan %s$ en tu cuenta bancaria para poder comprar este vehículo.", number_format_thousand(diff));
 				strcat(dialog, str);
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_WHITE"Comprar vehículo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
@@ -9922,7 +9939,7 @@ ShowDialog(playerid, dialogid)
 				format(str, sizeof str, "{dc0606}Te faltan %d "SERVER_COIN" para poder comprar este vehículo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA] - ACCOUNT_INFO[playerid][ac_SD]);
 				strcat(dialog, str);
 				PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] = INVALID_VEHICLE_ID;
-				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_WHITE"Comprar vehículo", dialog, "Salir", "");
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Salir", "");
 				return 1;
 			}
 
@@ -9930,7 +9947,7 @@ ShowDialog(playerid, dialogid)
 			else format(str, sizeof str, "Tus monedas: %d "SERVER_COIN"\nMonedas tras la compra: %d "SERVER_COIN"\n\n¿De verdad desea comprar este vehículo?", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SD] - SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA]);
 			strcat(dialog, str);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_WHITE"Comprar vehículo", dialog, "Comprar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar vehículo", dialog, "Comprar", "Salir");
 			return 1;
 		}
 		case DIALOG_NOTARY:
@@ -12360,6 +12377,7 @@ ShowDialog(playerid, dialogid)
 			);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"VIP", dialog, "Salir", "Renovar");
+			ShowPlayerMessage(playerid, "~r~AVISO~w~~n~No presione ESC para salir, haga click en SALIR", 10);
 			return 1;
 		}
 		case DIALOG_VOBJECT_MENU:
@@ -12953,7 +12971,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerNotification(playerid, str_text, 4);
 
 				// ONLY HOST
-				//PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 700000, true, "i", playerid);				
+				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 700000, true, "i", playerid);				
 
 				new pass_str[364];
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
@@ -25690,7 +25708,7 @@ SetPlayerPosEx(playerid, Float:x, Float:y, Float:z, Float:angle, interior, world
 		TogglePlayerControllableEx(playerid, false);
 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
 		PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
-		ShowPlayerMessage(playerid, "Cargando objetos...", 2);
+		ShowPlayerMessage(playerid, "~r~CARGANDO...~w~~n~Espere por favor", 2);
 	}
 
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
@@ -30180,13 +30198,13 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	if (ACCOUNT_INFO[playerid][ac_LEVEL] == 1)
 	{
 		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar siendo nivel 1.");
-		KickEx(playerid, 500);
+		KickEx(playerid);
 	}
 
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
 	{
 		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar estando herido.");
-		KickEx(playerid, 500);
+		KickEx(playerid);
 	}
 
 	if (PLAYER_TEMP[playerid][py_EXPLOSION_BULLET] == true)
@@ -34630,7 +34648,6 @@ CMD:c(playerid, params[])
 	format(str_text, sizeof(str_text), "%s le puso %d cargos a ~r~%s~w~ (%s).", PLAYER_TEMP[playerid][py_NAME], level, PLAYER_TEMP[to_player][py_NAME], reason);
 	SendPoliceNotification(str_text, 4);
 
-	ShowPlayerNotification(to_player, "Sera mejor que corras, la policía te esta buscando", 2);
 	SetPlayerPoliceSearchLevel(to_player, level);
 	return 1;
 }

@@ -165,3 +165,13 @@ SetFirstPersonPos(playerid, Float:x, Float:y, Float:z)
 	AttachCameraToObject(playerid, PLAYER_TEMP[playerid][py_FP_OBJ]);
 	return 1;
 }
+
+bool:IsPlayerMoving(playerid)
+{
+    switch(GetPlayerAnimationIndex(playerid))
+    {
+        case 463 .. 470, 1222 .. 1236, 1256 .. 1273, 1276 .. 1287: return true;
+    }
+
+    return false;
+}
