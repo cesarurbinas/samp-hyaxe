@@ -109,7 +109,7 @@
 #include <../../gamemodes/utils/edit_mode/edit.pwn>
 
 // Server Config
-#define SERVER_VERSION 			"v0.5"
+#define SERVER_VERSION 			"v0.5 Pre-Release"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -5602,7 +5602,8 @@ Menu:PROPERTY_MENU(playerid, response, listitem)
 			}
 			case 2:
 			{
-				ShowFurnitureMenu(playerid);
+				//ShowFurnitureMenu(playerid);
+				ShowPlayerMessage(playerid, "~r~Esta opción no esta disponible por el momento", 4);
 			}
     	}
     }

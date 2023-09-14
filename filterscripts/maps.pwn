@@ -13698,7 +13698,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 17301, -49.390, -1140.869, 5.203, 0.250);
 	RemoveBuildingForPlayer(playerid, 17421, -49.390, -1140.869, 5.203, 0.250);
 
-	//shop1
+	/*//shop1
 	RemoveBuildingForPlayer(playerid, 18521, -2213.9688, -2295.9609, 29.6172, 0.25);
 	RemoveBuildingForPlayer(playerid, 18235, -2213.9688, -2295.9609, 29.6172, 0.25);
 
@@ -13717,7 +13717,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 12950, 2323.3359, 27.3125, 27.1094, 0.25);
 	RemoveBuildingForPlayer(playerid, 12949, 2328.9219, 30.9375, 25.4766, 0.25);
 	RemoveBuildingForPlayer(playerid, 1687, 2329.9766, 35.9844, 31.2422, 0.25);
-	RemoveBuildingForPlayer(playerid, 1294, 2335.1406, 24.1719, 29.8125, 0.25);
+	RemoveBuildingForPlayer(playerid, 1294, 2335.1406, 24.1719, 29.8125, 0.25);*/
 	
 	//garaje tunin
 	RemoveBuildingForPlayer(playerid, 13062, 266.3594, 20.1328, 5.4844, 0.25);
