@@ -33247,6 +33247,17 @@ CheckAndOpenBoot(playerid)
 	return 1;
 }
 
+CMD:clickslot(playerid, params[])
+{
+	new slot;
+	if (sscanf(params, "d", slot)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /clickslot "COL_WHITE"<slot>");
+	if (slot < 0) return 0;
+	if (slot > 11) return 0;
+
+	ClickInventorySlot(playerid, slot, true);
+	return 1;
+}
+
 CMD:esposar(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
