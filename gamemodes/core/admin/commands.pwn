@@ -1965,6 +1965,67 @@ CMD:putboot(playerid, params[])
 }
 flags:putboot(CMD_MODERATOR3)
 
+CMD:setgang(playerid, params[])
+{
+    new gang;
+    if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setgang <gang_id>");
+
+    if (!CREW_INFO[gang][crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta banda ya no existe.", 2);
+	if (!CREW_RANK_INFO[gang][ CREW_INFO[gang][crew_ID] ][crew_rank_VALID]) return ShowPlayerMessage(playerid, "~r~El rango principal ya no existe.", 2);
+	if (CREW_INFO[gang][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes unirte a la banda cuando la banda está en combate.", 2);
+
+	PLAYER_CREW[playerid][player_crew_VALID] = true;
+	PLAYER_CREW[playerid][player_crew_ID] = CREW_INFO[gang][crew_ID];
+	PLAYER_CREW[playerid][player_crew_RANK] = 0;
+	PLAYER_CREW[playerid][player_crew_INDEX] = gang;
+	
+	CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MEMBERS] ++;
+	CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ONLINE_MEMBERS] ++;
+	
+	PLAYER_TEMP[playerid][py_LAST_GOT_CREW] = gettime();
+	SetPlayerGangZones(playerid);
+
+	new DB_Query[200];
+	format(DB_Query, sizeof DB_Query,
+		"\
+			DELETE FROM `PLAYER_CREW` WHERE `ID_USER` = '%d';\
+			INSERT INTO `PLAYER_CREW` (`ID_USER`, `ID_CREW`, `RANK`) VALUES ('%d', '%d', '%d');\
+		",
+			ACCOUNT_INFO[playerid][ac_ID],
+			ACCOUNT_INFO[playerid][ac_ID],
+			PLAYER_CREW[playerid][player_crew_ID],
+			PLAYER_CREW[playerid][player_crew_RANK]
+	);
+	db_free_result(db_query(Database, DB_Query));
+
+	SendCmdLogToAdmins(playerid, "setgang", params);
+    return 1;
+}
+flags:setgang(CMD_MODERATOR5)
+
+CMD:getgang(playerid, params[])
+{
+    new gang;
+    if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setgang <gang_id>");
+
+    SendClientMessage(playerid, COLOR_WHITE, "Buscando...");
+    
+    new count ++;
+    for(new x = 0; x < MAX_CREWS; x ++)
+    {
+        if (strfind(gang_name, CREW_INFO[x][crew_NAME], true) != -1)
+        {
+        	SendClientMessageEx(playerid, COLOR_WHITE, "Nombre: {f4f442}'%s' "COL_WHITE"DB-ID: '%d'", get_name, id);
+			count ++;
+		}
+    }
+	SendClientMessageEx(playerid, COLOR_WHITE, "Se encontraron %d coincidencias.", count);
+
+	SendCmdLogToAdmins(playerid, "getgang", params);
+    return 1;
+}
+flags:getgang(CMD_MODERATOR5)
+
 CMD:jailtime(playerid, params[])
 {
 	new to_player;
