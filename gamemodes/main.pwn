@@ -6567,7 +6567,7 @@ InitBlackMarket(market_id)
 	}
 	return 1;
 }
-
+ 
 InitGraffiti(graff_id)
 {
 	ResetGraffitiTextdraw();
