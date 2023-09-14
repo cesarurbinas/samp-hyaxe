@@ -149,7 +149,7 @@ AddItemToVehicle(vehicle_id, type, extra)
 	"\
 		INSERT INTO `VEHICLE_STORAGE`\
 		(\
-			`ID_PROPERTY`, `TYPE`, `EXTRA`\
+			`ID_VEHICLE`, `TYPE`, `EXTRA`\
 		)\
 		VALUES\
 		(\
@@ -177,7 +177,7 @@ ItemAlreadyInVehicle(vehicle_id, type)
 		id
 	;
 
-	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_STORAGE` WHERE `TYPE` = '%d' AND `ID_PROPERTY` = '%d';", type, vehicle_id);
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_STORAGE` WHERE `TYPE` = '%d' AND `ID_VEHICLE` = '%d';", type, vehicle_id);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -204,7 +204,7 @@ GetVehicleItemsCount(vehicle_id)
 		count
 	;
 
-	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_STORAGE` WHERE `ID_PROPERTY` = '%d';", vehicle_id);
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_STORAGE` WHERE `ID_VEHICLE` = '%d';", vehicle_id);
 	Result = db_query(Database, DB_Query);
 
 	count = db_num_rows(Result);
