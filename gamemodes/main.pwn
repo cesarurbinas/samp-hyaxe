@@ -14724,7 +14724,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_STORE:
 		{
 			new
-				dialog[564]
+				dialog[564],
 				caption[128]
 			;
 
