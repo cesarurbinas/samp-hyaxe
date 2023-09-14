@@ -100,7 +100,7 @@ CreateClub(const name[], const welcome[], Float:x, Float:y, Float:z, Float:angle
 	;
 
 	Result = db_query(Database, "SELECT MAX(`ID`) FROM `CLUB_INFO`;");
-	if (db_num_rows(Result)) index = db_get_field_int(Result, 0);
+	if (db_num_rows(Result)) index = db_get_field_int(Result, 0) + 1;
 	db_free_result(Result);
 
 	CLUBS_INFO[index][club_VALID] = true;
