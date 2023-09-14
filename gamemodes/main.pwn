@@ -189,6 +189,11 @@
 #include "core/player/vehicles.pwn"
 #include "core/player/objects.pwn"
 
+// Entity
+#include "core/entity/header.pwn"
+#include "core/entity/functions.pwn"
+#include "core/entity/callbacks.pwn"
+
 // Propierties
 #include "core/furniture/list.pwn"
 

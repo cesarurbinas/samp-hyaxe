@@ -32,7 +32,9 @@ Listado de cosas para hacer
 
 ❌ Cambiar intro
 
-❌ Cambiar login
+✅ Cambiar login
+
+✅ Arreglar global alias
 
 ❌ Agregar tiendas en los burdeles
 
@@ -42,17 +44,17 @@ Listado de cosas para hacer
 
 ❌ Agregar zona comercial
 
-❌ Agregar mas tiendas d ropa
+❌ Agregar mas tiendas de ropa
 
 ❌ Que las vestimentas se vayan guardando
 
 ❌ Agregar logros
 
-❌ Cambiar colores del selective dialog
+🕐 Cambiar colores del selective dialog
 
 ❌ Acortar el nombre de los toys
 
-❌ Agregar opcion a los toys para que se acomoden solos
+🕐 Agregar opcion a los toys para que se acomoden solos
 
 ❌ Agregas mas utilidad al banco
 
@@ -106,7 +108,7 @@ Listado de cosas para hacer
 
 ✅ Arreglar altura de paracaidas, calabaza y regalo
 
-❌ Arreglar barra del inventario
+🕐 Arreglar barra del inventario
 
 ✅ Agregar el celular al inventario
 
@@ -120,4 +122,8 @@ Listado de cosas para hacer
 
 ✅ Comida consumible
 
+✅ Arreglar btn de banda
+
 ❌ Agregar el poder de remolcar tus propios autos con otro auto
+
+❌ Arreglar bypass del vehicle health

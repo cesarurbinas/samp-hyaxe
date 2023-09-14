@@ -115,7 +115,7 @@ CreatePlayerTextDraws(playerid)
 
 	PlayerTextdraws[playerid][ptextdraw_INV][2] = CreatePlayerTextDraw(playerid, 240.000000, 96.666625, "Banda");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], 0.434165, 1.791556);
-	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], 258.00000, 18.0000);
+	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], 258.00000, 40.0000);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], 1);
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], -1);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], 0);
