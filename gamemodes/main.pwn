@@ -31844,6 +31844,13 @@ EndPlayerJob(playerid, changeskin = true)
 
 			if(IsValidDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]))
 				DestroyDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]);
+
+			if(IsValidDynamicCP(PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT]))
+			{
+				TogglePlayerDynamicCP(playerid, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], false);
+				DestroyDynamicCP(PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT]);
+			}
+			
 			LogCarts[playerid][cart_VALID] = false;
 		}
 	}
