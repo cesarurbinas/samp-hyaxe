@@ -6109,7 +6109,7 @@ public OnPlayerSpawn(playerid)
 
 				PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME] = gettime();
 				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
-
+				Streamer_UpdateEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], 0, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], .freezeplayer = 1);
 				new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te quedan {62d743}%s"COL_WHITE" minutos de condena.", TimeConvert(time));
 
@@ -6137,9 +6137,7 @@ public OnPlayerSpawn(playerid)
 
     			ac_ResetPlayerWeapons(playerid);
     			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-    			TogglePlayerControllableEx(playerid, false);
     			DeleteIlegalInv(playerid);
-    			TogglePlayerControllableEx(playerid, true);
     			SetPlayerColorEx(playerid, PLAYER_COLOR);
 
 				SetPlayerHud(playerid);
