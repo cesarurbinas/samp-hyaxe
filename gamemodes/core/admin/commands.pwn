@@ -234,7 +234,6 @@ CMD:aka(playerid, params[])
 	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
 	if (isnull(ACCOUNT_INFO[to_player][ac_IP])) return SendClientMessage(playerid, COLOR_WHITE, "IP no válida.");
 	SendCmdLogToAdmins(playerid, "aka", params);
-	if (!strcmp(PLAYER_TEMP[to_player][py_IP], "170.83.220.2")) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No puedes hacer eso con este usuario.");
 	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Yahir_Kozel")) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No puedes hacer eso con este usuario.");
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "AKA de %s (%d):", ACCOUNT_INFO[to_player][ac_NAME], to_player);

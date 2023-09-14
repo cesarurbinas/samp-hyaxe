@@ -32475,13 +32475,24 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 		new message[145];
 		format(message, sizeof message, "%s ha conquistado un nuevo territorio.", CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
 
-		new query[200];
-		format(query, sizeof(query), "\
-			UPDATE `CREW_TERRITORIES` SET \
-				`ID_CREW` = %d \
-			WHERE `ID_TERRITORY` = %d; \
-		", TERRITORIES[territory_index][territory_ID],
-		TERRITORIES[territory_index][territory_CREW_ID]);
+		new DBResult:rows, query[200];
+		format(query, sizeof(query), "SELECT * FROM `CREW_TERRITORIES` WHERE `ID_TERRITORY` = %d;", TERRITORIES[territory_index][territory_ID]);
+		rows = db_query(Database, query);
+		if(!db_num_rows(rows))
+		{
+			format(query, sizeof(query), "\
+				INSERT INTO `CREW_TERRITORIES` (`ID_CREW`, `ID_TERRITORY`) VALUES (%d, %d);", TERRITORIES[territory_index][territory_CREW_ID], TERRITORIES[territory_index][territory_ID]);
+		}
+		else
+		{
+			format(query, sizeof(query), "\
+				UPDATE `CREW_TERRITORIES` SET \
+					`ID_CREW` = %d \
+				WHERE `ID_TERRITORY` = %d; \
+			", TERRITORIES[territory_index][territory_CREW_ID],
+			TERRITORIES[territory_index][territory_ID]);
+		}
+		db_free_result(rows);
 		db_free_result(db_query(Database, query));
 
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_LAST_ATTACK] = gettime();
