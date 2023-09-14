@@ -12685,19 +12685,14 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_SU_BUY:
 		{
 			new dialog[664];
-			format(dialog, sizeof dialog, ""COL_WHITE"Ventajas del VIP\n\
+			format(dialog, sizeof dialog, ""COL_WHITE"Ventajas del VIP Classic\n\
 				- Tener hasta 6 vehículos\n\
-				- Tener hasta 6 propiedades\n\
-				- No pagas seguro de propiedades y vehículos en el Payday\n\
-				- Te recuperas el doble de rápido en el hospital\n\
-				- Al recuperarte en el hospital no se te van a cobrar por los servicios médicos\n\
-				- Al recuperarte tu vida es del 100\n\
+				- Tener hasta 2 propiedades\n\
 				- Te pagaran más en algunos trabajos\n\
-				- Rol especial en el Discord\n\
-				- Regalos secretos\n\
 				- Desbloquear el acceso a propiedades y vehículos exclusivos\n\
-				- Tendrás un bono cada PayDay\n\n\
-				El VIP se paga mensualmente, 30 días vale %d "SERVER_COIN"", SU_SD_PRICE);
+				- Rol especial en el Discord\n\
+				El VIP se paga mensualmente, 30 días vale %d "SERVER_COIN".\n\
+				Si desea el VIP Turbo, visite hyaxe.com/store", SU_SD_PRICE);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Comprar VIP", dialog, "Comprar", "Salir");
 			return 1;
@@ -20264,46 +20259,46 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				switch(listitem)
-				{
-					case 0, 1: ShowDialog(dialogid);
-					case 2:
-					{
-						if (SU_SD_PRICE > ACCOUNT_INFO[playerid][ac_SD])
-						{
-							ShowPlayerNotification(playerid, "No tienes los "SERVER_COIN" suficientes.", 5);
-							return 1;
-						}
-
-						SetPlayerVip(playerid, ACCOUNT_INFO[playerid][ac_SD], SU_SD_PRICE, 30);
-					}
-				}
-			}
-			return 1;
-		}
-		case DIALOG_SU:
-		{
-			if (!response)
-			{
 				if (SU_SD_PRICE > ACCOUNT_INFO[playerid][ac_SD])
 				{
 					ShowPlayerNotification(playerid, "No tienes los "SERVER_COIN" suficientes.", 3);
 					return 1;
 				}
 
-				ACCOUNT_INFO[playerid][ac_SD] -= SU_SD_PRICE;
+				SetPlayerVip(playerid, 1, SU_SD_PRICE, 30);
+			}
+			return 1;
+		}
+		case DIALOG_SU:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0, 1: ShowDialog(playerid, dialogid);
+					case 2:
+					{
+						if (SU_SD_PRICE > ACCOUNT_INFO[playerid][ac_SD])
+						{
+							ShowPlayerNotification(playerid, "No tienes los "SERVER_COIN" suficientes.", 4);
+							return 1;
+						}
 
-				new DB_Query[128], DBResult:Result;
-				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d', `SU` = '%d', `SU_EXPIRE_DATE` = DATETIME(`SU_EXPIRE_DATE`, '+30 day') WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SU], ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+						ACCOUNT_INFO[playerid][ac_SD] -= SU_SD_PRICE;
 
-				format(DB_Query, sizeof DB_Query, "SELECT `SU_EXPIRE_DATE` FROM `CUENTA` WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-				Result = db_query(Database, DB_Query);
-				if (db_num_rows(Result)) db_get_field(Result, 0, ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE], 24);
-				db_free_result(Result);
+						new DB_Query[128], DBResult:Result;
+						format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d', `SU` = '%d', `SU_EXPIRE_DATE` = DATETIME(`SU_EXPIRE_DATE`, '+30 day') WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SU], ACCOUNT_INFO[playerid][ac_ID]);
+						db_query(Database, DB_Query);
 
-				ShowPlayerNotification(playerid, "Has renovado tu VIP.", 3);
-				ShowPlayerMessage(playerid, "Puedes utilizar ~y~/vip ~w~para ver el tiempo restante o renovar.", 4);
+						format(DB_Query, sizeof DB_Query, "SELECT `SU_EXPIRE_DATE` FROM `CUENTA` WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+						Result = db_query(Database, DB_Query);
+						if (db_num_rows(Result)) db_get_field(Result, 0, ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE], 24);
+						db_free_result(Result);
+
+						ShowPlayerNotification(playerid, "Has renovado tu VIP un mes.", 4);
+						ShowPlayerMessage(playerid, "Puedes utilizar ~y~/vip ~w~para ver el tiempo restante o renovar.", 4);
+					}
+				}
 			}
 			return 1;
 		}
