@@ -8064,13 +8064,20 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 1..8:
 					{
-						new price = (listitem - 1) * 1500; 
+						/*SendClientMessageEx(playerid, -1, "listitem %d", listitem);
+						SendClientMessageEx(playerid, -1, "listitem ro %d", (listitem - 1));
+						SendClientMessageEx(playerid, -1, "price ro %d", (listitem - 1) * 1500);
+						SendClientMessageEx(playerid, -1, "price %d", listitem * 1500);
+						SendClientMessageEx(playerid, -1, "roks ro %d", (listitem - 1) * 5));
+						SendClientMessageEx(playerid, -1, "roks %d", listitem * 5));*/
+
+						new price = listitem * 1500; 
 						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 
 						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-						PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER] += (listitem - 1) * 5;
-						ShowPlayerMessage(playerid, sprintf("Ahora puedes picar hasta ~y~%d rocas~w~ de forma veloz.", (listitem - 1) * 5), 4);
+						PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER] += listitem * 5;
+						ShowPlayerMessage(playerid, sprintf("Ahora puedes picar hasta ~y~%d rocas~w~ de forma veloz.", listitem * 5, 4);
 
 		            	GivePlayerCash(playerid, -price, false);
 					}
