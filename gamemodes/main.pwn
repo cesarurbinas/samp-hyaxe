@@ -4722,8 +4722,11 @@ EnterSite(playerid)
 CheckFarmerShop(playerid)
 {
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, -382.580657, -1426.404296, 26.219505)) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_MAFIA] || !PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA]) return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
-	ShowDialog(playerid, DIALOG_SEED_LIST);
+	if (PLAYER_WORKS[playerid][WORK_MAFIA] || PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
+	{
+		ShowDialog(playerid, DIALOG_SEED_LIST);
+	}
+	else return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
 	return 1;
 }
 
@@ -12928,7 +12931,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerNotification(playerid, str_text, 4);
 
 				// ONLY HOST
-				//PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 300000, true, "i", playerid);				
+				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 300000, true, "i", playerid);				
 
 				new pass_str[364];
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
