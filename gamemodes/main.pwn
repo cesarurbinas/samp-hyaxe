@@ -2641,7 +2641,7 @@ new
 	DIALOG_247_LIST_String[34 + 55 * sizeof Supermarket_Product_List],
 	DIALOG_PLAYER_GPS_SITE_0_String[90 * (sizeof(Hospital_Spawn_Positions) + 1)],
 	DIALOG_PLAYER_GPS_SITE_7_String[90 * (sizeof(SELL_VEHICLES_SHOPS_SPAWN) + 1)],
-	DIALOG_CREATE_CREW_COLOR_String[450];
+	DIALOG_CREATE_CREW_COLOR_String[128];
 
 
 //armas mercado negro

@@ -34,7 +34,8 @@ new CrewColors[] =
 	0xa43ce7FF,
 	0x6ad64cFF,
 	0xFF8A00FF,
-	0x6bc3fcFF
+	0x6bc3fcFF,
+	0xFFFFFFFF
 };
 
 new CrewNameColors[][] =
@@ -45,5 +46,6 @@ new CrewNameColors[][] =
 	"Morado",
 	"Verde",
 	"Naranja",
-	"Celeste"
+	"Celeste",
+	"Blanco"
 };
