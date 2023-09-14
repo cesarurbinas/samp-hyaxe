@@ -8752,11 +8752,27 @@ CMD:anuncio(playerid, params[])
 			new webhook[144];
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 			SendDiscordWebhook(webhook, 1);
+
+			format(str, 145, "[ANUNCIOS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
 			return 0;
 		}
 
 		if (CheckFilterViolation(params))
-			return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu anuncio tiene palabras inapropiadas.");
+		{
+			new str[144], webhook[144];
+			format(str, 145, "[ANUNCIOS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+
+			SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu anuncio tiene palabras inapropiadas.");
+			return 1;
+		}
 	}
 
 	if (StringContainsIP(params))
@@ -8772,10 +8788,16 @@ CMD:anuncio(playerid, params[])
 		SavePlayerMisc(playerid);
 
 		new str[144];
-		format(str, 145, "[ADMIN] %s (%d) fue baneado: Spam (IP en el anuncio).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(str, 144, "[ADMIN] %s (%d) fue baneado: Spam (IP en el anuncio).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144];
+		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		SendDiscordWebhook(webhook, 1);
+
+		format(str, 145, "[ANUNCIOS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 		return 1;
