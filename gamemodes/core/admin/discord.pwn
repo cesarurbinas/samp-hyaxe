@@ -62,7 +62,7 @@ DC_CMD:id(DCC_User:userid, params[], DCC_Message:message)
 	}
 	else acid = ACCOUNT_INFO[to_player][ac_ID];
 
-	format(str_text, sizeof(str_text), "‚Ä¢ Nombre: %s (%d) [Nivel %d] | ID de cuenta: %d\n‚Ä¢ Versi√≥n: %s | PacketLoss: %.2f | Ping: %d",
+	format(str_text, sizeof(str_text), "ï Nombre: %s (%d) [Nivel %d] | ID de cuenta: %d\nï VersiÛn: %s | PacketLoss: %.2f | Ping: %d",
 		PLAYER_TEMP[to_player][py_NAME],
 		to_player,
 		GetPlayerScore(to_player),
@@ -136,7 +136,7 @@ DC_CMD:sampunmute(DCC_User:userid, params[], DCC_Message:message)
     if (sscanf(params, "u", to_player)) return SendDiscordMessage(channelid, ":warning: Uso: `!unmute <player_id>`");
     if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
 
-	if (gettime() > PLAYER_MISC[to_player][MISC_MUTE]) return SendDiscordMessage(channelid, ":x: Este jugador no est√° silenciado.");
+	if (gettime() > PLAYER_MISC[to_player][MISC_MUTE]) return SendDiscordMessage(channelid, ":x: Este jugador no est· silenciado.");
 
 	SendClientMessage(to_player, COLOR_DARK_GREEN, "[Dudas]"COL_WHITE" Ya puedes volver a enviar dudas.");
 	PLAYER_MISC[to_player][MISC_MUTE] = 0;
@@ -151,7 +151,7 @@ DC_CMD:jail(DCC_User:userid, params[], DCC_Message:message)
 	if(!DCC_IsUserModerator(userid)) return SendDiscordMessage(channelid, ":x: No tienes permisos suficientes");
 	
 	new to_player, reason[64], time;
-    if (sscanf(params, "uds[64]", to_player, time, reason)) return SendDiscordMessage(channelid, ":warning: `!jail <player_id> <minutos> <raz√≥n>`");
+    if (sscanf(params, "uds[64]", to_player, time, reason)) return SendDiscordMessage(channelid, ":warning: `!jail <player_id> <minutos> <razÛn>`");
 	if (time < 0 || time > 1440) return SendDiscordMessage(channelid, ":x: Intervalo de minutos incorrecto.");
     if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
 
@@ -183,7 +183,7 @@ DC_CMD:jail(DCC_User:userid, params[], DCC_Message:message)
     SetPlayerSpecialAction(to_player, SPECIAL_ACTION_NONE);
 
     new dialog[250];
-	format(dialog, sizeof dialog, ""COL_WHITE"Has sido jaielado, raz√≥n: %s.\nRecuerde que a los 10 jails sera baneado permanentemente.", reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"Has sido jaielado, razÛn: %s.\nRecuerde que a los 10 jails sera baneado permanentemente.", reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 
 	SendDiscordMessage(channelid, "Jugador jaileado");
@@ -200,10 +200,10 @@ DC_CMD:unjail(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "u", to_player)) return SendDiscordMessage(channelid, ":warning: `!unjail <player_id>~");
 	if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
 
-	if (CHARACTER_INFO[to_player][ch_STATE] != ROLEPLAY_STATE_JAIL) return SendDiscordMessage(channelid, ":x: El jugador no est√° en jail.");
+	if (CHARACTER_INFO[to_player][ch_STATE] != ROLEPLAY_STATE_JAIL) return SendDiscordMessage(channelid, ":x: El jugador no est· en jail.");
 
 	UnjailPlayer(to_player);
-	SendDiscordMessage(channelid, "El jugador `%s (%d)` ahora est√° en libertad.", ACCOUNT_INFO[to_player][ac_NAME], to_player);
+	SendDiscordMessage(channelid, "El jugador `%s (%d)` ahora est· en libertad.", ACCOUNT_INFO[to_player][ac_NAME], to_player);
 	return 1;
 }
 
@@ -217,13 +217,13 @@ DC_CMD:sampban(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "us[32]", to_player, reason)) return SendDiscordMessage(channelid, ":warning: Uso: `!ban <player_id> <razon>`");
 	if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
 
-	if (PLAYER_TEMP[to_player][py_KICKED]) return SendDiscordMessage(channelid, ":x: El jugador ya est√° expulsado.");
+	if (PLAYER_TEMP[to_player][py_KICKED]) return SendDiscordMessage(channelid, ":x: El jugador ya est· expulsado.");
 	if (!ACCOUNT_INFO[to_player][ac_ID]) return KickEx(to_player, 100);
 
 	AddPlayerBan(ACCOUNT_INFO[to_player][ac_ID], ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_IP], 11, TYPE_BAN, reason);
 
 	new dialog[250];
-	format(dialog, sizeof dialog, ""COL_WHITE"Has sido baneado, raz√≥n: %s", reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"Has sido baneado, razÛn: %s", reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_BANS] ++;
@@ -253,7 +253,7 @@ DC_CMD:unban(DCC_User:userid, params[], DCC_Message:message)
 
 		SendDiscordMessage(channelid, "El usuario `%s` ha sido desbaneado.", name);
 	}
-	else SendDiscordMessage(channelid, "El nombre `%s` no est√° en la lista de baneados.", name);
+	else SendDiscordMessage(channelid, "El nombre `%s` no est· en la lista de baneados.", name);
 	db_free_result(Result);
 	return 1;
 }
@@ -294,8 +294,8 @@ DC_CMD:dban(DCC_User:userid, params[], DCC_Message:message)
 				new expire_date[24];
 				db_get_field_assoc(is_banned, "EXPIRE_DATE", expire_date, 24);
 
-				if (!strcmp(expire_date, "0", false)) SendDiscordMessage(channelid, "JUGADOR (Nombre: '%s' DB-ID: '%d') ya est√° baneado (permanentemente).", get_name, id);
-				else SendDiscordMessage(channelid, "JUGADOR (Nombre: '%s' DB-ID: '%d') ya est√° baneado (temporalmente, fecha de readmisi√≥n: %s).", get_name, id, expire_date);
+				if (!strcmp(expire_date, "0", false)) SendDiscordMessage(channelid, "JUGADOR (Nombre: '%s' DB-ID: '%d') ya est· baneado (permanentemente).", get_name, id);
+				else SendDiscordMessage(channelid, "JUGADOR (Nombre: '%s' DB-ID: '%d') ya est· baneado (temporalmente, fecha de readmisiÛn: %s).", get_name, id, expire_date);
 			}
 			else
 			{
@@ -347,13 +347,13 @@ DC_CMD:dtban(DCC_User:userid, params[], DCC_Message:message)
 				new expire_date[24];
 				db_get_field_assoc(is_banned, "EXPIRE_DATE", expire_date, 24);
 
-				if (!strcmp(expire_date, "0", false)) SendDiscordMessage(channelid, "JUGADOR (`Nombre: '%s' DB-ID: '%d'`) ya est√° baneado (permanentemente).", get_name, id);
-				else SendDiscordMessage(channelid, "JUGADOR (`Nombre: '%s' DB-ID: '%d'`) ya est√° baneado (`temporalmente, fecha de readmisi√≥n: %s`).", get_name, id, expire_date);
+				if (!strcmp(expire_date, "0", false)) SendDiscordMessage(channelid, "JUGADOR (`Nombre: '%s' DB-ID: '%d'`) ya est· baneado (permanentemente).", get_name, id);
+				else SendDiscordMessage(channelid, "JUGADOR (`Nombre: '%s' DB-ID: '%d'`) ya est· baneado (`temporalmente, fecha de readmisiÛn: %s`).", get_name, id, expire_date);
 			}
 			else
 			{
 				AddPlayerBan(id, get_name, ip, 11, TYPE_TEMP_BAN, reason, days);
-				SendDiscordMessage(channelid, "Jugador (`nick: %s dbid: %d`) baneado por `%d` d√≠as.", get_name, id, days);
+				SendDiscordMessage(channelid, "Jugador (`nick: %s dbid: %d`) baneado por `%d` dÌas.", get_name, id, days);
 			}
 
 			db_free_result(is_banned);
@@ -376,19 +376,19 @@ DC_CMD:tban(DCC_User:userid, params[], DCC_Message:message)
 
 	if (days <= 0 || days > 9999) return SendDiscordMessage(channelid, ":warning: Uso: `!ban <player_id> <dias> <razon>`");
 
-	if (PLAYER_TEMP[to_player][py_KICKED]) return SendDiscordMessage(channelid, ":x: El jugador ya est√° expulsado.");
+	if (PLAYER_TEMP[to_player][py_KICKED]) return SendDiscordMessage(channelid, ":x: El jugador ya est· expulsado.");
 	if (!ACCOUNT_INFO[to_player][ac_ID]) return KickEx(to_player, 100);
 
 	AddPlayerBan(ACCOUNT_INFO[to_player][ac_ID], ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_IP], 11, TYPE_TEMP_BAN, reason, days);
 
 	new dialog[250];
-	format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado por %d d√≠as, raz√≥n: %s", days, reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado por %d dÌas, razÛn: %s", days, reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_BANS] ++;
 	SavePlayerMisc(to_player);
 
-	SendDiscordMessage(channelid, "Jugador (`nick: %s dbid: %d, pid: %d`) baneado por `%d` d√≠as.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player, days);
+	SendDiscordMessage(channelid, "Jugador (`nick: %s dbid: %d, pid: %d`) baneado por `%d` dÌas.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player, days);
 	return 1;
 }
 
@@ -402,13 +402,13 @@ DC_CMD:sampkick(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "us[64]", to_player, reason)) return SendDiscordMessage(channelid, ":warning: Uso: `!kick <player_id> <razon>`");
 	if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
 
-	if (PLAYER_TEMP[to_player][py_KICKED]) return SendDiscordMessage(channelid, ":x: El jugador ya est√° expulsado.");
+	if (PLAYER_TEMP[to_player][py_KICKED]) return SendDiscordMessage(channelid, ":x: El jugador ya est· expulsado.");
 	if (!ACCOUNT_INFO[to_player][ac_ID]) return KickEx(to_player, 100);
 
 	AddPlayerBadHistory(ACCOUNT_INFO[to_player][ac_ID], 11, TYPE_KICK, reason);
 
 	new dialog[170];
-	format(dialog, sizeof dialog, ""COL_WHITE"Has sido expulsado, raz√≥n: %s", reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"Has sido expulsado, razÛn: %s", reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_KICKS] ++;
@@ -427,7 +427,7 @@ DC_CMD:ls(DCC_User:userid, params[], DCC_Message:message)
 	new to_player;
     if (sscanf(params, "u", to_player)) return SendDiscordMessage(channelid, ":warning: Uso: `/ls <player_id>`");
     if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
-	if(CHARACTER_INFO[to_player][ch_STATE] == ROLEPLAY_STATE_JAIL) return SendDiscordMessage(channelid, ":x: No puedes usar esto con jugadores en la c√°rcel.");
+	if(CHARACTER_INFO[to_player][ch_STATE] == ROLEPLAY_STATE_JAIL) return SendDiscordMessage(channelid, ":x: No puedes usar esto con jugadores en la c·rcel.");
 
 	CHARACTER_INFO[to_player][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 	CHARACTER_INFO[to_player][ch_INTERIOR_EXTRA] = 0;
@@ -462,14 +462,14 @@ DC_CMD:lsdb(DCC_User:userid, params[], DCC_Message:message)
 		player_id = db_get_field_assoc_int(Result, "PLAYERID");
 		jailtime = db_get_field_assoc_int(Result, "POLICE_JAIL_TIME");
 
-		if(jailtime > 0) return SendDiscordMessage(channelid, ":x: Este jugador esta en prisi√≥n, no puedes enviarlo a otra posici√≥n.");
+		if(jailtime > 0) return SendDiscordMessage(channelid, ":x: Este jugador esta en prisiÛn, no puedes enviarlo a otra posiciÛn.");
 		if(connected) SendDiscordMessage(channelid, ":warning: JUGADOR `%s` DB-ID `%d` conectado utilice `!ls`, su player_id: `%d`.", get_name, id, player_id);
 		else
 		{
 			format(DB_Query, sizeof DB_Query, "UPDATE `PERSONAJE` SET `POS_X` = '1555.400390', `POS_Y` = '-1675.611694', `POS_Z` = 16.195312, `ANGLE` = '0.0', `STATE` = '%d', `INTERIOR` = '0', `LOCAL_INTERIOR` = '0', `POLICE_JAIL_TIME` = '0' WHERE `ID_USER` = '%d';", ROLEPLAY_STATE_NORMAL, to_account);
 			db_free_result(db_query(Database, DB_Query));
 
-			SendDiscordMessage(channelid, "Jugador `%s - DB-ID %d` ahora aparecer√° en LS.", get_name, id);
+			SendDiscordMessage(channelid, "Jugador `%s - DB-ID %d` ahora aparecer· en LS.", get_name, id);
 		}
 	}
 	else SendDiscordMessage(channelid, "No se encontro la DB-ID.");
@@ -567,7 +567,7 @@ DC_CMD:getid(DCC_User:userid, params[], DCC_Message:message)
 	}
 	db_free_result(Result);
 
-	SendDiscordMessage(channelid, "Se encontraron `%d` coincidencias, el l√≠mite es 5.", count);
+	SendDiscordMessage(channelid, "Se encontraron `%d` coincidencias, el lÌmite es 5.", count);
 	return 1;
 }
 
@@ -593,7 +593,7 @@ DC_CMD:setpass(DCC_User:userid, params[], DCC_Message:message)
 		connected = db_get_field_assoc_int(Result, "CONNECTED");
 		player_id = db_get_field_assoc_int(Result, "PLAYERID");
 
-		if (connected) SendDiscordMessage(channelid, "JUGADOR `%s` DB-ID `%d` conectado, player_id: `%d`, no es necario cambiar la contrase√±a.", get_name, id, player_id);
+		if (connected) SendDiscordMessage(channelid, "JUGADOR `%s` DB-ID `%d` conectado, player_id: `%d`, no es necario cambiar la contraseÒa.", get_name, id, player_id);
 		else
 		{
 			new salt[16], salt_ex[16], pass_ex[64 + 1];
@@ -605,7 +605,7 @@ DC_CMD:setpass(DCC_User:userid, params[], DCC_Message:message)
 			format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SALT` = '%q', `PASS` = '%q' WHERE `ID` = '%d';", salt_ex, pass_ex, id);
 			db_free_result(db_query(Database, DB_Query));
 
-			SendDiscordMessage(channelid, "La contrase√±a de `%s` ahora es: `%s`", get_name, new_pass);
+			SendDiscordMessage(channelid, "La contraseÒa de `%s` ahora es: `%s`", get_name, new_pass);
 		}
 	}
 	else SendDiscordMessage(channelid, ":x: No se encontro la DB-ID.");
@@ -628,7 +628,7 @@ DC_CMD:setname(DCC_User:userid, params[], DCC_Message:message)
 	Result = db_query(Database, DB_Query);
 	if (db_num_rows(Result)) used = true;
 	db_free_result(Result);
-	if (used) return SendDiscordMessage(channelid, ":x: El nombre `%s` est√° en uso.", new_name);
+	if (used) return SendDiscordMessage(channelid, ":x: El nombre `%s` est· en uso.", new_name);
 
 	strreplace(new_name, " ", "_");
 	format(PLAYER_TEMP[to_player][py_NAME], 24, "%s", new_name);
@@ -732,7 +732,7 @@ DC_CMD:expro(DCC_User:userid, params[], DCC_Message:message)
 	new index = GetPropertyIndexByID(id_property);
 	if (index == -1) return SendDiscordMessage(channelid, ":x: ID no encontrada.");
 
-	if (!PROPERTY_INFO[index][property_SOLD]) return SendDiscordMessage(channelid, ":x: Esta propiedad ya est√° en venta.");
+	if (!PROPERTY_INFO[index][property_SOLD]) return SendDiscordMessage(channelid, ":x: Esta propiedad ya est· en venta.");
 
 
 	PROPERTY_INFO[ index ][property_SOLD] = false;
