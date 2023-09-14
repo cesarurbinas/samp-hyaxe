@@ -5609,6 +5609,10 @@ Menu:CLUB_MENU(playerid, response, listitem)
 				", CLUBS_INFO[club][club_STATE], club);
 				db_free_result(db_query(Database, DB_Query));
 
+				new str_text[164];
+				format(str_text, 164, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[club][club_NAME], (CLUBS_INFO[club][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), PLAYER_TEMP[playerid][py_NAME]);
+				UpdateDynamic3DTextLabelText(CLUBS_INFO[club][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
+
 				CheckClubOptions(playerid);
     		}
 			case 4:
