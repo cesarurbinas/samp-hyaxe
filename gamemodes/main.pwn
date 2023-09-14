@@ -26616,8 +26616,13 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
     #endif
 
 	new info[3];
-    Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
-    if (info[0] == PICKUP_TYPE_MONEY) return 0;
+    Streamer_GetArrayData(STREAMER_TYPE_PICKUP, pickupid, E_STREAMER_EXTRA_ID, info);
+    if (info[0] == PICKUP_TYPE_MONEY)
+    {
+    	GivePlayerCash(playerid, minrand(10, 350), false);
+    	DestroyDynamicPickup(pickupid);
+    	return 0;
+    }
 
     PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] = pickupid;
     return 1;
@@ -28017,7 +28022,7 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 					}
 
 					// Money drop
-					MoneyDrop(12, x, y, z);
+					MoneyDrop(minrand(8, 15), x, y, z);
 				}
 			}
 
