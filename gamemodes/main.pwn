@@ -23847,6 +23847,27 @@ public StoreBuyRecv(index, response_code, const data[])
 						PLAYER_TEMP[playerid][py_TIMERS][2] = SetTimerEx("AddPlayerReputation", ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], false, "i", playerid);
 					}
 
+					// Vehiculo
+					case 5:
+					{
+						new Float:pos[4];
+						GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+						GetPlayerFacingAngle(playerid, pos[3]);
+
+						new vid = AddPersonalVehicle
+						(
+							playerid,
+							STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA],
+							pos[0],
+							pos[1],
+							pos[2],
+							pos[3],
+							1,
+							1,
+							VEHICLE_INFO[ STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA] - 400 ][vehicle_info_MAX_GAS]
+						);
+					}
+
 					// Skin
 					case 6:
 					{
