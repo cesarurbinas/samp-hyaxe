@@ -2724,10 +2724,31 @@ CMD:givecredits(playerid, params[])
 	}
 
 	new payload[264];
-	format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/give_credit/%d", ACCOUNT_INFO[to_player][ac_ID]);
+	format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/give_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
 	HTTP(to_player, HTTP_GET, payload, "", "StoreCreditsUpdate");
 
 	SendCmdLogToAdmins(playerid, "givecredits", params);
+	return 1;
+}
+flags:givecredits(CMD_OWNER)
+
+CMD:setcredits(playerid, params[])
+{
+	new to_player, value;
+	if (sscanf(params, "ud", to_player, value)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setcredits <player_id> <ammount>");
+	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "setcredits");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
+
+	new payload[264];
+	format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/update_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
+	HTTP(to_player, HTTP_GET, payload, "", "StoreCreditsUpdate");
+
+	SendCmdLogToAdmins(playerid, "setcredits", params);
 	return 1;
 }
 flags:givecredits(CMD_OWNER)
