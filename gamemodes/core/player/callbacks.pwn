@@ -1490,11 +1490,8 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 			    	{
 				    	if (weapon_ammo > server_ammo || weapon_ammo < -1)
 				    	{
-				    		/*new string[128];
-							format(string, sizeof(string), "[ANTI-CHEAT] Aviso sobre %s (%d): Ammo (client: %d, server: %d, check: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, weapon_ammo, PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO], server_ammo);
-							SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
-							SendDiscordWebhook(string, 1);*/
-				    		OnPlayerCheatDetected(playerid, CHEAT_AMMO, weapon_ammo);
+				    		Anticheat_Ban(playerid, "Ammo #0");
+				    		//OnPlayerCheatDetected(playerid, CHEAT_AMMO, weapon_ammo);
 				    	}
 				    }
 				}
