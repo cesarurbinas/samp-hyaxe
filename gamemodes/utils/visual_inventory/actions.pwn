@@ -294,6 +294,15 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
+		case 56:
+		{
+			if ((gettime() - PLAYER_TEMP[playerid][py_LAST_GEO_USE]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 5 minutos para volver a hacer eso.", 4);
+			if (!PLAYER_CREW[playerid][player_crew_VALID]) ShowPlayerMessage(playerid, "~r~No tienes banda.", 3);
+
+			PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
+			return 1;
+		}
+
 		default: CheckAndReload(playerid);
 	}
 	return 1;

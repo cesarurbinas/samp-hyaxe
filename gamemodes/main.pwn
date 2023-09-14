@@ -18035,7 +18035,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MEMBERS] >= 20) return ShowPlayerMessage(playerid, "~r~La banda ya está llena.", 3);
 						if (PLAYER_WORKS[PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No se pueden invitar a policías.", 3);
-						if (PLAYER_CREW[PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Este ya tiene banda.", 3);
+						if (PLAYER_CREW[PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Este jugador ya tiene banda.", 3);
 						if (PLAYER_TEMP[PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes invitar cuando la banda esta en combate.", 3);
 
 						if (gettime() < PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_LAST_GOT_CREW] + 600)

@@ -44,6 +44,7 @@ GetItemNameByType(type)
 		case 53: name = "Kit de reparación";
 		case 54: name = "Porro";
 		case 55: name = "Balas (Subfusil)";
+		case 56: name = "Geolocalizador";
 	}
 	return name;
 }
@@ -94,6 +95,7 @@ GetItemObjectByType(type)
 		case 53: modelid = 19921;
 		case 54: modelid = 3027;
 		case 55: modelid = 19832;
+		case 56: modelid = 19942;
 	}
 	return modelid;
 }
@@ -117,6 +119,7 @@ SetItemToBody(playerid, type)
 		case 52: SetPlayerAttachedObject(playerid, 9, 19631, 6, 0.0789, 0.0000, 0.2580, -86.0000, -97.5000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 53: SetPlayerAttachedObject(playerid, 9, 19921, 6, 0.0699, 0.0289, 0.0000, -75.9000, -5.8000, -84.7999, 0.6219, 0.6579, 0.5109, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 54: SetPlayerSpecialAction(playerid, SPECIAL_ACTION_SMOKE_CIGGY);
+		case 56: SetPlayerAttachedObject(playerid, 9, 19942, 6, 0.0649, 0.0180, 0.0260, 0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
 	}
 	return 1;
 }

@@ -307,8 +307,13 @@ enum Temp_Enum
 >>>>>>> 8914c15 (Mejoras en el filtro de nombres)
 =======
 	bool:py_COMBAT_MODE,
+<<<<<<< HEAD
 	py_CRANE_VEHICLE
 >>>>>>> c59b3ca (Poder mandar el vehiculo al ultimo estacionamiento)
+=======
+	py_CRANE_VEHICLE,
+	py_LAST_GEO_USE
+>>>>>>> 93ee930 (Arreglos)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
