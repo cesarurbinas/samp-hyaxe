@@ -17,9 +17,7 @@ BackBalloonToStart(balloon_id, Float:speed)
 forward RestartBalloon(balloon_id);
 public RestartBalloon(balloon_id)
 {
-	#if DEBUG_MODE == 1
-		printf("RestartBalloon"); // debug juju
-	#endif
+	Logger_Debug("RestartBalloon"); // debug juju
 
 	BackBalloonToStart(balloon_id, 10.0);
 	return 1;
@@ -28,9 +26,7 @@ public RestartBalloon(balloon_id)
 forward UpBalloon(balloon_id);
 public UpBalloon(balloon_id)
 {
-	#if DEBUG_MODE == 1
-		printf("UpBalloon"); // debug juju
-	#endif
+	Logger_Debug("UpBalloon"); // debug juju
 
 	SetBalloonAction(balloon_id, float(minrand(200, 300)), -float(minrand(1700, 1950)), 90.0, 10.0);
 	return 1;

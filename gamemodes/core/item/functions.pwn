@@ -100,11 +100,10 @@ CreateDropItem(type, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, wo
 
 		if (playerid != INVALID_PLAYER_ID)
 		{
-			new Float:px, Float:py, Float:pz, Float:distance;
+			new Float:px, Float:py, Float:pz;
 			GetPlayerPos(playerid, px, py, pz);
-			distance = (pz - z);
 
-			if (distance >= 3.0)
+			if ( (pz + 2.0) < z )
 			{
 				x = px;
 				y = py;

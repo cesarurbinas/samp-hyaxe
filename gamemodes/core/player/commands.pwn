@@ -1551,9 +1551,7 @@ CMD:minero(playerid)
 #define MIN_SECONDS_BETWEEN_COMMANDS 1 // Deben pasar al menos 1 segundos entre comando y comando.
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerCommandReceived %d %s %s",playerid,cmd,params); // debug juju
-	#endif
+	Logger_Debug("OnPlayerCommandReceived %d %s %s",playerid,cmd,params); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
@@ -1619,11 +1617,9 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 
 public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags) 
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerCommandPerformed %d %s %s",playerid,params,result); // debug juju
-	#endif
+	Logger_Debug("OnPlayerCommandPerformed %d %s %s",playerid,params,result); // debug juju
 
-	printf("%s (%d): /%s %s", PLAYER_TEMP[playerid][py_NAME], playerid, cmd, params);
+	Logger_Info("%s (%d): /%s %s", PLAYER_TEMP[playerid][py_NAME], playerid, cmd, params);
     if (result == -1) 
     { 
 		SendClientMessageEx(playerid, COLOR_WHITE, "El comando "COL_RED"/%s "COL_WHITE"no existe, usa "COL_RED"/ayuda"COL_WHITE".", cmd);

@@ -2,9 +2,7 @@
 forward InitLastGraffiti();
 public InitLastGraffiti()
 {
-	#if DEBUG_MODE == 1
-		printf("InitLastGraffiti"); // debug juju
-	#endif
+	Logger_Debug("InitLastGraffiti"); // debug juju
 
 	new DBResult:Result, graff_id;
 	Result = db_query(Database, "SELECT * FROM `SERVER_PROPERTIES`;");
@@ -20,9 +18,7 @@ public InitLastGraffiti()
 forward FirstGraffitiAnnounce();
 public FirstGraffitiAnnounce()
 {
-	#if DEBUG_MODE == 1
-		printf("FirstGraffitiAnnounce"); // debug juju
-	#endif
+	Logger_Debug("FirstGraffitiAnnounce"); // debug juju
 
 	new hour, minute, second;
 	gettime(hour, minute, second);
@@ -41,9 +37,7 @@ public FirstGraffitiAnnounce()
 forward TwoGraffitiAnnounce();
 public TwoGraffitiAnnounce()
 {
-	#if DEBUG_MODE == 1
-		printf("TwoGraffitiAnnounce"); // debug juju
-	#endif
+	Logger_Debug("TwoGraffitiAnnounce"); // debug juju
 
 	SendGraffitiNotification("En 5 minutos se iniciara una disputa.");
 	SendDiscordWebhook("En 5 minutos se iniciara una disputa.", 2);
@@ -55,9 +49,7 @@ public TwoGraffitiAnnounce()
 forward FinalGraffitiAnnounce();
 public FinalGraffitiAnnounce()
 {
-	#if DEBUG_MODE == 1
-		printf("FinalGraffitiAnnounce"); // debug juju
-	#endif
+	Logger_Debug("FinalGraffitiAnnounce"); // debug juju
 
 	SendGraffitiNotification("En 60 segundos se iniciara una disputa.");
 	SendDiscordWebhook("En 60 segundos se iniciara una disputa.", 2);
@@ -67,9 +59,7 @@ public FinalGraffitiAnnounce()
 forward CancelGraffiti();
 public CancelGraffiti()
 {
-	#if DEBUG_MODE == 1
-		printf("CancelGraffiti"); // debug juju
-	#endif
+	Logger_Debug("CancelGraffiti"); // debug juju
 
 	KillTimer(GraffitiCancelTimer);
 
@@ -119,9 +109,7 @@ public CancelGraffiti()
 forward UpdateGraffitiProgress(playerid);
 public UpdateGraffitiProgress(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("UpdateGraffitiProgress"); // debug juju
-	#endif
+	Logger_Debug("UpdateGraffitiProgress"); // debug juju
 
 	if (IsPlayerPaused(playerid)) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 	if (GetPlayerWeapon(playerid) != 41) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);

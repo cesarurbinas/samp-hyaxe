@@ -1,9 +1,7 @@
 forward TruckLoadUp(playerid, vehicleid);
 public TruckLoadUp(playerid, vehicleid)
 {
-	#if DEBUG_MODE == 1
-		printf("TruckLoadUp"); // debug juju
-	#endif
+	Logger_Debug("TruckLoadUp"); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_TRUCK_LOADING_VALUE] < 100)
 	{
@@ -31,9 +29,7 @@ public TruckLoadUp(playerid, vehicleid)
 forward TruckUnLoadUp(playerid, vehicleid);
 public TruckUnLoadUp(playerid, vehicleid)
 {
-	#if DEBUG_MODE == 1
-		printf("TruckUnLoadUp"); // debug juju
-	#endif
+	Logger_Debug("TruckUnLoadUp"); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_TRUCK_LOADING_VALUE] < 100)
 	{

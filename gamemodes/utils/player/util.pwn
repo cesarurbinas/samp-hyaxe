@@ -761,11 +761,7 @@ JailPlayer(playerid, seconds = 300)
 
 IsPlayerPaused(playerid)
 {
-	if (playerid == 65535)
-	{
-		print("Paused");
-		return false;
-	}
+	if (playerid == 65535) return false;
 	if (IsPlayerNPC(playerid)) return false;
 	return (GetTickCount() - g_iPlayerLastUpdate[playerid] > 2000);
 }
@@ -1899,9 +1895,7 @@ SetPlayerSkillLevels(playerid)
 forward HealthDown(playerid);
 public HealthDown(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("HealthDown"); // debug juju
-	#endif
+	Logger_Debug("HealthDown"); // debug juju
 
 	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK) return 1;
 
@@ -1918,9 +1912,7 @@ public HealthDown(playerid)
 forward StandUpBotikin(medic, playerid);
 public StandUpBotikin(medic, playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("StandUpBotikin"); // debug juju
-	#endif
+	Logger_Debug("StandUpBotikin"); // debug juju
 
 	SubtractItem(medic, 0);
 	ResetItemBody(medic);
@@ -2139,9 +2131,7 @@ KickEx(playerid, time = 0)
 forward KickPlayer(playerid);
 public KickPlayer(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("KickPlayer"); // debug juju
-	#endif
+	Logger_Debug("KickPlayer"); // debug juju
 
 	return Kick(playerid);
 }
@@ -2711,9 +2701,7 @@ CheckMechanicMenu(playerid)
 forward UpdateBotPing(playerid);
 public UpdateBotPing(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("UpdateBotPing"); // debug juju
-	#endif
+	Logger_Debug("UpdateBotPing"); // debug juju
 
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	//SetPlayerFakePing(playerid, minrand(170, 345));
@@ -2725,9 +2713,7 @@ public UpdateBotPing(playerid)
 forward UpdateBotName(playerid);
 public UpdateBotName(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("UpdateBotName"); // debug juju
-	#endif
+	Logger_Debug("UpdateBotName"); // debug juju
 
 	new name[MAX_PLAYER_NAME];
 	format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);
@@ -6188,9 +6174,7 @@ RegisterPhoneMessage(from, to, const message[], offline = 0)
 forward NoCallResponse(playerid);
 public NoCallResponse(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("NoCallResponse"); // debug juju
-	#endif
+	Logger_Debug("NoCallResponse"); // debug juju
 
 	if (!PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return 0;
 	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] == INVALID_PLAYER_ID) return 0;
@@ -6672,9 +6656,7 @@ Log(const nombre[], const texto[])
 forward InitRandomGangEvent();
 public InitRandomGangEvent()
 {
-	#if DEBUG_MODE == 1
-		printf("InitRandomGangEvent"); // debug juju
-	#endif
+	Logger_Debug("InitRandomGangEvent"); // debug juju
 
 	new year, month, day, hour, weekday;
 	getdate(year, month, day);
@@ -6727,9 +6709,7 @@ AddGiftCode(code[], type, extra)
 /*forward SendGift();
 public SendGift()
 {
-	#if DEBUG_MODE == 1
-		printf("SendGift"); // debug juju
-	#endif
+	Logger_Debug("SendGift"); // debug juju
 
 	for(new i = 0, j = 10; i <= j; i++)
 	{
@@ -6759,9 +6739,7 @@ public SendGift()
 forward GiveAutoGift();
 public GiveAutoGift()
 {
-	#if DEBUG_MODE == 1
-		printf("GiveAutoGift"); // debug juju
-	#endif
+	Logger_Debug("GiveAutoGift"); // debug juju
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{

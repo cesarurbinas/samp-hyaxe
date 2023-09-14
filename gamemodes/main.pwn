@@ -360,11 +360,11 @@
 
 main()
 {
-	printf("[info: hostname] "SERVER_HOSTNAME"");
-	printf("[info: language] "SERVER_LANGUAGE"");
-	printf("[info: website] "SERVER_WEBSITE"");
-	printf("[info: discord] "SERVER_DISCORD"");
-	printf("\n[build] Hyaxe SA-MP "SERVER_VERSION"\n");
+	Logger_Info("[info: hostname] "SERVER_HOSTNAME"");
+	Logger_Info("[info: language] "SERVER_LANGUAGE"");
+	Logger_Info("[info: website] "SERVER_WEBSITE"");
+	Logger_Info("[info: discord] "SERVER_DISCORD"");
+	Logger_Info("\n[build] Hyaxe SA-MP "SERVER_VERSION"\n");
 }
 
 <<<<<<< HEAD
@@ -2525,11 +2525,9 @@ public OnGameModeExit()
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
 	}
 
-	#if DEBUG_MODE == 1
-		printf("OnGameModeExit"); // debug juju
-	#endif
+	Logger_Debug("OnGameModeExit"); // debug juju
 
-	printf("Deteniendo servidor...");
+	Logger_Warning("Deteniendo servidor...");
 	db_close(Database);
 	Log("status", "Servidor detenido.");
 	return 1;

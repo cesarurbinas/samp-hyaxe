@@ -1,9 +1,7 @@
 forward UpdatePlayer_GPS_Map(playerid);
 public UpdatePlayer_GPS_Map(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("UpdatePlayer_GPS_Map"); // debug juju
-	#endif
+	Logger_Debug("UpdatePlayer_GPS_Map"); // debug juju
 
 	/*
 		0 - playerpos

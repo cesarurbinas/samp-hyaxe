@@ -1536,6 +1536,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 DropItemSlot(playerid, anim = true)
 {
+	if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV]) return 0;
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
 		if (anim) return 0;

@@ -1,9 +1,7 @@
 forward UpdateMarketProgress(playerid);
 public UpdateMarketProgress(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("UpdateMarketProgress"); // debug juju
-	#endif
+	Logger_Debug("UpdateMarketProgress"); // debug juju
 
 	if (IsPlayerPaused(playerid)) return 0;
 	if (GetPlayerInterior(playerid) != 0) return 0;

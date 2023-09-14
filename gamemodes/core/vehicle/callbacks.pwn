@@ -1,8 +1,6 @@
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerEditObject %d",playerid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerEditObject %d",playerid); // debug juju
 
 	if (playerobject)
 	{
@@ -97,9 +95,7 @@ IRPC:VehicleDestroyed(playerid, BitStream:bs)
 forward OnVehicleRequestDeath(vehicleid, killerid);
 public OnVehicleRequestDeath(vehicleid, killerid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
-	#endif
+	Logger_Debug("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
 
     new Float:health;
 
@@ -180,9 +176,7 @@ IPacket:VEHICLE_SYNC(playerid, BitStream:bs)
 
 public OnVehicleSpawn(vehicleid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnVehicleSpawn %d",vehicleid); // debug juju
-	#endif
+	Logger_Debug("OnVehicleSpawn %d",vehicleid); // debug juju
 
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_TP_IMMUNITY] = gettime() + 5;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = true;
@@ -254,9 +248,7 @@ public OnVehicleSpawn(vehicleid)
 
 public OnVehicleDeath(vehicleid, killerid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnVehicleDeath",vehicleid,killerid); // debug juju
-	#endif
+	Logger_Debug("OnVehicleDeath",vehicleid,killerid); // debug juju
 
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = false;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] = INVALID_PLAYER_ID;
@@ -376,14 +368,11 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 
 public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnEnterExitModShop",playerid); // debug juju
-    #endif
+	Logger_Debug("OnEnterExitModShop",playerid); // debug juju
 
     if (enterexit) // Entra
     {
-		ShowPlayerMessage(playerid, "~r~Solo puedes tunear vehículos en el mecánico, búscalo con el /GPS.", 2);
-		//SendClientMessage(playerid, COLOR_WHITE, "{ffff35}[ATENCION] "COL_WHITE"Si reaflizas alguna modificación al vehículo en este garaje serás expulsado.");
+		ShowPlayerMessage(playerid, "~r~Solo puedes tunear vehículos en el mecánico, búscalo con el gps.", 2);
     }
 	else
 	{
@@ -400,9 +389,7 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
-	#endif
+	Logger_Debug("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
 
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
@@ -424,9 +411,7 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 
 public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnVehiclePaintjob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
-	#endif
+	Logger_Debug("OnVehiclePaintjob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
 
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{

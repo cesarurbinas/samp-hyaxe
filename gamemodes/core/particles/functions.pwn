@@ -1,9 +1,7 @@
 forward DestroyParticleObject(objectid);
 public DestroyParticleObject(objectid)
 {
-	#if DEBUG_MODE == 1
-		printf("DestroyParticleObject"); // debug juju
-	#endif
+	Logger_Debug("DestroyParticleObject"); // debug juju
 
 	return DestroyDynamicObject(objectid);
 }
@@ -11,9 +9,7 @@ public DestroyParticleObject(objectid)
 forward StopShitting(playerid);
 public StopShitting(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("StopShitting"); // debug juju
-	#endif
+	Logger_Debug("StopShitting"); // debug juju
 
 	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 	ClearAnimations(playerid);	
@@ -31,10 +27,7 @@ CreateFlashObject(Float:x, Float:y, Float:z)
 forward DestroyFlashObject(objectid);
 public DestroyFlashObject(objectid)
 {
-	#if DEBUG_MODE == 1
-		printf("DestroyFlashObject"); // debug juju
-	#endif
-
+	Logger_Debug("DestroyFlashObject"); // debug juju
 	return DestroyObject(objectid);
 }
 
@@ -48,9 +41,7 @@ CreatePlayerFlashObject(playerid, Float:x, Float:y, Float:z)
 forward DestroyPlayerFlashObject(playerid, objectid);
 public DestroyPlayerFlashObject(playerid, objectid)
 {
-	#if DEBUG_MODE == 1
-		printf("DestroyPlayerFlashObject"); // debug juju
-	#endif
+	Logger_Debug("DestroyPlayerFlashObject"); // debug juju
 
 	return DestroyPlayerObject(playerid, objectid);
 }

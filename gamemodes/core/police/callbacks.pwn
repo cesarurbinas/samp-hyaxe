@@ -1,9 +1,7 @@
 forward DisableRefMark(playerid);
 public DisableRefMark(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("DisableRefMark"); // debug juju
-	#endif
+	Logger_Debug("DisableRefMark"); // debug juju
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
@@ -38,9 +36,7 @@ public DisableRefMark(playerid)
 forward UpdateWantedLevelMark();
 public UpdateWantedLevelMark()
 {
-    #if DEBUG_MODE == 1
-        printf("UpdateWantedLevelMark"); // debug juju
-    #endif
+    Logger_Debug("UpdateWantedLevelMark"); // debug juju
 
     for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
     {

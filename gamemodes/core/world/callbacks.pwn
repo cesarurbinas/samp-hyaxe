@@ -3,9 +3,7 @@ new GraffitiLastInit;
 forward UpdateThePutis();
 public UpdateThePutis()
 {
-	/*#if DEBUG_MODE == 1
-		printf("UpdateThePutis"); // debug juju
-	#endif*/
+	//Logger_Debug("UpdateThePutis"); // debug juju
 
 	ApplyDynamicActorAnimation(Club_Bar_Actor[0], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
     ApplyDynamicActorAnimation(Club_Bar_Actor[1], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
@@ -28,9 +26,7 @@ public UpdateThePutis()
 forward UpdateWorldTime();
 public UpdateWorldTime()
 {
-	/*#if DEBUG_MODE == 1
-		printf("UpdateWorldTime"); // debug juju
-	#endif*/
+	//Logger_Debug("UpdateWorldTime"); // debug juju
 
 	SERVER_TIME[1] += 2;
 	if (SERVER_TIME[1] > 60)

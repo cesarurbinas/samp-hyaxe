@@ -1,9 +1,7 @@
 forward RespawnMinerRock(rock_id);
 public RespawnMinerRock(rock_id)
 {
-	#if DEBUG_MODE == 1
-		printf("RespawnMinerRock"); // debug juju
-	#endif
+	Logger_Debug("RespawnMinerRock"); // debug juju
 
 	SetRandomRockType(rock_id);
 
@@ -17,9 +15,7 @@ public RespawnMinerRock(rock_id)
 forward PutPlayerRock(playerid, rock_type);
 public PutPlayerRock(playerid, rock_type)
 {
-	#if DEBUG_MODE == 1
-		printf("PutPlayerRock"); // debug juju
-	#endif
+	Logger_Debug("PutPlayerRock"); // debug juju
 
 	ResetItemBody(playerid);
 
@@ -34,9 +30,7 @@ public PutPlayerRock(playerid, rock_type)
 forward UpdateMining(playerid, rock_id);
 public UpdateMining(playerid, rock_id)
 {
-	#if DEBUG_MODE == 1
-		printf("UpdateMining"); // debug juju
-	#endif
+	Logger_Debug("UpdateMining"); // debug juju
 
 	if (GetPlayerInterior(playerid) == 0)
 	{
@@ -72,9 +66,7 @@ public UpdateMining(playerid, rock_id)
 forward DeleteDroppedRock(obj_id);
 public DeleteDroppedRock(obj_id)
 {
-	#if DEBUG_MODE == 1
-		printf("DeleteDroppedRock"); // debug juju
-	#endif
+	Logger_Debug("DeleteDroppedRock"); // debug juju
 
 	DestroyDynamicObject(obj_id);
 	return 1;
@@ -83,9 +75,7 @@ public DeleteDroppedRock(obj_id)
 forward FixProcessorUpdate(playerid, processor_id, type);
 public FixProcessorUpdate(playerid, processor_id, type)
 {
-	#if DEBUG_MODE == 1
-		printf("FixProcessorUpdate"); // debug juju
-	#endif
+	Logger_Debug("FixProcessorUpdate"); // debug juju
 
 	switch(type)
 	{

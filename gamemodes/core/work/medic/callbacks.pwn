@@ -1,9 +1,7 @@
 forward GetAmbulanceItem(playerid, vehicleid);
 public GetAmbulanceItem(playerid, vehicleid)
 {
-	#if DEBUG_MODE == 1
-		printf("GetAmbulanceItem"); // debug juju
-	#endif
+	Logger_Debug("GetAmbulanceItem"); // debug juju
 
 	if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 	ClearAnimations(playerid);

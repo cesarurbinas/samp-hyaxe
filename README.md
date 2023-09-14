@@ -191,3 +191,12 @@ Diferencia: 16 dias
 * Se ha arreglado el bug que al golpear con la culata de un arma sacaba la vida como si fuera un disparo
 * Se ha arreglado el bug que al agarrar un tazer en LSPD te daba un botiquin
 * Se ha mejorado el spawn de items, ahora ya no se podran arriba tuyo
+* Se arreglo la adquisicion de balas en los equipamientos de mafia y policia
+* Nuevo comando para Mod V: /resetinv
+	- Sirve para borrar el inventario completo de un usuario
+* Nuevo comando para Operador: /getresponse
+	- Sirve para obtener la pregunta de seguridad de un usuario
+	- Tambien esta disponible en discord a partir de rol Administrador
+* Se arreglo el bug de dupliplicar items con la H
+* Se arreglo un fallo en el sistema de danos
+* Se arreglo el bug que no dejaba picar en minero

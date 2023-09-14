@@ -1,8 +1,6 @@
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	#if DEBUG_MODE == 1
-		printf("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
-	#endif
+	Logger_Debug("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
 
 	if (!IsPlayerConnected(playerid)) return 0;
 	if (IsPlayerPaused(playerid)) return 0;
@@ -18,7 +16,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 	}
 
-	//printf("[OnDialogResponse] playerid = %i, dialogid = %i", playerid, dialogid);
+	//Logger_Debug("[OnDialogResponse] playerid = %i, dialogid = %i", playerid, dialogid);
 
 	switch(dialogid)
 	{
@@ -3422,7 +3420,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0: ShowDialog(playerid, DIALOG_POLICE_WEAPONS);
 					case 1: ShowDialog(playerid, DIALOG_POLICE_ARMOUR);
-					case 2: ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
+					case 2: ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO);
 				}
 			}
 			return 1;

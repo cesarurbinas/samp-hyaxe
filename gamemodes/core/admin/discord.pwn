@@ -1,5 +1,5 @@
 // Utils
-#if defined FINAL_BUILD
+//#if defined FINAL_BUILD
 DCC_IsUserModerator(DCC_User:user)
 {
 	new DCC_Guild:guild = DCC_FindGuildById("586980198910656521");
@@ -704,6 +704,32 @@ DC_CMD:setjails(DCC_User:userid, params[], DCC_Message:message)
 	return 1;
 }
 
+DC_CMD:getresponse(DCC_User:userid, params[], DCC_Message:message)
+{
+	new DCC_Channel:channelid;
+	DCC_GetMessageChannel(message, channelid);
+	if(!DCC_IsUserAdministrator(userid)) return SendDiscordMessage(channelid, ":x: No tienes permisos suficientes");
+
+	new to_account;
+	if (sscanf(params, "d", to_account)) return SendDiscordMessage(channelid, ":warning: Uso: `!getresponse <DB-ID>`");
+
+	new DBResult:Result, DB_Query[160];
+
+	// Security question
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `SECURITY_QUESTIONS` WHERE `ID_USER` = '%d';", to_account);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		new response[60];
+		db_get_field_assoc(Result, "RESPONSE", response, 32);
+		SendDiscordMessage(channelid, "Respuesta: %s", response);
+	}
+	else SendDiscordMessage(channelid, ":x: No se encontro la DB-ID.");
+	db_free_result(Result);
+	return 1;
+}
+
 DC_CMD:setmutes(DCC_User:userid, params[], DCC_Message:message)
 {
 	new DCC_Channel:channelid;
@@ -887,13 +913,11 @@ DC_CMD:playerip(DCC_User:userid, params[], DCC_Message:message)
 	SendDiscordMessage(channelid, "%s (%d): %s", ACCOUNT_INFO[to_player][ac_NAME], to_player, ACCOUNT_INFO[to_player][ac_IP]);
 	return 1;
 }
-#endif
+//#endif
 
 // Callbacks
 public OnDiscordCommandPerformed(const params[], success, DCC_Message:message)
 {
-	#if DEBUG_MODE == 1
-		printf("OnDiscordCommandPerformed %s %d",params,success); // debug juju
-	#endif
+	Logger_Debug("OnDiscordCommandPerformed %s %d",params,success); // debug juju
     return 1;
 }

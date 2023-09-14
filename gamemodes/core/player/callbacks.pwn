@@ -46,9 +46,7 @@ public OnPlayerStreamIn(playerid, forplayerid)
 forward DisablePlayerPoliceSearchLevel(playerid);
 public DisablePlayerPoliceSearchLevel(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("DisablePlayerPoliceSearchLevel"); // debug juju
-	#endif
+	Logger_Debug("DisablePlayerPoliceSearchLevel"); // debug juju
 
 	SetPlayerPoliceSearchLevel(playerid, 0);
 	SetPlayerWantedLevel(playerid, 0);
@@ -69,9 +67,7 @@ public DisablePlayerPoliceSearchLevel(playerid)
 forward IsValidVehicleAbuse(playerid, vehicleid);
 public IsValidVehicleAbuse(playerid, vehicleid)
 {
-	#if DEBUG_MODE == 1
-		printf("IsValidVehicleAbuse"); // debug juju
-	#endif
+	Logger_Debug("IsValidVehicleAbuse"); // debug juju
 
 	new Float:speed = GetPlayerSpeed(playerid);
 	if (speed > 15.0)
@@ -86,9 +82,7 @@ public IsValidVehicleAbuse(playerid, vehicleid)
 forward UpdatePrisionTime(playerid);
 public UpdatePrisionTime(playerid)
 {
-	/*#if DEBUG_MODE == 1
-		printf("UpdatePrisionTime"); // debug juju
-	#endif*/
+	//Logger_Debug("UpdatePrisionTime"); // debug juju
 
 	new 
 		time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]),
@@ -110,9 +104,7 @@ public UpdatePrisionTime(playerid)
 forward SavePrisionTime(playerid);
 public SavePrisionTime(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("SavePrisionTime"); // debug juju
-	#endif
+	Logger_Debug("SavePrisionTime"); // debug juju
 
 	SaveUserData(playerid);
 	return 1;
@@ -141,13 +133,11 @@ SendPoliceMark(playerid, color)
 
 public OnPlayerConnect(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerConnect %d",playerid); // debug juju
-		if (IsPlayerNPC(playerid))
-		{
-			printf("[npc] NPC Joined: %d", playerid);
-		}
-	#endif
+	Logger_Debug("OnPlayerConnect %d",playerid); // debug juju
+	if (IsPlayerNPC(playerid))
+	{
+		Logger_Debug("[npc] NPC Joined: %d", playerid);
+	}
 
 	//printf("[%d] OnPlayerConnect 1", playerid);
 	SetPlayerColor(playerid, PLAYER_COLOR);
@@ -509,9 +499,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
-	#endif
+	Logger_Debug("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
 
 	if (ACCOUNT_INFO[playerid][ac_ID] != 0)
 	{
@@ -657,9 +645,7 @@ public OnPlayerDisconnect(playerid, reason)
 forward RestorePlayerPos(playerid, Float:x, Float: y, Float: z);
 public RestorePlayerPos(playerid, Float:x, Float: y, Float: z)
 {
-	#if DEBUG_MODE == 1
-		printf("RestorePlayerPos"); // debug juju
-	#endif
+	Logger_Debug("RestorePlayerPos"); // debug juju
 
 	if (GetPlayerInterior(playerid) == 0) return 0;
 	SetPlayerPosEx(playerid, x, y, z, 90.0, 0, 0);
@@ -669,9 +655,7 @@ public RestorePlayerPos(playerid, Float:x, Float: y, Float: z)
 forward StopDrugEffect(playerid);
 public StopDrugEffect(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("StopDrugEffect"); // debug juju
-	#endif
+	Logger_Debug("StopDrugEffect"); // debug juju
 
     SetPlayerDrunkLevel(playerid, 0);
     new p_int = GetPlayerInterior(playerid);
@@ -687,9 +671,7 @@ public StopDrugEffect(playerid)
 forward InjuredAnimationCut(playerid);
 public InjuredAnimationCut(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("InjuredAnimationCut"); // debug juju
-	#endif
+	Logger_Debug("InjuredAnimationCut"); // debug juju
 
 	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
 	PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = false;
@@ -699,9 +681,7 @@ public InjuredAnimationCut(playerid)
 forward SavePlayerData(playerid);
 public SavePlayerData(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("SavePlayerData"); // debug juju
-	#endif
+	Logger_Debug("SavePlayerData"); // debug juju
 
 	SaveUserData(playerid);
 	SavePlayerVehicles(playerid, false);
@@ -718,9 +698,7 @@ public SavePlayerData(playerid)
 forward AddPlayerReputation(playerid);
 public AddPlayerReputation(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("AddPlayerReputation"); // debug juju
-	#endif
+	Logger_Debug("AddPlayerReputation"); // debug juju
 
 	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
 	if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
@@ -772,9 +750,7 @@ public AddPlayerReputation(playerid)
 forward CheckCrunchAnimation(playerid);
 public CheckCrunchAnimation(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("CheckCrunchAnimation"); // debug juju
-	#endif
+	Logger_Debug("CheckCrunchAnimation"); // debug juju
 
 	if (!IsPlayerConnected(playerid)) return 0;
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
@@ -800,9 +776,7 @@ public CheckCrunchAnimation(playerid)
 forward TogglePlayerControl(playerid, bool:controlable);
 public TogglePlayerControl(playerid, bool:controlable)
 {
-	#if DEBUG_MODE == 1
-		printf("TogglePlayerControl"); // debug juju
-	#endif
+	Logger_Debug("TogglePlayerControl"); // debug juju
 
 	return TogglePlayerControllableEx(playerid, controlable);
 }
@@ -810,9 +784,7 @@ public TogglePlayerControl(playerid, bool:controlable)
 forward HealthUp(playerid);
 public HealthUp(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("HealthUp"); // debug juju
-	#endif
+	Logger_Debug("HealthUp"); // debug juju
 
 	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_HOSPITAL) return 1;
 
@@ -901,9 +873,7 @@ public HealthUp(playerid)
 forward HungryThirstDown(playerid);
 public HungryThirstDown(playerid)
 {
-	/*#if DEBUG_MODE == 1
-		printf("HungryThirstDown"); // debug juju
-	#endif*/
+	//Logger_Debug("HungryThirstDown"); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return HidePlayerHud(playerid);
 	if (!PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS]) return HidePlayerHud(playerid);
@@ -974,9 +944,7 @@ public HungryThirstDown(playerid)
 forward StartVehicleEngine(playerid, vehicleid);
 public StartVehicleEngine(playerid, vehicleid)
 {
-	#if DEBUG_MODE == 1
-		printf("StartVehicleEngine"); // debug juju
-	#endif
+	Logger_Debug("StartVehicleEngine"); // debug juju
 
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] == VEHICLE_STATE_DAMAGED) return ShowPlayerMessage(playerid, "~r~Motor dañado.", 1);
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] <= 0.1) return ShowPlayerMessage(playerid, "~r~Sin gasolina.", 1);
@@ -1012,9 +980,7 @@ public StartVehicleEngine(playerid, vehicleid)
 forward UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel);
 public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 {
-	/*#if DEBUG_MODE == 1
-		printf("UpdatePlayerSpeedo"); // debug juju
-	#endif*/
+	//Logger_Debug("UpdatePlayerSpeedo"); // debug juju
 
 	if (vehicleid != GetPlayerVehicleID(playerid))
 	{
@@ -1123,9 +1089,7 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 forward FixVehicleUpdate(playerid, vehicleid);
 public FixVehicleUpdate(playerid, vehicleid)
 {
-	#if DEBUG_MODE == 1
-		printf("FixVehicleUpdate"); // debug juju
-	#endif
+	Logger_Debug("FixVehicleUpdate"); // debug juju
 
 	if (vehicleid == INVALID_VEHICLE_ID)
 	{
@@ -1177,9 +1141,7 @@ public FixVehicleUpdate(playerid, vehicleid)
 forward DisableGangRefMark(playerid);
 public DisableGangRefMark(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("DisableGangRefMark"); // debug juju
-	#endif
+	Logger_Debug("DisableGangRefMark"); // debug juju
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
@@ -1210,9 +1172,7 @@ public DisableGangRefMark(playerid)
 forward DisableMafiaRefMark(playerid);
 public DisableMafiaRefMark(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("DisableMafiaRefMark"); // debug juju
-	#endif
+	Logger_Debug("DisableMafiaRefMark"); // debug juju
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
@@ -1248,9 +1208,7 @@ public DisableMafiaRefMark(playerid)
 forward DisableCombatMode(playerid);
 public DisableCombatMode(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("DisableCombatMode"); // debug juju
-	#endif
+	Logger_Debug("DisableCombatMode"); // debug juju
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][44]);
 	ShowPlayerNotification(playerid, "Has salido del modo de combate.");
@@ -1261,9 +1219,7 @@ public DisableCombatMode(playerid)
 forward CuffPlayer(playerid);
 public CuffPlayer(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("CuffPlayer"); // debug juju
-	#endif
+	Logger_Debug("CuffPlayer"); // debug juju
 
 	SetPlayerDrunkLevel(playerid, 0);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -1296,9 +1252,7 @@ public CuffPlayer(playerid)
 forward UnjailPlayer(playerid);
 public UnjailPlayer(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("UnjailPlayer"); // debug juju
-	#endif
+	Logger_Debug("UnjailPlayer"); // debug juju
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
 	CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 0;
@@ -1530,9 +1484,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
 public OnPlayerSpawn(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerSpawn",playerid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerSpawn",playerid); // debug juju
 
 	// Show server logo
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO][0]);
@@ -2016,9 +1968,7 @@ public OnPlayerSpawn(playerid)
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerDeath %d %d %d", playerid, killerid, reason); // debug juju
-	#endif
+	Logger_Debug("OnPlayerDeath %d %d %d", playerid, killerid, reason); // debug juju
 
 	if (IsPlayerNPC(playerid)) return 0;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
@@ -2361,9 +2311,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) // Recién conectado
 	{
@@ -2452,9 +2400,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 public OnPlayerRequestSpawn(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerRequestSpawn %d",playerid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerRequestSpawn %d",playerid); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) CallLocalFunction("OnPlayerRequestClass", "dd", playerid, 0);
     return 0;
@@ -2462,9 +2408,7 @@ public OnPlayerRequestSpawn(playerid)
 
 public OnPlayerText(playerid, text[])
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerText %d %s",playerid,text); // debug juju
-	#endif
+	Logger_Debug("OnPlayerText %d %s",playerid,text); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
@@ -2674,9 +2618,7 @@ public OnPlayerText(playerid, text[])
 
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerEnterDynamicArea %d %d",playerid, areaid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerEnterDynamicArea %d %d",playerid, areaid); // debug juju
 
 	PLAYER_TEMP[playerid][py_LAST_AREA] = areaid;
 
@@ -2736,9 +2678,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerLeaveDynamicArea %d %d",playerid, areaid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerLeaveDynamicArea %d %d",playerid, areaid); // debug juju
 
 	PLAYER_TEMP[playerid][py_LAST_AREA] = INVALID_STREAMER_ID;
 
@@ -2804,9 +2744,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerEnterDynamicCP %d %d",playerid, checkpointid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerEnterDynamicCP %d %d",playerid, checkpointid); // debug juju
 
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
@@ -2976,9 +2914,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {	
-	#if DEBUG_MODE == 1
-		printf("OnPlayerEditAttachedObject %d %d", playerid, response); // debug juju
-	#endif
+	Logger_Debug("OnPlayerEditAttachedObject %d %d", playerid, response); // debug juju
 
 	if (index != PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]) return 0;
 
@@ -3586,9 +3522,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 
 public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
-    #endif
+	Logger_Debug("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
 
 	new info[3];
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, pickupid, E_STREAMER_EXTRA_ID, info);
@@ -3609,9 +3543,7 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	/*#if DEBUG_MODE == 1
-		printf("OnPlayerKeyStateChange %d %d %d",playerid, newkeys, oldkeys); // debug juju
-    #endif*/
+	//Logger_Debug("OnPlayerKeyStateChange %d %d %d",playerid, newkeys, oldkeys); // debug juju
 
 	if (!IsPlayerConnected(playerid)) return 0;
 	if (IsPlayerPaused(playerid)) return 0;
@@ -3840,7 +3772,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 				{
 					new slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
-					if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 52)
+					if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 36)
 					{
 						for(new i = 0; i < sizeof ROCKS_OBJ; i ++)
 						{
@@ -4604,9 +4536,7 @@ public OnPlayerUpdate(playerid)
 
 public OnPlayerStateChange(playerid, newstate, oldstate)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerStateChange %d %d %d",playerid, newstate, oldstate); // debug juju
-	#endif
+	Logger_Debug("OnPlayerStateChange %d %d %d",playerid, newstate, oldstate); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
@@ -5168,9 +5098,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
 
 	if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 
@@ -5194,9 +5122,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
-	#endif
+	Logger_Debug("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
 
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
@@ -5438,9 +5364,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
 public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerEnterDynamicRaceCP %d %d",playerid,checkpointid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerEnterDynamicRaceCP %d %d",playerid,checkpointid); // debug juju
 
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_RACE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
@@ -5869,9 +5793,7 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 #if defined FINAL_BUILD
 	public OnRconLoginAttempt(ip[], password[], success)
 	{
-		#if DEBUG_MODE == 1
-			printf("OnRconLoginAttempt %s %s",ip,password); // debug juju
-	    #endif
+		Logger_Debug("OnRconLoginAttempt %s %s",ip,password); // debug juju
 
 	    new temp_ip[16];
 
@@ -5892,9 +5814,7 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 
 public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y, Float:z)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerSelectDynamicObject %d",playerid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerSelectDynamicObject %d",playerid); // debug juju
 
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
@@ -5929,9 +5849,7 @@ public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y
 
 public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
-	#if DEBUG_MODE == 1
-		printf("OnPlayerEditDynamicObject",playerid); // debug juju
-	#endif
+	Logger_Debug("OnPlayerEditDynamicObject",playerid); // debug juju
 
 	if (response == EDIT_RESPONSE_CANCEL)
 	{
@@ -6073,9 +5991,7 @@ ResetPlayerVariables(playerid)
 forward ContinuePlayerIntro(playerid, step);
 public ContinuePlayerIntro(playerid, step)
 {
-	#if DEBUG_MODE == 1
-		printf("ContinuePlayerIntro"); // debug juju
-	#endif
+	Logger_Debug("ContinuePlayerIntro"); // debug juju
 
 	switch(step)
 	{
@@ -6190,9 +6106,7 @@ public ContinuePlayerIntro(playerid, step)
 forward CarJackingFinish(playerid);
 public CarJackingFinish(playerid)
 {
-	#if DEBUG_MODE == 1
-		printf("CarJackingFinish"); // debug juju
-	#endif
+	Logger_Debug("CarJackingFinish"); // debug juju
 
 	TogglePlayerControllableEx(playerid, true);
 	return 1;

@@ -34,7 +34,6 @@ public FCNPC_OnSpawn(npcid)
 {
 	FCNPC_SetWeapon(npcid, 31);
 	FCNPC_SetAmmo(npcid, 500);
-	printf("spanwed");
 	return 1;
 }*/
 
@@ -2370,6 +2369,30 @@ CMD:setpass(playerid, params[])
 	return 1;
 }
 
+CMD:getresponse(playerid, params[])
+{
+	new to_account;
+	if (sscanf(params, "d", to_account)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /getresponse <DB-ID>");
+
+	new DBResult:Result, DB_Query[160];
+
+	// Security question
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `SECURITY_QUESTIONS` WHERE `ID_USER` = '%d';", to_account);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		new response[60];
+		db_get_field_assoc(Result, "RESPONSE", response, 32);
+		SendClientMessageEx(playerid, COLOR_WHITE, "Respuesta: %s", response);
+	}
+	else SendClientMessage(playerid, COLOR_WHITE, "No se encontro la DB-ID.");
+	db_free_result(Result);
+
+	SendCmdLogToAdmins(playerid, "getresponse", params);
+	return 1;
+}
+
 CMD:setip(playerid, params[])
 {
 	new to_account, new_ip[16];
@@ -2763,9 +2786,7 @@ flags:setcredits(CMD_OWNER)
 forward StoreCreditsUpdate(index, response_code, const data[]);
 public StoreCreditsUpdate(index, response_code, const data[])
 {
-	#if DEBUG_MODE == 1
-		printf("StoreCreditsUpdate %d %d %s", index, response_code, data);
-	#endif
+	Logger_Debug("StoreCreditsUpdate %d %d %s", index, response_code, data);
 	return 1;
 }
 
@@ -2840,6 +2861,24 @@ CMD:jetpack(playerid, params[])
     SetPlayerSpecialAction(to_player, SPECIAL_ACTION_USEJETPACK);
 	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador '%s (%d)' tiene jetpack.", ACCOUNT_INFO[to_player][ac_NAME], to_player);
 	SendCmdLogToAdmins(playerid, "jetpack", params);
+    return 1;
+}
+
+CMD:resetinv(playerid, params[])
+{
+    new to_player;
+    if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /jetpack <player_id>");
+    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+
+	new DB_Query[160];
+	format(DB_Query, sizeof DB_Query,
+		"DELETE FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d';",
+		ACCOUNT_INFO[to_player][ac_ID]
+	);
+	db_free_result(db_query(Database, DB_Query));
+
+	SendClientMessageEx(playerid, COLOR_WHITE, "El inventario de '%s (%d)' fue vaciado.", ACCOUNT_INFO[to_player][ac_NAME], to_player);
+	SendCmdLogToAdmins(playerid, "resetinv", params);
     return 1;
 }
 
@@ -3550,6 +3589,8 @@ flags:setmutes(CMD_MODERATOR4)
 flags:setjails(CMD_MODERATOR4)
 flags:setbans(CMD_MODERATOR4)
 flags:setadv(CMD_MODERATOR4)
+flags:resetinv(CMD_MODERATOR4)
+flags:getresponse(CMD_OPERATOR)
 flags:setkicks(CMD_MODERATOR4)
 flags:initmarket(CMD_OPERATOR)
 flags:initgraffiti(CMD_OPERATOR)

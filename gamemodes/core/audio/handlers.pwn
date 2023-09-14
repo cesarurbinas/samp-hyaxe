@@ -70,7 +70,7 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 
 public OnDownloadResponse(playerid, response_code, data[])
 {
-	printf("OnDownloadResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
+	Logger_Debug("OnDownloadResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
 	PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
 
 <<<<<<< HEAD

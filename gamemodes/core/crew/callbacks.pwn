@@ -1,9 +1,7 @@
 forward UpdateTerritoryAttack(territory_index);
 public UpdateTerritoryAttack(territory_index)
 {
-	#if DEBUG_MODE == 1
-		printf("UpdateTerritoryAttack"); // debug juju
-	#endif
+	Logger_Debug("UpdateTerritoryAttack"); // debug juju
 
 	if (!TERRITORIES[territory_index][territory_VALID]) return 1;
 	if (!TERRITORIES[territory_index][territory_WAR]) return 1;

@@ -1,16 +1,14 @@
 forward neuroadmin_BotGetResponse(index, response_code, const data[]);
 public neuroadmin_BotGetResponse(index, response_code, const data[])
 {
-	#if DEBUG_MODE == 1
-		printf("neuroadmin_BotGetResponse %d %d %s", index, response_code, data);
-	#endif
+	Logger_Debug("neuroadmin_BotGetResponse %d %d %s", index, response_code, data);
 
 	if (IsPlayerConnected(index))
 	{
 		new str_text[264];
 	    if (response_code == 200)
 	    {
-	    	printf("[NEUROADMIN] Data: %s", data);
+	    	Logger_Debug("[NEUROADMIN] Data: %s", data);
 
 	    	format(str_text, sizeof(str_text), 
 	    		"[Dudas] "COL_WHITE"NeuroAdmin: (( @%d %s ))",
@@ -18,7 +16,7 @@ public neuroadmin_BotGetResponse(index, response_code, const data[])
 	    		data
 	    	);
 
-	    	printf("[NEUROADMIN] Doubt: %s", str_text);
+	    	Logger_Debug("[NEUROADMIN] Doubt: %s", str_text);
 	    	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 			{
 				if (IsPlayerConnected(i))
@@ -46,9 +44,7 @@ public neuroadmin_BotGetResponse(index, response_code, const data[])
 forward neuroadmin_BotCheckBadUse(index, response_code, const data[]);
 public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 {
-	#if DEBUG_MODE == 1
-		printf("neuroadmin_BotCheckBadUse %d %d %s", index, response_code, data); // debug juju
-	#endif
+	Logger_Debug("neuroadmin_BotCheckBadUse %d %d %s", index, response_code, data); // debug juju
 
 	if (IsPlayerConnected(index))
 	{

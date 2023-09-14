@@ -104,7 +104,18 @@ new const g_rgszWeaponName[][] = {
 		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: Detonador
 		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: RPG
 		{ 0, 0, 0, 0, 0, 0, 0 }, // Spray
-		{ 0, 0, 0, 0, 0, 0, 0 } // NO USADO: Extinguidor
+		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: Extinguidor
+		{ 1, 1, 1, 1, 1, 1, 2 }, // Nigh vision
+		{ 1, 1, 1, 1, 1, 1, 2 }, // Thermal 
+		{ 1, 1, 1, 1, 1, 1, 2 }, // Paracaidas
+		{ 1, 1, 1, 1, 1, 1, 2 }, // Cellphone
+		{ 1, 1, 1, 1, 1, 1, 2 }, // Jetpack
+		{ 1, 1, 1, 1, 1, 1, 2 }, // Skate
+		{ 1, 1, 1, 1, 1, 1, 2 }, // Vehicle
+		{ 1, 1, 1, 1, 1, 1, 2 }, // Helicopter
+		{ 1, 1, 1, 1, 1, 1, 2 }, // BOOM
+		{ 1, 1, 1, 1, 1, 1, 2 }, // drowned
+		{ 1, 1, 1, 1, 1, 1, 2 } // splat
     };
 
 forward OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart);
