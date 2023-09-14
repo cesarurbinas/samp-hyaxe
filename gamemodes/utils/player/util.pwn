@@ -4684,6 +4684,27 @@ minrand(min, max)
 	return random(max - min) + min;
 }
 
+EquipItemByType(playerid, type)
+{
+	new target_slot;
+	for(new i = 0; i < 13; i ++)
+	{
+		if (PLAYER_VISUAL_INV[playerid][slot_VALID][i] && PLAYER_VISUAL_INV[playerid][slot_TYPE][i] == type)
+		{
+			target_slot = i;
+			break;
+		}
+	}
+
+	if (target_slot)
+	{
+		PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = 0;
+		ClickInventorySlot(playerid, hammer_slot, true);
+		return 1;
+	}
+	return 0;
+}
+
 SetIntroCamera(playerid)
 {
 	new RandomSelectCamera = random(16);
