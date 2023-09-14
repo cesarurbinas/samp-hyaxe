@@ -949,10 +949,10 @@ JailPlayer(playerid, seconds = 300)
     return 1;
 }
 
-/*IsPlayerPaused(playerid)
+IsPlayerPaused(playerid)
 {
 	return (GetTickCount() - g_iPlayerLastUpdate[playerid] > 2000);
-}*/
+}
 
 IsPlayerInWater(playerid)
 {
@@ -2920,7 +2920,7 @@ public UpdateBotPing(playerid)
 	#endif
 
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
-	SetPlayerFakePing(playerid, minrand(170, 345));
+	//SetPlayerFakePing(playerid, minrand(170, 345));
 
 	if (GetPlayerScore(playerid) == 0) SetPlayerScore(playerid, minrand(1, 7));
 	return 1;
@@ -2947,8 +2947,8 @@ Bot(playerid)
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	SetPlayerScore(playerid, minrand(1, 7));
 
-	TogglePlayerFakePing(playerid, true);
-    SetPlayerFakePing(playerid, minrand(170, 345));
+	//TogglePlayerFakePing(playerid, true);
+    //SetPlayerFakePing(playerid, minrand(170, 345));
 
 	new name[MAX_PLAYER_NAME];
 	format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);

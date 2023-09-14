@@ -51,7 +51,7 @@
 
 #include <streamer>
 #include <ColAndreas>
-#include <YSF>
+//#include <YSF>
 
 /*#if !defined _FCNPC_included
 	#tryinclude <FCNPC>

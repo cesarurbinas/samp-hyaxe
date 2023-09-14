@@ -3811,14 +3811,14 @@ stock const
 
 #define GetColCount() MODELS_gColCount
 
-/*stock Float:GetColSphereRadius(objectmodel)
+stock Float:GetColSphereRadius(objectmodel)
 {
 	if (0 <= objectmodel < sizeof (MODELS_gColRadius))
 	{
 		return MODELS_gColRadius[objectmodel];
 	}
 	return 0.0;
-}*/
+}
 
 /*stock GetColSphereOffset(objectmodel, &Float:x, &Float:y, &Float:z)
 {
