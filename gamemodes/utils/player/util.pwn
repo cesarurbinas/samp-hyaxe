@@ -276,7 +276,7 @@ Float:CameraLookToAngle(playerid)
 	return atan2(y, x) + 270.0;
 }
 
-stock GetTickCountDifference(newtick, oldtick)
+/*stock GetTickCountDifference(newtick, oldtick)
 {
 	if (oldtick < 0 && newtick >= 0)
 	{
@@ -287,4 +287,21 @@ stock GetTickCountDifference(newtick, oldtick)
 		return (cellmax - oldtick + 1) - (cellmin - newtick);
 	}
 	return newtick - oldtick;
+}*/
+
+GetTickCountDifference(newtick, oldtick)
+{
+	return newtick - oldtick;
+}
+
+IsValidGPCI(playerid)
+{  
+	if(IsPlayerNPC(playerid)) return true;
+	new TempId[80], TempNumb;  
+	gpci(playerid, TempId, sizeof(TempId));  
+	for(new i = 0; i < strlen(TempId); i++)  
+	{  
+		if(TempId[i] >= '0' && TempId[i] <= '9')  TempNumb++;  
+	}  
+	return (TempNumb >= AFC_NUMBER || strlen(TempId) <= AFC_NUMBER) ? true : false;
 }

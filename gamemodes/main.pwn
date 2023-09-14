@@ -3316,6 +3316,18 @@ public OnPlayerConnect(playerid)
 		return 0;
 	}
 
+	if (!IsValidGPCI(playerid))
+	{
+		new str_text[144];
+		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Cliente inválido", PLAYER_TEMP[playerid][py_NAME], playerid);
+	    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+	    SendDiscordWebhook(str_text, 1);
+	    
+	    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inválido");
+	    KickEx(playerid, 500);
+		return 0;	
+	}
+
 	EnablePlayerCameraTarget(playerid, true);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	TogglePlayerControllableEx(playerid, true);
