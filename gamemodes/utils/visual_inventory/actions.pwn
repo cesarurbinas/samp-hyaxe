@@ -314,7 +314,7 @@ UseItemSlot(playerid)
 					{
 						if (PLAYER_CREW[i][player_crew_ID] == PLAYER_CREW[playerid][player_crew_ID])
 						{
-							SetPlayerMarkerForPlayer(i, playerid, 0x0087ffFF);
+							SetPlayerMarkerForPlayer(i, playerid, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);
 							ShowPlayerNotification(i, message, 4);
 						}
 					}
