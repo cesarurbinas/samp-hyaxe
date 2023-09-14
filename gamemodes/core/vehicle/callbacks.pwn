@@ -172,13 +172,7 @@ IPacket:VEHICLE_SYNC(playerid, BitStream:bs)
 	{
 		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= 2) return 1;
 		
-		new string[128];
-		format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): Vehicle Grabber (1)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-		SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
-		SendDiscordWebhook(string, 1);
-
-		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Vehicle Grabber (1)");
-		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		Anticheat_Kick(playerid, "Vehicle Grabber #0");
 		return 0;
 	}
     return 1;

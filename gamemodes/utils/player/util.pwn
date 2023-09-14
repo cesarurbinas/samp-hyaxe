@@ -1219,13 +1219,7 @@ public OnPlayerProxyFound(index, response_code, data[])
 	{
 		if (data[0] == 'Y')
 		{
-			new str_text[144];
-			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Proxy/VPN", PLAYER_TEMP[index][py_NAME], index);
-	    	SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-	    	SendDiscordWebhook(str_text, 1);
-
-	    	SendClientMessageEx(index, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por usar Proxy/VPN");
-	    	KickEx(index, 500);
+			Anticheat_Kick(playerid, "Proxy/VPN");
 		}
 
 		if (data[0] == 'B')
