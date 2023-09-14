@@ -27215,18 +27215,6 @@ CMD:motor(playerid, params[])
 	return 1;
 }
 
-CMD:testedit666(playerid, params[])
-{
-	new Float:x, Float:y, Float:z;
-	GetPlayerPos(playerid, x, y, z);
-	PLAYER_TEMP[playerid][py_EDITING_OBJ] = CreateDynamicObject(
-		19912,
-		x, y, z, 0.0, 0.0, 0.0,0,0);
-
-	EditingMode(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
-	return 1;
-}
-
 AddVehicleComponents(vehicleid)
 {
 	for(new i = 0; i != MAX_VEHICLE_COMPONENTS; i ++)
