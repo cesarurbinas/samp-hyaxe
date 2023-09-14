@@ -3132,7 +3132,44 @@ CALLBACK: IsValidVehicleAbuse(playerid, vehicleid)
 	{
  		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
  		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
-		SendClientMessage(playerid, -1, "pg");
+
+	    StopAudioStreamForPlayer(to_player);
+	    CancelEdit(to_player);
+	    EndPlayerJob(to_player);
+
+	    PLAYER_MISC[to_player][MISC_JAILS] ++;
+	    SavePlayerMisc(to_player);
+
+	    PLAYER_TEMP[to_player][py_HUNGRY_MESSAGE] = false;
+	    PLAYER_TEMP[to_player][py_THIRST_MESSAGE] = false;
+	    PLAYER_TEMP[to_player][py_PLAYER_IN_ATM] = false;
+	    PLAYER_TEMP[playerid][py_PLAYER_IN_INV] = false;
+	    PLAYER_TEMP[to_player][py_CUFFED] = false;
+	    PLAYER_TEMP[to_player][py_CUFFING] = false;
+	    PLAYER_TEMP[to_player][py_PLAYER_WAITING_MP3_HTTP] = false;
+
+	    if (PLAYER_TEMP[to_player][py_WANT_MECHANIC])
+	    {
+		   PLAYER_TEMP[to_player][py_WANT_MECHANIC] = false;
+		   DisablePlayerMechanicMark(to_player);
+	    }
+	    if (PLAYER_TEMP[to_player][py_PLAYER_IN_CALL]) EndPhoneCall(to_player);
+	    if (PLAYER_TEMP[to_player][py_GPS_MAP]) HidePlayerGpsMap(to_player);
+
+	    JailPlayer(to_player, time * 60);
+	    SendClientMessageEx(to_player, 0xF7F7F7CC, "Te quedan %s minutos de sanción, razón: %s.", TimeConvert(time * 60), reason);
+	    SetPlayerSpecialAction(to_player, SPECIAL_ACTION_NONE);
+
+	    new str[145];
+	    format(str, 145, "[ADMIN] %s (%d) jaileó a %s (%d) por %s minutos: %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, TimeConvert(time * 60), reason);
+	    SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+	    new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		SendDiscordWebhook(webhook, 1);
+
+	    new dialog[250];
+		format(dialog, sizeof dialog, ""COL_WHITE"%s te jaileó, razón: %s.\nRecuerde que a los 10 jails sera baneado permanentemente.", ACCOUNT_INFO[playerid][ac_NAME], reason);
+		ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
  	}
  	return 1;
 }
@@ -3306,7 +3343,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				SavePlayerMisc(playerid);
 
 				new str[144];
-				format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
@@ -8682,7 +8719,7 @@ public OnPlayerText(playerid, text[])
 		SavePlayerMisc(playerid);
 
 		new str[144];
-		format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8818,7 +8855,7 @@ CMD:duda(playerid, params[])
 			SavePlayerMisc(playerid);
 
 			new str[144], webhook[144];
-			format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Spam (Dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (Dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8858,7 +8895,7 @@ CMD:duda(playerid, params[])
 			SavePlayerMisc(playerid);
 
 			new str[144];
-			format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Spam (IP en el dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (IP en el dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			new webhook[144];
@@ -8935,7 +8972,7 @@ CMD:anuncio(playerid, params[])
 			SavePlayerMisc(playerid);
 
 			new str[144];
-			format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Spam (Anuncios).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (Anuncios).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			new webhook[144];
@@ -8977,7 +9014,7 @@ CMD:anuncio(playerid, params[])
 		SavePlayerMisc(playerid);
 
 		new str[144];
-		format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Spam (IP en el anuncio).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (IP en el anuncio).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144];
@@ -32513,7 +32550,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				SavePlayerMisc(playerid);
 
 				new str[144];
-				format(str, 144, "[ADMIN] NeuroAdmin baneo a %s (%d): Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
