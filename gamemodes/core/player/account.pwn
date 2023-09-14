@@ -21,3 +21,13 @@ enum Account_Enum
 	ac_SD
 };
 new ACCOUNT_INFO[MAX_PLAYERS][Account_Enum]; // AI (AccountInfo)
+
+enum Bank_Account_Enum
+{
+	bank_account_ID,
+	bank_account_BALANCE
+};
+new BANK_ACCOUNT[MAX_PLAYERS][Bank_Account_Enum]; //BA (BankAccount)
+
+#define MIN_PASS_LENGTH  6
+#define MAX_PASS_LENGTH  18
