@@ -1939,6 +1939,18 @@ static const BAN_KEYWORDS[][100] =
 	"SAMP FIVE"
 };
 
+static const QUIT_KEYWORDS[][16] =
+{
+	"7q",
+	"(q",
+	"9/q",
+	"(/q",
+	"*/q",
+	")q",
+	"8q",
+	"9q"
+};
+
 enum
 {
 	MECHANIC_OPTION_REPAIR,
@@ -8713,6 +8725,15 @@ public OnPlayerText(playerid, text[])
 	// Send message
 	ProxDetector(playerid, 15.0, str_text, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5, 85);
 	SetPlayerChatBubble(playerid, text, 0xea3d3dFF, 15.0, 15000);
+
+	if (PLAYER_TEMP[playerid][py_COMBAT_MODE])
+	{
+		if (CheckKillEvadeAttemp(text))
+		{
+			ResetPlayerWeaponsEx(playerid);
+			SavePlayerWeaponsData(playerid);
+		}
+	}
 	return 0;
 }
 
@@ -32386,6 +32407,7 @@ ResetPlayerWeaponsEx(playerid)
 	for(new i = 0; i != 13; i ++) PLAYER_WEAPONS[playerid][i] = tmp_PLAYER_WEAPONS;
 
 	ResetPlayerWeapons(playerid);
+	
 	return 1;
 }
 
@@ -37253,6 +37275,19 @@ public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags)
         return 0; 
     }
     return 1; 
+}
+
+CheckKillEvadeAttemp(const str_text[])
+{
+	for(new x = 0; x < sizeof(QUIT_KEYWORDS); x ++)
+    {
+        if (strfind(str_text, QUIT_KEYWORDS[x], true) != -1)
+        {
+        	printf("[QUIT-CHECK] %s - %s", QUIT_KEYWORDS[x], str_text);
+        	return true;
+    	}
+    }
+	return false;
 }
 
 CheckSpamViolation(const str_text[])
