@@ -111,6 +111,9 @@ SanAndreas()
 	//24/7
 	CreateDynamic3DTextLabel(""COL_RED"Tienda 24/7\n"COL_WHITE"12 productos disponibles", 0xF0F0F0FF, -27.964675, -89.948631, 1003.546875, 10.0, .testlos = true, .interiorid = 18);
 
+	//Burdel
+	CreateDynamic3DTextLabel(""COL_RED"Burdel\n"COL_WHITE"5 productos disponibles", 0xF0F0F0FF, 1207.3176, -29.0368, 1000.9531, 10.0, .testlos = true, .interiorid = 3);
+
 	// Electrónica
 	CreateDynamic3DTextLabel(""COL_RED"Tienda Electrónica\n"COL_WHITE"4 productos disponibles", 0xF0F0F0FF, 1722.2310, -1253.8021, 471.1665, 10.0, .testlos = true, .interiorid = 17);
 	
