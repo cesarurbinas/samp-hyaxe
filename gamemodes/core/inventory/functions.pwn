@@ -244,6 +244,29 @@ inv_AccommodateVehicleItems(playerid, vehicle_id)
 	return 1;
 }
 
+SaveActualWeapon(playerid, reset = false)
+{
+	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+	{
+		if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]))
+		{
+			new 
+				DB_Query[164],
+				weapon_db_id = PLAYER_VISUAL_INV[playerid][slot_DB_ID][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]
+			;
+
+			format(DB_Query, sizeof DB_Query,
+				"UPDATE `PLAYER_INVENTORY` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
+				PLAYER_WEAPONS[playerid][ WEAPON_INFO[ GetPlayerWeapon(playerid) ][weapon_info_SLOT] ][player_weapon_AMMO],
+				weapon_db_id
+			);
+			db_free_result(db_query(Database, DB_Query));
+			if (reset) ResetPlayerWeaponsEx(playerid);
+		}
+	}
+	return 1;
+}
+
 inv_AccommodateItems(playerid, bool:is_visual = true)
 {
 	PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0;
@@ -556,7 +579,7 @@ RefreshItemList(playerid)
 		{
 			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 212.00000, 18.0000);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Inventario");
-
+			SaveActualWeapon(playerid);
 			inv_AccommodateItems(playerid);
 
 			new 
@@ -1200,34 +1223,11 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 		{
 			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{
-				printf("click");
-				// Actualizar municion del arma
-				if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
-				{
-					printf("1");
-					if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]))
-					{
-						printf("2");
-						new 
-							DB_Query[164],
-							weapon_db_id = PLAYER_VISUAL_INV[playerid][slot_DB_ID][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]
-						;
-						printf("id: %d", weapon_db_id);
-
-						format(DB_Query, sizeof DB_Query,
-							"UPDATE `PLAYER_INVENTORY` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
-							PLAYER_WEAPONS[playerid][ WEAPON_INFO[ GetPlayerWeapon(playerid) ][weapon_info_SLOT] ][player_weapon_AMMO],
-							weapon_db_id
-						);
-						printf("wp: %d", GetPlayerWeapon(playerid));
-						printf("ammo: %d", PLAYER_WEAPONS[playerid][ WEAPON_INFO[ GetPlayerWeapon(playerid) ][weapon_info_SLOT] ][player_weapon_AMMO]);
-						printf(DB_Query);
-						db_free_result(db_query(Database, DB_Query));
-					}
-				}
-
 				if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
-				
+
+				// Actualizar municion del arma
+				SaveActualWeapon(playerid, true);
+
 				new item_str[64];
 				format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", ITEM_INFO[ PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] ][item_NAME]);
 				GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
@@ -1275,7 +1275,6 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 						}
 					}
 				}
-
 				PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = slot;
 			}
 			else

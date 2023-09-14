@@ -756,6 +756,16 @@ GetPlayerZones(playerid, city[], zone[])
 	return 1;
 }
 
+ResetPlayerWeaponsEx(playerid)
+{
+	new tmp_PLAYER_WEAPONS[enum_PLAYER_WEAPONS];
+	for(new i = 0; i != 13; i ++) PLAYER_WEAPONS[playerid][i] = tmp_PLAYER_WEAPONS;
+
+	ResetPlayerWeapons(playerid);
+	ResetItemBody(playerid);
+	return 1;
+}
+
 JailPlayer(playerid, seconds = 300)
 {
 	PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
