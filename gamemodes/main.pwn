@@ -55,7 +55,7 @@
 
 // Features
 #define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -3827,6 +3827,11 @@ public OnPlayerConnect(playerid)
 		Bot(playerid);
 		return 0;
 	}
+	else if (!strcmp(PLAYER_TEMP[playerid][py_IP], "134.255.216.233")) // backup rdp
+	{
+		Bot(playerid);
+		return 0;
+	}
 	else
 	{
 		CheckProxy(playerid);
@@ -5082,8 +5087,8 @@ Menu:MECHANICTUNING(playerid, response, listitem)
        	
        	else if (listitem == 3)
         {
-        	//ShowPlayerMessage(playerid, "~r~Esto no esta disponible", 4);
-        	ShowObjTuning(playerid);
+        	ShowPlayerMessage(playerid, "~r~Esto no esta disponible", 4);
+        	//ShowObjTuning(playerid);
         }
 
        	else if (listitem == 4)
@@ -7673,7 +7678,7 @@ AddGiftCode(code[], type, extra)
 	return 1;
 }
 
-forward SendGift();
+/*forward SendGift();
 public SendGift()
 {
 	#if DEBUG_MODE == 1
@@ -7703,7 +7708,7 @@ public SendGift()
 		HTTP(0, HTTP_HEAD, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "");
 	}
 	return 1;
-}
+}*/
 
 forward GiveAutoGift();
 public GiveAutoGift()
@@ -7801,7 +7806,7 @@ public OnGameModeInit()
 
 	#if defined FINAL_BUILD
 		SetTimer("GiveAutoGift", 300000, false);
-    	SetTimer("SendGift", 120000, true);
+    	//SetTimer("SendGift", 120000, true);
 	#endif
 
 <<<<<<< HEAD
@@ -24507,6 +24512,7 @@ SaveUserData(playerid)
 			PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER],
 			PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER]
 		);
+		printf("%s", DB_Query);
 
 		Result = db_query(Database, DB_Query); // crash aca
 		db_free_result(Result);
@@ -37225,16 +37231,7 @@ UpdateVehicleAttachedObject(vehicleid, slot)
 	{
 		if (VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] == INVALID_STREAMER_ID)
 		{
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = CreateDynamicObject
-																	(
-																		VEHICLE_OBJECTS[vehicleid][slot][vobject_MODELID],
-																		0.0,
-																		0.0,
-																		0.0,
-																		0.0,
-																		0.0,
-																		0.0
-																	);
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = CreateDynamicObject( VEHICLE_OBJECTS[vehicleid][slot][vobject_MODELID], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 		}
 
 		for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
@@ -37260,8 +37257,7 @@ UpdateVehicleAttachedObject(vehicleid, slot)
 			return 0;
 		}
 
-		AttachDynamicObjectToVehicle
-		(
+		AttachDynamicObjectToVehicle(
 			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID],
 			vehicleid,
 			VEHICLE_OBJECTS[vehicleid][slot][vobject_OFFSET][0],
