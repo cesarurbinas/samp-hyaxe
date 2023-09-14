@@ -23,165 +23,855 @@ public OnFilterScriptInit()
 	new payaso[12];
 	new Actor_LCN[15];
 
+    //wtf
+    CreateDynamicObject(8580, -1465.9616, 483.8219, 2.3274, 0.0000, 0.0000, 0.0000); //vgsSstairs05_lvs
+    CreateDynamicObject(8614, -1475.4638, 482.9187, 0.8474, 0.0000, 0.0000, 0.0000); //vgsSstairs01_lvs
+    //CreateDynamicObject(1240, -1387.1334, 492.8735, 2.1851, 0.0000, 0.0000, 92.2999);
+    CreateActor(71, -1525.2122, 481.4372, 8.0575, 96.3000);
+
     //taller temple
-    tmpobjid = CreateDynamicObject(19377, 1041.2678, -928.0888, 44.3563, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 12814, "factorycunte", "newall3_16c128", 0xFFF0FFF0);
-    tmpobjid = CreateDynamicObject(3459, 1055.4962, -926.9306, 38.9617, 0.0000, 0.0000, 0.0000); //vgntelepole1
-    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
-    SetDynamicObjectMaterial(tmpobjid, 1, 10806, "airfence_sfse", "ws_oldpainted", 0x00000000);
-    SetDynamicObjectMaterial(tmpobjid, 3, 19426, "all_walls", "mirror01", 0x00000000);
-    SetDynamicObjectMaterial(tmpobjid, 4, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(19454, 1050.7639, -927.0488, 47.8074, 0.0000, 0.0000, -83.4999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1053.6472, -912.5794, 53.7802, -0.2000, -72.7998, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1065.6522, -901.1823, 44.4039, 0.0000, 0.0000, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1050.4552, -894.1409, 44.3964, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1052.6246, -903.0042, 53.7464, -0.2000, -72.7998, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1040.8874, -895.2312, 44.3964, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1060.0268, -893.0625, 44.3964, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1042.0240, -899.9172, 53.8671, 0.0000, 73.0998, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1033.3741, -900.8571, 51.2342, 0.0000, 73.0998, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1028.5123, -901.5828, 44.4039, 0.0000, 0.0000, 5.7999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1031.1257, -924.6607, 44.4039, 0.0000, 0.0000, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1036.5168, -928.8823, 44.3964, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1062.8658, -921.2874, 51.2523, -0.2000, -72.7998, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1041.2949, -928.3272, 44.3064, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1036.5283, -928.6196, 44.3563, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 12814, "factorycunte", "newall3_16c128", 0xFFF0FFF0);
-    tmpobjid = CreateDynamicObject(3459, 1051.2373, -927.0645, 46.2601, 7.0998, -90.2996, 6.5998); //vgntelepole1
-    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
-    SetDynamicObjectMaterial(tmpobjid, 1, 10806, "airfence_sfse", "ws_oldpainted", 0x00000000);
-    SetDynamicObjectMaterial(tmpobjid, 3, 19426, "all_walls", "mirror01", 0x00000000);
-    SetDynamicObjectMaterial(tmpobjid, 4, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(3459, 1046.0056, -927.7907, 38.9219, 0.0000, 0.0000, 0.0000); //vgntelepole1
-    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
-    SetDynamicObjectMaterial(tmpobjid, 1, 10806, "airfence_sfse", "ws_oldpainted", 0x00000000);
-    SetDynamicObjectMaterial(tmpobjid, 3, 19426, "all_walls", "mirror01", 0x00000000);
-    SetDynamicObjectMaterial(tmpobjid, 4, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(19377, 1054.6694, -922.1447, 53.8138, -0.2000, -72.7998, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1063.5178, -925.7655, 44.3964, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1060.3298, -926.1386, 44.2565, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1061.8427, -911.7122, 51.2187, -0.2000, -72.7998, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1060.8255, -902.1359, 51.2042, -0.2000, -72.7998, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1034.4139, -910.4309, 51.2342, 0.0000, 73.0998, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1052.1545, -898.6187, 53.7312, -0.2000, -72.7998, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1067.6986, -920.3328, 44.4039, 0.0000, 0.0000, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1066.6755, -910.7576, 44.4039, 0.0000, 0.0000, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1065.2517, -897.4431, 44.4039, 0.0000, 0.0000, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1051.9171, -898.6433, 53.8050, -0.2000, -72.7998, 6.2996); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1060.3557, -897.7500, 51.1888, -0.2000, -72.7998, 6.0998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1052.9748, -908.2144, 53.8387, -0.2000, -72.7998, 6.2996); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1032.8687, -896.1542, 44.3964, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1035.4526, -919.9943, 51.2342, 0.0000, 73.0998, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1054.0316, -917.7868, 53.8722, -0.2000, -72.7998, 6.2996); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1054.5179, -922.1607, 53.8972, -0.2000, -72.7998, 6.2996); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1035.9134, -924.2108, 51.2342, 0.0000, 73.0998, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1043.0645, -909.5009, 53.8671, 0.0000, 73.0998, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1044.1042, -919.0744, 53.8671, 0.0000, 73.0998, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19377, 1044.6134, -923.3247, 53.9229, 0.0000, 73.0998, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19454, 1036.8271, -928.6364, 49.3829, 17.1000, 0.0000, -83.4999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1045.9621, -927.5957, 52.2116, 17.1000, 0.0000, -83.4999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1062.6831, -925.6896, 49.5578, -17.2000, 0.0000, -83.4999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1053.5335, -926.7322, 52.4085, -17.2000, 0.0000, -83.4999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1054.8050, -926.5493, 50.4174, 0.0000, 0.0000, -83.4999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1033.1308, -896.0650, 49.3352, 17.1000, 0.0000, -83.3999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1042.2733, -895.0070, 52.1668, 17.1000, 0.0000, -83.3999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1030.7054, -920.7119, 44.4039, 0.0000, 0.0000, 6.1999); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1029.5769, -911.1491, 44.4039, 0.0000, 0.0000, 7.3997); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1043.2946, -894.8889, 48.8214, 17.1000, 0.0000, -83.3999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1034.1516, -895.9470, 45.9898, 17.1000, 0.0000, -83.3999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1059.7606, -893.0642, 49.3978, -17.2000, 0.0000, -83.6998); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1050.6180, -894.0737, 52.2454, -17.2000, 0.0000, -83.6998); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(14776, 1048.0289, -911.2138, 48.7714, 0.0000, 0.0000, 6.4998); //int3int_carupg_int
-    SetDynamicObjectMaterial(tmpobjid, 15, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(19454, 1049.5954, -894.1868, 48.9211, -17.2000, 0.0000, -83.6998); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19377, 1060.1866, -925.9342, 44.3563, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 12814, "factorycunte", "newall3_16c128", 0xFFF0FFF0);
-    tmpobjid = CreateDynamicObject(19377, 1063.2152, -925.5780, 44.3563, 0.0000, 0.0000, -83.5000); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 12814, "factorycunte", "newall3_16c128", 0xFFF0FFF0);
-    tmpobjid = CreateDynamicObject(19377, 1051.1557, -932.2711, 41.7251, 0.9998, -85.7998, -84.2998); //wall025
-    SetDynamicObjectMaterial(tmpobjid, 0, 9514, "711_sfw", "ws_carpark2", 0xFF696969);
-    tmpobjid = CreateDynamicObject(19454, 1050.8332, -926.9962, 47.8713, 0.0000, 0.0000, -83.4999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 12814, "factorycunte", "newall3_16c128", 0xFFF0FFF0);
-    tmpobjid = CreateDynamicObject(19454, 1058.7325, -893.1779, 46.0542, -17.2000, 0.0000, -83.6998); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19454, 1045.2558, -927.6369, 50.4174, 0.0000, 0.0000, -83.4999); //wall094
-    SetDynamicObjectMaterial(tmpobjid, 0, 11326, "oldgarage_sfse", "ws_corr_2_plaintiled", 0xFFE6E6FA);
-    tmpobjid = CreateDynamicObject(19369, 1038.4730, -928.6707, 44.1924, 0.0000, 0.0000, 96.4999); //wall017
-    SetDynamicObjectMaterial(tmpobjid, 0, 6357, "sunstrans_law2", "SunBillB10", 0x00000000);
-    tmpobjid = CreateDynamicObject(8330, 1050.9123, -927.0431, 49.2862, 0.0000, 0.0000, 5.2999); //vgsbboardsigns17
-    SetDynamicObjectMaterialText(tmpobjid, 0, "Cuckvendish's tuning", OBJECT_MATERIAL_SIZE_512x128, "Tahoma", 55, 1, 0xFFFFFFFF, 0x00000000, 0);
+    tmpobjid = CreateDynamicObject(19437, 1036.4149, -932.1707, 42.5451, 0.0000, 0.0000, 5.5998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(1223, 1049.4565, -946.9401, 41.7812, 0.0000, 0.0000, -86.4000); //lampost_coast
+    tmpobjid = CreateDynamicObject(19377, 1061.2496, -897.0172, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1036.8940, -918.4370, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19437, 1035.2463, -931.5429, 47.1767, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1062.0725, -906.6129, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1062.8951, -916.2083, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19437, 1038.3089, -932.7191, 47.1819, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1060.4276, -887.4323, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1054.5290, -883.2426, 42.7248, 0.0000, 0.0000, 94.8000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1045.8933, -893.6309, 42.7248, 0.0000, 0.0000, 94.8000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1050.2347, -888.5150, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1037.8592, -927.9873, 41.3596, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1048.3164, -927.0817, 41.6464, 0.5999, 88.5998, 4.9000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1044.2165, -893.7722, 42.7248, 0.0000, 0.0000, 94.8000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19437, 1053.5118, -930.6641, 46.1151, 0.0000, 0.0000, 4.9998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1058.5649, -926.2055, 41.8875, 0.5999, 88.5998, 4.9000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1037.0533, -918.3911, 41.4603, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1031.7811, -918.9141, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1036.2473, -908.7960, 41.5811, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1034.6168, -894.5681, 42.7248, 0.0000, 0.0000, 94.8000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1048.1916, -927.1046, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19437, 1044.1168, -931.4854, 46.0651, 0.0000, 0.0000, 5.5998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1035.4619, -899.4296, 41.6595, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1035.2154, -899.2595, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19437, 1038.7331, -931.2376, 47.1831, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19447, 1045.8006, -932.0418, 43.1649, -90.0000, 84.1996, 179.1002); //wall087
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1053.5118, -930.6641, 42.6151, 0.0000, 0.0000, 4.9998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19447, 1062.4619, -930.6245, 43.1347, -90.0000, 84.1996, -0.7997); //wall087
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1062.0516, -906.5933, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1036.4149, -932.1707, 46.0451, 0.0000, 0.0000, 5.5998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1045.1960, -931.3894, 46.4925, 0.0000, 89.9999, 4.9998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1063.7137, -925.7542, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1055.3310, -883.3461, 42.7248, 0.0000, 0.0000, 94.8000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1058.8907, -930.9182, 47.2181, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19437, 1044.1168, -931.4854, 42.5651, 0.0000, 0.0000, 5.5998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19447, 1034.6988, -931.5678, 43.1649, -90.0000, 84.1996, -0.7997); //wall087
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1055.3502, -930.4923, 46.5424, 0.0000, 89.9999, 4.9998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1059.1206, -930.8983, 47.2182, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19437, 1042.2198, -930.9323, 47.1892, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1055.4040, -931.2233, 47.1720, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19437, 1041.7937, -932.3944, 47.1281, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19447, 1034.8349, -933.0310, 43.1748, -90.0000, 84.1996, -0.7997); //wall087
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19482, 1048.9941, -930.4625, 51.2411, 0.0000, 0.0000, -83.3999); //Plane008
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF000000);
+    tmpobjid = CreateDynamicObject(19437, 1045.2812, -932.1090, 47.1943, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19437, 1041.7407, -931.6923, 46.4925, 0.0000, 89.9999, 4.9998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1060.7757, -930.0418, 42.6151, 0.0000, 0.0000, 5.5998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1031.6617, -917.2874, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF000000);
+    tmpobjid = CreateDynamicObject(19437, 1062.2591, -929.1680, 47.1621, -90.0000, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1032.6014, -928.4791, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(2960, 1053.1516, -923.1572, 47.8818, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(19377, 1030.8404, -907.7125, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1041.7949, -932.4141, 47.1879, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19437, 1058.7724, -929.4730, 47.1621, -90.0000, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1060.7757, -930.0418, 45.8750, 0.0000, 0.0000, 5.5998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1058.8348, -930.1870, 46.5424, 0.0000, 89.9999, 4.9998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19447, 1034.8514, -933.0114, 43.1649, -90.0000, 84.1996, -0.8998); //wall087
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19447, 1051.9261, -931.5170, 43.1649, -90.0000, 84.1996, -0.8998); //wall087
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1062.3009, -929.8833, 46.5026, 0.0000, 89.9999, 4.9998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1038.2445, -931.9982, 46.4925, 0.0000, 89.9999, 4.9998); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1038.3072, -932.6994, 47.1221, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1047.5128, -917.5158, 41.7168, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1057.7314, -916.6605, 41.9776, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1046.7071, -907.9199, 41.8278, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1056.8867, -907.0684, 42.0875, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1045.9110, -898.5545, 41.9160, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1056.0721, -897.4735, 42.1879, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1055.2629, -887.9381, 42.2681, 0.5999, 88.5998, 4.8000); //taller-piso
+    SetDynamicObjectMaterial(tmpobjid, 0, 6871, "vegascourtbld", "marbletilewal1_256", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1048.7500, -930.3499, 42.7248, 0.0000, 0.0000, 95.0000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1045.2801, -932.0891, 47.1343, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1055.4023, -931.2036, 47.1520, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1030.9591, -909.3292, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1030.1368, -899.7437, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19437, 1058.8891, -930.8989, 47.1581, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1055.2905, -883.1087, 42.9150, 0.0000, 0.0000, 95.0000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19437, 1062.3664, -930.5949, 47.1641, -90.0998, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1037.7336, -928.0214, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19377, 1045.6749, -898.3441, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19377, 1057.7004, -916.5864, 48.0452, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1058.6429, -926.2011, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19377, 1057.8037, -916.6074, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19377, 1056.9637, -907.0136, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19377, 1056.1251, -897.4298, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19377, 1055.2862, -887.8364, 48.0553, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19377, 1037.7419, -928.0006, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19872, 1033.0919, -900.8770, 39.9519, 0.0000, -1.3997, 5.4998); //CarFixerRamp2
+    tmpobjid = CreateDynamicObject(19872, 1038.6455, -900.3427, 40.0884, 0.0000, -1.3997, 5.4998); //CarFixerRamp2
+    tmpobjid = CreateDynamicObject(2960, 1057.3872, -890.2030, 47.8473, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(19872, 1049.4310, -899.3046, 40.3529, 0.0000, -1.3997, 5.4998); //CarFixerRamp2
+    tmpobjid = CreateDynamicObject(19872, 1053.6589, -890.4179, 40.4766, 0.0000, -1.3997, 5.4998); //CarFixerRamp2
+    tmpobjid = CreateDynamicObject(19872, 1058.7545, -889.9271, 40.6016, 0.0000, -1.3997, 5.4998); //CarFixerRamp2
+    tmpobjid = CreateDynamicObject(19872, 1048.4514, -924.0922, 39.9906, 0.0000, -1.3997, 5.4998); //CarFixerRamp2
+    tmpobjid = CreateDynamicObject(19377, 1048.1920, -927.0861, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1036.0649, -908.8432, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1036.8951, -918.4378, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1058.6311, -926.1721, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1047.3540, -917.5228, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1057.7939, -916.6090, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1061.2287, -896.9989, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1063.6948, -925.7534, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1056.9543, -907.0153, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(3399, 1044.7912, -884.8919, 45.8987, 0.0000, 0.0000, 4.9998); //cxrf_a51_stairs
+    tmpobjid = CreateDynamicObject(19447, 1062.3321, -929.1499, 43.1649, -90.0000, 84.1996, -0.7997); //wall087
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1032.4829, -926.8626, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1031.6617, -917.2874, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1030.1678, -899.7498, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19437, 1055.2873, -929.7786, 47.1621, -90.0000, 0.0000, 95.0000); //wall077
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1054.7414, -883.3856, 42.7248, 0.0000, 0.0000, 94.8000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1036.3891, -894.4487, 42.7248, 0.0000, 0.0000, 94.8000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1050.2749, -888.5117, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1045.9748, -893.6439, 42.7248, 0.0000, 0.0000, 94.8000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1034.6451, -894.6052, 42.7248, 0.0000, 0.0000, 94.8000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1047.2623, -917.4915, 48.0452, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1046.5255, -907.9282, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1056.1146, -897.4221, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1055.2877, -887.8671, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1045.6861, -898.3543, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1035.2242, -899.2592, 48.1052, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 18835, "mickytextures", "metal013", 0x00000000);
+    tmpobjid = CreateDynamicObject(3399, 1035.2297, -885.7194, 41.1888, 0.0000, 0.0000, 4.9998); //cxrf_a51_stairs
+    tmpobjid = CreateDynamicObject(19447, 1062.4277, -930.5958, 43.1649, -90.0000, 84.1996, 179.1002); //wall087
+    SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "ws_garagedoor3_white", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1035.4139, -932.9575, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19903, 1041.0943, -898.3695, 41.9062, 0.0000, 0.0000, -85.6996); //MechanicComputer1
+    SetDynamicObjectMaterial(tmpobjid, 0, -1, "none", "none", 0xFF00FF7F);
+    tmpobjid = CreateDynamicObject(19866, 1040.3950, -932.5214, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1045.3750, -932.0850, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1050.3647, -931.6483, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1055.3465, -931.2125, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1060.3266, -930.7761, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1061.6733, -930.6588, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1032.7873, -930.5736, 48.1492, 0.0000, 0.0000, -175.0001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1032.3520, -925.6021, 48.1492, 0.0000, 0.0000, -174.9001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1031.9073, -920.6218, 48.1492, 0.0000, 0.0000, -174.9001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1031.4626, -915.6414, 48.1492, 0.0000, 0.0000, -174.9001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1031.0179, -910.6610, 48.1492, 0.0000, 0.0000, -174.9001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1030.5726, -905.6804, 48.1492, 0.0000, 0.0000, -174.9001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1030.1285, -900.7103, 48.1492, 0.0000, 0.0000, -174.9001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1029.8325, -897.3936, 48.1492, 0.0000, 0.0000, -174.9001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1032.2058, -894.7816, 48.1492, 0.0000, 0.0000, 95.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1037.1853, -894.3458, 48.1492, 0.0000, 0.0000, 95.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1042.1750, -893.9086, 48.1492, 0.0000, 0.0000, 95.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1047.1567, -893.4729, 48.1492, 0.0000, 0.0000, 95.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1047.9842, -893.4005, 48.1492, 0.0000, 0.0000, 95.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1050.3640, -890.7819, 48.1492, 0.0000, 0.0000, -174.9001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1050.1258, -888.1234, 48.1492, 0.0000, 0.0000, -174.9001); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1052.1267, -883.3914, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1057.1064, -882.9555, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1057.6158, -882.9113, 48.1492, 0.0000, 0.0000, -85.0000); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1063.5333, -923.0913, 48.1492, 0.0000, 0.0000, 4.9998); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1063.0970, -918.1104, 48.1492, 0.0000, 0.0000, 4.9998); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1062.6616, -913.1295, 48.1492, 0.0000, 0.0000, 4.9998); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1062.2253, -908.1483, 48.1492, 0.0000, 0.0000, 4.9998); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1061.7889, -903.1668, 48.1492, 0.0000, 0.0000, 4.9998); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1061.3525, -898.1857, 48.1492, 0.0000, 0.0000, 4.9998); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1060.9360, -893.2028, 48.1492, 0.0000, 0.0000, 4.6998); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1060.5085, -888.2213, 48.1492, 0.0000, 0.0000, 4.8997); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1060.2469, -885.2830, 48.1492, 0.0000, 0.0000, 5.2996); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19866, 1063.9753, -928.0416, 48.1492, 0.0000, 0.0000, 5.0998); //MIFenceBlocks1
+    SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "ws_corr_2_plain", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1048.8701, -931.8068, 42.7150, 0.0000, 0.0000, 95.0000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(1466, 1048.9272, -929.6511, 49.3026, 0.0000, 0.0000, 6.5000); //DYN_SCAFFOLD_5
+    tmpobjid = CreateDynamicObject(19477, 1047.7143, -930.6322, 49.9738, 0.0000, 0.0000, -83.5000); //tuneacomo
+    SetDynamicObjectMaterialText(tmpobjid, 0, "Tunea como la concha de tu hermana", OBJECT_MATERIAL_SIZE_256x64, "Arial", 33, 1, 0xFFFFFFFF, 0x00000000, 0);
+    tmpobjid = CreateDynamicObject(8330, 1043.2204, -930.8192, 49.7653, 0.0000, 0.0000, 5.5000); //vendish
+    SetDynamicObjectMaterialText(tmpobjid, 0, "vendish's", OBJECT_MATERIAL_SIZE_512x128, "Franklin Gothic Medium", 30, 1, 0xFFFFFAFA, 0x00000000, 2);
     SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(8330, 1030.0421, -913.9210, 43.8962, 0.0000, 0.0000, -84.4999); //vgsbboardsigns17
-    SetDynamicObjectMaterial(tmpobjid, 0, 5773, "melrose13_lawn", "recshop02_LA", 0x00000000);
+    tmpobjid = CreateDynamicObject(19921, 1048.2618, -929.7409, 44.2644, 0.0000, 0.0000, -177.0997); //CutsceneToolBox1
+    tmpobjid = CreateDynamicObject(8330, 1039.8120, -931.2185, 49.7554, 0.0000, 0.0000, 5.7999); //cuck
+    SetDynamicObjectMaterialText(tmpobjid, 0, "Cuck", OBJECT_MATERIAL_SIZE_512x128, "Franklin Gothic Medium", 30, 1, 0xFFFF0000, 0x00000000, 2);
     SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(17969, 1066.2352, -905.5615, 43.3997, 0.0000, 0.0000, -173.9999); //hub_graffitti
-    tmpobjid = CreateDynamicObject(19369, 1062.3875, -925.9450, 44.1924, 0.0000, 0.0000, 96.4999); //wall017
-    SetDynamicObjectMaterial(tmpobjid, 0, 10249, "ottos2_sfw", "ottos_pics_sfe", 0x00000000);
-    tmpobjid = CreateDynamicObject(4227, 1066.6640, -910.3092, 43.6188, 0.0000, 0.0000, 96.0000); //graffiti_lan01
-    tmpobjid = CreateDynamicObject(1528, 1065.7802, -901.3884, 43.1296, 0.0000, 0.0000, -174.1998); //tag_seville
-    tmpobjid = CreateDynamicObject(4227, 1029.9239, -914.6824, 42.7296, 0.0000, 0.0000, -83.2999); //graffiti_lan01
-    tmpobjid = CreateDynamicObject(1529, 1030.2930, -917.7841, 42.0496, 0.0000, 0.0000, 5.9999); //tag_temple
-    tmpobjid = CreateDynamicObject(5152, 1051.0789, -919.1074, 42.3451, 0.0000, 3.2000, 95.9000); //stuntramp1_las2
+    tmpobjid = CreateDynamicObject(8330, 1048.8625, -930.1483, 51.1053, 0.0000, 0.0000, 5.7999); //Tuning
+    SetDynamicObjectMaterialText(tmpobjid, 0, "Tuning", OBJECT_MATERIAL_SIZE_512x128, "Franklin Gothic Medium", 28, 1, 0xFFFF0000, 0x00000000, 1);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19477, 1050.4763, -930.3170, 49.9440, 0.0000, 0.0000, -83.5000); //chadetu
+    SetDynamicObjectMaterialText(tmpobjid, 0, "cha de tu hermana", OBJECT_MATERIAL_SIZE_256x64, "Arial", 32, 1, 0xFFFFFFFF, 0x00000000, 0);
+    tmpobjid = CreateDynamicObject(19377, 1056.0218, -897.3997, 48.0452, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19482, 1041.5301, -894.1644, 45.2910, 0.0000, 0.0000, -84.9998); //Plane008
+    SetDynamicObjectMaterial(tmpobjid, 0, 10375, "subshops_sfs", "ws_archangels_dirty", 0x00000000);
+    tmpobjid = CreateDynamicObject(2922, 1061.5466, -929.0670, 43.6664, 0.0000, 0.0000, 0.0000); //kmb_keypad
+    tmpobjid = CreateDynamicObject(2960, 1040.8687, -901.0845, 47.9359, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1053.5107, -885.8616, 47.8657, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1053.8553, -890.4484, 47.8657, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1057.7324, -894.8004, 47.8473, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1058.0780, -899.3880, 47.8473, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(19377, 1056.8618, -906.9932, 48.0452, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(2960, 1054.2020, -895.0460, 47.8657, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1054.5472, -899.6331, 47.8656, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1058.4237, -903.9851, 47.8471, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(19872, 1044.1728, -899.8107, 40.2238, 0.0000, -1.3997, 5.4998); //CarFixerRamp2
+    tmpobjid = CreateDynamicObject(2960, 1058.7691, -908.5822, 47.8471, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1059.1153, -913.1796, 47.8471, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1059.4613, -917.7769, 47.8470, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1059.8061, -922.3541, 47.8470, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1057.0411, -885.5960, 47.8473, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1060.1517, -926.9519, 47.8470, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1054.8924, -904.2304, 47.8656, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1055.2386, -908.8375, 47.8656, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1055.5848, -913.4442, 47.8656, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1045.6485, -919.2172, 47.9192, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1045.2475, -914.6348, 47.9192, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1044.8460, -910.0418, 47.9192, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1044.4437, -905.4398, 47.9192, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1044.0406, -900.8375, 47.9192, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1046.0509, -923.8098, 47.9191, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1043.6384, -896.2352, 47.9193, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1046.4521, -928.4024, 47.9191, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1040.4671, -896.4923, 47.9359, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1055.9300, -918.0416, 47.8656, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1056.2762, -922.6386, 47.8656, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1056.6225, -927.2360, 47.8655, -90.2994, -0.0996, -85.7994); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1053.5538, -927.7587, 47.8818, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1049.6541, -923.4630, 47.9001, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1052.7486, -918.5543, 47.8818, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1052.3464, -913.9616, 47.8819, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1051.9439, -909.3590, 47.8819, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1051.5417, -904.7664, 47.8819, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(19903, 1035.3315, -898.8032, 41.8063, 0.0000, 0.0000, -85.6996); //MechanicComputer1
+    SetDynamicObjectMaterial(tmpobjid, 0, -1, "none", "none", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(19903, 1046.3691, -897.9724, 42.0461, 0.0000, 0.0000, -85.6996); //MechanicComputer1
+    SetDynamicObjectMaterial(tmpobjid, 0, -1, "none", "none", 0xFFFFFF00);
+    tmpobjid = CreateDynamicObject(19903, 1050.9040, -887.7144, 42.2863, 0.0000, 0.0000, -85.6996); //MechanicComputer1
+    SetDynamicObjectMaterial(tmpobjid, 0, -1, "none", "none", 0xFFF5DEB3);
+    tmpobjid = CreateDynamicObject(19903, 1055.6910, -887.3546, 42.2863, 0.0000, 0.0000, -85.6996); //MechanicComputer1
+    SetDynamicObjectMaterial(tmpobjid, 0, -1, "none", "none", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19899, 1035.5852, -895.1483, 41.7551, 0.0000, 0.0000, -83.9999); //ToolCabinet1
+    tmpobjid = CreateDynamicObject(19899, 1045.9753, -894.2373, 42.0153, 0.0000, 0.0000, -84.2994); //ToolCabinet1
+    tmpobjid = CreateDynamicObject(19899, 1055.1927, -883.9910, 42.3652, 0.0000, 0.0000, -84.2994); //ToolCabinet1
+    tmpobjid = CreateDynamicObject(19899, 1049.0876, -929.6928, 41.6651, 0.0000, 0.0000, 93.0998); //ToolCabinet1
+    tmpobjid = CreateDynamicObject(19903, 1046.0880, -927.8264, 41.6861, 0.0000, 0.0000, 94.5998); //MechanicComputer1
+    SetDynamicObjectMaterial(tmpobjid, 0, -1, "none", "none", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(939, 1062.1606, -922.2910, 44.4430, 0.0000, 0.5999, -85.8999); //CJ_DF_UNIT
+    SetDynamicObjectMaterial(tmpobjid, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 2, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2960, 1063.6076, -926.6073, 47.7389, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(14679, 1046.7872, -927.5919, 42.1035, 0.0000, 0.0000, -156.8999); //Int_tat_tools01
+    tmpobjid = CreateDynamicObject(14679, 1034.7452, -898.8739, 42.1637, 0.0000, 0.0000, 23.0998); //Int_tat_tools01
+    tmpobjid = CreateDynamicObject(14679, 1040.4256, -898.5056, 42.2737, 0.0000, 0.0000, 23.0998); //Int_tat_tools01
+    tmpobjid = CreateDynamicObject(14679, 1045.7811, -898.0136, 42.4137, 0.0000, 0.0000, 22.3999); //Int_tat_tools01
+    tmpobjid = CreateDynamicObject(14679, 1051.6446, -887.8331, 42.6837, 0.0000, 0.0000, 22.3999); //Int_tat_tools01
+    tmpobjid = CreateDynamicObject(14679, 1056.4980, -887.4323, 42.7937, 0.0000, 0.0000, 22.3999); //Int_tat_tools01
+    tmpobjid = CreateDynamicObject(19921, 1046.9448, -894.5753, 44.6194, 0.0000, 0.0000, 4.8997); //CutsceneToolBox1
+    tmpobjid = CreateDynamicObject(19921, 1036.5378, -895.5280, 44.3595, 0.0000, 0.0000, 4.8997); //CutsceneToolBox1
+    tmpobjid = CreateDynamicObject(19921, 1056.0937, -884.3267, 44.9794, 0.0000, 0.0000, 4.8997); //CutsceneToolBox1
+    tmpobjid = CreateDynamicObject(2972, 1062.2347, -916.1378, 41.8936, 0.0000, 0.0000, -83.4999); //k_cargo4
     SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(5152, 1050.7316, -919.1437, 42.3451, 0.0000, 3.2000, 95.9000); //stuntramp1_las2
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(1897, 1062.6749, -916.5432, 42.2364, -60.0000, -2.1998, 94.5000); //wheel_support
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(19621, 1045.2856, -894.5866, 44.1944, 0.0000, 0.0000, 0.0000); //OilCan1
+    tmpobjid = CreateDynamicObject(1073, 1062.2856, -916.3433, 42.6548, 0.0000, 0.0000, 97.5000); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(19087, 1061.6003, -915.4083, 42.7424, -89.3000, -0.2998, 6.2999); //Rope1
+    tmpobjid = CreateDynamicObject(1073, 1062.3343, -916.7813, 42.6548, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1062.3614, -917.0300, 42.6548, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1062.3884, -917.2788, 42.6548, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1062.4154, -917.5275, 42.6548, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1062.2623, -916.1149, 42.6548, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1062.2352, -915.8562, 42.6548, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1062.2076, -915.5977, 42.6548, 0.0000, 0.0000, 97.5000); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1897, 1062.5439, -915.3707, 42.2593, -60.0000, -2.1998, 94.5000); //wheel_support
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(19815, 1032.1063, -894.8850, 43.6226, 0.0000, 0.0000, 4.7999); //ToolBoard1
+    tmpobjid = CreateDynamicObject(2972, 1062.3498, -917.1511, 41.8936, 0.0000, 0.0000, -83.4999); //k_cargo4
     SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(5152, 1050.2741, -915.0935, 43.1557, 0.0000, 23.0999, 96.2000); //stuntramp1_las2
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2057, 1049.9814, -929.5650, 43.9333, 0.0000, 0.0000, 0.0000); //Flame_tins
+    tmpobjid = CreateDynamicObject(2057, 1045.1783, -894.3491, 44.2733, 0.0000, 0.0000, -166.3000); //Flame_tins
+    tmpobjid = CreateDynamicObject(2057, 1034.7165, -895.2628, 44.0032, 0.0000, 0.0000, -166.3000); //Flame_tins
+    tmpobjid = CreateDynamicObject(2057, 1054.3714, -884.1060, 44.6333, 0.0000, 0.0000, -176.7001); //Flame_tins
+    tmpobjid = CreateDynamicObject(920, 1056.8491, -884.0736, 42.9397, 0.0000, 0.0000, -84.3000); //Y_GENERATOR
+    SetDynamicObjectMaterial(tmpobjid, 0, 16640, "a51", "redmetal", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 10842, "docks2refl_sfse", "ws_corr_2_blu", 0x00000000);
+    tmpobjid = CreateDynamicObject(920, 1050.8116, -929.5770, 42.2896, 0.0000, 0.0000, -84.3000); //Y_GENERATOR
+    SetDynamicObjectMaterial(tmpobjid, 0, 16640, "a51", "redmetal", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 10842, "docks2refl_sfse", "ws_corr_2_blu", 0x00000000);
+    tmpobjid = CreateDynamicObject(920, 1047.5714, -894.2952, 42.5694, 0.0000, 0.0000, -84.3000); //Y_GENERATOR
+    SetDynamicObjectMaterial(tmpobjid, 0, 3820, "boxhses_sfsx", "LAbluewall", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 10842, "docks2refl_sfse", "ws_corr_2_blu", 0x00000000);
+    tmpobjid = CreateDynamicObject(920, 1037.2192, -895.2280, 42.3596, 0.0000, 0.0000, -84.3000); //Y_GENERATOR
+    SetDynamicObjectMaterial(tmpobjid, 0, 3820, "boxhses_sfsx", "LAbluewall", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 10842, "docks2refl_sfse", "ws_corr_2_blu", 0x00000000);
+    tmpobjid = CreateDynamicObject(1073, 1032.4842, -920.0509, 41.9150, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1032.4580, -919.8024, 41.9150, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1032.4316, -919.5537, 41.9150, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1032.4045, -919.3048, 41.9150, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1897, 1032.1551, -920.2849, 41.5237, -60.0000, -2.1998, -85.1996); //wheel_support
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(1897, 1032.0195, -919.1331, 41.5018, -60.0000, -2.1998, -85.1996); //wheel_support
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(1073, 1032.3624, -918.9071, 41.9150, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1032.3354, -918.6583, 41.9150, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1032.3077, -918.3997, 41.9150, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1032.2795, -918.1411, 41.9150, 0.0000, 0.0000, -83.8999); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1897, 1031.8834, -917.9713, 41.4793, -60.0000, -2.1998, -85.1996); //wheel_support
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2972, 1032.5791, -919.6375, 41.1436, 0.0000, 0.0000, -83.4999); //k_cargo4
     SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(5152, 1050.6607, -915.0512, 43.1557, 0.0000, 23.0999, 96.2000); //stuntramp1_las2
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1032.4648, -918.6337, 41.1436, 0.0000, 0.0000, -83.4999); //k_cargo4
     SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(5152, 1050.5643, -914.1552, 43.1520, 0.0000, 23.0999, 96.2000); //stuntramp1_las2
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(14826, 1033.7120, -915.3297, 42.1581, 0.0000, 0.0000, 84.6996); //int_kbsgarage2
     SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
-    tmpobjid = CreateDynamicObject(5152, 1050.1478, -914.2007, 43.1520, 0.0000, 23.0999, 96.2000); //stuntramp1_las2
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(14826, 1052.4842, -891.2097, 42.9182, 0.0000, 0.0000, 80.0000); //int_kbsgarage2
     SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(14826, 1060.4897, -912.6981, 42.7583, 0.0000, 0.0000, -97.5998); //int_kbsgarage2
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1032.4825, -916.8499, 41.5437, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1032.3370, -915.5780, 41.5437, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1032.1916, -914.3065, 41.5437, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1032.4670, -913.8206, 41.5437, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1062.0963, -914.7550, 42.2136, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19621, 1049.9410, -929.4201, 43.8442, 0.0000, 0.0000, 175.9998); //OilCan1
+    tmpobjid = CreateDynamicObject(2972, 1061.8061, -912.2116, 42.2136, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1061.6971, -911.2478, 42.2136, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1061.6429, -913.5089, 42.2136, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1051.3337, -892.5424, 42.3636, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1051.1888, -891.2808, 41.9235, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1051.0434, -890.0087, 41.9235, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2972, 1050.9858, -889.5017, 42.3535, 0.0000, 0.0000, -83.4999); //k_cargo4
+    SetDynamicObjectMaterial(tmpobjid, 0, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(1897, 1062.8043, -917.6959, 42.2144, -60.0000, -2.1998, 94.5000); //wheel_support
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(19621, 1034.7757, -895.4763, 43.9244, 0.0000, 0.0000, 0.0000); //OilCan1
+    tmpobjid = CreateDynamicObject(19621, 1054.4250, -884.2863, 44.5344, 0.0000, 0.0000, 0.0000); //OilCan1
+    tmpobjid = CreateDynamicObject(19087, 1032.8131, -917.7951, 41.9928, -91.0000, -0.2998, 6.2999); //Rope1
+    tmpobjid = CreateDynamicObject(1271, 1061.0372, -919.3535, 42.4444, 0.0000, 0.0000, 6.0998); //gunbox
+    tmpobjid = CreateDynamicObject(2476, 1056.0671, -883.6569, 43.5535, 0.0000, 0.0000, 4.8997); //MODEL_BOX11
+    SetDynamicObjectMaterial(tmpobjid, 0, 2013, "mrk_kitstuf", "fridge_3", 0x00000000);
+    tmpobjid = CreateDynamicObject(1415, 1062.2325, -919.2855, 41.9378, 0.0000, 3.7000, -176.4996); //DYN_DUMPSTER
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 2, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2476, 1055.4217, -883.7423, 43.5535, 0.0000, 0.0000, 4.8997); //MODEL_BOX11
+    SetDynamicObjectMaterial(tmpobjid, 0, 2013, "mrk_kitstuf", "fridge_3", 0x00000000);
+    tmpobjid = CreateDynamicObject(19482, 1032.4531, -925.3994, 46.5508, 0.0000, 0.0000, 4.9003); //Plane008
+    SetDynamicObjectMaterial(tmpobjid, 0, 10375, "subshops_sfs", "ws_archangels_dirty", 0x00000000);
+    tmpobjid = CreateDynamicObject(2476, 1046.8697, -893.9102, 43.2234, 0.0000, 0.0000, 3.0000); //MODEL_BOX11
+    SetDynamicObjectMaterial(tmpobjid, 0, 2013, "mrk_kitstuf", "fridge_3", 0x00000000);
+    tmpobjid = CreateDynamicObject(2476, 1046.2237, -893.9937, 43.2234, 0.0000, 0.0000, 3.0000); //MODEL_BOX11
+    SetDynamicObjectMaterial(tmpobjid, 0, 2013, "mrk_kitstuf", "fridge_3", 0x00000000);
+    tmpobjid = CreateDynamicObject(2476, 1036.5040, -894.8231, 42.9435, 0.0000, 0.0000, 3.0000); //MODEL_BOX11
+    SetDynamicObjectMaterial(tmpobjid, 0, 2013, "mrk_kitstuf", "fridge_3", 0x00000000);
+    tmpobjid = CreateDynamicObject(2476, 1035.8574, -894.8972, 42.9435, 0.0000, 0.0000, 3.0000); //MODEL_BOX11
+    SetDynamicObjectMaterial(tmpobjid, 0, 2013, "mrk_kitstuf", "fridge_3", 0x00000000);
+    tmpobjid = CreateDynamicObject(2476, 1048.1594, -930.0648, 42.8633, 0.0000, 0.0000, -176.2998); //MODEL_BOX11
+    SetDynamicObjectMaterial(tmpobjid, 0, 2013, "mrk_kitstuf", "fridge_3", 0x00000000);
+    tmpobjid = CreateDynamicObject(2476, 1048.7950, -929.9838, 42.8633, 0.0000, 0.0000, -176.2998); //MODEL_BOX11
+    SetDynamicObjectMaterial(tmpobjid, 0, 2013, "mrk_kitstuf", "fridge_3", 0x00000000);
+    tmpobjid = CreateDynamicObject(2694, 1049.2176, -929.5042, 43.0363, 0.0000, 0.0000, -171.7001); //CJ_shoe_box2
+    SetDynamicObjectMaterial(tmpobjid, 0, 1257, "bustopm", "CJ_GREENMETAL", 0x00000000);
+    tmpobjid = CreateDynamicObject(2694, 1045.8940, -894.4467, 43.3763, 0.0000, 0.0000, -168.9001); //CJ_shoe_box2
+    SetDynamicObjectMaterial(tmpobjid, 0, 1257, "bustopm", "CJ_GREENMETAL", 0x00000000);
+    tmpobjid = CreateDynamicObject(2694, 1035.4842, -895.3577, 43.1263, 0.0000, 0.0000, -168.9001); //CJ_shoe_box2
+    SetDynamicObjectMaterial(tmpobjid, 0, 1257, "bustopm", "CJ_GREENMETAL", 0x00000000);
+    tmpobjid = CreateDynamicObject(2694, 1055.0954, -884.2130, 43.7266, 0.0000, 0.0000, -168.9001); //CJ_shoe_box2
+    SetDynamicObjectMaterial(tmpobjid, 0, 1257, "bustopm", "CJ_GREENMETAL", 0x00000000);
+    tmpobjid = CreateDynamicObject(3129, 1062.7486, -917.8994, 42.5550, 0.0000, 0.0000, 4.8000); //Smlplane_door
+    tmpobjid = CreateDynamicObject(1271, 1032.6268, -922.0684, 41.4048, 0.0000, 0.0000, 6.0998); //gunbox
+    tmpobjid = CreateDynamicObject(1415, 1033.2910, -922.2196, 41.4127, -2.7999, 3.7000, 165.1997); //DYN_DUMPSTER
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 2, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(3129, 1032.3382, -921.6079, 41.8450, 0.0000, 0.0000, -174.6000); //Smlplane_door
+    tmpobjid = CreateDynamicObject(19482, 1061.9337, -906.3613, 45.1710, 0.0000, 0.0000, -175.0997); //Plane008
+    SetDynamicObjectMaterial(tmpobjid, 0, 11301, "carshow_sfse", "ws_Transfender_dirty", 0x00000000);
+    tmpobjid = CreateDynamicObject(2960, 1048.9436, -893.8835, 47.7243, -90.2994, -0.0996, -175.1994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(19377, 1060.4084, -887.4340, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1046.4226, -907.8975, 48.0452, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1035.4853, -899.2374, 48.0251, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1055.2580, -887.8588, 48.0153, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1036.1322, -908.7979, 47.9953, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1054.4532, -883.1821, 42.9150, 0.0000, 0.0000, 95.0000); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1050.0832, -888.3873, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1048.2004, -927.0750, 48.0353, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1058.5395, -926.1701, 48.0452, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1036.9017, -918.3977, 48.0251, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1037.7508, -927.9898, 48.0353, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(19377, 1062.8736, -916.1784, 42.7150, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 14865, "gf2", "mp_bobbie_carpwhite", 0x00000000);
+    tmpobjid = CreateDynamicObject(1685, 1032.2384, -911.8864, 42.2779, 0.0000, 0.0000, 4.4000); //blockpallet
+    SetDynamicObjectMaterial(tmpobjid, 0, 2567, "ab", "Box_Texturepage", 0xFFFFFFFF);
+    tmpobjid = CreateDynamicObject(19377, 1050.0781, -888.3275, 42.8348, 0.0000, 0.0000, 4.8997); //wall025
+    SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
+    tmpobjid = CreateDynamicObject(19377, 1036.0533, -908.8435, 48.0452, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "cof_wood2", 0xFF87CEEB);
+    tmpobjid = CreateDynamicObject(19917, 1030.5185, -895.8817, 41.6968, 0.0000, 0.0000, -174.6999); //CutsceneEngine1
+    tmpobjid = CreateDynamicObject(19482, 1050.4311, -888.7122, 45.8609, 0.0000, 0.0000, 4.9003); //Plane008
+    SetDynamicObjectMaterial(tmpobjid, 0, 13598, "destructo", "vsrbanner", 0x00000000);
+    tmpobjid = CreateDynamicObject(19482, 1061.0063, -895.5520, 45.1710, 0.0000, 0.0000, -175.0997); //Plane008
+    SetDynamicObjectMaterial(tmpobjid, 0, 3281, "mtb_banners", "xtreme_prolaps", 0x00000000);
+    tmpobjid = CreateDynamicObject(1685, 1061.2004, -909.3469, 42.9379, 0.0000, 0.0000, 4.4000); //blockpallet
+    SetDynamicObjectMaterial(tmpobjid, 0, 2567, "ab", "Box_Texturepage", 0xFFFFFFFF);
+    tmpobjid = CreateDynamicObject(19917, 1053.4189, -884.1062, 42.3768, 0.0000, 0.0000, -174.6999); //CutsceneEngine1
+    tmpobjid = CreateDynamicObject(19914, 1053.9820, -883.7921, 44.9132, 0.0000, 0.0000, -83.5000); //CutsceneBat1
+    tmpobjid = CreateDynamicObject(19914, 1044.7331, -894.0548, 44.5531, 0.0000, 0.0000, -83.5000); //CutsceneBat1
+    tmpobjid = CreateDynamicObject(19914, 1034.3054, -894.9306, 44.3133, 0.0000, 0.0000, -81.3000); //CutsceneBat1
+    tmpobjid = CreateDynamicObject(19914, 1050.3277, -929.9608, 44.2033, 0.0000, 0.0000, 94.3999); //CutsceneBat1
+    tmpobjid = CreateDynamicObject(19815, 1048.8675, -893.4776, 44.0923, 0.0000, 0.0000, 4.7999); //ToolBoard1
+    tmpobjid = CreateDynamicObject(19815, 1052.0393, -883.6975, 44.3725, 0.0000, 0.0000, 4.7999); //ToolBoard1
+    tmpobjid = CreateDynamicObject(19815, 1046.0284, -930.5183, 43.6025, 0.0000, 0.0000, -175.1000); //ToolBoard1
+    tmpobjid = CreateDynamicObject(1073, 1051.6589, -929.8281, 42.2434, -1.7999, -1.2999, 94.9001); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1052.7547, -929.7340, 42.2779, -1.7999, -1.2999, 94.9001); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1044.1345, -894.0548, 42.4490, -1.7999, -1.2999, -85.5998); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1043.1468, -894.1314, 42.4799, -1.7999, -1.2999, -85.5998); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1037.9565, -894.5592, 42.2941, -1.7999, -1.2999, -85.5998); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(1073, 1038.9632, -894.4813, 42.2624, -1.7999, -1.2999, -85.5998); //wheel_sr6
+    SetDynamicObjectMaterial(tmpobjid, 1, -1, "none", "none", 0xFF696969);
+    tmpobjid = CreateDynamicObject(2960, 1051.1395, -900.1641, 47.8819, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(19377, 1045.5709, -898.4243, 48.0353, 0.0000, 90.0000, 4.9998); //techo-taller
+    SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
+    tmpobjid = CreateDynamicObject(2960, 1050.7370, -895.5615, 47.8819, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1050.0555, -928.0460, 47.9001, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1049.2547, -918.8906, 47.9001, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1048.8532, -914.2980, 47.9001, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1048.4510, -909.7055, 47.9002, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1048.0500, -905.1231, 47.9002, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1047.6483, -900.5307, 47.9002, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1047.2467, -895.9385, 47.9003, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1041.2713, -905.6870, 47.9359, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1041.6737, -910.2800, 47.9357, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1042.0738, -914.8720, 47.9357, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1042.4763, -919.4744, 47.9357, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1042.8780, -924.0670, 47.9357, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1043.2788, -928.6495, 47.9357, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1036.9603, -896.7990, 47.7843, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1037.3619, -901.3916, 47.7843, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1037.7635, -905.9838, 47.7843, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1038.1640, -910.5662, 47.7841, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1038.5656, -915.1683, 47.7841, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1038.9670, -919.7606, 47.7841, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1039.3697, -924.3533, 47.7841, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1039.7707, -928.9453, 47.7840, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1035.0771, -915.4343, 47.8025, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1033.4719, -897.0941, 47.8026, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1034.2746, -906.2595, 47.8025, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1034.6770, -910.8521, 47.8025, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1033.8735, -901.6768, 47.8025, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1035.4786, -920.0258, 47.8023, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1035.8818, -924.6286, 47.8023, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1036.2840, -929.2211, 47.8023, -90.2994, -0.0996, -85.0995); //kmb_beam
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFF000000);
+    tmpobjid = CreateDynamicObject(2960, 1035.3576, -931.3607, 47.7352, -90.2994, -0.0996, -175.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1035.3576, -931.3601, 47.6253, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1039.9498, -930.9589, 47.7352, -90.2994, -0.0996, -175.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1044.5322, -930.5579, 47.7354, -90.2994, -0.0996, -175.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1049.1137, -930.1566, 47.7354, -90.2994, -0.0996, -175.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1053.6949, -929.7553, 47.7354, -90.2994, -0.0996, -175.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1058.2874, -929.3535, 47.7354, -90.2994, -0.0996, -175.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1061.7530, -929.0498, 47.7355, -90.2994, -0.0996, -175.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1039.9505, -930.9583, 47.6253, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1044.5526, -930.5557, 47.6254, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1049.1446, -930.1536, 47.6254, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1053.7364, -929.7517, 47.6254, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1058.3382, -929.3491, 47.6254, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1061.5963, -929.0640, 47.6254, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1033.1645, -929.4935, 47.7286, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1032.7617, -924.9005, 47.7288, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1032.3591, -920.2980, 47.7288, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1031.9586, -915.7254, 47.7289, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1031.5566, -911.1328, 47.7289, -90.2994, -0.0996, -85.1995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1031.1926, -906.5385, 47.7288, -90.2994, -0.0996, -85.2994); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1030.8050, -901.9343, 47.7288, -90.2994, -0.0996, -85.2994); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1030.4187, -897.3303, 47.7288, -90.2994, -0.0996, -85.2994); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1032.2318, -895.2858, 47.7546, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1036.8337, -894.8831, 47.7546, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1041.4261, -894.4810, 47.7546, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1046.0280, -894.0781, 47.7546, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1048.5196, -893.8601, 47.7546, -90.2994, -0.0996, -175.1994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1048.5196, -893.8596, 47.6847, -90.2994, -0.0996, -175.1994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1043.9173, -894.2545, 47.6847, -90.2994, -0.0996, -175.1994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1039.3150, -894.6491, 47.6847, -90.2994, -0.0996, -175.1994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1034.7148, -895.0734, 47.6044, -90.2994, -0.0996, -175.1994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1032.0036, -895.2761, 47.6245, -90.2994, -0.0996, -173.7994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1063.6081, -926.6171, 47.6289, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(939, 1033.5815, -925.2647, 43.8036, 0.0000, 0.5999, -85.8999); //CJ_DF_UNIT
+    SetDynamicObjectMaterial(tmpobjid, 1, 1736, "cj_ammo", "CJ_Black_metal", 0x00000000);
+    SetDynamicObjectMaterial(tmpobjid, 2, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2960, 1063.2045, -922.0047, 47.7390, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1062.8016, -917.4024, 47.7390, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1062.4005, -912.8099, 47.7390, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1061.9987, -908.2269, 47.7391, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1061.5969, -903.6339, 47.7391, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1061.1959, -899.0508, 47.7391, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1060.7943, -894.4581, 47.7392, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1060.3920, -889.8653, 47.7392, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1060.0291, -885.2697, 47.7390, -90.2994, -0.0996, -86.2995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(8330, 1042.0806, -911.1859, 47.9159, -90.0000, -1.5999, 3.3999); //H
+    SetDynamicObjectMaterialText(tmpobjid, 0, "H", OBJECT_MATERIAL_SIZE_64x32, "Arial", 40, 1, 0xFFFFFF00, 0x00000000, 0);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(2960, 1063.2052, -922.0240, 47.6290, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1062.8021, -917.4216, 47.6290, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1062.4019, -912.8393, 47.6290, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1062.0001, -908.2470, 47.6290, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1061.5980, -903.6547, 47.6290, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1061.1968, -899.0721, 47.6291, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1060.7935, -894.4694, 47.6291, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1060.3913, -889.8768, 47.6291, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1059.9899, -885.2843, 47.6291, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1050.9613, -891.4342, 47.6889, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1050.5599, -886.8417, 47.6889, -90.2994, -0.0996, -85.0995); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1050.4958, -886.1049, 47.6789, -90.2994, -0.0996, -85.0994); //kmb_beam_up
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1052.3289, -884.0700, 47.7338, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1056.9211, -883.6682, 47.7338, -90.2994, -0.0996, -175.0995); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1057.8183, -883.5897, 47.7338, -90.5993, -0.0996, -174.6994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1057.8178, -883.5883, 47.6138, -90.5993, -0.0996, -174.6994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1053.2382, -884.0216, 47.6138, -90.5993, -0.0996, -174.6994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(2960, 1052.3006, -884.1093, 47.6138, -90.5993, -0.0996, -174.6994); //kmb_beam_down
+    SetDynamicObjectMaterial(tmpobjid, 0, 18047, "gen_mun_counter", "mp_gun_metal", 0xFFFF0000);
+    tmpobjid = CreateDynamicObject(8330, 1060.8089, -909.5471, 47.9159, -90.0000, -1.5999, 3.3999); //H
+    SetDynamicObjectMaterialText(tmpobjid, 0, "H", OBJECT_MATERIAL_SIZE_64x32, "Arial", 40, 1, 0xFFFFFF00, 0x00000000, 0);
+    SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
+    tmpobjid = CreateDynamicObject(19482, 1031.0754, -909.3386, 44.4608, 0.0000, 0.0000, 4.9003); //Plane008
+    SetDynamicObjectMaterial(tmpobjid, 0, 11301, "carshow_sfse", "ws_Transfender_dirty", 0x00000000);
 
     //osborn base
     CreateActor(272, 1046.5710, -1467.3425, 14.8002, -98.9000); //Mafia Boss

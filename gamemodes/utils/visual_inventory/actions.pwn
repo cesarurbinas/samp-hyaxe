@@ -37,10 +37,10 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 		if(PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot] == true)
 		{
 			if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
-			CheckBlockedWeapon(playerid);
 			
 			ac_ResetPlayerWeapons(playerid);
 			ac_GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
+			CheckBlockedWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID]);
 		}
 
 		PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = slot;

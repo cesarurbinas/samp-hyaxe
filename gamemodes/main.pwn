@@ -4,7 +4,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
-#define SERVER_VERSION 			"v0.5 Pre-Release Build 107"
+#define SERVER_VERSION 			"v0.5 Build 150"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -141,6 +141,7 @@
 #define CALLBACK:%0(%1) forward%0(%1);public%0(%1)
 
 #pragma compress 0
+#pragma warning disable 240
 
 // Default valors of ECO.TXT
 new
@@ -1136,7 +1137,7 @@ new VEHICLE_INFO[][VEHICLE_INFO_enum] =
     {false, "Cropdust", 1.0, 1.00, 1200000, 12, 0, 0            , 1     , true, true, true, 0, 0, false}, // >>>> No.
     {false, "Stunt", 1.0, 1.00, 1200000, 12, 0, 0               , 1     , true, true, true, 0, 0, false}, // >>>> No.
     {true, "Tanker", 130.0, 121.00, 500000, 20, 0, 0            , 2     , true, true, true, 0, 0, false},
-    {true, "Roadtrain", 150.0, 143.00, 500000, 20, 0, 0         , 2     , true, true, true, 0, 0, false},
+    {true, "Roadtrain", 150.0, 143.00, 500000, 20, 0, 100         , 2     , true, true, true, 0, 0, false},
     {true, "Nebula", 60.0, 158.00, 4000, 1, 0, 4                , 4     , true, true, true, 0, 0, true},
     {true, "Majestic", 45.0, 158.00, 4000, 1, 0, 4              , 2     , true, true, true, 0, 0, true},
     {true, "Buccaneer", 50.0, 165.00, 4500, 1, 0, 4             , 2     , true, true, true, 0, 0, true},
@@ -2588,6 +2589,22 @@ new JAIL_POSITIONS[][enum_JAIL_POSITIONS] =
 	{INTERIOR_POLICE_LV, 1899.122192, -1757.699584, 5218.986816, 180.0, 6} //jaillv
 };
 
+new Float:MECHANIC_POSITIONS[][] =
+{
+	{-64.154220, -1162.446533, 2.148341},
+	{-70.391883, -1175.106201, 2.148341},
+	{-75.486938, -1185.539672, 2.148341},
+	{-94.757438, -1170.204589, 2.504477},
+	{1048.312622, -923.895812, 43.018077},
+	{1058.781250, -890.199401, 43.618721},
+	{1053.702758, -890.891235, 43.494247},
+	{1049.278198, -899.481567, 43.382476},
+	{1044.121948, -900.377258, 43.248786},
+	{1038.639160, -900.513549, 43.121448},
+	{1033.095703, -901.057678, 42.981224}
+};
+
+
 /*enum BUY_PROPERTIES_SITES_INFO
 {
 	site_INTERIOR_TYPE,
@@ -3478,7 +3495,7 @@ IRPC:VehicleDestroyed(playerid, BitStream:bs)
 forward OnVehicleRequestDeath(vehicleid, killerid);
 public OnVehicleRequestDeath(vehicleid, killerid)
 {
-	//printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
+	printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
     new Float:health;
 
     GetVehicleHealth(vehicleid, health);
@@ -3896,7 +3913,7 @@ GetPlayersInIP(const ip[])
 
 public OnPlayerConnect(playerid)
 {
-	//printf("OnPlayerConnect %d",playerid); // debug juju
+	printf("OnPlayerConnect %d",playerid); // debug juju
 	SetPlayerColor(playerid, PLAYER_COLOR);
 
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
@@ -3957,7 +3974,7 @@ public OnPlayerConnect(playerid)
 	{
 		GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 
-		new str_text[144]
+		new str_text[144];
 		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el máximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
 	    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
 	    SendDiscordWebhook(str_text, 1);
@@ -4223,7 +4240,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	//printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
+	printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
 	if (ACCOUNT_INFO[playerid][ac_ID] != 0)
 	{
 		new DB_Query[128];
@@ -4474,7 +4491,7 @@ GetEnterExitIndexById(id)
 
 public OnRconLoginAttempt(ip[], password[], success)
 {
-	//printf("rcon %s %s",ip,password); // debug juju
+	printf("rcon %s %s",ip,password); // debug juju
     new temp_ip[16];
 
     for(new i = 0; i < MAX_PLAYERS; i++)
@@ -5247,14 +5264,18 @@ CheckHeliPort(playerid)
 
 CheckMechanicMenu(playerid)
 {
-	if (IsPlayerInRangeOfPoint(playerid, 1.2, -64.154220, -1162.446533, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -70.391883, -1175.106201, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -75.486938, -1185.539672, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -94.757438, -1170.204589, 2.504477) || IsPlayerInRangeOfPoint(playerid, 1.2, 1050.390014, -914.704772, 44.379787) || IsPlayerInRangeOfPoint(playerid, 1.2, 1060.965087, -904.656127, 44.482654))
+	for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
 	{
-		new vehicleid = GetPlayerVehicleID(playerid);
-		if (vehicleid == INVALID_VEHICLE_ID) return 1;
+		if (IsPlayerInRangeOfPoint(playerid, 1.2, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2]))
+		{
+			new vehicleid = GetPlayerVehicleID(playerid);
+			if (vehicleid == INVALID_VEHICLE_ID) return 1;
 
-		if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) return ShowPlayerMessage(playerid, "~r~El motor debe estar apagado.", 3);
+			if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) return ShowPlayerMessage(playerid, "~r~El motor debe estar apagado.", 3);
 
-		ShowTuningMenu(playerid);
+			ShowTuningMenu(playerid);
+			break;
+		}
 	}
 	return 1;
 }
@@ -5947,6 +5968,14 @@ CheckMafiaEquipeSite(playerid)
 		}
 	}
 
+	if (PLAYER_WORKS[playerid][WORK_MAFIA])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, -1387.1334, 492.8735, 2.1851))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
 	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
 	{
 		if (IsPlayerInRangeOfPoint(playerid, 1.3, 3855.066162, -1290.975585, 7547.983398))
@@ -6082,7 +6111,7 @@ SetEngineAction(playerid)
 
 public OnPlayerSpawn(playerid)
 {
-	//printf("OnPlayerSpawn",playerid); // debug juju
+	printf("OnPlayerSpawn",playerid); // debug juju
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_OCCUPIED) // Primer spawn
 	{
 		PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
@@ -6511,7 +6540,7 @@ CMD:marselobotikin(playerid, params[])
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	//printf("OnPlayerDeat %d %d %d",playerid,killerid,reason); // debug juju
+	printf("OnPlayerDeat %d %d %d",playerid,killerid,reason); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
@@ -6701,7 +6730,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	//printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
+	printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) // Recién conectado
 	{
@@ -6766,7 +6795,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 public OnPlayerRequestSpawn(playerid)
 {
-	//printf("OnPlayerrequestSpawn %d",playerid); // debug juju
+	printf("OnPlayerrequestSpawn %d",playerid); // debug juju
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) CallLocalFunction("OnPlayerRequestClass", "dd", playerid, 0);
     return 0;
 }
@@ -7198,7 +7227,7 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
-	//printf("ongamemodeini"); // debug juju
+	printf("ongamemodeini"); // debug juju
 	#if defined VOICE_CHAT
 		sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
 		printf("[VOICE] Frecuency: 24000, Rate: 60");
@@ -7759,6 +7788,7 @@ SanAndreas()
 
 	//base mafia
 	CreateDynamic3DTextLabel("{ca3535}La cosa nostra\n"COL_WHITE"Equipamiento", 0xF7F7F700, 726.2478, -1276.3830, 13.5662, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{ca3535}La cosa nostra\n"COL_WHITE"Equipamiento", 0xF7F7F700, -1387.1334, 492.8735, 2.1851, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel("{33D1FF}Moriarty Family Business\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 976.715881, -1442.519775, 13.717537, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -7768,13 +7798,13 @@ SanAndreas()
 	/*CreateDynamicPickup(1558, 1, -82.038078, -1208.153564, 2.704517, 0, 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar piezas\n/piezas [cantidad]", 0xF7F7F700, -82.038078, -1208.153564, 2.704517, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	*/
-	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 1\n"COL_WHITE"Acércate para usar", 0xF7F7F700, -64.154220, -1162.446533, 2.148341 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 2\n"COL_WHITE"Acércate para usar", 0xF7F7F700, -70.391883, -1175.106201, 2.148341 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 3\n"COL_WHITE"Acércate para usar", 0xF7F7F700, -75.486938, -1185.539672, 2.148341 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 4\n"COL_WHITE"Acércate para usar", 0xF7F7F700, -94.757438, -1170.204589, 2.504477 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	
-	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 1\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1050.390014, -914.704772, 44.379787 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 2\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1060.965087, -904.656127, 44.482654 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+
+	for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
+	{
+		new str_text[128];
+		format(str_text, sizeof(str_text), ""COL_RED"Levantador nº 1\n"COL_WHITE"Acércate para usar", i + 1);
+		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2] + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	}
 
 	//pescador
 	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nº 1", 0xF7F7F7FF, 1955.022094, -189.402023, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -8129,14 +8159,17 @@ UpdatePlayerZoneMessages(playerid)
         return 1;
     }
 
-    if (IsPlayerInRangeOfPoint(playerid, 1.2, -64.154220, -1162.446533, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -70.391883, -1175.106201, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -75.486938, -1185.539672, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -94.757438, -1170.204589, 2.504477) || IsPlayerInRangeOfPoint(playerid, 1.2, 1050.390014, -914.704772, 44.379787) || IsPlayerInRangeOfPoint(playerid, 1.2, 1060.965087, -904.656127, 44.482654))
-	{
-		if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
-		{
-			ShowPlayerKeyMessage(playerid, "H");
-        	return 1;
-		}
-	}
+    for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
+    {
+    	if (IsPlayerInRangeOfPoint(playerid, 1.2, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2]))
+    	{
+    		if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+			{
+				ShowPlayerKeyMessage(playerid, "H");
+	        	return 1;
+			}
+    	}
+    }
 
 	if (IsPlayerInRangeOfPoint(playerid, 1.5, 726.2478, -1276.3830, 13.5662))
 	{
@@ -8197,7 +8230,7 @@ public OnGameModeExit()
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
 	}
 
-	//printf("OnGameModeExit()"); // debug juju
+	printf("OnGameModeExit()"); // debug juju
 	printf("Deteniendo servidor...");
 	db_close(Database);
 	Log("status", "Servidor detenido.");
@@ -8238,7 +8271,7 @@ CMD:a(playerid, params[])
 #define MIN_SECONDS_BETWEEN_TALKS 150 // Deben pasar al menos 1 segundos para volver a hablar.
 public OnPlayerText(playerid, text[])
 {
-	//printf("OnPlayerText %d %s",playerid,text); // debug juju
+	printf("OnPlayerText %d %s",playerid,text); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
@@ -13145,7 +13178,7 @@ ShowDialog(playerid, dialogid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	//printf("OnDialogresponde %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
+	printf("OnDialogresponde %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
 	if (PLAYER_TEMP[playerid][py_DIALOG_RESPONDED]) return 1;
 	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = true;
 
@@ -14885,7 +14918,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 7: ShowDialog(playerid, DIALOG_PLAYER_GPS_SITE_7);
 					case 8: SetPlayer_GPS_Checkpoint(playerid, 1571.468627, -1336.893188, 16.484375, 0, 0);
 					case 9: SetPlayer_GPS_Checkpoint(playerid, 1555.400390, -1675.611694, 16.195312, 0, 0);
-					case 10: SetPlayer_GPS_Checkpoint(playerid, -69.941520, -1181.400634, 1.750000, 0, 0);
+					case 10: SetPlayer_GPS_Checkpoint(playerid, -112.182266, -1188.457275, 2.766866, 0, 0);
 					case 11: SetPlayer_GPS_Checkpoint(playerid, 1876.87915, -2286.58911, 1.16550 + 15, 0, 0);
 				}
 			}
@@ -21135,7 +21168,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 								format(str_text, sizeof(str_text), "~g~[HYCOINS]~w~ Has canjeado %d Hycoins", extra);
 								ShowPlayerMessage(playerid, str_text, 4);
 							}
-						}
+						}//0: dinero, 1: skin, 2: vip, 3: hycoins
 
 						format(DB_Query, sizeof DB_Query, "UPDATE `GIFTS_CODES` SET `USED` = '1' WHERE `CODE` = '%s';", inputtext);
 						db_query(Database, DB_Query);
@@ -21613,7 +21646,7 @@ SetPlayer_GPS_Checkpoint(playerid, Float:x, Float:y, Float:z, world, interior)//
 
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
-	//printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
+	printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
 
@@ -21652,7 +21685,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
-	//printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
+	printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_AREA, areaid, E_STREAMER_EXTRA_ID, info);
 
@@ -21696,7 +21729,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
 {
-	//printf("OnPlayerEnterDynamicCp %d %d",playerid, checkpointid); // debug juju
+	printf("OnPlayerEnterDynamicCp %d %d",playerid, checkpointid); // debug juju
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -21982,7 +22015,7 @@ EditPlayerToy(playerid)
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {
-	//printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
+	printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
 	if (index != PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]) return 0;
 
 	if (response)
@@ -23064,21 +23097,31 @@ SetIntroCamera(playerid)
     return 1;
 }
 
-CheckBlockedWeapon(playerid)
+CheckBlockedWeapon(playerid, weapon_ip)
 {
-  	new weaponID = GetPlayerWeapon(playerid);
-  	if (weaponID == 31 || weaponID == 29 || weaponID == 23 || weaponID == 34 || weaponID == 24 || weaponID == 27 || weaponID == 30 || weaponID == 23 || weaponID == 29)
-  	if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PLAYER_WORKS[playerid][WORK_MAFIA] && !PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA] && !PLAYER_WORKS[playerid][WORK_OSBORN])
+	if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PLAYER_WORKS[playerid][WORK_MAFIA] && !PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA] && !PLAYER_WORKS[playerid][WORK_OSBORN] && !ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
   	{
-    	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
+		new bool:blocked = false;
+		switch(weapon_ip)
+		{
+			case 31, 29, 23, 34, 24, 27, 30: blocked = true;
+		}
 
-    	new str[145];
-    	format(str, 145, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-    	SendMessageToAdmins(COLOR_ANTICHEAT, str);
-    
-    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
-    	KickEx(playerid, 500);
-  	}
+		if (blocked)
+		{
+			ResetPlayerWeaponsEx(playerid);
+
+	    	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
+
+	    	new str[145];
+	    	format(str, 145, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	    	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+	    	SendDiscordWebhook(str, 1);
+	    
+	    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
+	    	KickEx(playerid, 500);
+	  	}
+	  }
  	return 1;
 }
 
@@ -24441,7 +24484,7 @@ LoadBlackMarkets()
 
 public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 {
-	//printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
+	printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
     PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] = pickupid;
     return 1;
 }
@@ -25273,7 +25316,7 @@ CheckAmbulance(playerid)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	//printf("OnPlayerKeyState %d %d %d",playerid, newkeys, oldkeys); // debug juju
+	printf("OnPlayerKeyState %d %d %d",playerid, newkeys, oldkeys); // debug juju
     if (PRESSED(  KEY_SECONDARY_ATTACK  ))
     {
     	if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] == true) PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = false;
@@ -26843,7 +26886,7 @@ GetPlayerIdByBankAccountId(account_id)
 
 public OnPlayerStateChange(playerid, newstate, oldstate)
 {
-	//printf("OnPlayerStaeChnagge %d %d %d",playerid, newstate, oldstate); // debug juju
+	printf("OnPlayerStaeChnagge %d %d %d",playerid, newstate, oldstate); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	switch(oldstate)
@@ -27400,7 +27443,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	//printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
+	printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
 	StopAudioStreamForPlayer(playerid);
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
@@ -27409,7 +27452,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
-	//printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
+	printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
 
@@ -28058,7 +28101,7 @@ SavePlayerVehicles(playerid, destroy = false)
 
 public OnVehicleSpawn(vehicleid)
 {
-	//printf("OnVehicleId %d",vehicleid); // debug juju
+	printf("OnVehicleId %d",vehicleid); // debug juju
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_TP_IMMUNITY] = gettime() + 5;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = true;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_ATTACHED_TO] = INVALID_VEHICLE_ID;
@@ -28184,7 +28227,7 @@ SetVehicleToRespawnEx(vehicleid)
 
 public OnVehicleDeath(vehicleid, killerid)
 {
-	//printf("OnVehicleDeat",vehicleid,killerid); // debug juju
+	printf("OnVehicleDeat",vehicleid,killerid); // debug juju
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = false;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] = INVALID_PLAYER_ID;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LAST_DRIVER] = INVALID_PLAYER_ID;
@@ -28591,7 +28634,7 @@ AddVehicleComponents(vehicleid)
 
 public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
-	//printf("OnEnterExitMoDsHOP",playerid); // debug juju
+	printf("OnEnterExitMoDsHOP",playerid); // debug juju
     if (enterexit) // Entra
     {
 		ShowPlayerMessage(playerid, "~r~Solo puedes tunear vehículos en el mecánico, búscalo con el /GPS.", 2);
@@ -28612,7 +28655,7 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
-	//printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
+	printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -28633,7 +28676,7 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 
 public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
-	//printf("OnVehiclePaintJob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
+	printf("OnVehiclePaintJob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -29853,7 +29896,7 @@ Set_HARVEST_Checkpoint(playerid)
 
 public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 {
-	//printf("OnPlayerEnterDynamicRaceCp %d %d",playerid,checkpointid); // debug juju
+	printf("OnPlayerEnterDynamicRaceCp %d %d",playerid,checkpointid); // debug juju
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_RACE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -31903,7 +31946,7 @@ CMD:econtrol(playerid, params[])
 
 public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, modelid, Float:x, Float:y, Float:z)
 {
-	//printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
+	printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
 	if (info[0] == WORK_POLICE)
@@ -31937,7 +31980,7 @@ public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, model
 
 public OnPlayerEditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
-	//printf("OnPlayerEditDynamicObject",playerid); // debug juju
+	printf("OnPlayerEditDynamicObject",playerid); // debug juju
 	if (response == EDIT_RESPONSE_CANCEL)
 	{
 		new info[2];
@@ -36855,7 +36898,7 @@ EditVehicleObject(playerid, vehicleid, slot)
 
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
-	//printf("OnPlayerEditObject %d",playerid); // debug juju
+	printf("OnPlayerEditObject %d",playerid); // debug juju
 	if (playerobject)
 	{
 		if (objectid == PLAYER_TEMP[playerid][py_PIVOT_OBJECT])
@@ -37514,7 +37557,7 @@ SetPlayerNormalColor(playerid)
 #define MIN_SECONDS_BETWEEN_COMMANDS 1 // Deben pasar al menos 1 segundos entre comando y comando.
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 {
-	//printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
+	printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL || PLAYER_TEMP[playerid][py_NEW_USER])
@@ -37575,7 +37618,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 
 public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags) 
 {
-	//printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
+	printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
     if (result == -1) 
     { 
 		SendClientMessageEx(playerid, COLOR_WHITE, "El comando "COL_RED"/%s "COL_WHITE"no existe, usa "COL_RED"/ayuda"COL_WHITE".", cmd);

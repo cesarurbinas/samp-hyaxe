@@ -11418,3 +11418,109 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [build] Hyaxe SA-MP v0.5 Pre-Release Build 107
 
 [16:02:28] Number of vehicle models: 121
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:41:53] 
+[15:41:53] Server Plugins
+[15:41:53] --------------
+[15:41:53]  Loading plugin: crashdetect.dll
+[15:41:53]   CrashDetect v4.18.1 is OK.
+[15:41:53]   Loaded.
+[15:41:53]  Loading plugin: streamer.dll
+[15:41:56] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:41:56]   Loaded.
+[15:41:56]  Loading plugin: sscanf.dll
+[15:41:56] 
+
+[15:41:56]  ===============================
+
+[15:41:56]       sscanf plugin loaded.     
+
+[15:41:56]          Version:  2.8.3        
+
+[15:41:56]   (c) 2018 Alex "Y_Less" Cole  
+
+[15:41:56]  ===============================
+
+[15:41:56]   Loaded.
+[15:41:56]  Loading plugin: pawnraknet.dll
+[15:41:57] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[15:41:57]   Loaded.
+[15:41:57]  Loading plugin: SKY.dll
+[15:41:58] 
+[15:41:58]  ===============================
+[15:41:58]    
+[15:41:58]    ## SKY - 2.1.1 ## 
+[15:41:58]    
+[15:41:58]    (c) 2008 - Present | YSF Maintainers
+[15:41:58]    (c) 2015 | Oscar "Slice" Broman
+[15:41:58]    
+[15:41:58]    Server Version: 0.3.7 R2
+[15:41:58]    Operating System: Windows
+[15:41:58]    Built on: Dec 12 2019 at 12:21:36
+[15:41:58]    
+[15:41:58]  ===============================
+[15:41:58] 
+[15:41:58]   Loaded.
+[15:41:58]  Loading plugin: pawncmd.dll
+[15:41:59] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[15:41:59]   Loaded.
+[15:41:59]  Loading plugin: pawnregex.dll
+[15:42:00] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[15:42:00]   Loaded.
+[15:42:00]  Loading plugin: GPS.dll
+[15:42:03] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[15:42:03]   Loaded.
+[15:42:03]  Loading plugin: ColAndreas.dll
+[15:42:03] *********************
+[15:42:03] ** Created By:     **
+[15:42:03] ** [uL]Chris42O    **
+[15:42:03] ** [uL]Slice       **
+[15:42:03] ** [uL]Pottus      **
+[15:42:03] *********************
+[15:42:03] No collision data found.
+[15:42:03] *********************
+[15:42:03]   ColAndreas Loaded
+[15:42:03]    v1.4.0
+[15:42:03] *********************
+[15:42:03]   Loaded.
+[15:42:03]  Loading plugin: profiler.dll
+[15:42:05]   Profiler plugin 2.15.3
+[15:42:05]   Loaded.
+[15:42:05]  Loaded 10 plugins.
+
+[15:42:05] 
+[15:42:05] Filterscripts
+[15:42:05] ---------------
+[15:42:05]   Loading filterscript 'maps.amx'...
+[15:42:10]   Loaded 1 filterscripts.
+
+[15:42:10] [ANTI-CHEAT] Cargado
+[15:42:10] [ANTI-CHEAT] Version: 1.9.46
+[15:42:10] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[15:42:11] [debug] Base de datos conectada
+[15:42:25] [debug] Lugares cargados: 38
+[15:42:28] [debug] Propiedades libres: 1681.
+[15:42:28] [debug] Propiedades totales: 1775.
+[15:42:34] [debug] Bandas cargadas: 158
+[15:42:34] [debug] Territorios totales: 13
+[15:42:37] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[15:42:37] [info: language] Español - Spanish
+[15:42:37] [info: website] www.hyaxe.com
+[15:42:37] [info: discord] www.hyaxe.com/discord
+[15:42:37] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 107
+
+[15:42:37] Number of vehicle models: 121
+[15:44:40] [connection] incoming connection: 127.0.0.1:61995 id: 0
+[15:44:41] [join] Yahir_Kozel has joined the server (0:127.0.0.1)

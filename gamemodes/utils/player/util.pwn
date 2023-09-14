@@ -1,3 +1,11 @@
+new NAME_WHITELIST[][100] =
+{
+	"Yahir_Kozel",
+	"Atom_Palomita",
+	"Pepe_Garcia",
+	"Eusebio_Capone"
+};
+
 IsPlayerInWater(playerid)
 {
 	new lib[16], anims[32];
@@ -221,25 +229,31 @@ CheckProxy(playerid)
 {
 	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "127.0.0.1")) return 0;
 
+	for(new i = 0; i < sizeof(NAME_WHITELIST); i ++)
+    {
+        if (strfind(PLAYER_TEMP[playerid][py_NAME], NAME_WHITELIST[i], true) != -1) return 0;
+    }
+
 	new str_text[128];
-	format(str_text, sizeof(str_text), "51.161.31.157:9991/%s", PLAYER_TEMP[playerid][py_IP]);
-	HTTP(playerid, HTTP_GET, str, "", "OnPlayerProxyFound");
+	format(str_text, sizeof(str_text), "51.161.31.157:9991/proxycheck/%s", PLAYER_TEMP[playerid][py_IP]);
+	HTTP(playerid, HTTP_GET, str_text, "", "OnPlayerProxyFound");
 	return 1;
 }
 
-CALLBACK: OnPlayerProxyFound(index, response_code, data[])
+forward OnPlayerProxyFound(index, response_code, data[]);
+public OnPlayerProxyFound(index, response_code, data[])
 {
 	if (response_code == 200)
 	{
 		if (data[0] == 'Y')
 		{
-			new str_text[144]
-			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Proxy/VPN", PLAYER_TEMP[playerid][py_NAME], playerid);
+			new str_text[144];
+			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Proxy/VPN", PLAYER_TEMP[index][py_NAME], index);
 	    	SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
 	    	SendDiscordWebhook(str_text, 1);
-	    	
-	    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por usar Proxy/VPN");
-	    	KickEx(playerid, 500);
+
+	    	SendClientMessageEx(index, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por usar Proxy/VPN");
+	    	KickEx(index, 500);
 		}
 	}
 	return 1;

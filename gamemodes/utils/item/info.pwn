@@ -121,7 +121,7 @@ GetItemObjectByType(type)
 		case 50: modelid = 18866;
 		case 51: modelid = 18632;
 		case 52: modelid = 19631;
-		case 53: modelid = 19631;
+		case 53: modelid = 19921;
 	}
 	return modelid;
 }
@@ -143,6 +143,7 @@ SetItemToBody(playerid, type)
 		case 50: SetPlayerAttachedObject(playerid, 9, 18866, 6, 0.0970, 0.0429, 0.0149, 2.7999, -83.7000, -81.7000, 1.0330, 1.1429, 0.8569, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 51: SetPlayerAttachedObject(playerid, 9, 18632, 6, 0.0620, 0.0199, 0.0149, 9.1999, 171.9999, 103.0999, 0.8920, 0.9029, 1.0589, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 52: SetPlayerAttachedObject(playerid, 9, 19631, 6, 0.0789, 0.0000, 0.2580, -86.0000, -97.5000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 53: SetPlayerAttachedObject(playerid, 9, 19921, 6, 0.0699, 0.0289, 0.0000, -75.9000, -5.8000, -84.7999, 0.6219, 0.6579, 0.5109, 0xFFFFFFFF, 0xFFFFFFFF);
 	}
 	return 1;
 }
