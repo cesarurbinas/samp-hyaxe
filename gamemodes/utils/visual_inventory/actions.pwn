@@ -39,8 +39,8 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
 			if (IsPlayerInRangeOfPoint(playerid, 30.0, -17.344648, 99.261329, 1100.822021)) return ShowPlayerMessage(playerid, "~r~No puedes sacar armas en el club.", 3);
 
-			ac_ResetPlayerWeapons(playerid);
-			ac_GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
+			ResetPlayerWeapons(playerid);
+			GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
 			CheckBlockedWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID]);
 		}
 
@@ -229,6 +229,8 @@ UseItemSlot(playerid)
 					{
 						if (IsPlayerInRangeOfPoint(playerid, 30.0, 1955.022094, -189.402023, -2.332746) || IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 1858.291503, -69.229499, -2.332746))
 						{
+							PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0], "hud:radar_centre");
+							PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1], "Pescando...");
 							PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2], "Espera a que muerdan el anzuelo...");
 							TextDrawShowForPlayer(playerid, Textdraws[textdraw_PROGRESS_BG]);
 							PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0]);

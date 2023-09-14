@@ -21,7 +21,11 @@ enum
 	WORK_OSBORN,
 	WORK_MEDIC,
 	WORK_BOX,
+<<<<<<< HEAD
 	WORK_SOCCER
+=======
+	WORK_WOODCUTTER
+>>>>>>> refs/rewritten/Fixes
 };
 enum work_info_info
 {
@@ -50,7 +54,11 @@ new work_info[][work_info_info] =
 	{WORK_TYPE_FAMILY, 0, "familia osborn",		        	false, 1000, 1, 0},
 	{WORK_TYPE_NORMAL, 1, "médico",                      	true, 200, 50, 2000},
 	{WORK_TYPE_NORMAL, 1, "boxeador",                      	false, 200, 50, 2000},
+<<<<<<< HEAD
 	{WORK_TYPE_NORMAL, 1, "futbolista",                      	false, 200, 50, 2000}
+=======
+	{WORK_TYPE_NORMAL, 0, "leñador",						true, 200, 50, 200}
+>>>>>>> refs/rewritten/Fixes
 };
 
 new PLAYER_WORKS[MAX_PLAYERS][sizeof(work_info)];
@@ -85,5 +93,9 @@ new Float:obtain_work_coords[][obtain_work_coords_info] =
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //osborn
 	{-201.724212, -1742.832641, 675.768737, 3, false, 0, 1172.832763, -1323.269531, 15.400051}, //medico
 	{-20.062799, 99.009475, 1098.068603, 16, false, 0, 950.341247, -987.135864, 38.743835}, //boxeador
+<<<<<<< HEAD
 	{2677.120361, -1736.224243, 424.386718, 0, false, 0, 2781.461181, -1813.566162, 11.843750} //futbolista
+=======
+	{-1931.8711, -2448.0129, 30.6250, 0, true, 61, -1931.8711, -2448.0129, 30.6250} // leñador
+>>>>>>> refs/rewritten/Fixes
 };

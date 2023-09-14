@@ -74,7 +74,6 @@
 #include "core/notification/header.pwn"
 
 // Must fix
-#include <nex-ac>
 #include <PreviewModelDialog>
 #include <route-tracing>
 #include <strlib>
@@ -96,6 +95,8 @@
 #include "core/logger/header.pwn"
 #include "core/player/flags.pwn"
 
+#include "utils/discord/webhook.pwn"
+
 // Lang
 #include "core/languages/es.pwn"
 
@@ -111,10 +112,15 @@
 // World
 #include "core/world/extra.pwn"
 
+// Textdraws
+#include "core/global/textdraws.pwn"
+
 // Player
+#include "core/player/account.pwn"
 #include "core/player/temp.pwn"
 #include "core/player/misc.pwn"
 #include "core/player/character.pwn"
+#include "core/player/textdraws.pwn"
 
 // Damage
 #include "core/damage/callbacks.pwn"
@@ -129,13 +135,13 @@
 // Work
 #include "core/work/data.pwn"
 #include "core/work/miner.pwn"
+#include "core/work/woodcutter/header.pwn"
+#include "core/work/woodcutter/callbacks.pwn"
 
 // Player
 #include "core/player/weapons.pwn"
 #include "core/player/phone.pwn"
 #include "core/player/toys.pwn"
-#include "core/player/account.pwn"
-#include "core/player/textdraws.pwn"
 #include "core/player/crew.pwn"
 #include "core/player/visual_inventory.pwn"
 #include "core/player/vehicles.pwn"
@@ -147,9 +153,6 @@
 // Properties
 #include "core/furniture/properties.pwn"
 #include "core/furniture/list.pwn"
-
-// Global
-#include "core/global/textdraws.pwn"
 
 // Items
 #include "core/item/data.pwn"
@@ -1496,7 +1499,8 @@ new SAFE_ZONES[][enum_SAFE_ZONES] =
 	{INVALID_STREAMER_ID, -155.0, -1273.0, 45.0, -1073.0 , 0, 0}, // Mecanico
 	//{INVALID_STREAMER_ID, 2057.0, -1927.0, 2227.0, -1827.0, 0, 0}, // Mercado negro
 	{INVALID_STREAMER_ID, 1119.0, -1406.0, 1279.0, -1266.0, 0, 0}, // Hospital
-	{INVALID_STREAMER_ID, 2364.0, -2722.0, 2564.0, -2472.0, 0, 0} // Camionero
+	{INVALID_STREAMER_ID, 2364.0, -2722.0, 2564.0, -2472.0, 0, 0}, // Camionero
+	{INVALID_STREAMER_ID, -2065.0, -2446.1595458984375, -1707.5294494628906, -2092.0} // Leñador
 };
 
 enum enum_MAFIA_DOORS
@@ -3153,6 +3157,8 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
 	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] =
 	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = 
+	PLAYER_TEMP[playerid][py_CUTTING] =
+	PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] = 
 	PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
 	PLAYER_TEMP[playerid][py_GODMODE] = 
 	PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS] = false;
@@ -3221,7 +3227,7 @@ public OnPlayerConnect(playerid)
 	ResetPlayerMoney(playerid);
 	CancelSelectTextDrawEx(playerid);
 	SetPlayerScore(playerid, 0);
-	ac_ResetPlayerWeapons(playerid);
+	ResetPlayerWeapons(playerid);
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	CancelEdit(playerid);
 
@@ -5459,7 +5465,7 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
 				PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
 
-    			ac_ResetPlayerWeapons(playerid);
+    			ResetPlayerWeapons(playerid);
     			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
     			DeleteIlegalInv(playerid);
     			SetPlayerColorEx(playerid, PLAYER_COLOR);
@@ -6603,6 +6609,9 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
+	CA_RemoveBarriers();
+	RemoveObjectCollisions();
+
 	CA_Init();
 
 	//print("OnGamemodeInit()"); // debug juju
@@ -6663,6 +6672,27 @@ public OnGameModeInit()
     SendDiscordWebhook(":fire: Servidor iniciado.", 1);
     ServerInitTime = gettime();
     return 1;
+}
+
+RemoveObjectCollisions()
+{
+	CA_RemoveBuilding(785, -1878.7813, -2299.4531, 36.7578, 0.25);
+    CA_RemoveBuilding(785, -1851.1719, -2419.8906, 28.8672, 0.25);
+    CA_RemoveBuilding(785, -1916.5703, -2352.8203, 27.8984, 0.25);
+    CA_RemoveBuilding(785, -1921.7813, -2233.5547, 64.0625, 0.25);
+    CA_RemoveBuilding(785, -1868.4609, -2470.2734, 26.2813, 0.25);
+    CA_RemoveBuilding(785, -1934.3438, -2401.9297, 26.5000, 0.25);
+    CA_RemoveBuilding(791, -1868.4609, -2470.2734, 26.2813, 0.25);
+    CA_RemoveBuilding(790, -1979.7188, -2371.9063, 34.7578, 0.25);
+    CA_RemoveBuilding(791, -1934.3438, -2401.9297, 26.5000, 0.25);
+    CA_RemoveBuilding(791, -1916.5703, -2352.8203, 27.8984, 0.25);
+    CA_RemoveBuilding(790, -1891.0703, -2381.6875, 34.7578, 0.25);
+    CA_RemoveBuilding(791, -1878.7813, -2299.4531, 36.7578, 0.25);
+    CA_RemoveBuilding(18228, -1856.6875, -2321.2891, 38.1484, 0.25);
+    CA_RemoveBuilding(791, -1851.1719, -2419.8906, 28.8672, 0.25);
+    CA_RemoveBuilding(791, -1921.7813, -2233.5547, 64.0625, 0.25);
+
+	return 1;
 }
 
 FormatDialogStrings()
@@ -12397,7 +12427,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 				PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
-				ac_ResetPlayerWeapons(playerid);
+				ResetPlayerWeapons(playerid);
 				ResetPlayerMoney(playerid);
 				GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
 				SetPlayerFightingStyle(playerid, CHARACTER_INFO[playerid][ch_FIGHT_STYLE]);
@@ -20565,6 +20595,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 			}
 		}
 	}
+	
 	return 1;
 }
 
@@ -20855,7 +20886,7 @@ EditPlayerToy(playerid)
 }
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
-{
+{	
 	//printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
 	if (index != PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]) return 0;
 
@@ -24146,7 +24177,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		SetVehicleLightsAction(playerid);
 		return 1;
 	}
-	else if (PRESSED( KEY_NO ))
+	else if (PRESSED( KEY_NO ) && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
     {
     	ShowInventory(playerid);
 	}
@@ -24199,32 +24230,35 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     	}
 	}
 
-	if (PRESSED( KEY_ANALOG_UP  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	inv_AccommodateItems(playerid, false);
-		ClickInventorySlot(playerid, 6, true);
-	}
+	if(PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
+	{
+		if (PRESSED( KEY_ANALOG_UP  ))
+		{
+			if (IsPlayerInAnyVehicle(playerid)) return 0;
+			inv_AccommodateItems(playerid, false);
+			ClickInventorySlot(playerid, 6, true);
+		}
 
-	if (PRESSED( KEY_ANALOG_DOWN  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	inv_AccommodateItems(playerid, false);
-		ClickInventorySlot(playerid, 5, true);
-	}
+		if (PRESSED( KEY_ANALOG_DOWN  ))
+		{
+			if (IsPlayerInAnyVehicle(playerid)) return 0;
+			inv_AccommodateItems(playerid, false);
+			ClickInventorySlot(playerid, 5, true);
+		}
 
-	if (PRESSED( KEY_ANALOG_LEFT  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	inv_AccommodateItems(playerid, false);
-		ClickInventorySlot(playerid, 10, true);
-	}
+		if (PRESSED( KEY_ANALOG_LEFT  ))
+		{
+			if (IsPlayerInAnyVehicle(playerid)) return 0;
+			inv_AccommodateItems(playerid, false);
+			ClickInventorySlot(playerid, 10, true);
+		}
 
-	if (PRESSED( KEY_ANALOG_RIGHT  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	inv_AccommodateItems(playerid, false);
-		ClickInventorySlot(playerid, 2, true);
+		if (PRESSED( KEY_ANALOG_RIGHT  ))
+		{
+			if (IsPlayerInAnyVehicle(playerid)) return 0;
+			inv_AccommodateItems(playerid, false);
+			ClickInventorySlot(playerid, 2, true);
+		}
 	}
 
 	if (PRESSED(KEY_FIRE))
@@ -29457,7 +29491,7 @@ ResetPlayerWeaponsEx(playerid)
 	new tmp_PLAYER_WEAPONS[enum_PLAYER_WEAPONS];
 	for(new i = 0; i != 13; i ++) PLAYER_WEAPONS[playerid][i] = tmp_PLAYER_WEAPONS;
 
-	ac_ResetPlayerWeapons(playerid);
+	ResetPlayerWeapons(playerid);
 	return 1;
 }
 
@@ -29684,24 +29718,6 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	}
 
     return 1;
-}
-
-OnCheatDetected(playerid, ip_address[], type, code)
-{
-	#pragma unused ip_address, type
-
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
-	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
-
-	new ac_message[145];
-	format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d). El código de mótivo: #%03d.", PLAYER_TEMP[playerid][py_NAME], playerid, code);
-	SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
-	SendDiscordWebhook(ac_message, 1);
-
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
-	TogglePlayerControllableEx(playerid, false);
-	KickEx(playerid, 500);
-	return 1;
 }
 
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
@@ -30616,7 +30632,7 @@ CMD:econtrol(playerid, params[])
 	return 1;
 }
 
-public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, modelid, Float:x, Float:y, Float:z)
+public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y, Float:z)
 {
 	//printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
 	new info[2];
@@ -30650,7 +30666,7 @@ public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, model
 	return 1;
 }
 
-public OnPlayerEditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
+public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
 	//printf("OnPlayerEditDynamicObject",playerid); // debug juju
 	if (response == EDIT_RESPONSE_CANCEL)
@@ -31676,6 +31692,21 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 			SetMedicPlayerMarkers(playerid);
 			ShowPlayerMessage(playerid, "Ve hasta los puntos marcados en el mapa.", 3);
 		}
+		case WORK_WOODCUTTER:
+		{
+			for(new i = 0; i != 10; ++i) RemovePlayerAttachedObject(playerid, i);
+			SetPlayerAttachedObject(playerid, 0, 18638, 2, 0.152999, 0.007999, -0.005000, 0.0, 0.0, -16.199993, 1.0, 1.0, 1.0);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 1458, 6, 1.840000, -0.546001, 0.419000, 62.100097, -158.799804, 78.600196, 0.474999, 1.000000, 1.000000);
+			// SetPlayerAttachedObject(playerid, 2, 341, 6, 0.026999, -0.015000, -0.096999, 0.000000, -35.600006, 0.000000, 1.000000, 1.000000, 1.000000);
+
+			LogCarts[playerid][cart_VALID] = true;
+			LogCarts[playerid][cart_AMOUNT] = 0;
+			LogCarts[playerid][cart_OBJECT] = INVALID_OBJECT_ID;
+			PLAYER_TEMP[playerid][py_HOLDING_CART] = true;
+
+			ShowPlayerNotification(playerid, "Ahora estas de servicio como leñador, ve al bosque y tala algunos arboles. Usa ~r~ALT ~w~+ ~r~CLICK ~w~para soltar tu carro.", 5);
+		}
 	}
 
 	PLAYER_TEMP[playerid][py_WORKING_IN] = work;
@@ -31784,6 +31815,23 @@ EndPlayerJob(playerid, changeskin = true)
 			SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
 			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 			SetNormalPlayerMarkers(playerid);
+		}
+		case WORK_WOODCUTTER:
+		{
+			RemovePlayerAttachedObject(playerid, 0);
+			RemovePlayerAttachedObject(playerid, 1);
+			RemovePlayerAttachedObject(playerid, 2);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			ClearAnimations(playerid);
+			
+			SetPlayerToys(playerid);
+
+			if(IsValidDynamicObject(LogCarts[playerid][cart_OBJECT]))
+				DestroyDynamicObject(LogCarts[playerid][cart_OBJECT]);
+
+			if(IsValidDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]))
+				DestroyDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]);
+			LogCarts[playerid][cart_VALID] = false;
 		}
 	}
 
@@ -33682,7 +33730,7 @@ CALLBACK: ContinuePlayerIntro(playerid, step)
 
 			SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 			PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
-			ac_ResetPlayerWeapons(playerid);
+			ResetPlayerWeapons(playerid);
 			ResetPlayerMoney(playerid);
 			GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
 			SetPlayerFightingStyle(playerid, CHARACTER_INFO[playerid][ch_FIGHT_STYLE]);
