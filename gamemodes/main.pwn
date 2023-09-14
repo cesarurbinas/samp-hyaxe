@@ -31771,6 +31771,8 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 			if (PLAYER_TEMP[playerid][py_AIMBOT_COUNT] >= 3)
 			{
+				PLAYER_TEMP[playerid][py_AIMBOT_COUNT] = 0;
+				
 				new str_text[145];
 		    	format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Aimbot (proaim count: %d, silentaim count: %d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[playerid][py_PRO_AIM_COUNT], PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT]);
 		    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
