@@ -36769,7 +36769,6 @@ CMD:muteard(playerid, params[])
 			}
 		}
 	}
-
 	SendCmdLogToAdmins(playerid, "mute", params);
 	return 1;
 }
