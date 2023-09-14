@@ -147,12 +147,17 @@
 #include "core/notification/functions.pwn"
 #include "core/notification/timers.pwn"
 
-// Work
+// Miner
 #include "core/work/miner/header.pwn"
+
+// Farmer
 #include "core/work/farmer/header.pwn"
+#include "core/work/farmer/callbacks.pwn"
+#include "core/work/farmer/functions.pwn"
+
+// Woodcutter
 #include "core/work/woodcutter/header.pwn"
 #include "core/work/woodcutter/callbacks.pwn"
-//#include "core/work/functions.pwn"
 
 // Player
 #include "core/player/weapons.pwn"
@@ -1621,55 +1626,6 @@ CheckTruckPointAndLoad(playerid)
 			return 1;
 		}
 	}
-	return 1;
-}
-
-GrabPlant(playerid)
-{
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
-
-	for(new i = 0; i != MAX_PLANTS; i ++)
-	{
-		if (!PLANTS[i][plant_VALID] || PLANTS[i][plant_GROWING]) continue;
-
-		new Float:x, Float:y, Float:z;
-		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], x, y, z);
-		if (IsPlayerInRangeOfPoint(playerid, 1.5, x, y, z))
-		{
-			if (PLANTS[i][plant_PLANTED_BY_ACCOUNT_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Esta planta no es tuya", 3);
-
-			KillTimer(PLANTS[i][plant_TIMER]);
-			switch(seed_info[ PLANTS[i][plant_TYPE] ][seed_info_PLANT_TYPE])
-			{
-				case PLANT_TYPE_MEDICINE:
-				{
-					PLAYER_MISC[playerid][MISC_MEDICINE] += 10;
-					ShowPlayerNotification(playerid, "~g~+10~w~ medicamentos", 4);
-					SavePlayerMisc(playerid);
-				}
-				case PLANT_TYPE_CANNABIS:
-				{
-					PLAYER_MISC[playerid][MISC_CANNABIS] += 10;
-					ShowPlayerNotification(playerid, "~g~+10~w~ marihuana", 4);
-					SavePlayerMisc(playerid);
-				}
-				case PLANT_TYPE_CRACK:
-				{
-					PLAYER_MISC[playerid][MISC_CRACK] += 10;
-					ShowPlayerNotification(playerid, "~g~+10~w~ crack", 4);
-				    SavePlayerMisc(playerid);
-				}
-			}
-
-			DestroyDynamicObject(PLANTS[i][plant_OBJECT_ID]);
-			DestroyDynamic3DTextLabel(PLANTS[i][plant_LABEL_ID]);
-			ApplyAnimation(playerid, "CARRY", "putdwn05", 4.1, 0, 1, 1, 0, 0, 1);
-
-			new tmp_PLANTS[PLANTS_ENUM]; PLANTS[i] = tmp_PLANTS;
-			return 1;
-		}
-	}
-
 	return 1;
 }
 
@@ -6339,85 +6295,6 @@ UpdatePlayerLoadingTruckSize(playerid)
 	return 1;
 }
 
-StartPlanting(playerid, type)
-{
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-	if (PLAYER_TEMP[playerid][py_PLANTING]) return ShowPlayerMessage(playerid, "~r~Ya estas plantado algo.", 3);
-
-	new str_text[128];
-
-	if (gettime() < PLAYER_TEMP[playerid][py_LAST_PLANT_TIME] + 5)
-	{
-		new time = (60-(gettime()-PLAYER_TEMP[playerid][py_LAST_PLANT_TIME]));
-		format(str_text, sizeof(str_text), "Tienes que esperar %s minutos para volver a plantar.", TimeConvert(time));
-		ShowPlayerMessage(playerid, str_text, 4);
-		return 1;
-	}
-
-	if (GetPlayerPlantedPlants(playerid) > 25) return ShowPlayerMessage(playerid, "~r~Tienes muchas plantas, recógelas para seguir", 4);
-
-	for(new i = 0; i != MAX_PLANTS; i ++)
-	{
-		if (!PLANTS[i][plant_VALID]) continue;
-
-		new Float:x, Float:y, Float:z;
-		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], x, y, z);
-		if (IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
-		{
-			ShowPlayerMessage(playerid, "Aquí ya hay una planta, aléjate un poco para plantar.", 4);
-			return 1;
-		}
-	}
-
-	switch(seed_info[type][seed_info_PLANT_TYPE])
-	{
-		case PLANT_TYPE_MEDICINE:
-		{
-			if (plant_info[type][plant_info_SEEDS] > PLAYER_MISC[playerid][MISC_SEED_MEDICINE])
-			{
-				ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
-				return 1;
-			}
-			PLAYER_MISC[playerid][MISC_SEED_MEDICINE] -= plant_info[type][plant_info_SEEDS];
-		}
-		case PLANT_TYPE_CANNABIS:
-		{
-			if (plant_info[type][plant_info_SEEDS] > PLAYER_MISC[playerid][MISC_SEED_CANNABIS])
-			{
-				ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
-				return 1;
-			}
-			PLAYER_MISC[playerid][MISC_SEED_CANNABIS] -= plant_info[type][plant_info_SEEDS];
-		}
-		case PLANT_TYPE_CRACK:
-		{
-			if (plant_info[type][plant_info_SEEDS] > PLAYER_MISC[playerid][MISC_SEED_CRACK])
-			{
-				ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
-				return 1;
-			}
-			PLAYER_MISC[playerid][MISC_SEED_CRACK] -= plant_info[type][plant_info_SEEDS];
-		}
-	}
-
-	format(str_text, sizeof(str_text), "Estas plantando %s, has gastado %d semillas.", plant_info[type][plant_info_NAME], plant_info[type][plant_info_SEEDS]);
-	ShowPlayerNotification(playerid, str_text, 5);
-
-	PLAYER_TEMP[playerid][py_LAST_PLANT_TIME] = gettime();
-	PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] = type;
-	PLAYER_TEMP[playerid][py_PLANTING] = true;
-	PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] = minrand(0, 5);
-	UpdatePlantSizeTextdrawPlant(playerid);
-
-	TogglePlayerControllableEx(playerid, false);
-	SetCameraBehindPlayer(playerid);
-	ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, true, false, false, false, 0);
-
-	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][12]);
-	PLAYER_TEMP[playerid][py_TIMERS][12] = SetTimerEx("PlantingUp", 1000, false, "id", playerid, plant_info[type][plant_info_SEEDS]);
-	return 1;
-}
-
 Set_HARVEST_Checkpoint(playerid)
 {
 	if (IsValidDynamicRaceCP(PLAYER_TEMP[playerid][py_HARVERT_CHECKPOINT]))
@@ -6629,193 +6506,6 @@ DestroyPlayerTrashRouteObjects(playerid)
 		if (TRASH_PLAYER_OBJECTS[playerid][i] != INVALID_STREAMER_ID) DestroyDynamicObject(TRASH_PLAYER_OBJECTS[playerid][i]);
 		TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
 	}
-	return 1;
-}
-
-UpdatePlantSizeTextdrawPlant(playerid)
-{
-	new str_text[64];
-	format(str_text, sizeof(str_text), "Plantando ~g~%d %", PLAYER_TEMP[playerid][py_PLANTING_PROGRESS]);
-	ShowPlayerMessage(playerid, str_text, 2);
-	return 1;
-}
-
-CancelPlayerPlanting(playerid)
-{
-	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][12]);
-	PLAYER_TEMP[playerid][py_PLANTING] = false;
-	PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] = 0;
-
-	TogglePlayerControllableEx(playerid, true);
-	ClearAnimations(playerid);
-	return 1;
-}
-
-forward PlantingUp(playerid, seeds);
-public PlantingUp(playerid, seeds)
-{
-	#if DEBUG_MODE == 1
-		printf("PlantingUp"); // debug juju
-	#endif
-
-	if (PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] < 100)
-	{
-		PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] += minrand(5, 20);
-		if (PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] > 100) PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] = 100;
-
-		ApplyAnimation(playerid, "BOMBER", "BOM_Plant_Loop", 4.1, true, false, false, false, 0);
-		UpdatePlantSizeTextdrawPlant(playerid);
-		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][12]);
-		PLAYER_TEMP[playerid][py_TIMERS][12] = SetTimerEx("PlantingUp", 1000, false, "id", playerid, seeds);
-		return 1;
-	}
-
-	PLAYER_TEMP[playerid][py_WORKING_IN] = WORK_NONE;
-	PLAYER_TEMP[playerid][py_PLANTING] = false;
-	PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] = 0;
-
-	TogglePlayerControllableEx(playerid, true);
-	ClearAnimations(playerid);
-
-	//objeto planta: 2244
-
-	new index = GetAvaiblePlantIndex();
-	if (index == -1)
-	{
-
-		switch(seed_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][seed_info_PLANT_TYPE])
-		{
-			case PLANT_TYPE_MEDICINE: PLAYER_MISC[playerid][MISC_SEED_MEDICINE] += plant_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][plant_info_SEEDS];
-			case PLANT_TYPE_CANNABIS: PLAYER_MISC[playerid][MISC_SEED_CANNABIS] += plant_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][plant_info_SEEDS];
-			case PLANT_TYPE_CRACK: PLAYER_MISC[playerid][MISC_SEED_CRACK] += plant_info[ PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED] ][plant_info_SEEDS];
-		}
-
-		ShowPlayerMessage(playerid, "~r~No queda espacio para más plantas, prueba más tarde.", 3);
-		return 1;
-	}
-
-	GetPlayerPos(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2]);
-	GetPlayerFacingAngle(playerid, CHARACTER_INFO[playerid][ch_ANGLE]);
-	CHARACTER_INFO[playerid][ch_POS][0] += (1.0 * floatsin(-CHARACTER_INFO[playerid][ch_ANGLE], degrees));
-	CHARACTER_INFO[playerid][ch_POS][1] += (1.0 * floatcos(-CHARACTER_INFO[playerid][ch_ANGLE], degrees));
-	CHARACTER_INFO[playerid][ch_POS][2] -= 0.75;
-
-	PLANTS[index][plant_VALID] = true;
-	PLANTS[index][plant_GROWING] = true;
-	PLANTS[index][plant_INVISIBLE] = true;
-	PLANTS[index][plant_GROWING_PROGRESS] = frandom(10.0, 8.0, 2);
-	PLANTS[index][plant_TYPE] = PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED];
-	PLANTS[index][plant_PLANTED_BY_ACCOUNT_ID] = ACCOUNT_INFO[playerid][ac_ID];
-	format(PLANTS[index][plant_PLANTED_BY_NAME], 24, "%s", PLAYER_TEMP[playerid][py_RP_NAME]);
-	PLANTS[index][plant_OBJECT_ID] = CreateDynamicObject(2244, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], 0.0, 0.0, CHARACTER_INFO[playerid][ch_ANGLE], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
-	SetDynamicObjectMaterial(PLANTS[index][plant_OBJECT_ID], 2, 2244, "plants_tabletop", "CJ_PLANT", 0x00F7F7F7);
-
-	if (GetPlayerInterior(playerid) == 0)
-	{
-		CA_FindZ_For2DCoord(CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2]);
-		MoveDynamicObject(PLANTS[index][plant_OBJECT_ID], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], 12.0, 0.0, 0.0, CHARACTER_INFO[playerid][ch_ANGLE]);
-	}
-
-	new info[2];
-	info[0] = OBJECT_TYPE_PLANT;
-	info[1] = index;
-	Streamer_SetArrayData(STREAMER_TYPE_OBJECT, PLANTS[index][plant_OBJECT_ID], E_STREAMER_EXTRA_ID, info);
-
-	new label_str[256];
-	format(label_str, sizeof label_str, ""COL_YELLOW"%s"COL_WHITE" de %s\n"COL_WHITE"Creciendo: %.1f%%", plant_info[ PLANTS[index][plant_TYPE] ][plant_info_NAME], PLANTS[index][plant_PLANTED_BY_NAME], PLANTS[index][plant_GROWING_PROGRESS]);
-	PLANTS[index][plant_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2] + 0.25, 10.0, .testlos = false, .interiorid = GetPlayerInterior(playerid), .worldid = GetPlayerVirtualWorld(playerid));
-
-	KillTimer(PLANTS[index][plant_TIMER]);
-	PLANTS[index][plant_TIMER] = SetTimerEx("GrowPlantUp", 15000, false, "d", index);
-
-	SavePlayerSkills(playerid);
-	ShowPlayerMessage(playerid, "Ahora espera a que la planta crezca, si pasan más de 5 minutos después~n~de que la planta haya crecido se destruirá.", 4);
-	Streamer_Update(playerid);
-	return 1;
-}
-
-GetAvaiblePlantIndex()
-{
-	for(new i = 0; i != sizeof PLANTS; i ++)
-	{
-		if (!PLANTS[i][plant_VALID]) return i;
-	}
-	return -1;
-}
-
-forward GrowPlantUp(plant);
-public GrowPlantUp(plant)
-{
-	#if DEBUG_MODE == 1
-		printf("GrowPlantUp"); // debug juju
-	#endif
-
-	if (!PLANTS[plant][plant_VALID] || !PLANTS[plant][plant_GROWING]) return 0;
-
-	if (PLANTS[plant][plant_GROWING_PROGRESS] < 100.0)
-	{
-		PLANTS[plant][plant_GROWING_PROGRESS] += floatdiv(25, plant_info[ PLANTS[plant][plant_TYPE] ][plant_info_SEEDS]);
-		if (PLANTS[plant][plant_GROWING_PROGRESS] > 100.0) PLANTS[plant][plant_GROWING_PROGRESS] = 100.0;
-
-		if (PLANTS[plant][plant_INVISIBLE] && PLANTS[plant][plant_GROWING_PROGRESS] > 50.0)
-		{
-			PLANTS[plant][plant_INVISIBLE] = false;
-			SetDynamicObjectMaterial(PLANTS[plant][plant_OBJECT_ID], 2, 2244, "plants_tabletop", "CJ_PLANT", COLOR_WHITE);
-		}
-
-		new label_str[256];
-		format(label_str, sizeof label_str, ""COL_YELLOW"%s"COL_WHITE" de %s\n"COL_WHITE"Creciendo: %.1f%%", plant_info[ PLANTS[plant][plant_TYPE] ][plant_info_NAME], PLANTS[plant][plant_PLANTED_BY_NAME], PLANTS[plant][plant_GROWING_PROGRESS]);
-		UpdateDynamic3DTextLabelText(PLANTS[plant][plant_LABEL_ID], 0xF7F7F700, label_str);
-
-		KillTimer(PLANTS[plant][plant_TIMER]);
-		PLANTS[plant][plant_TIMER] = SetTimerEx("GrowPlantUp", 15000, false, "d", plant);
-		return 1;
-	}
-
-	SetDynamicObjectMaterial(PLANTS[plant][plant_OBJECT_ID], 2, 2244, "plants_tabletop", "CJ_PLANT", 0xFFff0000);
-
-	PLANTS[plant][plant_GROWING] = false;
-	PLANTS[plant][plant_EXPIRE_TIME] = 1000;
-
-	new label_str[256];
-	format(label_str, sizeof label_str, ""COL_YELLOW"%s"COL_WHITE" de %s\n"COL_WHITE"Expira en %s minutos", plant_info[ PLANTS[plant][plant_TYPE] ][plant_info_NAME], PLANTS[plant][plant_PLANTED_BY_NAME], TimeConvert(PLANTS[plant][plant_EXPIRE_TIME]));
-	UpdateDynamic3DTextLabelText(PLANTS[plant][plant_LABEL_ID], 0xF7F7F700, label_str);
-
-	KillTimer(PLANTS[plant][plant_TIMER]);
-	PLANTS[plant][plant_TIMER] = SetTimerEx("ExpirePlantTime", 1000, false, "d", plant);
-	return 1;
-}
-
-forward ExpirePlantTime(plant);
-public ExpirePlantTime(plant)
-{
-	#if DEBUG_MODE == 1
-		printf("ExpirePlantTime"); // debug juju
-	#endif
-
-	if (!PLANTS[plant][plant_VALID]) return 0;
-
-	if (PLANTS[plant][plant_EXPIRE_TIME] > 0)
-	{
-		PLANTS[plant][plant_EXPIRE_TIME] --;
-
-		new label_str[256];
-		format(label_str, sizeof label_str, ""COL_YELLOW"%s"COL_WHITE" de %s\n"COL_WHITE"Expira en %s minutos", plant_info[ PLANTS[plant][plant_TYPE] ][plant_info_NAME], PLANTS[plant][plant_PLANTED_BY_NAME], TimeConvert(PLANTS[plant][plant_EXPIRE_TIME]));
-		UpdateDynamic3DTextLabelText(PLANTS[plant][plant_LABEL_ID], 0xF7F7F700, label_str);
-
-		KillTimer(PLANTS[plant][plant_TIMER]);
-		PLANTS[plant][plant_TIMER] = SetTimerEx("ExpirePlantTime", 1000, false, "d", plant);
-		return 1;
-	}
-
-	new Float:x, Float:y, Float:z;
-	GetDynamicObjectPos(PLANTS[plant][plant_OBJECT_ID], x, y, z);
-	CreateFlashObject(x, y, z - 1.3);
-
-	DestroyDynamicObject(PLANTS[plant][plant_OBJECT_ID]);
-	DestroyDynamic3DTextLabel(PLANTS[plant][plant_LABEL_ID]);
-
-	new tmp_PLANTS[PLANTS_ENUM]; PLANTS[plant] = tmp_PLANTS;
 	return 1;
 }
 
