@@ -59,7 +59,7 @@ HideInventory(playerid)
 	{
 		case 3, 4:
 		{
-			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = true;
+			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = false;
 			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
 		}
 	}

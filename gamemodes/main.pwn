@@ -1859,7 +1859,9 @@ static const INVALID_NAMES[][100] =
 	"El_",
 	"Vaginon",
 	"Elva_",
-	"_Ginon"
+	"_Ginon",
+	"Kreisel",
+	"Ryan_West"
 };
 
 static const BAN_KEYWORDS[][100] =
