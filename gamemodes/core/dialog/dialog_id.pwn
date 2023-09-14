@@ -265,6 +265,11 @@ enum
 >>>>>>> c4e0938 (Preguntas de seguridad)
 =======
 	DIALOG_QUESTION_RESPONSE,
+<<<<<<< HEAD
 	DIALOG_SELECC_TYPE_AMMO
 >>>>>>> d09f9dd (Balas como antes y arreglos)
+=======
+	DIALOG_SELECC_TYPE_AMMO,
+	DIALOG_BLACK_MARKET_SELECT
+>>>>>>> d80a8b7 (Las armas y balas se comprar en el mismo lugar)
 };

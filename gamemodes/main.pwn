@@ -5191,7 +5191,7 @@ CheckBlackMarket(playerid)
     {
 	    if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "No puedes comprar aquí siendo policía.", 3);
 	    if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Tienes que ser nivel 2.", 3);
-	    ShowDialog(playerid, DIALOG_BLACK_MARKET_WEAPONS);
+	    ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
 	}
     return 1;
 }
@@ -5236,15 +5236,6 @@ CheckDrugBlackMarket(playerid)
 {
     if (!IsPlayerInRangeOfPoint(playerid, 1.5, 2310.057128, -1789.786865, 1600.751953)) return 1;
     ShowDialog(playerid, DIALOG_DRUG_MARKET);
-    return 1;
-}
-
-CheckBlackMarketAmmo(playerid)
-{
-	if (IsPlayerInRangeOfPoint(playerid, 1.5, 2162.462158, -1169.053222, -16.871662) || IsPlayerInRangeOfPoint(playerid, 1.5, -187.830596, -2249.291503, 24.332202))
-	{
-    	ShowDialog(playerid, DIALOG_SELECC_TYPE_AMMO);
-    }
     return 1;
 }
 
@@ -7320,10 +7311,8 @@ SanAndreas()
 		AddKeyArea(Fuel_Stations[i][0], Fuel_Stations[i][1], 1.5, KEY_TYPE_Y);
 	}
 	//Mercado negro
-	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Armas)\n"COL_WHITE"7 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
-	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Balas)\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 2162.462158, -1169.053222, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
-	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Armas)\n"COL_WHITE"7 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
-	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Balas)\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 2162.462158, -1169.053222, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
+	CreateDynamic3DTextLabel(""COL_RED"Mercado negro\n"COL_WHITE"2 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
+	CreateDynamic3DTextLabel(""COL_RED"Mercado negro\n"COL_WHITE"2 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
 	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Drogas)\n"COL_WHITE"2 productos disponibles", 0xF7F7F7FF, 2310.057128, -1789.786865, 1600.751953, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
 
 	//24/7
@@ -12797,6 +12786,11 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Comprar balas", "Balas\nCargadores", "Ver", "Cerrar");
 			return 1;
 		}
+		case DIALOG_BLACK_MARKET_SELECT:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Mercado negro", "Armas\nMunición", "Ver", "Cerrar");
+			return 1;
+		}
 		default: return 0;
 	}
 	return 1;
@@ -16328,6 +16322,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				    ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
 				}
 			}
+			else ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
 			return 1;
 		}
 		case DIALOG_BLACK_MARKET_AMMO_STOCK:
@@ -20994,6 +20989,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 1: ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO_STOCK);
 				}
 			}
+			else else ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
+		}
+		case DIALOG_BLACK_MARKET_SELECT:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0: ShowDialog(playerid, DIALOG_BLACK_MARKET_WEAPONS);
+					case 1: ShowDialog(playerid, DIALOG_SELECC_TYPE_AMMO);
+				}
+			}
 		}
 	}
 	return 0;
@@ -24618,7 +24625,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     	CheckFishSell(playerid);
     	CheckBlackMarket(playerid);
     	CheckDrugBlackMarket(playerid);
-    	CheckBlackMarketAmmo(playerid);
 		CheckWorkSite(playerid);
 		CheckClothShop(playerid);
         CheckAtmPlayerAndExecute(playerid);
