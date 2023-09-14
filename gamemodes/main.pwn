@@ -1444,8 +1444,8 @@ enum yt_result
 	yt_title[100 + 1]
 };
 
-new RESULT_YOUTUBE[MAX_RESULTS][yt_result],
-	PLAYER_DIALOG_MP3_RESULT[MAX_PLAYERS][MAX_RESULTS][yt_result];
+/*new RESULT_YOUTUBE[MAX_RESULTS][yt_result],
+	PLAYER_DIALOG_MP3_RESULT[MAX_PLAYERS][MAX_RESULTS][yt_result];*/
 
 // AGRICULTOR
 enum
@@ -3656,6 +3656,16 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				return 0;
             }
 	    }*/
+
+        /*Box*/
+        if (PLAYER_TEMP[playerid][py_BOXING])
+        {
+	        if (IsPlayerInRangeOfPoint(playerid, 1.0, -17.344648, 99.261329, 1100.822021))
+			{
+				PLAYER_TEMP[playerid][py_BOXING] = false;
+				ShowPlayerNotification(playerid, "Te suspendieron de esta pelea por salir del ring.", 4);
+			}
+		}
     }
 
     return 1;
@@ -15264,23 +15274,23 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, "Cargando ...", "Espera mientras buscamos resultados para su búsqueda ...", "X", "");
 
-				new title[100 + 1];
+				/*new title[100 + 1];
 				title = SpaceFix(inputtext);
 				new str[180]; format(str, sizeof str, "http://127.0.0.1:12345/search?query=%s", title);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
-				HTTP(playerid, HTTP_GET, str, "", "OnPlayerSongFound");
+				HTTP(playerid, HTTP_GET, str, "", "OnPlayerSongFound");*/
 			}
 			return 1;
 		}
 		case DIALOG_PLAYER_MP3_RESULTS:
 		{
-			if (response)
+			/*if (response)
 			{
 				new url[128];
 				format(url, 128, "http://127.0.0.1:12345/download/%d", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][videoID]);
 				HTTP(playerid, 128, url, "", "OnSongDownloadResponse");
-			}
+			}*/
 			return 1;
 		}
 		case DIALOG_BUY_VEHICLE:
@@ -21333,13 +21343,13 @@ CALLBACK: OnPlayerSongFound(index, response_code, data[])
 {
 	if (!PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP]) return 1;
 
-	if (response_code == 200)
+	/*if (response_code == 200)
 	{
-		new videodata[11][4][86];
+		new videodata[11][4][86], dialog_counter;
 		if(sscanf(data, "p<,>a<dds[86]>[11]", videodata));
 
-		new dialog[150 * sizeof(videodata)], line[150];
-		format(dialog, sizeof(dialog), "Nombre\tDuración\n")
+		new dialog[150 * sizeof(videodata)];
+		format(dialog, sizeof(dialog), "Nombre\tDuración\n");
 		for(new i = 0; i != sizeof(videodata); i++)
 		{
 			format(PLAYER_DIALOG_MP3_RESULT[index][i][videoID], sizeof(dialog), "%d\n", videodata[i][1]);
@@ -21349,7 +21359,7 @@ CALLBACK: OnPlayerSongFound(index, response_code, data[])
 		ShowPlayerDialog(index, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_LIST, "Resultados", dialog, "Reproducir", "Salir");
 		PLAYER_TEMP[index][py_DIALOG_RESPONDED] = false;
 	}
-	else ShowPlayerMessage(index, "~r~La búsqueda falló, inténtelo de nuevo más tarde.", 3);
+	else ShowPlayerMessage(index, "~r~La búsqueda falló, inténtelo de nuevo más tarde.", 3);*/
 
 	PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP] = false;
 	return 1;
@@ -26013,8 +26023,6 @@ public OnPlayerUpdate(playerid)
 		}
     }
 
-    
-
     UpdatePlayerZoneMessages(playerid);
     CheckRobActor(playerid);
 	return 1;
@@ -28874,15 +28882,17 @@ GetEmptyPropertySlot()
 	return -1;
 }
 
-SpaceFix(text[])
+/*SpaceFix(text[])
 {
-	new str[100 + 1]; format(str, sizeof str, "%s", text);
+	new str[100 + 1];
+	format(str, sizeof str, "%s", text);
+
     for(new i = 0; i < strlen(str); i++)
 	{
 		if (str[i] == ' ') str[i] = '%20';
 	}
 	return str;
-}
+}*/
 
 GivePlayerDrunkLevel(playerid, ammount)
 {

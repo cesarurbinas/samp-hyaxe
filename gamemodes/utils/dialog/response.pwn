@@ -2036,7 +2036,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new title[100 + 1];
 				title = SpaceFix(inputtext);
-				new str[180]; format(str, sizeof str, "http://wifson-studios.rf.gd/mp3.php?limit=10&song_title=%s", title);
+				new str[180]; format(str, sizeof str, "http://aaaaaaaaa/mp3.php?limit=10&song_title=%s", title);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
 				//HTTP(playerid, HTTP_GET, str, "", "OnPlayerSongFound");
