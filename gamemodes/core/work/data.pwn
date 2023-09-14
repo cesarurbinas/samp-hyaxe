@@ -19,7 +19,8 @@ enum
 	WORK_MAFIA,
 	WORK_ENEMY_MAFIA,
 	WORK_OSBORN,
-	WORK_MEDIC
+	WORK_MEDIC,
+	WORK_BOX
 };
 enum work_info_info
 {

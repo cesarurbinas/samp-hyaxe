@@ -9,7 +9,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
-#define SERVER_VERSION 			"v0.5 Build 155"
+#define SERVER_VERSION 			"v0.5 Build 170"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -48,7 +48,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
-#tryinclude <profiler>
+//#tryinclude <profiler>
 
 // Must fix
 #include <nex-ac>
@@ -58,6 +58,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <strlib>
 #include <ExtendedActorFunctions>
 #include <gmenu>
+#include <json>
 
 // Ojito con esto q se revienta el cpeu
 #if defined VOICE_CHAT
@@ -109,6 +110,9 @@ Y_less on the ruski face book? I dont need to don the fur hat
 
 // Dialogs
 #include "core/dialog/dialog_id.pwn"
+
+// Audio
+#include "core/audio/handlers.pwn"
 
 // Vehicles
 #include "core/vehicle/global_vehicles.pwn"
@@ -1013,17 +1017,6 @@ new San_Andreas_Barriers[][San_Andreas_Barriers_Info] = // usar VEHICLE_TYPE_NON
 	{VEHICLE_TYPE_NONE, WORK_NONE, -1526.39063, 481.38281, 6.17970, 0.0, 0, 0, INVALID_STREAMER_ID, COLOR_WHITE, false}, // ejercito??
 	{VEHICLE_TYPE_NONE, WORK_NONE, -82.1645, -1123.0260, 0.0373, 67.1102, 0, 0, INVALID_STREAMER_ID, COLOR_WHITE, false} // grua
 };
-
-/* RESULT_YOUTUBE */
-#define MAX_RESULTS 10
-enum yt_result
-{
-	videoID[11 + 1],
-	yt_title[100 + 1]
-};
-
-/*new RESULT_YOUTUBE[MAX_RESULTS][yt_result],
-	PLAYER_DIALOG_MP3_RESULT[MAX_PLAYERS][MAX_RESULTS][yt_result];*/
 
 // AGRICULTOR
 enum
@@ -2885,7 +2878,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{
-					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid)
+					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid && PLAYER_TEMP[i][py_BOX_BETTING])
 					{
 						ShowPlayerNotification(i, "Te hemos devuelto el dinero porque el luchador que apostaste se ha ido del ring.", 6);
 						GivePlayerCash(i, PLAYER_TEMP[i][py_BOX_BET]);
@@ -2894,6 +2887,10 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						PLAYER_TEMP[i][py_BOX_BETTING] = false;
 					}
 				}
+
+				new str_text[128];
+				format(str_text, sizeof(str_text), "%s se ha ido del ring.", PLAYER_TEMP[playerid][py_NAME]);
+				SendBoxMessage(str_text, 3);
 			}
 		}
     }
@@ -3519,7 +3516,7 @@ public OnPlayerDisconnect(playerid, reason)
 			{
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{
-					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid)
+					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid && PLAYER_TEMP[i][py_BOX_BETTING])
 					{
 						ShowPlayerNotification(i, "Te hemos devuelto el dinero porque el luchador que apostaste se ha ido del ring.", 6);
 						GivePlayerCash(i, PLAYER_TEMP[i][py_BOX_BET]);
@@ -3528,6 +3525,10 @@ public OnPlayerDisconnect(playerid, reason)
 						PLAYER_TEMP[i][py_BOX_BETTING] = false;
 					}
 				}
+
+				new str_text[128];
+				format(str_text, sizeof(str_text), "%s se ha ido del ring.", PLAYER_TEMP[playerid][py_NAME]);
+				SendBoxMessage(str_text, 3);
 			}
 
 			SaveUserData(playerid);
@@ -5564,10 +5565,11 @@ public OnPlayerSpawn(playerid)
 			case ROLEPLAY_STATE_BOX:
 			{
 				SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
-				CHARACTER_INFO[playerid][ch_INTERIOR] = 16;
 				SetCameraBehindPlayer(playerid);
 				SetPlayerPosEx(playerid, -25.157732, 87.987953, 1098.070190, 0.481732, 16, 0, false);
 				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+				PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
+				return 1;
 			}
 		}
 
@@ -5929,11 +5931,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 	{
 		if (PLAYER_TEMP[killerid][py_BOXING] && PLAYER_TEMP[playerid][py_BOXING])
 		{
-			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
-			PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
-			SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
-			CHARACTER_INFO[playerid][ch_INTERIOR] = 16;
-
 			new 
 				str_text[128],
 				final_pay = 100
@@ -5941,7 +5938,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 			{
-				if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid)
+				if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid && PLAYER_TEMP[i][py_BOX_BETTING])
 				{
 					ShowPlayerNotification(i, "EL jugador que apostaste ha perdido, ya puedes apostar nuevamente.", 5);
 					final_pay += PLAYER_TEMP[i][py_BOX_BET];
@@ -5951,7 +5948,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 					PLAYER_TEMP[i][py_BOX_BETTING] = false;
 				}
 
-				if (PLAYER_TEMP[i][py_BOX_PLAYER] == killerid)
+				if (PLAYER_TEMP[i][py_BOX_PLAYER] == killerid && PLAYER_TEMP[i][py_BOX_BETTING])
 				{
 					ShowPlayerNotification(i, "EL jugador que apostaste ha ganado, ya puedes apostar nuevamente.", 5);
 					final_pay += PLAYER_TEMP[i][py_BOX_BET];
@@ -5970,10 +5967,21 @@ public OnPlayerDeath(playerid, killerid, reason)
 			GameTextForPlayer(killerid, str_text, 5000, 1);
 			ShowPlayerNotification(killerid, "Pelea ganada, espera a que alguien vuelva a apostar por ti.", 4);
 			PLAYER_TEMP[killerid][py_BOX_PAY] = 0;
+			GivePlayerHealthEx(killerid, 25.0);
+			PLAYER_SKILLS[killerid][WORK_BOX] ++;
+
+			ShowPlayerNotification(playerid, "Has perdido, vuelve a la oficina si quieres participar.", 4);
 
 			PLAYER_TEMP[playerid][py_BOXING] = false;
 			PLAYER_TEMP[playerid][py_BOX_PAY] = 0;
+
+			PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
+			SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
+			CHARACTER_INFO[playerid][ch_INTERIOR] = 16;
+
 			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_BOX;
+			SetPlayerPosEx(playerid, -25.157732, 87.987953, 1098.070190, 0.481732, 16, 0, false);
+			return 1;
 		}
 	}
 
@@ -8056,6 +8064,17 @@ CMD:stop(playerid, params[])
 	return 1;
 }
 
+CMD:mp3(playerid, params[])
+{
+	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
+	if(!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes ningún GPS, ve a un 24/7.", 3, 1085);
+	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
+	
+	PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
+	ShowDialog(playerid, DIALOG_PLAYER_MP3);
+	return 1;
+}
+
 CMD:pass(playerid, params[])
 {
 	ShowDialog(playerid, DIALOG_CHANGE_PASSWORD);
@@ -9208,7 +9227,7 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la propiedad", ""COL_WHITE"Ingresa el nuevo nombre de la propiedad.", ">>", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "MP3 - Buscar una canción", "Indica el nombre y cantante de la canción que quieres reproducir.\nSe recomienda añadir la palabra 'audio' para canción directa.\n\nPor ejemplo: Lynyrd Skynyrd - Free Bird (Audio)", "Buscar", "Salir");
+		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "MP3", "Introduce el nombre de un video de YouTube que quieras reproducir.\n\nPor ejemplo: Bruh Sound Effect #2", "Buscar", "Salir");
 		case DIALOG_BUY_VEHICLE:
 		{
 			if (!GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_VALID]) return 0;
@@ -14392,23 +14411,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, "Cargando ...", "Espera mientras buscamos resultados para su búsqueda ...", "X", "");
 
-				/*new title[100 + 1];
-				title = SpaceFix(inputtext);
-				new str[180]; format(str, sizeof str, "http://127.0.0.1:12345/search?query=%s", title);
+				for(new i = 0; i < strlen(inputtext); i++)
+				{
+					if(inputtext[i] == ' ') inputtext[i] = '+';
+				}
+
+				new str[180];
+				format(str, sizeof str, "127.0.0.1:12345/search?query=%s", inputtext);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
-				HTTP(playerid, HTTP_GET, str, "", "OnPlayerSongFound");*/
+				HTTP(playerid, HTTP_GET, str, "", "OnYouTubeQueryResponse");
 			}
 			return 1;
 		}
 		case DIALOG_PLAYER_MP3_RESULTS:
 		{
-			/*if (response)
+			if(response)
 			{
 				new url[128];
-				format(url, 128, "http://127.0.0.1:12345/download/%d", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][videoID]);
-				HTTP(playerid, 128, url, "", "OnSongDownloadResponse");
-			}*/
+				format(url, 128, "127.0.0.1:12345/download/%s/pipe_addr_returning", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
+				printf("%s", url);
+				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
+			}
 			return 1;
 		}
 		case DIALOG_BUY_VEHICLE:
@@ -20436,6 +20460,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 0: ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_YELLOW"Reglas del club", ""COL_WHITE"Caballeros, bienvenidos al Club de la pelea, reglas:\n1) No hables del Club de la pelea\n2) Nunca hables del Club de la pelea", "Cerrar", "");
 					case 1:
 					{
+						if (!PLAYER_WORKS[playerid][WORK_BOX]) return ShowPlayerMessage(playerid, "~r~No eres boxeador", 4);
 						if (PLAYER_TEMP[playerid][py_BOX_BETTING]) return ShowPlayerMessage(playerid, "~r~Un apostador no puede pelear", 4);
 
 						PLAYER_TEMP[playerid][py_BOXING] = true;
@@ -20514,16 +20539,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PLAYER_TEMP[playerid][py_BOX_BETTING] = true;
 
 				new str_text[128];
-				format(str_text, sizeof(str_text), "Has apostado %d$ a %s.", inputtext[0], PLAYER_TEMP[ PLAYER_TEMP[playerid][py_BOX_PLAYER] ][py_NAME]);
-				ShowPlayerNotification(playerid, str_text, 6);
-
-				format(str_text, sizeof(str_text), "%s ha apostado %d$ por ti.", PLAYER_TEMP[playerid][py_NAME], inputtext[0]);
-				ShowPlayerNotification(PLAYER_TEMP[playerid][py_BOX_PLAYER], str_text, 5);
+				format(str_text, sizeof(str_text), "%s ha apostado %d$ por %s.", PLAYER_TEMP[playerid][py_NAME], inputtext[0], PLAYER_TEMP[ PLAYER_TEMP[playerid][py_BOX_PLAYER] ][py_NAME]);
+				SendBoxMessage(str_text, 3);
 				return 1;
 			}
 			else ShowDialog(playerid, DIALOG_BOX_FIGHTERS);
 		}
 	}
+
+	printf("dialogid %d", dialogid);
 	return 0;
 }
 
@@ -20535,92 +20559,6 @@ GetDatabasePages(const query_[], limit)
 	new Float:tpages = floatdiv(floatround(db_get_field_int(pages, 0)), limit);
 	db_free_result(pages);
 	return floatround(tpages, floatround_ceil);
-}
-
-CALLBACK: OnPlayerSongFound(index, response_code, data[])
-{
-	if (!PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP]) return 1;
-
-	/*if (response_code == 200)
-	{
-		new videodata[11][4][86], dialog_counter;
-		if(sscanf(data, "p<,>a<dds[86]>[11]", videodata));
-
-		new dialog[150 * sizeof(videodata)];
-		format(dialog, sizeof(dialog), "Nombre\tDuración\n");
-		for(new i = 0; i != sizeof(videodata); i++)
-		{
-			format(PLAYER_DIALOG_MP3_RESULT[index][i][videoID], sizeof(dialog), "%d\n", videodata[i][1]);
-			dialog_counter ++;
-		}
-
-		ShowPlayerDialog(index, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_LIST, "Resultados", dialog, "Reproducir", "Salir");
-		PLAYER_TEMP[index][py_DIALOG_RESPONDED] = false;
-	}
-	else ShowPlayerMessage(index, "~r~La búsqueda falló, inténtelo de nuevo más tarde.", 3);*/
-
-	PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP] = false;
-	return 1;
-}
-
-CALLBACK: OnSongDownloadResponse(playerid, response_code, data[])
-{
-	if(response_code != 200)
-	{
-		switch(response_code)
-		{
-			case 403: return SendClientMessage(playerid, COLOR_WHITE, "No pudimos reproducir esta canción...");
-			case 429: return SendClientMessage(playerid, COLOR_WHITE, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.");
-			default: return 0;
-		}
-	}
-
-	new url[128];
-	format(url, sizeof(url), "http://127.0.0.1:12345%s", data); // /pipe/%d
-
-	if (PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY])
-	{
-		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-		{
-			if (IsPlayerConnected(i))
-			{
-				if ( (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY || CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY) && CHARACTER_INFO[i][ch_INTERIOR_EXTRA] == CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA])
-				{
-					PlayAudioStreamForPlayer(i, url);
-					SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
-				}
-			}
-		}
-		PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Poné música en su propiedad.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	}
-	else if (PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE])
-	{
-		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-		{
-			if (IsPlayerConnected(i))
-			{
-				if (IsPlayerInAnyVehicle(i))
-				{
-					if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
-					{
-						PlayAudioStreamForPlayer(i, url);
-						SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
-					}
-				}
-			}
-		}
-		PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = false;
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	}
-	else
-	{
-		PlayAudioStreamForPlayer(playerid, url);
-		SendClientMessage(playerid, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Escucha música en sus auriculares.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	}
-
-	return 1;
 }
 
 GetEmptyPlayer_GPS_Slot(playerid)
@@ -23988,6 +23926,21 @@ CheckAmbulance(playerid)
 CheckBoxClub(playerid)
 {
 	if (IsPlayerInRangeOfPoint(playerid, 1.5, -11.283934, 88.862136, 1101.522705)) return ShowDialog(playerid, DIALOG_BOX_CLUB);
+	return 1;
+}
+
+SendBoxMessage(message[], time)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (IsPlayerInRangeOfPoint(i, 30.0, -17.344648, 99.261329, 1100.822021))
+			{
+				ShowPlayerNotification(i, message, time);
+			}
+		}
+	}
 	return 1;
 }
 
@@ -29796,10 +29749,10 @@ public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 
 		if (!PLAYER_TEMP[issuerid][py_BOXING])
 		{
-			if (IsPlayerInRangeOfPoint(playerid, 30.0, -17.344648, 99.261329, 1100.822021))
+			if (IsPlayerInRangeOfPoint(issuerid, 30.0, -17.344648, 99.261329, 1100.822021))
 			{
 				SetPlayerPosEx(issuerid, 950.341247, -987.135864, 38.743835, 322.0, 0, 0);
-				ShowPlayerMessage(playerid, "~r~Solos los boxeadores pueden pegar", 4);
+				ShowPlayerMessage(issuerid, "~r~Solos los boxeadores pueden pegar", 4);
 			}
 		}
 	}
@@ -32009,7 +31962,7 @@ CALLBACK: StandUpBotikin(medic, playerid)
 			format(str_text, sizeof(str_text), "~g~+%d$", pay);
 			GameTextForPlayer(medic, str_text, 5000, 1);
 
-			PLAYER_SKILLS[medic][WORK_MEDIC] ++;
+			PLAYER_SKILLS[medic][WORK_MEDIC] += 5;
 			SavePlayerSkills(medic);
 		}
 		else ShowPlayerNotification(playerid, "Este jugador no ha pedido un medico entonces no has ganado nada.", 4);
