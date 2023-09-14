@@ -32065,7 +32065,7 @@ SavePlayerWeaponsData(playerid)
     	new DB_Query[128];
     	format(DB_Query, sizeof(DB_Query), "UPDATE `PLAYER_WEAPONS` SET `WEAPON_ID` = '%d', `AMMO` = '%d' WHERE `ID_WEAPON` = '%d';", PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO], PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]);
     	db_query(Database, DB_Query);
-    	printf("save: id: %d, ammo: %d, db_id: %d", PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO], PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]);
+    	//printf("save: id: %d, ammo: %d, db_id: %d", PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO], PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]);
   	}
   	return 1;
 }
@@ -32093,7 +32093,7 @@ LoadPlayerWeaponsData(playerid)
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_DB_ID] = db_get_field_assoc_int(Result, "ID_WEAPON");
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = db_get_field_assoc_int(Result, "AMMO");
-		printf("load: id %d, ammo: %d, db_id: %d", PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO], PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_DB_ID]);
+		//printf("load: id %d, ammo: %d, db_id: %d", PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO], PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_DB_ID]);
 
 		total ++;
 		db_next_row(Result);
@@ -36531,6 +36531,7 @@ CMD:cargos(playerid, params[])
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (to_player == playerid) return ShowPlayerMessage(playerid, "~r~No puedes verte a tu mismo");
 	if (PLAYER_WORKS[to_player][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Este jugador es miembro de la policía.", 3);
+	if (!PLAYER_TEMP[to_player][py_POLICE_REASON]) ShowPlayerMessage(playerid, "~r~Este jugador no tiene razones de cargos.", 3);
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "%s tiene cargos por "COL_RED"%s", PLAYER_TEMP[to_player][py_NAME], PLAYER_TEMP[to_player][py_POLICE_REASON]);
 	return 1;
