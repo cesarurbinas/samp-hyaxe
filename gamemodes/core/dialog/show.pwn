@@ -1561,34 +1561,6 @@ ShowDialog(playerid, dialogid)
 				"COL_WHITE"300 Balas\t"COL_GREEN"1350$\n", "Comprar", "Volver");
 			return 1;
 		}
-		case DIALOG_PLAYER_WEAPONS:
-		{
-			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
-
-			new dialog[95 * 15], line_str[95], listitem;
-			format(dialog, sizeof dialog, ""COL_WHITE"Arma\t"COL_WHITE"Munición\t"COL_WHITE"Slot\n");
-
-			for(new i; i != 13; i ++)
-			{
-				if (!PLAYER_WEAPONS[playerid][i][player_weapon_VALID]) continue;
-
-				format(line_str, sizeof line_str, ""COL_WHITE"%s\t"COL_WHITE"%s\t"COL_WHITE"%d\n", WEAPON_INFO[ PLAYER_WEAPONS[playerid][i][player_weapon_ID] ][weapon_info_NAME], number_format_thousand(PLAYER_WEAPONS[playerid][i][player_weapon_AMMO]), i);
-				strcat(dialog, line_str);
-
-				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = i;
-				listitem ++;
-			}
-			strcat(dialog, ""COL_RED"Eliminar todo\n");
-			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 13 + 20;
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Armas", dialog, "Selecc.", "Cerrar");
-			return 1;
-		}
-		case DIALOG_PLAYER_WEAPONS_DELETE_A:
-		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", "¿Está seguro de que quiere eliminar todas sus armas?\nEsta opción no se puede deshacer.", "Eliminar", "Atrás");
-			return 1;
-		}
 		case DIALOG_TRICKS_FOOD:
 		{
 			new dialog[150];
@@ -1683,62 +1655,6 @@ ShowDialog(playerid, dialogid)
 								);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Venta", dialog, "Si", "No");
-			return 1;
-		}
-		case DIALOG_VEHICLE_BOOT:
-		{
-			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
-
-			new max_slots = VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_BOOT_SLOTS];
-			if (max_slots > MAX_BOOT_SLOTS) max_slots = MAX_BOOT_SLOTS;
-
-			new dialog[128 * (MAX_BOOT_SLOTS + 2)], line_str[128], listitem;
-			format(dialog, sizeof dialog, ""COL_WHITE"Arma\t"COL_WHITE"Munición\t"COL_WHITE"Slot\n");
-
-			for(new i = 0; i != max_slots; i ++)
-			{
-				if (VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][i][vehicle_boot_VALID])
-				{
-					switch(VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][i][vehicle_boot_TYPE])
-					{
-						case BOOT_TYPE_WEAPON:
-						{
-							format(line_str, sizeof line_str, "%s\t%s\t%d\n", WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][i][vehicle_boot_INT] ][weapon_info_NAME], number_format_thousand(VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][i][vehicle_boot_INT_EXTRA]), i);
-							strcat(dialog, line_str);
-							PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = i;
-						}
-					}
-
-					listitem ++;
-				}
-			}
-
-			new caption[64];
-			format(caption, sizeof caption, ""COL_RED"%s (%d espacios disponibles)", VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_NAME], max_slots - listitem);
-
-			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = MAX_BOOT_SLOTS + 20;
-			strcat(dialog, ""COL_RED"Eliminar todo\n"); listitem ++;
-
-			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = true;
-			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Cerrar");
-		}
-		case DIALOG_VEHICLE_BOOT_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Maletero - Eliminar todo", ""COL_WHITE"¿Está seguro de que quiere eliminar todo de su maletero?\nEsta opción no se puede deshacer.", "Eliminar", "Cancelar");
-		case DIALOG_VEHICLE_BOOT_OPTIONS:
-		{
-			new caption[45];
-			format(caption, sizeof caption, ""COL_RED"%s", WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT] ][weapon_info_NAME]);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, "Sacar\nEliminar", "Selecc.", "Atrás");
-			return 1;
-		}
-		case DIALOG_VEHICLE_BOOT_DELETE:
-		{
-			new dialog[190];
-			format(dialog, sizeof dialog, ""COL_WHITE"Arma: %s\nMunición: %s\n\n¿Está seguro de que quiere eliminar esta arma de este maletero?\nEsta opción no se puede deshacer.", WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT] ][weapon_info_NAME], number_format_thousand( VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT_EXTRA] ));
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Maletero - Eliminar", dialog, "Eliminar", "Atrás");
 			return 1;
 		}
 		case DIALOG_SELECT_POLICE_SKIN:

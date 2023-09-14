@@ -52,7 +52,6 @@ WeaponToType(weapon)
 		case 2: return 18;
 		case 1: return 19;
 		case 22: return 20;
-		case 22: return 21;
 		case 24: return 22;
 		case 25: return 23;
 		case 26: return 24;

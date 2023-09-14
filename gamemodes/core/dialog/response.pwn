@@ -3511,16 +3511,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (CHARACTER_INFO[playerid][ch_CASH] >= BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_PRICE])
 				{
-					new weapon_slot = WEAPON_INFO[ BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_ID] ][weapon_info_SLOT];
 					new str_text[128];
-
-					if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
-					{
-						format(str_text, sizeof(str_text), "Para comprar esta arma tienes que deshacerte de tu '%s' (%d) para tener espacio.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] ][weapon_info_NAME], weapon_slot);
-						ShowPlayerNotification(playerid, str_text, 4);
-						return 1;
-					}
-
 					PLAYER_TEMP[playerid][py_LAST_BM_BUY] = gettime();
 
 					GivePlayerCash(playerid, -BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_PRICE]);
@@ -3529,12 +3520,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if (WEAPON_INFO[ BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_ID] ][weapon_info_AMMO]) GivePlayerWeaponEx(playerid, BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_ID], 0);
 					else GivePlayerWeaponEx(playerid, BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_ID], 0);
 
+					if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+
 					if (BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_ID] == 41)
 	            	{
-	            		GivePlayerWeaponEx(playerid, BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_ID], 5000);
+						AddPlayerItem(playerid, WeaponToType(BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_ID]), 5000);
 	            	}
-
-					RegisterNewPlayerWeapon(playerid, weapon_slot);
+					else AddPlayerItem(playerid, WeaponToType(BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_ID]));
 
 					format(str_text, sizeof(str_text), "Compraste una %s por %s$", WEAPON_INFO[ BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_ID] ][weapon_info_NAME], number_format_thousand(BLACK_MARKT_WEAPONS[listitem][black_market_WEAPON_PRICE]));
 	            	ShowPlayerNotification(playerid, str_text, 3);
@@ -3745,39 +3737,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 			}
-			return 1;
-		}
-		case DIALOG_PLAYER_WEAPONS:
-		{
-			if (response)
-			{
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
-
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == 13 + 20) // Eliminar todo
-				{
-					ShowDialog(playerid, DIALOG_PLAYER_WEAPONS_DELETE_A);
-					return 1;
-				}
-
-				PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
-				ShowDialog(playerid, DIALOG_PLAYER_WEAPONS_DELETE);
-			}
-			return 1;
-		}
-		case DIALOG_PLAYER_WEAPONS_DELETE_A:
-		{
-			if (response)
-
-			{
-				new DB_Query[90];
-				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-				db_free_result(db_query(Database, DB_Query));
-
-				ResetPlayerWeaponsEx(playerid);
-
-			    ShowPlayerMessage(playerid, "Has eliminado todas tus armas.", 2);
-			}
-			else ShowDialog(playerid, DIALOG_PLAYER_WEAPONS);
 			return 1;
 		}
 		case DIALOG_TRICKS_FOOD:
@@ -4079,101 +4038,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
 			}
-			return 1;
-		}
-		case DIALOG_VEHICLE_BOOT:
-		{
-			if (response)
-			{
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
-				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == MAX_BOOT_SLOTS + 20)
-				{
-					ShowDialog(playerid, DIALOG_VEHICLE_BOOT_DELETE_ALL);
-					return 1;
-				}
-
-				PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
-				ShowDialog(playerid, DIALOG_VEHICLE_BOOT_OPTIONS);
-			}
-			else
-			{
-				GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = false;
-				UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
-			}
-
-		}
-		case DIALOG_VEHICLE_BOOT_DELETE_ALL:
-		{
-			if (response)
-			{
-				new DB_Query[90];
-				format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_BOOT` WHERE `ID_VEHICLE` = '%d';", PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID]);
-				db_free_result(db_query(Database, DB_Query));
-
-				new temp_VEHICLE_BOOT[enum_VEHICLE_BOOT];
-				for(new i = 0; i != MAX_BOOT_SLOTS; i ++) VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][i] = temp_VEHICLE_BOOT;
-
-			    ShowPlayerMessage(playerid, "Has eliminado todo de este maletero.", 3);
-			}
-			return 1;
-		}
-		case DIALOG_VEHICLE_BOOT_OPTIONS:
-		{
-			if (response)
-			{
-				switch(listitem)
-				{
-					case 0:
-					{
-						if (!VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_VALID]) return ShowPlayerMessage(playerid, "~r~No hay nada en ese slot.", 3);
-						if (VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_TYPE] != BOOT_TYPE_WEAPON) return ShowPlayerMessage(playerid, "~r~En ese slot no hay armas.", 3);
-						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
-
-						new to_slot = WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT] ][weapon_info_SLOT];
-						new str_text[128];
-
-						if (PLAYER_WEAPONS[playerid][to_slot][player_weapon_VALID])
-						{
-							PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-							format(str_text, sizeof(str_text), "Para sacar esta arma tienes que deshacerte de tu %s para tener espacio.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ to_slot ][player_weapon_ID] ][weapon_info_NAME]);
-							ShowPlayerNotification(playerid, str_text, 4);
-							return 1;
-						}
-
-						new DB_Query[64];
-						format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_BOOT` WHERE `ID_OBJECT` = '%d';", VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_OBJECT_ID]);
-						db_free_result(db_query(Database, DB_Query));
-
-						GivePlayerWeaponEx(playerid, VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT], VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT_EXTRA]);
-						//GivePlayerWeaponEx(playerid, VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT], 9999);
-						RegisterNewPlayerWeapon(playerid, to_slot);
-
-						format(str_text, sizeof(str_text), "Sacaste una arma (%s) del maletero.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ to_slot ][player_weapon_ID] ][weapon_info_NAME]);
-						ShowPlayerNotification(playerid, str_text, 4);
-
-						new temp_VEHICLE_BOOT[enum_VEHICLE_BOOT]; VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ] = temp_VEHICLE_BOOT;
-
-						SetPlayerChatBubble(playerid, "\n\n\n\n* Saca una arma del maletero de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-					}
-					case 1: ShowDialog(playerid, DIALOG_VEHICLE_BOOT_DELETE);
-				}
-			}
-			else ShowDialog(playerid, DIALOG_VEHICLE_BOOT);
-			return 1;
-		}
-		case DIALOG_VEHICLE_BOOT_DELETE:
-		{
-			if (response)
-			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "Has eliminado tu '%s' de este maletero.", WEAPON_INFO[ VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT] ][weapon_info_NAME]);
-
-				new DB_Query[64];
-				format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_BOOT` WHERE `ID_OBJECT` = '%d';", VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_OBJECT_ID]);
-				db_free_result(db_query(Database, DB_Query));
-
-				new temp_VEHICLE_BOOT[enum_VEHICLE_BOOT]; VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ] = temp_VEHICLE_BOOT;
-			}
-			else ShowDialog(playerid, DIALOG_VEHICLE_BOOT_OPTIONS);
 			return 1;
 		}
 		case DIALOG_SELECT_POLICE_SKIN:
@@ -4912,24 +4776,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				if (CHARACTER_INFO[playerid][ch_CASH] >= POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_PRICE])
 				{
-					new weapon_slot = WEAPON_INFO[ POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID] ][weapon_info_SLOT];
-					if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
-					{
-						new str_text[128];
-						format(str_text, sizeof(str_text), "Para usar esta arma debes dejar tu %s (%d).", WEAPON_INFO[ PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] ][weapon_info_NAME], weapon_slot);
-						ShowPlayerNotification(playerid, str_text, 3);
-						return 1;
-					}
-
 					if (!PLAYER_WORKS[playerid][WORK_POLICE])
 					{
 						if (POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID] == 23) return ShowPlayerMessage(playerid, "~r~Esta arma solo es para policías", 4);
 					}
 
-					if (WEAPON_INFO[ POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID] ][weapon_info_AMMO]) GivePlayerWeaponEx(playerid, POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID], 1);
-					else GivePlayerWeaponEx(playerid, POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID], 1);
-
-					RegisterNewPlayerWeapon(playerid, weapon_slot);
+					if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+					AddPlayerItem(playerid, WeaponToType(POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID]));
 					ShowPlayerNotification(playerid, "Arma adquirida", 3);
 				}
 				else
