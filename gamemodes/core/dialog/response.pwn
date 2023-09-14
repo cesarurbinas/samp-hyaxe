@@ -38,9 +38,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(ACCOUNT_INFO[playerid][ac_SALT], 16, "%s", salt);
 				SHA256_PassHash(inputtext, ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], 64 + 1);
 
-				StopAudioStreamForPlayer(playerid);
-				PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]);
-
 				ACCOUNT_INFO[playerid][ac_LEVEL] = 1;
 				ACCOUNT_INFO[playerid][ac_REP] = 1;
 				ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;

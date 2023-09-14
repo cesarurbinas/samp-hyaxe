@@ -2225,7 +2225,7 @@ CMD:v(playerid, params[])
 	if (modelid < 400 || modelid > 611 || !modelid || modelid >= 999) return SendClientMessage(playerid, COLOR_WHITE, "Modelo de vehículo no válido. Usa el nombre o la ID de modelo.");
 	if (color1 > 255 || color1 > 255) return SendClientMessage(playerid, COLOR_WHITE, "Color no válido.");
 	
-	if (modelid == )
+	if (modelid == 432)
 	{
 		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < CMD_LORD) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No tienes permisos suficientes (%d).", modelid);
 	}
