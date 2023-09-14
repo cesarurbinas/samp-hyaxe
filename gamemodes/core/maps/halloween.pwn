@@ -115,8 +115,10 @@ HalloweenMap()
 	g_Object[98] = CreateDynamicObject(18647, 821.8685, -1102.8303, 27.4468, 0.0000, 0.0000, 0.0000); //RedNeonTube1
 	g_Object[99] = CreateDynamicObject(19864, 944.8378, -1103.4831, 31.3784, 0.0000, 0.0000, 90.0000); //MIHouse1GarageDoor4
 	SetDynamicObjectMaterial(g_Object[99], 0, -1, "none", "none", 0xFF000000);
-	g_Object[100] = CreateDynamicObject(19862, 944.9077, -1102.3990, 32.9808, 0.0000, 0.0000, 90.0998); //MIHouse1GarageDoor2
-	SetDynamicObjectMaterialText(g_Object[100], "FELIZ", 0, OBJECT_MATERIAL_SIZE_256x64, "Arial Black", 68, 1, 0xFFFFA500, 0x00000000, 0);
+	
+	g_Object[100] = CreateObject(19862, 944.9077, -1102.3990, 32.9808, 0.0000, 0.0000, 90.0998); //MIHouse1GarageDoor2
+	SetObjectMaterialText(g_Object[100], "FELIZ", 0, OBJECT_MATERIAL_SIZE_256x64, "Arial Black", 68, 1, 0xFFFFA500, 0x00000000, 0);
+	
 	g_Object[101] = CreateDynamicObject(19864, 944.8978, -1102.8928, 31.3784, 0.0000, 0.0000, 90.0000); //MIHouse1GarageDoor4
 	SetDynamicObjectMaterial(g_Object[101], 0, -1, "none", "none", 0xFF000000);
 	g_Object[102] = CreateDynamicObject(19864, 944.8978, -1103.9532, 31.3784, 0.0000, 0.0000, 90.0000); //MIHouse1GarageDoor4
