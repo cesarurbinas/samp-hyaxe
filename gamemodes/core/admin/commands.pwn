@@ -882,7 +882,7 @@ CMD:jail(playerid, params[])
 	SendDiscordWebhook(webhook, 1);
 
     new dialog[250];
-	format(dialog, sizeof dialog, ""COL_WHITE"%s te jaileó, razón: %s.\nRecuerde que a los 10 jails sera baneado permanentemente.", ACCOUNT_INFO[playerid][ac_NAME], reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"%s te jaileó, razón: %s.\nRecuerde que a los 50 jails sera baneado permanentemente.", ACCOUNT_INFO[playerid][ac_NAME], reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
     return 1;
 }

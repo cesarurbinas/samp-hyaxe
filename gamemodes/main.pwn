@@ -3202,7 +3202,7 @@ NeuroJail(playerid, time, const reason[])
 	SendDiscordWebhook(webhook, 1);
 
 	new dialog[250];
-	format(dialog, sizeof dialog, ""COL_WHITE"NeuroAdmin te jaileó, razón: %s.\nRecuerde que a los 10 jails sera baneado permanentemente.", reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"NeuroAdmin te jaileó, razón: %s.\nRecuerde que a los 50 jails sera baneado permanentemente.", reason);
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	return 1;
 }
@@ -4262,8 +4262,11 @@ public OnPlayerDisconnect(playerid, reason)
 				SendBoxMessage(str_text, 3);
 			}
 
-			SaveUserData(playerid);
-	  		SavePlayerMisc(playerid);
+			if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 5000)
+			{
+				SaveUserData(playerid);
+	  			SavePlayerMisc(playerid);
+	  		}
   			if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 0) SavePlayerVehicles(playerid, true);
 
   			if (PLAYER_CREW[playerid][player_crew_VALID]) CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ONLINE_MEMBERS] --;
@@ -4483,27 +4486,29 @@ GetEnterExitIndexById(id)
 	return -1;
 }
 
-public OnRconLoginAttempt(ip[], password[], success)
-{
-	#if DEBUG_MODE == 1
-		printf("OnRconLoginAttempt %s %s",ip,password); // debug juju
-    #endif
+#if defined FINAL_BUILD
+	public OnRconLoginAttempt(ip[], password[], success)
+	{
+		#if DEBUG_MODE == 1
+			printf("OnRconLoginAttempt %s %s",ip,password); // debug juju
+	    #endif
 
-    new temp_ip[16];
+	    new temp_ip[16];
 
-    for(new i = 0; i < MAX_PLAYERS; i++)
-    {
-	   if (IsPlayerConnected(i))
-	   {
-		  	GetPlayerIp(i, temp_ip, sizeof(temp_ip));
-		  	if (!strcmp(ip, temp_ip))
-		  	{
-			 	KickEx(i, 100);
-		  	}
-	   	}
-    }
-    return 1;
-}
+	    for(new i = 0; i < MAX_PLAYERS; i++)
+	    {
+		   if (IsPlayerConnected(i))
+		   {
+			  	GetPlayerIp(i, temp_ip, sizeof(temp_ip));
+			  	if (!strcmp(ip, temp_ip))
+			  	{
+				 	KickEx(i, 100);
+			  	}
+		   	}
+	    }
+	    return 1;
+	}
+#endif
 
 ExitSite(playerid)
 {
@@ -4548,11 +4553,11 @@ ExitSite(playerid)
                 PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
                 SetPlayerPosEx(playerid, ENTER_EXIT[info[1]][ee_EXT_X], ENTER_EXIT[info[1]][ee_EXT_Y], ENTER_EXIT[info[1]][ee_EXT_Z], ENTER_EXIT[info[1]][ee_EXT_ANGLE], ENTER_EXIT[info[1]][ee_EXT_INTERIOR], ENTER_EXIT[info[1]][ee_EXT_WORLD], false /*ENTER_EXIT[info[1]][ee_EXT_FREEZE]*/);
                 SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-                StopAudioStreamForPlayer(playerid);
+                if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
                 FreezePlayer(playerid);
 
                 if (ENTER_EXIT[ info[1] ][ee_EXT_INTERIOR] == 0) SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
-                if (ENTER_EXIT[info[1]][ee_INTERIOR_TYPE] == INTERIOR_ALHAMBRA) StopAudioStreamForPlayer(playerid);
+                if (ENTER_EXIT[info[1]][ee_INTERIOR_TYPE] == INTERIOR_ALHAMBRA) if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
             }
             else ShowPlayerMessage(playerid, "~r~No estás en sitio correcto.", 2);
         }
@@ -4567,7 +4572,7 @@ ExitSite(playerid)
                 PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
                 SetPlayerPosEx(playerid, PROPERTY_INFO[info[1]][property_EXT_X], PROPERTY_INFO[info[1]][property_EXT_Y], PROPERTY_INFO[info[1]][property_EXT_Z], PROPERTY_INFO[info[1]][property_EXT_ANGLE], PROPERTY_INFO[info[1]][property_EXT_INTERIOR], 0, false /*PROPERTY_INFO[info[1]][property_EXT_FREEZE]*/, false);
                 SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-                StopAudioStreamForPlayer(playerid);
+                if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
                 FreezePlayer(playerid);
             }
             else ShowPlayerMessage(playerid, "~r~No estás en sitio correcto.", 2);
@@ -4593,7 +4598,7 @@ ExitSite(playerid)
                 );
 
                 SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-                StopAudioStreamForPlayer(playerid);
+                if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
                 FreezePlayer(playerid);
             }
             else ShowPlayerMessage(playerid, "~r~No estás en sitio correcto.", 2);
@@ -4667,7 +4672,7 @@ EnterSite(playerid)
                     SetPlayerPosEx(playerid, ENTER_EXIT[info[1]][ee_INT_X], ENTER_EXIT[info[1]][ee_INT_Y], ENTER_EXIT[info[1]][ee_INT_Z], ENTER_EXIT[info[1]][ee_INT_ANGLE], ENTER_EXIT[info[1]][ee_INT_INTERIOR], ENTER_EXIT[info[1]][ee_INT_WORLD], false /*ENTER_EXIT[info[1]][ee_INT_FREEZE]*/, true);
                     FreezePlayer(playerid);
 
-                    StopAudioStreamForPlayer(playerid);
+                    if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 
                     if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_CLUB)
 					{
@@ -4823,7 +4828,7 @@ EnterSite(playerid)
                     );
                     FreezePlayer(playerid);
 
-                    StopAudioStreamForPlayer(playerid);
+                    if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 
                     if (CLUBS_INFO[ info[1] ][club_RADIO] < 100)
 					{
@@ -6313,6 +6318,14 @@ CheckMafiaEquipeSite(playerid)
 		}
 	}
 
+	if (PLAYER_WORKS[playerid][WORK_OSBORN])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 1298.5734, -799.0347, 84.1406))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
 	if (PLAYER_WORKS[playerid][WORK_CONNOR])
 	{
 		if (IsPlayerInRangeOfPoint(playerid, 1.3, 419.4871, -1001.7376, 92.8918))
@@ -6459,7 +6472,8 @@ public OnPlayerSpawn(playerid)
 	#endif
 
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO]);
-
+	SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
+	
 	switch(PLAYER_MISC[playerid][MISC_GAMEMODE])
 	{
 		case 0:
@@ -7748,7 +7762,7 @@ InitBlackMarket(market_id)
 	{
 		if (IsPlayerConnected(i))
 		{
-			if (PLAYER_CREW[i][player_crew_VALID])
+			if (PLAYER_CREW[i][player_crew_VALID] || PLAYER_WORKS[i][WORK_POLICE])
 			{
 				CREW_INFO[ PLAYER_CREW[i][player_crew_INDEX] ][crew_IN_GRAFFITI] = false;
 
@@ -7798,7 +7812,7 @@ InitGraffiti(graff_id)
 	{
 		if (IsPlayerConnected(i))
 		{
-			if (PLAYER_CREW[i][player_crew_VALID])
+			if (PLAYER_CREW[i][player_crew_VALID] || PLAYER_WORKS[i][WORK_POLICE])
 			{
 				CREW_INFO[ PLAYER_CREW[i][player_crew_INDEX] ][crew_IN_GRAFFITI] = false;
 
@@ -7964,8 +7978,8 @@ public OnGameModeInit()
 	SendRconCommand("minconnectiontime 50");
 	SendRconCommand("ackslimit 10000");
 	SendRconCommand("messageslimit 5000");
-	SendRconCommand("conncookies 0");
-	SendRconCommand("cookielogging 0");
+	//SendRconCommand("conncookies 0");
+	//SendRconCommand("cookielogging 0");
 	SendRconCommand("chatlogging 1");
 
 	UsePlayerPedAnims();
@@ -8756,6 +8770,7 @@ SanAndreas()
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 882.789611, 1896.002319, -93.898712, 20.0, .testlos = true, .worldid = 0, .interiorid = 29);
 	CreateDynamic3DTextLabel("{FFFFFF}The Family Connor\n"COL_WHITE"Equipamiento", 0xF7F7F700, 419.4871, -1001.7376, 92.8918, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel("{a9ee70}Diviso Per Tutti\n"COL_WHITE"Equipamiento", 0xF7F7F700, 1141.0912, -2064.0176, 69.0259, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 1298.5734, -799.0347, 84.1406, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF7F7F700, -187.830596, -2249.291503, 24.332202, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
@@ -9069,17 +9084,17 @@ public OnPlayerText(playerid, text[])
 	}
 	PLAYER_TEMP[playerid][py_ANTIFLOOD_TALK] = GetTickCount();
 
-	if (PLAYER_MISC[playerid][MISC_JAILS] >= 10)
+	if (PLAYER_MISC[playerid][MISC_JAILS] >= 50)
 	{
-		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Superar 10 jails");
+		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Superar 50 jails");
 
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado automáticamente, razón: Superar los 10 jails", "Cerrar", "");
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado automáticamente, razón: Superar los 50 jails", "Cerrar", "");
 		KickEx(playerid, 500);
 		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
 		new str[144];
-		format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): 50 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144];
@@ -9625,6 +9640,12 @@ CMD:discord(playerid, params[])
 	return 1;
 }
 
+CMD:testnot(playerid, params[])
+{
+	ShowPlayerNotification(playerid, "Te hemos devuelto el dinero porque el luchador que apostaste se ha ido del ring.", 3);
+	return 1;
+}
+
 CMD:runtime(playerid, params[])
 {
 	SendClientMessageEx(playerid, COLOR_WHITE, "El servidor se ha iniciado: %s", ReturnTimelapse(ServerInitTime, gettime()));
@@ -10071,7 +10092,7 @@ CMD:gps(playerid, params[])
 
 CMD:stop(playerid, params[])
 {
-	StopAudioStreamForPlayer(playerid);
+	if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 	return 1;
 }
 
@@ -11151,6 +11172,13 @@ ShowDialog(playerid, dialogid)
 
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][sites] = i;
 				sites ++;
+			}
+
+			if (PLAYER_TEMP[playerid][py_TUTORIAL])
+			{
+				StopAudioStreamForPlayer(playerid);
+				if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 3) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_3.mp3");
+				PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 4;
 			}
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Negocios", dialog, "Selecc.", "Atrás");
@@ -15830,6 +15858,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 					ShowPlayerMessage(playerid, "Enhorabuena, ahora podras comprar muchas cosas más.", 7);
 					PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
+
+					if (PLAYER_TEMP[playerid][py_TUTORIAL])
+					{
+						StopAudioStreamForPlayer(playerid);
+						
+						if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 2)PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_2.mp3");
+						PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 3;
+					}
 				}
 				else
 				{
@@ -23033,7 +23069,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							new vehicleid = GetPlayerVehicleID(i);
 							if (vehicleid == p_vehicleid)
 							{
-								StopAudioStreamForPlayer(i);
+								if (!PLAYER_TEMP[i][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 							}
 						}
 					}
@@ -23058,7 +23094,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (IsPlayerConnected(i))
 						{
 							new vehicleid = GetPlayerVehicleID(i);
-							if (vehicleid == p_vehicleid)
+							if (vehicleid == p_vehicleid && !PLAYER_TEMP[i][py_TUTORIAL])
 							{
 								StopAudioStreamForPlayer(i);
 								PlayAudioStreamForPlayer(i, RADIO_STATIONS[index][r_URL]);
@@ -27536,7 +27572,7 @@ SendGraffitiNotification(const ann[])
     {
         if (IsPlayerConnected(i))
         {
-        	if (PLAYER_CREW[i][player_crew_VALID])
+        	if (PLAYER_CREW[i][player_crew_VALID] || PLAYER_WORKS[i][WORK_POLICE])
 			{
                 ShowPlayerNotification(i, ann, 6);
                 RecalculeCrewGraffitis(PLAYER_CREW[i][player_crew_INDEX]);
@@ -27857,7 +27893,7 @@ public UpdateGraffitiProgress(playerid)
 			{
 				if (IsPlayerConnected(i))
 				{
-					if (PLAYER_CREW[i][player_crew_VALID])
+					if (PLAYER_CREW[i][player_crew_VALID] || PLAYER_WORKS[i][WORK_POLICE])
 					{
 						TextDrawShowForPlayer(i, Textdraws[textdraw_GRAFFITI_PLUS][0]);
 
@@ -28008,7 +28044,7 @@ public UpdateMarketProgress(playerid)
 			{
 				if (IsPlayerConnected(i))
 				{
-					if (PLAYER_CREW[i][player_crew_VALID])
+					if (PLAYER_CREW[i][player_crew_VALID] || PLAYER_WORKS[i][WORK_POLICE])
 					{
 						TextDrawShowForPlayer(i, Textdraws[textdraw_GRAFFITI_PLUS][0]);
 
@@ -29537,7 +29573,7 @@ public HealthUp(playerid)
 		TogglePlayerControllableEx(playerid, true);
 		SetPlayerPosEx(playerid, PLAYER_TEMP[playerid][py_HP_POS_DATA][0], PLAYER_TEMP[playerid][py_HP_POS_DATA][1], PLAYER_TEMP[playerid][py_HP_POS_DATA][2], PLAYER_TEMP[playerid][py_HP_POS_DATA][3], 3, 2, 1);
 		new price = ACCOUNT_INFO[playerid][ac_LEVEL] * 200;
-		if (price > 1200) price = 1200;
+		if (price > 1000) price = 1000;
 		price += minrand(100, 200);
 
 		if (price > CHARACTER_INFO[playerid][ch_CASH])
@@ -30504,7 +30540,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][gb_vehicle_LAST_DRIVER] = playerid;
 			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][gb_vehicle_OCCUPIED] = false;
 
-			StopAudioStreamForPlayer(playerid);
+			if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 			HidePlayerSpeedoMeter(playerid);
 
 			if (GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][gb_vehicle_TYPE] == VEHICLE_TYPE_WORK)
@@ -30604,7 +30640,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 		printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
 	#endif
 
-	StopAudioStreamForPlayer(playerid);
+	if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] != INVALID_PLAYER_ID)
 	{
@@ -30612,7 +30648,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 		{
 			if (PLAYER_MISC[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] ][MISC_RADIO_STATION] < 100)
 			{
-				StopAudioStreamForPlayer(playerid);
+				if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 			}
 		}
 	}
@@ -30854,6 +30890,14 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] != VEHICLE_TYPE_WORK)
 	{
 		DisableRemoteVehicleCollisions(playerid, 0);
+	}
+
+	if (PLAYER_TEMP[playerid][py_TUTORIAL])
+	{
+		StopAudioStreamForPlayer(playerid);
+
+		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
+		PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 1000, false, "id", playerid, 5);
 	}
 	return 1;
 }
@@ -31225,7 +31269,9 @@ SavePlayerVehicles(playerid, destroy = false)
 			GLOBAL_VEHICLES[i][gb_vehicle_STATE],
 
 			PLAYER_VEHICLES[i][player_vehicle_ID]
-			);
+		);
+
+		printf("%s", DB_Query);
 		db_free_result(db_query(Database, DB_Query));
 
 		for(new x = 0; x != MAX_VEHICLE_COMPONENTS; x ++)
@@ -31267,7 +31313,9 @@ SavePlayerVehicles(playerid, destroy = false)
 				GLOBAL_VEHICLES[i][gb_vehicle_COMPONENTS][13],
 
 				PLAYER_VEHICLES[i][player_vehicle_ID]
-				);
+			);
+
+			printf("%s", DB_Query);
 			db_free_result(db_query(Database, DB_Query));
 		}
 
@@ -31818,6 +31866,17 @@ public StartVehicleEngine(playerid, vehicleid)
 	{
 		GLOBAL_VEHICLES[vehicleid][gb_vehicle_ATTACHED_TO] = INVALID_VEHICLE_ID;
 		DetachTrailerFromVehicle(vehicleid);
+	}
+
+	if (PLAYER_TEMP[playerid][py_TUTORIAL])
+	{
+		StopAudioStreamForPlayer(playerid);
+		
+		if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 5) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_5.mp3");
+		PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 6;
+
+		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
+		PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 10000, false, "id", playerid, 3);
 	}
 
 	ShowPlayerMessage(playerid, "~g~Encendiendo...", 2);
@@ -34420,6 +34479,13 @@ OnCheatDetected(playerid, ip_address[], type, code)
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
+		if (code == 47)
+		{
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Crasher de retrasado");
+			Kick(playerid);
+			return 1;
+		}
+
 		new ac_message[144];
 		format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d): Cheats (#%03d).", PLAYER_TEMP[playerid][py_NAME], playerid, code);
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
@@ -39022,6 +39088,8 @@ public ContinuePlayerIntro(playerid, step)
 			PLAYER_MISC[playerid][MISC_CONFIG_ADMIN] = false;
 			SetPlayerHud(playerid);
 			PLAYER_TEMP[playerid][py_NEW_USER] = false;
+			PLAYER_TEMP[playerid][py_TUTORIAL] = true;
+			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 1;
 			SetPlayerVirtualWorld(playerid, 0);
 			SetCameraBehindPlayer(playerid);
 
@@ -39030,38 +39098,44 @@ public ContinuePlayerIntro(playerid, step)
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 
 			SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0);
-			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 10000, false, "id", playerid, 2);
+			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 2000, false, "id", playerid, 2);
 		}
 		case 2:
 		{
-			ShowPlayerNotification(playerid, "Estos mensajes te van a ir explicando lo que te haga falta para jugar.", 12);
+			StopAudioStreamForPlayer(playerid);
+
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 1) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_1.mp3");
+			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 2;
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
-			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 13000, false, "id", playerid, 3);
 		}
 		case 3:
 		{
-			ShowPlayerNotification(playerid, "En el inventario se guardan todos tus objetos, armas y accesorios. Pulsa N para abrirlo.", 12);
+			StopAudioStreamForPlayer(playerid);
+			
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 6) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_6.mp3");
+			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 7;
+
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
-			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 13000, false, "id", playerid, 4);
+			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 51000, false, "id", playerid, 4);
 		}
 		case 4:
 		{
-			ShowPlayerNotification(playerid, "Sube a alguna de las bicis del frente para ir a buscar una tienda 24/7.", 12);
+			StopAudioStreamForPlayer(playerid);
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 7) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_7.mp3");
+			PLAYER_TEMP[playerid][py_TUTORIAL] = false;
+
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
-			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 13000, false, "id", playerid, 5);
 		}
 		case 5:
 		{
-			ShowPlayerNotification(playerid, "En la tienda puedes comprar un GPS, el cual te va a servir para ubicarte mejor.", 12);
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
-			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 13000, false, "id", playerid, 6);
+			StopAudioStreamForPlayer(playerid);
+
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 4) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_4.mp3");
+			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 5;
 		}
-		case 6:
-		{
-			ShowPlayerNotification(playerid, "Escribe /duda <texto> para recibir ayuda de administradores y otros jugadores.", 12);
-			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
-		}
+
 	}
 	return 1;
 }

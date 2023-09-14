@@ -1,7 +1,17 @@
 ShowMainMenu(playerid)
 {
+	PLAYER_MISC[playerid][MISC_GAMEMODE] = 5000;
+	SavePlayerMisc(playerid);
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][47]);
 	ShowPlayerMessage(playerid, "_", 1);
+
+	if (!SvGetVersion(playerid))
+	{
+		PLAYER_MISC[playerid][MISC_GAMEMODE] = 5000;
+		PlayerJoinGamemode(playerid);
+		return 0;
+	}
 
 	HideGamemodesMenu(playerid);
 

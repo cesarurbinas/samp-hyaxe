@@ -64,13 +64,13 @@ Notification_AutoPos_0(playerid, bool:only_pos = false)
 		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg_0{playerid}, 0x00000000);
 
 		PlayerTextDrawLetterSize(playerid, g_ptdNotificationBg2_0{playerid}, 0.600000, (g_iNotificationBg2Size_0[playerid] - 0.249999));
-		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_0{playerid}, 0x4D4D4D00);
+		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_0{playerid}, 0x00000000);
 
 		PlayerTextDrawSetString(playerid, g_ptdNotificationText_0{playerid}, g_szNotificationText_0[playerid]);
-		PlayerTextDrawColor(playerid, g_ptdNotificationText_0{playerid}, 0xD3D3D300);
+		PlayerTextDrawColor(playerid, g_ptdNotificationText_0{playerid}, 0xe6e6e600);
 
 		PlayerTextDrawTextSize(playerid, g_ptdNotificationBar_0{playerid}, NOTIFICATION_BAR_START, 75.000000);
-		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_0{playerid}, 0xB6363600);
+		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_0{playerid}, 0xec413400);
 	}
 
 	PlayerTextDrawShow(playerid, g_ptdNotificationBg_0{playerid});
@@ -122,13 +122,13 @@ Notification_AutoPos_1(playerid, bool:only_pos = false)
 		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg_1{playerid}, 0x00000000);
 
 		PlayerTextDrawLetterSize(playerid, g_ptdNotificationBg2_1{playerid}, 0.600000, (g_iNotificationBg2Size_1[playerid] - 0.249999));
-		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_1{playerid}, 0x4D4D4D00);
+		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_1{playerid}, 0x00000000);
 
 		PlayerTextDrawSetString(playerid, g_ptdNotificationText_1{playerid}, g_szNotificationText_1[playerid]);
-		PlayerTextDrawColor(playerid, g_ptdNotificationText_1{playerid}, 0xD3D3D300);
+		PlayerTextDrawColor(playerid, g_ptdNotificationText_1{playerid}, 0xe6e6e600);
 
 		PlayerTextDrawTextSize(playerid, g_ptdNotificationBar_1{playerid}, NOTIFICATION_BAR_START, 75.000000);
-		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_1{playerid}, 0xB6363600);
+		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_1{playerid}, 0xec413400);
 	}
 
 	PlayerTextDrawShow(playerid, g_ptdNotificationBg_1{playerid});
@@ -180,13 +180,13 @@ Notification_AutoPos_2(playerid, bool:only_pos = false)
 		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg_2{playerid}, 0x00000000);
 
 		PlayerTextDrawLetterSize(playerid, g_ptdNotificationBg2_2{playerid}, 0.600000, (g_iNotificationBg2Size_2[playerid] - 0.249999));
-		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_2{playerid}, 0x4D4D4D00);
+		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_2{playerid}, 0x00000000);
 
 		PlayerTextDrawSetString(playerid, g_ptdNotificationText_2{playerid}, g_szNotificationText_2[playerid]);
-		PlayerTextDrawColor(playerid, g_ptdNotificationText_2{playerid}, 0xD3D3D300);
+		PlayerTextDrawColor(playerid, g_ptdNotificationText_2{playerid}, 0xe6e6e600);
 
 		PlayerTextDrawTextSize(playerid, g_ptdNotificationBar_2{playerid}, NOTIFICATION_BAR_START, 75.000000);
-		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_2{playerid}, 0xB6363600);
+		PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_2{playerid}, 0xec413400);
 	}
 
 	PlayerTextDrawShow(playerid, g_ptdNotificationBg_2{playerid});

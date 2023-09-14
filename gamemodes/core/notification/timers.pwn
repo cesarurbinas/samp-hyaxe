@@ -18,10 +18,10 @@ public TIMER_NotificationAlpha_0(playerid)
 
 	g_iNotificationCount_0{playerid} += 5;
 
-	if (g_iNotificationCount_0{playerid} <= 100) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg_0{playerid}, Color_SetAlpha(100, g_iNotificationCount_0{playerid}));
-	if (g_iNotificationCount_0{playerid} <= 75) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_0{playerid}, Color_SetAlpha(1296911691, g_iNotificationCount_0{playerid}));
-	PlayerTextDrawColor(playerid, g_ptdNotificationText_0{playerid}, Color_SetAlpha(-741092353, g_iNotificationCount_0{playerid}));
-	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_0{playerid}, Color_SetAlpha(-1237960961, g_iNotificationCount_0{playerid}));
+	if (g_iNotificationCount_0{playerid} <= 75) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg_0{playerid}, Color_SetAlpha(0x14141400, g_iNotificationCount_0{playerid}));
+	if (g_iNotificationCount_0{playerid} <= 75) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_0{playerid}, Color_SetAlpha(0x14141400, g_iNotificationCount_0{playerid}));
+	PlayerTextDrawColor(playerid, g_ptdNotificationText_0{playerid}, Color_SetAlpha(0xe7e7e700, g_iNotificationCount_0{playerid}));
+	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_0{playerid}, Color_SetAlpha(0xe5505000, g_iNotificationCount_0{playerid}));
 
 	PlayerTextDrawShow(playerid, g_ptdNotificationBg_0{playerid});
 	PlayerTextDrawShow(playerid, g_ptdNotificationBg2_0{playerid});
@@ -171,10 +171,10 @@ public TIMER_NotificationAlpha_1(playerid)
 
 	g_iNotificationCount_1{playerid} += 5;
 
-	if (g_iNotificationCount_1{playerid} <= 100) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg_1{playerid}, Color_SetAlpha(100, g_iNotificationCount_1{playerid}));
-	if (g_iNotificationCount_1{playerid} <= 75) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_1{playerid}, Color_SetAlpha(1296911691, g_iNotificationCount_1{playerid}));
-	PlayerTextDrawColor(playerid, g_ptdNotificationText_1{playerid}, Color_SetAlpha(-741092353, g_iNotificationCount_1{playerid}));
-	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_1{playerid}, Color_SetAlpha(-1237960961, g_iNotificationCount_1{playerid}));
+	if (g_iNotificationCount_1{playerid} <= 75) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg_1{playerid}, Color_SetAlpha(0x14141400, g_iNotificationCount_1{playerid}));
+	if (g_iNotificationCount_1{playerid} <= 75) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_1{playerid}, Color_SetAlpha(0x14141400, g_iNotificationCount_1{playerid}));
+	PlayerTextDrawColor(playerid, g_ptdNotificationText_1{playerid}, Color_SetAlpha(0xe7e7e700, g_iNotificationCount_1{playerid}));
+	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_1{playerid}, Color_SetAlpha(0xe5505000, g_iNotificationCount_1{playerid}));
 
 	PlayerTextDrawShow(playerid, g_ptdNotificationBg_1{playerid});
 	PlayerTextDrawShow(playerid, g_ptdNotificationBg2_1{playerid});
@@ -324,10 +324,10 @@ public TIMER_NotificationAlpha_2(playerid)
 
 	g_iNotificationCount_2{playerid} += 5;
 
-	if (g_iNotificationCount_2{playerid} <= 100) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg_2{playerid}, Color_SetAlpha(100, g_iNotificationCount_2{playerid}));
-	if (g_iNotificationCount_2{playerid} <= 75) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_2{playerid}, Color_SetAlpha(1296911691, g_iNotificationCount_2{playerid}));
-	PlayerTextDrawColor(playerid, g_ptdNotificationText_2{playerid}, Color_SetAlpha(-741092353, g_iNotificationCount_2{playerid}));
-	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_2{playerid}, Color_SetAlpha(-1237960961, g_iNotificationCount_2{playerid}));
+	if (g_iNotificationCount_2{playerid} <= 75) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg_2{playerid}, Color_SetAlpha(0x14141400, g_iNotificationCount_2{playerid}));
+	if (g_iNotificationCount_2{playerid} <= 75) PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_2{playerid}, Color_SetAlpha(0x14141400, g_iNotificationCount_2{playerid}));
+	PlayerTextDrawColor(playerid, g_ptdNotificationText_2{playerid}, Color_SetAlpha(0xe7e7e700, g_iNotificationCount_2{playerid}));
+	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_2{playerid}, Color_SetAlpha(0xe5505000, g_iNotificationCount_2{playerid}));
 
 	PlayerTextDrawShow(playerid, g_ptdNotificationBg_2{playerid});
 	PlayerTextDrawShow(playerid, g_ptdNotificationBg2_2{playerid});

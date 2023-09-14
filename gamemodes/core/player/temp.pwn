@@ -380,8 +380,15 @@ enum Temp_Enum
 >>>>>>> 241f327 (ultimo commit del 2020 ekisde)
 =======
 	py_SPAWNED,
+<<<<<<< HEAD
 	bool:py_MENU
 >>>>>>> 41abb25 (infeccion lgbt)
+=======
+	bool:py_MENU,
+	py_TAZER_DELAY,
+	bool:py_TUTORIAL,
+	py_TUTORIAL_STEP
+>>>>>>> deef895 (Cambio de cuenta crasheaba el servidor)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

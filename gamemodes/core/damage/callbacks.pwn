@@ -161,11 +161,33 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 	
 	if (issuerid != INVALID_PLAYER_ID && weaponid == 23)
 	{
-	   SetPlayerChatBubble(playerid, "\n\n\n\n* Cae al piso al recibir el choque eléctrico de un tazer.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	   FreezePlayer(playerid, 30000);
-	   ApplyAnimation(playerid, "PED", "BIKE_fallR", 4.0, 0, 1, 1, 1, 0);
-       ShowPlayerMessage(playerid, "~y~Te dieron una descarga eléctrica con un Tazer.", 3);
-	   return 1;
+		if ((gettime() - PLAYER_TEMP[issuerid][py_TAZER_DELAY]) < 30) return ShowPlayerMessage(issuerid, "~r~Tienes que esperar 30 segundos para~n~volver a usar el tazer.", 3);
+		PLAYER_TEMP[issuerid][py_TAZER_DELAY] = gettime();
+	   	
+		GetPlayerPos(playerid, x, y, z);
+		if (GetPlayerDistanceFromPoint(issuerid, x, y, z) <= 30.0)
+		{
+			if (IsPlayerInAnyVehicle(playerid))
+			{
+				new 
+					windows[4],
+					vehicleid = GetPlayerVehicleID(playerid)
+				;
+
+				GetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], windows[2], windows[3]);
+
+				for(new i = 0, j = 4; i <= j; i++)
+				{
+					if (windows[i])
+					{
+						TazerPlayer(playerid);
+						break;
+					}	
+				}
+			}
+			else TazerPlayer(playerid);
+	    }
+	    else return ShowPlayerMessage(issuerid, "~r~El tazer no ha alcanzado al objetivo", 3);
 	}
 
 	if (IsPlayerConnected(issuerid))

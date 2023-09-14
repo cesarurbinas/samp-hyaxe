@@ -530,3 +530,18 @@ stock GiveGoldIngot(playerid, ammount = 1)
 	SavePlayerMisc(playerid);
 	return 1;
 }
+
+/*IsPlayerInVehicle(playerid)
+{
+	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER) return true;
+	return false;
+}*/
+
+TazerPlayer(playerid)
+{
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Cae al piso al recibir el choque eléctrico de un tazer.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	FreezePlayer(playerid, 30000);
+	ApplyAnimation(playerid, "PED", "BIKE_fallR", 4.0, 0, 1, 1, 1, 0);
+	ShowPlayerMessage(playerid, "~y~Te dieron una descarga eléctrica con un Tazer.", 3);
+	return 1;
+}

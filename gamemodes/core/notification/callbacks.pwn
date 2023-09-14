@@ -31,21 +31,21 @@ public OnPlayerConnect(playerid)
 	PlayerTextDrawLetterSize(playerid, g_ptdNotificationBg2_0{playerid}, 0.600000, 2.250005);
 	PlayerTextDrawTextSize(playerid, g_ptdNotificationBg2_0{playerid}, 298.500000, 160.000000);
 	PlayerTextDrawAlignment(playerid, g_ptdNotificationBg2_0{playerid}, 2);
-	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_0{playerid}, 0x4D4D4D00);
+	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_0{playerid}, 0x00000000); // 0x15151500
 	PlayerTextDrawUseBox(playerid, g_ptdNotificationBg2_0{playerid}, 1);
 
 	g_ptdNotificationBg2_1{playerid} = CreatePlayerTextDraw(playerid, 89.000000, 313.000000, "_");
 	PlayerTextDrawLetterSize(playerid, g_ptdNotificationBg2_1{playerid}, 0.600000, 2.250005);
 	PlayerTextDrawTextSize(playerid, g_ptdNotificationBg2_1{playerid}, 298.500000, 160.000000);
 	PlayerTextDrawAlignment(playerid, g_ptdNotificationBg2_1{playerid}, 2);
-	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_1{playerid}, 0x4D4D4D00);
+	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_1{playerid}, 0x00000000); // 0x15151500
 	PlayerTextDrawUseBox(playerid, g_ptdNotificationBg2_1{playerid}, 1);
 
 	g_ptdNotificationBg2_2{playerid} = CreatePlayerTextDraw(playerid, 89.000000, 313.000000, "_");
 	PlayerTextDrawLetterSize(playerid, g_ptdNotificationBg2_2{playerid}, 0.600000, 2.250005);
 	PlayerTextDrawTextSize(playerid, g_ptdNotificationBg2_2{playerid}, 298.500000, 160.000000);
 	PlayerTextDrawAlignment(playerid, g_ptdNotificationBg2_2{playerid}, 2);
-	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_2{playerid}, 0x4D4D4D00);
+	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBg2_2{playerid}, 0x00000000); // 0x15151500
 	PlayerTextDrawUseBox(playerid, g_ptdNotificationBg2_2{playerid}, 1);
 
 	g_ptdNotificationText_0{playerid} = CreatePlayerTextDraw(playerid, 11.000000, 316.000000, "_");
@@ -53,38 +53,38 @@ public OnPlayerConnect(playerid)
 	PlayerTextDrawLetterSize(playerid, g_ptdNotificationText_0{playerid}, 0.212498, 1.049998);
 	PlayerTextDrawTextSize(playerid, g_ptdNotificationText_0{playerid}, 400.000000, 17.000000);
 	PlayerTextDrawSetShadow(playerid, g_ptdNotificationText_0{playerid}, 0);
-	PlayerTextDrawColor(playerid, g_ptdNotificationText_0{playerid}, 0xD3D3D300);
+	PlayerTextDrawColor(playerid, g_ptdNotificationText_0{playerid}, 0xe6e6e600);
 
 	g_ptdNotificationText_1{playerid} = CreatePlayerTextDraw(playerid, 11.000000, 316.000000, "_");
 	PlayerTextDrawFont(playerid, g_ptdNotificationText_1{playerid}, 1);
 	PlayerTextDrawLetterSize(playerid, g_ptdNotificationText_1{playerid}, 0.212498, 1.049998);
 	PlayerTextDrawTextSize(playerid, g_ptdNotificationText_1{playerid}, 400.000000, 17.000000);
 	PlayerTextDrawSetShadow(playerid, g_ptdNotificationText_1{playerid}, 0);
-	PlayerTextDrawColor(playerid, g_ptdNotificationText_1{playerid}, 0xD3D3D300);
+	PlayerTextDrawColor(playerid, g_ptdNotificationText_1{playerid}, 0xe6e6e600);
 
 	g_ptdNotificationText_2{playerid} = CreatePlayerTextDraw(playerid, 11.000000, 316.000000, "_");
 	PlayerTextDrawFont(playerid, g_ptdNotificationText_2{playerid}, 1);
 	PlayerTextDrawLetterSize(playerid, g_ptdNotificationText_2{playerid}, 0.212498, 1.049998);
 	PlayerTextDrawTextSize(playerid, g_ptdNotificationText_2{playerid}, 400.000000, 17.000000);
 	PlayerTextDrawSetShadow(playerid, g_ptdNotificationText_2{playerid}, 0);
-	PlayerTextDrawColor(playerid, g_ptdNotificationText_2{playerid}, 0xD3D3D300);
+	PlayerTextDrawColor(playerid, g_ptdNotificationText_2{playerid}, 0xe6e6e600);
 
 	g_ptdNotificationBar_0{playerid} = CreatePlayerTextDraw(playerid, 12.000000, 334.000000, "_");
 	PlayerTextDrawLetterSize(playerid, g_ptdNotificationBar_0{playerid}, 0.845832, -0.349997);
 	PlayerTextDrawTextSize(playerid, g_ptdNotificationBar_0{playerid}, NOTIFICATION_BAR_START, 75.000000);
-	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_0{playerid}, 0xB6363600);
+	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_0{playerid}, 0xec413400);
 	PlayerTextDrawUseBox(playerid, g_ptdNotificationBar_0{playerid}, 1);
 
 	g_ptdNotificationBar_1{playerid} = CreatePlayerTextDraw(playerid, 12.000000, 334.000000, "_");
 	PlayerTextDrawLetterSize(playerid, g_ptdNotificationBar_1{playerid}, 0.845832, -0.349997);
 	PlayerTextDrawTextSize(playerid, g_ptdNotificationBar_1{playerid}, NOTIFICATION_BAR_START, 75.000000);
-	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_1{playerid}, 0xB6363600);
+	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_1{playerid}, 0xec413400);
 	PlayerTextDrawUseBox(playerid, g_ptdNotificationBar_1{playerid}, 1);
 
 	g_ptdNotificationBar_2{playerid} = CreatePlayerTextDraw(playerid, 12.000000, 334.000000, "_");
 	PlayerTextDrawLetterSize(playerid, g_ptdNotificationBar_2{playerid}, 0.845832, -0.349997);
 	PlayerTextDrawTextSize(playerid, g_ptdNotificationBar_2{playerid}, NOTIFICATION_BAR_START, 75.000000);
-	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_2{playerid}, 0xB6363600);
+	PlayerTextDrawBoxColor(playerid, g_ptdNotificationBar_2{playerid}, 0xec413400);
 	PlayerTextDrawUseBox(playerid, g_ptdNotificationBar_2{playerid}, 1);
 
 	#if defined Notifications_OnPlayerConnect

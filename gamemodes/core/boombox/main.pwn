@@ -13,7 +13,7 @@ enum E_BOOMBOX_DATA {
 };
 new BOOMBOX[MAX_BOOMBOXS][E_BOOMBOX_DATA];
 
-CreateBoombox(playerid)
+/*CreateBoombox(playerid)
 {
 	new id = GetBoomboxFreeIndex();
 	if(id == -1) return -1;
@@ -29,7 +29,7 @@ CreateBoombox(playerid)
 	BOOMBOX[id][bb_OWNER] = ACCOUNT_INFO[playerid][ac_ID];
 
 	return 1;
-}
+}*/
 
 PlayAudioInBoombox(requester, id, const url[])
 {
@@ -84,7 +84,7 @@ DestroyBoombox(id)
 	return 1; 
 }
 
-GetBoomboxFreeIndex()
+/*GetBoomboxFreeIndex()
 {
 	for(new i = 0; i < MAX_BOOMBOXS; i++)
 	{
@@ -103,7 +103,7 @@ IsPlayerNearBoombox(playerid, Float:range = 5.0)
 	}
 
 	return -1;
-}
+}*/
 
 GetBoomboxOwner(id)
 {
@@ -129,7 +129,9 @@ bool:PlayerHasBoombox(playerid)
 
 CMD:parlante(playerid, params[])
 {	
-	new options[12];
+	ShowPlayerMessage(playerid, "~r~YouTube nos ha baneado, esta opcion se encuentra desactivada.", 4);
+
+	/*new options[12];
 	if(sscanf(params, "s[12]", options)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /parlante (colocar/reproducir/recoger/parar/opciones)");
 
 	if(isequal(options, "colocar", true))
@@ -186,7 +188,7 @@ CMD:parlante(playerid, params[])
 		if(BOOMBOX[bbid][bb_OWNER] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este parlante no es tuyo.", 4);
 		PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = bbid;
 		ShowDialog(playerid, DIALOG_BOOMBOX_OPTIONS);
-	}
+	}*/
 
 	return 1;
 }

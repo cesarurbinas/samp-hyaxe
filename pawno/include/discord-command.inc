@@ -91,8 +91,8 @@ public DCC_OnMessageCreate(DCC_Message:message) {
     if (isBot) 
         return 1;
 
-    new command[10], args[134];
-    sscanf(messageContext, "s[10]s[134]", command, args);
+    new command[32], args[134];
+    sscanf(messageContext, "s[32]s[134]", command, args);
 
     if(strfind(command, DC_PREFIX, true) != -1)
     {
