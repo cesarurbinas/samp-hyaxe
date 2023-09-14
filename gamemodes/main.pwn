@@ -6236,6 +6236,18 @@ CreateMinerRocks()
 
 CALLBACK: FirstGraffitiAnnounce()
 {
+	new hour, minute, second;
+	gettime(hour, minute, second);
+	if(hour >= 2 && hour <= 5) 
+	{
+		print("Skipping graffiti event activation until 6 AM.");
+		new remaining = ((6 * 3600) - ((hour * 3600) + (minute * 60) + second) * 1000);
+		if(remaining < 0) remaining *= -1;
+
+		SetTimer("FirstGraffitiAnnounce", remaining, false);
+		return 1;
+	}
+
 	SendGraffitiNotification("En 15 minutos se iniciara una disputa.");
 	SendDiscordWebhook("En 15 minutos se iniciara una disputa.", 2);
 	SetTimer("TwoGraffitiAnnounce", 900000, false);
@@ -6342,7 +6354,7 @@ InitBlackMarket(market_id)
 }
 
 CALLBACK: InitRandomGraffiti()
-{
+{	
 	new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
 		//bm_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
 
