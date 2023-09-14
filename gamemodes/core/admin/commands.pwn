@@ -10,6 +10,7 @@ CMD:comandosadmin(playerid, params[])
     }
     else if(level >= sizeof(ADMIN_LEVELS)) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de un rango que no existe.");
     else if(level > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de un rango mayor al tuyo.");
+	else if(!level) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de usuarios.");
 
     new CmdArray:command_arr = PC_GetCommandArray();
     new len = PC_GetArraySize(command_arr);
@@ -39,7 +40,7 @@ CMD:jailoff(playerid, params[])
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
 	new DBResult:Result, query[175];
-	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, PERSONAJE.`POLICE_JAIL_TIME`, PERSONAJE.`STATE` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID` LIMIT 1;", dbid);
+	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, PERSONAJE.`POLICE_JAIL_TIME`, PERSONAJE.`STATE` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result))
 	{
@@ -96,7 +97,7 @@ CMD:unjailoff(playerid, params[])
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
 	new DBResult:Result, query[175];
-	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID` LIMIT 1;", dbid);
+	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result)) 
 	{
@@ -233,7 +234,6 @@ CMD:aka(playerid, params[])
 	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
 	if (isnull(ACCOUNT_INFO[to_player][ac_IP])) return SendClientMessage(playerid, COLOR_WHITE, "IP no válida.");
 	SendCmdLogToAdmins(playerid, "aka", params);
-	if (!strcmp(PLAYER_TEMP[to_player][py_IP], "170.83.220.2")) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No puedes hacer eso con este usuario.");
 	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Yahir_Kozel")) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No puedes hacer eso con este usuario.");
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "AKA de %s (%d):", ACCOUNT_INFO[to_player][ac_NAME], to_player);
@@ -501,20 +501,32 @@ CMD:vehinfo(playerid, params[])
 	new to_car;
 	if (sscanf(params, "i", to_car)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vehinfo <car_id>");
 	if (to_car >= MAX_VEHICLES) return 1;
-
 	if (!GLOBAL_VEHICLES[to_car][gb_vehicle_VALID]) return SendClientMessage(playerid, COLOR_WHITE, "Vehículo no válido.");
 
-	new dialog[264];
+	new owner_plyid;
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if(!IsPlayerConnected(i)) continue;
+		if(PLAYER_VEHICLES[to_car][player_vehicle_OWNER_ID] == ACCOUNT_INFO[i][ac_ID])
+		{
+			owner_plyid = i;
+			break;
+		}
+	}
+
+	new dialog[280];
 	format(dialog, sizeof dialog, ""COL_WHITE"\
 		Vehículo: %i\n\
 		Ocupado: %d\n\
 		Gasolina: %.1f/%.1f\n\
-		Motor: %d",
+		Motor: %d\n\
+		Dueño: %s (ID %d)",
 		to_car,
 		GLOBAL_VEHICLES[to_car][gb_vehicle_OCCUPIED],
 		GLOBAL_VEHICLES[to_car][gb_vehicle_GAS],
 		GLOBAL_VEHICLES[to_car][gb_vehicle_MAX_GAS],
-		GLOBAL_VEHICLES[to_car][gb_vehicle_PARAMS_ENGINE]
+		GLOBAL_VEHICLES[to_car][gb_vehicle_PARAMS_ENGINE],
+		ACCOUNT_INFO[owner_plyid][ac_NAME], owner_plyid
 	);
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Veh info", dialog, "Cerrar", "");
 

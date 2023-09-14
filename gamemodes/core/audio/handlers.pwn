@@ -15,35 +15,39 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 	printf("OnYouTubeQueryResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
 	if (!PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return 1;
 
-	if (response_code == 200)
+	if(response_code != 200)
 	{
-		new Node:vidata, results, Node:arr_data, length;
-		JSON_Parse(data, vidata);
-		JSON_GetInt(vidata, "result_count", results);
-		JSON_GetArray(vidata, "results", arr_data);
-		JSON_ArrayLength(arr_data, length);
-
-		new dialog[250 * 10], line[250];
-		format(dialog, sizeof(dialog), ""COL_WHITE"Subido por\t"COL_WHITE"Título\n");
-		for(new i = 0; i < length; i++)
-		{
-			new Node:object;
-			JSON_ArrayObject(arr_data, i, object);
-			JSON_GetString(object, "id", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_ID]);
-			JSON_GetString(object, "title", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
-			JSON_GetString(object, "uploaded_by", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED]);
-			format(line, sizeof(line), "%s\t%s\n", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED], PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
-			strcat(dialog, line);
-		}
-
-		PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
-		ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", results), dialog, "Selecc.", "Cancelar");
-	}
-	else
-	{
-		ShowPlayerMessage(playerid, "~r~No se pudo procesar su busqueda.", 3);
 		PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
+
+		switch(response_code)
+		{
+			case 403: return ShowPlayerMessage(playerid, "~r~No pudimos reproducir esta canción", 4);
+			case 429: return ShowPlayerNotification(playerid, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.", 6);
+			default: return ShowPlayerMessage(playerid, "~r~No pudimos reproducir esta canción, intenta nuevamente en un minuto.", 4);
+		}
 	}
+
+	new Node:vidata, results, Node:arr_data, length;
+	JSON_Parse(data, vidata);
+	JSON_GetInt(vidata, "result_count", results);
+	JSON_GetArray(vidata, "results", arr_data);
+	JSON_ArrayLength(arr_data, length);
+
+	new dialog[250 * 10], line[250];
+	format(dialog, sizeof(dialog), ""COL_WHITE"Subido por\t"COL_WHITE"Título\n");
+	for(new i = 0; i < length; i++)
+	{
+		new Node:object;
+		JSON_ArrayObject(arr_data, i, object);
+		JSON_GetString(object, "id", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_ID]);
+		JSON_GetString(object, "title", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
+		JSON_GetString(object, "uploaded_by", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED]);
+		format(line, sizeof(line), "%s\t%s\n", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED], PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
+		strcat(dialog, line);
+	}
+
+	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
+	ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", results), dialog, "Selecc.", "Cancelar");
 
 	return 1;
 }
@@ -72,9 +76,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 	new url[128];
 	format(url, sizeof(url), "http://51.178.211.161:12345/stream/%s.mp3", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_ID]);
 
-	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER) PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = true;
-
-	if (PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY])
+	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY)
 	{
 		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 		{
@@ -87,25 +89,27 @@ public OnDownloadResponse(playerid, response_code, data[])
 				}
 			}
 		}
-		PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
 	}
-	else if (PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE])
+	else if (IsPlayerInAnyVehicle(playerid))
 	{
-		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+		new vehid = GetPlayerVehicleID(playerid);
+		if(PLAYER_VEHICLES[vehid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
 		{
-			if (IsPlayerConnected(i))
+			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 			{
-				if (IsPlayerInAnyVehicle(i))
+				if (IsPlayerConnected(i))
 				{
-					if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
+					if (IsPlayerInAnyVehicle(i))
 					{
-						PlayAudioStreamForPlayer(i, url);
-						ShowPlayerNotification(i, sprintf("Reproduciendo %s", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]), 5);
+						if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
+						{
+							PlayAudioStreamForPlayer(i, url);
+							ShowPlayerNotification(i, sprintf("Reproduciendo %s", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]), 5);
+						}
 					}
 				}
 			}
 		}
-		PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = false;
 	}
 	else
 	{
