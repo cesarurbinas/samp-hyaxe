@@ -4843,7 +4843,7 @@ Menu:PROPERTY_MENU(playerid, response, listitem)
 			}
 			case 2:
 			{
-				//ShowFurnitureMenu(playerid);
+				ShowFurnitureMenu(playerid);
 				ShowPlayerMessage(playerid, "~r~Esta opción no esta disponible por el momento", 4);
 			}
     	}
@@ -4870,12 +4870,19 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
 {
     if (response == MENU_RESPONSE_SELECT)
     {
-    	print("test etst asd");
+    	switch(listitem)
+    	{
+    		case 0: print("a");
+    		case 1:
+    		{
+    			
+    		}
+    	}
     }
     return 1; 
 }
 
-/*ShowFurnitureMenu(playerid)
+ShowFurnitureMenu(playerid)
 {
 	ShowPlayerMenu(playerid, PROPERTY_FURNITURE, "Personalizar");
 
@@ -4890,7 +4897,7 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
 
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 	return 1;
-}*/
+}
 
 ShowPropertyOptions(playerid)
 {
