@@ -152,6 +152,8 @@ IPacket:207(playerid, BitStream:bs)
 
 public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 {
+	if (IsPlayerPaused(issuerid)) return 0;
+
 	if (PLAYER_TEMP[playerid][py_GODMODE] && issuerid != INVALID_PLAYER_ID) return 0;
 
 	if (issuerid != INVALID_PLAYER_ID && weaponid == 23)
