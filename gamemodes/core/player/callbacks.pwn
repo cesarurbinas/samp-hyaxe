@@ -46,7 +46,7 @@ public OnPlayerStreamIn(playerid, forplayerid)
 forward DisablePlayerPoliceSearchLevel(playerid);
 public DisablePlayerPoliceSearchLevel(playerid)
 {
-	Logger_Debug("DisablePlayerPoliceSearchLevel"); // debug juju
+	Logger_Debug("DisablePlayerPoliceSearchLevel"); // This is a debug line!
 
 	SetPlayerPoliceSearchLevel(playerid, 0);
 	SetPlayerWantedLevel(playerid, 0);
@@ -67,7 +67,7 @@ public DisablePlayerPoliceSearchLevel(playerid)
 forward IsValidVehicleAbuse(playerid, vehicleid);
 public IsValidVehicleAbuse(playerid, vehicleid)
 {
-	Logger_Debug("IsValidVehicleAbuse"); // debug juju
+	Logger_Debug("IsValidVehicleAbuse"); // This is a debug line!
 
 	new Float:speed = GetPlayerSpeed(playerid);
 	if (speed > 15.0)
@@ -82,7 +82,7 @@ public IsValidVehicleAbuse(playerid, vehicleid)
 forward UpdatePrisionTime(playerid);
 public UpdatePrisionTime(playerid)
 {
-	//Logger_Debug("UpdatePrisionTime"); // debug juju
+	//Logger_Debug("UpdatePrisionTime"); // This is a debug line!
 
 	new 
 		time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]),
@@ -104,7 +104,7 @@ public UpdatePrisionTime(playerid)
 forward SavePrisionTime(playerid);
 public SavePrisionTime(playerid)
 {
-	Logger_Debug("SavePrisionTime"); // debug juju
+	Logger_Debug("SavePrisionTime"); // This is a debug line!
 
 	SaveUserData(playerid);
 	return 1;
@@ -133,7 +133,7 @@ SendPoliceMark(playerid, color)
 
 public OnPlayerConnect(playerid)
 {
-	Logger_Debug("OnPlayerConnect %d",playerid); // debug juju
+	Logger_Debug("OnPlayerConnect %d",playerid); // This is a debug line!
 	if (IsPlayerNPC(playerid))
 	{
 		Logger_Debug("[npc] NPC Joined: %d", playerid);
@@ -499,7 +499,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	Logger_Debug("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
+	Logger_Debug("OnPlayerDisconnect %d %d",playerid, reason); // This is a debug line!
 
 	if (ACCOUNT_INFO[playerid][ac_ID] != 0)
 	{
@@ -645,7 +645,7 @@ public OnPlayerDisconnect(playerid, reason)
 forward RestorePlayerPos(playerid, Float:x, Float: y, Float: z);
 public RestorePlayerPos(playerid, Float:x, Float: y, Float: z)
 {
-	Logger_Debug("RestorePlayerPos"); // debug juju
+	Logger_Debug("RestorePlayerPos"); // This is a debug line!
 
 	if (GetPlayerInterior(playerid) == 0) return 0;
 	SetPlayerPosEx(playerid, x, y, z, 90.0, 0, 0);
@@ -655,7 +655,7 @@ public RestorePlayerPos(playerid, Float:x, Float: y, Float: z)
 forward StopDrugEffect(playerid);
 public StopDrugEffect(playerid)
 {
-	Logger_Debug("StopDrugEffect"); // debug juju
+	Logger_Debug("StopDrugEffect"); // This is a debug line!
 
     SetPlayerDrunkLevel(playerid, 0);
     new p_int = GetPlayerInterior(playerid);
@@ -671,7 +671,7 @@ public StopDrugEffect(playerid)
 forward InjuredAnimationCut(playerid);
 public InjuredAnimationCut(playerid)
 {
-	Logger_Debug("InjuredAnimationCut"); // debug juju
+	Logger_Debug("InjuredAnimationCut"); // This is a debug line!
 
 	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
 	PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = false;
@@ -681,7 +681,7 @@ public InjuredAnimationCut(playerid)
 forward SavePlayerData(playerid);
 public SavePlayerData(playerid)
 {
-	Logger_Debug("SavePlayerData"); // debug juju
+	Logger_Debug("SavePlayerData"); // This is a debug line!
 
 	SaveUserData(playerid);
 	SavePlayerVehicles(playerid, false);
@@ -698,7 +698,7 @@ public SavePlayerData(playerid)
 forward AddPlayerReputation(playerid);
 public AddPlayerReputation(playerid)
 {
-	Logger_Debug("AddPlayerReputation"); // debug juju
+	Logger_Debug("AddPlayerReputation"); // This is a debug line!
 
 	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
 	if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
@@ -750,7 +750,7 @@ public AddPlayerReputation(playerid)
 forward CheckCrunchAnimation(playerid);
 public CheckCrunchAnimation(playerid)
 {
-	Logger_Debug("CheckCrunchAnimation"); // debug juju
+	Logger_Debug("CheckCrunchAnimation"); // This is a debug line!
 
 	if (!IsPlayerConnected(playerid)) return 0;
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
@@ -776,7 +776,7 @@ public CheckCrunchAnimation(playerid)
 forward TogglePlayerControl(playerid, bool:controlable);
 public TogglePlayerControl(playerid, bool:controlable)
 {
-	Logger_Debug("TogglePlayerControl"); // debug juju
+	Logger_Debug("TogglePlayerControl"); // This is a debug line!
 
 	return TogglePlayerControllableEx(playerid, controlable);
 }
@@ -784,7 +784,7 @@ public TogglePlayerControl(playerid, bool:controlable)
 forward HealthUp(playerid);
 public HealthUp(playerid)
 {
-	Logger_Debug("HealthUp"); // debug juju
+	Logger_Debug("HealthUp"); // This is a debug line!
 
 	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_HOSPITAL) return 1;
 
@@ -873,7 +873,7 @@ public HealthUp(playerid)
 forward HungryThirstDown(playerid);
 public HungryThirstDown(playerid)
 {
-	//Logger_Debug("HungryThirstDown"); // debug juju
+	//Logger_Debug("HungryThirstDown"); // This is a debug line!
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return HidePlayerHud(playerid);
 	if (!PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS]) return HidePlayerHud(playerid);
@@ -944,7 +944,7 @@ public HungryThirstDown(playerid)
 forward StartVehicleEngine(playerid, vehicleid);
 public StartVehicleEngine(playerid, vehicleid)
 {
-	Logger_Debug("StartVehicleEngine"); // debug juju
+	Logger_Debug("StartVehicleEngine"); // This is a debug line!
 
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] == VEHICLE_STATE_DAMAGED) return ShowPlayerMessage(playerid, "~r~Motor dañado.", 1);
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] <= 0.1) return ShowPlayerMessage(playerid, "~r~Sin gasolina.", 1);
@@ -980,7 +980,7 @@ public StartVehicleEngine(playerid, vehicleid)
 forward UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel);
 public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 {
-	//Logger_Debug("UpdatePlayerSpeedo"); // debug juju
+	//Logger_Debug("UpdatePlayerSpeedo"); // This is a debug line!
 
 	if (vehicleid != GetPlayerVehicleID(playerid))
 	{
@@ -1089,7 +1089,7 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 forward FixVehicleUpdate(playerid, vehicleid);
 public FixVehicleUpdate(playerid, vehicleid)
 {
-	Logger_Debug("FixVehicleUpdate"); // debug juju
+	Logger_Debug("FixVehicleUpdate"); // This is a debug line!
 
 	if (vehicleid == INVALID_VEHICLE_ID)
 	{
@@ -1141,7 +1141,7 @@ public FixVehicleUpdate(playerid, vehicleid)
 forward DisableGangRefMark(playerid);
 public DisableGangRefMark(playerid)
 {
-	Logger_Debug("DisableGangRefMark"); // debug juju
+	Logger_Debug("DisableGangRefMark"); // This is a debug line!
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
@@ -1172,7 +1172,7 @@ public DisableGangRefMark(playerid)
 forward DisableMafiaRefMark(playerid);
 public DisableMafiaRefMark(playerid)
 {
-	Logger_Debug("DisableMafiaRefMark"); // debug juju
+	Logger_Debug("DisableMafiaRefMark"); // This is a debug line!
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
@@ -1208,7 +1208,7 @@ public DisableMafiaRefMark(playerid)
 forward DisableCombatMode(playerid);
 public DisableCombatMode(playerid)
 {
-	Logger_Debug("DisableCombatMode"); // debug juju
+	Logger_Debug("DisableCombatMode"); // This is a debug line!
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][44]);
 	ShowPlayerNotification(playerid, "Has salido del modo de combate.");
@@ -1219,7 +1219,7 @@ public DisableCombatMode(playerid)
 forward CuffPlayer(playerid);
 public CuffPlayer(playerid)
 {
-	Logger_Debug("CuffPlayer"); // debug juju
+	Logger_Debug("CuffPlayer"); // This is a debug line!
 
 	SetPlayerDrunkLevel(playerid, 0);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -1252,7 +1252,7 @@ public CuffPlayer(playerid)
 forward UnjailPlayer(playerid);
 public UnjailPlayer(playerid)
 {
-	Logger_Debug("UnjailPlayer"); // debug juju
+	Logger_Debug("UnjailPlayer"); // This is a debug line!
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
 	CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 0;
@@ -1487,7 +1487,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
 public OnPlayerSpawn(playerid)
 {
-	Logger_Debug("OnPlayerSpawn",playerid); // debug juju
+	Logger_Debug("OnPlayerSpawn",playerid); // This is a debug line!
 
 	// Show server logo
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO][0]);
@@ -1969,7 +1969,7 @@ public OnPlayerSpawn(playerid)
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	Logger_Debug("OnPlayerDeath %d %d %d", playerid, killerid, reason); // debug juju
+	Logger_Debug("OnPlayerDeath %d %d %d", playerid, killerid, reason); // This is a debug line!
 
 	if (IsPlayerNPC(playerid)) return 0;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
@@ -2312,7 +2312,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	Logger_Debug("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
+	Logger_Debug("OnPlayerRequestClass %d %d",playerid, classid); // This is a debug line!
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) // Recién conectado
 	{
@@ -2401,7 +2401,7 @@ public OnPlayerRequestClass(playerid, classid)
 
 public OnPlayerRequestSpawn(playerid)
 {
-	Logger_Debug("OnPlayerRequestSpawn %d",playerid); // debug juju
+	Logger_Debug("OnPlayerRequestSpawn %d",playerid); // This is a debug line!
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) CallLocalFunction("OnPlayerRequestClass", "dd", playerid, 0);
     return 0;
@@ -2409,7 +2409,7 @@ public OnPlayerRequestSpawn(playerid)
 
 public OnPlayerText(playerid, text[])
 {
-	Logger_Debug("OnPlayerText %d %s",playerid,text); // debug juju
+	Logger_Debug("OnPlayerText %d %s",playerid,text); // This is a debug line!
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
@@ -2619,7 +2619,7 @@ public OnPlayerText(playerid, text[])
 
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
-	Logger_Debug("OnPlayerEnterDynamicArea %d %d",playerid, areaid); // debug juju
+	Logger_Debug("OnPlayerEnterDynamicArea %d %d",playerid, areaid); // This is a debug line!
 
 	PLAYER_TEMP[playerid][py_LAST_AREA] = areaid;
 
@@ -2679,7 +2679,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
-	Logger_Debug("OnPlayerLeaveDynamicArea %d %d",playerid, areaid); // debug juju
+	Logger_Debug("OnPlayerLeaveDynamicArea %d %d",playerid, areaid); // This is a debug line!
 
 	PLAYER_TEMP[playerid][py_LAST_AREA] = INVALID_STREAMER_ID;
 
@@ -2745,7 +2745,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
 {
-	Logger_Debug("OnPlayerEnterDynamicCP %d %d",playerid, checkpointid); // debug juju
+	Logger_Debug("OnPlayerEnterDynamicCP %d %d",playerid, checkpointid); // This is a debug line!
 
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
@@ -2915,7 +2915,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {	
-	Logger_Debug("OnPlayerEditAttachedObject %d %d", playerid, response); // debug juju
+	Logger_Debug("OnPlayerEditAttachedObject %d %d", playerid, response); // This is a debug line!
 
 	if (index != PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]) return 0;
 
@@ -3524,7 +3524,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 
 public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 {
-	Logger_Debug("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
+	Logger_Debug("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // This is a debug line!
 
 	new info[3];
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, pickupid, E_STREAMER_EXTRA_ID, info);
@@ -3545,7 +3545,7 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	//Logger_Debug("OnPlayerKeyStateChange %d %d %d",playerid, newkeys, oldkeys); // debug juju
+	//Logger_Debug("OnPlayerKeyStateChange %d %d %d",playerid, newkeys, oldkeys); // This is a debug line!
 
 	if (!IsPlayerConnected(playerid)) return 0;
 	if (IsPlayerPaused(playerid)) return 0;
@@ -4540,7 +4540,7 @@ public OnPlayerUpdate(playerid)
 
 public OnPlayerStateChange(playerid, newstate, oldstate)
 {
-	Logger_Debug("OnPlayerStateChange %d %d %d",playerid, newstate, oldstate); // debug juju
+	Logger_Debug("OnPlayerStateChange %d %d %d",playerid, newstate, oldstate); // This is a debug line!
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
@@ -5102,7 +5102,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	Logger_Debug("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
+	Logger_Debug("OnPlayerExitVehicle %d %d",playerid,vehicleid); // This is a debug line!
 
 	if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 
@@ -5126,7 +5126,7 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
-	Logger_Debug("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
+	Logger_Debug("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // This is a debug line!
 
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
@@ -5368,7 +5368,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
 public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 {
-	Logger_Debug("OnPlayerEnterDynamicRaceCP %d %d",playerid,checkpointid); // debug juju
+	Logger_Debug("OnPlayerEnterDynamicRaceCP %d %d",playerid,checkpointid); // This is a debug line!
 
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_RACE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
@@ -5808,7 +5808,7 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 #if defined FINAL_BUILD
 	public OnRconLoginAttempt(ip[], password[], success)
 	{
-		Logger_Debug("OnRconLoginAttempt %s %s",ip,password); // debug juju
+		Logger_Debug("OnRconLoginAttempt %s %s",ip,password); // This is a debug line!
 
 	    new temp_ip[16];
 
@@ -5829,7 +5829,7 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 
 public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y, Float:z)
 {
-	Logger_Debug("OnPlayerSelectDynamicObject %d",playerid); // debug juju
+	Logger_Debug("OnPlayerSelectDynamicObject %d",playerid); // This is a debug line!
 
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
@@ -5864,7 +5864,7 @@ public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y
 
 public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
-	Logger_Debug("OnPlayerEditDynamicObject",playerid); // debug juju
+	Logger_Debug("OnPlayerEditDynamicObject",playerid); // This is a debug line!
 
 	if (response == EDIT_RESPONSE_CANCEL)
 	{
@@ -6006,7 +6006,7 @@ ResetPlayerVariables(playerid)
 forward ContinuePlayerIntro(playerid, step);
 public ContinuePlayerIntro(playerid, step)
 {
-	Logger_Debug("ContinuePlayerIntro"); // debug juju
+	Logger_Debug("ContinuePlayerIntro"); // This is a debug line!
 
 	switch(step)
 	{
@@ -6124,7 +6124,7 @@ public ContinuePlayerIntro(playerid, step)
 forward CarJackingFinish(playerid);
 public CarJackingFinish(playerid)
 {
-	Logger_Debug("CarJackingFinish"); // debug juju
+	Logger_Debug("CarJackingFinish"); // This is a debug line!
 
 	TogglePlayerControllableEx(playerid, true);
 	return 1;

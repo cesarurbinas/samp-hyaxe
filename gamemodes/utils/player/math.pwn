@@ -25,6 +25,7 @@ Float:frandom(Float:max, Float:min, dp)
 	new
 		Float:mul = floatpower(10.0, dp),
 		imin = floatround(min * mul),
-		imax = floatround(max * mul);
+		imax = floatround(max * mul)
+	;
 	return float(random(imax - imin) + imin) / mul;
 }

@@ -1,7 +1,7 @@
 forward PlantingUp(playerid, seeds);
 public PlantingUp(playerid, seeds)
 {
-	Logger_Debug("PlantingUp"); // debug juju
+	Logger_Debug("PlantingUp"); // This is a debug line!
 
 	if (PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] < 100)
 	{
@@ -82,7 +82,7 @@ public PlantingUp(playerid, seeds)
 forward GrowPlantUp(plant);
 public GrowPlantUp(plant)
 {
-	Logger_Debug("GrowPlantUp"); // debug juju
+	Logger_Debug("GrowPlantUp"); // This is a debug line!
 
 	if (!PLANTS[plant][plant_VALID] || !PLANTS[plant][plant_GROWING]) return 0;
 
@@ -123,7 +123,7 @@ public GrowPlantUp(plant)
 forward ExpirePlantTime(plant);
 public ExpirePlantTime(plant)
 {
-	Logger_Debug("ExpirePlantTime"); // debug juju
+	Logger_Debug("ExpirePlantTime"); // This is a debug line!
 
 	if (!PLANTS[plant][plant_VALID]) return 0;
 

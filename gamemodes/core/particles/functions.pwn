@@ -1,7 +1,7 @@
 forward DestroyParticleObject(objectid);
 public DestroyParticleObject(objectid)
 {
-	Logger_Debug("DestroyParticleObject"); // debug juju
+	Logger_Debug("DestroyParticleObject"); // This is a debug line!
 
 	return DestroyDynamicObject(objectid);
 }
@@ -9,7 +9,7 @@ public DestroyParticleObject(objectid)
 forward StopShitting(playerid);
 public StopShitting(playerid)
 {
-	Logger_Debug("StopShitting"); // debug juju
+	Logger_Debug("StopShitting"); // This is a debug line!
 
 	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 	ClearAnimations(playerid);	
@@ -27,7 +27,7 @@ CreateFlashObject(Float:x, Float:y, Float:z)
 forward DestroyFlashObject(objectid);
 public DestroyFlashObject(objectid)
 {
-	Logger_Debug("DestroyFlashObject"); // debug juju
+	Logger_Debug("DestroyFlashObject"); // This is a debug line!
 	return DestroyObject(objectid);
 }
 
@@ -41,7 +41,7 @@ CreatePlayerFlashObject(playerid, Float:x, Float:y, Float:z)
 forward DestroyPlayerFlashObject(playerid, objectid);
 public DestroyPlayerFlashObject(playerid, objectid)
 {
-	Logger_Debug("DestroyPlayerFlashObject"); // debug juju
+	Logger_Debug("DestroyPlayerFlashObject"); // This is a debug line!
 
 	return DestroyPlayerObject(playerid, objectid);
 }

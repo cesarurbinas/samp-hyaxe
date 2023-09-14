@@ -2,7 +2,7 @@
 forward InitLastGraffiti();
 public InitLastGraffiti()
 {
-	Logger_Debug("InitLastGraffiti"); // debug juju
+	Logger_Debug("InitLastGraffiti"); // This is a debug line!
 
 	new DBResult:Result, graff_id;
 	Result = db_query(Database, "SELECT * FROM `SERVER_PROPERTIES`;");
@@ -18,7 +18,7 @@ public InitLastGraffiti()
 forward FirstGraffitiAnnounce();
 public FirstGraffitiAnnounce()
 {
-	Logger_Debug("FirstGraffitiAnnounce"); // debug juju
+	Logger_Debug("FirstGraffitiAnnounce"); // This is a debug line!
 
 	new hour, minute, second;
 	gettime(hour, minute, second);
@@ -37,7 +37,7 @@ public FirstGraffitiAnnounce()
 forward TwoGraffitiAnnounce();
 public TwoGraffitiAnnounce()
 {
-	Logger_Debug("TwoGraffitiAnnounce"); // debug juju
+	Logger_Debug("TwoGraffitiAnnounce"); // This is a debug line!
 
 	SendGraffitiNotification("En 5 minutos se iniciara una disputa.");
 	SendDiscordWebhook("En 5 minutos se iniciara una disputa.", 2);
@@ -49,7 +49,7 @@ public TwoGraffitiAnnounce()
 forward FinalGraffitiAnnounce();
 public FinalGraffitiAnnounce()
 {
-	Logger_Debug("FinalGraffitiAnnounce"); // debug juju
+	Logger_Debug("FinalGraffitiAnnounce"); // This is a debug line!
 
 	SendGraffitiNotification("En 60 segundos se iniciara una disputa.");
 	SendDiscordWebhook("En 60 segundos se iniciara una disputa.", 2);
@@ -59,7 +59,7 @@ public FinalGraffitiAnnounce()
 forward CancelGraffiti();
 public CancelGraffiti()
 {
-	Logger_Debug("CancelGraffiti"); // debug juju
+	Logger_Debug("CancelGraffiti"); // This is a debug line!
 
 	KillTimer(GraffitiCancelTimer);
 
@@ -110,7 +110,7 @@ public CancelGraffiti()
 forward UpdateGraffitiProgress(playerid);
 public UpdateGraffitiProgress(playerid)
 {
-	Logger_Debug("UpdateGraffitiProgress"); // debug juju
+	Logger_Debug("UpdateGraffitiProgress"); // This is a debug line!
 
 	if (IsPlayerPaused(playerid)) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 	if (GetPlayerWeapon(playerid) != 41) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);

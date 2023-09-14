@@ -17,7 +17,7 @@ BackBalloonToStart(balloon_id, Float:speed)
 forward RestartBalloon(balloon_id);
 public RestartBalloon(balloon_id)
 {
-	Logger_Debug("RestartBalloon"); // debug juju
+	Logger_Debug("RestartBalloon"); // This is a debug line!
 
 	BackBalloonToStart(balloon_id, 10.0);
 	return 1;
@@ -26,7 +26,7 @@ public RestartBalloon(balloon_id)
 forward UpBalloon(balloon_id);
 public UpBalloon(balloon_id)
 {
-	Logger_Debug("UpBalloon"); // debug juju
+	Logger_Debug("UpBalloon"); // This is a debug line!
 
 	SetBalloonAction(balloon_id, float(minrand(200, 300)), -float(minrand(1700, 1950)), 90.0, 10.0);
 	return 1;

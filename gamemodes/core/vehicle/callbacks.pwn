@@ -1,6 +1,6 @@
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
-	Logger_Debug("OnPlayerEditObject %d",playerid); // debug juju
+	Logger_Debug("OnPlayerEditObject %d",playerid); // This is a debug line!
 
 	if (playerobject)
 	{
@@ -95,7 +95,7 @@ IRPC:VehicleDestroyed(playerid, BitStream:bs)
 forward OnVehicleRequestDeath(vehicleid, killerid);
 public OnVehicleRequestDeath(vehicleid, killerid)
 {
-	Logger_Debug("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
+	Logger_Debug("OnVehicleRequestDeath %d %d",vehicleid, killerid); // This is a debug line!
 
     new Float:health;
 
@@ -176,7 +176,7 @@ IPacket:VEHICLE_SYNC(playerid, BitStream:bs)
 
 public OnVehicleSpawn(vehicleid)
 {
-	Logger_Debug("OnVehicleSpawn %d",vehicleid); // debug juju
+	Logger_Debug("OnVehicleSpawn %d",vehicleid); // This is a debug line!
 
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_TP_IMMUNITY] = gettime() + 5;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = true;
@@ -248,7 +248,7 @@ public OnVehicleSpawn(vehicleid)
 
 public OnVehicleDeath(vehicleid, killerid)
 {
-	Logger_Debug("OnVehicleDeath",vehicleid,killerid); // debug juju
+	Logger_Debug("OnVehicleDeath",vehicleid,killerid); // This is a debug line!
 
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = false;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] = INVALID_PLAYER_ID;
@@ -368,7 +368,7 @@ public OnUnoccupiedVehicleUpdate(vehicleid, playerid, passenger_seat, Float:new_
 
 public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
-	Logger_Debug("OnEnterExitModShop",playerid); // debug juju
+	Logger_Debug("OnEnterExitModShop",playerid); // This is a debug line!
 
     if (enterexit) // Entra
     {
@@ -389,7 +389,7 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
-	Logger_Debug("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
+	Logger_Debug("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // This is a debug line!
 
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
@@ -411,7 +411,7 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 
 public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
-	Logger_Debug("OnVehiclePaintjob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
+	Logger_Debug("OnVehiclePaintjob %d %d %d",playerid,vehicleid,paintjobid); // This is a debug line!
 
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{

@@ -3,7 +3,7 @@ new GraffitiLastInit;
 forward UpdateThePutis();
 public UpdateThePutis()
 {
-	//Logger_Debug("UpdateThePutis"); // debug juju
+	//Logger_Debug("UpdateThePutis"); // This is a debug line!
 
 	ApplyDynamicActorAnimation(Club_Bar_Actor[0], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
     ApplyDynamicActorAnimation(Club_Bar_Actor[1], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
@@ -26,7 +26,7 @@ public UpdateThePutis()
 forward UpdateWorldTime();
 public UpdateWorldTime()
 {
-	//Logger_Debug("UpdateWorldTime"); // debug juju
+	//Logger_Debug("UpdateWorldTime"); // This is a debug line!
 
 	SERVER_TIME[1] += 2;
 	if (SERVER_TIME[1] > 60)

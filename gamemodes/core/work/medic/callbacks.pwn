@@ -1,7 +1,7 @@
 forward GetAmbulanceItem(playerid, vehicleid);
 public GetAmbulanceItem(playerid, vehicleid)
 {
-	Logger_Debug("GetAmbulanceItem"); // debug juju
+	Logger_Debug("GetAmbulanceItem"); // This is a debug line!
 
 	if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 	ClearAnimations(playerid);

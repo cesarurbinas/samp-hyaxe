@@ -24,7 +24,7 @@ SetEditModeType(playerid, type = 0)
 {
 	PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] = type;
 	
-	if (type == 0) ShowPlayerMessage(playerid, "Modo de edición: ~r~Posición", 3600);
+	if (!type) ShowPlayerMessage(playerid, "Modo de edición: ~r~Posición", 3600);
 	else ShowPlayerMessage(playerid, "Modo de edición: ~r~Rotación", 3600);
 
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);

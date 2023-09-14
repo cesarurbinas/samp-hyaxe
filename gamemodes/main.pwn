@@ -51,8 +51,6 @@ L1:
 #pragma warning disable 239
 #pragma warning disable 214
 
-//#pragma dynamic 15000
-
 // Librerías
 #include <a_samp>
 
@@ -2556,7 +2554,7 @@ public OnGameModeExit()
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
 	}
 
-	Logger_Debug("OnGameModeExit"); // debug juju
+	Logger_Debug("OnGameModeExit"); // This is a debug line!
 
 	Logger_Warning("Deteniendo servidor...");
 	db_close(Database);

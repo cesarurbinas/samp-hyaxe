@@ -1,7 +1,7 @@
 forward RecycleUp(playerid);
 public RecycleUp(playerid)
 {
-	Logger_Debug("RecycleUp"); // debug juju
+	Logger_Debug("RecycleUp"); // This is a debug line!
 
 	if (PLAYER_TEMP[playerid][py_RECYCLE_BIN_VALUE] < 100)
 	{

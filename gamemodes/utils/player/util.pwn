@@ -11,6 +11,7 @@ enum atm_bank_info
 	atm_WORLD,
 	atm_INTERIOR
 };
+
 new ATM_BANK[][atm_bank_info] =
 {
 	{19324, 1319.238037, 340.231872, 19.152904, 0.000000, 0.000000, 64.699989},
@@ -144,7 +145,6 @@ enum Enter_Exits
 	Text3D:ee_INT_LABEL_ID,
 	Text3D:ee_EXT_LABEL_ID,
 	
-	
 	ee_INT_PICKUP_ID,	// No son pickups decorativos
 	ee_EXT_PICKUP_ID	// Son pickups para identificar el id
 };
@@ -263,9 +263,9 @@ enum enum_JAIL_POSITIONS
 };
 new JAIL_POSITIONS[][enum_JAIL_POSITIONS] =
 {
-	{INTERIOR_POLICE_LS, 1899.122192, -1757.699584, 5218.986816, 180.0, 6}, //jaills
-	{INTERIOR_POLICE_SF, 1899.122192, -1757.699584, 5218.986816, 180.0, 6}, //jailsf
-	{INTERIOR_POLICE_LV, 1899.122192, -1757.699584, 5218.986816, 180.0, 6} //jaillv
+	{INTERIOR_POLICE_LS, 1899.122192, -1757.699584, 5218.986816, 180.0, 6}, // Los Santos
+	{INTERIOR_POLICE_SF, 1899.122192, -1757.699584, 5218.986816, 180.0, 6}, // San Fierro
+	{INTERIOR_POLICE_LV, 1899.122192, -1757.699584, 5218.986816, 180.0, 6} // Las Venturas
 };
 
 // Cloths
@@ -282,12 +282,12 @@ enum Clothing_Shop_Info
 
 new Clothing_Shop_Positions[][Clothing_Shop_Info] =
 {
-	{INTERIOR_BINCO, "Binco", 207.733657, -100.633468, 1005.257812, 180.0, 15}, //Binco
-	{INTERIOR_SUBURBAN, "SubUrban", 203.905395, -43.450450, 1001.804687, 180.0, 1}, //SubUrban
-	{INTERIOR_PROLAPS, "ProLaps", 207.049148, -129.177581, 1003.507812, 180.0, 3}, //prolaps
-	{INTERIOR_DIDIER_SACHS, "Didier Sachs", 204.348281, -159.493728, 1000.523437, 180.0, 14}, //Didier
-	{INTERIOR_VICTIM, "Victim", 206.374328, -7.241514, 1001.210937, 270.0, 5}, //Victim
-	{INTERIOR_ZIP, "ZIP", 161.443634, -83.589271, 1001.804687, 180.0, 18} //Zip
+	{INTERIOR_BINCO, "Binco", 207.733657, -100.633468, 1005.257812, 180.0, 15}, // Binco
+	{INTERIOR_SUBURBAN, "SubUrban", 203.905395, -43.450450, 1001.804687, 180.0, 1}, // SubUrban
+	{INTERIOR_PROLAPS, "ProLaps", 207.049148, -129.177581, 1003.507812, 180.0, 3}, // Prolaps
+	{INTERIOR_DIDIER_SACHS, "Didier Sachs", 204.348281, -159.493728, 1000.523437, 180.0, 14}, // Didier
+	{INTERIOR_VICTIM, "Victim", 206.374328, -7.241514, 1001.210937, 270.0, 5}, // Victim
+	{INTERIOR_ZIP, "ZIP", 161.443634, -83.589271, 1001.804687, 180.0, 18} // Zip
 };
 
 // Food
@@ -303,8 +303,8 @@ enum Fast_Food_Info
 new Fast_Food_Positions[][Fast_Food_Info] =
 {
 	{INTERIOR_BURGER_SHOT, "Burger Shot", 375.913238, -67.435272, 1001.507812, 10}, // BurgerShot
-	{INTERIOR_PIZZA, "Well Stacked Pizza", 375.254730, -118.804710, 1001.499511, 5}, //Pizza
-	{INTERIOR_CLUCKIN_BELL, "Cluckin Bell", 368.757904, -6.018908, 1001.851562, 9} //Cluckin Bell
+	{INTERIOR_PIZZA, "Well Stacked Pizza", 375.254730, -118.804710, 1001.499511, 5}, // Pizza
+	{INTERIOR_CLUCKIN_BELL, "Cluckin Bell", 368.757904, -6.018908, 1001.851562, 9} // Cluckin Bell
 };
 
 ExitSite(playerid)
@@ -323,7 +323,7 @@ ExitSite(playerid)
         return 1;
     }
 
-    if (PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] == 0) return 1;
+    if (!PLAYER_TEMP[playerid][py_LAST_PICKUP_ID]) return 1;
 
     new info[3];
     Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
@@ -1895,7 +1895,7 @@ SetPlayerSkillLevels(playerid)
 forward HealthDown(playerid);
 public HealthDown(playerid)
 {
-	Logger_Debug("HealthDown"); // debug juju
+	Logger_Debug("HealthDown"); // This is a debug line!
 
 	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK) return 1;
 
@@ -1912,7 +1912,7 @@ public HealthDown(playerid)
 forward StandUpBotikin(medic, playerid);
 public StandUpBotikin(medic, playerid)
 {
-	Logger_Debug("StandUpBotikin"); // debug juju
+	Logger_Debug("StandUpBotikin"); // This is a debug line!
 
 	ResetItemBody(medic);
 	ShowPlayerMessage(medic, "~g~Has curado a esta persona.", 3);
@@ -2129,7 +2129,7 @@ KickEx(playerid, time = 0)
 forward KickPlayer(playerid);
 public KickPlayer(playerid)
 {
-	Logger_Debug("KickPlayer"); // debug juju
+	Logger_Debug("KickPlayer"); // This is a debug line!
 
 	return Kick(playerid);
 }
@@ -2702,7 +2702,7 @@ CheckMechanicMenu(playerid)
 forward UpdateBotPing(playerid);
 public UpdateBotPing(playerid)
 {
-	Logger_Debug("UpdateBotPing"); // debug juju
+	Logger_Debug("UpdateBotPing"); // This is a debug line!
 
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	//SetPlayerFakePing(playerid, minrand(170, 345));
@@ -2714,7 +2714,7 @@ public UpdateBotPing(playerid)
 forward UpdateBotName(playerid);
 public UpdateBotName(playerid)
 {
-	Logger_Debug("UpdateBotName"); // debug juju
+	Logger_Debug("UpdateBotName"); // This is a debug line!
 
 	new name[MAX_PLAYER_NAME];
 	format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);
@@ -6219,7 +6219,7 @@ RegisterPhoneMessage(from, to, const message[], offline = 0)
 forward NoCallResponse(playerid);
 public NoCallResponse(playerid)
 {
-	Logger_Debug("NoCallResponse"); // debug juju
+	Logger_Debug("NoCallResponse"); // This is a debug line!
 
 	if (!PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return 0;
 	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] == INVALID_PLAYER_ID) return 0;
@@ -6701,7 +6701,7 @@ Log(const nombre[], const texto[])
 forward InitRandomGangEvent();
 public InitRandomGangEvent()
 {
-	Logger_Debug("InitRandomGangEvent"); // debug juju
+	Logger_Debug("InitRandomGangEvent"); // This is a debug line!
 
 	new year, month, day, hour, weekday;
 	getdate(year, month, day);
@@ -6754,7 +6754,7 @@ AddGiftCode(code[], type, extra)
 /*forward SendGift();
 public SendGift()
 {
-	Logger_Debug("SendGift"); // debug juju
+	Logger_Debug("SendGift"); // This is a debug line!
 
 	for(new i = 0, j = 10; i <= j; i++)
 	{
@@ -6784,7 +6784,7 @@ public SendGift()
 forward GiveAutoGift();
 public GiveAutoGift()
 {
-	Logger_Debug("GiveAutoGift"); // debug juju
+	Logger_Debug("GiveAutoGift"); // This is a debug line!
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{

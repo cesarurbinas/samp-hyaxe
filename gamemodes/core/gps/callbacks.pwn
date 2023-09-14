@@ -1,7 +1,7 @@
 forward UpdatePlayer_GPS_Map(playerid);
 public UpdatePlayer_GPS_Map(playerid)
 {
-	Logger_Debug("UpdatePlayer_GPS_Map"); // debug juju
+	Logger_Debug("UpdatePlayer_GPS_Map"); // This is a debug line!
 
 	/*
 		0 - playerpos

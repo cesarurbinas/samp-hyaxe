@@ -1,7 +1,7 @@
 forward UpdateMarketProgress(playerid);
 public UpdateMarketProgress(playerid)
 {
-	Logger_Debug("UpdateMarketProgress"); // debug juju
+	Logger_Debug("UpdateMarketProgress"); // This is a debug line!
 
 	if (IsPlayerPaused(playerid)) return 0;
 	if (GetPlayerInterior(playerid) != 0) return 0;

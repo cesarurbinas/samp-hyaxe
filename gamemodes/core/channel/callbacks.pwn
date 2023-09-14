@@ -44,7 +44,7 @@ public neuroadmin_BotGetResponse(index, response_code, const data[])
 forward neuroadmin_BotCheckBadUse(index, response_code, const data[]);
 public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 {
-	Logger_Debug("neuroadmin_BotCheckBadUse %d %d %s", index, response_code, data); // debug juju
+	Logger_Debug("neuroadmin_BotCheckBadUse %d %d %s", index, response_code, data); // This is a debug line!
 
 	if (IsPlayerConnected(index))
 	{

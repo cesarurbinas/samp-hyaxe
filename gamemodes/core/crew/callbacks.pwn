@@ -1,7 +1,7 @@
 forward UpdateTerritoryAttack(territory_index);
 public UpdateTerritoryAttack(territory_index)
 {
-	Logger_Debug("UpdateTerritoryAttack"); // debug juju
+	Logger_Debug("UpdateTerritoryAttack"); // This is a debug line!
 
 	if (!TERRITORIES[territory_index][territory_VALID]) return 1;
 	if (!TERRITORIES[territory_index][territory_WAR]) return 1;

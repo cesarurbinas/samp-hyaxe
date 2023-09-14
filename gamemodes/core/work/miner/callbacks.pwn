@@ -1,7 +1,7 @@
 forward RespawnMinerRock(rock_id);
 public RespawnMinerRock(rock_id)
 {
-	Logger_Debug("RespawnMinerRock"); // debug juju
+	Logger_Debug("RespawnMinerRock"); // This is a debug line!
 
 	SetRandomRockType(rock_id);
 
@@ -15,7 +15,7 @@ public RespawnMinerRock(rock_id)
 forward PutPlayerRock(playerid, rock_type);
 public PutPlayerRock(playerid, rock_type)
 {
-	Logger_Debug("PutPlayerRock"); // debug juju
+	Logger_Debug("PutPlayerRock"); // This is a debug line!
 
 	ResetItemBody(playerid);
 
@@ -30,7 +30,7 @@ public PutPlayerRock(playerid, rock_type)
 forward UpdateMining(playerid, rock_id);
 public UpdateMining(playerid, rock_id)
 {
-	Logger_Debug("UpdateMining"); // debug juju
+	Logger_Debug("UpdateMining"); // This is a debug line!
 
 	if (GetPlayerInterior(playerid) == 0)
 	{
@@ -66,7 +66,7 @@ public UpdateMining(playerid, rock_id)
 forward DeleteDroppedRock(obj_id);
 public DeleteDroppedRock(obj_id)
 {
-	Logger_Debug("DeleteDroppedRock"); // debug juju
+	Logger_Debug("DeleteDroppedRock"); // This is a debug line!
 
 	DestroyDynamicObject(obj_id);
 	return 1;
@@ -75,7 +75,7 @@ public DeleteDroppedRock(obj_id)
 forward FixProcessorUpdate(playerid, processor_id, type);
 public FixProcessorUpdate(playerid, processor_id, type)
 {
-	Logger_Debug("FixProcessorUpdate"); // debug juju
+	Logger_Debug("FixProcessorUpdate"); // This is a debug line!
 
 	switch(type)
 	{

@@ -918,6 +918,6 @@ DC_CMD:playerip(DCC_User:userid, params[], DCC_Message:message)
 // Callbacks
 public OnDiscordCommandPerformed(const params[], success, DCC_Message:message)
 {
-	Logger_Debug("OnDiscordCommandPerformed %s %d",params,success); // debug juju
+	Logger_Debug("OnDiscordCommandPerformed %s %d",params,success); // This is a debug line!
     return 1;
 }

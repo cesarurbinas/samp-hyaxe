@@ -1551,7 +1551,7 @@ CMD:minero(playerid)
 #define MIN_SECONDS_BETWEEN_COMMANDS 1 // Deben pasar al menos 1 segundos entre comando y comando.
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 {
-	Logger_Debug("OnPlayerCommandReceived %d %s %s",playerid,cmd,params); // debug juju
+	Logger_Debug("OnPlayerCommandReceived %d %s %s",playerid,cmd,params); // This is a debug line!
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
@@ -1613,7 +1613,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 
 public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags) 
 {
-	Logger_Debug("OnPlayerCommandPerformed %d %s %s",playerid,params,result); // debug juju
+	Logger_Debug("OnPlayerCommandPerformed %d %s %s",playerid,params,result); // This is a debug line!
 
 	Logger_Info("%s (%d): /%s %s", PLAYER_TEMP[playerid][py_NAME], playerid, cmd, params);
     if (result == -1) 

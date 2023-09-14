@@ -1,6 +1,6 @@
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	Logger_Debug("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
+	Logger_Debug("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // This is a debug line!
 
 	if (!IsPlayerConnected(playerid)) return 0;
 	if (IsPlayerPaused(playerid)) return 0;
