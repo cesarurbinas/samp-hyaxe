@@ -8060,10 +8060,9 @@ CMD:mp3(playerid, params[])
 {
 	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
 	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
-	if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 120) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada 2 minutos.", 3, 1085);
+	if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada un minuto.", 3, 1085);
 
-	ShowPlayerMessage(playerid, "No disponible", 4);
-	//ShowDialog(playerid, DIALOG_PLAYER_MP3);
+	ShowDialog(playerid, DIALOG_PLAYER_MP3);
 	return 1;
 }
 alias:mp3("youtube")
@@ -14411,7 +14410,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new str[180];
-				format(str, sizeof str, "51.178.211.161:12345/search?query=%s", inputtext);
+				format(str, sizeof str, "127.0.0.1:12345/search?query=%s&max=5", inputtext);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
 				HTTP(playerid, HTTP_GET, str, "", "OnYouTubeQueryResponse");
@@ -20252,8 +20251,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if (listitem == 1)
 				{
-					ShowPlayerMessage(playerid, "~r~No disponible", 4);
-					//ShowDialog(playerid, DIALOG_PLAYER_MP3);
+					PC_EmulateCommand(playerid, "/mp3");
 					PLAYER_MISC[playerid][MISC_RADIO_STATION] = 666;
 				}
 				else

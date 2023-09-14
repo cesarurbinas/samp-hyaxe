@@ -1,9 +1,10 @@
 enum E_RESULT_DATA {
 	result_ID[12],
 	result_NAME[86],
-	result_UPLOADED[51]
+	result_UPLOADED[51],
+	result_DURATION
 };
-new PLAYER_DIALOG_MP3_RESULT[MAX_PLAYERS][11][E_RESULT_DATA];
+new PLAYER_DIALOG_MP3_RESULT[MAX_PLAYERS][6][E_RESULT_DATA];
 
 forward OnYouTubeQueryResponse(playerid, response_code, data[]);
 forward OnDownloadResponse(playerid, response_code, data[]);
@@ -26,20 +27,20 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 
 		switch(response_code)
 		{
-			case 403: return ShowPlayerMessage(playerid, "~r~No pudimos reproducir esta canción", 4);
+			case 403: return ShowPlayerMessage(playerid, "~r~Hubo un error intentando buscar el contenido.", 4);
 			case 429: return ShowPlayerNotification(playerid, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.", 6);
-			default: return ShowPlayerMessage(playerid, "~r~No pudimos reproducir esta canción, intenta nuevamente en un minuto.", 4);
+			default: return ShowPlayerMessage(playerid, "~r~Hubo un error intentando buscar el contenido, intenta nuevamente en un minuto.", 4);
 		}
 	}
 
-	new Node:vidata, results, Node:arr_data, length;
+	new Node:vidata, Node:arr_data, length;
 	JSON_Parse(data, vidata);
-	JSON_GetInt(vidata, "result_count", results);
 	JSON_GetArray(vidata, "results", arr_data);
+	JSON_Cleanup(vidata);
 	JSON_ArrayLength(arr_data, length);
 
-	new dialog[250 * 10], line[250];
-	format(dialog, sizeof(dialog), ""COL_WHITE"Subido por\t"COL_WHITE"Título\n");
+	new dialog[250 * 10], line[350];
+	format(dialog, sizeof(dialog), ""COL_WHITE"Título\t"COL_WHITE"Subido por\t"COL_WHITE"Duración\n");
 	for(new i = 0; i < length; i++)
 	{
 		new Node:object;
@@ -47,12 +48,16 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 		JSON_GetString(object, "id", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_ID]);
 		JSON_GetString(object, "title", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
 		JSON_GetString(object, "uploaded_by", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED]);
-		format(line, sizeof(line), "%s\t%s\n", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED], PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
+		JSON_GetInt(object, "duration", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_DURATION]);
+		JSON_Cleanup(object);
+		if(PLAYER_DIALOG_MP3_RESULT[playerid][i][result_DURATION] >= 60) format(line, sizeof(line), "%s\t{b3b3b3}%s\t%s minuto(s)\n", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME], PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED], TimeConvert(PLAYER_DIALOG_MP3_RESULT[playerid][i][result_DURATION]));
+		else format(line, sizeof(line), "%s\t{b3b3b3}%s\t%d segundos\n", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME], PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED], PLAYER_DIALOG_MP3_RESULT[playerid][i][result_DURATION]);
 		strcat(dialog, line);
 	}
+	JSON_Cleanup(arr_data);
 
 	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
-	ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", results), dialog, "Selecc.", "Cancelar");
+	ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", length), dialog, "Selecc.", "Cancelar");
 
 	return 1;
 }
