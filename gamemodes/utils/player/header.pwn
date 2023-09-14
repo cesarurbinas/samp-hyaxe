@@ -182,7 +182,14 @@ new INVALID_NAMES[][100] =
 	"Elva_",
 	"_Ginon",
 	"Kreisel",
-	"Ryan_West"
+	"Ryan_West",
+	"Entanga",
+	"tanga",
+	"Tanga",
+	"abuela",
+	"Abuela",
+	"abuelo",
+	"Abuelo"
 };
 
 new BAN_KEYWORDS[][100] =
