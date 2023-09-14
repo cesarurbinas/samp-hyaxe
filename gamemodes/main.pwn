@@ -8676,9 +8676,9 @@ public InjuredAnimationCut(playerid)
 forward UpdateThePutis();
 public UpdateThePutis()
 {
-	#if DEBUG_MODE == 1
+	/*#if DEBUG_MODE == 1
 		printf("UpdateThePutis"); // debug juju
-	#endif
+	#endif*/
 
 	ApplyDynamicActorAnimation(Club_Bar_Actor[0], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
     ApplyDynamicActorAnimation(Club_Bar_Actor[1], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
@@ -28701,9 +28701,9 @@ UpdatePlayerHud(playerid)
 forward HungryThirstDown(playerid);
 public HungryThirstDown(playerid)
 {
-	#if DEBUG_MODE == 1
+	/*#if DEBUG_MODE == 1
 		printf("HungryThirstDown"); // debug juju
-	#endif
+	#endif*/
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return HidePlayerHud(playerid);
 	if (!PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS]) return HidePlayerHud(playerid);
