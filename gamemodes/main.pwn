@@ -33258,6 +33258,10 @@ CMD:entregar(playerid, params[])
 		AddPlayerPoliceHistory(params[0], "Central", "Encarcelamiento");
 	}
 	else ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
+
+	new str_text[128];
+	format(str_text, sizeof(str_text), "%s ha entregado a ~g~%s~w~.", PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[params[0]][py_NAME]);
+	SendPoliceNotification(str_text, 4);
 	return 1;
 }
 
