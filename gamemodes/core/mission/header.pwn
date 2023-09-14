@@ -12,6 +12,16 @@ new BALLAS_SKINS[] =
 	102, 103, 104, 102
 };
 
+new VAGOS_SKINS[] =
+{
+	108, 109, 110, 108
+};
+
+new VAGOS_WEAPONS[] =
+{
+	28, 30, 32, 26
+};
+
 enum {
 	SWEET_MISSION,
 	RYDER_MISSION,
@@ -38,7 +48,7 @@ enum e_start_mission
 
 new START_MISSION[][e_start_mission] =
 {
-	{true, "Sweet", 38, 2516.7451, -1675.5376, 14.0275, 2},
+	{true, "Sweet", 38, 2516.7451, -1675.5376, 14.0275, 3},
 	{false, "Ryder", 34, 2459.3867, -1688.2607, 13.5354, 1},
 	{false, "Big Smoke", 8, 2073.6650, -1703.2490, 13.5547, 1},
 	{false, "C.R.A.S.H", 16, 1044.3706, -1337.5874, 13.5530, 1}
@@ -48,7 +58,8 @@ enum npc_info_enum
 {
 	ni_MISSION,
 	ni_INDEX,
-	bool:ni_STATIC_FIRE
+	bool:ni_STATIC_FIRE,
+	bool:ni_STATIC_DAMAGE
 };
 new NPC_INFO[MAX_PLAYERS][npc_info_enum];
 

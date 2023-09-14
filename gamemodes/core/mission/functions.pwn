@@ -193,6 +193,7 @@ CheckMissionPlace(playerid)
                                 PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
                                 CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
                                 NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_FIRE] = false;
+                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_DAGAME] = false;
 
                                 SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
                                 FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
@@ -259,6 +260,7 @@ CheckMissionPlace(playerid)
                                 PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
                                 CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
                                 NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_FIRE] = true;
+                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_DAGAME] = true;
 
                                 SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
                                 FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
@@ -317,6 +319,82 @@ CheckMissionPlace(playerid)
                         );
                         
                         ShowPlayerMessage(playerid, sprintf("Roba la ~b~cocaina~w~ de los Ballas en %s.", zone), 20);
+                    }
+
+                    // Vagos war
+                    case 2:
+                    {
+                        if (players_in_mission <= 1)
+                        {
+                            START_MISSION[index][ems_SPECIAL_INDEX] = random( sizeof(GANG_WAR_POS) );
+                        }
+
+                        for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+                        {
+                            if (players_in_mission <= 1)
+                            {
+                                PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
+                                CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_FIRE] = true;
+                                NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_DAGAME] = true;
+
+                                SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
+                                FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
+
+                                FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
+                                FCNPC_Respawn(SWEET_DEALERS[i][sd_ID]);
+                                FCNPC_SetSkin(SWEET_DEALERS[i][sd_ID], VAGOS_SKINS[ random(sizeof(VAGOS_SKINS))]);
+
+                                new
+                                    Float:x = GANG_WAR_POS[ START_MISSION[index][ems_SPECIAL_INDEX] ][0],
+                                    Float:y = GANG_WAR_POS[ START_MISSION[index][ems_SPECIAL_INDEX] ][1],
+                                    Float:z = GANG_WAR_POS[ START_MISSION[index][ems_SPECIAL_INDEX] ][2]
+                                ;
+
+                                x = ( x + ( float_random( 20.0 ) - mathfrandom( -20.0, 15.0 ) ) );
+	                            y = ( y + ( float_random( 20.0 ) - mathfrandom( -20.0, 15.0 ) ) );
+
+                                CA_FindZ_For2DCoord(x, y, z);
+
+                                FCNPC_SetPosition(
+                                    SWEET_DEALERS[i][sd_ID],
+                                    x,
+                                    y,
+                                    z + 0.3
+                                );
+                                FCNPC_SetAngle(SWEET_DEALERS[i][sd_ID], mathfrandom(10.0, 180.0));
+
+                                FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], VAGOS_WEAPONS[ random(sizeof(VAGOS_WEAPONS))]);
+                                FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
+                                FCNPC_UseInfiniteAmmo(SWEET_DEALERS[i][sd_ID], true);
+
+                                FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 0);
+                                FCNPC_SetInvulnerable(SWEET_DEALERS[i][sd_ID], false);
+                                FCNPC_AimAtPlayer(SWEET_DEALERS[i][sd_ID], playerid, true, 1000);
+                            }
+
+                            if (FCNPC_IsSpawned(SWEET_DEALERS[i][sd_ID]) && !FCNPC_IsDead(SWEET_DEALERS[i][sd_ID]))
+                                SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
+                            
+                            SetPlayerColor(SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
+                        }
+
+                        SetPlayer_GPS_Checkpoint(
+                            playerid,
+                            GANG_WAR_POS[ START_MISSION[index][ems_SPECIAL_INDEX] ][0],
+                            GANG_WAR_POS[ START_MISSION[index][ems_SPECIAL_INDEX] ][1],
+                            GANG_WAR_POS[ START_MISSION[index][ems_SPECIAL_INDEX] ][2],
+                            0, 0
+                        );
+
+                        new city[45], zone[45];
+	                    GetPointZone(
+                            GANG_WAR_POS[ START_MISSION[index][ems_SPECIAL_INDEX] ][0],
+                            GANG_WAR_POS[ START_MISSION[index][ems_SPECIAL_INDEX] ][1],
+                            city, zone
+                        );
+                        
+                        ShowPlayerMessage(playerid, sprintf("Elimina a los ~r~Vagos~w~ del territorio en %s.", zone), 20);
                     }
                 }
             }

@@ -222,7 +222,9 @@ public FCNPC_OnTakeDamage(npcid, issuerid, Float:amount, weaponid, bodypart)
 					if (PLAYER_TEMP[issuerid][py_MISSION] == mission)
 					{
 						FCNPC_AimAtPlayer(npcid, issuerid, true, 1000);
-						FCNPC_GoToPlayer(npcid, issuerid);
+
+						if (!NPC_INFO[npcid][ni_STATIC_DAMAGE])
+							FCNPC_GoToPlayer(npcid, issuerid);
 					}
 				}
 			}
