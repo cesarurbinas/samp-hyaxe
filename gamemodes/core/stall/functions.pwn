@@ -2,9 +2,11 @@ CreateStalls()
 {
 	for (new i; i < sizeof(STALL_INFO); i++)
 	{
+		// Random features
 		STALL_INFO[i][st_SKIN] = STALL_SKIN[ minrand(0, sizeof(STALL_SKIN))];
 		STALL_INFO[i][st_PRODUCT] = minrand(0, sizeof(STALL_PRODUCT));
 
+		// Seller actor
 		STALL_INFO[i][st_ACTOR] = CreateDynamicActor(
 			STALL_INFO[i][st_SKIN],
 			STALL_INFO[i][st_X],
@@ -14,6 +16,7 @@ CreateStalls()
 			true, 100.0, 0, 0
 		);
 
+		// In-Front Position
 		new
 			Float:x = STALL_INFO[i][st_X],
 			Float:y = STALL_INFO[i][st_Y]
@@ -21,6 +24,7 @@ CreateStalls()
 
 		GetXYFromAngle(x, y, STALL_INFO[i][st_ANGLE], 1.0);
 
+		// Stell object
 		STALL_INFO[i][st_OBJECT] = CreateDynamicObject(
 			3039,
 			x,
@@ -29,6 +33,7 @@ CreateStalls()
 			0.0, 0.0, STALL_INFO[i][st_ANGLE], 0, 0
 		);
 
+		// Information label
 		new str_text[128];
 		format(str_text, sizeof(str_text),
 			""COL_WHITE"Puesto de comida\n%s a "COL_GREEN"%d$",
@@ -44,6 +49,7 @@ CreateStalls()
 			10.0
 		);
 
+		// Key area
 		AddKeyArea(x, y, 1.1, KEY_TYPE_ALT);
 	}
 	return 1;
