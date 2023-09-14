@@ -12720,13 +12720,15 @@ ShowDialog(playerid, dialogid)
 					Primera persona\t%s\n\
 					Sexo\t%s\n\
 					Recargar mapeos\t\n\
+					Damage informer\t\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(PLAYER_MISC[playerid][MISC_CONFIG_HUD] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(PLAYER_MISC[playerid][MISC_CONFIG_FP] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
-					(CHARACTER_INFO[playerid][ch_SEX] ? "Mujer" : "Hombre")
+					(CHARACTER_INFO[playerid][ch_SEX] ? "Mujer" : "Hombre"),
+					(PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] ? ""COL_GREEN"Sí" : ""COL_RED"No")
 			);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Panel de configuración", dialog, "Cambiar", "Salir");
@@ -20673,6 +20675,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 7:
 					{
 						Streamer_Update(playerid);
+					}
+					case 8:
+					{
+						if (PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]) PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = false;
+						else PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = true;
+
+						SavePlayerMisc(playerid);
+						ShowDialog(playerid, dialogid);
 					}
 				}
 			}
@@ -34010,7 +34020,7 @@ CMD:delete(playerid, params[])
 
 		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= admin_level)
 		{
-			if (connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado para eliminarlo debe estar desconectado, utilice kick ,su player_id: %d.", get_name, id, player_id);
+			if (connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado para eliminarlo debe estar desconectado, utilice /kick %d", get_name, id, player_id);
 			else
 			{
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `CUENTA` WHERE `ID` = '%d';", id);
@@ -34044,7 +34054,6 @@ CMD:delete(playerid, params[])
 					ex_properties ++;
 				}
 
-
 				SendClientMessageEx(playerid, COLOR_WHITE, "CUENTA (Nombre '%s' DB-ID: '%d') ha sido eliminada.", get_name, id);
 				if (ex_properties > 0) SendClientMessageEx(playerid, COLOR_WHITE, "Se han expropiado '%d' propiedades del jugador eliminado.", ex_properties);
 
@@ -34054,7 +34063,7 @@ CMD:delete(playerid, params[])
 		}
 		else SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
 	}
-	else SendClientMessage(playerid, COLOR_WHITE, "No se encontro la DB-ID.");
+	else SendClientMessage(playerid, COLOR_WHITE, "No se encontró la DB-ID.");
 	db_free_result(Result);
 
 	return 1;
@@ -37522,12 +37531,12 @@ flags:setveh(CMD_MODERATOR);
 flags:setvh(CMD_MODERATOR);
 flags:jailtime(CMD_MODERATOR);
 flags:randomgraffiti(CMD_OPERATOR);
-flags:setmutes(CMD_OPERATOR);
-flags:setjails(CMD_OPERATOR);
-flags:setbans(CMD_OPERATOR);
-flags:setadv(CMD_OPERATOR);
-flags:setkicks(CMD_OPERATOR);
-flags:initmarket(CMD_ADMIN);
+flags:setmutes(CMD_MODERATOR4);
+flags:setjails(CMD_MODERATOR4);
+flags:setbans(CMD_MODERATOR4);
+flags:setadv(CMD_MODERATOR4);
+flags:setkicks(CMD_MODERATOR4);
+flags:initmarket(CMD_OPERATOR);
 flags:dropitem(CMD_MODERATOR3);
 flags:gmx(CMD_OPERATOR);
 flags:closeserver(CMD_OPERATOR);
@@ -37618,7 +37627,7 @@ flags:gotoproperty(CMD_MODERATOR4);
 flags:setpass(CMD_MODERATOR4);
 flags:setip(CMD_MODERATOR4);
 flags:accsaveall(CMD_MODERATOR4);
-flags:delete(CMD_OPERATOR);
+flags:delete(CMD_ADMIN);
 flags:rproperty(CMD_OPERATOR);
 flags:eproperty(CMD_OPERATOR);
 flags:cproperty(CMD_OPERATOR);

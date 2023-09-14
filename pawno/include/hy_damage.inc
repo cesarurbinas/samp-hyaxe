@@ -811,6 +811,7 @@ stock const g_WeaponName[57][WC_MAX_WEAPON_NAME] = {
 // Sorry about the mess..
 static s_LagCompMode;
 static s_LastExplosive[MAX_PLAYERS];
+static bool:damage_informer_state[MAX_PLAYERS];
 static s_LastShot[MAX_PLAYERS][E_SHOT_INFO];
 static s_LastShotTicks[MAX_PLAYERS][10];
 static s_LastShotWeapons[MAX_PLAYERS][10];
@@ -909,6 +910,17 @@ native WC_IsValidVehicle(vehicleid) = IsValidVehicle;
 stock IsBulletWeapon(weaponid)
 {
 	return (WEAPON_COLT45 <= weaponid <= WEAPON_SNIPER) || weaponid == WEAPON_MINIGUN;
+}
+
+stock SetDamageInformer(playerid, bool:toggle)
+{
+	damage_informer_state[playerid] = toggle;
+	return 1;
+}
+
+stock GetDamageInformer(playerid)
+{
+	return damage_informer_state[playerid];
 }
 
 stock IsHighRateWeapon(weaponid)
@@ -4049,12 +4061,9 @@ static UpdateHealthBar(playerid, bool:force = false)
 					PlayerTextDrawLetterSize(playerid, s_HealthBarForeground[playerid], 0.0, 0.2);
 					PlayerTextDrawTextSize  (playerid, s_HealthBarForeground[playerid], 545.75, 0.0);
 					PlayerTextDrawBoxColor  (playerid, s_HealthBarForeground[playerid], 0xB51821FF);
-
-					//PlayerTextDrawShow(playerid, s_HealthBarForeground[playerid]);
 				}
 			} else {
 				PlayerTextDrawSetPosition(playerid, s_HealthBarForeground[playerid], 551.5 + float(health) * 0.5651, 70.25);
-				//PlayerTextDrawShow(playerid, s_HealthBarForeground[playerid]);
 			}
 
 		} else if (s_HealthBarForeground[playerid] != PlayerText:INVALID_TEXT_DRAW) {
@@ -4080,14 +4089,6 @@ static SetHealthBarVisible(playerid, bool:toggle)
 	s_HealthBarVisible[playerid] = toggle;
 
 	if (toggle) {
-		if (s_HealthBarBorder != Text:INVALID_TEXT_DRAW) {
-			//TextDrawShowForPlayer(playerid, s_HealthBarBorder);
-		}
-
-		if (s_HealthBarBackground != Text:INVALID_TEXT_DRAW) {
-			//TextDrawShowForPlayer(playerid, s_HealthBarBackground);
-		}
-
 		UpdateHealthBar(playerid, true);
 	} else {
 		if (s_HealthBarForeground[playerid] != PlayerText:INVALID_TEXT_DRAW) {
@@ -5082,7 +5083,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"%s%s +%.2f~n~",
+				"~w~%s%s ~g~+%.2f~n~",
 				buf,
 				weapon,
 				s_DamageFeedHitsGiven[playerid][i][e_Amount] + 0.009
@@ -5091,7 +5092,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"%s%s - %s +%.2f~n~",
+				"~w~%s%s - %s ~g~+%.2f~n~",
 				buf,
 				s_DamageFeedHitsGiven[playerid][i][e_Name],
 				weapon,
@@ -5105,9 +5106,9 @@ static DamageFeedUpdateText(playerid)
 	} else {
 		if (buf[0]) {
 			PlayerTextDrawSetString(playerid, s_DamageFeedGiven[playerid], buf);
-			//PlayerTextDrawShow(playerid, s_DamageFeedGiven[playerid]);
+			if (damage_informer_state[playerid]) PlayerTextDrawShow(playerid, s_DamageFeedGiven[playerid]);
 		} else {
-			PlayerTextDrawHide(playerid, s_DamageFeedGiven[playerid]);
+			if (damage_informer_state[playerid]) PlayerTextDrawHide(playerid, s_DamageFeedGiven[playerid]);
 		}
 	}
 
@@ -5130,7 +5131,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"%s%s -%.2f~n~",
+				"~w~%s%s ~r~-%.2f~n~",
 				buf,
 				weapon,
 				s_DamageFeedHitsTaken[playerid][i][e_Amount] + 0.009
@@ -5139,7 +5140,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"%s%s - %s -%.2f~n~",
+				"~w~%s%s - %s ~r~-%.2f~n~",
 				buf,
 				s_DamageFeedHitsTaken[playerid][i][e_Name],
 				weapon,
@@ -5153,9 +5154,9 @@ static DamageFeedUpdateText(playerid)
 	} else {
 		if (buf[0]) {
 			PlayerTextDrawSetString(playerid, s_DamageFeedTaken[playerid], buf);
-			//PlayerTextDrawShow(playerid, s_DamageFeedTaken[playerid]);
+			if (damage_informer_state[playerid]) PlayerTextDrawShow(playerid, s_DamageFeedTaken[playerid]);
 		} else {
-			PlayerTextDrawHide(playerid, s_DamageFeedTaken[playerid]);
+			if (damage_informer_state[playerid]) PlayerTextDrawHide(playerid, s_DamageFeedTaken[playerid]);
 		}
 	}
 }

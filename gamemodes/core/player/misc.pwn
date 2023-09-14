@@ -40,6 +40,7 @@ enum
 	MISC_FIXKIT,
 	MISC_CONFIG_FP,
 	bool:MISC_BALLOON,
+	bool:MISC_DAMAGE_INFORMER,
 
 	MISC_SIZE //Dejar siempre este al final
 };
