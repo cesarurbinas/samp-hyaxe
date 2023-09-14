@@ -28,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.8 Build 15"
+#define SERVER_VERSION 			"v0.8 Build 20"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -2438,7 +2438,6 @@ new Toys_Shop[][Toys_Info] =
 	{"tophat02", 19487, 700, 0},
 	{"pilothat01", 19520, 3000, 0},
 	{"policehat01", 19521, 3000, 0},
-	{"witcheshat1", 19528, 150, 0},
 	{"strawhat1", 19553, 450, 0},
 	{"pizzahat1", 19558, 100, 0},
 	{"hikerbackpack1", 19559, 600, 0},
@@ -2457,7 +2456,6 @@ new Toys_Shop[][Toys_Info] =
     {"hockeymas1", 19036, 1700, 0},
     {"theparrot1", 19078, 7500, 0},
     {"armour", 19515, 7000, 0},
-    {"bdupsmask1", 11704, 3500, 0},
     {"glimpmask1", 19163, 2500, 0},
     {"headphones02", 19422, 1500, 0},
     {"Disfraz de Arbusto", 805, 40000, 0},
@@ -8857,6 +8855,30 @@ cmd:tr(playerid, params[])
 {
 	new string[128];
 	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): tr (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:tp(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): tp (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
+	KickEx(playerid, 500);
+	return 1;
+}
+
+cmd:teleport(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): teleport (cheat-cmd)", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
@@ -15913,7 +15935,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new str[180];
-				format(str, sizeof str, "51.178.211.161:12345/search?query=%s&max=5", inputtext);
+				format(str, sizeof str, "boombox.hyaxe.com:12345/search?query=%s&max=5", inputtext);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
 				HTTP(playerid, HTTP_GET, str, "", "OnYouTubeQueryResponse");
@@ -15926,7 +15948,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new url[128];
 				PLAYER_TEMP[playerid][py_RESULT_INDEX] = listitem;
-				format(url, 128, "51.178.211.161:12345/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
+				format(url, 128, "boombox.hyaxe.com:12345/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
 				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
 				ShowPlayerNotification(playerid, "Espere, estamos procesando el video...", 3);
 			} else PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
@@ -24337,6 +24359,24 @@ CALLBACK: UpdateWorldTime()
 	seconds = sec % 60;
 	return 1;
 }*/
+
+public OnPlayerClickPlayer(playerid, clickedplayerid, source)
+{
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= CMD_MODERATOR)
+	{
+		if (ACCOUNT_INFO[clickedplayerid][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+
+		new Float:p[4];
+		GetPlayerPos(clickedplayerid, p[0], p[1], p[2]);
+		GetPlayerFacingAngle(clickedplayerid, p[3]);
+
+		SetPlayerPosEx(playerid, p[0], p[1], p[2], p[3], GetPlayerInterior(clickedplayerid), GetPlayerVirtualWorld(clickedplayerid), false, true);
+		SetPlayerFacingAngle(playerid, p[3] + 180.0);
+
+		SendCmdLogToAdmins(playerid, "goto", params);
+	}
+    return 1;
+}
 
 public OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
