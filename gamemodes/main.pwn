@@ -21800,8 +21800,8 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 			ShowObjTuning(playerid);
 		}
 
-		if(PLAYER_TEMP[playerid][py_PLAYER_IN_INV])
-			HideInventory(playerid);
+		/*if(PLAYER_TEMP[playerid][py_PLAYER_IN_INV])
+			HideInventory(playerid);*/
 		
 		return 1;
 	}
@@ -21962,11 +21962,11 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 
 	if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV])
 	{
-		if(playertextid == PlayerText:INVALID_TEXT_DRAW)
+		/*if(playertextid == PlayerText:INVALID_TEXT_DRAW)
 		{
 			HideInventory(playerid);
 			return 1;
-		}
+		}*/
 		if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][0])
 		{
 			HideInventory(playerid);
