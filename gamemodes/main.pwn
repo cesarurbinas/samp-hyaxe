@@ -6378,7 +6378,7 @@ Log(const nombre[], const texto[])
     return 1;
 }
 
-CMD:editmodetestxd(playerid, params[])
+CMD:editmodetestxd(playerid, params[])//xddd
 {
 	new Float:pos[3];
 
