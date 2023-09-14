@@ -1227,103 +1227,9 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Tunear", dialog, "Selecc.", "Atrás");
 			return 1;
 		}
-		case DIALOG_MECHANIC_MENU:
-		{
-			new caption[60];
-			format(caption, sizeof caption, "%s piezas disponibles - %s", number_format_thousand(PLAYER_MISC[playerid][MISC_MECHANIC_PIECES]), VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-
-			new dialog[450];
-			format(dialog, sizeof dialog,
-			"\
-				"COL_WHITE"Opción\t"COL_RED"Piezas necesarias\t"COL_WHITE"Estimación\n\
-				"COL_WHITE"Reparación completa\t"COL_RED"10\t"COL_WHITE"500$\n\
-			");
-
-			if (IsPlayerInDynamicArea(playerid, Mechanic_Area))
-			{
-				new paintjobs = VehiclePaintjob( GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] );
-				strcat(dialog, ""COL_WHITE"Pintar vehículo\t"COL_RED"5\t"COL_WHITE"250$\n");
-				if (PLAYER_SKILLS[playerid][WORK_MECHANIC] >= 100)
-				{
-					strcat(dialog, ""COL_WHITE"Eliminar componentes\n");
-					strcat(dialog, ""COL_WHITE"Tunear vehículo\n");
-					if (paintjobs > 0) strcat(dialog, ""COL_WHITE"Paintjob\t"COL_RED"15\t"COL_WHITE"750$\n");
-				}
-				else
-				{
-					strcat(dialog, "{666666}Eliminar componentes\n");
-					strcat(dialog, "{666666}Tunear vehículo\n");
-					if (paintjobs > 0) strcat(dialog, "{666666}Paintjob\t{666666}15\t{666666}750$\n");
-				}
-			}
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Selecc.", "Atrás");
-			return 1;
-		}
-		case DIALOG_MECHANIC_REPAIR_PRICE:
-		{
-			new caption[60];
-			format(caption, sizeof caption, "Reparar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio de la reparación.\nRango de precio: 0$ - 2.000$", "Selecc.", "Atrás");
-			return 1;
-		}
-		case DIALOG_MECHANIC_COLOR_PRICE:
-		{
-			new caption[60];
-			format(caption, sizeof caption, "Pintar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para pintar el vehículo.\nRango de precio: 0$ - 1.750$", "Selecc.", "Atrás");
-			return 1;
-		}
-		case DIALOG_MECHANIC_TUNING_PRICE:
-		{
-			new caption[60], dialog[144];
-			format(caption, sizeof caption, "Tunear %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-
-			format(dialog, sizeof dialog, "Indica el precio para tunear el vehículo.\nRango de precio: 0$ - %s$", number_format_thousand((PLAYER_TEMP[playerid][py_TUNING_SELECTED_PIECES] * 50) + 2000));
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, dialog, "Selecc.", "Atrás");
-			return 1;
-		}
-		case DIALOG_MECHANIC_PAINTJOB_PRICE:
-		{
-			new caption[60];
-			format(caption, sizeof caption, "Paintjob %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, caption, "Indica el precio para el paintjob del vehículo.\nRango de precio: 0$ - 2.750$", "Selecc.", "Atrás");
-			return 1;
-		}
-		case DIALOG_MECHANIC_ACCEPT:
-		{
-			new dialog[300];
-			format(dialog, sizeof dialog,
-
-				"\
-					"COL_WHITE"El mecánico %s te ofrece:\n\
-						\t%s\n\
-					\n\
-					"COL_WHITE"Precio: %s$\n\
-					¿Quieres aceptarlo?\n\
-				",
-					PLAYER_TEMP[ PLAYER_TEMP[playerid][py_MECHANIC_PID] ][py_RP_NAME],
-					PLAYER_TEMP[playerid][py_MECHANIC_TEXT],
-					number_format_thousand(PLAYER_TEMP[playerid][py_MECHANIC_PRICE])
-			);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Mecánico", dialog, "Aceptar", "Cancelar");
-			return 1;
-		}
 		case DIALOG_TUNING_SELECT_COL_SLOT:
 		{
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehículo", ""COL_WHITE"Color primario\n"COL_WHITE"Color secundario", "Selecc.", "Atrás");
-			return 1;
-		}
-		case DIALOG_MECHANIC_SELECT_COL_SLOT:
-		{
-			new caption[60];
-			format(caption, sizeof caption, "Pintar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"Pintar color primario\n"COL_WHITE"Pintar color secundario", "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TUNING_SELECT_COLOR:
@@ -1340,23 +1246,6 @@ ShowDialog(playerid, dialogid)
 			}
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Pintar vehículo", dialog, "Selecc.", "Atrás");
-			return 1;
-		}
-		case DIALOG_MECHANIC_SELECT_COLOR:
-		{
-			new caption[60];
-			format(caption, sizeof caption, "Pintar %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-
-
-			new dialog[15 * (sizeof(VEHICLE_COLORS) + 1) ];
-			for(new i = 0; i != sizeof VEHICLE_COLORS; i++)
-			{
-				new line_str[15];
-				format(line_str, sizeof(line_str), "{%06x}%d\n", VEHICLE_COLORS[i] >>> 8, i);
-				strcat(dialog, line_str);
-			}
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_TUNING_REMOVE:
@@ -1396,68 +1285,6 @@ ShowDialog(playerid, dialogid)
 			}
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Componentes", dialog, "Eliminar", "Atrás");
-			return 1;
-		}
-		case DIALOG_MECHANIC_REMOVE_COMPONEN:
-		{
-			new caption[60], dialog[80 * (MAX_VEHICLE_COMPONENTS + 2) ], listitem;
-			format(caption, sizeof caption, "Componentes de %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-			format(dialog, sizeof dialog, ""COL_WHITE"Componente\t"COL_RED"Piezas\n");
-
-			for(new i = 0; i != MAX_VEHICLE_COMPONENTS; i ++)
-			{
-				if (!GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_COMPONENTS][i]) continue;
-
-				new DBResult:Result, DB_Query[60];
-				format(DB_Query, sizeof DB_Query, "SELECT * FROM `COMPONENTS_INFO` WHERE `ID` = '%d';", GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_COMPONENTS][i]);
-
-				Result = db_query(Database, DB_Query);
-
-				if (db_num_rows(Result))
-				{
-					new part[24], name[24];
-					db_get_field_assoc(Result, "PART", part, 24);
-					db_get_field_assoc(Result, "NAME", name, 24);
-					PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID] = i;
-					PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_PIECES] = db_get_field_assoc_int(Result, "PIECES");
-
-					new line_str[80];
-					format(line_str, sizeof line_str, ""COL_WHITE"%s > %s\t"COL_RED"+ %d\n", part, name, PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_PIECES]);
-					strcat(dialog, line_str);
-				}
-				db_free_result(Result);
-				listitem ++;
-			}
-			if (listitem == 0)
-			{
-				PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID] = 0;
-				strcat(dialog, ""COL_WHITE"Vehículo sin tunear");
-			}
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Eliminar", "Atrás");
-			return 1;
-		}
-		case DIALOG_TUNING_PAINTJOB:
-		{
-			new caption[60], dialog[25 * 4];
-			format(caption, sizeof caption, "Paintjob - %s", VEHICLE_INFO[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
-
-			new paintjobs = VehiclePaintjob( GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_MECHANIC_VEHICLE_ID] ][gb_vehicle_MODELID] );
-			if (paintjobs == 0)
-			{
-				ShowPlayerMessage(playerid, "~r~Este vehículo no soporta paintjobs.", 3);
-				ShowDialog(playerid, DIALOG_MECHANIC_MENU);
-				return 1;
-			}
-
-			strcat(dialog, ""COL_WHITE"Eliminar paintjob (+ 15 piezas)\n");
-			for(new i = 0; i != paintjobs; i ++)
-			{
-				new line_str[25];
-				format(line_str, sizeof line_str, ""COL_WHITE"Paintjob %d\n", i + 1);
-				strcat(dialog, line_str);
-			}
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
 		case DIALOG_SEED_LIST:
@@ -4020,17 +3847,17 @@ ShowDialog(playerid, dialogid)
     	{
     		new 
     			str_text[164],
-    			payment = (PLAYER_MISC[playerid][MISC_FISH] * 200),
+    			payment = (PLAYER_TEMP[playerid][py_FISH] * 200),
     			vip_payment = 0;
 
     		if (ACCOUNT_INFO[playerid][ac_SU])
 			{
-				vip_payment = (PLAYER_MISC[playerid][MISC_FISH] * 100);				
+				vip_payment = (PLAYER_TEMP[playerid][py_FISH] * 100);				
 			}
 
     		format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender sus %d peces?\n\n\
     			Paga:"COL_GREEN" $%d"COL_WHITE"\n\
-    			Extra: "COL_GREEN" $%d", PLAYER_MISC[playerid][MISC_FISH], payment, vip_payment);
+    			Extra: "COL_GREEN" $%d", PLAYER_TEMP[playerid][py_FISH], payment, vip_payment);
 
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender peces", str_text, "Vender", "Cerrar");
 			return 1;
@@ -4038,14 +3865,6 @@ ShowDialog(playerid, dialogid)
     	case DIALOG_CONFIG_VOICE:
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Cambiar tecla de chat de voz", "Z\nX\nB\nM\nL\nK\nJ\nP\nO\nI\nU", "Cambiar", "Atrás");
-    		return 1;
-    	}
-    	case DIALOG_CHANGE_MHZ:
-    	{
-    		new str_text[128];
-    		format(str_text, sizeof(str_text), ""COL_WHITE"Ingrese la frecuencia que quiere para su radio.\n\
-    			Frecuencia actual: "COL_GREEN"%d", PLAYER_MISC[playerid][MISC_MHZ]);
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar frecuencia", str_text, "Cambiar", "Cerrar");
     		return 1;
     	}
     	case DIALOG_BUY_VOBJECT:

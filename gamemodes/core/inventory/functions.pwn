@@ -1595,10 +1595,10 @@ UseItemSlot(playerid)
 
 		case 1:
 		{
-			if (PLAYER_MISC[playerid][MISC_MEDICINE] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes medicamentos.", 3);
+			if (PlayerAlreadyHasItem(playerid, 1)) return ShowPlayerMessage(playerid, "~r~No tienes medicamentos.", 3);
 			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_REMEDY]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir medicamentos.", 3);
 
-			PLAYER_MISC[playerid][MISC_MEDICINE] --;
+			SubtractItem(playerid, 1);
 			SavePlayerMisc(playerid);
 			GivePlayerHealthEx(playerid, 10.0);
 			SetPlayerChatBubble(playerid, "\n\n\n\n* Se toma un medicamento.", 0xffcb90FF, 20.0, 2000);
@@ -1612,10 +1612,10 @@ UseItemSlot(playerid)
 
 		case 2:
 		{
-			if (PLAYER_MISC[playerid][MISC_VENDAS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes vendas.", 3);
+			if (PlayerAlreadyHasItem(playerid, 2)) return ShowPlayerMessage(playerid, "~r~No tienes vendas.", 3);
 			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_BAND]) < 10) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 10 segundos para volver a usar vendas.", 3);
 
-			PLAYER_MISC[playerid][MISC_VENDAS] --;
+			SubtractItem(playerid, 2);
 			SavePlayerMisc(playerid);
 			GivePlayerHealthEx(playerid, 5.0);
 			SetPlayerChatBubble(playerid, "\n\n\n\n* Usa una venda.", 0xffcb90FF, 20.0, 2000);
@@ -1627,11 +1627,12 @@ UseItemSlot(playerid)
 
 		case 3:
 		{
-			if (PLAYER_MISC[playerid][MISC_CANNABIS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes marihuana.", 3);
+			if (PlayerAlreadyHasItem(playerid, 3)) return ShowPlayerMessage(playerid, "~r~No tienes marihuana.", 3);
 			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
 
-			PLAYER_MISC[playerid][MISC_CANNABIS] --;
-			PLAYER_MISC[playerid][MISC_JOINT] ++;
+			SubtractItem(playerid, 3);
+			AddPlayerItem(playerid, 38);
+
 			SavePlayerMisc(playerid);
 			SetPlayerChatBubble(playerid, "\n\n\n\n* Crea un porro.", 0xffcb90FF, 20.0, 2000);
 			ShowPlayerMessage(playerid, "Creaste un porro", 3);
@@ -1641,10 +1642,10 @@ UseItemSlot(playerid)
 
 		case 4:
 		{
-			if (PLAYER_MISC[playerid][MISC_CRACK] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes crack.", 3);
+			if (PlayerAlreadyHasItem(playerid, 4)) return ShowPlayerMessage(playerid, "~r~No tienes crack.", 3);
 			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_CRACK]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir crack.", 3);
 
-			PLAYER_MISC[playerid][MISC_CRACK] --;
+			SubtractItem(playerid, 4);
 			SavePlayerMisc(playerid);
 			GivePlayerHealthEx(playerid, 25.0);
 			SetPlayerChatBubble(playerid, "\n\n\n\n* Consume crack", 0xffcb90FF, 20.0, 2000);
@@ -1766,8 +1767,8 @@ UseItemSlot(playerid)
 
 		case 42:
 		{
-			if (PLAYER_MISC[playerid][MISC_ROCKET] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
-			PLAYER_MISC[playerid][MISC_ROCKET] --;
+			if (PlayerAlreadyHasItem(playerid, 42)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			SubtractItem(playerid, 42);
 			SavePlayerMisc(playerid);
 
 			PlayerFirework(playerid, 0);
@@ -1776,8 +1777,8 @@ UseItemSlot(playerid)
 
 		case 43:
 		{
-			if (PLAYER_MISC[playerid][MISC_MORTERO] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
-			PLAYER_MISC[playerid][MISC_MORTERO] --;
+			if (PlayerAlreadyHasItem(playerid, 43)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			SubtractItem(playerid, 43);
 			SavePlayerMisc(playerid);
 
 			PlayerFirework(playerid, 1);
@@ -1786,8 +1787,8 @@ UseItemSlot(playerid)
 
 		case 44:
 		{
-			if (PLAYER_MISC[playerid][MISC_PETARDO] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
-			PLAYER_MISC[playerid][MISC_PETARDO] --;
+			if (PlayerAlreadyHasItem(playerid, 44)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			SubtractItem(playerid, 44);
 			SavePlayerMisc(playerid);
 
 			PlayerFirework(playerid, 2);
@@ -1796,8 +1797,8 @@ UseItemSlot(playerid)
 
 		case 45:
 		{
-			if (PLAYER_MISC[playerid][MISC_VOLCAN] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
-			PLAYER_MISC[playerid][MISC_VOLCAN] --;
+			if (PlayerAlreadyHasItem(playerid, 45)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			SubtractItem(playerid, 45);
 			SavePlayerMisc(playerid);
 
 			PlayerFirework(playerid, 3);
@@ -1806,8 +1807,8 @@ UseItemSlot(playerid)
 
 		case 46:
 		{
-			if (PLAYER_MISC[playerid][MISC_LAVAKO] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
-			PLAYER_MISC[playerid][MISC_LAVAKO] --;
+			if (PlayerAlreadyHasItem(playerid, 46)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			SubtractItem(playerid, 46);
 			SavePlayerMisc(playerid);
 
 			PlayerFirework(playerid, 4);
@@ -1816,8 +1817,8 @@ UseItemSlot(playerid)
 
 		case 47:
 		{
-			if (PLAYER_MISC[playerid][MISC_12TIROS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
-			PLAYER_MISC[playerid][MISC_12TIROS] --;
+			if (PlayerAlreadyHasItem(playerid, 47)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
+			SubtractItem(playerid, 47);
 			SavePlayerMisc(playerid);
 
 			PlayerFirework(playerid, 5);

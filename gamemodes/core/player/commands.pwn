@@ -1062,31 +1062,6 @@ CMD:plantar(playerid, params[])
 	return 1;
 }
 
-/*CMD:piezas(playerid, params[])
-{
-	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mecánico.", 3);
-	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0, -82.038078, -1208.153564, 2.704517)) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-
-	if (sscanf(params, "d", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /piezas "COL_WHITE"[cantidad]");
-	if (params[0] <= 0 || params[0] >= 10000) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /piezas "COL_WHITE"[cantidad > 0]");
-
-	new price = params[0] * 50;
-	if (price > CHARACTER_INFO[playerid][ch_CASH])
-	{
-		SendClientMessageEx(playerid, COLOR_WHITE, "Necesitas %s$ para poder comprar %d piezas.", number_format_thousand(price), params[0]);
-		return 1;
-	}
-
-	GivePlayerCash(playerid, -price);
-	PLAYER_MISC[playerid][MISC_MECHANIC_PIECES] += params[0];
-	SavePlayerMisc(playerid);
-	SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has comprado %s piezas por %s$, ahora tienes %s piezas.", number_format_thousand(params[0]), number_format_thousand(price), number_format_thousand(PLAYER_MISC[playerid][MISC_MECHANIC_PIECES]));
-	return 1;
-}*/
-
 CMD:no(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
