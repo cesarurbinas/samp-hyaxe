@@ -2,6 +2,7 @@
 #pragma option -d3 // un debuj medio como kn dise
 #pragma warning disable 239
 #pragma warning disable 214
+#pragma dynamic 16000
 
 #include <a_samp>
 
