@@ -24373,7 +24373,7 @@ public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 		SetPlayerPosEx(playerid, p[0], p[1], p[2], p[3], GetPlayerInterior(clickedplayerid), GetPlayerVirtualWorld(clickedplayerid), false, true);
 		SetPlayerFacingAngle(playerid, p[3] + 180.0);
 
-		SendCmdLogToAdmins(playerid, "goto", params);
+		SendCmdLogToAdmins(playerid, "goto", sprintf("%d", clickedplayerid));
 	}
     return 1;
 }
