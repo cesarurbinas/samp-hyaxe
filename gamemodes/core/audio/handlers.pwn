@@ -37,7 +37,7 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 		}
 
 		PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
-		ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", results), dialog, "Selecc", "Cancelar");
+		ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", results), dialog, "Selecc.", "Cancelar");
 	}
 	else
 	{
@@ -71,6 +71,8 @@ public OnDownloadResponse(playerid, response_code, data[])
 
 	new url[128];
 	format(url, sizeof(url), "http://51.178.211.161:12345/stream/%s.mp3", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_ID]);
+
+	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER) PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = true;
 
 	if (PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY])
 	{
