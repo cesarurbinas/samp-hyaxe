@@ -1571,12 +1571,22 @@ CMD:hablar(playerid, params[])
 CMD:clickslot(playerid, params[])
 {
 	new slot;
-	if (sscanf(params, "d", slot)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /clickslot "COL_WHITE"<slot>");
+	if (sscanf(params, "d", slot)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /clickslot <slot>");
 	if (slot < 0) return 0;
 	if (slot > 11) return 0;
 
 	PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = 0;
 	ClickInventorySlot(playerid, slot, true);
+	return 1;
+}
+
+CMD:equipitem(playerid, params[])
+{
+	new type;
+	if (sscanf(params, "d", type)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /equipitem <tipo>");
+	if (type < 0) return 0;
+
+	EquipItemByType(playerid, type);
 	return 1;
 }
 
