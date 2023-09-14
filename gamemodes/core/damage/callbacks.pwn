@@ -319,8 +319,6 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 							format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Aimbot");
 							ShowPlayerDialog(issuerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 							
-							AddPlayerBan(ACCOUNT_INFO[issuerid][ac_ID], ACCOUNT_INFO[issuerid][ac_NAME], ACCOUNT_INFO[issuerid][ac_IP], 11, TYPE_BAN, "Aimbot");
-
 							KickEx(issuerid, 500);
 							PLAYER_MISC[issuerid][MISC_BANS] ++;
 							SavePlayerMisc(issuerid);

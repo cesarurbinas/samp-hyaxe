@@ -207,29 +207,7 @@ CMD:b(playerid, params[])
 	{
 		if (CheckSpamViolation(params))
 		{
-			new dialog[250];
-			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (OOC)");
-			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-			
-			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (OOC)");
-
-			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-			PLAYER_MISC[playerid][MISC_BANS] ++;
-			SavePlayerMisc(playerid);
-
-			new str[144];
-			format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (OOC).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-			new webhook[144];
-			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-			SendDiscordWebhook(webhook, 1);
-
-			format(str, 144, "[OOC] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
-			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-			SendDiscordWebhook(webhook, 1);
+			Anticheat_Ban(playerid, "Spam (B)");
 			return 0;
 		}
 	}

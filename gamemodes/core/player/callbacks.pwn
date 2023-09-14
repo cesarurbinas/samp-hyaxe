@@ -1416,12 +1416,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		            if (!IsPlayerInAnyVehicle(playerid))
 		            {
-		            	new str_text[144];
-						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (1)", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
-					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (1)");
-						KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		            	
 						return 0;
 		            }
 		        }
@@ -1521,7 +1516,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
 		    if (onFootData[PR_specialAction] == SPECIAL_ACTION_USEJETPACK)
 			{
-				Anticheat_Ban(playerid, "Jetpak");
+				Anticheat_Ban(playerid, "Jetpack");
 				return 0;
 			}
 		}
@@ -2240,23 +2235,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 					if (GetPlayerDistanceFromPoint(playerid, x, y, z) > 300.0)
 					{
-						new dialog[250];
-						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Silent Aimbot (0)");
-						ShowPlayerDialog(killerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-						
-						AddPlayerBan(ACCOUNT_INFO[killerid][ac_ID], PLAYER_TEMP[killerid][py_NAME], ACCOUNT_INFO[killerid][ac_IP], 11, TYPE_BAN, "Silent Aimbot (0)");
-
-						KickEx(killerid, 500);
-						PLAYER_MISC[killerid][MISC_BANS] ++;
-						SavePlayerMisc(killerid);
-
-						new str[144];
-						format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Silent Aimbot (0).", PLAYER_TEMP[killerid][py_NAME], killerid);
-						SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-						new webhook[144];
-						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-						SendDiscordWebhook(webhook, 1);
+						Anticheat_Ban(playerid, "Aimbot #0");
 						return 0;
 					}
 				}
@@ -2574,49 +2553,14 @@ public OnPlayerText(playerid, text[])
 
 	if (PLAYER_MISC[playerid][MISC_JAILS] >= 50)
 	{
-		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Superar 50 jails");
-
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado automáticamente, razón: Superar los 50 jails", "Cerrar", "");
-		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-		PLAYER_MISC[playerid][MISC_BANS] ++;
-		SavePlayerMisc(playerid);
-
-		new str[144];
-		format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): 50 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-		new webhook[144];
-		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-		SendDiscordWebhook(webhook, 1);	
+		Anticheat_Ban(playerid, "50 Jails");
 	}
 
 	if (GetPlayerScore(playerid) <= 1)
 	{
 		if (CheckSpamViolation(text))
 		{
-			new dialog[250];
-			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (IC)");
-			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-			
-			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IC)");
-
-			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-			PLAYER_MISC[playerid][MISC_BANS] ++;
-			SavePlayerMisc(playerid);
-
-			new str[144];
-			format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (IC).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-			new webhook[144];
-			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-			SendDiscordWebhook(webhook, 1);
-
-			format(str, 144, "[IC] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, text);
-			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-			SendDiscordWebhook(webhook, 1);
+			Anticheat_Ban(playerid, "Spawm (IC)");
 			return 0;
 		}
 	}
@@ -5635,23 +5579,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		{
 			if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 			{
-				new dialog[250];
-				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Usar tazer sin ser policia");
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-				
-				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazer sin ser policia");
-
-				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-				PLAYER_MISC[playerid][MISC_BANS] ++;
-				SavePlayerMisc(playerid);
-
-				new str[144];
-				format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-				new webhook[144];
-				format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-				SendDiscordWebhook(webhook, 1);
+				Anticheat_Ban(playerid, "Tazer");
 			}
 		}
 	}
@@ -6039,7 +5967,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 	{
 		if (code == 47)
 		{
-			//AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Weapon Crasher");
+			// Aeapon crasher
 			Kick(playerid);
 			return 1;
 		}

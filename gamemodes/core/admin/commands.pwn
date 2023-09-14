@@ -583,27 +583,11 @@ CMD:ip(playerid, params[])
 	if (sscanf(params, "r", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ip <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	
-	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Yahir_Kozel"))
+	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Atom"))
 	{
 		SendClientMessageEx(playerid, COLOR_RED, "%s (%d):"COL_WHITE" 181.118.101.219", ACCOUNT_INFO[to_player][ac_NAME], to_player);
 		
-		new dialog[250];
-		format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Subnormal");
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
-				
-		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Subnormal");
-
-		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-		PLAYER_MISC[playerid][MISC_BANS] ++;
-		SavePlayerMisc(playerid);
-
-		new str[144];
-		format(str, 144, "[ADMIN] %s (%d) fue baneado: Subnormal.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-		new webhook[144];
-		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-		SendDiscordWebhook(webhook, 1);
+		Anticheat_Ban(playerid, "Subnormal");
 		return 1;
 	}
 
@@ -611,23 +595,7 @@ CMD:ip(playerid, params[])
 	{
 		SendClientMessageEx(playerid, COLOR_RED, "%s (%d):"COL_WHITE" 181.118.101.219", ACCOUNT_INFO[to_player][ac_NAME], to_player);
 		
-		new dialog[250];
-		format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Subnormal");
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
-				
-		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Subnormal");
-
-		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-		PLAYER_MISC[playerid][MISC_BANS] ++;
-		SavePlayerMisc(playerid);
-
-		new str[144];
-		format(str, 144, "[ADMIN] %s (%d) fue baneado: Subnormal.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
-
-		new webhook[144];
-		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-		SendDiscordWebhook(webhook, 1);
+		Anticheat_Ban(playerid, "Subnormal");
 		return 1;
 	}
 
