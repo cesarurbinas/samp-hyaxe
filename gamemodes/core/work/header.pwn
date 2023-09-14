@@ -130,5 +130,77 @@ new Float:obtain_work_coords[][obtain_work_coords_info] =
 =======
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //connor
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755} //diviso
+<<<<<<< HEAD
 >>>>>>> b35a666 (arreglos en el anti aimbot)
+=======
+};
+
+// Basurero
+enum Trash_Object_Info
+{
+	bool:trash_route_VALID,
+	trash_route_OBJECTS,
+	Float:trash_route_DISTANCE,
+	trash_route_MONEY,
+	trash_object_MODELID[MAX_OBJECTS_PER_ROUTE],
+	Float:trash_object_X[MAX_OBJECTS_PER_ROUTE],
+	Float:trash_object_Y[MAX_OBJECTS_PER_ROUTE],
+	Float:trash_object_Z[MAX_OBJECTS_PER_ROUTE],
+	Float:trash_object_RX[MAX_OBJECTS_PER_ROUTE],
+	Float:trash_object_RY[MAX_OBJECTS_PER_ROUTE],
+	Float:trash_object_RZ[MAX_OBJECTS_PER_ROUTE]
+};
+new TRASH_OBJECTS[MAX_ROUTES][Trash_Object_Info];
+new TRASH_PLAYER_OBJECTS[MAX_PLAYERS][MAX_OBJECTS_PER_ROUTE];
+
+enum TRASH_VEHICLES_INFO
+{
+	bool:trash_vehicle_JOB_STARTED,
+	trash_vehicle_ROUTE,
+	trash_vehicle_CP,
+	trash_vehicle_DRIVER_ID,
+	trash_vehicle_PASSENGER_ID
+};
+new TRASH_VEHICLES[MAX_VEHICLES][TRASH_VEHICLES_INFO];
+
+// Camionero
+new Float:LoadTrucksPoints[][] =
+{
+	{2430.781250, -2656.628662, 13.664062, 0.0},
+	{2453.145751, -2568.576171, 13.656103, 0.0},
+	{2453.460205, -2599.491943, 13.656026, 0.0},
+	{2452.829101, -2627.258300, 13.663995 ,0.0}
+};
+
+enum TRUCK_VEHICLE_Info
+{
+	bool:truck_vehicle_LOADED,
+	bool:truck_vehicle_LOADING,
+	bool:truck_vehicle_UNLOADING,
+	bool:truck_vehicle_DELIVERED,
+	truck_vehicle_DRIVER_USER_ID,
+	truck_vehicle_POINT,
+};
+new TRUCK_VEHICLE[MAX_VEHICLES][TRUCK_VEHICLE_Info];
+
+enum Truck_Content_Info
+{
+	truck_content_EXP,
+	truck_content_NAME[24],
+	truck_content_MONEY,
+	Float:truck_content_X,
+	Float:truck_content_Y,
+	Float:truck_content_Z
+};
+new Truck_Contents[][Truck_Content_Info] = //recos camionero
+{
+	{0, T_REC_0, 900, 1071.016235, -934.561523, 42.539730},
+	{25, T_REC_1, 950, -185.473693, -280.008880, 1.603357},
+	{50, T_REC_2, 1150, 667.775512, -458.185913, 16.335937},
+	{70, T_REC_3, 1250, 645.397155, -522.815002, 16.335937},
+	{100, T_REC_4, 1300, 1355.020385, 243.499816, 19.566932},
+	{150, T_REC_5, 1400, 2337.287109, -53.487117, 26.484375},
+	{200, T_REC_6, 1800, 2327.318115, -21.905473, 26.484375},
+	{300, T_REC_7, 2000, 2338.490966, 60.734577, 26.484375}
+>>>>>>> 75def5d (store module)
 };

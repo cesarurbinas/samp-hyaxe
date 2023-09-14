@@ -5810,3 +5810,230 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
     return 1;
 }
+
+IPacket:AIM_SYNC(playerid, BitStream:bs)
+{
+    new aimData[PR_AimSync];
+    
+    BS_IgnoreBits(bs, 8);
+    BS_ReadAimSync(bs, aimData);
+
+    if (aimData[PR_aimZ] != aimData[PR_aimZ])
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+#if defined VOICE_CHAT
+	public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
+	{
+		if (keyid == 0x5A && lstream[playerid]) SvAttachSpeakerToStream(lstream[playerid], playerid);
+
+		if (in_gamemode_menu[playerid])
+	    {
+	    	switch(keyid)
+	    	{
+	    		case 0x41:
+	    		{
+	    			minigames_page[playerid] -= 1;
+	    			UpdateGamemodesMenu(playerid);
+	    		}
+	    		case 0x44:
+	    		{
+	    			minigames_page[playerid] ++;
+	    			UpdateGamemodesMenu(playerid);
+	    		}
+	    		case 0x57: ShowMainMenu(playerid);
+	    		case 0x53: PlayerJoinGamemode(playerid);
+	    	}
+	    }
+	}
+
+	public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid, SV_UINT:keyid)
+	{
+		if (keyid == 0x5A && lstream[playerid]) SvDetachSpeakerFromStream(lstream[playerid], playerid);
+	}
+#endif
+
+#if defined FINAL_BUILD
+	public OnRconLoginAttempt(ip[], password[], success)
+	{
+		#if DEBUG_MODE == 1
+			printf("OnRconLoginAttempt %s %s",ip,password); // debug juju
+	    #endif
+
+	    new temp_ip[16];
+
+	    for(new i = 0; i < MAX_PLAYERS; i++)
+	    {
+		   if (IsPlayerConnected(i))
+		   {
+			  	GetPlayerIp(i, temp_ip, sizeof(temp_ip));
+			  	if (!strcmp(ip, temp_ip))
+			  	{
+				 	KickEx(i, 100);
+			  	}
+		   	}
+	    }
+	    return 1;
+	}
+#endif
+
+public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y, Float:z)
+{
+	#if DEBUG_MODE == 1
+		printf("OnPlayerSelectDynamicObject %d",playerid); // debug juju
+	#endif
+
+	new info[2];
+	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
+	if (info[0] == WORK_POLICE)
+	{
+		if (!PLAYER_WORKS[playerid][WORK_POLICE])
+		{
+			CancelEdit(playerid);
+			ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
+			return 1;
+		}
+		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
+		{
+			CancelEdit(playerid);
+			ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
+			return 1;
+		}
+		if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8)
+		{
+			CancelEdit(playerid);
+			ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
+			return 1;
+		}
+
+		SendClientMessageEx(playerid, COLOR_WHITE, "Este objeto fue colocado por %s. Usa 'ESC' para borrar el objeto.", POLICE_OBJECTS[ info[1] ][police_object_USER]);
+		PLAYER_TEMP[playerid][py_SELECTED_POLICE_OBJECT_INDEX] = info[1];
+		EditDynamicObject(playerid, objectid);
+		return 1;
+	}
+	return 1;
+}
+
+public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
+{
+	#if DEBUG_MODE == 1
+		printf("OnPlayerEditDynamicObject",playerid); // debug juju
+	#endif
+
+	if (response == EDIT_RESPONSE_CANCEL)
+	{
+		new info[2];
+		Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
+		if (info[0] == WORK_POLICE)
+		{
+			if (!PLAYER_WORKS[playerid][WORK_POLICE])
+			{
+				CancelEdit(playerid);
+				ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
+				return 1;
+			}
+			if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
+			{
+				CancelEdit(playerid);
+				ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
+				return 1;
+			}
+			if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8)
+			{
+				CancelEdit(playerid);
+				ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
+				return 1;
+			}
+
+			DestroyDynamicObject(POLICE_OBJECTS[ info[1] ][police_object_OBJECT_ID]);
+			POLICE_OBJECTS[ info[1] ][police_object_VALID] = false;
+			POLICE_OBJECTS[ info[1] ][police_object_USER][0] = EOS;
+			POLICE_OBJECTS[ info[1] ][police_object_OBJECT_ID] = INVALID_STREAMER_ID;
+			ShowPlayerMessage(playerid, "Objeto policial eliminado.", 2);
+		}
+	}
+	return 1;
+}
+
+OnCheatDetected(playerid, ip_address[], type, code)
+{
+	#pragma unused ip_address, type
+
+	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
+
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+	{
+		if (code == 47)
+		{
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Crasher de retrasado");
+			Kick(playerid);
+			return 1;
+		}
+
+		new ac_message[144];
+		format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d): Cheats (#%03d).", PLAYER_TEMP[playerid][py_NAME], playerid, code);
+		SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
+		SendDiscordWebhook(ac_message, 1);
+
+		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
+		TogglePlayerControllableEx(playerid, false);
+		KickEx(playerid, 500);
+	}
+	return 1;
+}
+
+OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
+{
+	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "95.156.227.96")) return 0;
+	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
+
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+	{
+		if (gettime() < PLAYER_TEMP[playerid][py_LAST_CHEAT_DETECTED_TIME] + 5) return 1;
+
+		new ac_message[144], player_state = GetPlayerState(playerid);
+
+		if (ac_Info[cheat][ac_Kick])
+		{
+			new bad_history[24];
+			format(bad_history, sizeof bad_history, "ac, cheat (%02d)", cheat);
+			AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], COLOR_WHITE, TYPE_KICK, bad_history);
+
+			if (extra != 0.0) format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d, extra: %.1f)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval], extra);
+			else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
+
+			SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (%s)", ac_Info[cheat][ac_Name]);
+			TogglePlayerControllableEx(playerid, false);
+			KickEx(playerid, 500);
+
+			if (cheat == CHEAT_PLAYER_HEALTH) CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
+			if (cheat == CHEAT_PLAYER_ARMOUR) CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
+		}
+		else
+		{
+			if (extra != 0.0) format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Aviso sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d, extra: %.1f)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval], extra);
+			else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Aviso sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
+		}
+
+		SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
+		SendDiscordWebhook(ac_message, 1);
+		PLAYER_TEMP[playerid][py_LAST_CHEAT_DETECTED_TIME] = gettime();
+
+		PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] ++;
+
+		if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 3)
+		{
+			format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): Max AC Adv (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
+			SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
+			
+			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por sobrepasar cantidad máxima de advertencias del anti-cheat.");
+			KickEx(playerid, 500);
+		}
+	}
+
+	return 1;
+}

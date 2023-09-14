@@ -2657,3 +2657,2820 @@ GetEnterExitIndexById(id)
 	}
 	return -1;
 }
+
+CheckBlackMarket(playerid)
+{
+    if (IsPlayerInRangeOfPoint(playerid, 1.5, 2164.021484, -1164.398925, -16.871662) || IsPlayerInRangeOfPoint(playerid, 1.5, -190.378494, -2254.421386, 25.593534))
+    {
+	    if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "No puedes comprar aquí siendo policía.", 3);
+	    if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Tienes que ser nivel 2.", 3);
+	    ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
+	}
+    return 1;
+}
+
+CheckRodShop(playerid)
+{
+	if (!IsPlayerInRangeOfPoint(playerid, 1.5, 2125.901123, -65.776679, 1.585963)) return 1;
+	ShowDialog(playerid, DIALOG_BUY_ROD);
+	return 1;
+}
+
+CheckFixKitShop(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 1.0, 1060.838256, -917.609741, 43.124679))
+	{
+		ShowDialog(playerid, DIALOG_BUY_FIXKIT);
+	}
+	return 1;
+}
+
+CheckMinerShop(playerid)
+{
+	if (!IsPlayerInRangeOfPoint(playerid, 1.5, 509.910125, -708.205383, 19.242210)) return 1;
+	ShowDialog(playerid, DIALOG_MINER_STORE);
+	return 1;
+}
+
+CheckFishSell(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 1.5, 2157.049560, -92.550987, 2.798943))
+	{
+		if (PLAYER_MISC[playerid][MISC_FISH])
+		{
+			ShowDialog(playerid, DIALOG_SELL_FISH);
+		}
+		else ShowPlayerMessage(playerid, "~r~No tienes peces que vender.", 3);
+	}
+	return 1;
+}
+
+CheckDrugBlackMarket(playerid)
+{
+    if (!IsPlayerInRangeOfPoint(playerid, 1.5, 2310.057128, -1789.786865, 1600.751953)) return 1;
+    ShowDialog(playerid, DIALOG_DRUG_MARKET);
+    return 1;
+}
+
+ShowRangeUser(playerid)
+{
+	new 
+		target_player = GetPlayerCameraTargetPlayer(playerid),
+		Float:x, Float:y, Float:z;
+	
+	PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] = target_player;
+	GetPlayerPos(target_player, x, y, z);
+
+	if (IsPlayerInRangeOfPoint(playerid, 1.2, x, y, z))
+	{
+		ShowDialog(playerid, DIALOG_RANGE_USER);
+	}
+	return 1;
+}
+
+ExitCrack(playerid)
+{
+	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK) return 0;
+	if (PLAYER_TEMP[playerid][py_CUFFED]) return 0;
+	if (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] > 0) return 0;
+
+	new str_text[144];
+	format(str_text, sizeof(str_text), "[KILL] %s (%d) ha aceptado muerte.", PLAYER_TEMP[playerid][py_NAME], playerid);
+	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 1);
+
+	SetPlayerHealthEx(playerid, 0.0);
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha muerto.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	TogglePlayerControllableEx(playerid, true);
+	return 1;
+}
+
+CheckPlayerHouseDoor(playerid)
+{
+	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_OWN_PROPERTY) return 0;
+	if (PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] == 0) return 0;
+
+	new info[3];
+	Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+	if (info[0] != PICKUP_TYPE_PROPERTY) return 0;
+
+	new Float:x, Float:y, Float:z;
+	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+	Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
+
+	if (!IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z)) return 0;
+
+	if (info[2] == 1) // Está en el Pickup Interior
+	{
+		if (PROPERTY_INFO[info[1]][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+		{
+			if (PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID] == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~Nadie tocó la puerta", 3);
+			if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID])) return ShowPlayerMessage(playerid, "~r~Nadie tocó la puerta o ya se fue.", 3);
+			if (!IsPlayerInRangeOfPoint(PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID], 3.0, PROPERTY_INFO[info[1]][property_EXT_X], PROPERTY_INFO[info[1]][property_EXT_Y], PROPERTY_INFO[info[1]][property_EXT_Z])) return ShowPlayerMessage(playerid, "~r~Nadie tocó la puerta o ya se fue.", 3);
+			if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~Este jugador no puede entrar ahora.", 3);
+
+			PLAYER_TEMP[PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID]][py_HOSPITAL] = GetNearestHospitalForPlayer(PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID]);
+			if (PLAYER_TEMP[PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID]][py_HOSPITAL] == -1) PLAYER_TEMP[PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID]][py_HOSPITAL] = 1;
+
+			CHARACTER_INFO[PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID]][ch_STATE] = ROLEPLAY_STATE_GUEST_PROPERTY;
+			CHARACTER_INFO[PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID]][ch_INTERIOR_EXTRA] = PROPERTY_INFO[info[1]][property_ID];
+			PLAYER_TEMP[PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID]][py_PROPERTY_INDEX] = info[1];
+			SetPlayerPosEx(PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_ANGLE], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_INTERIOR], PROPERTY_INFO[info[1]][property_ID], false /*PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_FREEZE]*/, true);
+			FreezePlayer(PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID]);
+		}
+		else return 0;
+	}
+	else return 0;
+	return 1;
+}
+
+CheckHeliPort(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 5.0, 1876.87915, -2286.58911, 1.16550 + 10))
+	{
+		ShowDialog(playerid, DIALOG_HELI_OPTIONS);
+		return 1;
+	}
+
+	if (IsPlayerInRangeOfPoint(playerid, 5.0, 1037.1727, -911.3947, 49.1911))
+	{
+		ShowDialog(playerid, DIALOG_HELI_OPTIONS);
+		return 1;
+	}
+
+	if (IsPlayerInRangeOfPoint(playerid, 5.0, 1055.9615, -910.1790, 49.1911))
+	{
+		ShowDialog(playerid, DIALOG_HELI_OPTIONS);
+		return 1;
+	}
+
+	if (IsPlayerInRangeOfPoint(playerid, 20.0, 729.8204, -1512.3397, -0.5818))
+	{
+		ShowDialog(playerid, DIALOG_HELI_OPTIONS);
+		return 1;
+	}
+	return 1;
+}
+
+CheckMechanicMenu(playerid)
+{
+	for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.2, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2]))
+		{
+			new vehicleid = GetPlayerVehicleID(playerid);
+			if (vehicleid == INVALID_VEHICLE_ID) return 1;
+
+			if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) return ShowPlayerMessage(playerid, "~r~El motor debe estar apagado.", 3);
+
+			ShowTuningMenu(playerid);
+			break;
+		}
+	}
+	return 1;
+}
+
+forward UpdateBotPing(playerid);
+public UpdateBotPing(playerid)
+{
+	#if DEBUG_MODE == 1
+		printf("UpdateBotPing"); // debug juju
+	#endif
+
+	SetPlayerColorEx(playerid, PLAYER_COLOR);
+	SetPlayerFakePing(playerid, minrand(170, 345));
+
+	if (GetPlayerScore(playerid) == 0) SetPlayerScore(playerid, minrand(1, 7));
+	return 1;
+}
+
+forward UpdateBotName(playerid);
+public UpdateBotName(playerid)
+{
+	#if DEBUG_MODE == 1
+		printf("UpdateBotName"); // debug juju
+	#endif
+
+	new name[MAX_PLAYER_NAME];
+	format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);
+	SetPlayerName(playerid, name);
+	PLAYER_TEMP[playerid][py_NAME] = name;
+	return 1;
+}
+
+Bot(playerid)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][37]);
+
+	SetPlayerColorEx(playerid, PLAYER_COLOR);
+	SetPlayerScore(playerid, minrand(1, 7));
+
+	TogglePlayerFakePing(playerid, true);
+    SetPlayerFakePing(playerid, minrand(170, 345));
+
+	new name[MAX_PLAYER_NAME];
+	format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);
+	SetPlayerName(playerid, name);
+	PLAYER_TEMP[playerid][py_NAME] = name;
+
+	PLAYER_TEMP[playerid][py_TIMERS][37] = SetTimerEx("UpdateBotPing", 30000, true, "i", playerid);
+	PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("UpdateBotName", 900000 + minrand(60000, 420000), true, "i", playerid);
+	return 1;
+}
+
+CheckAndExecuteGasoline(playerid)
+{
+	if (GetPlayerInterior(playerid) == 0)
+	{
+		new fuel_station = -1;
+		for(new i = 0; i < sizeof Fuel_Stations; i++)
+		{
+			if (IsPlayerInRangeOfPoint(playerid, 5.0, Fuel_Stations[i][0], Fuel_Stations[i][1], Fuel_Stations[i][2]))
+			{
+				fuel_station = i;
+				break;
+			}
+		}
+		if (fuel_station != -1)
+		{
+			ShowDialog(playerid, DIALOG_GASOLINE);
+		}
+	}
+	return 1;
+}
+
+HideBankMenu(playerid)
+{
+    CancelSelectTextDrawEx(playerid);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][0]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][1]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][2]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][3]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][4]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][5]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][6]);
+    PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = false;
+    return 1;
+}
+
+ShowBankMenu(playerid)
+{
+    SelectTextDrawEx(playerid, 0x618448FF);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][0]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][1]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][2]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][3]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][4]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][5]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][6]);
+    PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = true;
+    return 1;
+}
+
+CheckAtmPlayerAndExecute(playerid)
+{
+    if (PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] == 0) return 0;
+        
+    new info[3];
+    Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+    if (info[0] != PICKUP_TYPE_ATM) return 0;
+    
+    new Float:x, Float:y, Float:z; 
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
+    
+    if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return 0;
+
+    if (BANK_ACCOUNT[playerid][bank_account_ID] == 0)
+    {
+        ShowDialog(playerid, DIALOG_CREATE_BANK_ACCOUNT);
+        return 1;
+    }
+    ShowBankMenu(playerid);
+    return 1;
+}
+
+SavePlayerNotification(playerid, const message[])
+{
+	new DB_Query[160];
+	format
+	(
+		DB_Query, sizeof DB_Query,
+		"\
+			INSERT INTO `PLAYER_NOTIFICATIONS`\
+			(\
+				`ID_USER`, `MESSAGE`, `DATE`\
+			)\
+			VALUES\
+			(\
+				'%d', '%q', '%i'\
+			);\
+		",
+		ACCOUNT_INFO[playerid][ac_ID],
+		message,
+		gettime()
+	);
+	db_free_result(db_query(Database, DB_Query));
+	return 1;
+}
+
+SendPlayerAction(playerid, action[])
+{
+	new str_text[190];
+	format(str_text, sizeof str_text, "* %s %s *", PLAYER_TEMP[playerid][py_RP_NAME], action);
+	ProxDetector(playerid, 15.0, str_text, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 85);
+	return 1;
+}
+
+CheckCraneSiteRequest(playerid)
+{
+    if (IsPlayerInRangeOfPoint(playerid, 1.0, 1795.293823, -1407.773681, 2770.660156)) 
+    {
+        ShowDialog(playerid, DIALOG_CRANE_SELECT_VEHICLE);
+    }
+    return 1;
+}
+
+ShellingThings(playerid)
+{
+    if (IsPlayerInRangeOfPoint(playerid, 1.0, 1796.071655, -1414.565307, 2770.660156)) 
+    {
+        if (BANK_ACCOUNT[playerid][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~Necesitas tener una cuenta bancaria para poder realizar estas operaciones.", 3);
+        {
+            ShowDialog(playerid, DIALOG_NOTARY);
+        }
+    }
+    return 1;
+}
+
+CheckFoodShop(playerid)
+{
+	if (PLAYER_TEMP[playerid][py_INTERIOR_INDEX] == -1) return 0;
+	if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_NO_INFO) return 0;
+
+
+	new index = GetFastFoodLocalIndexByIntType(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE]);
+	if (index == -1) return 0;
+
+	if (!IsPlayerInRangeOfPoint(playerid, 1.0, Fast_Food_Positions[index][fast_food_X], Fast_Food_Positions[index][fast_food_Y], Fast_Food_Positions[index][fast_food_Z])) return 0;
+
+	switch(Fast_Food_Positions[index][fast_food_INTERIOR_TYPE])
+	{
+		case INTERIOR_BURGER_SHOT: ShowDialog(playerid, DIALOG_FOOD_BURGER);
+		case INTERIOR_PIZZA: ShowDialog(playerid, DIALOG_FOOD_PIZZA);
+		case INTERIOR_CLUCKIN_BELL: ShowDialog(playerid, DIALOG_FOOD_CLUCKIN);
+	}
+	return 1;
+}
+
+CheckClothShop(playerid)
+{
+	if (PLAYER_TEMP[playerid][py_INTERIOR_INDEX] == -1) return 0;
+	if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_NO_INFO) return 0;
+
+	new shop = GetClothingShopIndexByIntType(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE]);
+	if (shop == -1) return 0;
+
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, Clothing_Shop_Positions[shop][clothing_shop_X], Clothing_Shop_Positions[shop][clothing_shop_Y], Clothing_Shop_Positions[shop][clothing_shop_Z])) return 0;
+
+	ShowDialog(playerid, DIALOG_CLOTH_STORE);
+	return 1;
+}
+
+CheckAndExecuteHospitalShop(playerid)
+{
+	if (GetPlayerInterior(playerid) > 0)
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.0, -198.002197, -1762.759643, 675.768737))
+		{
+			ShowDialog(playerid, DIALOG_HOSPITAL_SHOP);
+		}
+	}
+	return 1;
+}
+
+CheckShopAndExecute(playerid)
+{
+	if (GetPlayerInterior(playerid) > 0)
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.0, -27.964675, -89.948631, 1003.546875))
+		{
+			ShowDialog(playerid, DIALOG_247_LIST);
+		}
+	}
+	return 0;
+}
+
+CheckRegister(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 2.0, 1879.2662, -1701.0118, 5216.7100))
+	{
+		ShowDialog(playerid, DIALOG_REGISTER_CIVIL);
+	}
+	return 1;
+}
+
+#if defined HALLOWEEN_MODE
+	CheckPumpkinWitch(playerid)
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 2.0, 817.2799, -1103.3270, 25.7921))
+		{
+			if (PLAYER_MISC[playerid][MISC_PUMPKIN] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes calabazas.", 3);
+			ShowDialog(playerid, DIALOG_SELL_PUMPKIN);
+		}
+		return 1;
+	}
+#endif
+
+#if defined CHRISTMAS_MODE
+	CheckRocketStore(playerid)
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 2.0, 1537.7760, -1658.0721, 13.5469))
+		{
+			ShowDialog(playerid, DIALOG_BUY_ROCKET);
+		}
+		return 1;
+	}
+#endif
+
+CheckClubMenu(playerid)
+{
+	if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+	{
+		new 
+			club = PLAYER_TEMP[playerid][py_CLUB_INDEX],
+			interior = CLUBS_INFO[club][club_INTERIOR]
+		;
+
+		if (IsPlayerInRangeOfPoint(playerid, 1.0, CLUBS_INTERIORS[interior][interior_BUY_X], CLUBS_INTERIORS[interior][interior_BUY_Y], CLUBS_INTERIORS[interior][interior_BUY_Z]))
+		{
+			ShowDialog(playerid, DIALOG_CLUB);
+		}
+	}
+	return 1;
+}
+
+CheckClubOptions(playerid)
+{
+	if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+	{
+		new club = PLAYER_TEMP[playerid][py_CLUB_INDEX];
+
+		if (GetPlayerInterior(playerid) != 0)
+		{
+			if (CLUBS_INFO[club][club_USER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+			{
+				new caption[40];
+				format(caption, sizeof caption, "%s", CLUBS_INFO[club][club_NAME]);
+
+				ShowPlayerMenu(playerid, CLUB_MENU, TextToSpanish(caption));
+
+				AddPlayerMenuItem(playerid, "Cambiar nombre");
+				AddPlayerMenuItem(playerid, "Cambiar bienvenida");
+				AddPlayerMenuItem(playerid, "Modificar productos");
+				AddPlayerMenuItem(playerid, sprintf("Puerta (%s)", (CLUBS_INFO[club][club_STATE] ? "Abierta" : "Cerrada")));
+				AddPlayerMenuItem(playerid, "Echar a todos");
+				AddPlayerMenuItem(playerid, "Retirar fondos", sprintf("Fondos: %d$", CLUBS_INFO[club][club_BALANCE]));
+				AddPlayerMenuItem(playerid, "Cambiar radio");
+				AddPlayerMenuItem(playerid, "Precio de entrada");
+				AddPlayerMenuItem(playerid, "Vender");
+
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+			}
+		}
+	}
+	return 1;
+}
+
+CheckPoliceEquipeSite(playerid)
+{
+	if (PLAYER_WORKS[playerid][WORK_POLICE])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.0, 1867.665283, -1712.853515, 5216.709960))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+	return 1;
+}
+
+CheckMafiaEquipeSite(playerid)
+{
+	if (PLAYER_WORKS[playerid][WORK_MAFIA])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 1475.4032, 2773.5891, 10.8203))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_MAFIA])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, -1387.1334, 492.8735, 2.1851))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 3855.066162, -1290.975585, 7547.983398))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_OSBORN])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 882.789611, 1896.002319, -93.898712))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_OSBORN])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 1298.5734, -799.0347, 84.1406))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_CONNOR])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 419.4871, -1001.7376, 92.8918))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_DIVISO])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 1141.0912, -2064.0176, 69.0259))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
+	return 1;
+}
+
+/*SpaceFix(text[])
+{
+	new str[100 + 1];
+	format(str, sizeof str, "%s", text);
+
+    for(new i = 0; i < strlen(str); i++)
+	{
+		if (str[i] == ' ') str[i] = '%20';
+	}
+	return str;
+}*/
+
+GivePlayerDrunkLevel(playerid, ammount)
+{
+	return SetPlayerDrunkLevel(playerid, GetPlayerDrunkLevel(playerid) + ammount);
+}
+
+number_format_thousand(e_number)
+{
+	new f_string[24], bool:negative;
+	format(f_string, sizeof f_string, "%d", e_number);
+	if (e_number < 0)
+	{
+		negative = true;
+		strdel(f_string, 0, 1);
+	}
+
+	new numbers = strlen(f_string);
+	while(numbers > 3)
+	{
+		numbers -= 3;
+		strins(f_string, ".", numbers);
+	}
+
+	if (negative) strins(f_string, "Cerrar", 0);
+	return f_string;
+}
+
+/*number_format_dash(e_number)
+{
+	new f_string[24], bool:negative;
+	format(f_string, sizeof f_string, "%d", e_number);
+	if (e_number < 0)
+	{
+		negative = true;
+		strdel(f_string, 0, 1);
+	}
+
+	new numbers = strlen(f_string);
+	while(numbers > 3)
+	{
+		numbers -= 3;
+		strins(f_string, "Cerrar", numbers);
+	}
+
+	if (negative) strins(f_string, "- ", 0);
+	return f_string;
+}*/
+
+SelectTextDrawEx(playerid, color)
+{
+	PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] = true;
+	return SelectTextDraw(playerid, color);
+}
+
+CancelSelectTextDrawEx(playerid)
+{
+	PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] = false;
+	return CancelSelectTextDraw(playerid);
+}
+
+UpdatePlayerHud(playerid)
+{
+	if (!PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS]) return 0;
+
+	//barrahambre 1...vacia 12, llena 54
+	//barrased 2...vacia 74, llena 120
+
+	new Float:size;
+
+	size = 12.0 + (CHARACTER_INFO[playerid][ch_HUNGRY] * 0.4);
+	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1], size, 0.000000);
+
+	size = 74.5 + (CHARACTER_INFO[playerid][ch_THIRST] * 0.4);
+	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], size, 0.000000);
+
+	if (PLAYER_MISC[playerid][MISC_CONFIG_HUD])
+	{
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1]);
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3]);
+	}
+	return 1;
+}
+
+SetPlayerHud(playerid)
+{
+	PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS] = true;
+	UpdatePlayerHud(playerid);
+	//UpdateReputationTextDraws(playerid);
+
+	if (PLAYER_MISC[playerid][MISC_CONFIG_HUD])
+	{
+		TextDrawShowForPlayer(playerid, Textdraws[textdraw_HUD][0]);
+		TextDrawShowForPlayer(playerid, Textdraws[textdraw_HUD][1]);
+
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][0]);
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1]);
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][2]);
+		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3]);
+	}
+
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][5]);
+	PLAYER_TEMP[playerid][py_TIMERS][5] = SetTimerEx("HungryThirstDown", INTERVAL_HUNGRY_THIRST_DOWN * 1000, true, "i", playerid);
+	return 1;
+}
+
+HidePlayerHud(playerid)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][5]);
+	PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS] = false;
+
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_HUD][0]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_HUD][1]);
+
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][0]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][2]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3]);
+	return 1;
+}
+
+is_open(hour, open, close)
+{
+	if (open > close)
+	{
+		if ( ( (hour >= open) && (hour < 24) ) || ( (hour >= 0) && (hour < close) ) )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else if (open < close)
+	{
+		if ((hour >= open) && (hour < close))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	return false;
+}
+
+Add_Hungry_Thirst(playerid, Float:hungry, Float:thirst)
+{
+	CHARACTER_INFO[playerid][ch_HUNGRY] += hungry;
+	if (CHARACTER_INFO[playerid][ch_HUNGRY] > 30.0) PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE] = false;
+	if (CHARACTER_INFO[playerid][ch_HUNGRY] > 100.0) CHARACTER_INFO[playerid][ch_HUNGRY] = 100.0;
+
+	CHARACTER_INFO[playerid][ch_THIRST] += thirst;
+	if (CHARACTER_INFO[playerid][ch_THIRST] > 30.0) PLAYER_TEMP[playerid][py_THIRST_MESSAGE] = false;
+	if (CHARACTER_INFO[playerid][ch_THIRST] > 100.0) CHARACTER_INFO[playerid][ch_THIRST] = 100.0;
+
+	UpdatePlayerHud(playerid);
+	return 1;
+}
+
+GetPlayerIdByBankAccountId(account_id)
+{
+	for(new i = 0; i != sizeof(BANK_ACCOUNT); i ++)
+	{
+		if (BANK_ACCOUNT[i][bank_account_ID] == 0) continue;
+		if (BANK_ACCOUNT[i][bank_account_ID] == account_id) return i;
+	}
+	return -1;
+}
+
+GetPlayerIdFromAccountId(accountid)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (ACCOUNT_INFO[i][ac_ID] == accountid)
+			{
+				return i;
+			}
+		}
+	}
+	return INVALID_PLAYER_ID;
+}
+
+#define NECESSARY_TIME_BETWEEN_WORKS 30
+CheckWorkSite(playerid)
+{
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
+
+	new str_text[128];
+
+	new player_jobs = CountPlayerJobs(playerid);
+	if (ACCOUNT_INFO[playerid][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+			SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Actualmente tienes %d trabajos, usa /renunciar para dejar un trabajo.", player_jobs);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Actualmente tienes %d trabajos, usa /renunciar para dejar un trabajo.", player_jobs);
+			ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener más trabajos.", 4);
+			return 1;
+		}
+	}
+
+	for(new i = 0; i != sizeof obtain_work_coords; i ++)
+	{
+		if (work_info[i][work_info_TYPE] == WORK_TYPE_FAMILY) continue;
+
+		if (GetPlayerInterior(playerid) == obtain_work_coords[i][obtain_work_INTERIOR])
+		{
+			if (IsPlayerInRangeOfPoint(playerid, 1.0, obtain_work_coords[i][obtain_work_X], obtain_work_coords[i][obtain_work_Y], obtain_work_coords[i][obtain_work_Z]))
+			{
+				if (work_info[i][work_info_LEVEL] > ACCOUNT_INFO[playerid][ac_LEVEL])
+				{
+					format(str_text, sizeof(str_text), "~s~Tienes que ser nivel %d para este trabajo.", work_info[i][work_info_LEVEL]);
+					ShowPlayerMessage(playerid, str_text, 4);
+					return 1;
+				}
+
+				if (PLAYER_WORKS[playerid][i])
+				{
+					format(str_text, sizeof(str_text), "~s~Ya eres %s", work_info[i][work_info_NAME]);
+					return ShowPlayerMessage(playerid, str_text, 3);
+				}
+
+				DeletePlayerJobs(playerid);
+
+				new DB_Query[256];
+				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '1' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", ACCOUNT_INFO[playerid][ac_ID], i);
+				db_free_result(db_query(Database, DB_Query));
+
+				PLAYER_WORKS[playerid][i] = true;
+				PLAYER_TEMP[playerid][py_LAST_GOT_WORK_TIME] = gettime();
+				format(str_text, sizeof(str_text), "Felicidades, ahora eres %s.", work_info[i][work_info_NAME]);
+				ShowPlayerNotification(playerid, str_text, 3);
+			    SavePlayerWorks(playerid);
+
+			    switch(i)
+				{
+					case WORK_TRUCK:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de camionero", ""COL_WHITE"\
+							Ante todo, bienvenido a la empresa.\n\n\
+							Tu trabajo será transportar productos entre diferentes\n\
+							puntos de la ciudad y los pueblos que la rodean.\n\n\
+							Trabajamos con todo tipo de productos. Desde pequeños comercios de\n\
+							comida o tiendas de ropa o hasta productos industriales.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_MECHANIC:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de mecánico", ""COL_WHITE"Bienvenido\n\
+							Aquí nos encargamos de arreglar los vehículos de la gente y modificarlos, para eso necesitas\n\
+							tener piezas, puedes comprarlas en el almacén de atrás.\n\n\
+							Para ponerte en servicio presiona H en este mismo lugar.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_HARVESTER:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de cosechador", ""COL_WHITE"\
+							Bienvenido al mundo agrícola.\n\n\
+							Aquí nos encargamos de recolectar todos los cultivos de la\n\
+							temporada, usando nuestras cosechadoras, súbete a alguna\n\
+							para comenzar a trabajar.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_TRASH:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de basurero", ""COL_WHITE"\
+							En este trabajo deberás andar en un camión de basura\n\
+							para limpiar la ciudad. Puedes ser tanto el conductor\n\
+							del camión, o como un recolector de basura.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_FARMER:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de granjero", ""COL_WHITE"Bienvenido al campo, compadre.\nNosotros no encargamos de cultivar, solamente plantas y ya\n\
+							Puedes hacerlo en cualquier lugar, donde quieras pero que no se te vaya el tiempo o\n\
+							tu planta se va a expirar.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_MINER:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de minero", ""COL_WHITE"\
+							Ante todo, bienvenido a la empresa.\n\n\
+							Tu principal función será la búsqueda y extracción de minerales.\n\n\
+							Encontramos todo tipo de minerales. Desde diamantes, hasta un simple carbón.\n\
+							Comenzarás buscando unos dos minerales, el carbón y el hierro.\n\
+							Una vez te hayas familiarizado con el labor, te asignarán una mina\n\
+							más rica en minerales. Eso quieres decir, un mejor pago.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_FISHER:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de pescador", ""COL_WHITE"\
+							Ante todo, bienvenido a las aguas camarada.\n\n\
+							Aquí nos encargamos de administrar los pescados\n\
+							mas frescos de todo San Andreas. Súbete a un barco\n\
+							y dirígete a una boya, pero recuerda que necesitas\n\
+							una caña de pescar.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_MEDIC:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de médico", ""COL_WHITE"\
+							Bienvenido al equipo de paramédicos.\n\n\
+							Sube a una ambulancia y ve a salvar gente herida\n\
+							usando los botiquines que hay atrás de la ambula-\n\
+							ncia, para sacarlos presiona la tecla Y. Ponte de\n\
+							servicio en la sala de atrás.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_BOX:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de boxeador", ""COL_WHITE"\
+							Bienvenido al ring.\n\n\
+							Entra al ring y pelea hasta que alguien\n\
+							apueste por ti, si matas a alguien con\n\
+							apuestas te llevas su dinero.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_SOCCER:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de futbolista", ""COL_WHITE"\
+							Bienvenido a la cancha.\n\n\
+							Teclas:\n\
+							* Agarrar pelota: Click Izq.\n\
+							* Patear en globo: ALT\n\
+							* Patear derecho: Click Der.", "Cerrar", "");
+						return 1;
+					}
+					case WORK_WOODCUTTER:
+					{
+						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Empleo de leñador", ""COL_WHITE"\
+							Bienvenido al aserradero.\n\n\
+							Ponte en servicio y agarra tu carrito\n\
+							para ir a buscar arboles (ALT + CLICK)\n\
+							Cuando llenes tu carrito con troncos\n\
+							vuelves para procesarlos.", "Cerrar", "");
+						return 1;
+					}
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+getRandomLetter()
+{
+    return 65 + random(25);
+}
+
+/*RotateDynamicObject(objectid, Float:rotX, Float:rotY, Float:rotZ, Float:Speed)
+{
+
+		Rotation Speeds:
+		0.01 - Very very slow speed
+		1.00 - Normal speed
+		5.00 - Fast speed
+
+	new Float:X, Float:Y, Float:Z;
+	new Float:SpeedConverted = floatdiv(floatmul(Speed, 0.01), 2);
+
+	if (IsDynamicObjectMoving(objectid)) StopDynamicObject(objectid);
+	GetDynamicObjectPos(objectid, X, Y, Z);
+	SetDynamicObjectPos(objectid, X, Y, Z + 0.01);
+	MoveDynamicObject(objectid, X, Y, Z, SpeedConverted, rotX, rotY, rotZ);
+	return 1;
+}*/
+
+Float:frandom(Float:max, Float:min, dp)
+{
+	new
+		Float:mul = floatpower(10.0, dp),
+		imin = floatround(min * mul),
+		imax = floatround(max * mul);
+	return float(random(imax - imin) + imin) / mul;
+}
+
+SavePlayerWeaponsData(playerid)
+{
+  	if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
+  	
+  	for(new i = 0; i != 13; i ++)
+  	{
+    	if (!PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]) continue;
+
+    	new DB_Query[128];
+    	format(DB_Query, sizeof(DB_Query), "UPDATE `PLAYER_WEAPONS` SET `WEAPON_ID` = '%d', `AMMO` = '%d' WHERE `ID_WEAPON` = '%d';", PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO], PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]);
+    	db_free_result(db_query(Database, DB_Query));
+  	}
+  	return 1;
+}
+
+LoadPlayerWeaponsData(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[90];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d' LIMIT %d;", ACCOUNT_INFO[playerid][ac_ID], 13);
+	Result = db_query(Database, DB_Query);
+
+	new total;
+	for(new i; i < db_num_rows(Result); i++ )
+	{
+		if (total >= 13)
+		{
+			printf("[debug]  Límite superado en array 'PLAYER_WEAPONS' al intentar cargar de la base de datos.");
+			break;
+		}
+
+		new weapon_id = db_get_field_assoc_int(Result, "WEAPON_ID");
+
+		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_VALID] = true;
+		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_DB_ID] = db_get_field_assoc_int(Result, "ID_WEAPON");
+		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
+		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = db_get_field_assoc_int(Result, "AMMO");
+		
+		if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] >= 10000)
+			PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = 100;
+
+		total ++;
+		db_next_row(Result);
+	}
+	db_free_result(Result);
+	return 1;
+}
+
+RemovePlayerSlotWeapon(playerid, slot, bool:db_delete = false)
+{
+	PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY] = gettime() + 3;
+
+	if (db_delete)
+	{
+		new DB_Query[140];
+		format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d' AND `ID_WEAPON` = '%d';", ACCOUNT_INFO[playerid][ac_ID], PLAYER_WEAPONS[playerid][slot][player_weapon_DB_ID]);
+		db_free_result(db_query(Database, DB_Query));
+	}
+
+	new current_weapon = GetPlayerWeapon(playerid);
+	if (current_weapon == PLAYER_WEAPONS[playerid][slot][player_weapon_ID]) current_weapon = 0;
+
+	PLAYER_WEAPONS[playerid][slot][player_weapon_VALID] = false;
+	PLAYER_WEAPONS[playerid][slot][player_weapon_DB_ID] = 0;
+	PLAYER_WEAPONS[playerid][slot][player_weapon_ID] = 0;
+	PLAYER_WEAPONS[playerid][slot][player_weapon_AMMO] = 0;
+
+	SetPlayerArmedWeapon(playerid, current_weapon);
+	SavePlayerWeaponsData(playerid);
+	return 1;
+}
+
+SetPlayerHealthEx(playerid, Float:health)
+{
+	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY] = gettime() + 3;
+
+	CHARACTER_INFO[playerid][ch_HEALTH] = health;
+	Player_SetHealth(playerid, floatround(CHARACTER_INFO[playerid][ch_HEALTH]));
+	return 1;
+}
+
+SetPlayerArmourEx(playerid, Float:armour)
+{
+	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_IMMUNITY] = gettime() + 3;
+
+	CHARACTER_INFO[playerid][ch_ARMOUR] = armour;
+	Player_SetArmour(playerid, floatround(CHARACTER_INFO[playerid][ch_ARMOUR]));
+	return 1;
+}
+
+GivePlayerHealthEx(playerid, Float:health)
+{
+	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY] = gettime() + 3;
+
+	CHARACTER_INFO[playerid][ch_HEALTH] += health;
+	if (CHARACTER_INFO[playerid][ch_HEALTH] > 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
+	Player_SetHealth(playerid, floatround(CHARACTER_INFO[playerid][ch_HEALTH]));
+	return 1;
+}
+
+TransferPlayerWeapon(from_playerid, slot, to_playerid)
+{
+	new DB_Query[130];
+	format(DB_Query, sizeof(DB_Query), "UPDATE `PLAYER_WEAPONS` SET `ID_USER` = '%d' WHERE `ID_WEAPON` = '%d';", ACCOUNT_INFO[to_playerid][ac_ID], PLAYER_WEAPONS[from_playerid][slot][player_weapon_DB_ID]);
+	db_free_result(db_query(Database, DB_Query));
+
+	PLAYER_WEAPONS[to_playerid][slot][player_weapon_VALID] = true;
+	PLAYER_WEAPONS[to_playerid][slot][player_weapon_DB_ID] = PLAYER_WEAPONS[from_playerid][slot][player_weapon_DB_ID];
+	PLAYER_WEAPONS[to_playerid][slot][player_weapon_ID] = PLAYER_WEAPONS[from_playerid][slot][player_weapon_ID];
+	PLAYER_WEAPONS[to_playerid][slot][player_weapon_AMMO] = PLAYER_WEAPONS[from_playerid][slot][player_weapon_AMMO];
+	//SetWeaponsForPlayer(to_playerid);
+
+	RemovePlayerSlotWeapon(from_playerid, slot);
+	return 1;
+}
+
+PlayerPayday(playerid)
+{
+	if (IsPlayerPaused(playerid)) return 0;
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
+	
+	//GivePlayerReputation(playerid);
+
+	new 
+		str_payday[364],
+		str_temp[64],
+		total_secures_vehicles,
+		total_secures_property,
+		money = 300 * ACCOUNT_INFO[playerid][ac_LEVEL];
+
+	if (money > 4500) money = 4500;
+	money += minrand(100, 200);
+
+
+	for(new i = 0; i < MAX_CLUBS; i++)
+	{
+		if (CLUBS_INFO[i][club_USER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+		{
+			CLUBS_INFO[i][club_BALANCE] += minrand(2000, 5000);
+
+			new DB_Query[164];
+			format(DB_Query, sizeof(DB_Query), "\
+				UPDATE `CLUB_INFO` SET\
+					`BALANCE` = '%d' \
+				WHERE `ID` = '%d';\
+			", CLUBS_INFO[i][club_BALANCE], CLUBS_INFO[i][club_ID]);
+			db_free_result(db_query(Database, DB_Query));
+		}
+	}
+
+	format(str_payday, sizeof(str_payday), "~g~Paga de juego~w~~n~General: ~y~%s$~w~", number_format_thousand(money));
+
+	if (ACCOUNT_INFO[playerid][ac_SU] < 2)
+	{
+		for(new i = 0; i != MAX_VEHICLES; i ++)
+		{
+			if (!PLAYER_VEHICLES[i][player_vehicle_VALID]) continue;
+			if (PLAYER_VEHICLES[i][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) continue;
+
+			new veh_money = VEHICLE_INFO[GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400][vehicle_info_PRICE] / 100;
+			money -= veh_money;
+
+			total_secures_vehicles += veh_money;
+		}
+
+		for(new i = 0; i != MAX_PROPERTIES; i ++)
+		{
+			if (!PROPERTY_INFO[i][property_VALID]) continue;
+			if (PROPERTY_INFO[i][property_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) continue;
+
+			if (!PROPERTY_INFO[i][property_VIP_LEVEL])
+			{
+				new property_money = PROPERTY_INFO[i][property_PRICE_BASE] / 200;
+				money -= property_money;
+
+				total_secures_property += property_money;
+			}
+		}
+		format(str_temp, sizeof(str_temp), "~n~Vehículos: ~r~-%s$~w~~n~Propiedades: ~r~-%s$~w~", number_format_thousand(total_secures_vehicles), number_format_thousand(total_secures_property));
+		strcat(str_payday, str_temp);
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_POLICE])
+	{
+		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_POLICE]);
+		money += work_payment;
+
+		format(str_temp, sizeof(str_temp), "~n~SAPD: ~g~%s$~w~", number_format_thousand(work_payment));
+		strcat(str_payday, str_temp);
+	}
+
+	if (PlayerIsInMafia(playerid))
+	{
+		new mafia = GetPlayerMafia(playerid);
+
+		new work_payment = (4000 * PLAYER_SKILLS[playerid][mafia]);
+
+		money += work_payment;
+
+		for (new i; i < sizeof(DEALER_INFO); i++)
+		{
+			if (DEALER_INFO[i][dl_MAFIA] == mafia)
+				money += minrand(500, 1000);
+		}
+
+		format(str_temp, sizeof(str_temp), "~n~Mafia: ~g~%s$~w~", number_format_thousand(work_payment));
+		strcat(str_payday, str_temp);
+	}
+
+	if (PLAYER_CREW[playerid][player_crew_VALID] && CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT] > 0)
+	{
+		new graffiti_payment = 200 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT];
+
+		money += graffiti_payment;
+
+		format(str_temp, sizeof(str_temp), "~n~Graffitis (%d): ~g~%s$~w~", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT], number_format_thousand(graffiti_payment));
+		strcat(str_payday, str_temp);	
+	}
+
+	if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT] > 0)
+	{
+		new market_payment = 1000 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT];
+
+		money += market_payment;
+
+		format(str_temp, sizeof(str_temp), "~n~Mercados (%d): ~g~%s$~w~", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT], number_format_thousand(market_payment));
+		strcat(str_payday, str_temp);	
+	}
+
+	if (money + CHARACTER_INFO[playerid][ch_CASH] <= 0)
+	{
+		money = 0;
+		CHARACTER_INFO[playerid][ch_CASH] = 0;
+	}
+
+	if (ACCOUNT_INFO[playerid][ac_SU] >= 2)
+	{
+		money += minrand(8000, 15000);
+	}
+
+	if (money > 0) format(str_temp, sizeof(str_temp), "~n~RESUMEN: ~g~%s$~w~", number_format_thousand(money));
+	else format(str_temp, sizeof(str_temp), "~n~RESUMEN: ~g~%s$~w~", number_format_thousand(money));
+
+	strcat(str_payday, str_temp);
+
+	ShowPlayerNotification(playerid, str_payday, 6, false);
+	GivePlayerCash(playerid, money);
+	return 1;
+}
+
+/*GetIconTextdraw(iconid)
+{
+	new td_icon[24];
+
+	switch(iconid)
+	{
+		case 2: td_icon = "hud:radar_centre";
+		case 3: td_icon = "hud:arrow";
+		case 4: td_icon = "hud:radar_north";
+		case 5: td_icon = "hud:radar_airyard";
+		case 6: td_icon = "hud:radar_ammugun";
+		case 7: td_icon = "hud:radar_barbers";
+		case 8: td_icon = "hud:radar_bigsmoke";
+		case 9: td_icon = "hud:radar_boatyard";
+		case 10: td_icon = "hud:radar_burgershot";
+		case 11: td_icon = "hud:radar_bulldozer";
+		case 12: td_icon = "hud:radar_catalinapink";
+		case 13: td_icon = "hud:radar_cesarviapando";
+		case 14: td_icon = "hud:radar_chicken";
+		case 15: td_icon = "hud:radar_cj";
+		case 16: td_icon = "hud:radar_crash1";
+		case 17: td_icon = "hud:radar_diner";
+		case 18: td_icon = "hud:radar_emmetgun";
+		case 19: td_icon = "hud:radar_enemyattack";
+		case 20: td_icon = "hud:radar_fire";
+		case 21: td_icon = "hud:radar_girlfriend";
+		case 22: td_icon = "hud:radar_hostpital";
+		case 23: td_icon = "hud:radar_locosyndicate";
+		case 24: td_icon = "hud:radar_maddog";
+		case 25: td_icon = "hud:radar_mafiacasino";
+		case 26: td_icon = "hud:radar_mcstrap";
+		case 27: td_icon = "hud:radar_modgarage";
+		case 28: td_icon = "hud:radar_ogloc";
+		case 29: td_icon = "hud:radar_pizza";
+		case 30: td_icon = "hud:radar_police";
+		case 31: td_icon = "hud:radar_propertyg";
+		case 32: td_icon = "hud:radar_propertyr";
+		case 33: td_icon = "hud:radar_race";
+		case 34: td_icon = "hud:radar_ryder";
+		case 35: td_icon = "hud:radar_savegame";
+		case 36: td_icon = "hud:radar_school";
+		case 37: td_icon = "hud:radar_qmark";
+		case 38: td_icon = "hud:radar_sweet";
+		case 39: td_icon = "hud:radar_tattoo";
+		case 40: td_icon = "hud:radar_thetruth";
+		case 41: td_icon = "hud:radar_waypoint";
+		case 42: td_icon = "hud:radar_toreno";
+		case 43: td_icon = "hud:radar_triads";
+		case 44: td_icon = "hud:radar_triadscasino";
+		case 45: td_icon = "hud:radar_tshirt";
+		case 46: td_icon = "hud:radar_woozie";
+		case 47: td_icon = "hud:radar_zero";
+		case 48: td_icon = "hud:radar_datedisco";
+		case 49: td_icon = "hud:radar_datedrink";
+		case 50: td_icon = "hud:radar_datefood";
+		case 51: td_icon = "hud:radar_truck";
+		case 52: td_icon = "hud:radar_cash";
+		case 53: td_icon = "hud:radar_flag";
+		case 54: td_icon = "hud:radar_gym";
+		case 55: td_icon = "hud:radar_impound";
+		case 56: td_icon = "hud:radar_light";
+		case 57: td_icon = "hud:radar_runway";
+		case 58: td_icon = "hud:radar_gangb";
+		case 59: td_icon = "hud:radar_gangp";
+		case 60: td_icon = "hud:radar_gangy";
+		case 61: td_icon = "hud:radar_gangn";
+		case 62: td_icon = "hud:radar_gangg";
+		case 63: td_icon = "hud:radar_spray";
+	}
+
+	return td_icon;
+}*/
+
+RegisterNewPlayerWeapon(playerid, weapon_slot)
+{
+	new DBResult:Result, DB_Query[380];
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `PLAYER_WEAPONS` (`ID_USER`, `WEAPON_ID`, `AMMO`) VALUES ('%d', '%d', '%d');\
+		SELECT MAX(`ID_WEAPON`) FROM `PLAYER_WEAPONS`;\
+	",
+		ACCOUNT_INFO[playerid][ac_ID], PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID], PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_AMMO]
+	);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result)) PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_DB_ID] = db_get_field_int(Result, 0);
+	db_free_result(Result);
+	return 1;
+}
+
+GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7, bool:equip = false)
+{
+	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
+	else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;
+
+	PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY] = gettime() + 3;
+
+	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_VALID] = true;
+	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
+	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_COLOR] = color;
+
+	if (equip)
+	{
+		ResetPlayerWeapons(playerid);
+		GivePlayerWeapon(playerid, weapon_id, ammo);
+		SetPlayerArmedWeapon(playerid, weapon_id);
+	}
+
+	SavePlayerWeaponsData(playerid);
+	return 1;
+}
+
+ResetPlayerWeaponsEx(playerid)
+{
+	new tmp_PLAYER_WEAPONS[enum_PLAYER_WEAPONS];
+	for(new i = 0; i != 13; i ++) PLAYER_WEAPONS[playerid][i] = tmp_PLAYER_WEAPONS;
+
+	ResetPlayerWeapons(playerid);
+	ResetItemBody(playerid);
+	return 1;
+}
+
+ShowPlayerInventory(playerid, pid)
+{
+	if (!IsPlayerConnected(pid)) return 0;
+	if (ACCOUNT_INFO[pid][ac_ID] == 0) return 0;
+
+	new caption[48];
+	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
+
+	new dialog[364], line_str[128];
+
+	format(line_str, sizeof line_str, ""COL_WHITE"Dinero: "COL_GREEN"%s$"COL_WHITE"\n", number_format_thousand(CHARACTER_INFO[pid][ch_CASH]));
+	strcat(dialog, line_str);
+
+	if (PLAYER_PHONE[pid][player_phone_VALID])
+	{
+		format(line_str, sizeof line_str, "Teléfono: %d"COL_WHITE"\n", PLAYER_PHONE[pid][player_phone_NUMBER]);
+		strcat(dialog, line_str);
+	}
+
+	new player_weapons = CountPlayerWeapons(pid);
+	if (player_weapons > 0)
+	{
+		for(new i; i != 13; i ++)
+		{
+			if (!PLAYER_WEAPONS[pid][i][player_weapon_VALID]) continue;
+
+			format(line_str, sizeof line_str, ""COL_WHITE"%s | Slot "COL_RED"%d"COL_WHITE"\n", WEAPON_INFO[ PLAYER_WEAPONS[pid][i][player_weapon_ID] ][weapon_info_NAME], i);
+			strcat(dialog, line_str);
+		}
+	}
+
+	if (PLAYER_MISC[pid][MISC_SEED_CANNABIS] > 0)
+	{
+		format(line_str, sizeof line_str, "Semillas Marihuana: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_SEED_CANNABIS]);
+		strcat(dialog, line_str);
+	}
+
+	if (PLAYER_MISC[pid][MISC_SEED_CRACK] > 0)
+	{
+		format(line_str, sizeof line_str, "Semillas Coca: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_SEED_CRACK]);
+		strcat(dialog, line_str);
+	}
+
+	if (PLAYER_MISC[pid][MISC_CANNABIS] > 0)
+	{
+		format(line_str, sizeof line_str, "Marihuana: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_CANNABIS]);
+		strcat(dialog, line_str);
+	}
+
+	if (PLAYER_MISC[pid][MISC_CRACK] > 0)
+	{
+		format(line_str, sizeof line_str, "Crack: "COL_YELLOW"%d"COL_WHITE"\n", PLAYER_MISC[pid][MISC_CRACK]);
+		strcat(dialog, line_str);
+	}
+
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
+	return 1;
+}
+
+/*CountPlayerToys(playerid)
+{
+	new toys;
+
+	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++)
+	{
+		if (PLAYER_TOYS[playerid][i][player_toy_VALID])
+		{
+			toys ++;
+		}
+	}
+	return toys;
+}
+
+CountPlayerPocketObjects(playerid)
+{
+	new objects;
+
+	for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++)
+	{
+		if (PLAYER_POCKET[playerid][i][player_pocket_VALID])
+		{
+			objects ++;
+		}
+	}
+	return objects;
+}*/
+
+CountPlayerWeapons(playerid)
+{
+	new weapons;
+
+	for(new i = 0; i != 13; i ++)
+	{
+		if (PLAYER_WEAPONS[playerid][i][player_weapon_VALID])
+		{
+			weapons ++;
+		}
+	}
+	return weapons;
+}
+
+ShowPlayerSkills(playerid, pid)
+{
+	if (!IsPlayerConnected(pid)) return 0;
+	if (ACCOUNT_INFO[pid][ac_ID] == 0) return 0;
+
+	new caption[48], line_str[80], dialog[sizeof line_str * (sizeof(work_info) + 5)];
+	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
+
+	for(new i = 1; i != sizeof work_info; i ++)
+	{
+		if (i == WORK_POLICE)
+		{
+			if (PLAYER_WORKS[playerid][WORK_POLICE])
+			{
+				format(line_str, sizeof line_str, ""COL_WHITE"%c%s: "COL_GREEN"%s\n", toupper(work_info[i][work_info_NAME][0]), work_info[i][work_info_NAME][1], POLICE_RANKS[PLAYER_SKILLS[pid][i]]);
+				strcat(dialog, line_str);
+			}
+		}
+		else
+		{
+			format(line_str, sizeof line_str, ""COL_WHITE"%c%s: "COL_GREEN"%s\n", toupper(work_info[i][work_info_NAME][0]), work_info[i][work_info_NAME][1], number_format_thousand(PLAYER_SKILLS[pid][i]));
+			strcat(dialog, line_str);
+		}
+	}
+
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
+	return 1;
+}
+
+ConvertTime_SecondsToHoursFloat(sec, &Float:hours)
+{
+	hours = floatdiv(float(sec), 3600);
+	return 1;
+}
+
+ActiveGeolocation(playerid)
+{
+	if (PLAYER_MISC[playerid][MISC_GEO])
+	{
+		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar el geolocalizador.", 3);
+		if ((gettime() - PLAYER_TEMP[playerid][py_LAST_GEO_USE]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 5 minutos para volver a hacer eso.", 4);
+		
+		if (PLAYER_CREW[playerid][player_crew_VALID])
+		{
+			new 
+				city[45],
+				zone[45],
+				message[144]
+			;
+
+			GetPlayerZones(playerid, city, zone);
+			format(message, sizeof message, "~r~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+
+		 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			{
+				if (IsPlayerConnected(i))
+				{
+					if (PLAYER_CREW[i][player_crew_VALID])
+					{
+						if (PLAYER_CREW[i][player_crew_ID] == PLAYER_CREW[playerid][player_crew_ID])
+						{
+							SetPlayerMarkerForPlayer(i, playerid, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);
+							ShowPlayerNotification(i, message, 4);
+						}
+					}
+				}
+			}
+
+		 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+			PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableGangRefMark", 120000, false, "i", playerid);
+			PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
+			return 1;
+		}
+
+		if (PlayerIsInMafia(playerid))
+		{
+			new 
+				city[45],
+				zone[45],
+				message[144],
+				mafia = GetPlayerMafia(playerid)
+			;
+
+			GetPlayerZones(playerid, city, zone);
+			format(message, sizeof message, "~r~%s~w~: refuerzos en %s.", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+
+		 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			{
+				if (IsPlayerConnected(i))
+				{
+					if (PLAYER_WORKS[i][mafia])
+					{
+						SetPlayerMarkerForPlayer(i, playerid, GetMafiaColor(mafia));
+						ShowPlayerNotification(i, message, 4);
+					}
+				}
+			}
+
+		 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+			PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("DisableMafiaRefMark", 120000, false, "i", playerid);
+			PLAYER_TEMP[playerid][py_LAST_GEO_USE] = gettime();
+			return 1;
+		}
+	}
+	else ShowPlayerMessage(playerid, "~r~No tienes un geolocalizador.", 4);
+	return 1;
+}
+
+SetMechanicPlayerMarkers(playerid)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				if (PLAYER_TEMP[i][py_WANT_MECHANIC])
+				{
+					SetPlayerMarkerForPlayer(playerid, i, 0xf4c242FF);
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+SetMedicPlayerMarkers(playerid)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_WANT_MEDIC])
+			{
+				SetPlayerMarkerForPlayer(playerid, i, COLOR_GREEN);
+			}
+		}
+	}
+	return 1;
+}
+
+SendAlertToMedics(playerid)
+{
+	if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_AMBULANCE]) < 60) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 60 segundos para volver a hacer esto.", 3);
+
+	new
+		Float:x, Float:y, Float:z,
+		str_text[128],
+		total_medics = 0
+	;
+
+	GetPlayerPos(playerid, x, y, z);
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (i == playerid) continue;
+			if (!PLAYER_WORKS[i][WORK_MEDIC]) continue;
+			if (PLAYER_TEMP[i][py_WORKING_IN] != WORK_MEDIC) continue;
+
+			SetPlayerMarkerForPlayer(i, playerid, COLOR_GREEN);
+			format(str_text, sizeof(str_text), "~g~%s~w~ esta solicitando ayuda (%.2f Km).", PLAYER_TEMP[playerid][py_NAME], (GetPlayerDistanceFromPoint(i, x, y, z) * 0.01));
+			ShowPlayerNotification(i, str_text, 4);
+
+			total_medics ++;
+		}
+	}
+
+	format(str_text, sizeof(str_text), "Has solicitado una ambulancia~n~Médicos activos: ~y~%d", total_medics);
+	ShowPlayerMessage(playerid, str_text, 5);
+	PLAYER_TEMP[playerid][py_WANT_MEDIC] = true;
+	PLAYER_TEMP[playerid][py_LIMIT_AMBULANCE] = gettime();
+	return 1;
+}
+
+SendAlertToMechanic(playerid)
+{
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(playerid, x, y, z);
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				if (i == playerid) continue;
+				if (!PLAYER_WORKS[i][WORK_MECHANIC]) continue;
+				if (PLAYER_TEMP[i][py_WORKING_IN] != WORK_MECHANIC) continue;
+
+				SetPlayerMarkerForPlayer(i, playerid, 0xf4c242FF);
+				ShowPlayerMessage(i, "~y~Hay un nuevo cliente solicitando un mecánico.", 2);
+				SendClientMessageEx(i, COLOR_WHITE, "Hay un nuevo cliente solicitando un mecánico, distancia: "COL_RED"%.2f Km.", (GetPlayerDistanceFromPoint(i, x, y, z) * 0.01));
+			}
+		}
+	}
+	return 1;
+}
+
+DisablePlayerMechanicMark(playerid)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				if (i == playerid) continue;
+				if (!PLAYER_WORKS[i][WORK_MECHANIC]) continue;
+				if (PLAYER_TEMP[i][py_WORKING_IN] != WORK_MECHANIC) continue;
+
+				SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
+			}
+		}
+	}
+	return 1;
+}
+
+DisablePlayerMedicMark(playerid)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (i == playerid) continue;
+			if (!PLAYER_WORKS[i][WORK_MEDIC]) continue;
+			if (PLAYER_TEMP[i][py_WORKING_IN] != WORK_MEDIC) continue;
+
+			SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
+		}
+	}
+
+	PLAYER_TEMP[playerid][py_WANT_MEDIC] = false;
+	return 1;
+}
+
+SetNormalPlayerMarkers(playerid)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			SetPlayerMarkerForPlayer(playerid, i, PLAYER_TEMP[i][py_PLAYER_COLOR]);
+		}
+	}
+	return 1;
+}
+
+SavePlayerWorks(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DB_Query[150];
+	format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WORKS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	db_free_result(db_query(Database, DB_Query));
+
+	for(new i = 1; i != sizeof(PLAYER_WORKS[]); i ++)
+	{
+		DB_Query[0] = EOS;
+		format(DB_Query, sizeof DB_Query, "INSERT INTO `PLAYER_WORKS` (`ID_USER`, `ID_WORK`, `SET`) VALUES ('%d', '%d', '%d');", ACCOUNT_INFO[playerid][ac_ID], i, PLAYER_WORKS[playerid][i]);
+		db_free_result(db_query(Database, DB_Query));
+	}
+	return 1;
+}
+
+LoadPlayerCrewInfo(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[90], bool:found;
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_CREW` WHERE `ID_USER` = '%d' LIMIT 1;", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		PLAYER_CREW[playerid][player_crew_VALID] = true;
+		PLAYER_CREW[playerid][player_crew_ID] = db_get_field_assoc_int(Result, "ID_CREW");
+		PLAYER_CREW[playerid][player_crew_RANK] = db_get_field_assoc_int(Result, "RANK");
+
+		for(new i = 0; i != MAX_CREWS; i ++)
+		{
+			if (!CREW_INFO[i][crew_VALID]) continue;
+
+			if (CREW_INFO[i][crew_ID] == PLAYER_CREW[playerid][player_crew_ID])
+			{
+				PLAYER_CREW[playerid][player_crew_INDEX] = i;
+				CREW_INFO[i][crew_ONLINE_MEMBERS] ++;
+				found = true;
+				break;
+			}
+		}
+
+		if (!found)
+		{
+			PLAYER_CREW[playerid][player_crew_VALID] = false;
+			PLAYER_CREW[playerid][player_crew_ID] = 0;
+			PLAYER_CREW[playerid][player_crew_RANK] = 0;
+			PLAYER_CREW[playerid][player_crew_INDEX] = 0;
+			ShowPlayerMessage(playerid, "~r~La banda a la que pertenecías ya no existe.", 3);
+
+			format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_CREW` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+			db_free_result(db_query(Database, DB_Query));
+		}
+	}
+	else PLAYER_CREW[playerid][player_crew_VALID] = false;
+	db_free_result(Result);
+	return 1;
+}
+
+LoadPlayerWorks(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[90], player_works, bool:affected;
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_WORKS` WHERE `ID_USER` = '%d' LIMIT %d;", ACCOUNT_INFO[playerid][ac_ID], sizeof(PLAYER_WORKS[]));
+	Result = db_query(Database, DB_Query);
+
+	for(new i; i < db_num_rows(Result); i++ )
+	{
+		new work = db_get_field_assoc_int(Result, "ID_WORK");
+		PLAYER_WORKS[playerid][work] = db_get_field_assoc_int(Result, "SET");
+		if (PLAYER_WORKS[playerid][work])
+		{
+			if (!ACCOUNT_INFO[playerid][ac_SU])
+			{
+				if (player_works >= MAX_NU_WORKS)
+				{
+					affected = true;
+					PLAYER_WORKS[playerid][work] = false;
+					break;
+				}
+			}
+			player_works ++;
+		}
+
+		db_next_row(Result);
+	}
+	db_free_result(Result);
+
+	if (affected) SavePlayerWorks(playerid);
+	return 1;
+}
+
+SavePlayerSkills(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DB_Query[150];
+	format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_SKILLS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	db_free_result(db_query(Database, DB_Query));
+
+	for(new i = 1; i != sizeof(PLAYER_SKILLS[]); i ++)
+	{
+		DB_Query[0] = EOS;
+		format(DB_Query, sizeof DB_Query, "INSERT INTO `PLAYER_SKILLS` (`ID_USER`, `ID_WORK`, `TOTAL`) VALUES ('%d', '%d', '%d');", ACCOUNT_INFO[playerid][ac_ID], i, PLAYER_SKILLS[playerid][i]);
+		db_free_result(db_query(Database, DB_Query));
+	}
+	return 1;
+}
+
+LoadPlayerSkills(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[90];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_SKILLS` WHERE `ID_USER` = '%d' LIMIT %d;", ACCOUNT_INFO[playerid][ac_ID], sizeof(PLAYER_SKILLS[]));
+	Result = db_query(Database, DB_Query);
+
+	for(new i; i < db_num_rows(Result); i++ )
+	{
+		new work = db_get_field_assoc_int(Result, "ID_WORK");
+		PLAYER_SKILLS[playerid][work] = db_get_field_assoc_int(Result, "TOTAL");
+		db_next_row(Result);
+	}
+	db_free_result(Result);
+	return 1;
+}
+
+SavePlayerMisc(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DB_Query[150];
+	format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_MISC` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	db_free_result(db_query(Database, DB_Query));
+
+	safe_db_query("BEGIN TRANSACTION");
+	for(new i = 0; i != sizeof(PLAYER_MISC[]); i ++)
+	{
+		DB_Query[0] = EOS;
+		format(DB_Query, sizeof DB_Query, "INSERT INTO `PLAYER_MISC` (`ID_USER`, `ID`, `EXTRA`) VALUES ('%d', '%d', '%d');", ACCOUNT_INFO[playerid][ac_ID], i, PLAYER_MISC[playerid][E_MISC_DATA:i]);
+		db_free_result(db_query(Database, DB_Query));
+	}
+	safe_db_query("END TRANSACTION");
+	return 1;
+}
+
+LoadPlayerMisc(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[90];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_MISC` WHERE `ID_USER` = '%d' LIMIT %d;", ACCOUNT_INFO[playerid][ac_ID], sizeof(PLAYER_MISC[]));
+	Result = db_query(Database, DB_Query);
+
+	for(new i; i < db_num_rows(Result); i++ )
+	{
+		new index = db_get_field_assoc_int(Result, "ID");
+		PLAYER_MISC[playerid][E_MISC_DATA:index] = db_get_field_assoc_int(Result, "EXTRA");
+		db_next_row(Result);
+	}
+	db_free_result(Result);
+	return 1;
+}
+
+/*ConvertTime_SecondsToHours(sec, &hours, &minutes, &seconds)
+{
+	hours = floatround(sec / 3600);
+	minutes = floatround((sec - (hours * 3600)) / 60);
+	seconds = sec % 60;
+	return 1;
+}*/
+
+GivePlayerReputation(playerid, ammount = 1, bool:message = true)
+{
+	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
+	if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
+	{
+		ACCOUNT_INFO[playerid][ac_REP] += ammount;
+		
+		if (message)
+		{
+			new str_text[64];
+			format(str_text, sizeof(str_text), "EXP~n~~w~+%d", ammount);
+			ShowPlayerAlert(playerid, str_text, 0xdf23f9FF, 4);
+		}
+
+		if (ACCOUNT_INFO[playerid][ac_REP] >= neccessary_rep) NextLevel(playerid);
+		return 1;
+	}
+	return 0;
+}
+
+ResetGraffitiTextdraw()
+{
+	TextDrawDestroy(Textdraws[textdraw_GRAFFITI_PLUS][1]);
+	TextDrawDestroy(Textdraws[textdraw_GRAFFITI_PLUS][3]);
+	TextDrawDestroy(Textdraws[textdraw_GRAFFITI_PLUS][4]);
+
+	Textdraws[textdraw_GRAFFITI_PLUS][1] = TextDrawCreate(501.500000, 140.766708, "_");
+	TextDrawLetterSize(Textdraws[textdraw_GRAFFITI_PLUS][1], 0.206498, 1.211886);
+	TextDrawTextSize(Textdraws[textdraw_GRAFFITI_PLUS][1], 610.000000, 0.409999);
+	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
+	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][1], -1);
+	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x000000EE);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
+	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x000000EE);
+	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
+	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
+
+	Textdraws[textdraw_GRAFFITI_PLUS][3] = TextDrawCreate(501.500000, 156.322280, "_");
+	TextDrawLetterSize(Textdraws[textdraw_GRAFFITI_PLUS][3], 0.206497, 1.211886);
+	TextDrawTextSize(Textdraws[textdraw_GRAFFITI_PLUS][3], 610.000000, 0.409999);
+	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
+	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][3], -1);
+	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x000000EE);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
+	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x000000EE);
+	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
+	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
+
+	Textdraws[textdraw_GRAFFITI_PLUS][4] = TextDrawCreate(501.500000, 171.877853, "_");
+	TextDrawLetterSize(Textdraws[textdraw_GRAFFITI_PLUS][4], 0.206497, 1.211886);
+	TextDrawTextSize(Textdraws[textdraw_GRAFFITI_PLUS][4], 610.000000, 0.409999);
+	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
+	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][4], -1);
+	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x000000EE);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
+	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x000000EE);
+	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
+	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
+	return 1;
+}
+
+SetMarketTextdraw()
+{
+	TextDrawDestroy(Textdraws[textdraw_GRAFFITI_PLUS][1]);
+	TextDrawDestroy(Textdraws[textdraw_GRAFFITI_PLUS][3]);
+	TextDrawDestroy(Textdraws[textdraw_GRAFFITI_PLUS][4]);
+
+	Textdraws[textdraw_GRAFFITI_PLUS][1] = TextDrawCreate(501.500000, 140.766708, "_");
+	TextDrawLetterSize(Textdraws[textdraw_GRAFFITI_PLUS][1], 0.206498, 1.211886);
+	TextDrawTextSize(Textdraws[textdraw_GRAFFITI_PLUS][1], 610.000000, 0.409999);
+	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
+	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][1], -1);
+	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x000000EE);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
+	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][1], 0x000000EE);
+	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
+	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][1], 1);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][1], 0);
+
+	Textdraws[textdraw_GRAFFITI_PLUS][3] = TextDrawCreate(501.500000, 167.522293, "_");
+	TextDrawLetterSize(Textdraws[textdraw_GRAFFITI_PLUS][3], 0.206497, 1.211886);
+	TextDrawTextSize(Textdraws[textdraw_GRAFFITI_PLUS][3], 610.000000, 0.409999);
+	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
+	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][3], -1);
+	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x000000EE);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
+	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][3], 0x000000EE);
+	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
+	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][3], 1);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][3], 0);
+
+	Textdraws[textdraw_GRAFFITI_PLUS][4] = TextDrawCreate(501.500000, 194.277877, "_");
+	TextDrawLetterSize(Textdraws[textdraw_GRAFFITI_PLUS][4], 0.206497, 1.211886);
+	TextDrawTextSize(Textdraws[textdraw_GRAFFITI_PLUS][4], 610.000000, 0.409999);
+	TextDrawAlignment(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
+	TextDrawColor(Textdraws[textdraw_GRAFFITI_PLUS][4], -1);
+	TextDrawUseBox(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
+	TextDrawBoxColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x000000EE);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
+	TextDrawSetOutline(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
+	TextDrawBackgroundColor(Textdraws[textdraw_GRAFFITI_PLUS][4], 0x000000EE);
+	TextDrawFont(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
+	TextDrawSetProportional(Textdraws[textdraw_GRAFFITI_PLUS][4], 1);
+	TextDrawSetShadow(Textdraws[textdraw_GRAFFITI_PLUS][4], 0);
+	return 1;
+}
+
+NextLevel(playerid)
+{
+	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
+	if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep) return 0;
+	GivePlayerCash(playerid, (ACCOUNT_INFO[playerid][ac_LEVEL] * 150));
+
+	ACCOUNT_INFO[playerid][ac_REP] = 1;
+	ACCOUNT_INFO[playerid][ac_LEVEL] ++;
+	//UpdateReputationTextDraws(playerid);
+	SetPlayerSkillLevels(playerid);
+
+	ShowPlayerNotification(playerid, sprintf("~r~SUBISTE DE NIVEL~w~~n~Felicidades, has subido al nivel %d.", ACCOUNT_INFO[playerid][ac_LEVEL]), 5);
+	SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
+
+	new str_text[64];
+	format(str_text, sizeof(str_text), "LVL~n~~w~%d", ACCOUNT_INFO[playerid][ac_LEVEL]);
+	ShowPlayerAlert(playerid, str_text, 0xF7AF30FF, 4);
+
+	ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
+	PLAYER_TEMP[playerid][py_TIME_PASSED_LAST_REP] = gettime() * 1000;
+
+
+	ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
+	PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
+	new DB_Query[256];
+	format(DB_Query, sizeof DB_Query,
+
+		"\
+			UPDATE `CUENTA` SET `TIME-PLAYING` = '%d', `LEVEL` = '%d', `REP` = '%d', `TIME_FOR_REP` = '%d', `PAYDAY_REP` = '%d' WHERE `ID` = '%d';\
+		",
+			ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID]
+	);
+	db_free_result(db_query(Database, DB_Query));
+
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][2]);
+	PLAYER_TEMP[playerid][py_TIMERS][2] = SetTimerEx("AddPlayerReputation", ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], false, "i", playerid);
+	return 1;
+}
+
+SetPlayerCash(playerid, ammount, bool:update = true)
+{
+	CHARACTER_INFO[playerid][ch_CASH] = ammount;
+	ResetPlayerMoney(playerid);
+	GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
+
+	if (update)
+	{
+		new DB_Query[160];
+		format(DB_Query, sizeof DB_Query, "UPDATE `PERSONAJE` SET `CASH` = '%d' WHERE `ID_USER` = '%d';", CHARACTER_INFO[playerid][ch_CASH], ACCOUNT_INFO[playerid][ac_ID]);
+		db_free_result(db_query(Database, DB_Query));
+	}
+	return 1;
+}
+
+GivePlayerCash(playerid, ammount, bool:update = true, bool:game_text = true)
+{
+	if (game_text)
+	{
+		new str_text[128];
+
+		format(str_text, sizeof(str_text), "~w~=%d$", ammount);
+
+		if (ammount >= 0)
+			format(str_text, sizeof(str_text), "~g~+%d$", ammount);
+
+		if (ammount < 0)
+			format(str_text, sizeof(str_text), "~r~%d$", ammount);
+		
+		GameTextForPlayer(playerid, str_text, 4000, 1);
+	}
+
+	CHARACTER_INFO[playerid][ch_CASH] += ammount;
+	ResetPlayerMoney(playerid);
+	GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
+
+	if (update)
+	{
+		new DB_Query[160];
+		format(DB_Query, sizeof DB_Query, "UPDATE `PERSONAJE` SET `CASH` = '%d' WHERE `ID_USER` = '%d';", CHARACTER_INFO[playerid][ch_CASH], ACCOUNT_INFO[playerid][ac_ID]);
+		db_free_result(db_query(Database, DB_Query));
+	}
+	return 1;
+}
+
+minrand(min, max)
+{
+	return random(max - min) + min;
+}
+
+SetIntroCamera(playerid)
+{
+	new RandomSelectCamera = random(16);
+    switch (RandomSelectCamera)
+    {
+		case 0:
+		{
+			InterpolateCameraPos(playerid, 1274.256958, -311.781494, 21.153951, 1240.965087, -484.300476, 39.420730, 60000);
+			InterpolateCameraLookAt(playerid, 1273.389160, -316.641235, 20.360445, 1239.888183, -489.105590, 40.287422, 60000);
+		}
+		case 1: 
+		{
+			InterpolateCameraPos(playerid, 1287.876098, -1423.913696, 31.946989, 1258.807373, -1320.270751, 27.389789, 60000);
+			InterpolateCameraLookAt(playerid, 1284.815307, -1420.031127, 31.200996, 1253.876220, -1320.266479, 26.562788, 60000);
+		}
+		case 2: 
+		{
+			InterpolateCameraPos(playerid, 1769.471069, -249.647293, 109.279930, 1691.584350, -260.034790, 106.816886, 60000);
+			InterpolateCameraLookAt(playerid, 1769.510375, -254.111862, 107.029129, 1692.093261, -264.530670, 104.688995, 60000);
+		}
+		case 3: 
+		{
+			InterpolateCameraPos(playerid, 1720.385375, -408.378967, 48.505195, 1692.704833, -507.576904, 45.646732, 60000);
+			InterpolateCameraLookAt(playerid, 1718.715576, -413.081634, 48.194107, 1693.375732, -512.531250, 45.581539, 60000);
+		}
+		case 4: 
+		{
+			InterpolateCameraPos(playerid, -2148.998291, 554.091186, 41.781066, -2080.489501, 576.044128, 42.103866, 60000);
+			InterpolateCameraLookAt(playerid, -2144.032714, 554.676452, 41.749816, -2075.490234, 576.056579, 42.181987, 60000);
+		}
+		case 5: 
+		{
+			InterpolateCameraPos(playerid, 2366.046875, 2169.605712, 14.282853, 2299.226318, 2147.148437, 24.365032, 60000);
+			InterpolateCameraLookAt(playerid, 2361.632080, 2167.424316, 15.149547, 2294.227783, 2147.205322, 24.470493, 60000);
+		}
+		case 6: 
+		{
+			InterpolateCameraPos(playerid, -2547.232666, -55.746692, 30.905969, -2530.718505, -4.454901, 29.586551, 60000);
+			InterpolateCameraLookAt(playerid, -2543.840820, -52.088130, 30.574182, -2526.174316, -6.474372, 29.064069, 60000);
+		}
+		case 7:
+		{
+			InterpolateCameraPos(playerid, 2098.958496, 15.110654, 28.771690, 2024.581176, -109.930915, 31.089904, 60000);
+			InterpolateCameraLookAt(playerid, 2100.868896, 10.701032, 27.391414, 2029.278564, -108.953018, 29.683368, 60000);
+		}
+		case 8:
+		{
+			InterpolateCameraPos(playerid, -1734.929931, 902.305664, 31.427259, -1778.646118, 942.846984, 33.246734, 60000);
+			InterpolateCameraLookAt(playerid, -1738.319702, 905.981201, 31.416751, -1783.565307, 943.661560, 33.618694, 60000);
+		}
+		case 9:
+		{
+			InterpolateCameraPos(playerid, 2343.193359, -1389.369506, 34.948970, 2402.278320, -1293.767578, 33.055675, 60000);
+			InterpolateCameraLookAt(playerid, 2347.229248, -1386.616943, 33.883308, 2403.856933, -1289.026489, 32.884151, 60000);
+		}
+		case 10:
+		{
+			InterpolateCameraPos(playerid, 2146.722656, -1321.355224, 30.315546, 2248.476318, -1280.461425, 36.017330, 60000);
+			InterpolateCameraLookAt(playerid, 2151.317871, -1319.432739, 30.748596, 2252.710693, -1277.804931, 35.904056, 60000);
+		}
+		case 11:
+		{
+			InterpolateCameraPos(playerid, 655.701904, -743.479614, 44.184524, 615.779602, -687.716979, 31.585304, 60000);
+			InterpolateCameraLookAt(playerid, 652.221130, -740.344055, 42.437351, 610.971923, -688.673645, 30.599927, 60000);
+		}
+		case 12:
+		{
+			InterpolateCameraPos(playerid, 872.725097, -999.728759, 57.511142, 857.525329, -914.929321, 72.688385, 60000);
+			InterpolateCameraLookAt(playerid, 873.292175, -994.777343, 57.913368, 858.913513, -910.260925, 73.819450, 60000);
+		}
+		case 13:
+		{
+			InterpolateCameraPos(playerid, 2507.652343, 2129.115478, 14.842836, 2459.415771, 2137.726318, 18.873964, 60000);
+			InterpolateCameraLookAt(playerid, 2503.152832, 2131.282958, 15.081345, 2456.733642, 2141.915039, 19.385107, 60000);
+		}
+		case 14:
+		{
+			InterpolateCameraPos(playerid, -2233.041015, 552.320617, 38.984733, -2172.366699, 558.488952, 42.372241, 5000);
+			InterpolateCameraLookAt(playerid, -2228.212402, 553.598388, 38.755554, -2169.340576, 562.466491, 42.225036, 5000);
+		}
+		case 15:
+		{
+			InterpolateCameraPos(playerid, 1828.665893, -1103.566162, 24.149976, 1781.768066, -1075.379638, 26.545591, 60000);
+			InterpolateCameraLookAt(playerid, 1824.796386, -1100.408447, 24.385477, 1776.871459, -1074.370727, 26.617115, 60000);
+		}
+    }
+
+    SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
+	SetPlayerWeather(playerid, SERVER_WEATHER);
+    return 1;
+}
+
+/*CheckBlockedWeapon(playerid, weapon_ip)
+{
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+	{
+		if (!PLAYER_WORKS[playerid][WORK_POLICE] && !PlayerIsInMafia(playerid) && !ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	  	{
+			new bool:blocked = false;
+			switch(weapon_ip)
+			{
+				case 31, 29, 23, 34, 24, 27, 30: blocked = true;
+			}
+
+			if (blocked)
+			{
+				ResetPlayerWeaponsEx(playerid);
+
+		    	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
+
+		    	new str[144];
+		    	format(str, 144, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		    	SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+		    	SendDiscordWebhook(str, 1);
+		    
+		    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
+		    	KickEx(playerid, 500);
+		  	}
+		}
+	}
+ 	return 1;
+}*/
+
+RegisterBankAccountTransaction(account_id, transaction_type, ammount, extra = -1)
+{
+	new DB_Query[215];
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `BANK_TRANSACTIONS` \
+		(\
+			`ID_ACCOUNT`, `TRANSACTION_TYPE`, `AMMOUNT`, `EXTRA`\
+		) \
+		VALUES \
+		(\
+			%d, %d, %d, %d\
+		);\
+	", account_id, transaction_type, ammount, extra);
+	db_free_result(db_query(Database, DB_Query));
+	return 1;
+}
+
+RegisterNewPlayer(playerid)
+{
+	if (PLAYER_TEMP[playerid][py_USER_EXIT]) return 0;
+
+	new DBResult:Result, DB_Query[900];
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `CUENTA` \
+		(\
+			`IP`, `NAME`, `EMAIL`, `GPCI`, `SALT`, `PASS`, `CONNECTED`, `PLAYERID`, `TIME_FOR_REP`\
+		) \
+		VALUES \
+		(\
+			'%q', '%q', '%q', '%q', '%q', '%q', 1, %d, %d\
+		);\
+		SELECT `ID`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` = '%q';\
+	", ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SERIAL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], playerid, TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_NAME]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		ACCOUNT_INFO[playerid][ac_ID] = db_get_field_assoc_int(Result, "ID");
+		db_get_field_assoc(Result, "LAST_CONNECTION", ACCOUNT_INFO[playerid][ac_LAST_CONNECTION], 24);
+		ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL] = true;
+	}
+	db_free_result(Result);
+
+	DB_Query[0] = EOS;
+	new DBResult:Result_reg;
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `REGISTRO`\
+		(\
+			`ID_USER`, `IP`, `NAME`, `EMAIL`, `SALT`, `PASS`\
+		)\
+		VALUES\
+		(\
+			'%d', '%q', '%q', '%q', '%q', '%q'\
+		);\
+		SELECT `DATE` FROM `REGISTRO` WHERE `ID_USER` = '%d';\
+	", ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_ID]);
+	Result_reg = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result_reg)) db_get_field_assoc(Result, "DATE", ACCOUNT_INFO[playerid][reg_DATE], 24);
+	db_free_result(Result_reg);
+
+
+	DB_Query[0] = EOS;
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `PERSONAJE`\
+		(\
+			`ID_USER`, `SKIN`, `CASH`, `POS_X`, `POS_Y`, `POS_Z`, `ANGLE`, `SEX`\
+		)\
+		VALUES\
+		(\
+			'%d', '%d', '%d', '%f', '%f', '%f', '%f', '%d'\
+		);\
+	", ACCOUNT_INFO[playerid][ac_ID], CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_CASH], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_SEX]);
+	db_free_result(db_query(Database, DB_Query));
+
+	DB_Query[0] = EOS;
+	format(DB_Query, sizeof DB_Query, "INSERT INTO `PLAYER_OBJECT` (`ID_USER`) VALUES ('%d');", ACCOUNT_INFO[playerid][ac_ID]);
+	db_free_result(db_query(Database, DB_Query));
+
+
+	new DBResult:Result_pnumber, phone_number;
+	Result_pnumber = db_query(Database, "SELECT ABS(RANDOM() % 10000000) AS `NUM` WHERE `NUM` NOT IN (SELECT `PHONE_NUMBER` FROM `PHONE`) LIMIT 1;");
+	if (db_num_rows(Result_pnumber)) phone_number = db_get_field_int(Result_pnumber, 0);
+	db_free_result(Result_pnumber);
+
+	if (phone_number)
+	{
+		PLAYER_PHONE[playerid][player_phone_VALID] = true;
+		PLAYER_PHONE[playerid][player_phone_NUMBER] = phone_number;
+		PLAYER_PHONE[playerid][player_phone_STATE] = PHONE_STATE_ON;
+		PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] = true;
+		RegisterNewPlayerPhone(playerid);
+	}
+
+	new slot;
+
+	PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_VALID] = true;
+	format(PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_NAME], 24, "Policia");
+	PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_PHONE_NUMBER] = 911;
+	RegisterNewPlayerPhoneBook(playerid, slot);
+	slot ++;
+
+	PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_VALID] = true;
+	format(PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_NAME], 24, "Banco");
+	PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_PHONE_NUMBER] = 6740;
+	RegisterNewPlayerPhoneBook(playerid, slot);
+	slot ++;
+
+	PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_VALID] = true;
+	format(PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_NAME], 24, "Aseguradora");
+	PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_PHONE_NUMBER] = 38350;
+	RegisterNewPlayerPhoneBook(playerid, slot);
+	slot ++;
+
+	PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_VALID] = true;
+	format(PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_NAME], 24, "Mecanico");
+	PLAYER_PHONE_BOOK[playerid][slot][phone_book_contact_PHONE_NUMBER] = 570;
+	RegisterNewPlayerPhoneBook(playerid, slot);
+	slot ++;
+
+	PLAYER_TEMP[playerid][py_USER_EXIT] = true;
+	return 1;
+}
+
+SaveUserData(playerid)
+{
+	if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
+
+	new DB_Query[1950];
+	format(DB_Query, sizeof(DB_Query), "\
+		UPDATE `CUENTA` SET \
+		`IP` = '%q',\
+		`NAME` = '%q',\
+		`EMAIL` = '%q',\
+		`GPCI` = '%q',\
+		`SALT` = '%q',\
+		`PASS` = '%q',\
+		`LAST_CONNECTION` = CURRENT_TIMESTAMP,\
+		`TIME-PLAYING` = '%d',\
+		`LEVEL` = '%d',\
+		`REP` = '%d',\
+		`STATE` = '%d',\
+		`DOUBT_CHANNEL` = '%d',\
+		`TIME_FOR_REP` = '%d',\
+		`ADMIN_LEVEL` = '%d',\
+		`PAYDAY_REP` = '%d' \
+		WHERE `ID` = '%d';\
+		\
+		UPDATE `PERSONAJE` SET \
+		`SKIN` = '%d',\
+		`CASH` = '%d',\
+		`POS_X` = '%f',\
+		`POS_Y` = '%f',\
+		`POS_Z` = '%f',\
+		`ANGLE` = '%f',\
+		`STATE` = '%d',\
+		`INTERIOR` = '%d',\
+		`LOCAL_INTERIOR` = '%d',\
+		`FIGHT_STYLE` = '%d',\
+		`HEALTH` = '%f',\
+		`ARMOUR` = '%f',\
+		`SEX` = '%d',\
+		`HUNGRY` = '%f',\
+		`THIRST` = '%f',\
+		`BLACK_MARKET_LEVEL` = '%d',\
+		`POLICE_JAIL_TIME` = '%d', \
+		`POLICE_JAIL_ID` = '%d', \
+		`JAIL_REASON` = '%q', \
+		`JAILED_BY` = %d \
+		WHERE `ID_USER` = '%d';\
+		\
+		UPDATE `BANK_ACCOUNTS` SET\
+		`BALANCE` = '%d' \
+		WHERE `ID_ACCOUNT` = '%d';\
+		\
+		UPDATE `PHONE` SET\
+		`PHONE_NUMBER` = '%d',\
+		`PHONE_STATE` = '%d',\
+		`VISIBLE_NUMBER` = '%d' \
+		WHERE `ID_USER` = '%d';\
+		\
+		UPDATE `PLAYER_OBJECT` SET\
+		`GPS` = '%d',\
+		`MP3` = '%d',\
+		`PHONE_RESOLVER` = '%d', \
+		`BOOMBOX` = %d \
+		WHERE `ID_USER` = '%d';\
+		",
+		ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SERIAL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], ACCOUNT_INFO[playerid][ac_STATE], ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL], ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL], ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID],
+		CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_CASH], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_STATE], CHARACTER_INFO[playerid][ch_INTERIOR], CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA], CHARACTER_INFO[playerid][ch_FIGHT_STYLE], CHARACTER_INFO[playerid][ch_HEALTH], CHARACTER_INFO[playerid][ch_ARMOUR],  CHARACTER_INFO[playerid][ch_SEX], CHARACTER_INFO[playerid][ch_HUNGRY], CHARACTER_INFO[playerid][ch_THIRST], CHARACTER_INFO[playerid][ch_BLACK_MARKET_LEVEL], CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME], CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID], CHARACTER_INFO[playerid][ch_JAIL_REASON], CHARACTER_INFO[playerid][ch_JAILED_BY], ACCOUNT_INFO[playerid][ac_ID],
+		BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
+		PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_STATE], PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER], ACCOUNT_INFO[playerid][ac_ID],
+		PLAYER_OBJECT[playerid][po_GPS], PLAYER_OBJECT[playerid][po_MP3], PLAYER_OBJECT[playerid][po_PHONE_RESOLVER], PLAYER_OBJECT[playerid][po_BOOMBOX], ACCOUNT_INFO[playerid][ac_ID]
+	);
+	db_free_result(db_query(Database, DB_Query));
+
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0)
+	{
+		if (BANK_ACCOUNT[playerid][bank_account_ID] != 0)
+		{
+			new DBResult:Result;
+			format(DB_Query, sizeof(DB_Query),
+				"DELETE FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' AND `ID_TRANSACTION` NOT IN (SELECT `ID_TRANSACTION` FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' ORDER BY `DATE` DESC LIMIT %d);",
+				BANK_ACCOUNT[playerid][bank_account_ID], BANK_ACCOUNT[playerid][bank_account_ID], MAX_BANK_TRANSACTIONS_DIALOG
+			);
+
+			Result = db_query(Database, DB_Query);
+			db_free_result(Result);
+		}
+
+		if (PLAYER_PHONE[playerid][player_phone_VALID])
+		{
+			new DBResult:Result;
+			format(DB_Query, sizeof(DB_Query),
+				"DELETE FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' ORDER BY `DATE` DESC LIMIT 10);\
+				DELETE FROM `PHONE_MESSAGES` WHERE `TO` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `TO` = '%d' ORDER BY `DATE` DESC LIMIT 10);",
+				PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER],
+				PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER]
+			);
+			printf("%s", DB_Query);
+
+			Result = db_query(Database, DB_Query); // crash aca
+			db_free_result(Result);
+		}
+	}
+	return 1;
+}
+
+SendClientMessageEx(playerid, color, const form[], {Float, _}: ...)
+{
+    #pragma unused form
+
+    static
+	   tmp[144]
+    ;
+    new
+	   t1 = playerid,
+	   t2 = color
+    ;
+    const
+	   n4 = -4,
+	   n16 = -16,
+	   size = sizeof tmp
+    ;
+    #emit stack 28
+    #emit push.c size
+    #emit push.c tmp
+    #emit stack n4
+    #emit sysreq.c format
+    #emit stack n16
+
+    return (t1 == -1 ? (SendClientMessageToAll(t2, tmp)) : (SendClientMessage(t1, t2, tmp)) );
+}
+
+TimeConvert(seconds)
+{
+	new tmp[16];
+	new minutes = floatround(seconds/60);
+	seconds -= minutes*60;
+	format(tmp, sizeof(tmp), "%d:%02d", minutes, seconds);
+	return tmp;
+}
+
+/*TimeConvertEx(sec, &days, &hours, &minutes, &seconds)
+{
+	days = floatround(sec / 86400);
+	hours = floatround((sec - (days * 86400)) / 3600);
+	minutes = floatround((sec - (days * 86400) - (hours * 3600)) / 60);
+	seconds = sec % 60;
+	return 1;
+}*/
+
+ProxDetector(playerid, Float:radi, string[], col1, col2, col3, col4, col5, div = 0)
+{
+	new line1_str[165], line2_str[165], bool:line2_used;
+
+	if (div)
+	{
+		format(line1_str, div + 1, "%s", string);
+		if (strlen(string) > div)
+		{
+			format(line2_str, sizeof line2_str, "— %s", string[div]);
+			line2_used = true;
+		}
+	}
+	else format(line1_str, sizeof line1_str, "%s", string);
+
+	new Float:oldposx, Float:oldposy, Float:oldposz, current_vw = GetPlayerVirtualWorld(playerid), current_int = GetPlayerInterior(playerid);
+	GetPlayerPos(playerid, oldposx, oldposy, oldposz);
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (!IsPlayerConnected(i)) continue;
+		if (!PLAYER_TEMP[i][py_USER_LOGGED]) continue;
+		if (GetPlayerVirtualWorld(i) != current_vw) continue;
+		if (GetPlayerInterior(i) != current_int) continue;
+
+		if (IsPlayerInRangeOfPoint(i, radi/16, oldposx, oldposy, oldposz))
+		{
+			SendClientMessage(i, col1, line1_str);
+			if (div && line2_used) SendClientMessage(i, col1, line2_str);
+		}
+		else if (IsPlayerInRangeOfPoint(i, radi/8, oldposx, oldposy, oldposz))
+		{
+			SendClientMessage(i, col2, line1_str);
+			if (div && line2_used) SendClientMessage(i, col2, line2_str);
+		}
+		else if (IsPlayerInRangeOfPoint(i, radi/4, oldposx, oldposy, oldposz))
+		{
+			SendClientMessage(i, col3, line1_str);
+			if (div && line2_used) SendClientMessage(i, col3, line2_str);
+		}
+		else if (IsPlayerInRangeOfPoint(i, radi/2, oldposx, oldposy, oldposz))
+		{
+			SendClientMessage(i, col4, line1_str);
+			if (div && line2_used) SendClientMessage(i, col4, line2_str);
+		}
+		else if (IsPlayerInRangeOfPoint(i, radi, oldposx, oldposy, oldposz))
+		{
+			SendClientMessage(i, col5, line1_str);
+			if (div && line2_used) SendClientMessage(i, col5, line2_str);
+		}
+	}
+	return 1;
+}
+
+SendResponsiveMessage(playerid, color, const string[], div = 0)
+{
+	new line1_str[144], line2_str[144], bool:line2_used;
+
+	if (div)
+	{
+		format(line1_str, div + 1, "%s", string);
+		if (strlen(string) > div)
+		{
+			format(line2_str, sizeof line2_str, "— %s", string[div]);
+			line2_used = true;
+		}
+	}
+	else format(line1_str, sizeof line1_str, "%s", string);
+
+	SendClientMessage(playerid, color, line1_str);
+	if (div && line2_used) SendClientMessage(playerid, -1, line2_str);
+	return 1;
+}
+
+NearbyMessage(Float:pos_x, Float:pos_y, Float:pos_z, current_int, current_vw, Float:radi, col, const string[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (!IsPlayerConnected(i)) continue;
+		if (!PLAYER_TEMP[i][py_USER_LOGGED]) continue;
+		if (GetPlayerVirtualWorld(i) != current_vw) continue;
+		if (GetPlayerInterior(i) != current_int) continue;
+
+		if (IsPlayerInRangeOfPoint(i, radi, pos_x, pos_y, pos_z)) SendClientMessage(i, col, string);
+	}
+	return 1;
+}
+
+IsValidRPName(const string[])
+{
+    new Regex:reg_exp = Regex_New("[A-Z][a-z]+_[A-Z][a-z]{1,3}[A-Z]?[a-z]*"); 
+    new result = Regex_Check(string, reg_exp); 
+    Regex_Delete(reg_exp); 
+    return result; 
+}
+
+StringContainsIP(const string[])
+{
+	if (strfind(string, "51.161.31.157", true) != -1) return false;
+
+    new Regex:reg_exp = Regex_New("([0-9]{1,3}[\\.]){3}[0-9]{1,3}"), RegexMatch:results, pos;
+    new result = Regex_Search(string, reg_exp, results, pos);
+    Regex_Delete(reg_exp); 
+    return result; 
+}
+
+SetRolePlayNames(playerid)
+{
+	if (isnull(PLAYER_TEMP[playerid][py_NAME])) return 0;
+
+	new name[24], bool:underscore;
+	format(name, 24, "%s", PLAYER_TEMP[playerid][py_NAME]);
+	format(PLAYER_TEMP[playerid][py_RP_NAME], 24, "%s", name);
+	for(new i = 0; i < 24; i++)
+	{
+		if (name[i] == '_')
+		{
+			PLAYER_TEMP[playerid][py_RP_NAME][i] = ' ';
+			if (!underscore)
+			{
+				strmid(PLAYER_TEMP[playerid][py_FIRST_NAME], name, 0, i);
+				strmid(PLAYER_TEMP[playerid][py_SUB_NAME], name, i + 1, 24);
+				underscore = true;
+			}
+		}
+	}
+	return 1;
+}
+
+LoadCharacterData(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[164];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PERSONAJE` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		CHARACTER_INFO[playerid][ch_SKIN] = db_get_field_assoc_int(Result, "SKIN");
+		CHARACTER_INFO[playerid][ch_CASH] = db_get_field_assoc_int(Result, "CASH");
+		CHARACTER_INFO[playerid][ch_FIGHT_STYLE] = db_get_field_assoc_int(Result, "FIGHT_STYLE");
+		CHARACTER_INFO[playerid][ch_HEALTH] = db_get_field_assoc_float(Result, "HEALTH");
+		CHARACTER_INFO[playerid][ch_ARMOUR] = db_get_field_assoc_float(Result, "ARMOUR");
+		CHARACTER_INFO[playerid][ch_SEX] = db_get_field_assoc_int(Result, "SEX");
+		CHARACTER_INFO[playerid][ch_HUNGRY] = db_get_field_assoc_float(Result, "HUNGRY");
+		CHARACTER_INFO[playerid][ch_THIRST] = db_get_field_assoc_float(Result, "THIRST");
+		CHARACTER_INFO[playerid][ch_BLACK_MARKET_LEVEL] = db_get_field_assoc_int(Result, "BLACK_MARKET_LEVEL");
+		CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = db_get_field_assoc_int(Result, "POLICE_JAIL_TIME");
+		CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] = db_get_field_assoc_int(Result, "POLICE_JAIL_ID");
+		db_get_field_assoc(Result, "JAIL_REASON", CHARACTER_INFO[playerid][ch_JAIL_REASON]);
+		CHARACTER_INFO[playerid][ch_JAILED_BY] = db_get_field_assoc_int(Result, "JAILED_BY");
+	}
+	db_free_result(Result);
+
+	// Security question
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `SECURITY_QUESTIONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		PLAYER_TEMP[playerid][py_ANSWER_INDEX] = db_get_field_assoc_int(Result, "QUESTION");
+		db_get_field_assoc(Result, "RESPONSE", PLAYER_TEMP[playerid][py_ANSWER_RESPONSE], 32);
+	}
+	else PLAYER_TEMP[playerid][py_ANSWER_INDEX] = 1337;
+
+	db_free_result(Result);
+	return 1;
+}
+
+LoadPlayerBankAccountData(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[85];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `BANK_ACCOUNTS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		BANK_ACCOUNT[playerid][bank_account_ID] = db_get_field_assoc_int(Result, "ID_ACCOUNT");
+		BANK_ACCOUNT[playerid][bank_account_BALANCE] = db_get_field_assoc_int(Result, "BALANCE");
+	}
+	db_free_result(Result);
+	return 1;
+}
+
+LoadPlayerObjectsData(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[85];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PLAYER_OBJECT` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		PLAYER_OBJECT[playerid][po_GPS] = db_get_field_assoc_int(Result, "GPS");
+		PLAYER_OBJECT[playerid][po_MP3] = db_get_field_assoc_int(Result, "MP3");
+		PLAYER_OBJECT[playerid][po_PHONE_RESOLVER] = db_get_field_assoc_int(Result, "PHONE_RESOLVER");
+		PLAYER_OBJECT[playerid][po_BOOMBOX] = db_get_field_assoc_int(Result, "BOOMBOX");
+	}
+	db_free_result(Result);
+	return 1;
+}
+
+LoadPlayerPhoneData(playerid)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+
+	new DBResult:Result, DB_Query[100];
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PHONE` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		PLAYER_PHONE[playerid][player_phone_VALID] = true;
+		PLAYER_PHONE[playerid][player_phone_NUMBER] = db_get_field_assoc_int(Result, "PHONE_NUMBER");
+		PLAYER_PHONE[playerid][player_phone_STATE] = db_get_field_assoc_int(Result, "PHONE_STATE");
+		PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] = db_get_field_assoc_int(Result, "VISIBLE_NUMBER");
+	}
+	db_free_result(Result);
+
+
+	DB_Query[0] = EOS;
+	new DBResult:Result_phonebook;
+	format(DB_Query, sizeof(DB_Query), "SELECT * FROM `PHONE_BOOK` WHERE `PHONE_ID` = '%d' LIMIT %d;", PLAYER_PHONE[playerid][player_phone_NUMBER], MAX_PHONE_CONTACTS);
+	Result_phonebook = db_query(Database, DB_Query);
+
+	new index;
+	for(new i; i < db_num_rows(Result_phonebook); i++ )
+	{
+		if (index >= MAX_PHONE_CONTACTS)
+		{
+			printf("[debug]  Límite superado en array 'PB' al intentar cargar de la base de datos.");
+			break;
+		}
+
+		PLAYER_PHONE_BOOK[playerid][index][phone_book_contact_VALID] = true;
+
+		PLAYER_PHONE_BOOK[playerid][index][phone_book_contact_ID] = db_get_field_assoc_int(Result_phonebook, "CONTACT_ID");
+		db_get_field_assoc(Result_phonebook, "NAME", PLAYER_PHONE_BOOK[playerid][index][phone_book_contact_NAME], 24);
+		PLAYER_PHONE_BOOK[playerid][index][phone_book_contact_PHONE_NUMBER] = db_get_field_assoc_int(Result_phonebook, "PHONE_NUMBER");
+
+		index ++;
+		db_next_row(Result_phonebook);
+	}
+	db_free_result(Result_phonebook);
+	return 1;
+}
+
+Float:GetDistanceBetweenPoints3D(Float:x1, Float:y1, Float:z1, Float:x2, Float:y2, Float:z2)
+{
+    return VectorSize(x1 - x2, y1 - y2, z1 - z2);
+}
+
+GetDatabasePages(const query_[], limit)
+{
+    new DBResult:pages;
+	pages = db_query(Database, query_);
+
+	new Float:tpages = floatdiv(floatround(db_get_field_int(pages, 0)), limit);
+	db_free_result(pages);
+	return floatround(tpages, floatround_ceil);
+}
+
+UpdateUnnocupiedPropertyLabel(index)
+{
+	if (!PROPERTY_INFO[index][property_VALID]) return 0;
+	if (PROPERTY_INFO[index][property_SOLD]) return 0;
+
+	new label_str[256], city[45], zone[45];
+	GetPointZone(PROPERTY_INFO[index][property_EXT_X], PROPERTY_INFO[index][property_EXT_Y], city, zone);
+	format(label_str, sizeof label_str, ""COL_WHITE"Propiedad en %s (%d)\n"COL_GREEN"En venta", zone, PROPERTY_INFO[index][property_ID]);
+	UpdateDynamic3DTextLabelText(PROPERTY_INFO[index][property_EXT_LABEL_ID], 0xF7F7F700, label_str);
+	return 1;
+}
+
+NeuroJail(playerid, time, const reason[])
+{
+    StopAudioStreamForPlayer(playerid);
+    CancelEdit(playerid);
+    EndPlayerJob(playerid);
+
+    PLAYER_MISC[playerid][MISC_JAILS] ++;
+    SavePlayerMisc(playerid);
+
+    if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
+    if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
+
+    JailPlayer(playerid, time * 60);
+    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+
+    new str[144];
+    format(str, 144, "[ADMIN] NeuroAdmin jaileó a %s (%d) por %s minutos: %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, TimeConvert(time * 60), reason);
+    SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+    new webhook[144];
+    format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+	SendDiscordWebhook(webhook, 1);
+
+	new dialog[250];
+	format(dialog, sizeof dialog, ""COL_WHITE"NeuroAdmin te jaileó, razón: %s.\nRecuerde que a los 50 jails sera baneado permanentemente.", reason);
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	return 1;
+}
+
+ReturnTimelapse(start, till)
+{
+    new ret[32];
+	new seconds = till - start;
+
+	const
+		MINUTE = 60,
+		HOUR = 60 * MINUTE,
+		DAY = 24 * HOUR,
+		MONTH = 30 * DAY;
+
+	if (seconds == 1)
+		format(ret, sizeof(ret), "hace un segundo");
+	if (seconds < (1 * MINUTE))
+		format(ret, sizeof(ret), "hace %i segundos", seconds);
+	else if (seconds < (2 * MINUTE))
+		format(ret, sizeof(ret), "hace un minuto");
+	else if (seconds < (45 * MINUTE))
+		format(ret, sizeof(ret), "hace %i minutos", (seconds / MINUTE));
+	else if (seconds < (90 * MINUTE))
+		format(ret, sizeof(ret), "hace una hora");
+	else if (seconds < (24 * HOUR))
+		format(ret, sizeof(ret), "hace %i horas", (seconds / HOUR));
+	else if (seconds < (48 * HOUR))
+		format(ret, sizeof(ret), "hace un día");
+	else if (seconds < (30 * DAY))
+		format(ret, sizeof(ret), "hace %i días", (seconds / DAY));
+	else if (seconds < (12 * MONTH))
+    {
+		new months = floatround(seconds / DAY / 30);
+      	if (months <= 1)
+			format(ret, sizeof(ret), "hace un mes");
+      	else
+			format(ret, sizeof(ret), "%i meses", months);
+	}
+    else
+    {
+      	new years = floatround(seconds / DAY / 365);
+      	if (years <= 1)
+			format(ret, sizeof(ret), "hace un año");
+      	else
+			format(ret, sizeof(ret), "%i años", years);
+	}
+	return ret;
+}
