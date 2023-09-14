@@ -1929,7 +1929,15 @@ static const BAN_KEYWORDS[][100] =
 	"wearelegal",
 	"bit.ly",
 	"dox",
-	"server de mierda"
+	"server de mierda",
+	"sampfive",
+	"samp5",
+	"sampfaiv",
+	"samp five",
+	"SAMPFIVE",
+	"kreisel",
+	"KREISEL",
+	"SAMP FIVE"
 };
 
 enum
@@ -27219,7 +27227,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		return 1;
 	}
 
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+	// CBUG
+	/*if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
 		if ((newkeys & (KEY_FIRE | KEY_CROUCH)) == (KEY_FIRE | KEY_CROUCH) && (oldkeys & (KEY_FIRE | KEY_CROUCH)) != (KEY_FIRE | KEY_CROUCH))
 	    {
@@ -27230,7 +27239,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	    {
 	    	ApplyAnimation(playerid, "GYMNASIUM", "gym_tread_falloff", 1.0, 0, 0, 0, 0, 0);
 	    }
-	}
+	}*/
 
 	if (newkeys & KEY_HANDBRAKE && !IsPlayerInAnyVehicle(playerid)) PLAYER_TEMP[playerid][py_AIM_DATA] = 1;
 	else if (oldkeys & KEY_HANDBRAKE) PLAYER_TEMP[playerid][py_AIM_DATA] = 0;
