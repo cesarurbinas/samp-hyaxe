@@ -1381,6 +1381,20 @@ CreatePlayerTextDraws(playerid)
     PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE], 1);
     PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE], 1);
 
+    PlayerTextdraws[playerid][ptextdraw_ALERT] = CreatePlayerTextDraw(playerid, 323.000000, 130.000000, "EXP");
+	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 3);
+	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 1.304167, 3.849995);
+	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 1);
+	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 0);
+	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 2);
+	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], -1);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 255);
+	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 50);
+	PlayerTextDrawUseBox(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 0);
+	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 1);
+	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 0);
+
     PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE] = CreatePlayerTextDraw(playerid, 24.500000, 166.977783, "_");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 0.341500, 1.487998);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 193.000000, 0.000000);

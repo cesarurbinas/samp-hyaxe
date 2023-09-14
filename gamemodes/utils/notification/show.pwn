@@ -154,3 +154,25 @@ public HidePlayerMessage(playerid)
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE]);
 	return 1;
 }
+
+ShowPlayerAlert(playerid, const message[], color = -1, seconds = 0, sound = 0)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][20]);
+
+	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], color);
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], TextToSpanish(message));
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT]);
+
+	if (seconds) PLAYER_TEMP[playerid][py_TIMERS][20] = SetTimerEx("HidePlayerAlert", seconds * 1000, false, "i", playerid);
+	if (sound) PlayerPlaySoundEx(playerid, sound, 0.0, 0.0, 0.0);
+	return 1;
+}
+
+forward HidePlayerAlert(playerid);
+public HidePlayerAlert(playerid)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][20]);
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], "_");
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT]);
+	return 1;
+}

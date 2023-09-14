@@ -14,6 +14,7 @@ enum Player_Textdraws_Enum
 	PlayerText:ptextdraw_SHOP_ARTICLE_MODELID,
 	PlayerText:ptextdraw_TUNING_SHOP,
 	PlayerText:ptextdraw_MESSAGE,
+	PlayerText:ptextdraw_ALERT,
 	PlayerText:ptextdraw_NOTIFICATION_MESSAGE,
 	PlayerText:ptextdraw_KEY,
 	PlayerText:ptextdraw_HUD[5],
