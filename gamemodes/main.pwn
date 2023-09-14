@@ -13848,7 +13848,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_LEVEL] > ACCOUNT_INFO[playerid][ac_LEVEL])
 				{
 					new str_text[128];
-					format(str_text, sizeof(str_text), "Debes ser nivel %d para comrpar esta propiedad", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_LEVEL]);
+					format(str_text, sizeof(str_text), "Debes ser nivel %d para comprar esta propiedad", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_LEVEL]);
 					return ShowPlayerNotification(playerid, str_text, 3);
 				}
 				if (PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_PRICE] > BANK_ACCOUNT[playerid][bank_account_BALANCE]) return ShowPlayerMessage(playerid, "~r~No tienes cuenta bancaria.", 2);
@@ -13889,7 +13889,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					SendClientMessageEx(playerid, COLOR_WHITE, "Has gastado %d "SERVER_COIN" en la compra de esta propiedad.", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA]);
 				}
-
 
 				PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_SOLD] = true;
 				PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_CREW] = false;
@@ -25242,7 +25241,9 @@ CALLBACK: HealthUp(playerid)
 			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 		}
 		PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
-		ClearAnimations(playerid);
+
+		ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
+		ClearAnimations(playerid);	
 	}
 	return 1;
 }
