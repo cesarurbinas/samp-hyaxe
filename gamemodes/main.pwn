@@ -5192,7 +5192,7 @@ ExitCrack(playerid)
 
 	new str_text[144];
 	format(str_text, sizeof(str_text), "[KILL] %s (%d) ha aceptado muerte.", PLAYER_TEMP[playerid][py_NAME], playerid);
-	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
+	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 1);
 
 	SetPlayerHealthEx(playerid, 0.0);
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha muerto.\n\n\n", 0xffcb90FF, 20.0, 5000);
@@ -6662,7 +6662,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		SavePlayerNotification(playerid, str_victim);
 
 		format(str_victim, sizeof(str_victim), "[KILL] %s (%d) hirió a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
-		SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 2);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 1);
 
 		GetPlayerPos(playerid, x, y, z);
 		SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
@@ -6695,7 +6695,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		SavePlayerNotification(playerid, str_victim);
 
 		format(str_victim, sizeof(str_victim), "[KILL] %s (%d) mató a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
-		SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 2);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 1);
 
 		GetPlayerPos(playerid, x, y, z);
 		SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));

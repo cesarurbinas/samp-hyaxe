@@ -118,6 +118,8 @@ UseItemSlot(playerid)
 	{
 		case 0:
 		{
+			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
+			
 			new 
 				target_player = GetPlayerCameraTargetPlayer(playerid),
 				Float:pos[4];
