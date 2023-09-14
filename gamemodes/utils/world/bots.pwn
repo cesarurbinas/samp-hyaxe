@@ -757,7 +757,7 @@ SetBotInit(playerid)
 	SetPlayerArmourEx(playerid, 0.0);
 
 	SetPlayerVirtualWorld(playerid, 0);
-	SetSpawnInfo(playerid, NO_TEAM, minrand(1, 73), 76.632553, -301.156829, 1.578125, 0.0, 0, 0, 0, 0, 0, 0);
+	SetSpawnInfo(playerid, DEFAULT_TEAM, minrand(1, 73), 76.632553, -301.156829, 1.578125, 0.0, 0, 0, 0, 0, 0, 0);
 	SetPlayerInterior(playerid, 0);
 
 	TogglePlayerSpectatingEx(playerid, false);

@@ -50,10 +50,40 @@ Damage_Send(to, from, Float:amount, weaponid)
 	{
 		if ((g_iPlayerHealth[to] - damage) <= 0)
 		{
-			OnPlayerDeath(to, from, weaponid);
+			// OnPlayerDeath(to, from, weaponid);
 
-			Player_SetHealth(to, 0);
-			SetPlayerHealth(to, 0.0);
+			if (CHARACTER_INFO[to][ch_STATE] != ROLEPLAY_STATE_CRACK)
+			{
+				CHARACTER_INFO[to][ch_STATE] = ROLEPLAY_STATE_CRACK;
+
+				ApplyAnimation(to, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
+
+				SetPlayerHud(to);
+				SetCameraBehindPlayer(to);
+				TogglePlayerControllableEx(to, false);
+				KillTimer(PLAYER_TEMP[to][py_TIMERS][3]);
+				PLAYER_TEMP[to][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", to, true);
+
+				KillTimer(PLAYER_TEMP[to][py_TIMERS][16]);
+				PLAYER_TEMP[to][py_TIMERS][16] = SetTimerEx("HealthDown", 3000, false, "i", to);
+
+				PLAYER_TEMP[to][py_INJURED_POS][0] = CHARACTER_INFO[to][ch_POS][0];
+				PLAYER_TEMP[to][py_INJURED_POS][1] = CHARACTER_INFO[to][ch_POS][1];
+				PLAYER_TEMP[to][py_INJURED_POS][2] = CHARACTER_INFO[to][ch_POS][2];
+				PLAYER_TEMP[to][py_INJURED_POS][3] = CHARACTER_INFO[to][ch_ANGLE];
+
+				TogglePlayerControllableEx(to, false);
+				SetPlayerColorEx(to, PLAYER_COLOR);
+
+				Player_SetHealth(to, 50);
+			}
+			else
+			{
+				OnPlayerDeath(to, from, weaponid);
+				g_rgbitsPlayerFlags[to] |= e_bmPlayerDead;
+
+				Player_SetHealth(to, 0);
+			}
 		}
 		else
 		{

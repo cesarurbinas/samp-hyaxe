@@ -77,6 +77,9 @@ Y_less on the ruski face book? I dont need to don the fur hat
 
 #define safe_db_query(%0) db_free_result(db_query(Database, %0))
 
+// Anticheats
+#include "core/anticheat/header.pwn"
+
 // Ojito con esto q se revienta el cpeu
 #if defined VOICE_CHAT
     #include <sampvoice>
@@ -103,6 +106,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Player
 #include "core/player/temp.pwn"
 #include "core/player/misc.pwn"
+#include "core/player/character.pwn"
 
 // Damage
 #include "core/damage/callbacks.pwn"
@@ -116,7 +120,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Player
 #include "core/player/weapons.pwn"
 #include "core/player/phone.pwn"
-#include "core/player/character.pwn"
 #include "core/player/toys.pwn"
 #include "core/player/account.pwn"
 #include "core/player/textdraws.pwn"
@@ -5508,6 +5511,8 @@ public OnPlayerSpawn(playerid)
 			}
 			case ROLEPLAY_STATE_HOSPITAL:
 			{
+				Logger_Debug("OK 2");
+
 				PLAYER_TEMP[playerid][py_HOSPITAL] = GetNearestHospitalForPlayer(playerid);
 				PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = false;
 				PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_DEAD;
@@ -5539,6 +5544,8 @@ public OnPlayerSpawn(playerid)
 			}
 			case ROLEPLAY_STATE_CRACK:
 			{
+				Logger_Debug("OK 1");
+
 				SetPlayerHud(playerid);
 				SetCameraBehindPlayer(playerid);
 				TogglePlayerControllableEx(playerid, false);
@@ -5558,7 +5565,9 @@ public OnPlayerSpawn(playerid)
 			}
 			case ROLEPLAY_STATE_BOX:
 			{
-				SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
+				Logger_Debug("OK 3");
+
+				SetSpawnInfo(playerid, DEFAULT_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
 				SetCameraBehindPlayer(playerid);
 				SetPlayerPosEx(playerid, -25.157732, 87.987953, 1098.070190, 0.481732, 16, 0, false);
 				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
@@ -5710,6 +5719,14 @@ public OnPlayerSpawn(playerid)
 	PLAYER_AC_INFO[playerid][CHEAT_UNOCCUPIED_VEHICLE_TP][p_ac_info_IMMUNITY] = gettime() + 5;
 
 	SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
+
+	if (PLAYER_TEMP[playerid][py_GODMODE])
+	{
+		PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY] = gettime() + 3;
+		
+		CHARACTER_INFO[playerid][ch_HEALTH] = cellmax;
+		Player_SetHealth(playerid, cellmax);
+	}
 	return 1;
 }
 
@@ -5904,7 +5921,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 		if (p_interior == 25 || p_interior == 26 || p_interior == 27)
 		{
-			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuieste expulsado por matar a alguien dentro de minero.");
+			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por matar a alguien dentro de minero.");
 			KickEx(playerid, 500);
 		}
 	}
@@ -5958,7 +5975,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 			PLAYER_TEMP[playerid][py_BOX_PAY] = 0;
 
 			PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
-			SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
+			SetSpawnInfo(playerid, DEFAULT_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
 			CHARACTER_INFO[playerid][ch_INTERIOR] = 16;
 
 			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_BOX;
@@ -5974,28 +5991,30 @@ public OnPlayerDeath(playerid, killerid, reason)
 		CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] -= gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME];
 		if (CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] < 5) CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 5;
 		PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME] = gettime();
-		SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], 0, 0, 0, 0, 0, 0);
+		SetSpawnInfo(playerid, DEFAULT_TEAM, PLAYER_TEMP[playerid][py_SKIN], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], 0, 0, 0, 0, 0, 0);
 		CHARACTER_INFO[playerid][ch_INTERIOR] = JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR];
 	}
 	else
 	{
 		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || GetPlayerInterior(playerid) != 0 || GetPlayerVirtualWorld(playerid) != 0)
 		{
+			Logger_Debug("[2] OK 1");
 			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) PLAYER_TEMP[playerid][py_HOSPITAL] = GetNearestHospitalForPlayer(playerid);
 			if (PLAYER_TEMP[playerid][py_HOSPITAL] == -1) PLAYER_TEMP[playerid][py_HOSPITAL] = 1;
 			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_HOSPITAL;
 			PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = false;
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][16]);
-			SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
+			SetSpawnInfo(playerid, DEFAULT_TEAM, PLAYER_TEMP[playerid][py_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
 		}
 		else
 		{
+			Logger_Debug("[2] OK 2");
 			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_CRACK;
 
 			GetPlayerPos(playerid, PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2]);
 			GetPlayerFacingAngle(playerid, PLAYER_TEMP[playerid][py_INJURED_POS][3]);
 
-			SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2], PLAYER_TEMP[playerid][py_INJURED_POS][3], 0, 0, 0, 0, 0, 0);
+			SetSpawnInfo(playerid, DEFAULT_TEAM, PLAYER_TEMP[playerid][py_SKIN], PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2], PLAYER_TEMP[playerid][py_INJURED_POS][3], 0, 0, 0, 0, 0, 0);
 			SetPlayerPos(playerid,PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2]+1);
 		}
 	}
@@ -6063,7 +6082,7 @@ public OnPlayerRequestClass(playerid, classid)
 	}
 	else if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_DEAD) // Viene de jugar
 	{
-		SetSpawnInfo(playerid, NO_TEAM, PLAYER_TEMP[playerid][py_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
+		SetSpawnInfo(playerid, DEFAULT_TEAM, PLAYER_TEMP[playerid][py_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
 		SpawnPlayer(playerid);
 		return 0;
 	}
@@ -12284,7 +12303,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetPlayerVirtualWorld(playerid, 0);
 				SetPlayerNormalColor(playerid);
 				StopAudioStreamForPlayer(playerid);
-				SetSpawnInfo(playerid, NO_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
+				SetSpawnInfo(playerid, DEFAULT_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
 				SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
 				PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 
@@ -24812,7 +24831,7 @@ CALLBACK: HealthUp(playerid)
 			CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 300;
 			CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] = 0;
 			PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME] = gettime();
-			SetSpawnInfo(playerid, NO_TEAM, CHARACTER_INFO[playerid][ch_SKIN], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], 0, 0, 0, 0, 0, 0);
+			SetSpawnInfo(playerid, DEFAULT_TEAM, CHARACTER_INFO[playerid][ch_SKIN], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], 0, 0, 0, 0, 0, 0);
 			CHARACTER_INFO[playerid][ch_INTERIOR] = JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR];
 			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 
@@ -24832,7 +24851,7 @@ CALLBACK: HealthUp(playerid)
 		else
 		{
 			GetHospitalSpawnPosition(PLAYER_TEMP[playerid][py_HOSPITAL], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA], CHARACTER_INFO[playerid][ch_STATE]);
-			SetSpawnInfo(playerid, NO_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
+			SetSpawnInfo(playerid, DEFAULT_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
 			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 		}
 		PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
@@ -33479,7 +33498,7 @@ CALLBACK: ContinuePlayerIntro(playerid, step)
 			SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
 			SetPlayerArmourEx(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
 			SetPlayerVirtualWorld(playerid, 0);
-			SetSpawnInfo(playerid, NO_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
+			SetSpawnInfo(playerid, DEFAULT_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
 			SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
 			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 
@@ -33950,3 +33969,9 @@ flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_OWNER)
 flags:depositveh(CMD_MODERATOR)
+
+CMD:aaaaaaaa(playerid, params[])
+{
+	SetPlayerHealthEx(playerid, 0.0);
+	return 1;
+}

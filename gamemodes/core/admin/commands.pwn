@@ -334,7 +334,7 @@ CMD:spec(playerid, params[])
 		new Float:p[4];
 		GetPlayerPos(playerid, p[0], p[1], p[2]);
 		GetPlayerFacingAngle(playerid, p[3]);
-		SetSpawnInfo(playerid, NO_TEAM, GetPlayerSkin(playerid), p[0], p[1], p[2], p[3], 0, 0, 0, 0, 0, 0);
+		SetSpawnInfo(playerid, DEFAULT_TEAM, GetPlayerSkin(playerid), p[0], p[1], p[2], p[3], 0, 0, 0, 0, 0, 0);
 		PLAYER_TEMP[playerid][py_SKIN] = GetPlayerSkin(playerid);
 		CHARACTER_INFO[playerid][ch_INTERIOR] = GetPlayerInterior(playerid);
 		PLAYER_TEMP[playerid][py_VIRTUAL_WORLD] = GetPlayerVirtualWorld(playerid);
@@ -2816,7 +2816,11 @@ CMD:godmode(playerid, params[])
 		TextDrawShowForPlayer(playerid, Textdraws[textdraw_GODMODE][0]);
 		TextDrawShowForPlayer(playerid, Textdraws[textdraw_GODMODE][1]);
 		PLAYER_TEMP[playerid][py_GODMODE] = true;
-		SetPlayerHealthEx(playerid, Float:0x7F800000);
+
+		PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY] = gettime() + 3;
+
+		CHARACTER_INFO[playerid][ch_HEALTH] = cellmax;
+		Player_SetHealth(playerid, cellmax);
 	}
 	else
 	{

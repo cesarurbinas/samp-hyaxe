@@ -3,7 +3,9 @@ new
 
 ShowInventory(playerid)
 {
-	g_iInvLastTick[playerid] = GetTickCount() + 100;
+	new ms = (130 + GetPlayerPing(playerid));
+
+	g_iInvLastTick[playerid] = GetTickCount() + ms;
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
