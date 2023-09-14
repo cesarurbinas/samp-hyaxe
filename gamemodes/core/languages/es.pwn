@@ -57,7 +57,7 @@ new MAFIA_RANKS[][] =
 	/* 1 */ "Soldato",
 	/* 2 */ "Avvocato",
 	/* 3 */ "Caporegime",
-	/* 4 */ "casetto",
+	/* 4 */ "Casetto",
 	/* 5 */ "Numerale",
 	/* 6 */ "Sottocapo",
 	/* 7 */ "consigliere",
