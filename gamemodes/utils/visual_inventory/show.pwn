@@ -47,247 +47,7 @@ ShowInventory(playerid, type = 0)
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][8]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][9]);
 
-	// Item view
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20], 19482);
-	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21], 19482);
-
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20], COLOR_GREY_TWO);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21], COLOR_GREY_TWO);
-
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21]);
-
-	switch(type)
-	{
-		case 0:
-		{
-			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 212.00000, 18.0000);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Inventario");
-
-			inv_AccommodateItems(playerid);
-
-			new 
-				target_player = GetPlayerCameraTargetPlayer(playerid),
-				Float:pos[4],
-				str_text[128],
-				Float:size_items = 330.000000;
-				
-			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
-
-			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
-			{
-				size_items += 8.0;
-			}
-
-			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
-			}
-			else
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
-			}
-
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
-			
-			PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] = target_player;
-			GetPlayerPos(target_player, pos[0], pos[1], pos[2]);
-
-			if (IsPlayerInRangeOfPoint(playerid, 1.2, pos[0], pos[1], pos[2]))
-			{
-				format(str_text, sizeof(str_text), "Interactuar con %s", PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_NAME]);
-				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][37], str_text);
-				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][37]);
-			}
-		}
-		case 1:
-		{
-			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
-			
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
-
-			inv_AccommodatePropertyItems(playerid, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]);
-
-			new 
-				str_text[128],
-				Float:size_items = 330.000000
-			;
-				
-			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
-
-			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
-			{
-				size_items += 8.0;
-			}
-
-			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
-			}
-			else
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
-			}
-
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
-
-			ShowPlayerMessage(playerid, "Seleccione un item para sacar del almacenamiento.", 5);
-		}
-		case 2:
-		{
-			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
-
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
-				
-			inv_AccommodateItems(playerid);
-
-			new
-				str_text[128],
-				Float:size_items = 330.000000;
-				
-			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
-
-			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
-			{
-				size_items += 8.0;
-			}
-
-			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
-			}
-			else
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
-			}
-
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
-
-			ShowPlayerMessage(playerid, "Seleccione un item para meter al almacenamiento.", 5);
-		}
-		case 3:
-		{
-			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_NAME]);
-			
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
-
-			inv_AccommodateVehicleItems(playerid, PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID]);
-
-			new 
-				str_text[128],
-				Float:size_items = 330.000000
-			;
-				
-			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
-
-			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
-			{
-				size_items += 8.0;
-			}
-
-			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
-			}
-			else
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
-			}
-
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
-
-			ShowPlayerMessage(playerid, "Seleccione un item para sacar del maletero.", 5);
-		}
-		case 4:
-		{
-			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_NAME]);
-
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
-				
-			inv_AccommodateItems(playerid);
-
-			new
-				str_text[128],
-				Float:size_items = 330.000000;
-				
-			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
-
-			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
-			{
-				size_items += 8.0;
-			}
-
-			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
-			}
-			else
-			{
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
-			}
-
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
-
-			ShowPlayerMessage(playerid, "Seleccione un item para meter al maletero.", 5);
-		}
-	}
+	RefreshItemList(playerid);
 
 	SelectTextDrawEx(playerid, COLOR_RED);
 	return 1;
@@ -400,6 +160,285 @@ HideInventory(playerid)
 	CancelSelectTextDrawEx(playerid);
 	PLAYER_TEMP[playerid][py_PLAYER_IN_INV] = false;
 	PLAYER_TEMP[playerid][py_PLAYER_IN_SINV] = false;
+	return 1;
+}
+
+RefreshItemList(playerid)
+{
+	// Hide item box
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21]);
+
+	// Hide item name
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][22]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][23]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][24]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][25]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][26]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][27]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][28]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][29]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][30]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][31]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][32]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][33]);
+
+	// Hide bar
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+	// Item view
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20], 19482);
+	PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21], 19482);
+
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20], COLOR_GREY_TWO);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21], COLOR_GREY_TWO);
+
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21]);
+
+	switch(PLAYER_TEMP[playerid][py_INVENTORY_TYPE])
+	{
+		case 0:
+		{
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 212.00000, 18.0000);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Inventario");
+
+			inv_AccommodateItems(playerid);
+
+			new 
+				target_player = GetPlayerCameraTargetPlayer(playerid),
+				Float:pos[4],
+				str_text[128],
+				Float:size_items = 330.000000;
+				
+			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
+
+			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
+			{
+				size_items += 8.0;
+			}
+
+			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
+			}
+			else
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
+			}
+
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+			
+			PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] = target_player;
+			GetPlayerPos(target_player, pos[0], pos[1], pos[2]);
+
+			if (IsPlayerInRangeOfPoint(playerid, 1.2, pos[0], pos[1], pos[2]))
+			{
+				format(str_text, sizeof(str_text), "Interactuar con %s", PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_NAME]);
+				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][37], str_text);
+				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][37]);
+			}
+		}
+		case 1:
+		{
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
+			
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+
+			inv_AccommodatePropertyItems(playerid, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]);
+
+			new 
+				str_text[128],
+				Float:size_items = 330.000000
+			;
+				
+			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
+
+			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
+			{
+				size_items += 8.0;
+			}
+
+			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
+			}
+			else
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
+			}
+
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			ShowPlayerMessage(playerid, "Seleccione un item para sacar del almacenamiento.", 5);
+		}
+		case 2:
+		{
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
+
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+				
+			inv_AccommodateItems(playerid);
+
+			new
+				str_text[128],
+				Float:size_items = 330.000000;
+				
+			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
+
+			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
+			{
+				size_items += 8.0;
+			}
+
+			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
+			}
+			else
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
+			}
+
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			ShowPlayerMessage(playerid, "Seleccione un item para meter al almacenamiento.", 5);
+		}
+		case 3:
+		{
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_NAME]);
+			
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+
+			inv_AccommodateVehicleItems(playerid, PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID]);
+
+			new 
+				str_text[128],
+				Float:size_items = 330.000000
+			;
+				
+			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
+
+			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
+			{
+				size_items += 8.0;
+			}
+
+			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
+			}
+			else
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
+			}
+
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			ShowPlayerMessage(playerid, "Seleccione un item para sacar del maletero.", 5);
+		}
+		case 4:
+		{
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_NAME]);
+
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+				
+			inv_AccommodateItems(playerid);
+
+			new
+				str_text[128],
+				Float:size_items = 330.000000;
+				
+			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
+
+			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
+			{
+				size_items += 8.0;
+			}
+
+			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
+			}
+			else
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
+			}
+
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			ShowPlayerMessage(playerid, "Seleccione un item para meter al maletero.", 5);
+		}
+	}
 	return 1;
 }
 

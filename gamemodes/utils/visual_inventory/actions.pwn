@@ -124,8 +124,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 					db_free_result(db_query(Database, DB_Query));
 
-					HideInventory(playerid);
-					ShowInventory(playerid, 1);
+					RefreshItemList(playerid);
 				}
 			}
 			else
@@ -180,8 +179,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 					}
 				}
 
-				HideInventory(playerid);
-				ShowInventory(playerid, 2);
+				RefreshItemList(playerid);
 			}
 			else
 			{
@@ -242,8 +240,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 					db_free_result(db_query(Database, DB_Query));
 
-					HideInventory(playerid);
-					ShowInventory(playerid, 3);
+					RefreshItemList(playerid);
 				}
 			}
 			else
@@ -298,8 +295,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 					}
 				}
 
-				HideInventory(playerid);
-				ShowInventory(playerid, 4);
+				RefreshItemList(playerid);
 			}
 			else
 			{
