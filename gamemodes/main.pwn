@@ -29564,11 +29564,11 @@ ShowPlayerSkills(playerid, pid)
 	return 1;
 }
 
-/*ConvertTime_SecondsToHoursFloat(sec, &Float:hours)
+ConvertTime_SecondsToHoursFloat(sec, &Float:hours)
 {
 	hours = floatdiv(float(sec), 3600);
 	return 1;
-}*/
+}
 
 CreatePlayerTrashRouteObjects(playerid, route)
 {
@@ -31924,9 +31924,8 @@ ShowPlayerStats(playerid, pid)
 	ACCOUNT_INFO[pid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[pid][py_TIME_PLAYING];
 	PLAYER_TEMP[pid][py_TIME_PLAYING] = gettime();
 
-	new hours[32];
-	format(hours, sizeof(hours), "%s", ReturnTimelapse(ACCOUNT_INFO[pid][ac_TIME_PLAYING], gettime()));
-	strreplace(hours, "hace ", "");
+	new Float:hours;
+	ConvertTime_SecondsToHoursFloat(ACCOUNT_INFO[pid][ac_TIME_PLAYING], hours);
 
 	new next_rep[24], neccessary_rep = ACCOUNT_INFO[pid][ac_LEVEL] * REP_MULTIPLIER;
 	if (ACCOUNT_INFO[pid][ac_REP] < neccessary_rep)
@@ -31946,7 +31945,7 @@ ShowPlayerStats(playerid, pid)
 		"\
 		"COL_WHITE"  ID de cuenta: "COL_RED"%d\n\
 		"COL_WHITE"  Fecha de registro: "COL_RED"%s\n\
-		"COL_WHITE"  Tiempo jugando: "COL_GREEN"%s\n\
+		"COL_WHITE"  Tiempo jugando: "COL_GREEN"%.1f horas\n\
 		"COL_WHITE"  Nivel: "COL_YELLOW"%d\n\
 		"COL_WHITE"  Reputación: "COL_ORANGE"%d/%d\n\
 		"COL_WHITE"  Siguiente reputación: "COL_ORANGE"%s\n\
