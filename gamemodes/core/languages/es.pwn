@@ -88,11 +88,11 @@ ENEMY_MAFIA_RANKS[][] =
 	"Negociante II",
 	"Supervisor",
 	"Jefe de bartender",
-	"Gerente",
 	"Jefe de seguridad",
 	"Jefe de traficantes",
 	"Jefe de armeros",
 	"Jefe de negociantes",
+	"Gerente",
 	"Representante",
 	"Lider"
 },
