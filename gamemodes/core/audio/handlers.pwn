@@ -48,8 +48,6 @@ public OnDownloadResponse(playerid, response_code, data[])
 	printf("OnDownloadResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
 	PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
 
-	ShowPlayerNotification(playerid, "Espere, estamos procesando el video...", 3);
-
 	if (response_code != 200)
 	{
 		switch(response_code)

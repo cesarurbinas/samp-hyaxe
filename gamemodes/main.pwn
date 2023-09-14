@@ -9,7 +9,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
-#define SERVER_VERSION 			"v0.5 Build 170"
+#define SERVER_VERSION 			"v0.5 Build 180"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -14434,6 +14434,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(url, 128, "51.178.211.161:12345/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
 				printf("%s", url);
 				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
+				ShowPlayerNotification(playerid, "Espere, estamos procesando el video...", 3);
 			} else PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
 			return 1;
 		}

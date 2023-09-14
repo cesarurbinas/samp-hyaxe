@@ -1660,7 +1660,7 @@ public OnFilterScriptInit()
     SetDynamicObjectMaterial(tmpobjid, 0, 10765, "airportgnd_sfse", "white", 0xFF5F9EA0);
     tmpobjid = CreateDynamicObject(1466, 1048.9272, -929.6511, 49.3026, 0.0000, 0.0000, 6.5000); //DYN_SCAFFOLD_5
     tmpobjid = CreateDynamicObject(19477, 1047.7143, -930.6322, 49.9738, 0.0000, 0.0000, -83.5000); //tuneacomo
-    SetDynamicObjectMaterialText(tmpobjid, 0, "Tunea como la concha de tu hermana", OBJECT_MATERIAL_SIZE_256x64, "Arial", 33, 1, 0xFFFFFFFF, 0x00000000, 0);
+    SetDynamicObjectMaterialText(tmpobjid, 0, "", OBJECT_MATERIAL_SIZE_256x64, "Arial", 33, 1, 0xFFFFFFFF, 0x00000000, 0);
     tmpobjid = CreateDynamicObject(8330, 1043.2204, -930.8192, 49.7653, 0.0000, 0.0000, 5.5000); //vendish
     SetDynamicObjectMaterialText(tmpobjid, 0, "vendish's", OBJECT_MATERIAL_SIZE_512x128, "Franklin Gothic Medium", 30, 1, 0xFFFFFAFA, 0x00000000, 2);
     SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
@@ -1669,10 +1669,10 @@ public OnFilterScriptInit()
     SetDynamicObjectMaterialText(tmpobjid, 0, "Cuck", OBJECT_MATERIAL_SIZE_512x128, "Franklin Gothic Medium", 30, 1, 0xFFFF0000, 0x00000000, 2);
     SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
     tmpobjid = CreateDynamicObject(8330, 1048.8625, -930.1483, 51.1053, 0.0000, 0.0000, 5.7999); //Tuning
-    SetDynamicObjectMaterialText(tmpobjid, 0, "Tuning", OBJECT_MATERIAL_SIZE_512x128, "Franklin Gothic Medium", 28, 1, 0xFFFF0000, 0x00000000, 1);
+    SetDynamicObjectMaterialText(tmpobjid, 0, "Tunning", OBJECT_MATERIAL_SIZE_512x128, "Franklin Gothic Medium", 28, 1, 0xFFFF0000, 0x00000000, 1);
     SetDynamicObjectMaterial(tmpobjid, 1, 19426, "all_walls", "mirror01", 0x00000000);
     tmpobjid = CreateDynamicObject(19477, 1050.4763, -930.3170, 49.9440, 0.0000, 0.0000, -83.5000); //chadetu
-    SetDynamicObjectMaterialText(tmpobjid, 0, "cha de tu hermana", OBJECT_MATERIAL_SIZE_256x64, "Arial", 32, 1, 0xFFFFFFFF, 0x00000000, 0);
+    SetDynamicObjectMaterialText(tmpobjid, 0, " ", OBJECT_MATERIAL_SIZE_256x64, "Arial", 32, 1, 0xFFFFFFFF, 0x00000000, 0);
     tmpobjid = CreateDynamicObject(19377, 1056.0218, -897.3997, 48.0452, 0.0000, 90.0000, 4.9998); //techo-taller
     SetDynamicObjectMaterial(tmpobjid, 0, 14476, "carlslounge", "breezewallbse", 0x00000000);
     tmpobjid = CreateDynamicObject(19482, 1041.5301, -894.1644, 45.2910, 0.0000, 0.0000, -84.9998); //Plane008
