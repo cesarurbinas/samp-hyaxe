@@ -5141,7 +5141,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"~w~%s%s ~g~+%.2f~n~",
+				"~w~%s%s ~g~+%.2f~n~~w~",
 				buf,
 				weapon,
 				s_DamageFeedHitsGiven[playerid][i][e_Amount] + 0.009
@@ -5150,7 +5150,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"~w~%s%s - %s ~g~+%.2f~n~",
+				"~w~%s%s - %s ~g~+%.2f~n~~w~",
 				buf,
 				s_DamageFeedHitsGiven[playerid][i][e_Name],
 				weapon,
@@ -5190,7 +5190,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"~w~%s%s ~r~-%.2f~n~",
+				"~w~%s%s ~r~-%.2f~n~~w~",
 				buf,
 				weapon,
 				s_DamageFeedHitsTaken[playerid][i][e_Amount] + 0.009,
@@ -5200,7 +5200,7 @@ static DamageFeedUpdateText(playerid)
 			format(
 				buf,
 				sizeof(buf),
-				"~w~%s%s - %s ~r~-%.2f~n~",
+				"~w~%s%s - %s ~r~-%.2f~n~~w~",
 				buf,
 				s_DamageFeedHitsTaken[playerid][i][e_Name],
 				weapon,

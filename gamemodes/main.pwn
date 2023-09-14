@@ -34231,8 +34231,6 @@ flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_MODERATOR4)
 flags:depositveh(CMD_MODERATOR)
-
-// comandos by jeiks dije
 flags:jailoff(CMD_MODERATOR)
 flags:unjailloff(CMD_MODERATOR)
 flags:comandosadmin(CMD_HELPER)
