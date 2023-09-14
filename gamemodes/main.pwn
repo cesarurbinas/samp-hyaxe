@@ -20989,7 +20989,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 1: ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO_STOCK);
 				}
 			}
-			else else ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
+			else ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
 		}
 		case DIALOG_BLACK_MARKET_SELECT:
 		{
