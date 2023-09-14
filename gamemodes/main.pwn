@@ -6374,7 +6374,7 @@ Log(const nombre[], const texto[])
     return 1;
 }
 
-CMD:editmodetestxd(playerid, params[])//xddd
+CMD:editmodetestxd(playerid, params[])
 {
 	new Float:pos[3];
 
@@ -20859,14 +20859,39 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (listitem == 0)
 				{
 					PLAYER_MISC[playerid][MISC_RADIO_STATION] = 100;
-					StopAudioStreamForPlayer(playerid);
 					ShowPlayerMessage(playerid, "Radio ~r~apagada", 2);
+					new p_vehicleid = GetPlayerVehicleID(playerid);
+
+					for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+					{
+						if (IsPlayerConnected(i))
+						{
+							new vehicleid = GetPlayerVehicleID(i);
+							if (vehicleid == p_vehicleid)
+							{
+								StopAudioStreamForPlayer(i);
+							}
+						}
+					}
 				}
 				else
 				{
 					PLAYER_MISC[playerid][MISC_RADIO_STATION] = index;
-					PlayAudioStreamForPlayer(playerid, RADIO_STATIONS[index][r_URL]);
 					ShowPlayerMessage(playerid, "Emisora ~g~cambiada", 2);
+					new p_vehicleid = GetPlayerVehicleID(playerid);
+
+					for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+					{
+						if (IsPlayerConnected(i))
+						{
+							new vehicleid = GetPlayerVehicleID(i);
+							if (vehicleid == p_vehicleid)
+							{
+								StopAudioStreamForPlayer(i);
+								PlayAudioStreamForPlayer(i, RADIO_STATIONS[index][r_URL]);
+							}
+						}
+					}
 				}
 			}
 			else ShowDialog(playerid, DIALOG_VEHICLE_OPTIONS);
@@ -26983,6 +27008,20 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		if (!ispassenger)
 		{
 			if (GetPlayerInterior(playerid) == 0) PlayAudioStreamForPlayer(playerid, RADIO_STATIONS[ PLAYER_MISC[playerid][MISC_RADIO_STATION] ][r_URL]);
+		}
+	}
+
+	if (ispassenger)
+	{
+		if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] != INVALID_PLAYER_ID)
+		{
+			if (IsPlayerConnected(GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER]))
+			{
+				if (PLAYER_MISC[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] ][MISC_RADIO_STATION] < 100)
+				{
+					PlayAudioStreamForPlayer(playerid, RADIO_STATIONS[ PLAYER_MISC[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] ][MISC_RADIO_STATION] ][r_URL]);
+				}
+			}
 		}
 	}
 
