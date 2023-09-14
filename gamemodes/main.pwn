@@ -29,7 +29,7 @@
 #include <a_samp>
 
 #undef MAX_PLAYERS
-#define MAX_PLAYERS 150
+#define MAX_PLAYERS 300
 
 // Server information
 #define SERVER_VERSION 			"Experimental v0.10 Snapshot 3 Build 2" // Old: Legacy v0.9 Build 10
@@ -52,6 +52,22 @@
 #include <streamer>
 #include <ColAndreas>
 #include <YSF>
+
+#if !defined _FCNPC_included
+	#tryinclude <FCNPC>
+#endif
+
+#if !defined _FCNPC_included
+	#tryinclude "FCNPC"
+#endif
+
+#if !defined _FCNPC_included
+	#tryinclude "../FCNPC"
+#endif
+
+#if !defined _FCNPC_included
+	#error Add FCNPC.inc to your scripts directory
+#endif
 
 // Other Library
 #include <physics>
@@ -2441,7 +2457,7 @@ public OnGameModeInit()
 	// Server
 	SetGameModeText(SERVER_MODE);
 
-	SendRconCommand("hostname Hyaxe Dev | "SERVER_VERSION"");
+	SendRconCommand("hostname Hyaxe (dev) | Características del singleplayer");
 	
 	#if defined FINAL_BUILD
 		SetTimer("GiveAutoGift", 300000, false);
