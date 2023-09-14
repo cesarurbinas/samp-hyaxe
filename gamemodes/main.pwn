@@ -3345,13 +3345,13 @@ new ADMIN_LEVELS[][] = //aca quede
 {
 	"Jugador",
 	"Ayudante",
-	"Moderador I",
-	"Moderador II",
-	"Moderador III",
-	"Administrador I",
-	"Administrador II",
-	"Game Operator",
-	"Administrador IIII"
+	"Mod I",
+	"Mod II",
+	"Mod III",
+	"Mod IIII",
+	"Mod IIIII",
+	"Operador",
+	"Administrador"
 };
 
 CALLBACK: DisablePlayerPoliceSearchLevel(playerid)
