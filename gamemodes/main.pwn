@@ -4251,7 +4251,7 @@ ResyncWeapon(playerid, weapon)
 
 CheckAndReload(playerid)
 {
-	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL)
+	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_NORMAL && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 	{
 		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 		{
