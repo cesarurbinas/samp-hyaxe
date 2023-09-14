@@ -6682,8 +6682,8 @@ CALLBACK: SendGift()
 			case 4: type = 3;
 		}
 
-		if (type == 0) extra = minrand(300, 2000);
-		else extra = minrand(1, 3);
+		if (type == 0) extra = minrand(300, 1000);
+		else extra = minrand(1, 2);
 
 		GenString(code, 8);
 
