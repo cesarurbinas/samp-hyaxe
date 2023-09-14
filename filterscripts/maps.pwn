@@ -1,4 +1,5 @@
 #include <a_samp>
+#include <ColAndreas>
 #include <crashdetect>
 #include <streamer>
 #define THIS_SCRIPT	450
@@ -18758,6 +18759,33 @@ public OnFilterScriptInit()
 	CreateDynamicObject(19388, -2029.70081, -113.10525, 1035.84106,   0.00000, 0.00000, 90.00000);
 	CreateDynamicObject(1500, -2030.51074, -113.14552, 1034.07397,   0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(11738, -2033.98706, -118.21369, 1035.00330,   0.00000, 0.00000, 130.08585);
+
+    // Leñador
+    CreateDynamicObject(16001, -1929.2066, -2450.0910, 29.7673, 0.0000, 0.0000, -126.3999); //drvin_projhut
+    CreateDynamicObject(3403, -1938.4100, -2458.4096, 31.9523, 0.0000, 0.0000, -52.8999); //sw_logcover
+    CreateDynamicObject(18609, -1940.1510, -2453.1076, 30.7925, -1.2000, -1.5999, -136.0999); //Cs_Logs06
+    CreateDynamicObject(18609, -1941.7657, -2454.6601, 30.8051, -1.2000, -0.7999, -136.0999); //Cs_Logs06
+    CreateDynamicObject(18609, -1943.3387, -2456.1708, 30.7156, -1.2000, -0.7999, -136.0999); //Cs_Logs06
+    CreateDynamicObject(18609, -1938.1464, -2460.5163, 30.0499, -178.5999, -0.7999, -142.9999); //Cs_Logs06
+    CreateDynamicObject(18228, -1846.15417, -2461.52173, 27.65077, 356.85840, 0.00000, 216.68089); // Rocas
+    tmpobjid = CreateDynamicObject(2957, -1993.0839, -2388.8403, 30.9870, 0.0000, 0.0000, -44.3999); //chinaTgarageDoor
+    SetDynamicObjectMaterial(tmpobjid, 0, 14666, "genintintsex", "mp_porn_wall", 0x00000000);
+    CreateDynamicObject(2893, -1994.3288, -2387.5786, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    tmpobjid = CreateDynamicObject(2957, -1994.1547, -2387.7768, 30.9870, 0.0000, 0.0000, -44.3999); //chinaTgarageDoor
+    SetDynamicObjectMaterial(tmpobjid, 0, 14666, "genintintsex", "mp_porn_wall", 0x00000000);
+    CreateDynamicObject(984, -1993.4158, -2389.7355, 31.0438, -14.2999, 0.0000, -44.4999); //fenceshit2
+    CreateDynamicObject(2893, -1993.9042, -2388.0034, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CreateDynamicObject(2893, -1993.4940, -2388.4140, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CreateDynamicObject(2893, -1993.0555, -2388.8530, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CreateDynamicObject(984, -1995.1997, -2387.9826, 31.0438, -14.2999, 0.0000, -44.4999); //fenceshit2
+
+    CA_CreateObject(2893, -1994.3288, -2387.5786, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CA_CreateObject(984, -1993.4158, -2389.7355, 31.0438, -14.2999, 0.0000, -44.4999); //fenceshit2
+    CA_CreateObject(2893, -1993.9042, -2388.0034, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CA_CreateObject(2893, -1993.4940, -2388.4140, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CA_CreateObject(2893, -1993.0555, -2388.8530, 30.9783, -2.2999, 0.0000, 134.9999); //kmb_ramp
+    CA_CreateObject(984, -1995.1997, -2387.9826, 31.0438, -14.2999, 0.0000, -44.4999); //fenceshit2
+    
 	BlockGarages();
 	return 1;
 }
@@ -19044,6 +19072,24 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1438, -63.6719, -1125.6953, 0.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 1438, -63.4141, -1115.4141, 0.0469, 0.25);
 	RemoveBuildingForPlayer(playerid, 1415, -63.8125, -1106.4219, 0.2188, 0.25);
+
+    // Leñador
+    RemoveBuildingForPlayer(playerid, 785, -1878.7813, -2299.4531, 36.7578, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1851.1719, -2419.8906, 28.8672, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1916.5703, -2352.8203, 27.8984, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1921.7813, -2233.5547, 64.0625, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1868.4609, -2470.2734, 26.2813, 0.25);
+    RemoveBuildingForPlayer(playerid, 785, -1934.3438, -2401.9297, 26.5000, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1868.4609, -2470.2734, 26.2813, 0.25);
+    RemoveBuildingForPlayer(playerid, 790, -1979.7188, -2371.9063, 34.7578, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1934.3438, -2401.9297, 26.5000, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1916.5703, -2352.8203, 27.8984, 0.25);
+    RemoveBuildingForPlayer(playerid, 790, -1891.0703, -2381.6875, 34.7578, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1878.7813, -2299.4531, 36.7578, 0.25);
+    RemoveBuildingForPlayer(playerid, 18228, -1856.6875, -2321.2891, 38.1484, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1851.1719, -2419.8906, 28.8672, 0.25);
+    RemoveBuildingForPlayer(playerid, 791, -1921.7813, -2233.5547, 64.0625, 0.25);
+    
 	return 1;
 }
 
