@@ -3125,6 +3125,48 @@ IPacket:AIM_SYNC(playerid, BitStream:bs)
     return 1;
 }
 
+NeuroJail(playerid, time, reason[])
+{
+    StopAudioStreamForPlayer(playerid);
+    CancelEdit(playerid);
+    EndPlayerJob(playerid);
+
+    PLAYER_MISC[playerid][MISC_JAILS] ++;
+    SavePlayerMisc(playerid);
+
+    PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE] = false;
+    PLAYER_TEMP[playerid][py_THIRST_MESSAGE] = false;
+    PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = false;
+    PLAYER_TEMP[playerid][py_PLAYER_IN_INV] = false;
+    PLAYER_TEMP[playerid][py_CUFFED] = false;
+    PLAYER_TEMP[playerid][py_CUFFING] = false;
+    PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
+
+    if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
+    {
+	   PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
+	   DisablePlayerMechanicMark(playerid);
+    }
+    if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
+    if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
+
+    JailPlayer(playerid, time * 60);
+    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+
+    new str[144];
+    format(str, 144, "[ADMIN] NeuroAdmin jaileó a %s (%d) por %s minutos: %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, TimeConvert(time * 60), reason);
+    SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+    new webhook[144];
+    format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+	SendDiscordWebhook(webhook, 1);
+
+	new dialog[250];
+	format(dialog, sizeof dialog, ""COL_WHITE"NeuroAdmin te jaileó, razón: %s.\nRecuerde que a los 10 jails sera baneado permanentemente.", reason);
+	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	return 1;
+}
+
 CALLBACK: IsValidVehicleAbuse(playerid, vehicleid)
 {
 	new Float:speed = GetPlayerSpeed(playerid);
@@ -3132,43 +3174,7 @@ CALLBACK: IsValidVehicleAbuse(playerid, vehicleid)
 	{
  		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
  		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
-
- 		new time = 60;
-	    StopAudioStreamForPlayer(playerid);
-	    CancelEdit(playerid);
-	    EndPlayerJob(playerid);
-
-	    PLAYER_MISC[playerid][MISC_JAILS] ++;
-	    SavePlayerMisc(playerid);
-
-	    PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE] = false;
-	    PLAYER_TEMP[playerid][py_THIRST_MESSAGE] = false;
-	    PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = false;
-	    PLAYER_TEMP[playerid][py_PLAYER_IN_INV] = false;
-	    PLAYER_TEMP[playerid][py_CUFFED] = false;
-	    PLAYER_TEMP[playerid][py_CUFFING] = false;
-	    PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
-
-	    if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
-	    {
-		   PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
-		   DisablePlayerMechanicMark(playerid);
-	    }
-	    if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
-	    if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
-
-	    JailPlayer(playerid, time * 60);
-	    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-
-	    new str[144];
-	    format(str, 144, "[ADMIN] NeuroAdmin jaileó a %s (%d) por %s minutos: PG.", ACCOUNT_INFO[playerid][ac_NAME], playerid, TimeConvert(time * 60));
-	    SendMessageToAdmins(COLOR_ANTICHEAT, str);
-
-	    new webhook[144];
-	    format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-		SendDiscordWebhook(webhook, 1);
-
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"NueroAdmin te jaileó, razón: PG.\nRecuerde que a los 10 jails sera baneado permanentemente.", "Entiendo", "");
+ 		NeuroJail(playerid, 30, "PG");
  	}
  	return 1;
 }
@@ -6689,7 +6695,7 @@ Log(const nombre[], const texto[])
 public OnPlayerDeath(playerid, killerid, reason)
 {
 	#if DEBUG_MODE == 1
-		printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
+		printf("OnPlayerDeath %d %d %d", playerid, killerid, reason); // debug juju
 	#endif
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
@@ -6845,8 +6851,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 		if (p_interior == 25 || p_interior == 26 || p_interior == 27)
 		{
-			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por matar a alguien dentro de minero.");
-			KickEx(playerid, 500);
+			NeuroJail(playerid, 30, "DM (Minero)");
 		}
 	}
 
