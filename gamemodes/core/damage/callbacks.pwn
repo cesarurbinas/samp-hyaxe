@@ -178,8 +178,9 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 			case 0:
 			{
 				GetPlayerPos(issuerid, x, y, z);
-
-				if (GetPlayerDistanceFromPoint(playerid, x, y, z) >= 5.0)
+				new Float:dist = GetPlayerDistanceFromPoint(playerid, x, y, z);
+				
+				if (dist >= 5.0)
 				{
 					PLAYER_TEMP[playerid][py_BIG_PUNCH] ++;
 					if (PLAYER_TEMP[playerid][py_BIG_PUNCH] >= 5)

@@ -78,6 +78,12 @@
 #include <Pawn.Regex>
 //#tryinclude <profiler>
 
+// Admin
+ #include "core/admin/level.pwn"
+
+// Dialogs
+#include "core/dialog/dialog_id.pwn"
+
 // Damage
 #include "core/damage/header.pwn"
 
@@ -96,7 +102,7 @@
 
 /* v0.x Features */
 
-// Anticheats
+// Anticheat
 #include "core/anticheat/header.pwn"
 
 // Voice Chat
@@ -174,9 +180,6 @@
 #include "utils/item/info.pwn"
 #include "utils/item/grab.pwn"
 
-// Dialogs
-#include "core/dialog/dialog_id.pwn"
-
 // Areas
 #include "core/key_areas/areas.pwn"
 
@@ -236,7 +239,6 @@
 
 // Admin
 #include "core/admin/macros.pwn"
-#include "core/admin/level.pwn"
 #include "core/admin/callbacks.pwn"
 #include "core/admin/commands.pwn"
 //#include "core/admin/discord.pwn"
