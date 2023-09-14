@@ -7802,7 +7802,7 @@ SanAndreas()
 	for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
 	{
 		new str_text[128];
-		format(str_text, sizeof(str_text), ""COL_RED"Levantador nº 1\n"COL_WHITE"Acércate para usar", i + 1);
+		format(str_text, sizeof(str_text), ""COL_RED"Levantador nº %d\n"COL_WHITE"Acércate para usar", i + 1);
 		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2] + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	}
 
