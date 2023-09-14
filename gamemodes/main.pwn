@@ -23607,6 +23607,8 @@ CALLBACK: UpdateGraffitiProgress(playerid)
 {
 	if (IsPlayerPaused(playerid)) return 1;
 
+	if (GetPlayerWeapon(playerid) != 41) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
+
 	//Strings
 	new crew_one[64],
 		crew_two[64],
