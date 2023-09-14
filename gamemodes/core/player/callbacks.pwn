@@ -196,7 +196,7 @@ public OnPlayerConnect(playerid)
 		    SendDiscordWebhook(str_text, 1);*/
 		    
 		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el máximo de conexiones");
-		    KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		    KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			return 0;
 		}
 
@@ -208,7 +208,7 @@ public OnPlayerConnect(playerid)
 		    SendDiscordWebhook(str_text, 1);*/
 		    
 		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inválido");
-		    KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		    KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			return 0;	
 		}
 	}
@@ -261,7 +261,7 @@ public OnPlayerConnect(playerid)
 			);
 
 			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		}
 		else if (type == TYPE_TEMP_BAN)
 		{
@@ -300,7 +300,7 @@ public OnPlayerConnect(playerid)
 				);
 
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			}
 			db_free_result(still_banned_Result);
 		}
@@ -1412,7 +1412,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (1)");
-						KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+						KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 						return 0;
 		            }
 		        }
@@ -1425,7 +1425,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (2)");
-						KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+						KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 						return 0;
 					}
 		        }
@@ -1438,7 +1438,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Anti-L");
-						KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+						KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 						return 0;
 		            }
 		        }
@@ -1451,7 +1451,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: SleepAnim");
-						KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+						KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 						return 0;
 		            }
 		        }
@@ -1467,7 +1467,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 						    SendDiscordWebhook(str_text, 1);
 						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (3)");
-							KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+							KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 							return 0;
 						}
 					}
@@ -1518,7 +1518,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Jetpack");
 
-				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 				PLAYER_MISC[playerid][MISC_BANS] ++;
 				SavePlayerMisc(playerid);
 
@@ -2503,7 +2503,7 @@ public OnPlayerRequestClass(playerid, classid)
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
 					Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
 					no están permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
-				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 				return 0;
 			}
 			
@@ -2539,7 +2539,7 @@ public OnPlayerText(playerid, text[])
 	#endif
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
-	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 
 	// general
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
@@ -2586,7 +2586,7 @@ public OnPlayerText(playerid, text[])
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Superar 50 jails");
 
 		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado automáticamente, razón: Superar los 50 jails", "Cerrar", "");
-		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
@@ -2609,7 +2609,7 @@ public OnPlayerText(playerid, text[])
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IC)");
 
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
@@ -5809,7 +5809,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazer sin ser policia");
 
-				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 				PLAYER_MISC[playerid][MISC_BANS] ++;
 				SavePlayerMisc(playerid);
 
@@ -5872,7 +5872,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 				SendDiscordWebhook(str_text, 1);
 				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Sospecha de Aimbot");
-				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			}*/
 		}
 	}
@@ -5933,7 +5933,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		{
 			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar siendo nivel 1.");
 			TogglePlayerControllableEx(playerid, false);
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		}
 
 		if (PLAYER_WORKS[playerid][WORK_MEDIC] && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_MEDIC)
@@ -5956,7 +5956,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	{
 		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar estando herido.");
 		TogglePlayerControllableEx(playerid, false);
-		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	}*/
 
 	if (PLAYER_TEMP[playerid][py_EXPLOSION_BULLET] == true)
@@ -6219,7 +6219,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
 		TogglePlayerControllableEx(playerid, false);
-		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	}
 	return 1;
 }
@@ -6247,7 +6247,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 			SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (%s)", ac_Info[cheat][ac_Name]);
 			TogglePlayerControllableEx(playerid, false);
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 
 			if (cheat == CHEAT_PLAYER_HEALTH) CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
 			if (cheat == CHEAT_PLAYER_ARMOUR) CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
@@ -6270,7 +6270,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 			SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
 			
 			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por sobrepasar cantidad máxima de advertencias del anti-cheat.");
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		}
 	}
 

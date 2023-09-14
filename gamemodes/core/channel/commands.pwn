@@ -33,7 +33,7 @@ CMD:duda(playerid, params[])
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Dudas)");
 
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
@@ -73,7 +73,7 @@ CMD:duda(playerid, params[])
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el dudas)");
 
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
@@ -165,7 +165,7 @@ CMD:gl(playerid, params[])
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Dudas)");
 
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
@@ -205,7 +205,7 @@ CMD:gl(playerid, params[])
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el dudas)");
 
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
@@ -264,7 +264,7 @@ CMD:anuncio(playerid, params[])
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Anuncios)");
 
-			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
@@ -306,7 +306,7 @@ CMD:anuncio(playerid, params[])
 		
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el anuncio)");
 
-		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 

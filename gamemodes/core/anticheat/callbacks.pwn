@@ -23,7 +23,7 @@
 				SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
 				SendDiscordWebhook(str_text, 1);
 				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: RapidFire");
-				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			}
 		}
 

@@ -257,7 +257,7 @@ IPacket:VEHICLE_SYNC(playerid, BitStream:bs)
 		SendDiscordWebhook(string, 1);
 
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Vehicle Grabber (1)");
-		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		return 0;
 	}
     return 1;

@@ -8522,7 +8522,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else
 			{
 				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Respuesta incorrecta");
-				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			}
 		}
 		case DIALOG_QUESTION_CREATE:
@@ -8599,7 +8599,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					SendEmail(ACCOUNT_INFO[playerid][ac_EMAIL], "Respuesta de seguridad", str_text);
 
 					SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Respuesta incorrecta");
-					KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+					KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 				}
 			}
 			else Kick(playerid);
