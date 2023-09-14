@@ -37,12 +37,12 @@ stock hy_RGBAToHex(r, g, b, a)
 
 stock hy_RGBAToARGB(col)
 {
-    return ((((col) << 24) & 0xFF000000) | (((col) >>> 8) & 0xF7F7F7));
+    return ((((col) << 24) & 0xFF000000) | (((col) >>> 8) & 0xFFFFFF));
 }
 
 stock hy_ARGBToRGBA(col)
 {
-    return ((((col) << 8) & 0xF7F7F700) | (((col) >>> 24) & 0xFF));
+    return ((((col) << 8) & 0xFFFFFF00) | (((col) >>> 24) & 0xFF));
 }
 
 stock Color_SetAlpha(color, alpha = 0xFF)

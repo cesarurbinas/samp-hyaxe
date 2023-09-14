@@ -21,24 +21,23 @@ StartMining(playerid, rock_id)
 
 GetRockColorType(rock_type)
 {
-	new rock_color = 0xFFFFFFFF;
-
 	switch(rock_type)
 	{
-		case 0: rock_color = 0xFF000000; // Carbon
-		case 1: rock_color = 0xFFffff00; // Azufre
-		case 2: rock_color = 0xFFcfcfcf; // Hierro
-		case 3: rock_color = 0xFFffae00; // Jaspe
-		case 4: rock_color = 0xFFff0000; // Ruby
-		case 5: rock_color = 0xFF59ff00; // Esmeralda
-		case 6: rock_color = 0xFFf5d80b; // Oro
-		case 7: rock_color = 0xFFe30bf5; // Cuarzo
-		case 8: rock_color = 0xFF0bf5ea; // Diamante
-		case 9: rock_color = 0xFF0bf5ea; // Bismuto
-		case 10: rock_color = 0xFF0042ff; // Lapislázuli
-		case 11: rock_color = 0xFFeceff8; // Platino
+		case 0: return 0xFF000000; // Carbon
+		case 1: return 0xFFffff00; // Azufre
+		case 2: return 0xFFcfcfcf; // Hierro
+		case 3: return 0xFFffae00; // Jaspe
+		case 4: return 0xFFff0000; // Ruby
+		case 5: return 0xFF59ff00; // Esmeralda
+		case 6: return 0xFFf5d80b; // Oro
+		case 7: return 0xFFe30bf5; // Cuarzo
+		case 8: return 0xFF0bf5ea; // Diamante
+		case 9: return 0xFF0bf5ea; // Bismuto
+		case 10: return 0xFF0042ff; // Lapislázuli
+		case 11: return 0xFFeceff8; // Platino
+		default: return 0xFFFFFFFF;
 	}
-	return rock_color;
+	return 1;
 }
 
 PayPlayerMiner(playerid)
