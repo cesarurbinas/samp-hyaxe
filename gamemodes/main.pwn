@@ -7655,7 +7655,7 @@ public InitRandomGangEvent()
 	return 1;
 }
 
-GenString(strDest[], strLen = 10)
+/*GenString(strDest[], strLen = 10)
 {
     while(strLen --)
         strDest[strLen] = random(2) ? (random(26) + (random(2) ? 'a' : 'A')) : (random(10) + '0');
@@ -7683,7 +7683,7 @@ AddGiftCode(code[], type, extra)
 	);
 	db_free_result(db_query(Database, DB_Query));
 	return 1;
-}
+}*/
 
 /*forward SendGift();
 public SendGift()
