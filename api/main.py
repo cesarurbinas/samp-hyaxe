@@ -66,7 +66,31 @@ def webhook():
 
 @app.route('/proxycheck/<ip>')
 def proxy_check(ip):
-    address_info = requests.get(f"http://ip-api.com/json/{ip}?fields=proxy,hosting").json()
+    address_info = requests.get(f"http://ip-api.com/json/{ip}?fields=proxy,hosting,countryCode").json()
+    whitelist = [
+        'AD',
+        'AR',
+        'BO',
+        'CL',
+        'CO',
+        'CR',
+        'DO',
+        'EC',
+        'ES',
+        'GT',
+        'HT',
+        'MA',
+        'MX',
+        'PE',
+        'PR',
+        'PY',
+        'SV',
+        'UY',
+        'VE'
+    ]
+
+    if not address_info.get('countryCode') in whitelist:
+        return 'Y'
 
     if address_info.get('hosting') == True:
         return 'Y'
