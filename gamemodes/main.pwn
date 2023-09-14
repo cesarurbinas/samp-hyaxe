@@ -14014,7 +14014,8 @@ ShowDialog(playerid, dialogid)
     			Motor\t%s\n\
     			Luces\t%s\n\
     			Estación de radio\t%s\n\
-    			Mapa\t%s",
+    			Mapa\t%s\n\
+    			Estacionar\t",
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			radio_station,
@@ -22130,6 +22131,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
 						else ShowPlayerGpsMap(playerid);
+					}
+					case 4:
+					{
+						SetPlayerVehiclePark(playerid);
 					}
 				}
 			}
