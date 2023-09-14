@@ -43598,3 +43598,1710 @@ Console input: exit
 [18:04:49] Pawn.CMD plugin v3.1.4 by urShadow unloaded
 [18:04:49] Pawn.Regex plugin v1.1.2 by urShadow unloaded
 [18:04:49] [GPS plugin]: Unloaded.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[22:34:38] 
+[22:34:38] Server Plugins
+[22:34:38] --------------
+[22:34:38]  Loading plugin: crashdetect.dll
+[22:34:40]   CrashDetect v4.18.1 is OK.
+[22:34:40]   Loaded.
+[22:34:40]  Loading plugin: streamer.dll
+[22:34:40] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[22:34:40]   Loaded.
+[22:34:40]  Loading plugin: sscanf.dll
+[22:34:40] 
+
+[22:34:40]  ===============================
+
+[22:34:40]       sscanf plugin loaded.     
+
+[22:34:40]          Version:  2.8.3        
+
+[22:34:40]   (c) 2018 Alex "Y_Less" Cole  
+
+[22:34:40]  ===============================
+
+[22:34:40]   Loaded.
+[22:34:40]  Loading plugin: pawnraknet.dll
+[22:34:40] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[22:34:40]   Loaded.
+[22:34:40]  Loading plugin: SKY.dll
+[22:34:42] 
+[22:34:42]  ===============================
+[22:34:42]    
+[22:34:42]    ## SKY - 2.1.1 ## 
+[22:34:42]    
+[22:34:42]    (c) 2008 - Present | YSF Maintainers
+[22:34:42]    (c) 2015 | Oscar "Slice" Broman
+[22:34:42]    
+[22:34:42]    Server Version: 0.3.7 R2
+[22:34:42]    Operating System: Windows
+[22:34:42]    Built on: Dec 12 2019 at 12:21:36
+[22:34:42]    
+[22:34:42]  ===============================
+[22:34:42] 
+[22:34:42]   Loaded.
+[22:34:42]  Loading plugin: sampvoice.dll
+[22:34:48] SAMPVOICE plugin v2.1 by MOR loaded
+[22:34:48]   Loaded.
+[22:34:48]  Loading plugin: pawncmd.dll
+[22:34:49] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[22:34:49]   Loaded.
+[22:34:49]  Loading plugin: pawnregex.dll
+[22:34:49] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[22:34:49]   Loaded.
+[22:34:49]  Loading plugin: GPS.dll
+[22:34:51] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[22:34:51]   Loaded.
+[22:34:51]  Loaded 9 plugins.
+
+[22:34:51] 
+[22:34:51] Filterscripts
+[22:34:51] ---------------
+[22:34:51]   Loading filterscript 'maps.amx'...
+[22:34:53]   Loaded 1 filterscripts.
+
+[22:34:58] [ANTI-CHEAT] Cargado
+[22:34:58] [ANTI-CHEAT] Version: 1.9.46
+[22:34:58] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[22:34:58] ongamemodeini
+[22:34:58] [debug] Base de datos conectada
+[22:35:09] [debug] Lugares cargados: 33
+[22:35:12] [debug] Propiedades libres: 1681.
+[22:35:12] [debug] Propiedades totales: 1775.
+[22:35:14] [debug] Bandas cargadas: 158
+[22:35:14] [debug] Territorios totales: 13
+[22:35:14] OnVehicleId 1
+[22:35:14] OnVehicleId 2
+[22:35:14] OnVehicleId 3
+[22:35:14] OnVehicleId 4
+[22:35:14] OnVehicleId 5
+[22:35:14] OnVehicleId 6
+[22:35:14] OnVehicleId 7
+[22:35:14] OnVehicleId 8
+[22:35:14] OnVehicleId 9
+[22:35:14] OnVehicleId 10
+[22:35:14] OnVehicleId 11
+[22:35:14] OnVehicleId 12
+[22:35:14] OnVehicleId 13
+[22:35:14] OnVehicleId 14
+[22:35:14] OnVehicleId 15
+[22:35:14] OnVehicleId 16
+[22:35:14] OnVehicleId 17
+[22:35:14] OnVehicleId 18
+[22:35:14] OnVehicleId 19
+[22:35:14] OnVehicleId 20
+[22:35:14] OnVehicleId 21
+[22:35:14] OnVehicleId 22
+[22:35:14] OnVehicleId 23
+[22:35:14] OnVehicleId 24
+[22:35:14] OnVehicleId 25
+[22:35:14] OnVehicleId 26
+[22:35:14] OnVehicleId 27
+[22:35:14] OnVehicleId 28
+[22:35:14] OnVehicleId 29
+[22:35:14] OnVehicleId 30
+[22:35:14] OnVehicleId 31
+[22:35:14] OnVehicleId 32
+[22:35:14] OnVehicleId 33
+[22:35:14] OnVehicleId 34
+[22:35:14] OnVehicleId 35
+[22:35:14] OnVehicleId 36
+[22:35:14] OnVehicleId 37
+[22:35:14] OnVehicleId 38
+[22:35:14] OnVehicleId 39
+[22:35:14] OnVehicleId 40
+[22:35:14] OnVehicleId 41
+[22:35:14] OnVehicleId 42
+[22:35:14] OnVehicleId 43
+[22:35:14] OnVehicleId 44
+[22:35:14] OnVehicleId 45
+[22:35:14] OnVehicleId 46
+[22:35:14] OnVehicleId 47
+[22:35:14] OnVehicleId 48
+[22:35:14] OnVehicleId 49
+[22:35:14] OnVehicleId 50
+[22:35:14] OnVehicleId 51
+[22:35:14] OnVehicleId 52
+[22:35:14] OnVehicleId 53
+[22:35:14] OnVehicleId 54
+[22:35:14] OnVehicleId 55
+[22:35:14] OnVehicleId 56
+[22:35:14] OnVehicleId 57
+[22:35:14] OnVehicleId 58
+[22:35:14] OnVehicleId 59
+[22:35:14] OnVehicleId 60
+[22:35:14] OnVehicleId 61
+[22:35:14] OnVehicleId 62
+[22:35:14] OnVehicleId 63
+[22:35:14] OnVehicleId 64
+[22:35:14] OnVehicleId 65
+[22:35:14] OnVehicleId 66
+[22:35:14] OnVehicleId 67
+[22:35:14] OnVehicleId 68
+[22:35:14] OnVehicleId 69
+[22:35:14] OnVehicleId 70
+[22:35:14] OnVehicleId 71
+[22:35:14] OnVehicleId 72
+[22:35:14] OnVehicleId 73
+[22:35:14] OnVehicleId 74
+[22:35:14] OnVehicleId 75
+[22:35:14] OnVehicleId 76
+[22:35:14] OnVehicleId 77
+[22:35:14] OnVehicleId 78
+[22:35:14] OnVehicleId 79
+[22:35:14] OnVehicleId 80
+[22:35:14] OnVehicleId 81
+[22:35:14] OnVehicleId 82
+[22:35:14] OnVehicleId 83
+[22:35:14] OnVehicleId 84
+[22:35:14] OnVehicleId 85
+[22:35:14] OnVehicleId 86
+[22:35:14] OnVehicleId 87
+[22:35:14] OnVehicleId 88
+[22:35:14] OnVehicleId 89
+[22:35:14] OnVehicleId 90
+[22:35:14] OnVehicleId 91
+[22:35:14] OnVehicleId 92
+[22:35:14] OnVehicleId 93
+[22:35:14] OnVehicleId 94
+[22:35:14] OnVehicleId 95
+[22:35:14] OnVehicleId 96
+[22:35:14] OnVehicleId 97
+[22:35:14] OnVehicleId 98
+[22:35:14] OnVehicleId 99
+[22:35:14] OnVehicleId 100
+[22:35:14] OnVehicleId 101
+[22:35:14] OnVehicleId 102
+[22:35:14] OnVehicleId 103
+[22:35:14] OnVehicleId 104
+[22:35:14] OnVehicleId 105
+[22:35:14] OnVehicleId 106
+[22:35:14] OnVehicleId 107
+[22:35:14] OnVehicleId 108
+[22:35:14] OnVehicleId 109
+[22:35:14] OnVehicleId 110
+[22:35:14] OnVehicleId 111
+[22:35:14] OnVehicleId 112
+[22:35:14] OnVehicleId 113
+[22:35:14] OnVehicleId 114
+[22:35:14] OnVehicleId 115
+[22:35:14] OnVehicleId 116
+[22:35:14] OnVehicleId 117
+[22:35:14] OnVehicleId 118
+[22:35:14] OnVehicleId 119
+[22:35:14] OnVehicleId 120
+[22:35:14] OnVehicleId 121
+[22:35:14] OnVehicleId 122
+[22:35:14] OnVehicleId 123
+[22:35:14] OnVehicleId 124
+[22:35:14] OnVehicleId 125
+[22:35:14] OnVehicleId 126
+[22:35:14] OnVehicleId 127
+[22:35:14] OnVehicleId 128
+[22:35:14] OnVehicleId 129
+[22:35:14] OnVehicleId 130
+[22:35:14] OnVehicleId 131
+[22:35:14] OnVehicleId 132
+[22:35:15] OnVehicleId 133
+[22:35:15] OnVehicleId 134
+[22:35:15] OnVehicleId 135
+[22:35:15] OnVehicleId 136
+[22:35:15] OnVehicleId 137
+[22:35:15] OnVehicleId 138
+[22:35:15] OnVehicleId 139
+[22:35:15] OnVehicleId 140
+[22:35:15] OnVehicleId 141
+[22:35:15] OnVehicleId 142
+[22:35:15] OnVehicleId 143
+[22:35:15] OnVehicleId 144
+[22:35:15] OnVehicleId 145
+[22:35:15] OnVehicleId 146
+[22:35:15] OnVehicleId 147
+[22:35:15] OnVehicleId 148
+[22:35:15] OnVehicleId 149
+[22:35:15] OnVehicleId 150
+[22:35:15] OnVehicleId 151
+[22:35:15] OnVehicleId 152
+[22:35:15] OnVehicleId 153
+[22:35:15] OnVehicleId 154
+[22:35:15] OnVehicleId 155
+[22:35:15] OnVehicleId 156
+[22:35:15] OnVehicleId 157
+[22:35:15] OnVehicleId 158
+[22:35:15] OnVehicleId 159
+[22:35:15] OnVehicleId 160
+[22:35:15] OnVehicleId 161
+[22:35:15] OnVehicleId 162
+[22:35:15] OnVehicleId 163
+[22:35:15] OnVehicleId 164
+[22:35:15] OnVehicleId 165
+[22:35:15] OnVehicleId 166
+[22:35:15] OnVehicleId 167
+[22:35:15] OnVehicleId 168
+[22:35:15] OnVehicleId 169
+[22:35:15] OnVehicleId 170
+[22:35:15] OnVehicleId 171
+[22:35:15] OnVehicleId 172
+[22:35:15] OnVehicleId 173
+[22:35:15] OnVehicleId 174
+[22:35:15] OnVehicleId 175
+[22:35:15] OnVehicleId 176
+[22:35:15] OnVehicleId 177
+[22:35:15] OnVehicleId 178
+[22:35:15] OnVehicleId 179
+[22:35:15] OnVehicleId 180
+[22:35:15] OnVehicleId 181
+[22:35:15] OnVehicleId 182
+[22:35:15] OnVehicleId 183
+[22:35:15] OnVehicleId 184
+[22:35:15] OnVehicleId 185
+[22:35:15] OnVehicleId 186
+[22:35:15] OnVehicleId 187
+[22:35:15] OnVehicleId 188
+[22:35:15] OnVehicleId 189
+[22:35:15] OnVehicleId 190
+[22:35:15] OnVehicleId 191
+[22:35:15] OnVehicleId 192
+[22:35:15] OnVehicleId 193
+[22:35:15] OnVehicleId 194
+[22:35:15] OnVehicleId 195
+[22:35:15] OnVehicleId 196
+[22:35:15] OnVehicleId 197
+[22:35:15] OnVehicleId 198
+[22:35:15] OnVehicleId 199
+[22:35:15] OnVehicleId 200
+[22:35:15] OnVehicleId 201
+[22:35:15] OnVehicleId 202
+[22:35:15] OnVehicleId 203
+[22:35:15] OnVehicleId 204
+[22:35:15] OnVehicleId 205
+[22:35:15] OnVehicleId 206
+[22:35:15] OnVehicleId 207
+[22:35:15] OnVehicleId 208
+[22:35:15] OnVehicleId 209
+[22:35:15] OnVehicleId 210
+[22:35:15] OnVehicleId 211
+[22:35:15] OnVehicleId 212
+[22:35:15] OnVehicleId 213
+[22:35:15] OnVehicleId 214
+[22:35:15] OnVehicleId 215
+[22:35:15] OnVehicleId 216
+[22:35:15] OnVehicleId 217
+[22:35:15] OnVehicleId 218
+[22:35:15] OnVehicleId 219
+[22:35:15] OnVehicleId 220
+[22:35:15] OnVehicleId 221
+[22:35:15] OnVehicleId 222
+[22:35:15] OnVehicleId 223
+[22:35:15] OnVehicleId 224
+[22:35:15] OnVehicleId 225
+[22:35:15] OnVehicleId 226
+[22:35:15] OnVehicleId 227
+[22:35:15] OnVehicleId 228
+[22:35:15] OnVehicleId 229
+[22:35:15] OnVehicleId 230
+[22:35:15] OnVehicleId 231
+[22:35:15] OnVehicleId 232
+[22:35:15] OnVehicleId 233
+[22:35:15] OnVehicleId 234
+[22:35:15] OnVehicleId 235
+[22:35:15] OnVehicleId 236
+[22:35:15] OnVehicleId 237
+[22:35:15] OnVehicleId 238
+[22:35:15] OnVehicleId 239
+[22:35:15] OnVehicleId 240
+[22:35:15] OnVehicleId 241
+[22:35:15] OnVehicleId 242
+[22:35:15] OnVehicleId 243
+[22:35:15] OnVehicleId 244
+[22:35:15] OnVehicleId 245
+[22:35:15] OnVehicleId 246
+[22:35:15] OnVehicleId 247
+[22:35:15] OnVehicleId 248
+[22:35:15] OnVehicleId 249
+[22:35:15] OnVehicleId 250
+[22:35:15] OnVehicleId 251
+[22:35:15] OnVehicleId 252
+[22:35:15] OnVehicleId 253
+[22:35:15] OnVehicleId 254
+[22:35:15] OnVehicleId 255
+[22:35:15] OnVehicleId 256
+[22:35:15] OnVehicleId 257
+[22:35:15] OnVehicleId 258
+[22:35:15] OnVehicleId 259
+[22:35:15] OnVehicleId 260
+[22:35:15] OnVehicleId 261
+[22:35:15] OnVehicleId 262
+[22:35:15] OnVehicleId 263
+[22:35:15] OnVehicleId 264
+[22:35:15] OnVehicleId 265
+[22:35:15] OnVehicleId 266
+[22:35:15] OnVehicleId 267
+[22:35:15] OnVehicleId 268
+[22:35:15] OnVehicleId 269
+[22:35:15] OnVehicleId 270
+[22:35:15] OnVehicleId 271
+[22:35:15] OnVehicleId 272
+[22:35:15] OnVehicleId 273
+[22:35:15] OnVehicleId 274
+[22:35:16] [info: hostname] Hyaxe | Roleplay con chat de voz
+[22:35:16] [info: language] Español - Spanish
+[22:35:16] [info: website] www.hyaxe.com
+[22:35:16] [info: discord] www.hyaxe.com/discord
+[22:35:16] 
+[build] Hyaxe SA-MP v0.5 Pre-Release
+
+[22:35:16] Number of vehicle models: 119
+[22:37:01] [connection] incoming connection: 127.0.0.1:52281 id: 0
+[22:37:02] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[22:37:02] OnPlayerConnect 0
+[22:37:13] OnPlayerRequestClass 0 0
+[22:37:13] OnPlayerStaeChnagge 0 9 0
+[22:37:22] OnDialogresponde 0 3 1 -1 lma0$$$
+[22:37:22] OnVehicleId 275
+[22:37:22] OnVehicleId 276
+[22:37:22] OnVehicleId 277
+[22:37:22] OnVehicleId 278
+[22:37:22] OnVehicleId 279
+[22:37:22] OnVehicleId 280
+[22:37:36] OnPlayerStaeChnagge 0 8 9
+[22:37:36] OnPlayerSpawn
+[22:37:37] OnPlayerStaeChnagge 0 1 8
+[22:37:40] OnPlayerCommandRecv 0 duty 
+[22:37:40] OnPlayerCOmmandPerfo 0  
+[22:37:42] OnPlayerCommandRecv 0 ls 0
+[22:37:42] OnPlayerCOmmandPerfo 0 0 
+[22:37:44] OnPlayerPickUpDynamicPickup 0 44
+[22:37:49] OnPlayerCommandRecv 0 localizar 
+[22:37:49] OnPlayerCOmmandPerfo 0  
+[22:37:53] OnDialogresponde 0 64 1 2 3. Elegy
+[22:37:56] OnPlayerCommandRecv 0 v 411 2 2
+[22:37:56] OnVehicleId 281
+[22:37:56] OnPlayerCOmmandPerfo 0 411 2 2 
+[22:37:56] OnPlayerStaeChnagge 0 2 1
+[22:38:01] OnDialogresponde 0 227 1 3 Mapa
+[22:38:06] OnDialogresponde 0 227 1 0 Motor
+[22:38:30] onaplayer enter dynamic area 0 15
+[22:38:35] OnPlayerLeaverDynamicArea 0 15
+[22:38:45] OnDialogresponde 0 227 1 3 Mapa
+[22:38:48] OnDialogresponde 0 227 1 4 Estacionar
+[22:39:02] OnPlayerEnterDynamicCp 0 1
+[22:39:03] OnPlayerExitVehicle 0 281
+[22:39:04] OnPlayerStaeChnagge 0 1 2
+[22:39:07] OnPlayerEnterVehicle 0 277 0
+[22:39:10] OnPlayerStaeChnagge 0 2 1
+[22:39:12] OnDialogresponde 0 227 1 4 Estacionar
+[22:39:15] OnPlayerExitVehicle 0 277
+[22:39:17] OnPlayerStaeChnagge 0 1 2
+[22:39:20] OnPlayerDisconnect 0 1
+Console input: exit
+[22:40:22] [part] Yahir_Kozel has left the server (0:1)
+[22:40:22] --- Server Shutting Down.
+[22:40:22] OnGameModeExit()
+[22:40:22] Deteniendo servidor...
+[22:40:22]  
+[22:40:22] --------------------------------------
+[22:40:22]  Estadisticas ANTI-CHEAT
+[22:40:22]  Detectado y evitado:
+[22:40:22]   0 los intentos de conspiraciones
+[22:40:22]   0 intentos de intrusion
+[22:40:22]   0 los intentos de el desmoldeo
+[22:40:22]   0 los intentos de flood
+[22:40:22]   0 los ataques
+[22:40:22]  Todo es descubierto y castigado 0 jugadores deshonestos
+[22:40:22] --------------------------------------
+
+[22:40:22] 
+
+*** Streamer Plugin v2.9.1 by Incognito unloaded ***
+
+[22:40:22] 
+
+[22:40:22]  ===============================
+
+[22:40:22]      sscanf plugin unloaded.    
+
+[22:40:22]  ===============================
+
+[22:40:22] Pawn.RakNet plugin v1.3.0 by urShadow has been unloaded
+[22:40:22] Pawn.CMD plugin v3.1.4 by urShadow unloaded
+[22:40:23] Pawn.Regex plugin v1.1.2 by urShadow unloaded
+[22:40:23] [GPS plugin]: Unloaded.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:05:07] 
+[13:05:07] Server Plugins
+[13:05:07] --------------
+[13:05:07]  Loading plugin: crashdetect.dll
+[13:05:08]   CrashDetect v4.18.1 is OK.
+[13:05:08]   Loaded.
+[13:05:08]  Loading plugin: streamer.dll
+[13:05:10] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[13:05:10]   Loaded.
+[13:05:10]  Loading plugin: sscanf.dll
+[13:05:10] 
+
+[13:05:10]  ===============================
+
+[13:05:10]       sscanf plugin loaded.     
+
+[13:05:10]          Version:  2.8.3        
+
+[13:05:10]   (c) 2018 Alex "Y_Less" Cole  
+
+[13:05:10]  ===============================
+
+[13:05:10]   Loaded.
+[13:05:10]  Loading plugin: pawnraknet.dll
+[13:05:12] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[13:05:12]   Loaded.
+[13:05:12]  Loading plugin: SKY.dll
+[13:05:13] 
+[13:05:13]  ===============================
+[13:05:13]    
+[13:05:13]    ## SKY - 2.1.1 ## 
+[13:05:13]    
+[13:05:14]    (c) 2008 - Present | YSF Maintainers
+[13:05:14]    (c) 2015 | Oscar "Slice" Broman
+[13:05:14]    
+[13:05:14]    Server Version: 0.3.7 R2
+[13:05:14]    Operating System: Windows
+[13:05:14]    Built on: Dec 12 2019 at 12:21:36
+[13:05:14]    
+[13:05:14]  ===============================
+[13:05:14] 
+[13:05:14]   Loaded.
+[13:05:14]  Loading plugin: sampvoice.dll
+[13:05:17] SAMPVOICE plugin v2.1 by MOR loaded
+[13:05:17]   Loaded.
+[13:05:17]  Loading plugin: pawncmd.dll
+[13:05:17] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[13:05:17]   Loaded.
+[13:05:17]  Loading plugin: pawnregex.dll
+[13:05:18] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[13:05:18]   Loaded.
+[13:05:18]  Loading plugin: GPS.dll
+[13:05:22] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[13:05:22]   Loaded.
+[13:05:22]  Loaded 9 plugins.
+
+[13:05:23] 
+[13:05:23] Filterscripts
+[13:05:23] ---------------
+[13:05:23]   Loading filterscript 'maps.amx'...
+[13:05:29]   Loaded 1 filterscripts.
+
+[13:05:35] [ANTI-CHEAT] Cargado
+[13:05:35] [ANTI-CHEAT] Version: 1.9.46
+[13:05:35] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[13:05:35] ongamemodeini
+[13:05:36] [debug] Base de datos conectada
+[13:05:49] [debug] Lugares cargados: 33
+[13:05:50] [debug] Propiedades libres: 1681.
+[13:05:50] [debug] Propiedades totales: 1775.
+[13:05:53] [debug] Bandas cargadas: 158
+[13:05:53] [debug] Territorios totales: 13
+[13:05:53] OnVehicleId 1
+[13:05:53] OnVehicleId 2
+[13:05:53] OnVehicleId 3
+[13:05:53] OnVehicleId 4
+[13:05:53] OnVehicleId 5
+[13:05:53] OnVehicleId 6
+[13:05:53] OnVehicleId 7
+[13:05:53] OnVehicleId 8
+[13:05:53] OnVehicleId 9
+[13:05:53] OnVehicleId 10
+[13:05:53] OnVehicleId 11
+[13:05:53] OnVehicleId 12
+[13:05:53] OnVehicleId 13
+[13:05:53] OnVehicleId 14
+[13:05:53] OnVehicleId 15
+[13:05:53] OnVehicleId 16
+[13:05:53] OnVehicleId 17
+[13:05:53] OnVehicleId 18
+[13:05:53] OnVehicleId 19
+[13:05:53] OnVehicleId 20
+[13:05:53] OnVehicleId 21
+[13:05:53] OnVehicleId 22
+[13:05:53] OnVehicleId 23
+[13:05:53] OnVehicleId 24
+[13:05:53] OnVehicleId 25
+[13:05:53] OnVehicleId 26
+[13:05:53] OnVehicleId 27
+[13:05:53] OnVehicleId 28
+[13:05:53] OnVehicleId 29
+[13:05:53] OnVehicleId 30
+[13:05:53] OnVehicleId 31
+[13:05:53] OnVehicleId 32
+[13:05:53] OnVehicleId 33
+[13:05:53] OnVehicleId 34
+[13:05:53] OnVehicleId 35
+[13:05:53] OnVehicleId 36
+[13:05:53] OnVehicleId 37
+[13:05:53] OnVehicleId 38
+[13:05:53] OnVehicleId 39
+[13:05:53] OnVehicleId 40
+[13:05:53] OnVehicleId 41
+[13:05:53] OnVehicleId 42
+[13:05:53] OnVehicleId 43
+[13:05:53] OnVehicleId 44
+[13:05:53] OnVehicleId 45
+[13:05:53] OnVehicleId 46
+[13:05:53] OnVehicleId 47
+[13:05:53] OnVehicleId 48
+[13:05:53] OnVehicleId 49
+[13:05:53] OnVehicleId 50
+[13:05:53] OnVehicleId 51
+[13:05:53] OnVehicleId 52
+[13:05:53] OnVehicleId 53
+[13:05:53] OnVehicleId 54
+[13:05:53] OnVehicleId 55
+[13:05:53] OnVehicleId 56
+[13:05:53] OnVehicleId 57
+[13:05:53] OnVehicleId 58
+[13:05:53] OnVehicleId 59
+[13:05:53] OnVehicleId 60
+[13:05:53] OnVehicleId 61
+[13:05:53] OnVehicleId 62
+[13:05:53] OnVehicleId 63
+[13:05:53] OnVehicleId 64
+[13:05:53] OnVehicleId 65
+[13:05:53] OnVehicleId 66
+[13:05:53] OnVehicleId 67
+[13:05:53] OnVehicleId 68
+[13:05:53] OnVehicleId 69
+[13:05:53] OnVehicleId 70
+[13:05:53] OnVehicleId 71
+[13:05:53] OnVehicleId 72
+[13:05:53] OnVehicleId 73
+[13:05:53] OnVehicleId 74
+[13:05:53] OnVehicleId 75
+[13:05:53] OnVehicleId 76
+[13:05:53] OnVehicleId 77
+[13:05:53] OnVehicleId 78
+[13:05:53] OnVehicleId 79
+[13:05:53] OnVehicleId 80
+[13:05:53] OnVehicleId 81
+[13:05:53] OnVehicleId 82
+[13:05:53] OnVehicleId 83
+[13:05:53] OnVehicleId 84
+[13:05:53] OnVehicleId 85
+[13:05:53] OnVehicleId 86
+[13:05:53] OnVehicleId 87
+[13:05:53] OnVehicleId 88
+[13:05:53] OnVehicleId 89
+[13:05:53] OnVehicleId 90
+[13:05:53] OnVehicleId 91
+[13:05:53] OnVehicleId 92
+[13:05:53] OnVehicleId 93
+[13:05:53] OnVehicleId 94
+[13:05:53] OnVehicleId 95
+[13:05:53] OnVehicleId 96
+[13:05:53] OnVehicleId 97
+[13:05:53] OnVehicleId 98
+[13:05:53] OnVehicleId 99
+[13:05:53] OnVehicleId 100
+[13:05:53] OnVehicleId 101
+[13:05:53] OnVehicleId 102
+[13:05:53] OnVehicleId 103
+[13:05:53] OnVehicleId 104
+[13:05:53] OnVehicleId 105
+[13:05:53] OnVehicleId 106
+[13:05:53] OnVehicleId 107
+[13:05:53] OnVehicleId 108
+[13:05:53] OnVehicleId 109
+[13:05:53] OnVehicleId 110
+[13:05:53] OnVehicleId 111
+[13:05:53] OnVehicleId 112
+[13:05:53] OnVehicleId 113
+[13:05:53] OnVehicleId 114
+[13:05:53] OnVehicleId 115
+[13:05:53] OnVehicleId 116
+[13:05:53] OnVehicleId 117
+[13:05:53] OnVehicleId 118
+[13:05:53] OnVehicleId 119
+[13:05:53] OnVehicleId 120
+[13:05:53] OnVehicleId 121
+[13:05:53] OnVehicleId 122
+[13:05:53] OnVehicleId 123
+[13:05:53] OnVehicleId 124
+[13:05:53] OnVehicleId 125
+[13:05:53] OnVehicleId 126
+[13:05:53] OnVehicleId 127
+[13:05:53] OnVehicleId 128
+[13:05:53] OnVehicleId 129
+[13:05:53] OnVehicleId 130
+[13:05:53] OnVehicleId 131
+[13:05:53] OnVehicleId 132
+[13:05:53] OnVehicleId 133
+[13:05:53] OnVehicleId 134
+[13:05:53] OnVehicleId 135
+[13:05:53] OnVehicleId 136
+[13:05:53] OnVehicleId 137
+[13:05:53] OnVehicleId 138
+[13:05:53] OnVehicleId 139
+[13:05:53] OnVehicleId 140
+[13:05:53] OnVehicleId 141
+[13:05:53] OnVehicleId 142
+[13:05:53] OnVehicleId 143
+[13:05:53] OnVehicleId 144
+[13:05:53] OnVehicleId 145
+[13:05:53] OnVehicleId 146
+[13:05:53] OnVehicleId 147
+[13:05:53] OnVehicleId 148
+[13:05:53] OnVehicleId 149
+[13:05:53] OnVehicleId 150
+[13:05:53] OnVehicleId 151
+[13:05:53] OnVehicleId 152
+[13:05:53] OnVehicleId 153
+[13:05:53] OnVehicleId 154
+[13:05:53] OnVehicleId 155
+[13:05:53] OnVehicleId 156
+[13:05:53] OnVehicleId 157
+[13:05:53] OnVehicleId 158
+[13:05:53] OnVehicleId 159
+[13:05:53] OnVehicleId 160
+[13:05:53] OnVehicleId 161
+[13:05:53] OnVehicleId 162
+[13:05:53] OnVehicleId 163
+[13:05:53] OnVehicleId 164
+[13:05:53] OnVehicleId 165
+[13:05:53] OnVehicleId 166
+[13:05:53] OnVehicleId 167
+[13:05:53] OnVehicleId 168
+[13:05:53] OnVehicleId 169
+[13:05:53] OnVehicleId 170
+[13:05:53] OnVehicleId 171
+[13:05:53] OnVehicleId 172
+[13:05:53] OnVehicleId 173
+[13:05:53] OnVehicleId 174
+[13:05:53] OnVehicleId 175
+[13:05:53] OnVehicleId 176
+[13:05:53] OnVehicleId 177
+[13:05:53] OnVehicleId 178
+[13:05:53] OnVehicleId 179
+[13:05:53] OnVehicleId 180
+[13:05:53] OnVehicleId 181
+[13:05:53] OnVehicleId 182
+[13:05:53] OnVehicleId 183
+[13:05:53] OnVehicleId 184
+[13:05:53] OnVehicleId 185
+[13:05:53] OnVehicleId 186
+[13:05:53] OnVehicleId 187
+[13:05:53] OnVehicleId 188
+[13:05:53] OnVehicleId 189
+[13:05:53] OnVehicleId 190
+[13:05:53] OnVehicleId 191
+[13:05:53] OnVehicleId 192
+[13:05:53] OnVehicleId 193
+[13:05:53] OnVehicleId 194
+[13:05:53] OnVehicleId 195
+[13:05:53] OnVehicleId 196
+[13:05:53] OnVehicleId 197
+[13:05:53] OnVehicleId 198
+[13:05:53] OnVehicleId 199
+[13:05:53] OnVehicleId 200
+[13:05:53] OnVehicleId 201
+[13:05:53] OnVehicleId 202
+[13:05:53] OnVehicleId 203
+[13:05:53] OnVehicleId 204
+[13:05:53] OnVehicleId 205
+[13:05:53] OnVehicleId 206
+[13:05:53] OnVehicleId 207
+[13:05:53] OnVehicleId 208
+[13:05:53] OnVehicleId 209
+[13:05:53] OnVehicleId 210
+[13:05:53] OnVehicleId 211
+[13:05:53] OnVehicleId 212
+[13:05:53] OnVehicleId 213
+[13:05:53] OnVehicleId 214
+[13:05:53] OnVehicleId 215
+[13:05:53] OnVehicleId 216
+[13:05:53] OnVehicleId 217
+[13:05:53] OnVehicleId 218
+[13:05:53] OnVehicleId 219
+[13:05:53] OnVehicleId 220
+[13:05:53] OnVehicleId 221
+[13:05:53] OnVehicleId 222
+[13:05:53] OnVehicleId 223
+[13:05:53] OnVehicleId 224
+[13:05:53] OnVehicleId 225
+[13:05:53] OnVehicleId 226
+[13:05:53] OnVehicleId 227
+[13:05:53] OnVehicleId 228
+[13:05:53] OnVehicleId 229
+[13:05:53] OnVehicleId 230
+[13:05:53] OnVehicleId 231
+[13:05:53] OnVehicleId 232
+[13:05:53] OnVehicleId 233
+[13:05:53] OnVehicleId 234
+[13:05:53] OnVehicleId 235
+[13:05:53] OnVehicleId 236
+[13:05:53] OnVehicleId 237
+[13:05:53] OnVehicleId 238
+[13:05:53] OnVehicleId 239
+[13:05:53] OnVehicleId 240
+[13:05:53] OnVehicleId 241
+[13:05:53] OnVehicleId 242
+[13:05:53] OnVehicleId 243
+[13:05:53] OnVehicleId 244
+[13:05:53] OnVehicleId 245
+[13:05:53] OnVehicleId 246
+[13:05:53] OnVehicleId 247
+[13:05:53] OnVehicleId 248
+[13:05:53] OnVehicleId 249
+[13:05:53] OnVehicleId 250
+[13:05:53] OnVehicleId 251
+[13:05:53] OnVehicleId 252
+[13:05:53] OnVehicleId 253
+[13:05:53] OnVehicleId 254
+[13:05:53] OnVehicleId 255
+[13:05:53] OnVehicleId 256
+[13:05:53] OnVehicleId 257
+[13:05:53] OnVehicleId 258
+[13:05:53] OnVehicleId 259
+[13:05:53] OnVehicleId 260
+[13:05:53] OnVehicleId 261
+[13:05:53] OnVehicleId 262
+[13:05:53] OnVehicleId 263
+[13:05:53] OnVehicleId 264
+[13:05:53] OnVehicleId 265
+[13:05:53] OnVehicleId 266
+[13:05:53] OnVehicleId 267
+[13:05:53] OnVehicleId 268
+[13:05:53] OnVehicleId 269
+[13:05:53] OnVehicleId 270
+[13:05:53] OnVehicleId 271
+[13:05:53] OnVehicleId 272
+[13:05:53] OnVehicleId 273
+[13:05:53] OnVehicleId 274
+[13:05:54] [info: hostname] Hyaxe | Roleplay con chat de voz
+[13:05:54] [info: language] Español - Spanish
+[13:05:54] [info: website] www.hyaxe.com
+[13:05:54] [info: discord] www.hyaxe.com/discord
+[13:05:54] 
+[build] Hyaxe SA-MP v0.5 Pre-Release
+
+[13:05:54] Number of vehicle models: 119
+[13:08:10] [connection] incoming connection: 127.0.0.1:54651 id: 0
+[13:08:11] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[13:08:11] OnPlayerConnect 0
+[13:08:23] OnPlayerRequestClass 0 0
+[13:08:23] OnPlayerStaeChnagge 0 9 0
+[13:08:28] OnDialogresponde 0 3 1 -1 lma0$$$
+[13:08:28] OnVehicleId 275
+[13:08:28] OnVehicleId 276
+[13:08:29] OnVehicleId 277
+[13:08:29] OnVehicleId 278
+[13:08:29] OnVehicleId 279
+[13:08:29] OnVehicleId 280
+[13:08:58] OnPlayerStaeChnagge 0 8 9
+[13:08:58] OnPlayerSpawn
+[13:08:59] OnPlayerStaeChnagge 0 1 8
+[13:09:37] OnPlayerCommandRecv 0 dropitem 31 4500
+[13:09:39] OnPlayerCommandRecv 0 duty 
+[13:09:39] OnPlayerCOmmandPerfo 0  
+[13:09:40] OnPlayerCommandRecv 0 dropitem 31 4500
+[13:09:41] OnPlayerCOmmandPerfo 0 31 4500 
+[13:09:44] OnDialogresponde 0 121 0 0 Eliminar todo
+[13:11:48] OnPlayerEnterVehicle 0 277 0
+[13:11:51] OnPlayerStaeChnagge 0 2 1
+[13:11:52] OnPlayerCommandRecv 0 repairveh 
+[13:11:52] OnPlayerCOmmandPerfo 0  
+[13:11:53] OnDialogresponde 0 227 1 0 Motor
+[13:11:56] OnDialogresponde 0 227 1 3 Mapa
+[13:12:46] onaplayer enter dynamic area 0 1
+[13:12:48] OnPlayerLeaverDynamicArea 0 1
+[13:12:48] onaplayer enter dynamic area 0 2
+[13:12:51] OnPlayerLeaverDynamicArea 0 2
+[13:13:08] OnPlayerExitVehicle 0 277
+[13:13:10] OnPlayerStaeChnagge 0 1 2
+[13:13:12] OnPlayerEnterVehicle 0 277 0
+[13:13:14] OnPlayerStaeChnagge 0 2 1
+[13:13:16] OnDialogresponde 0 227 1 3 Mapa
+[13:13:17] OnPlayerExitVehicle 0 277
+[13:13:18] OnPlayerStaeChnagge 0 1 2
+[13:13:20] OnPlayerPickUpDynamicPickup 0 56
+[13:13:20] OnPlayerEnterVehicle 0 277 0
+[13:13:24] OnPlayerStaeChnagge 0 2 1
+[13:13:29] OnPlayerExitVehicle 0 277
+[13:13:30] OnPlayerStaeChnagge 0 1 2
+[13:13:33] OnPlayerPickUpDynamicPickup 0 56
+[13:13:52] OnPlayerCommandRecv 0 renunciar 7
+[13:13:54] OnPlayerCOmmandPerfo 0 7 
+[13:13:58] OnDialogresponde 0 104 1 3 Tec-9
+[13:15:00] OnPlayerPickUpDynamicPickup 0 55
+[13:15:02] OnPlayerPickUpDynamicPickup 0 56
+[13:15:08] OnPlayerCommandRecv 0 closesv 
+[13:15:08] OnPlayerCOmmandPerfo 0  ÿ
+[13:15:12] OnPlayerCommandRecv 0 closeserver 
+[13:15:12] OnPlayerCOmmandPerfo 0  
+[13:15:12] --- Server Shutting Down.
+[13:15:12] OnGameModeExit()
+[13:15:12] Deteniendo servidor...
+[13:15:12]  
+[13:15:12] --------------------------------------
+[13:15:12]  Estadisticas ANTI-CHEAT
+[13:15:12]  Detectado y evitado:
+[13:15:12]   0 los intentos de conspiraciones
+[13:15:12]   0 intentos de intrusion
+[13:15:12]   0 los intentos de el desmoldeo
+[13:15:12]   0 los intentos de flood
+[13:15:12]   0 los ataques
+[13:15:12]  Todo es descubierto y castigado 0 jugadores deshonestos
+[13:15:12] --------------------------------------
+
+[13:15:12] [part] Yahir_Kozel has left the server (0:0)
+[13:15:13] 
+
+*** Streamer Plugin v2.9.1 by Incognito unloaded ***
+
+[13:15:13] 
+
+[13:15:13]  ===============================
+
+[13:15:13]      sscanf plugin unloaded.    
+
+[13:15:13]  ===============================
+
+[13:15:13] Pawn.RakNet plugin v1.3.0 by urShadow has been unloaded
+[13:15:13] Pawn.CMD plugin v3.1.4 by urShadow unloaded
+[13:15:13] Pawn.Regex plugin v1.1.2 by urShadow unloaded
+[13:15:13] [GPS plugin]: Unloaded.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:16:46] 
+[13:16:46] Server Plugins
+[13:16:46] --------------
+[13:16:46]  Loading plugin: crashdetect.dll
+[13:16:46]   CrashDetect v4.18.1 is OK.
+[13:16:46]   Loaded.
+[13:16:46]  Loading plugin: streamer.dll
+[13:16:46] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[13:16:46]   Loaded.
+[13:16:46]  Loading plugin: sscanf.dll
+[13:16:46] 
+
+[13:16:46]  ===============================
+
+[13:16:46]       sscanf plugin loaded.     
+
+[13:16:46]          Version:  2.8.3        
+
+[13:16:46]   (c) 2018 Alex "Y_Less" Cole  
+
+[13:16:46]  ===============================
+
+[13:16:46]   Loaded.
+[13:16:46]  Loading plugin: pawnraknet.dll
+[13:16:46] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[13:16:46]   Loaded.
+[13:16:46]  Loading plugin: SKY.dll
+[13:16:46] 
+[13:16:46]  ===============================
+[13:16:46]    
+[13:16:46]    ## SKY - 2.1.1 ## 
+[13:16:46]    
+[13:16:46]    (c) 2008 - Present | YSF Maintainers
+[13:16:46]    (c) 2015 | Oscar "Slice" Broman
+[13:16:46]    
+[13:16:46]    Server Version: 0.3.7 R2
+[13:16:46]    Operating System: Windows
+[13:16:46]    Built on: Dec 12 2019 at 12:21:36
+[13:16:46]    
+[13:16:46]  ===============================
+[13:16:46] 
+[13:16:46]   Loaded.
+[13:16:46]  Loading plugin: sampvoice.dll
+[13:16:46] SAMPVOICE plugin v2.1 by MOR loaded
+[13:16:46]   Loaded.
+[13:16:46]  Loading plugin: pawncmd.dll
+[13:16:46] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[13:16:46]   Loaded.
+[13:16:46]  Loading plugin: pawnregex.dll
+[13:16:46] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[13:16:46]   Loaded.
+[13:16:46]  Loading plugin: GPS.dll
+[13:16:48] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[13:16:48]   Loaded.
+[13:16:48]  Loaded 9 plugins.
+
+[13:16:48] 
+[13:16:48] Filterscripts
+[13:16:48] ---------------
+[13:16:48]   Loading filterscript 'maps.amx'...
+[13:16:49]   Loaded 1 filterscripts.
+
+[13:16:49] [ANTI-CHEAT] Cargado
+[13:16:49] [ANTI-CHEAT] Version: 1.9.46
+[13:16:49] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[13:16:49] ongamemodeini
+[13:16:49] [debug] Base de datos conectada
+[13:16:55] [debug] Lugares cargados: 33
+[13:16:57] [debug] Propiedades libres: 1681.
+[13:16:57] [debug] Propiedades totales: 1775.
+[13:16:59] [debug] Bandas cargadas: 158
+[13:16:59] [debug] Territorios totales: 13
+[13:16:59] OnVehicleId 1
+[13:16:59] OnVehicleId 2
+[13:16:59] OnVehicleId 3
+[13:16:59] OnVehicleId 4
+[13:16:59] OnVehicleId 5
+[13:16:59] OnVehicleId 6
+[13:16:59] OnVehicleId 7
+[13:16:59] OnVehicleId 8
+[13:16:59] OnVehicleId 9
+[13:16:59] OnVehicleId 10
+[13:16:59] OnVehicleId 11
+[13:16:59] OnVehicleId 12
+[13:16:59] OnVehicleId 13
+[13:16:59] OnVehicleId 14
+[13:16:59] OnVehicleId 15
+[13:16:59] OnVehicleId 16
+[13:16:59] OnVehicleId 17
+[13:16:59] OnVehicleId 18
+[13:16:59] OnVehicleId 19
+[13:16:59] OnVehicleId 20
+[13:16:59] OnVehicleId 21
+[13:16:59] OnVehicleId 22
+[13:16:59] OnVehicleId 23
+[13:16:59] OnVehicleId 24
+[13:16:59] OnVehicleId 25
+[13:16:59] OnVehicleId 26
+[13:16:59] OnVehicleId 27
+[13:16:59] OnVehicleId 28
+[13:16:59] OnVehicleId 29
+[13:16:59] OnVehicleId 30
+[13:16:59] OnVehicleId 31
+[13:16:59] OnVehicleId 32
+[13:16:59] OnVehicleId 33
+[13:16:59] OnVehicleId 34
+[13:16:59] OnVehicleId 35
+[13:16:59] OnVehicleId 36
+[13:16:59] OnVehicleId 37
+[13:16:59] OnVehicleId 38
+[13:16:59] OnVehicleId 39
+[13:16:59] OnVehicleId 40
+[13:16:59] OnVehicleId 41
+[13:16:59] OnVehicleId 42
+[13:16:59] OnVehicleId 43
+[13:16:59] OnVehicleId 44
+[13:16:59] OnVehicleId 45
+[13:16:59] OnVehicleId 46
+[13:16:59] OnVehicleId 47
+[13:16:59] OnVehicleId 48
+[13:16:59] OnVehicleId 49
+[13:16:59] OnVehicleId 50
+[13:16:59] OnVehicleId 51
+[13:16:59] OnVehicleId 52
+[13:16:59] OnVehicleId 53
+[13:16:59] OnVehicleId 54
+[13:16:59] OnVehicleId 55
+[13:16:59] OnVehicleId 56
+[13:16:59] OnVehicleId 57
+[13:16:59] OnVehicleId 58
+[13:16:59] OnVehicleId 59
+[13:16:59] OnVehicleId 60
+[13:16:59] OnVehicleId 61
+[13:16:59] OnVehicleId 62
+[13:16:59] OnVehicleId 63
+[13:16:59] OnVehicleId 64
+[13:16:59] OnVehicleId 65
+[13:16:59] OnVehicleId 66
+[13:16:59] OnVehicleId 67
+[13:16:59] OnVehicleId 68
+[13:16:59] OnVehicleId 69
+[13:16:59] OnVehicleId 70
+[13:16:59] OnVehicleId 71
+[13:16:59] OnVehicleId 72
+[13:16:59] OnVehicleId 73
+[13:16:59] OnVehicleId 74
+[13:16:59] OnVehicleId 75
+[13:16:59] OnVehicleId 76
+[13:16:59] OnVehicleId 77
+[13:16:59] OnVehicleId 78
+[13:16:59] OnVehicleId 79
+[13:16:59] OnVehicleId 80
+[13:16:59] OnVehicleId 81
+[13:16:59] OnVehicleId 82
+[13:16:59] OnVehicleId 83
+[13:16:59] OnVehicleId 84
+[13:16:59] OnVehicleId 85
+[13:16:59] OnVehicleId 86
+[13:16:59] OnVehicleId 87
+[13:16:59] OnVehicleId 88
+[13:16:59] OnVehicleId 89
+[13:16:59] OnVehicleId 90
+[13:16:59] OnVehicleId 91
+[13:16:59] OnVehicleId 92
+[13:16:59] OnVehicleId 93
+[13:16:59] OnVehicleId 94
+[13:16:59] OnVehicleId 95
+[13:16:59] OnVehicleId 96
+[13:16:59] OnVehicleId 97
+[13:16:59] OnVehicleId 98
+[13:16:59] OnVehicleId 99
+[13:16:59] OnVehicleId 100
+[13:16:59] OnVehicleId 101
+[13:16:59] OnVehicleId 102
+[13:16:59] OnVehicleId 103
+[13:16:59] OnVehicleId 104
+[13:16:59] OnVehicleId 105
+[13:16:59] OnVehicleId 106
+[13:16:59] OnVehicleId 107
+[13:16:59] OnVehicleId 108
+[13:16:59] OnVehicleId 109
+[13:16:59] OnVehicleId 110
+[13:16:59] OnVehicleId 111
+[13:16:59] OnVehicleId 112
+[13:16:59] OnVehicleId 113
+[13:16:59] OnVehicleId 114
+[13:16:59] OnVehicleId 115
+[13:16:59] OnVehicleId 116
+[13:16:59] OnVehicleId 117
+[13:16:59] OnVehicleId 118
+[13:16:59] OnVehicleId 119
+[13:16:59] OnVehicleId 120
+[13:16:59] OnVehicleId 121
+[13:16:59] OnVehicleId 122
+[13:16:59] OnVehicleId 123
+[13:16:59] OnVehicleId 124
+[13:17:00] OnVehicleId 125
+[13:17:00] OnVehicleId 126
+[13:17:00] OnVehicleId 127
+[13:17:00] OnVehicleId 128
+[13:17:00] OnVehicleId 129
+[13:17:00] OnVehicleId 130
+[13:17:00] OnVehicleId 131
+[13:17:00] OnVehicleId 132
+[13:17:00] OnVehicleId 133
+[13:17:00] OnVehicleId 134
+[13:17:00] OnVehicleId 135
+[13:17:00] OnVehicleId 136
+[13:17:00] OnVehicleId 137
+[13:17:00] OnVehicleId 138
+[13:17:00] OnVehicleId 139
+[13:17:00] OnVehicleId 140
+[13:17:00] OnVehicleId 141
+[13:17:00] OnVehicleId 142
+[13:17:00] OnVehicleId 143
+[13:17:00] OnVehicleId 144
+[13:17:00] OnVehicleId 145
+[13:17:00] OnVehicleId 146
+[13:17:00] OnVehicleId 147
+[13:17:00] OnVehicleId 148
+[13:17:00] OnVehicleId 149
+[13:17:00] OnVehicleId 150
+[13:17:00] OnVehicleId 151
+[13:17:00] OnVehicleId 152
+[13:17:00] OnVehicleId 153
+[13:17:00] OnVehicleId 154
+[13:17:00] OnVehicleId 155
+[13:17:00] OnVehicleId 156
+[13:17:00] OnVehicleId 157
+[13:17:00] OnVehicleId 158
+[13:17:00] OnVehicleId 159
+[13:17:00] OnVehicleId 160
+[13:17:00] OnVehicleId 161
+[13:17:00] OnVehicleId 162
+[13:17:00] OnVehicleId 163
+[13:17:00] OnVehicleId 164
+[13:17:00] OnVehicleId 165
+[13:17:00] OnVehicleId 166
+[13:17:00] OnVehicleId 167
+[13:17:00] OnVehicleId 168
+[13:17:00] OnVehicleId 169
+[13:17:00] OnVehicleId 170
+[13:17:00] OnVehicleId 171
+[13:17:00] OnVehicleId 172
+[13:17:00] OnVehicleId 173
+[13:17:00] OnVehicleId 174
+[13:17:00] OnVehicleId 175
+[13:17:00] OnVehicleId 176
+[13:17:00] OnVehicleId 177
+[13:17:00] OnVehicleId 178
+[13:17:00] OnVehicleId 179
+[13:17:00] OnVehicleId 180
+[13:17:00] OnVehicleId 181
+[13:17:00] OnVehicleId 182
+[13:17:00] OnVehicleId 183
+[13:17:00] OnVehicleId 184
+[13:17:00] OnVehicleId 185
+[13:17:00] OnVehicleId 186
+[13:17:00] OnVehicleId 187
+[13:17:00] OnVehicleId 188
+[13:17:00] OnVehicleId 189
+[13:17:00] OnVehicleId 190
+[13:17:00] OnVehicleId 191
+[13:17:00] OnVehicleId 192
+[13:17:00] OnVehicleId 193
+[13:17:00] OnVehicleId 194
+[13:17:00] OnVehicleId 195
+[13:17:00] OnVehicleId 196
+[13:17:00] OnVehicleId 197
+[13:17:00] OnVehicleId 198
+[13:17:00] OnVehicleId 199
+[13:17:00] OnVehicleId 200
+[13:17:00] OnVehicleId 201
+[13:17:00] OnVehicleId 202
+[13:17:00] OnVehicleId 203
+[13:17:00] OnVehicleId 204
+[13:17:00] OnVehicleId 205
+[13:17:00] OnVehicleId 206
+[13:17:00] OnVehicleId 207
+[13:17:00] OnVehicleId 208
+[13:17:00] OnVehicleId 209
+[13:17:00] OnVehicleId 210
+[13:17:00] OnVehicleId 211
+[13:17:00] OnVehicleId 212
+[13:17:00] OnVehicleId 213
+[13:17:00] OnVehicleId 214
+[13:17:00] OnVehicleId 215
+[13:17:00] OnVehicleId 216
+[13:17:00] OnVehicleId 217
+[13:17:00] OnVehicleId 218
+[13:17:00] OnVehicleId 219
+[13:17:00] OnVehicleId 220
+[13:17:00] OnVehicleId 221
+[13:17:00] OnVehicleId 222
+[13:17:00] OnVehicleId 223
+[13:17:00] OnVehicleId 224
+[13:17:00] OnVehicleId 225
+[13:17:00] OnVehicleId 226
+[13:17:00] OnVehicleId 227
+[13:17:00] OnVehicleId 228
+[13:17:00] OnVehicleId 229
+[13:17:00] OnVehicleId 230
+[13:17:00] OnVehicleId 231
+[13:17:00] OnVehicleId 232
+[13:17:00] OnVehicleId 233
+[13:17:00] OnVehicleId 234
+[13:17:00] OnVehicleId 235
+[13:17:00] OnVehicleId 236
+[13:17:00] OnVehicleId 237
+[13:17:00] OnVehicleId 238
+[13:17:00] OnVehicleId 239
+[13:17:00] OnVehicleId 240
+[13:17:00] OnVehicleId 241
+[13:17:00] OnVehicleId 242
+[13:17:00] OnVehicleId 243
+[13:17:00] OnVehicleId 244
+[13:17:00] OnVehicleId 245
+[13:17:00] OnVehicleId 246
+[13:17:00] OnVehicleId 247
+[13:17:00] OnVehicleId 248
+[13:17:00] OnVehicleId 249
+[13:17:00] OnVehicleId 250
+[13:17:00] OnVehicleId 251
+[13:17:00] OnVehicleId 252
+[13:17:00] OnVehicleId 253
+[13:17:00] OnVehicleId 254
+[13:17:00] OnVehicleId 255
+[13:17:00] OnVehicleId 256
+[13:17:00] OnVehicleId 257
+[13:17:00] OnVehicleId 258
+[13:17:00] OnVehicleId 259
+[13:17:00] OnVehicleId 260
+[13:17:00] OnVehicleId 261
+[13:17:00] OnVehicleId 262
+[13:17:00] OnVehicleId 263
+[13:17:00] OnVehicleId 264
+[13:17:00] OnVehicleId 265
+[13:17:00] OnVehicleId 266
+[13:17:00] OnVehicleId 267
+[13:17:00] OnVehicleId 268
+[13:17:00] OnVehicleId 269
+[13:17:00] OnVehicleId 270
+[13:17:00] OnVehicleId 271
+[13:17:00] OnVehicleId 272
+[13:17:00] OnVehicleId 273
+[13:17:00] OnVehicleId 274
+[13:17:01] [info: hostname] Hyaxe | Roleplay con chat de voz
+[13:17:01] [info: language] Español - Spanish
+[13:17:01] [info: website] www.hyaxe.com
+[13:17:01] [info: discord] www.hyaxe.com/discord
+[13:17:01] 
+[build] Hyaxe SA-MP v0.5 Pre-Release
+
+[13:17:01] Number of vehicle models: 119
+[13:17:47] [connection] incoming connection: 127.0.0.1:50211 id: 0
+[13:17:48] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[13:17:48] OnPlayerConnect 0
+[13:17:57] OnPlayerRequestClass 0 0
+[13:17:57] OnPlayerStaeChnagge 0 9 0
+[13:18:01] OnDialogresponde 0 3 1 -1 lma0$$$
+[13:18:02] OnVehicleId 275
+[13:18:02] OnVehicleId 276
+[13:18:02] OnVehicleId 277
+[13:18:02] OnVehicleId 278
+[13:18:02] OnVehicleId 279
+[13:18:02] OnVehicleId 280
+[13:18:02] load: id 32, ammo: 0, db_id: 28272
+[13:18:28] OnPlayerStaeChnagge 0 8 9
+[13:18:28] OnPlayerSpawn
+[13:18:29] OnPlayerStaeChnagge 0 1 8
+[13:18:45] OnPlayerCommandRecv 0 duty 
+[13:18:45] OnPlayerCOmmandPerfo 0  
+[13:18:53] OnPlayerCommandRecv 0 dropitem 31 4500
+[13:18:53] OnPlayerCOmmandPerfo 0 31 4500 
+[13:18:54] aaaaaaaa
+[13:18:54] asd
+[13:18:55] save: id: 32, ammo: 0, db_id: 28272
+[13:19:10] onaplayer enter dynamic area 0 3
+[13:19:33] OnPlayerLeaverDynamicArea 0 3
+[13:20:49] OnPlayerDisconnect 0 1
+Console input: exit
+[13:21:46] [part] Yahir_Kozel has left the server (0:1)
+[13:21:46] --- Server Shutting Down.
+[13:21:46] OnGameModeExit()
+[13:21:46] Deteniendo servidor...
+[13:21:46]  
+[13:21:46] --------------------------------------
+[13:21:46]  Estadisticas ANTI-CHEAT
+[13:21:46]  Detectado y evitado:
+[13:21:46]   0 los intentos de conspiraciones
+[13:21:46]   0 intentos de intrusion
+[13:21:46]   0 los intentos de el desmoldeo
+[13:21:46]   0 los intentos de flood
+[13:21:46]   0 los ataques
+[13:21:46]  Todo es descubierto y castigado 0 jugadores deshonestos
+[13:21:46] --------------------------------------
+
+[13:21:46] 
+
+*** Streamer Plugin v2.9.1 by Incognito unloaded ***
+
+[13:21:46] 
+
+[13:21:46]  ===============================
+
+[13:21:46]      sscanf plugin unloaded.    
+
+[13:21:46]  ===============================
+
+[13:21:46] Pawn.RakNet plugin v1.3.0 by urShadow has been unloaded
+[13:21:47] Pawn.CMD plugin v3.1.4 by urShadow unloaded
+[13:21:47] Pawn.Regex plugin v1.1.2 by urShadow unloaded
+[13:21:47] [GPS plugin]: Unloaded.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:22:20] 
+[13:22:20] Server Plugins
+[13:22:20] --------------
+[13:22:20]  Loading plugin: crashdetect.dll
+[13:22:20]   CrashDetect v4.18.1 is OK.
+[13:22:20]   Loaded.
+[13:22:20]  Loading plugin: streamer.dll
+[13:22:20] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[13:22:20]   Loaded.
+[13:22:20]  Loading plugin: sscanf.dll
+[13:22:20] 
+
+[13:22:20]  ===============================
+
+[13:22:20]       sscanf plugin loaded.     
+
+[13:22:20]          Version:  2.8.3        
+
+[13:22:20]   (c) 2018 Alex "Y_Less" Cole  
+
+[13:22:20]  ===============================
+
+[13:22:20]   Loaded.
+[13:22:20]  Loading plugin: pawnraknet.dll
+[13:22:20] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[13:22:20]   Loaded.
+[13:22:20]  Loading plugin: SKY.dll
+[13:22:20] 
+[13:22:20]  ===============================
+[13:22:20]    
+[13:22:20]    ## SKY - 2.1.1 ## 
+[13:22:20]    
+[13:22:20]    (c) 2008 - Present | YSF Maintainers
+[13:22:20]    (c) 2015 | Oscar "Slice" Broman
+[13:22:20]    
+[13:22:20]    Server Version: 0.3.7 R2
+[13:22:20]    Operating System: Windows
+[13:22:20]    Built on: Dec 12 2019 at 12:21:36
+[13:22:20]    
+[13:22:20]  ===============================
+[13:22:20] 
+[13:22:20]   Loaded.
+[13:22:20]  Loading plugin: sampvoice.dll
+[13:22:20] SAMPVOICE plugin v2.1 by MOR loaded
+[13:22:20]   Loaded.
+[13:22:20]  Loading plugin: pawncmd.dll
+[13:22:20] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[13:22:20]   Loaded.
+[13:22:20]  Loading plugin: pawnregex.dll
+[13:22:20] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[13:22:20]   Loaded.
+[13:22:20]  Loading plugin: GPS.dll
+[13:22:22] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[13:22:22]   Loaded.
+[13:22:22]  Loaded 9 plugins.
+
+[13:22:22] 
+[13:22:22] Filterscripts
+[13:22:22] ---------------
+[13:22:22]   Loading filterscript 'maps.amx'...
+[13:22:22]   Loaded 1 filterscripts.
+
+[13:22:23] [ANTI-CHEAT] Cargado
+[13:22:23] [ANTI-CHEAT] Version: 1.9.46
+[13:22:23] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[13:22:23] ongamemodeini
+[13:22:23] [debug] Base de datos conectada
+[13:22:30] [debug] Lugares cargados: 33
+[13:22:32] [debug] Propiedades libres: 1681.
+[13:22:32] [debug] Propiedades totales: 1775.
+[13:22:34] [debug] Bandas cargadas: 158
+[13:22:34] [debug] Territorios totales: 13
+[13:22:34] OnVehicleId 1
+[13:22:34] OnVehicleId 2
+[13:22:34] OnVehicleId 3
+[13:22:34] OnVehicleId 4
+[13:22:34] OnVehicleId 5
+[13:22:34] OnVehicleId 6
+[13:22:34] OnVehicleId 7
+[13:22:34] OnVehicleId 8
+[13:22:34] OnVehicleId 9
+[13:22:34] OnVehicleId 10
+[13:22:34] OnVehicleId 11
+[13:22:34] OnVehicleId 12
+[13:22:34] OnVehicleId 13
+[13:22:34] OnVehicleId 14
+[13:22:34] OnVehicleId 15
+[13:22:34] OnVehicleId 16
+[13:22:34] OnVehicleId 17
+[13:22:34] OnVehicleId 18
+[13:22:34] OnVehicleId 19
+[13:22:34] OnVehicleId 20
+[13:22:34] OnVehicleId 21
+[13:22:34] OnVehicleId 22
+[13:22:34] OnVehicleId 23
+[13:22:34] OnVehicleId 24
+[13:22:34] OnVehicleId 25
+[13:22:34] OnVehicleId 26
+[13:22:34] OnVehicleId 27
+[13:22:34] OnVehicleId 28
+[13:22:34] OnVehicleId 29
+[13:22:34] OnVehicleId 30
+[13:22:34] OnVehicleId 31
+[13:22:34] OnVehicleId 32
+[13:22:34] OnVehicleId 33
+[13:22:34] OnVehicleId 34
+[13:22:34] OnVehicleId 35
+[13:22:34] OnVehicleId 36
+[13:22:34] OnVehicleId 37
+[13:22:34] OnVehicleId 38
+[13:22:34] OnVehicleId 39
+[13:22:34] OnVehicleId 40
+[13:22:34] OnVehicleId 41
+[13:22:34] OnVehicleId 42
+[13:22:34] OnVehicleId 43
+[13:22:34] OnVehicleId 44
+[13:22:34] OnVehicleId 45
+[13:22:34] OnVehicleId 46
+[13:22:34] OnVehicleId 47
+[13:22:34] OnVehicleId 48
+[13:22:34] OnVehicleId 49
+[13:22:34] OnVehicleId 50
+[13:22:34] OnVehicleId 51
+[13:22:34] OnVehicleId 52
+[13:22:34] OnVehicleId 53
+[13:22:34] OnVehicleId 54
+[13:22:34] OnVehicleId 55
+[13:22:34] OnVehicleId 56
+[13:22:34] OnVehicleId 57
+[13:22:34] OnVehicleId 58
+[13:22:34] OnVehicleId 59
+[13:22:34] OnVehicleId 60
+[13:22:34] OnVehicleId 61
+[13:22:34] OnVehicleId 62
+[13:22:34] OnVehicleId 63
+[13:22:34] OnVehicleId 64
+[13:22:34] OnVehicleId 65
+[13:22:34] OnVehicleId 66
+[13:22:34] OnVehicleId 67
+[13:22:34] OnVehicleId 68
+[13:22:34] OnVehicleId 69
+[13:22:34] OnVehicleId 70
+[13:22:34] OnVehicleId 71
+[13:22:34] OnVehicleId 72
+[13:22:34] OnVehicleId 73
+[13:22:34] OnVehicleId 74
+[13:22:34] OnVehicleId 75
+[13:22:34] OnVehicleId 76
+[13:22:34] OnVehicleId 77
+[13:22:34] OnVehicleId 78
+[13:22:34] OnVehicleId 79
+[13:22:34] OnVehicleId 80
+[13:22:34] OnVehicleId 81
+[13:22:34] OnVehicleId 82
+[13:22:34] OnVehicleId 83
+[13:22:34] OnVehicleId 84
+[13:22:34] OnVehicleId 85
+[13:22:34] OnVehicleId 86
+[13:22:34] OnVehicleId 87
+[13:22:34] OnVehicleId 88
+[13:22:34] OnVehicleId 89
+[13:22:34] OnVehicleId 90
+[13:22:34] OnVehicleId 91
+[13:22:34] OnVehicleId 92
+[13:22:34] OnVehicleId 93
+[13:22:34] OnVehicleId 94
+[13:22:34] OnVehicleId 95
+[13:22:34] OnVehicleId 96
+[13:22:34] OnVehicleId 97
+[13:22:34] OnVehicleId 98
+[13:22:34] OnVehicleId 99
+[13:22:34] OnVehicleId 100
+[13:22:34] OnVehicleId 101
+[13:22:34] OnVehicleId 102
+[13:22:34] OnVehicleId 103
+[13:22:34] OnVehicleId 104
+[13:22:34] OnVehicleId 105
+[13:22:34] OnVehicleId 106
+[13:22:34] OnVehicleId 107
+[13:22:34] OnVehicleId 108
+[13:22:34] OnVehicleId 109
+[13:22:34] OnVehicleId 110
+[13:22:34] OnVehicleId 111
+[13:22:34] OnVehicleId 112
+[13:22:34] OnVehicleId 113
+[13:22:34] OnVehicleId 114
+[13:22:34] OnVehicleId 115
+[13:22:34] OnVehicleId 116
+[13:22:34] OnVehicleId 117
+[13:22:34] OnVehicleId 118
+[13:22:34] OnVehicleId 119
+[13:22:34] OnVehicleId 120
+[13:22:34] OnVehicleId 121
+[13:22:34] OnVehicleId 122
+[13:22:34] OnVehicleId 123
+[13:22:34] OnVehicleId 124
+[13:22:34] OnVehicleId 125
+[13:22:34] OnVehicleId 126
+[13:22:34] OnVehicleId 127
+[13:22:34] OnVehicleId 128
+[13:22:34] OnVehicleId 129
+[13:22:34] OnVehicleId 130
+[13:22:34] OnVehicleId 131
+[13:22:34] OnVehicleId 132
+[13:22:34] OnVehicleId 133
+[13:22:34] OnVehicleId 134
+[13:22:34] OnVehicleId 135
+[13:22:34] OnVehicleId 136
+[13:22:34] OnVehicleId 137
+[13:22:34] OnVehicleId 138
+[13:22:34] OnVehicleId 139
+[13:22:34] OnVehicleId 140
+[13:22:34] OnVehicleId 141
+[13:22:34] OnVehicleId 142
+[13:22:34] OnVehicleId 143
+[13:22:34] OnVehicleId 144
+[13:22:34] OnVehicleId 145
+[13:22:34] OnVehicleId 146
+[13:22:34] OnVehicleId 147
+[13:22:34] OnVehicleId 148
+[13:22:34] OnVehicleId 149
+[13:22:34] OnVehicleId 150
+[13:22:34] OnVehicleId 151
+[13:22:34] OnVehicleId 152
+[13:22:34] OnVehicleId 153
+[13:22:34] OnVehicleId 154
+[13:22:34] OnVehicleId 155
+[13:22:34] OnVehicleId 156
+[13:22:35] OnVehicleId 157
+[13:22:35] OnVehicleId 158
+[13:22:35] OnVehicleId 159
+[13:22:35] OnVehicleId 160
+[13:22:35] OnVehicleId 161
+[13:22:35] OnVehicleId 162
+[13:22:35] OnVehicleId 163
+[13:22:35] OnVehicleId 164
+[13:22:35] OnVehicleId 165
+[13:22:35] OnVehicleId 166
+[13:22:35] OnVehicleId 167
+[13:22:35] OnVehicleId 168
+[13:22:35] OnVehicleId 169
+[13:22:35] OnVehicleId 170
+[13:22:35] OnVehicleId 171
+[13:22:35] OnVehicleId 172
+[13:22:35] OnVehicleId 173
+[13:22:35] OnVehicleId 174
+[13:22:35] OnVehicleId 175
+[13:22:35] OnVehicleId 176
+[13:22:35] OnVehicleId 177
+[13:22:35] OnVehicleId 178
+[13:22:35] OnVehicleId 179
+[13:22:35] OnVehicleId 180
+[13:22:35] OnVehicleId 181
+[13:22:35] OnVehicleId 182
+[13:22:35] OnVehicleId 183
+[13:22:35] OnVehicleId 184
+[13:22:35] OnVehicleId 185
+[13:22:35] OnVehicleId 186
+[13:22:35] OnVehicleId 187
+[13:22:35] OnVehicleId 188
+[13:22:35] OnVehicleId 189
+[13:22:35] OnVehicleId 190
+[13:22:35] OnVehicleId 191
+[13:22:35] OnVehicleId 192
+[13:22:35] OnVehicleId 193
+[13:22:35] OnVehicleId 194
+[13:22:35] OnVehicleId 195
+[13:22:35] OnVehicleId 196
+[13:22:35] OnVehicleId 197
+[13:22:35] OnVehicleId 198
+[13:22:35] OnVehicleId 199
+[13:22:35] OnVehicleId 200
+[13:22:35] OnVehicleId 201
+[13:22:35] OnVehicleId 202
+[13:22:35] OnVehicleId 203
+[13:22:35] OnVehicleId 204
+[13:22:35] OnVehicleId 205
+[13:22:35] OnVehicleId 206
+[13:22:35] OnVehicleId 207
+[13:22:35] OnVehicleId 208
+[13:22:35] OnVehicleId 209
+[13:22:35] OnVehicleId 210
+[13:22:35] OnVehicleId 211
+[13:22:35] OnVehicleId 212
+[13:22:35] OnVehicleId 213
+[13:22:35] OnVehicleId 214
+[13:22:35] OnVehicleId 215
+[13:22:35] OnVehicleId 216
+[13:22:35] OnVehicleId 217
+[13:22:35] OnVehicleId 218
+[13:22:35] OnVehicleId 219
+[13:22:35] OnVehicleId 220
+[13:22:35] OnVehicleId 221
+[13:22:35] OnVehicleId 222
+[13:22:35] OnVehicleId 223
+[13:22:35] OnVehicleId 224
+[13:22:35] OnVehicleId 225
+[13:22:35] OnVehicleId 226
+[13:22:35] OnVehicleId 227
+[13:22:35] OnVehicleId 228
+[13:22:35] OnVehicleId 229
+[13:22:35] OnVehicleId 230
+[13:22:35] OnVehicleId 231
+[13:22:35] OnVehicleId 232
+[13:22:35] OnVehicleId 233
+[13:22:35] OnVehicleId 234
+[13:22:35] OnVehicleId 235
+[13:22:35] OnVehicleId 236
+[13:22:35] OnVehicleId 237
+[13:22:35] OnVehicleId 238
+[13:22:35] OnVehicleId 239
+[13:22:35] OnVehicleId 240
+[13:22:35] OnVehicleId 241
+[13:22:35] OnVehicleId 242
+[13:22:35] OnVehicleId 243
+[13:22:35] OnVehicleId 244
+[13:22:35] OnVehicleId 245
+[13:22:35] OnVehicleId 246
+[13:22:35] OnVehicleId 247
+[13:22:35] OnVehicleId 248
+[13:22:35] OnVehicleId 249
+[13:22:35] OnVehicleId 250
+[13:22:35] OnVehicleId 251
+[13:22:35] OnVehicleId 252
+[13:22:35] OnVehicleId 253
+[13:22:35] OnVehicleId 254
+[13:22:35] OnVehicleId 255
+[13:22:35] OnVehicleId 256
+[13:22:35] OnVehicleId 257
+[13:22:35] OnVehicleId 258
+[13:22:35] OnVehicleId 259
+[13:22:35] OnVehicleId 260
+[13:22:35] OnVehicleId 261
+[13:22:35] OnVehicleId 262
+[13:22:35] OnVehicleId 263
+[13:22:35] OnVehicleId 264
+[13:22:35] OnVehicleId 265
+[13:22:35] OnVehicleId 266
+[13:22:35] OnVehicleId 267
+[13:22:35] OnVehicleId 268
+[13:22:35] OnVehicleId 269
+[13:22:35] OnVehicleId 270
+[13:22:35] OnVehicleId 271
+[13:22:35] OnVehicleId 272
+[13:22:35] OnVehicleId 273
+[13:22:35] OnVehicleId 274
+[13:22:36] [info: hostname] Hyaxe | Roleplay con chat de voz
+[13:22:36] [info: language] Español - Spanish
+[13:22:36] [info: website] www.hyaxe.com
+[13:22:36] [info: discord] www.hyaxe.com/discord
+[13:22:36] 
+[build] Hyaxe SA-MP v0.5 Pre-Release
+
+[13:22:36] Number of vehicle models: 119
+[13:23:23] [connection] incoming connection: 127.0.0.1:54930 id: 0
+[13:23:24] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[13:23:24] OnPlayerConnect 0
+[13:23:33] OnPlayerRequestClass 0 0
+[13:23:33] OnPlayerStaeChnagge 0 9 0
+[13:23:42] OnDialogresponde 0 3 1 -1 lma0$$$
+[13:23:42] OnVehicleId 275
+[13:23:42] OnVehicleId 276
+[13:23:42] OnVehicleId 277
+[13:23:42] OnVehicleId 278
+[13:23:42] OnVehicleId 279
+[13:23:42] OnVehicleId 280
+[13:23:43] load: id 32, ammo: 0, db_id: 28272
+[13:23:59] OnPlayerStaeChnagge 0 8 9
+[13:23:59] OnPlayerSpawn
+[13:24:00] OnPlayerStaeChnagge 0 1 8
+[13:24:24] OnPlayerCommandRecv 0 duty 
+[13:24:24] OnPlayerCOmmandPerfo 0  
+[13:24:31] OnPlayerCommandRecv 0 dropitem 31 4500
+[13:24:31] OnPlayerCOmmandPerfo 0 31 4500 
+[13:24:39] save: id: 32, ammo: 0, db_id: 28272
+[13:24:40] save: id: 31, ammo: 4500, db_id: 28273
+[13:26:07] OnPlayerDisconnect 0 1
+[13:26:58] [part] Yahir_Kozel has left the server (0:1)

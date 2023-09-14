@@ -118,6 +118,7 @@ GrabWeapon(playerid, type, ammount, color = 0x00F7F7F7)
 		return 1;
 	}
 
+	RegisterNewPlayerWeapon(playerid, weapon_slot);
 	GivePlayerWeaponEx(playerid, weapon_id, ammount, color);
 	return 1;
 }

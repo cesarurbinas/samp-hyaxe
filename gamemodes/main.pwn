@@ -8401,12 +8401,12 @@ public OnGameModeExit()
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
-		SaveUserData(i);
+		/*SaveUserData(i);
 		SavePlayerToysData(i);
 		SavePlayerVehicles(i, false);
 		SavePlayerSkills(i);
 		SavePlayerWorks(i);
-		SavePlayerMisc(i);
+		SavePlayerMisc(i);*/
 	}
 
 	printf("OnGameModeExit()"); // debug juju
@@ -32057,7 +32057,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 SavePlayerWeaponsData(playerid)
 {
   	if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
-
+  	
   	for(new i = 0; i != 13; i ++)
   	{
     	if (!PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]) continue;
@@ -32065,6 +32065,7 @@ SavePlayerWeaponsData(playerid)
     	new DB_Query[128];
     	format(DB_Query, sizeof(DB_Query), "UPDATE `PLAYER_WEAPONS` SET `WEAPON_ID` = '%d', `AMMO` = '%d' WHERE `ID_WEAPON` = '%d';", PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO], PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]);
     	db_query(Database, DB_Query);
+    	printf("save: id: %d, ammo: %d, db_id: %d", PLAYER_WEAPONS[playerid][i][player_weapon_ID], PLAYER_WEAPONS[playerid][i][player_weapon_AMMO], PLAYER_WEAPONS[playerid][i][player_weapon_DB_ID]);
   	}
   	return 1;
 }
@@ -32092,6 +32093,7 @@ LoadPlayerWeaponsData(playerid)
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_DB_ID] = db_get_field_assoc_int(Result, "ID_WEAPON");
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = db_get_field_assoc_int(Result, "AMMO");
+		printf("load: id %d, ammo: %d, db_id: %d", PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO], PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_DB_ID]);
 
 		total ++;
 		db_next_row(Result);
