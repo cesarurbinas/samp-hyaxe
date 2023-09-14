@@ -25143,45 +25143,43 @@ LoadPlayerToysData(playerid)
 
 SavePlayerToysData(playerid)
 {
-  if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
+  	if (!PLAYER_TEMP[playerid][py_USER_EXIT] || !PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
-  for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++)
-  {
-    if (!PLAYER_TOYS[playerid][i][player_toy_VALID]) continue;
+  	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++)
+  	{
+    	if (!PLAYER_TOYS[playerid][i][player_toy_VALID]) continue;
 
-    new DB_Query[900];
-    format(DB_Query, sizeof(DB_Query), "\
-	UPDATE `PLAYER_TOYS` SET \
-	   `NAME` = '%q',\
-	   `ATTACHED` = '%d',\
-	   `MODELID` = '%d',\
-	   `BONE` = '%d',\
-	   `OFFSET_X` = '%f',\
-	   `OFFSET_Y` = '%f',\
-	   `OFFSET_Z` = '%f',\
-	   `ROT_X` = '%f',\
-	   `ROT_Y` = '%f',\
-	   `ROT_Z` = '%f',\
-	   `SCALE_X` = '%f',\
-	   `SCALE_Y` = '%f',\
-	   `SCALE_Z` = '%f',\
-	   `COLOR_1` = '%d',\
-	   `COLOR_2` = '%d' \
-	 WHERE `ID_TOY` = '%d';\
-    ",
-	 PLAYER_TOYS[playerid][i][player_toy_NAME], PLAYER_TOYS[playerid][i][player_toy_ATTACHED],
-	 PLAYER_TOYS[playerid][i][player_toy_MODELID], PLAYER_TOYS[playerid][i][player_toy_BONE],
-	 PLAYER_TOYS[playerid][i][player_toy_OFFSET_X], PLAYER_TOYS[playerid][i][player_toy_OFFSET_Y], PLAYER_TOYS[playerid][i][player_toy_OFFSET_Z],
-	 PLAYER_TOYS[playerid][i][player_toy_ROT_X], PLAYER_TOYS[playerid][i][player_toy_ROT_Y], PLAYER_TOYS[playerid][i][player_toy_ROT_Z],
-	 PLAYER_TOYS[playerid][i][player_toy_SCALE_X], PLAYER_TOYS[playerid][i][player_toy_SCALE_Y], PLAYER_TOYS[playerid][i][player_toy_SCALE_Z],
-	 PLAYER_TOYS[playerid][i][player_toy_COLOR_1], PLAYER_TOYS[playerid][i][player_toy_COLOR_2],
-
-	 PLAYER_TOYS[playerid][i][player_toy_ID]
-    );
-
-    db_free_result(db_query(Database, DB_Query));
-  }
-  return 1;
+    	new DB_Query[900];
+    	format(DB_Query, sizeof(DB_Query), "\
+			UPDATE `PLAYER_TOYS` SET \
+	   			`NAME` = '%q',\
+	   			`ATTACHED` = '%d',\
+	   			`MODELID` = '%d',\
+			   	`BONE` = '%d',\
+			   	`OFFSET_X` = '%f',\
+			   	`OFFSET_Y` = '%f',\
+			   	`OFFSET_Z` = '%f',\
+			   	`ROT_X` = '%f',\
+			   	`ROT_Y` = '%f',\
+			   	`ROT_Z` = '%f',\
+			   	`SCALE_X` = '%f',\
+			   	`SCALE_Y` = '%f',\
+			   	`SCALE_Z` = '%f',\
+			   	`COLOR_1` = '%d',\
+			   	`COLOR_2` = '%d' \
+	 		WHERE `ID_TOY` = '%d';\
+    	",
+	 		PLAYER_TOYS[playerid][i][player_toy_NAME], PLAYER_TOYS[playerid][i][player_toy_ATTACHED],
+	 		PLAYER_TOYS[playerid][i][player_toy_MODELID], PLAYER_TOYS[playerid][i][player_toy_BONE],
+	 		PLAYER_TOYS[playerid][i][player_toy_OFFSET_X], PLAYER_TOYS[playerid][i][player_toy_OFFSET_Y], PLAYER_TOYS[playerid][i][player_toy_OFFSET_Z],
+	 		PLAYER_TOYS[playerid][i][player_toy_ROT_X], PLAYER_TOYS[playerid][i][player_toy_ROT_Y], PLAYER_TOYS[playerid][i][player_toy_ROT_Z],
+	 		PLAYER_TOYS[playerid][i][player_toy_SCALE_X], PLAYER_TOYS[playerid][i][player_toy_SCALE_Y], PLAYER_TOYS[playerid][i][player_toy_SCALE_Z],
+	 		PLAYER_TOYS[playerid][i][player_toy_COLOR_1], PLAYER_TOYS[playerid][i][player_toy_COLOR_2],
+	 		PLAYER_TOYS[playerid][i][player_toy_ID]
+    	);
+    	db_free_result(db_query(Database, DB_Query));
+  	}
+  	return 1;
 }
 
 GetEmptyPlayerToySlot(playerid)
