@@ -79,9 +79,12 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 #define COL_ANTICHEAT "{c14848}"
 
 #define COLOR_DARK_RED 0xb32424FF
-#define COLOR_GREY 0x5c5c5cFF
 
+#define COLOR_GREY 0x5c5c5cFF
 #define COLOR_GREY_TWO 0xE3E3E3FF
+
+#define COLOR_GREY_THREE 0xC1C1C1FF
+#define COL_GREY_THREE "{C1C1C1}"
 
 #define COLOR_CYAN 0x1AC6DFFF
 

@@ -51,3 +51,36 @@ ScanDoubt(playerid, const doubt[])
 	HTTP(playerid, HTTP_POST, "51.161.31.157:6666/get_response", payload, "neuroadmin_BotGetResponse");
 	return 1;
 }
+
+SendMessageToGlobalChannel(playerid, const message[])
+{
+	new str[364];
+
+	format(str, sizeof(str), "[Todos] "COL_WHITE"%s (%d): %s", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
+
+	Log("global", str);
+
+	PLAYER_TEMP[playerid][py_GLOBAL_CHANNEL_TIME] = gettime();
+
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		strreplace(str, "@", "{4db6ac}@");
+		strreplace(str, ":", "{F7F7F7}");
+	}
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] && !PLAYER_TEMP[playerid][py_NEW_USER])
+			{
+				SendResponsiveMessage(i, COLOR_GREY_THREE, str, 135);
+			}
+		}
+	}
+
+	new DCC_Channel:channelid;
+	channelid = DCC_FindChannelById("790742732829491230");
+	SendDiscordMessage(channelid, "%s", str);
+	return 1;
+}

@@ -1,14 +1,14 @@
 CMD:reportar(playerid, params[])
 {
-	if (PLAYER_MISC[playerid][MISC_REPORT_MUTE]) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Te encuentras bloqueado de esta opci√≥n.");
+	if (PLAYER_MISC[playerid][MISC_REPORT_MUTE]) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Te encuentras bloqueado de esta opciÛn.");
 	if ((gettime() - PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT]) < 60) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 60 segundos para volver a reportar.", 3);
 	PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT] = gettime();
 
 	new reason[128];
-	if (sscanf(params, "us[128]", params[0], reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /reportar "COL_WHITE"[ID o nombre] [Raz√≥n]");
+	if (sscanf(params, "us[128]", params[0], reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /reportar "COL_WHITE"[ID o nombre] [RazÛn]");
     if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
 
-	ShowPlayerMessage(playerid, "~g~Tu reporte fue enviado a los administradores en l√≠nea.", 3);
+	ShowPlayerMessage(playerid, "~g~Tu reporte fue enviado a los administradores en lÌnea.", 3);
 
 	new str[144];
 	format(str, 144, "[REPORTE]"COL_WHITE" %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[params[0]][py_NAME], params[0], reason);
@@ -37,7 +37,7 @@ CMD:r(playerid, params[])
 		PLAYER_TEMP[playerid][py_ADMIN_PM_PID] = INVALID_PLAYER_ID;
 		PLAYER_TEMP[playerid][py_ADMIN_PM_AID] = 0;
 		PLAYER_TEMP[playerid][py_ADMIN_PM_TIME] = 0;
-		ShowPlayerMessage(playerid, "~r~El administrador que te envi√≥ el mensaje est√° desconectado.", 3);
+		ShowPlayerMessage(playerid, "~r~El administrador que te enviÛ el mensaje est· desconectado.", 3);
 		return 1;
 	}
 	if (gettime() > PLAYER_TEMP[playerid][py_ADMIN_PM_TIME] + 60)
@@ -63,7 +63,7 @@ CMD:id(playerid, params[])
 	if (sscanf(params, "u", to_player))
 	{
 		to_player = playerid;
-		SendClientMessage(playerid, COLOR_WHITE, "Recuerde que tambi√©n puede usar: /id "COL_WHITE"[ID o nombre]");
+		SendClientMessage(playerid, COLOR_WHITE, "Recuerde que tambiÈn puede usar: /id "COL_WHITE"[ID o nombre]");
 	}
 	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
 
@@ -81,14 +81,14 @@ CMD:id(playerid, params[])
 	if (GetPlayerPing(to_player) < 80) ping = minrand(100, 300);
 	else ping = GetPlayerPing(to_player);
 
-	SendClientMessageEx(playerid, COLOR_RED, "‚Ä¢ "COL_WHITE"Nombre: %s (%d) [Nivel %d] "COL_RED"|"COL_WHITE" ID de cuenta: %d",
+	SendClientMessageEx(playerid, COLOR_RED, "ï "COL_WHITE"Nombre: %s (%d) [Nivel %d] "COL_RED"|"COL_WHITE" ID de cuenta: %d",
 		PLAYER_TEMP[to_player][py_NAME],
 		to_player,
 		GetPlayerScore(to_player),
 		acid
 	);
 	
-	SendClientMessageEx(playerid, COLOR_RED, "‚Ä¢ "COL_WHITE"Versi√≥n: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f "COL_RED"|"COL_WHITE" Ping: %d",
+	SendClientMessageEx(playerid, COLOR_RED, "ï "COL_WHITE"VersiÛn: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f "COL_RED"|"COL_WHITE" Ping: %d",
 		player_version,
 		NetStats_PacketLossPercent(to_player),
 		ping
@@ -109,7 +109,7 @@ CMD:hora(playerid, params[])
 	gettime(time[0], time[1], time[2]);
 	getdate(time[3], time[4], time[5]);
 
-	SendClientMessageEx(playerid, COLOR_RED, "‚Ä¢ "COL_WHITE"Hora: %02d:%02d:%02d "COL_RED"|"COL_WHITE" Fecha: %02d/%02d/%d",
+	SendClientMessageEx(playerid, COLOR_RED, "ï "COL_WHITE"Hora: %02d:%02d:%02d "COL_RED"|"COL_WHITE" Fecha: %02d/%02d/%d",
 		time[0], time[1], time[2],
 		time[3], time[4], time[5]
 	);
@@ -128,7 +128,7 @@ CMD:g(playerid, params[])
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /g"COL_WHITE"ritar [TEXTO]");
 
 	new str_text[190];
-	format(str_text, 190, "%s grita: ¬°%s!", PLAYER_TEMP[playerid][py_RP_NAME], params);
+	format(str_text, 190, "%s grita: °%s!", PLAYER_TEMP[playerid][py_RP_NAME], params);
 
 	//Do code
 	strreplace(str_text, "[", "{dbc766}[");
@@ -363,7 +363,7 @@ cmd:tr(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -375,7 +375,7 @@ cmd:tp(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -387,7 +387,7 @@ cmd:teleport(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -399,7 +399,7 @@ cmd:salo(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -411,7 +411,7 @@ cmd:fantasma(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -423,7 +423,7 @@ cmd:domar(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -435,7 +435,7 @@ cmd:sapito(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -447,7 +447,7 @@ cmd:pinwino(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -459,7 +459,7 @@ cmd:verdesin(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -471,7 +471,7 @@ cmd:piso(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -483,7 +483,7 @@ cmd:storm(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -495,7 +495,7 @@ cmd:gg(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -507,7 +507,7 @@ cmd:baciga(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -519,7 +519,7 @@ cmd:spread(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -531,7 +531,7 @@ cmd:cfind(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -543,7 +543,7 @@ cmd:master(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -555,7 +555,7 @@ cmd:tmp(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -567,7 +567,7 @@ cmd:fr(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -579,7 +579,7 @@ cmd:hmo(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -591,7 +591,7 @@ cmd:skr(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -603,7 +603,7 @@ cmd:xex(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -615,7 +615,7 @@ cmd:up(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -627,7 +627,7 @@ cmd:slide(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -639,7 +639,7 @@ cmd:cbug(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -651,7 +651,7 @@ cmd:aimbot(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -663,7 +663,7 @@ cmd:aim(playerid, params[])
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 	SendDiscordWebhook(string, 1);
 
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats");
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats");
 	KickEx(playerid, 500);
 	return 1;
 }
@@ -702,7 +702,7 @@ CMD:gps(playerid, params[])
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_OBJECT[playerid][po_GPS])
 	{
-		ShowPlayerMessage(playerid, "~r~No tienes ning√∫n GPS, ve a un 24/7.", 3, 1085);
+		ShowPlayerMessage(playerid, "~r~No tienes ning˙n GPS, ve a un 24/7.", 3, 1085);
 		return 1;
 	}
 
@@ -720,9 +720,9 @@ CMD:stop(playerid, params[])
 CMD:mp3(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes un reproductor MP3. Ve a una tienda electr√≥nica.", 4);
+	if (!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes un reproductor MP3. Ve a una tienda electrÛnica.", 4);
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
-	if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la b√∫squeda actual.", 3, 1085);
+	if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la b˙squeda actual.", 3, 1085);
 	if (gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada un minuto.", 3, 1085);
 
 	ShowPlayerMessage(playerid, "~r~YouTube nos ha baneado, esta opcion se encuentra desactivada.", 4);
@@ -747,7 +747,7 @@ CMD:borrarcp(playerid, params[])
 
 		ShowPlayerMessage(playerid, "Has cancelado la ruta antigua de tu GPS.", 3);
 	}
-	else ShowPlayerMessage(playerid, "~r~No tienes ning√∫n punto marcado en tu GPS.", 3);
+	else ShowPlayerMessage(playerid, "~r~No tienes ning˙n punto marcado en tu GPS.", 3);
 	return 1;
 }
 
@@ -757,19 +757,19 @@ CMD:guia(playerid, params[])
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_OBJECT[playerid][po_PHONE_RESOLVER])
 	{
-		ShowPlayerMessage(playerid, "~r~No tienes una gu√≠a telef√≥nica, ve a un 24/7.", 3, 1085);
+		ShowPlayerMessage(playerid, "~r~No tienes una guÌa telefÛnica, ve a un 24/7.", 3, 1085);
 		return 1;
 	}
 
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guia "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador Desconectado.", 2);
 
-	if (ACCOUNT_INFO[params[0]][ac_ID] == 0) return ShowPlayerMessage(playerid, "~r~Este jugador ha decidido no mostrar su n√∫mero en la gu√≠a.", 3);
+	if (ACCOUNT_INFO[params[0]][ac_ID] == 0) return ShowPlayerMessage(playerid, "~r~Este jugador ha decidido no mostrar su n˙mero en la guÌa.", 3);
 
-	if (!PLAYER_PHONE[params[0]][player_phone_VALID]) return ShowPlayerMessage(playerid, "~r~Este jugador no tiene tel√©fono.", 2);
-	if (!PLAYER_PHONE[params[0]][player_phone_VISIBLE_NUMBER]) return ShowPlayerMessage(playerid, "~r~Este jugador ha decidido no mostrar su n√∫mero en la gu√≠a.", 3);
+	if (!PLAYER_PHONE[params[0]][player_phone_VALID]) return ShowPlayerMessage(playerid, "~r~Este jugador no tiene telÈfono.", 2);
+	if (!PLAYER_PHONE[params[0]][player_phone_VISIBLE_NUMBER]) return ShowPlayerMessage(playerid, "~r~Este jugador ha decidido no mostrar su n˙mero en la guÌa.", 3);
 
-	SendClientMessageEx(playerid, COLOR_WHITE, "Tel√©fono de %s: "COL_RED"%d", PLAYER_TEMP[params[0]][py_RP_NAME], PLAYER_PHONE[params[0]][player_phone_NUMBER]);
+	SendClientMessageEx(playerid, COLOR_WHITE, "TelÈfono de %s: "COL_RED"%d", PLAYER_TEMP[params[0]][py_RP_NAME], PLAYER_PHONE[params[0]][player_phone_NUMBER]);
 	return 1;
 }
 
@@ -779,10 +779,10 @@ CMD:responder(playerid, params[])
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_PHONE[playerid][player_phone_VALID])
 	{
-		ShowPlayerMessage(playerid, "~r~No tienes ning√∫n tel√©fono, ve a 24/7.", 3, 1085);
+		ShowPlayerMessage(playerid, "~r~No tienes ning˙n telÈfono, ve a 24/7.", 3, 1085);
 		return 1;
 	}
-	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu tel√©fono est√° apagado, para encenderlo usa /movil.", 3);
+	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu telÈfono est· apagado, para encenderlo usa /movil.", 3);
 
 	if (!PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~No hay llamadas entrantes.", 2);
 	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] == INVALID_PLAYER_ID) return ShowPlayerMessage(playerid, "~r~No hay llamadas entrantes.", 2);
@@ -811,10 +811,10 @@ CMD:colgar(playerid, params[])
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_PHONE[playerid][player_phone_VALID])
 	{
-		ShowPlayerMessage(playerid, "~r~No tienes ning√∫n tel√©fono, ve a un 24/7.", 3, 1085);
+		ShowPlayerMessage(playerid, "~r~No tienes ning˙n telÈfono, ve a un 24/7.", 3, 1085);
 		return 1;
 	}
-	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu tel√©fono est√° apagado, para encenderlo usa /movil.", 3);
+	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu telÈfono est· apagado, para encenderlo usa /movil.", 3);
 
 	if (!PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return ShowPlayerMessage(playerid, "~r~No hay llamadas entrantes.", 2);
 
@@ -846,7 +846,7 @@ CMD:colgar(playerid, params[])
 			EndPhoneCall(playerid);
 			ShowPlayerMessage(playerid, "Llamada finalizada.", 2);
 		}
-		default: ShowPlayerMessage(playerid, "~r~No est√°s en ninguna llamada.", 2);
+		default: ShowPlayerMessage(playerid, "~r~No est·s en ninguna llamada.", 2);
 	}
 	return 1;
 }
@@ -891,11 +891,11 @@ CMD:vender(playerid, params[])
 	new option[24], to_playerid, extra, price;
 	if (sscanf(params, "s[24]udd", option, to_playerid, extra, price)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender hycoins <id> <cantidad> <precio>");
 
-	if (price <= 0 || price > 10000000) return ShowPlayerMessage(playerid, "~r~El precio no es v√°lido.", 3);
-	if (!IsPlayerConnected(to_playerid)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° conectado", 3);
+	if (price <= 0 || price > 10000000) return ShowPlayerMessage(playerid, "~r~El precio no es v·lido.", 3);
+	if (!IsPlayerConnected(to_playerid)) return ShowPlayerMessage(playerid, "~r~El jugador no est· conectado", 3);
 	if (playerid == to_playerid) return ShowPlayerMessage(playerid, "~r~No puedes venderte a ti mismo.", 3);
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_playerid, x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Este jugador no est√° cerca tuya.", 3);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Este jugador no est· cerca tuya.", 3);
 	if (PLAYER_TEMP[to_playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No le puedes vender nada a este jugador por ahora.", 3);
 	if (ACCOUNT_INFO[to_playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~El jugador no es nivel 2.", 3);
 
@@ -934,7 +934,7 @@ CMD:tirar(playerid, params[])
 
 	new ammount;
 	if (sscanf(params, "d", ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tirar <cantidad>");
-	if (ammount <= 0 || ammount > 1000) return ShowPlayerMessage(playerid, "~r~La cantidad no es v√°lida.", 3);
+	if (ammount <= 0 || ammount > 1000) return ShowPlayerMessage(playerid, "~r~La cantidad no es v·lida.", 3);
 
 	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 	{
@@ -969,13 +969,13 @@ CMD:guardar(playerid, params[])
 
 	new ammount;
 	if (sscanf(params, "d", ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tirar <cantidad>");
-	if (ammount <= 0 || ammount > 1000) return ShowPlayerMessage(playerid, "~r~La cantidad no es v√°lida.", 3);
+	if (ammount <= 0 || ammount > 1000) return ShowPlayerMessage(playerid, "~r~La cantidad no es v·lida.", 3);
 
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
 
 	new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~Tienes que estar cerca de un veh√≠culo", 4);
-	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Tienes que estar cerca de un veh√≠culo", 4);
+	if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~Tienes que estar cerca de un vehÌculo", 4);
+	if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Tienes que estar cerca de un vehÌculo", 4);
 	if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID] || IsPlayerInKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], ACCOUNT_INFO[playerid][ac_ID]))
 	{
 		PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] = vehicleid;
@@ -1041,17 +1041,17 @@ CMD:echar(playerid, params[])
 	{
 		new vehicleid = GetPlayerVehicleID(playerid);
 
-		if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es t√∫ veh√≠culo.", 3);
-		if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es t√∫ veh√≠culo.", 3);
-		if (GetPlayerVehicleID(params[0]) != vehicleid) return ShowPlayerMessage(playerid, "~r~Este jugador no est√° en tu veh√≠culo", 3);
+		if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es t˙ vehÌculo.", 3);
+		if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es t˙ vehÌculo.", 3);
+		if (GetPlayerVehicleID(params[0]) != vehicleid) return ShowPlayerMessage(playerid, "~r~Este jugador no est· en tu vehÌculo", 3);
 
 		RemovePlayerFromVehicle(params[0]);
 
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Hecha a alguien de su veh√≠culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+		SetPlayerChatBubble(playerid, "\n\n\n\n* Hecha a alguien de su vehÌculo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		return 1;
 	}
 
-	ShowPlayerMessage(playerid, "~r~No est√°s en tu propiedad o en tu veh√≠culo.", 3);
+	ShowPlayerMessage(playerid, "~r~No est·s en tu propiedad o en tu vehÌculo.", 3);
 	return 1;
 }
 
@@ -1090,7 +1090,7 @@ CMD:dimitir(playerid, params[])
 
 	if (!player_jobs) return ShowPlayerMessage(playerid, "~r~No tienes un trabajo.", 2);
 
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 
 	new work;
 	if (sscanf(params, "d", work))
@@ -1114,7 +1114,7 @@ CMD:dimitir(playerid, params[])
 		return 1;
 	}
 
-	if (work < 1 || work >= sizeof work_info) return SendClientMessage(playerid, COLOR_WHITE, "El trabajo no es v√°lido.");
+	if (work < 1 || work >= sizeof work_info) return SendClientMessage(playerid, COLOR_WHITE, "El trabajo no es v·lido.");
 
 	if (!PLAYER_WORKS[playerid][work])
 	{
@@ -1122,7 +1122,7 @@ CMD:dimitir(playerid, params[])
 		return ShowPlayerNotification(playerid, str_text, 3);
 	}
 
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] == work) return ShowPlayerMessage(playerid, "~r~Est√°s de servicio en ese trabajo, deja de trabajar para renunciar.", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] == work) return ShowPlayerMessage(playerid, "~r~Est·s de servicio en ese trabajo, deja de trabajar para renunciar.", 3);
 
 	new DB_Query[256];
 	format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", ACCOUNT_INFO[playerid][ac_ID], work);
@@ -1152,17 +1152,17 @@ CMD:motor(playerid, params[])
 CMD:mecanico(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mec√°nico.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mec·nico.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_MECHANIC)
 	{
 		//ShowPlayerMessage(playerid, "~r~Ya estas en servicio en otro trabajo.", 3);
 		return 1;
 	}
 
-	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est√°s en el sitio correcto.", 3);
-	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est√°s en el sitio correcto.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0,-69.941520, -1181.400634, 1.750000)) return ShowPlayerMessage(playerid, "~r~No est√°s en el sitio correcto.", 3);
+	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est·s en el sitio correcto.", 3);
+	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est·s en el sitio correcto.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
+	if (!IsPlayerInRangeOfPoint(playerid, 1.0,-69.941520, -1181.400634, 1.750000)) return ShowPlayerMessage(playerid, "~r~No est·s en el sitio correcto.", 3);
 
 	if (!PLAYER_TEMP[playerid][py_WORKING_IN]) StartPlayerJob(playerid, WORK_MECHANIC);
 	else EndPlayerJob(playerid);
@@ -1180,9 +1180,9 @@ CMD:mecanico(playerid, params[])
 CMD:plantar(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
-	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est√°s en el sitio correcto.", 3);
-	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est√°s en el sitio correcto.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est·s en el sitio correcto.", 3);
+	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est·s en el sitio correcto.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 	if (PLAYER_TEMP[playerid][py_PLANTING]) return ShowPlayerMessage(playerid, "~r~Ya estas plantado algo.", 3);
 
 	new str_text[128];
@@ -1195,7 +1195,7 @@ CMD:plantar(playerid, params[])
 		return 1;
 	}
 
-	if (GetPlayerPlantedPlants(playerid) > 25) return ShowPlayerMessage(playerid, "~r~Tienes muchas plantas, rec√≥gelas para seguir", 4);
+	if (GetPlayerPlantedPlants(playerid) > 25) return ShowPlayerMessage(playerid, "~r~Tienes muchas plantas, recÛgelas para seguir", 4);
 
 	for(new i = 0; i != MAX_PLANTS; i ++)
 	{
@@ -1205,7 +1205,7 @@ CMD:plantar(playerid, params[])
 		GetDynamicObjectPos(PLANTS[i][plant_OBJECT_ID], x, y, z);
 		if (IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z))
 		{
-			ShowPlayerMessage(playerid, "Aqu√≠ ya hay una planta, al√©jate un poco para plantar.", 4);
+			ShowPlayerMessage(playerid, "AquÌ ya hay una planta, alÈjate un poco para plantar.", 4);
 			return 1;
 		}
 	}
@@ -1216,11 +1216,11 @@ CMD:plantar(playerid, params[])
 
 /*CMD:piezas(playerid, params[])
 {
-	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mec√°nico.", 3);
-	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est√°s en el sitio correcto.", 3);
-	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est√°s en el sitio correcto.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
-	if (!IsPlayerInRangeOfPoint(playerid, 1.0, -82.038078, -1208.153564, 2.704517)) return ShowPlayerMessage(playerid, "~r~No est√°s en el sitio correcto.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mec·nico.", 3);
+	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est·s en el sitio correcto.", 3);
+	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No est·s en el sitio correcto.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
+	if (!IsPlayerInRangeOfPoint(playerid, 1.0, -82.038078, -1208.153564, 2.704517)) return ShowPlayerMessage(playerid, "~r~No est·s en el sitio correcto.", 3);
 
 	if (sscanf(params, "d", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /piezas "COL_WHITE"[cantidad]");
 	if (params[0] <= 0 || params[0] >= 10000) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /piezas "COL_WHITE"[cantidad > 0]");
@@ -1242,7 +1242,7 @@ CMD:plantar(playerid, params[])
 CMD:no(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 	if (IsPlayerJumping(playerid)) return 1;
 	
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
@@ -1256,7 +1256,7 @@ CMD:cagar(playerid, params[])
 	if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_SHIT]) < 30) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 30 segundos para volver a hacer esto.", 3);
 
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 
 	ApplyAnimation(playerid, "ped", "SEAT_down", 4.000000, 0, 1, 1, 1, 0);
 	SetTimerEx("StopShitting", 3000, false, "i", playerid);
@@ -1314,7 +1314,7 @@ CMD:sexo(playerid, params[])
 
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(params[0], x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
+	if (!IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
 
 	new str_text[144];
 	format(str_text, sizeof(str_text), "* %s le hace sexo oral a %s.", PLAYER_TEMP[playerid][py_RP_NAME], PLAYER_TEMP[params[0]][py_RP_NAME]);
@@ -1507,7 +1507,7 @@ CMD:saludar(playerid, params[])
 
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(params[0], x, y, z);
-	if (!IsPlayerInRangeOfPoint(playerid, 30.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est√° cerca tuya.", 2);
+	if (!IsPlayerInRangeOfPoint(playerid, 30.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no est· cerca tuya.", 2);
 
 	new str_text[144];
 	format(str_text, sizeof(str_text), "* %s saluda a %s.", PLAYER_TEMP[playerid][py_RP_NAME], PLAYER_TEMP[params[0]][py_RP_NAME]);
@@ -1679,7 +1679,7 @@ CMD:minero(playerid)
 
 /*CMD:guardar(playerid, params[])
 {
-	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 
 	new option[24], extra;
 	if (sscanf(params, "s[24]d", option, extra)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guardar arma "COL_WHITE"[slot]");
@@ -1697,9 +1697,9 @@ CMD:minero(playerid)
 			}
 
 			new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-			if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No est√°s cerca de tu veh√≠culo", 3);
+			if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No est·s cerca de tu vehÌculo", 3);
 
-			if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es t√∫ veh√≠culo.", 3);
+			if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es t˙ vehÌculo.", 3);
 			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~", 3);
 
 			new boot_slot = GetPlayerVehicleAvaibleBootSlot(vehicleid);
@@ -1737,7 +1737,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 		}
 	}
 
-	if (PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW]) return ShowPlayerMessage(playerid, "Pulsa ~y~ESC~w~ para cerrar el men√∫.", 4);
+	if (PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW]) return ShowPlayerMessage(playerid, "Pulsa ~y~ESC~w~ para cerrar el men˙.", 4);
 
 	new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_ANTIFLOOD_COMMANDS]);
 	if (interval < MIN_SECONDS_BETWEEN_COMMANDS)
@@ -1760,7 +1760,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 				}
 			}
 		}
-		SendClientMessage(playerid, COLOR_WHITE, "¬°Tranquilo, quemar√°s el teclado!");
+		SendClientMessage(playerid, COLOR_WHITE, "°Tranquilo, quemar·s el teclado!");
 		return 0;
 	}
 

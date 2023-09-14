@@ -3872,6 +3872,7 @@ ShowDialog(playerid, dialogid)
 					Correo\t%s\n\
 					Número en guía telefónica\t%s\n\
 					Canal de dudas\t%s\n\
+					Canal global\t%s\n\
 					Mostrar sed y hambre\t%s\n\
 					Primera persona\t%s\n\
 					Sexo\t%s\n\
@@ -3882,6 +3883,7 @@ ShowDialog(playerid, dialogid)
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
+					(PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(PLAYER_MISC[playerid][MISC_CONFIG_HUD] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(PLAYER_MISC[playerid][MISC_CONFIG_FP] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
 					(CHARACTER_INFO[playerid][ch_SEX] ? "Mujer" : "Hombre"),

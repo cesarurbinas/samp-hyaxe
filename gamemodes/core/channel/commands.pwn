@@ -1,7 +1,7 @@
 CMD:duda(playerid, params[])
 {
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar una duda primero debes activar el canal de dudas con "COL_RED"/dudas");
-	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /duda "COL_WHITE"[DUDA]");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /duda <mensaje>");
 	
 	if (PLAYER_MISC[playerid][MISC_MUTES] >= 5) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tienes muchos muteos, ya no eres aceptado en el canal de dudas.");
 	if (strlen(params) > 132) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Su duda es muy larga");
@@ -117,7 +117,120 @@ CMD:dudas(playerid, params[])
 	return 1;
 }
 
-#define MIN_TIME_BETWEEN_ANN 300
+CMD:global(playerid, params[])
+{
+	if (PLAYER_MISC[playerid][MISC_GLOBAL_CHAT])
+	{
+		PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] = false;
+		ShowPlayerMessage(playerid, "Canal global ~r~desactivado", 1);
+	}
+	else
+	{
+		PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] = true;
+		ShowPlayerMessage(playerid, "Canal global ~g~activado", 1);
+	}
+	return 1;
+}
+
+CMD:gl(playerid, params[])
+{
+	if (!PLAYER_MISC[playerid][MISC_GLOBAL_CHAT]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar mensajes por el canal global tienes que tenerlo activado.");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /gl <mensaje>");
+	if (strlen(params) > 132) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Su mensaje es muy largo.");
+
+	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
+	{
+		new seconds = PLAYER_MISC[playerid][MISC_MUTE] - gettime();
+		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Estás silenciado en todos los canales por %s minutos", TimeConvert(seconds));
+		return 1;
+	}
+
+	if (!ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		if (gettime() < PLAYER_TEMP[playerid][py_GLOBAL_CHANNEL_TIME] + MIN_TIME_BETWEEN_GLOBAL)
+		{
+			new time = (MIN_TIME_BETWEEN_GLOBAL-(gettime()-PLAYER_TEMP[playerid][py_GLOBAL_CHANNEL_TIME]));
+			SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tienes que esperar %s segundos para volver a enviar un mensaje.", TimeConvert(time));
+			return 1;
+		}
+	}
+
+	if (!ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		if (CheckSpamViolation(params))
+		{
+			new dialog[250];
+			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (Global)");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+			
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Dudas)");
+
+			KickEx(playerid, 500);
+			PLAYER_MISC[playerid][MISC_BANS] ++;
+			SavePlayerMisc(playerid);
+
+			new str[144], webhook[144];
+			format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (Global).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+
+			format(str, 144, "[GLOBAL] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+			return 0;
+		}
+
+		if (CheckFilterViolation(params))
+		{
+			new str[144], webhook[144];
+			format(str, 144, "[GLOBAL] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+
+			SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tu mensaje tiene palabras inapropiadas.");
+			return 1;
+		}
+
+		if (StringContainsIP(params))
+		{
+			new dialog[250];
+			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Spam (IP en el Global)");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+			
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el dudas)");
+
+			KickEx(playerid, 500);
+			PLAYER_MISC[playerid][MISC_BANS] ++;
+			SavePlayerMisc(playerid);
+
+			new str[144];
+			format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Spam (IP en el Global).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			new webhook[144];
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+			
+			format(str, 144, "[GLOBAL] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
+			return 1;
+		}
+	}
+
+	SendMessageToGlobalChannel(playerid, params);
+	SavePlayerMisc(playerid);
+	return 1;
+}
+
 CMD:anuncio(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;

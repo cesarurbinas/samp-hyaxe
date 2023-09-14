@@ -387,8 +387,13 @@ enum Temp_Enum
 	bool:py_MENU,
 	py_TAZER_DELAY,
 	bool:py_TUTORIAL,
+<<<<<<< HEAD
 	py_TUTORIAL_STEP
 >>>>>>> deef895 (Cambio de cuenta crasheaba el servidor)
+=======
+	py_TUTORIAL_STEP,
+	py_GLOBAL_CHANNEL_TIME
+>>>>>>> 86b7f68 (global chat)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

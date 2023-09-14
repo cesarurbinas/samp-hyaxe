@@ -7493,6 +7493,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 4:
 					{
+						if (PLAYER_MISC[playerid][MISC_GLOBAL_CHAT])
+						{
+							PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] = false;
+							ShowDialog(playerid, dialogid);
+						}
+						else
+						{
+							PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] = true;
+							ShowDialog(playerid, dialogid);
+						}
+					}
+					case 5:
+					{
 						if (PLAYER_MISC[playerid][MISC_CONFIG_HUD])
 						{
 							PLAYER_MISC[playerid][MISC_CONFIG_HUD] = false;
@@ -7506,7 +7519,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SetPlayerHud(playerid);
 						}
 					}
-					case 5:
+					case 6:
 					{
 						if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
 						{
@@ -7521,7 +7534,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							SetFirstPerson(playerid, true);
 						}
 					}
-					case 6:
+					case 7:
 					{
 						if (CHARACTER_INFO[playerid][ch_SEX] == SEX_MALE)
 						{
@@ -7534,18 +7547,18 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							ShowDialog(playerid, dialogid);
 						}
 					}
-					case 7:
+					case 8:
 					{
 						Streamer_Update(playerid);
 					}
-					case 8:
+					case 9:
 					{
 						PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = !PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER];
 
 						SavePlayerMisc(playerid);
 						ShowDialog(playerid, dialogid);
 					}
-					case 9:
+					case 10:
 					{
 						new dialog[64 * 10];
 

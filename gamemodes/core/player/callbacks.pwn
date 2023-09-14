@@ -153,7 +153,7 @@ public OnPlayerConnect(playerid)
 		
 		if (!SvHasMicro(playerid))
 		{
-			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} No tienes un micr√≥fono conectado");
+			SendClientMessage(playerid, 0xec4134FF, "[AVISO]{FFFFFF} No tienes un micrÛfono conectado");
 		}
 		
 		lstream[playerid] = SvCreateDLStreamAtPlayer(40.0, SV_INFINITY, playerid, 0x81df79ff, "E");
@@ -186,11 +186,11 @@ public OnPlayerConnect(playerid)
 			GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 
 			/*new str_text[144];
-			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el m√°ximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
+			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el m·ximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
 		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 		    SendDiscordWebhook(str_text, 1);*/
 		    
-		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el m√°ximo de conexiones");
+		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el m·ximo de conexiones");
 		    KickEx(playerid, 500);
 			return 0;
 		}
@@ -198,11 +198,11 @@ public OnPlayerConnect(playerid)
 		if (IsFakeClient(playerid))
 		{
 			/*new str_text[144];
-			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Cliente inv√°lido", PLAYER_TEMP[playerid][py_NAME], playerid);
+			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Cliente inv·lido", PLAYER_TEMP[playerid][py_NAME], playerid);
 		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 		    SendDiscordWebhook(str_text, 1);*/
 		    
-		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inv√°lido");
+		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inv·lido");
 		    KickEx(playerid, 500);
 			return 0;	
 		}
@@ -240,14 +240,14 @@ public OnPlayerConnect(playerid)
 			format(dialog, sizeof dialog,
 
 				"\
-					"COL_WHITE"Esta IP, cuenta o serial est√° suspendida permanentemente.\n\
+					"COL_WHITE"Esta IP, cuenta o serial est· suspendida permanentemente.\n\
 					\n\
 					Tu nombre: %s\n\
 					\n\
 					Nombre: %s\n\
 					Expulsado por: %s\n\
-					Fecha expulsi√≥n: %s\n\
-					Raz√≥n: %s\n\
+					Fecha expulsiÛn: %s\n\
+					RazÛn: %s\n\
 					\n\
 				",
 
@@ -275,18 +275,18 @@ public OnPlayerConnect(playerid)
 				format(dialog, sizeof dialog,
 
 					"\
-						"COL_WHITE"Esta IP o cuenta est√° suspendida temporalmente.\n\
+						"COL_WHITE"Esta IP o cuenta est· suspendida temporalmente.\n\
 						\n\
 						Tu nombre: %s\n\
 						Tu IP: %s\n\
 						\n\
 						Nombre: %s\n\
 						Expulsado por: %s\n\
-						Fecha expulsi√≥n: %s\n\
-						Raz√≥n: %s\n\
+						Fecha expulsiÛn: %s\n\
+						RazÛn: %s\n\
 						\n\
 						Fecha actual: %s\n\
-						Fecha readmisi√≥n: %s\n\
+						Fecha readmisiÛn: %s\n\
 						\n\
 					",
 
@@ -470,13 +470,13 @@ public OnPlayerConnect(playerid)
 			}
 		}
 
-		PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]); // M√∫sica
+		PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]); // M˙sica
 		PLAYER_TEMP[playerid][py_USER_EXIT] = true;
 		ClearPlayerChatBox(playerid);
 	}
 	else
 	{
-		PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]); // M√∫sica
+		PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]); // M˙sica
 		ClearPlayerChatBox(playerid);
 	}
 	
@@ -600,9 +600,9 @@ public OnPlayerDisconnect(playerid, reason)
 		  		new disconnect_message[128];
 		  		switch(reason)
 		  		{
-		  			case 0: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, raz√≥n: crash ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
-		  			case 1: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, raz√≥n: salida voluntaria ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
-		  			case 2: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, raz√≥n: expulsado por el servidor ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
+		  			case 0: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razÛn: crash ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
+		  			case 1: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razÛn: salida voluntaria ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
+		  			case 2: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razÛn: expulsado por el servidor ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
 		  		}
 		  		NearbyMessage(CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_INTERIOR], GetPlayerVirtualWorld(playerid), 15.0, COLOR_FADE1, disconnect_message);
 		  	}
@@ -828,7 +828,7 @@ public HealthUp(playerid)
 		}
 		else
 		{
-			format(pay_str, sizeof(pay_str), "El coste de los servicios m√©dicos ofrecidos es de %s$", number_format_thousand(price));
+			format(pay_str, sizeof(pay_str), "El coste de los servicios mÈdicos ofrecidos es de %s$", number_format_thousand(price));
 			ShowPlayerNotification(playerid, pay_str, 4);
 			GivePlayerCash(playerid, -price);
 		}
@@ -913,7 +913,7 @@ public HungryThirstDown(playerid)
 
 		if (!PLAYER_TEMP[playerid][py_THIRST_MESSAGE])
 		{
-			ShowPlayerNotification(playerid, "Empiezas a tener sed, busca algo para tomar o acabar√°s muriendo.", 5);
+			ShowPlayerNotification(playerid, "Empiezas a tener sed, busca algo para tomar o acabar·s muriendo.", 5);
 			SetPlayerDrunkLevel(playerid, 4000);
 			PLAYER_TEMP[playerid][py_THIRST_MESSAGE] = true;
 		}
@@ -935,7 +935,7 @@ public HungryThirstDown(playerid)
 
 		if (!PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE])
 		{
-			ShowPlayerNotification(playerid, "Empiezas a tener hambre, busca algo para comer o acabar√°s muriendo.", 5);
+			ShowPlayerNotification(playerid, "Empiezas a tener hambre, busca algo para comer o acabar·s muriendo.", 5);
 			SetPlayerDrunkLevel(playerid, 4000);
 			PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE] = true;
 		}
@@ -952,7 +952,7 @@ public StartVehicleEngine(playerid, vehicleid)
 		printf("StartVehicleEngine"); // debug juju
 	#endif
 
-	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] == VEHICLE_STATE_DAMAGED) return ShowPlayerMessage(playerid, "~r~Motor da√±ado.", 1);
+	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] == VEHICLE_STATE_DAMAGED) return ShowPlayerMessage(playerid, "~r~Motor daÒado.", 1);
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] <= 0.1) return ShowPlayerMessage(playerid, "~r~Sin gasolina.", 1);
 
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 1;
@@ -976,7 +976,7 @@ public StartVehicleEngine(playerid, vehicleid)
 	}
 
 	ShowPlayerMessage(playerid, "~g~Encendiendo...", 2);
-	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido su veh√≠culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido su vehÌculo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	return 1;
 }
 
@@ -1033,7 +1033,7 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 
 			GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
 			UpdateVehicleParams(vehicleid);
-			ShowPlayerMessage(playerid, "~r~Motor da√±ado.", 2);
+			ShowPlayerMessage(playerid, "~r~Motor daÒado.", 2);
 		}
 	}
 
@@ -1050,7 +1050,7 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 				GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
 				UpdateVehicleParams(vehicleid);
 
-			    ShowPlayerMessage(playerid, "~r~El veh√≠culo se ha quedado sin gasolina", 2);
+			    ShowPlayerMessage(playerid, "~r~El vehÌculo se ha quedado sin gasolina", 2);
 			}
 		}
 		PLAYER_TEMP[playerid][py_FUEL_DOWN_TIME] = gettime();
@@ -1170,7 +1170,7 @@ public DisableGangRefMark(playerid)
     new city[45], zone[45];
     GetPlayerZones(playerid, city, zone);
     new message[144];
-    format(message, sizeof message, "~r~%s~w~ se perdi√≥ (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+    format(message, sizeof message, "~r~%s~w~ se perdiÛ (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
     SetPlayerColorEx(playerid, PLAYER_COLOR);
 
     for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -1208,7 +1208,7 @@ public DisableMafiaRefMark(playerid)
 	;
 
     GetPlayerZones(playerid, city, zone);
-    format(message, sizeof message, "~r~%s~w~ se perdi√≥ (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+    format(message, sizeof message, "~r~%s~w~ se perdiÛ (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
     SetPlayerColorEx(playerid, PLAYER_COLOR);
 
     if (PlayerIsInMafia(playerid))
@@ -1390,7 +1390,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (1)", PLAYER_TEMP[playerid][py_NAME], playerid);
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Fly (1)");
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Fly (1)");
 						KickEx(playerid, 500);
 						return 0;
 		            }
@@ -1403,7 +1403,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (2)", PLAYER_TEMP[playerid][py_NAME], playerid);
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Fly (2)");
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Fly (2)");
 						KickEx(playerid, 500);
 						return 0;
 					}
@@ -1416,7 +1416,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Anti-L", PLAYER_TEMP[playerid][py_NAME], playerid);
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Anti-L");
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Anti-L");
 						KickEx(playerid, 500);
 						return 0;
 		            }
@@ -1429,7 +1429,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): SleepAnim", PLAYER_TEMP[playerid][py_NAME], playerid);
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: SleepAnim");
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: SleepAnim");
 						KickEx(playerid, 500);
 						return 0;
 		            }
@@ -1445,7 +1445,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 							format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (%f, %f)", PLAYER_TEMP[playerid][py_NAME], playerid, depth, playerdepth);
 						    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 						    SendDiscordWebhook(str_text, 1);
-						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Fly (3)");
+						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Fly (3)");
 							KickEx(playerid, 500);
 							return 0;
 						}
@@ -1492,7 +1492,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		    if (onFootData[PR_specialAction] == SPECIAL_ACTION_USEJETPACK)
 			{
 				new dialog[250];
-				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, raz√≥n: Jetpack");
+				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razÛn: Jetpack");
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 				
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Jetpack");
@@ -1502,7 +1502,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				SavePlayerMisc(playerid);
 
 				new str[144];
-				format(str, 144, "[ADMIN] NeuroAdmin bane√≥ a %s (%d): Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				format(str, 144, "[ADMIN] NeuroAdmin baneÛ a %s (%d): Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
@@ -1622,7 +1622,7 @@ public OnPlayerSpawn(playerid)
 						{
 							new name[25];
 							db_get_field_assoc(NameR, "NAME", name);
-							format(str_text, sizeof(str_text), "Fuiste encarcelado por %s. Raz√≥n: %s.", name, CHARACTER_INFO[playerid][ch_JAIL_REASON]);
+							format(str_text, sizeof(str_text), "Fuiste encarcelado por %s. RazÛn: %s.", name, CHARACTER_INFO[playerid][ch_JAIL_REASON]);
 							SendClientMessage(playerid, 0xF7F7F7CC, str_text);
 						}
 						db_free_result(NameR);
@@ -1749,7 +1749,7 @@ public OnPlayerSpawn(playerid)
 						SetPlayerPosEx(playerid, Hp_Spawn_Interior_Pos[random_pos][0], Hp_Spawn_Interior_Pos[random_pos][1], Hp_Spawn_Interior_Pos[random_pos][2], Hp_Spawn_Interior_Pos[random_pos][3], 3, 2);
 						TogglePlayerControllableEx(playerid, false);
 						ApplyAnimation(playerid, "INT_HOUSE", "BED_In_R", 4.1, 0, 0, 0, 1, 0);
-						ShowPlayerNotification(playerid, "Fuiste ingresado en el centro m√©dico m√°s cercano.", 3);
+						ShowPlayerNotification(playerid, "Fuiste ingresado en el centro mÈdico m·s cercano.", 3);
 					}
 					case ROLEPLAY_STATE_CRACK:
 					{
@@ -1906,12 +1906,12 @@ public OnPlayerSpawn(playerid)
 						ClearPlayerChatBox(playerid);
 						if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
 						{
-							ShowPlayerNotification(playerid, "Estas en el centro m√©dico m√°s cercano, cuando te recuperes te llevaran a la c√°rcel.", 3);
+							ShowPlayerNotification(playerid, "Estas en el centro mÈdico m·s cercano, cuando te recuperes te llevaran a la c·rcel.", 3);
 							SetPlayerPoliceSearchLevel(playerid, 0);
 						}
 						else
 						{
-						    ShowPlayerNotification(playerid, "Fuiste ingresado en el centro m√©dico m√°s cercano.", 3);
+						    ShowPlayerNotification(playerid, "Fuiste ingresado en el centro mÈdico m·s cercano.", 3);
 						}
 
 						ResetItemBody(playerid);
@@ -2164,13 +2164,13 @@ public OnPlayerDeath(playerid, killerid, reason)
 				{
 					if (PLAYER_TEMP[playerid][py_TRASH_DRIVER])
 					{
-						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], "~r~El trabajo se ha cancelado porque tu compa√±ero ha dejado de trabajar.", 3);
+						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], "~r~El trabajo se ha cancelado porque tu compaÒero ha dejado de trabajar.", 3);
 						CancelTrashWork(playerid, TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID]);
 					}
 
 					if (PLAYER_TEMP[playerid][py_TRASH_PASSENGER])
 					{
-						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID], "~r~El trabajo se ha cancelado porque tu compa√±ero ha dejado de trabajar.", 3);
+						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID], "~r~El trabajo se ha cancelado porque tu compaÒero ha dejado de trabajar.", 3);
 						CancelTrashWork(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID], playerid, PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID]);
 					}
 				}
@@ -2193,11 +2193,11 @@ public OnPlayerDeath(playerid, killerid, reason)
 				format(str_killer, sizeof str_killer, "Heriste a %s con %s desde %.1f metros.", ACCOUNT_INFO[playerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SavePlayerNotification(killerid, str_killer);
 
-				format(str_victim, sizeof(str_victim), "%s te hiri√≥ con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_victim, sizeof(str_victim), "%s te hiriÛ con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				ShowPlayerNotification(playerid, str_victim, 4);
 				SavePlayerNotification(playerid, str_victim);
 
-				format(str_victim, sizeof(str_victim), "[KILL] %s (%d) hiri√≥ a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_victim, sizeof(str_victim), "[KILL] %s (%d) hiriÛ a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 1);
 
 				GetPlayerPos(playerid, x, y, z);
@@ -2240,10 +2240,10 @@ public OnPlayerDeath(playerid, killerid, reason)
 				format(str_killer, sizeof str_killer, "Asesinaste a %s con %s desde %.1f metros.", ACCOUNT_INFO[playerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SavePlayerNotification(killerid, str_killer);
 
-				format(str_victim, sizeof(str_victim), "%s te mat√≥ con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_victim, sizeof(str_victim), "%s te matÛ con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SavePlayerNotification(playerid, str_victim);
 
-				format(str_victim, sizeof(str_victim), "[KILL] %s (%d) mat√≥ a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_victim, sizeof(str_victim), "[KILL] %s (%d) matÛ a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 1);
 
 				GetPlayerPos(playerid, x, y, z);
@@ -2387,7 +2387,7 @@ public OnPlayerRequestClass(playerid, classid)
 		printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
 	#endif
 
-	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) // Reci√©n conectado
+	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) // ReciÈn conectado
 	{
 		if (!PLAYER_TEMP[playerid][py_USER_VALID_NAME] || PLAYER_TEMP[playerid][py_KICKED]) return 0;
 		
@@ -2402,7 +2402,7 @@ public OnPlayerRequestClass(playerid, classid)
 				return 1;
 			}*/
 
-			if (strcmp(PLAYER_TEMP[playerid][py_IP], ACCOUNT_INFO[playerid][ac_IP], false)) // La IP actual no es la misma IP de la √∫ltima conexi√≥n
+			if (strcmp(PLAYER_TEMP[playerid][py_IP], ACCOUNT_INFO[playerid][ac_IP], false)) // La IP actual no es la misma IP de la ˙ltima conexiÛn
 			{
 				new ip_change[40];
 				format(ip_change, sizeof(ip_change), "%s > %s", ACCOUNT_INFO[playerid][ac_IP], PLAYER_TEMP[playerid][py_IP]);
@@ -2427,7 +2427,7 @@ public OnPlayerRequestClass(playerid, classid)
 				);
 				db_free_result(db_query(Database, DB_Query));
 
-				ShowPlayerMessage(playerid, "~r~Tu direcci√≥n IP ha cambiado desde tu √∫ltima conexi√≥n.", 5);
+				ShowPlayerMessage(playerid, "~r~Tu direcciÛn IP ha cambiado desde tu ˙ltima conexiÛn.", 5);
 				PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = true;
 			}
 			
@@ -2452,7 +2452,7 @@ public OnPlayerRequestClass(playerid, classid)
 			{
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
 					Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
-					no est√°n permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
+					no est·n permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
 				KickEx(playerid, 500);
 				return 0;
 			}
@@ -2525,7 +2525,7 @@ public OnPlayerText(playerid, text[])
 
 		if (!PLAYER_WORKS[playerid][WORK_POLICE])
 		{
-			SendClientMessage(playerid, COLOR_RED, "Aviso:"COL_WHITE" Est√°s enviando mensajes demasiado r√°pido.");
+			SendClientMessage(playerid, COLOR_RED, "Aviso:"COL_WHITE" Est·s enviando mensajes demasiado r·pido.");
 			return 0;
 		}
 	}
@@ -2535,13 +2535,13 @@ public OnPlayerText(playerid, text[])
 	{
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Superar 50 jails");
 
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado autom√°ticamente, raz√≥n: Superar los 50 jails", "Cerrar", "");
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado autom·ticamente, razÛn: Superar los 50 jails", "Cerrar", "");
 		KickEx(playerid, 500);
 		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
 		new str[144];
-		format(str, 144, "[ADMIN] NeuroAdmin bane√≥ a %s (%d): 50 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(str, 144, "[ADMIN] NeuroAdmin baneÛ a %s (%d): 50 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144];
@@ -2574,10 +2574,10 @@ public OnPlayerText(playerid, text[])
 				GetPlayerZones(playerid, city, zone);
 
 				new message[144];
-				format(message, sizeof message, "{4286f4}[Central polic√≠a] "COL_WHITE"Reporte "COL_WHITE"[%s (%d), gps: %s, %s]: "COL_WHITE"%s", PLAYER_TEMP[playerid][py_POLICE_CALL_NAME_STR], playerid, city, zone, text);
+				format(message, sizeof message, "{4286f4}[Central policÌa] "COL_WHITE"Reporte "COL_WHITE"[%s (%d), gps: %s, %s]: "COL_WHITE"%s", PLAYER_TEMP[playerid][py_POLICE_CALL_NAME_STR], playerid, city, zone, text);
 				SendPoliceRadioMessage(-1, COLOR_WHITE, message);
 
-				SendClientMessage(playerid, COLOR_YELLOW, "Operadora:"COL_WHITE" Su petici√≥n fue enviada, en breve una patrulla acudir√°.");
+				SendClientMessage(playerid, COLOR_YELLOW, "Operadora:"COL_WHITE" Su peticiÛn fue enviada, en breve una patrulla acudir·.");
 				ShowPlayerMessage(playerid, "Llamada finalizada.", 2);
 				return 0;
 			}
@@ -2588,8 +2588,8 @@ public OnPlayerText(playerid, text[])
 			{
 				if (PLAYER_WORKS[playerid][WORK_POLICE] && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_POLICE)
 				{
-					if (text[1] == '!') format(str_text, sizeof str_text, "[Depto. De Polic√≠a] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-					else format(str_text, sizeof str_text, "[Depto. De Polic√≠a] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], text[1]);
+					if (text[1] == '!') format(str_text, sizeof str_text, "[Depto. De PolicÌa] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
+					else format(str_text, sizeof str_text, "[Depto. De PolicÌa] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], text[1]);
 
 					SendPoliceRadioMessage(PLAYER_TEMP[playerid][py_POLICE_RADIO], COLOR_LIGHT_BLUE, str_text);
 					return 0;
@@ -2652,8 +2652,8 @@ public OnPlayerText(playerid, text[])
 
 			if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_STATE] == CALL_STATE_ESTABLISHED)
 			{
-				format(str_text, 144, "%s "COL_RED"(tel√©fono){E6E6E6}: %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], COLOR_WHITE, ""COL_RED"Tel√©fono (%s):"COL_WHITE" %s", convertPhoneNumber(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], PLAYER_PHONE[playerid][player_phone_NUMBER]), text);
+				format(str_text, 144, "%s "COL_RED"(telÈfono){E6E6E6}: %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
+				SendClientMessageEx(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], COLOR_WHITE, ""COL_RED"TelÈfono (%s):"COL_WHITE" %s", convertPhoneNumber(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], PLAYER_PHONE[playerid][player_phone_NUMBER]), text);
 			}
 			else
 			{
@@ -2743,7 +2743,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 				if (TERRITORIES[index][territory_WAR])
 				{
 					new str_text[164];
-					format(str_text, sizeof(str_text), "Este territorio est√° siendo atacado por la banda %s, es mejor alejarse.", CREW_INFO[ TERRITORIES[index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
+					format(str_text, sizeof(str_text), "Este territorio est· siendo atacado por la banda %s, es mejor alejarse.", CREW_INFO[ TERRITORIES[index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
 					ShowPlayerNotification(playerid, str_text, 6);
 				}
 				else if (TERRITORIES[index][territory_OCCUPIED])
@@ -2848,7 +2848,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_TRUCK) return 1;
 			if (TRUCK_VEHICLE[vehicleid][truck_vehicle_DELIVERED]) return 1;
 			if (TRUCK_VEHICLE[vehicleid][truck_vehicle_UNLOADING]) return 1;
-			if (TRUCK_VEHICLE[vehicleid][truck_vehicle_DRIVER_USER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Solo aceptaremos la carga del conductor de este cami√≥n.", 3);
+			if (TRUCK_VEHICLE[vehicleid][truck_vehicle_DRIVER_USER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Solo aceptaremos la carga del conductor de este camiÛn.", 3);
 
 			DestroyDynamicCP(PLAYER_TEMP[playerid][py_TRUCK_CHECKPOINT]);
 	 		CancelTracing(playerid);
@@ -2878,7 +2878,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			if (WORK_VEHICLES[vehicleid][work_vehicle_WORK] != WORK_TRUCK) return 1;
 			if (!TRUCK_VEHICLE[vehicleid][truck_vehicle_DELIVERED]) return 1;
 			if (TRUCK_VEHICLE[vehicleid][truck_vehicle_UNLOADING]) return 1;
-			if (TRUCK_VEHICLE[vehicleid][truck_vehicle_DRIVER_USER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Solo le pagaremos al conductor que entreg√≥ la mercanc√≠a.", 3);
+			if (TRUCK_VEHICLE[vehicleid][truck_vehicle_DRIVER_USER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Solo le pagaremos al conductor que entregÛ la mercancÌa.", 3);
 
 			DestroyDynamicCP(PLAYER_TEMP[playerid][py_TRUCK_CHECKPOINT]);
 	 		CancelTracing(playerid);
@@ -2909,7 +2909,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			if (!PLAYER_TEMP[playerid][py_TRASH_PASSENGER]) return 1;
 
 			new driver = TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID];
-			ShowPlayerMessage(driver, "Espera mientras tu ~y~compa√±ero~w~ recoge la basura.", 4);
+			ShowPlayerMessage(driver, "Espera mientras tu ~y~compaÒero~w~ recoge la basura.", 4);
 
 			new Float:offset = floatdiv(PLAYER_SKILLS[playerid][WORK_TRASH], 10);
 			if (offset > 30.0) offset = 30.0;
@@ -3002,7 +3002,7 @@ public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Fl
 	{
 		if (fScaleX >= 1.5 || fScaleY >= 1.5 || fScaleZ >= 1.5)
 		{
-			ShowPlayerMessage(playerid, "~r~El tama√±o del accesorio es demasiado grande.", 3);
+			ShowPlayerMessage(playerid, "~r~El tamaÒo del accesorio es demasiado grande.", 3);
 
 			RemovePlayerAttachedObject(playerid, PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]);
 			if (PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ATTACHED])
@@ -3031,7 +3031,7 @@ public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Fl
 
 		if ((fOffsetX >= 0.6 || -0.6 >= fOffsetX) || (fOffsetY >= 0.6 || -0.6 >= fOffsetY) || (fOffsetZ >= 0.6 || -0.6 >= fOffsetZ))
 		{
-			ShowPlayerMessage(playerid, "~r~La posici√≥n del objeto est√° demasiado lejos de ti.", 3);
+			ShowPlayerMessage(playerid, "~r~La posiciÛn del objeto est· demasiado lejos de ti.", 3);
 
 			RemovePlayerAttachedObject(playerid, PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]);
 			if (PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ATTACHED])
@@ -3098,7 +3098,7 @@ public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Fl
 				PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_COLOR_2]
 				);
 		}
-		ShowPlayerMessage(playerid, "Has cancelado la edici√≥n", 2);
+		ShowPlayerMessage(playerid, "Has cancelado la ediciÛn", 2);
 	}
 	return 1;
 }
@@ -3218,13 +3218,13 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 			if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
 			{
 				PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-				ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m√°s objetos.", 4);
+				ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m·s objetos.", 4);
 				return 1;
 			}
 
 			if (slot == -1)
 			{
-			    ShowPlayerMessage(playerid, "~r~No hay m√°s espacio para objetos en este veh√≠culo.", 3);
+			    ShowPlayerMessage(playerid, "~r~No hay m·s espacio para objetos en este vehÌculo.", 3);
 				return 1;
 			}
 
@@ -3276,7 +3276,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		else if (clickedid == Textdraws[textdraw_PHONE_MENU][14]) ShowDialog(playerid, DIALOG_PHONE_BOOK);
 		else if (clickedid == Textdraws[textdraw_PHONE_MENU][15])
 		{
-			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est√°s depie.", 3);
+			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No est·s depie.", 3);
 			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes sacarte fotos.", 3);
 
 			HidePhone(playerid);
@@ -3391,7 +3391,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		{
 			if (!PLAYER_CREW[playerid][player_crew_VALID])
 			{
-				if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Los polic√≠as no pueden tener banda.", 3);
+				if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~Los policÌas no pueden tener banda.", 3);
 
 				new index = GetAvaibleCrewIndex();
 				if (index == -1)
@@ -3513,7 +3513,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 
 				if (total <= 1)
 				{
-					ShowPlayerMessage(playerid, "~r~No puedes abandonar la banda porque eres el~n~√∫nico miembro con el rango principal.", 3);
+					ShowPlayerMessage(playerid, "~r~No puedes abandonar la banda porque eres el~n~˙nico miembro con el rango principal.", 3);
 					return 1;
 				}
 				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
@@ -3537,7 +3537,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 				time = (gettime() - GraffitiGetTime);
 
 			format(dialog, sizeof dialog, "\
-				"COL_WHITE"Las disputas son cada 50 minutos, la √∫ltima fue hace %s.", TimeConvert(time));
+				"COL_WHITE"Las disputas son cada 50 minutos, la ˙ltima fue hace %s.", TimeConvert(time));
 
 			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Disputas", dialog, "Cerrar", "");
 			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
@@ -3550,7 +3550,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Hyaxe");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgi√≥ en 2018, pero no fue hasta mediados de 2019 que comenz√≥ a desarrollarse, con tiempos m√°s activos y otros no tanto, pas√≥ por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opci√≥n porque la encontramos m√°s rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el n√∫mero de miembros del equipo."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgiÛ en 2018, pero no fue hasta mediados de 2019 que comenzÛ a desarrollarse, con tiempos m·s activos y otros no tanto, pasÛ por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opciÛn porque la encontramos m·s rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el n˙mero de miembros del equipo."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3565,7 +3565,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Trabajos");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Los trabajos es un sistema en el que los jugadores pueden obtener recompensas, como dinero, hycoins, entre otros. Llevando a cabo diversas tareas, como picar, recoger basura, transportar cargas, etc. Esto depender√° del trabajo que elija, puede ser basurero, cosechador, pescador, minero o un trabajo especial como la polic√≠a, pero para esto debe postularse en ~r~foro.hyaxe.com~w~, solo cuando las aplicaciones est√©n abiertas. Cuando consigas un trabajo, renunciar√°s autom√°ticamente a todos los otros, a menos que sean especiales (como polic√≠a), cuanto m√°s trabajes, m√°s experiencia tendr√°s, con m√°s experiencia podr√°s desbloquear pagos m√°s altos. Tambi√©n puedes comprar una membres√≠a VIP en ~r~www.hyaxe.com/store~w~ con la cual vas a desbloquear pagas extras."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Los trabajos es un sistema en el que los jugadores pueden obtener recompensas, como dinero, hycoins, entre otros. Llevando a cabo diversas tareas, como picar, recoger basura, transportar cargas, etc. Esto depender· del trabajo que elija, puede ser basurero, cosechador, pescador, minero o un trabajo especial como la policÌa, pero para esto debe postularse en ~r~foro.hyaxe.com~w~, solo cuando las aplicaciones estÈn abiertas. Cuando consigas un trabajo, renunciar·s autom·ticamente a todos los otros, a menos que sean especiales (como policÌa), cuanto m·s trabajes, m·s experiencia tendr·s, con m·s experiencia podr·s desbloquear pagos m·s altos. TambiÈn puedes comprar una membresÌa VIP en ~r~www.hyaxe.com/store~w~ con la cual vas a desbloquear pagas extras."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3580,7 +3580,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Las bandas");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Las bandas son una forma para que los jugadores formen grupos sociales con sistemas del servidor, lo que tambi√©n brinda nuevas posibilidades de rol y nuevas formas de obtener ganancias. Para las bandas hemos desarrollado un sistema de particular, Las Disputas, hay dos tipos, la disputa de graffiti, donde las pandillas luchan por quien pinta primero el graffiti, y las disputas de Mercados Negros, que es casi lo mismo, solo que es un poco m√°s complicado para ganarlos. Para crear una banda, haga clic en ~r~Banda~w~, debe tener el nivel 2 y tener 10,000. Puede poner una descripci√≥n, administrar, crear roles y configurar sus permisos, todo a trav√©s de una interfaz f√°cil de entender."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Las bandas son una forma para que los jugadores formen grupos sociales con sistemas del servidor, lo que tambiÈn brinda nuevas posibilidades de rol y nuevas formas de obtener ganancias. Para las bandas hemos desarrollado un sistema de particular, Las Disputas, hay dos tipos, la disputa de graffiti, donde las pandillas luchan por quien pinta primero el graffiti, y las disputas de Mercados Negros, que es casi lo mismo, solo que es un poco m·s complicado para ganarlos. Para crear una banda, haga clic en ~r~Banda~w~, debe tener el nivel 2 y tener 10,000. Puede poner una descripciÛn, administrar, crear roles y configurar sus permisos, todo a travÈs de una interfaz f·cil de entender."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3595,7 +3595,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Vehiculos");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Puede comprar un veh√≠culo en cualquier concesionario, puede ubicar uno haciendo click en ~r~Mapa~w~ o usar uno gratuito como los que aparecen en el lobby.~n~~n~Teclas:~n~Abrir puertas ~r~>~w~ Espacio + Y~n~Encender/apagar luces ~r~>~w~ Espacio + N~n~Administrar ~r~>~w~ 2"));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Puede comprar un vehÌculo en cualquier concesionario, puede ubicar uno haciendo click en ~r~Mapa~w~ o usar uno gratuito como los que aparecen en el lobby.~n~~n~Teclas:~n~Abrir puertas ~r~>~w~ Espacio + Y~n~Encender/apagar luces ~r~>~w~ Espacio + N~n~Administrar ~r~>~w~ 2"));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3610,7 +3610,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Propiedades");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Una propiedad te servir√° para esconderse de la polic√≠a, hacer fiestas y muchos m√°s. Por ahora, este sistema no esta muy avanzado en comparaci√≥n con todo lo dem√°s en el servidor, pero en el futuro se va a poder decorar el interior, colocar almacenes, dar la llave a amigos y mucho m√°s."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Una propiedad te servir· para esconderse de la policÌa, hacer fiestas y muchos m·s. Por ahora, este sistema no esta muy avanzado en comparaciÛn con todo lo dem·s en el servidor, pero en el futuro se va a poder decorar el interior, colocar almacenes, dar la llave a amigos y mucho m·s."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3624,7 +3624,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Hyaxe Client");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Hyaxe Client es un cliente personalizado que incluye nuevas caracter√≠sticas al servidor, como por ejemplo, un chat de voz. Es muy f√°cil instalarlo, solo visite ~r~www.hyaxe.com/client~w~, si se le dificulta busque en YouTube: ~r~Chat de voz Hyaxe tutorial~w~. Muchos usuarios hicieron tutoriales, aprov√©chelo."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Hyaxe Client es un cliente personalizado que incluye nuevas caracterÌsticas al servidor, como por ejemplo, un chat de voz. Es muy f·cil instalarlo, solo visite ~r~www.hyaxe.com/client~w~, si se le dificulta busque en YouTube: ~r~Chat de voz Hyaxe tutorial~w~. Muchos usuarios hicieron tutoriales, aprovÈchelo."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -4795,12 +4795,12 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				db_free_result(Result);
 
 
-				if (player_vehicles >= MAX_SU_VEHICLES) return ShowPlayerMessage(playerid, "~r~No puedes comprar m√°s veh√≠culos, el limite es de 6.", 3);
+				if (player_vehicles >= MAX_SU_VEHICLES) return ShowPlayerMessage(playerid, "~r~No puedes comprar m·s vehÌculos, el limite es de 6.", 3);
 				if (!ACCOUNT_INFO[playerid][ac_SU])
 				{
 					if (player_vehicles >= MAX_NU_VEHICLES)
 					{
-						ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m√°s veh√≠culos.", 4);
+						ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener m·s vehÌculos.", 4);
 					    return 1;
 					}
 				}
@@ -4902,7 +4902,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 						{
 							if (TRUCK_VEHICLE[vehicleid][truck_vehicle_DRIVER_USER_ID] != ACCOUNT_INFO[playerid][ac_ID])
 							{
-							    ShowPlayerMessage(playerid, "~r~No eres el conductor de este cami√≥n.", 3);
+							    ShowPlayerMessage(playerid, "~r~No eres el conductor de este camiÛn.", 3);
 								RemovePlayerFromVehicle(playerid);
 								return 1;
 							}
@@ -4916,7 +4916,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 						{
 							if (TRASH_VEHICLES[vehicleid][trash_vehicle_DRIVER_ID] != playerid)
 							{
-							    ShowPlayerMessage(playerid, "~r~No eres el conductor de este cami√≥n.", 3);
+							    ShowPlayerMessage(playerid, "~r~No eres el conductor de este camiÛn.", 3);
 								RemovePlayerFromVehicle(playerid);
 								return 1;
 							}
@@ -4927,7 +4927,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 						{
 							if (PLAYER_TEMP[playerid][py_TRASH_DRIVER] || PLAYER_TEMP[playerid][py_TRASH_PASSENGER])
 							{
-						        ShowPlayerMessage(playerid, "~r~Ya est√°s trabajando con otro compa√±ero.", 3);
+						        ShowPlayerMessage(playerid, "~r~Ya est·s trabajando con otro compaÒero.", 3);
 								RemovePlayerFromVehicle(playerid);
 								return 1;
 							}
@@ -4936,7 +4936,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 							PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] = vehicleid;
 							TRASH_VEHICLES[vehicleid][trash_vehicle_DRIVER_ID] = playerid;
 
-							if (TRASH_VEHICLES[vehicleid][trash_vehicle_PASSENGER_ID] == INVALID_PLAYER_ID) ShowPlayerMessage(playerid, "~r~Necesitas un compa√±ero para empezar a trabajar.", 3);
+							if (TRASH_VEHICLES[vehicleid][trash_vehicle_PASSENGER_ID] == INVALID_PLAYER_ID) ShowPlayerMessage(playerid, "~r~Necesitas un compaÒero para empezar a trabajar.", 3);
 							else
 							{
 								new route = random(MAX_ROUTES);
@@ -4972,7 +4972,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
 				DisablePlayerMechanicMark(playerid);
 
-				ShowPlayerMessage(playerid, "Tu mec√°nico se ha cancelado porque te has subido a un veh√≠culo.", 3);
+				ShowPlayerMessage(playerid, "Tu mec·nico se ha cancelado porque te has subido a un vehÌculo.", 3);
 			}
 		}
 
@@ -5022,7 +5022,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 					if (!PLAYER_WORKS[playerid][WORK_TRASH])
 					{
 						new str_text[128];
-						format(str_text, sizeof(str_text), "Necesitas ser %s para manejar este veh√≠culo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
+						format(str_text, sizeof(str_text), "Necesitas ser %s para manejar este vehÌculo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
 						ShowPlayerMessage(playerid, str_text, 3);
 						RemovePlayerFromVehicle(playerid);
 						return 1;
@@ -5030,7 +5030,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 					if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_TRASH)
 					{
-				        ShowPlayerMessage(playerid, "~r~No est√°s de servicio como basurero, ve a vestirte en el puesto de la entrada del vertedero.", 3);
+				        ShowPlayerMessage(playerid, "~r~No est·s de servicio como basurero, ve a vestirte en el puesto de la entrada del vertedero.", 3);
 						RemovePlayerFromVehicle(playerid);
 						return 1;
 					}
@@ -5039,7 +5039,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 					{
 						if (TRASH_VEHICLES[vehicleid][trash_vehicle_PASSENGER_ID] != playerid)
 						{
-						    ShowPlayerMessage(playerid, "~r~No eres el acompa√±ante de este cami√≥n.", 3);
+						    ShowPlayerMessage(playerid, "~r~No eres el acompaÒante de este camiÛn.", 3);
 							RemovePlayerFromVehicle(playerid);
 							return 1;
 						}
@@ -5050,7 +5050,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 					{
 						if (PLAYER_TEMP[playerid][py_TRASH_DRIVER] || PLAYER_TEMP[playerid][py_TRASH_PASSENGER])
 						{
-						    ShowPlayerMessage(playerid, "~r~Ya est√°s trabajando con otro compa√±ero.", 3);
+						    ShowPlayerMessage(playerid, "~r~Ya est·s trabajando con otro compaÒero.", 3);
 							RemovePlayerFromVehicle(playerid);
 							return 1;
 						}
@@ -5059,7 +5059,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 						PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] = vehicleid;
 						TRASH_VEHICLES[vehicleid][trash_vehicle_PASSENGER_ID] = playerid;
 
-						if (TRASH_VEHICLES[vehicleid][trash_vehicle_DRIVER_ID] == INVALID_PLAYER_ID) ShowPlayerMessage(playerid, "~r~Necesitas un compa√±ero para empezar a trabajar.", 3);
+						if (TRASH_VEHICLES[vehicleid][trash_vehicle_DRIVER_ID] == INVALID_PLAYER_ID) ShowPlayerMessage(playerid, "~r~Necesitas un compaÒero para empezar a trabajar.", 3);
 						else
 						{
 							new route = random(MAX_ROUTES);
@@ -5093,7 +5093,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
 				DisablePlayerMechanicMark(playerid);
 
-				ShowPlayerMessage(playerid, "Tu mec√°nico se ha cancelado porque te has subido a un veh√≠culo.", 3);
+				ShowPlayerMessage(playerid, "Tu mec·nico se ha cancelado porque te has subido a un vehÌculo.", 3);
 			}
 		}
 
@@ -5177,7 +5177,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				{
 					if (TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID] == playerid)
 					{
-						if (TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_CP] >= TRASH_OBJECTS[ TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_ROUTE] ][trash_route_OBJECTS]) ShowPlayerMessage(playerid, "Sube al cami√≥n para volver al vertedero y recibir la paga.", 3);
+						if (TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_CP] >= TRASH_OBJECTS[ TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_ROUTE] ][trash_route_OBJECTS]) ShowPlayerMessage(playerid, "Sube al camiÛn para volver al vertedero y recibir la paga.", 3);
 						else
 						{
 							new cp = TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_CP];
@@ -5190,7 +5190,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 														TRASH_OBJECTS[ route ][trash_object_Z][ cp ]
 													);
 
-							if (distance > 10.0) ShowPlayerMessage(playerid, "Vuelve a subir al cami√≥n.", 3);
+							if (distance > 10.0) ShowPlayerMessage(playerid, "Vuelve a subir al camiÛn.", 3);
 							else
 							{
 								if (IsPlayerInDynamicCP(playerid, PLAYER_TEMP[playerid][py_TRASH_CHECKPOINT]))
@@ -5200,7 +5200,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 									if (!PLAYER_TEMP[playerid][py_TRASH_PASSENGER]) return 1;
 
 									new driver = TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID];
-									ShowPlayerMessage(driver, "Espera mientras tu ~y~compa√±ero~w~ recoge la basura.", 3);
+									ShowPlayerMessage(driver, "Espera mientras tu ~y~compaÒero~w~ recoge la basura.", 3);
 
 									new Float:offset = floatdiv(PLAYER_SKILLS[playerid][WORK_TRASH], 10);
 									if (offset > 30.0) offset = 30.0;
@@ -5216,7 +5216,7 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 									PLAYER_TEMP[playerid][py_TIMERS][10] = SetTimerEx("RecycleUp", 1000, false, "i", playerid);
 									return 1;
 								}
-								ShowPlayerNotification(playerid, "Recoge la basura y sube al cami√≥n para continuar.", 4);
+								ShowPlayerNotification(playerid, "Recoge la basura y sube al camiÛn para continuar.", 4);
 							}
 						}
 					}
@@ -5326,7 +5326,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			format(str_text, sizeof(str_text), "Advertencia ~r~%d/5", PLAYER_TEMP[playerid][py_CJ_WARNINGS]);
 			ShowPlayerNotification(playerid, str_text, 3);
 
-			ShowPlayerMessage(playerid, "~r~No puedes robar veh√≠culos ocupados.", 3);
+			ShowPlayerMessage(playerid, "~r~No puedes robar vehÌculos ocupados.", 3);
 			RemovePlayerFromVehicle(playerid);
 			SetPlayerPos(playerid, sx, sy, sz);
 			//SetPlayerVirtualWorld(playerid, playerid);
@@ -5341,7 +5341,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			if (!PLAYER_WORKS[playerid][ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ])
 			{
 				new str_text[128];
-				format(str_text, sizeof(str_text), "Necesitas ser %s para manejar este veh√≠culo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
+				format(str_text, sizeof(str_text), "Necesitas ser %s para manejar este vehÌculo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
 				ShowPlayerMessage(playerid, str_text, 3);
 
 				RemovePlayerFromVehicle(playerid);
@@ -5351,7 +5351,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
 			if (GLOBAL_VEHICLES[vehicleid][gp_vehicle_vip] && !ACCOUNT_INFO[playerid][ac_SU])
 			{
-			    ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP ~w~para usar √©ste veh√≠culo.", 3);
+			    ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP ~w~para usar Èste vehÌculo.", 3);
 				RemovePlayerFromVehicle(playerid);
 				SetPlayerPos(playerid, sx, sy, sz);
 				return 1;
@@ -5373,7 +5373,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 				if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_VEHICLES[vehicleid][work_vehicle_WORK])
 				{
 					new str_text[128];
-					format(str_text, sizeof(str_text), "Necesitas estar de servicio de %s para poder conducir √©ste veh√≠culo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
+					format(str_text, sizeof(str_text), "Necesitas estar de servicio de %s para poder conducir Èste vehÌculo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
 					ShowPlayerNotification(playerid, str_text, 3);
 
 					RemovePlayerFromVehicle(playerid);
@@ -5385,7 +5385,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			if (WORK_VEHICLES[vehicleid][work_vehicle_EXP] > PLAYER_SKILLS[playerid][ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ])
 			{
 				new str_text[128];
-				format(str_text, sizeof(str_text), "Necesitas m√°s experiencia en este trabajo para llevar √©ste veh√≠culo. (%d/%d)", PLAYER_SKILLS[playerid][ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ], WORK_VEHICLES[vehicleid][work_vehicle_EXP]);
+				format(str_text, sizeof(str_text), "Necesitas m·s experiencia en este trabajo para llevar Èste vehÌculo. (%d/%d)", PLAYER_SKILLS[playerid][ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ], WORK_VEHICLES[vehicleid][work_vehicle_EXP]);
 				ShowPlayerNotification(playerid, str_text, 3);
 
 				RemovePlayerFromVehicle(playerid);
@@ -5401,7 +5401,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 			if (!PLAYER_WORKS[playerid][WORK_TRASH])
 			{
 				new str_text[128];
-				format(str_text, sizeof(str_text), "Necesitas ser %s para manejar este veh√≠culo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
+				format(str_text, sizeof(str_text), "Necesitas ser %s para manejar este vehÌculo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
 				ShowPlayerMessage(playerid, str_text, 3);
 
 				RemovePlayerFromVehicle(playerid);
@@ -5411,7 +5411,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 
 			if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_VEHICLES[vehicleid][work_vehicle_WORK])
 			{
-				SendClientMessageEx(playerid, COLOR_WHITE, "Necesitas estar de servicio como %s para poder conducir este veh√≠culo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
+				SendClientMessageEx(playerid, COLOR_WHITE, "Necesitas estar de servicio como %s para poder conducir este vehÌculo.", work_info[ WORK_VEHICLES[vehicleid][work_vehicle_WORK] ][work_info_NAME]);
 				RemovePlayerFromVehicle(playerid);
 				SetPlayerPos(playerid, sx, sy, sz);
 				return 1;
@@ -5431,7 +5431,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		{
 			if (IsPlayerInRangeOfPoint(playerid, 35.0, 2112.460205, -97.572998, 2.143339) && GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] == 453)
 			{
-				ShowPlayerMessage(playerid, "Dir√≠gete a una ~y~boya~w~ para pescar.", 4);
+				ShowPlayerMessage(playerid, "DirÌgete a una ~y~boya~w~ para pescar.", 4);
 			}
 		}
 	}
@@ -5472,7 +5472,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 				info[0] = CHECKPOINT_TYPE_CLEANER;
 				Streamer_SetArrayData(STREAMER_TYPE_CP, PLAYER_TEMP[playerid][py_CLEANER_CHECKPOINT], E_STREAMER_EXTRA_ID, info);
 
-				ShowPlayerMessage(playerid, "Dir√≠gete al ~r~punto~w~ marcado.", 4);
+				ShowPlayerMessage(playerid, "DirÌgete al ~r~punto~w~ marcado.", 4);
 			}
 		}
 	}*/
@@ -5603,7 +5603,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 			{
 				new dialog[250];
-				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, raz√≥n: Usar tazer sin ser policia");
+				format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razÛn: Usar tazer sin ser policia");
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 				
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazer sin ser policia");
@@ -5613,7 +5613,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				SavePlayerMisc(playerid);
 
 				new str[144];
-				format(str, 144, "[ADMIN] NeuroAdmin bane√≥ a %s (%d): Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				format(str, 144, "[ADMIN] NeuroAdmin baneÛ a %s (%d): Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
@@ -5670,7 +5670,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		    	format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Aimbot (proaim count: %d, silentaim count: %d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[playerid][py_PRO_AIM_COUNT], PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT]);
 		    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 				SendDiscordWebhook(str_text, 1);
-				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Sospecha de Aimbot");
+				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Sospecha de Aimbot");
 				KickEx(playerid, 500);
 			}*/
 		}
@@ -5893,13 +5893,13 @@ public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y
 		if (!PLAYER_WORKS[playerid][WORK_POLICE])
 		{
 			CancelEdit(playerid);
-			ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
+			ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
 			return 1;
 		}
 		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
 		{
 			CancelEdit(playerid);
-			ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+			ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 			return 1;
 		}
 		if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8)
@@ -5932,13 +5932,13 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 			if (!PLAYER_WORKS[playerid][WORK_POLICE])
 			{
 				CancelEdit(playerid);
-				ShowPlayerMessage(playerid, "~r~No eres polic√≠a.", 3);
+				ShowPlayerMessage(playerid, "~r~No eres policÌa.", 3);
 				return 1;
 			}
 			if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
 			{
 				CancelEdit(playerid);
-				ShowPlayerMessage(playerid, "~r~No est√°s de servicio como polic√≠a.", 3);
+				ShowPlayerMessage(playerid, "~r~No est·s de servicio como policÌa.", 3);
 				return 1;
 			}
 			if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8)
@@ -5978,7 +5978,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
 		SendDiscordWebhook(ac_message, 1);
 
-		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats (#%03d)", code);
+		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats (#%03d)", code);
 		TogglePlayerControllableEx(playerid, false);
 		KickEx(playerid, 500);
 	}
@@ -6005,7 +6005,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 			if (extra != 0.0) format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d, extra: %.1f)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval], extra);
 			else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 
-			SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Raz√≥n: Cheats (%s)", ac_Info[cheat][ac_Name]);
+			SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÛn: Cheats (%s)", ac_Info[cheat][ac_Name]);
 			TogglePlayerControllableEx(playerid, false);
 			KickEx(playerid, 500);
 
@@ -6029,7 +6029,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 			format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): Max AC Adv (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 			SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
 			
-			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por sobrepasar cantidad m√°xima de advertencias del anti-cheat.");
+			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por sobrepasar cantidad m·xima de advertencias del anti-cheat.");
 			KickEx(playerid, 500);
 		}
 	}
@@ -6153,7 +6153,7 @@ public ContinuePlayerIntro(playerid, step)
 			SetCameraBehindPlayer(playerid);
 
 			TogglePlayerControllableEx(playerid, true);
-			ShowPlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay, versiÛn experimental.", 12);
+			ShowPlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay, versi? experimental.", 12);
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 
 			SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0);
