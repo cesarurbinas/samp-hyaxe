@@ -196,9 +196,9 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 			{
 				format(
 					g_sDamageTakenText[playerid],
-					128,
-					"%s_~r~~h~~h~~h~-%d (%d hp)~n~~r~~h~~h~~h~(%s - %s)~n~",
-					PLAYER_TEMP[playerid][py_NAME],
+					512,
+					"~w~_~w~%s_~r~~h~~h~~h~-%d (%d hp)~n~~r~~h~~h~~h~(%s - %s)~n~~n~",
+					PLAYER_TEMP[issuerid][py_NAME],
 					g_iDamageTaken[playerid][issuerid],
 					((g_iPlayerHealth[playerid] + g_iPlayerArmour[playerid]) - amount),
 					g_rgszWeaponName[weaponid],
@@ -208,20 +208,17 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 			else
 			{
 				new
-					player_pos_in_td = strfind(PLAYER_TEMP[playerid][py_NAME], g_sDamageTakenText[playerid]),
-					end_pos;
+					player_pos_in_td = strfind(g_sDamageTakenText[playerid], sprintf("~w~_~w~%s_~r~", PLAYER_TEMP[issuerid][py_NAME]));
 				
 				if (player_pos_in_td != -1)
 				{
-					end_pos = strfind(g_sDamageTakenText[playerid], "~n~~n~", .pos = player_pos_in_td);
-
-					strdel(g_sDamageTakenText[playerid], player_pos_in_td, (end_pos + 6));
+					strdel(g_sDamageTakenText[playerid], player_pos_in_td, (strfind(g_sDamageTakenText[playerid], "~n~~n~", .pos = player_pos_in_td) + 6));
 
 					strins(
 						g_sDamageTakenText[playerid],
 						sprintf(
 							"~w~_~w~%s_~r~~h~~h~~h~-%d (%d hp)~n~~r~~h~~h~~h~(%s - %s)~n~~n~",
-							PLAYER_TEMP[playerid][py_NAME],
+							PLAYER_TEMP[issuerid][py_NAME],
 							g_iDamageTaken[playerid][issuerid],
 							((g_iPlayerHealth[playerid] + g_iPlayerArmour[playerid]) - amount),
 							g_rgszWeaponName[weaponid],
@@ -244,10 +241,10 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 					{
 						format(
 							g_sDamageTakenText[playerid],
-							128,
+							512,
 							"%s~w~_~w~%s_~r~~h~~h~~h~-%d (%d hp)~n~~r~~h~~h~~h~(%s - %s)~n~~n~",
 							g_sDamageTakenText[playerid],
-							PLAYER_TEMP[playerid][py_NAME],
+							PLAYER_TEMP[issuerid][py_NAME],
 							g_iDamageTaken[playerid][issuerid],
 							((g_iPlayerHealth[playerid] + g_iPlayerArmour[playerid]) - amount),
 							g_rgszWeaponName[weaponid],
@@ -264,7 +261,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 							g_sDamageTakenText[playerid],
 							sprintf(
 								"~w~_~w~%s_~r~~h~~h~~h~-%d (%d hp)~n~~r~~h~~h~~h~(%s - %s)~n~~n~",
-								PLAYER_TEMP[playerid][py_NAME],
+								PLAYER_TEMP[issuerid][py_NAME],
 								g_iDamageTaken[playerid][issuerid],
 								((g_iPlayerHealth[playerid] + g_iPlayerArmour[playerid]) - amount),
 								g_rgszWeaponName[weaponid],
@@ -286,6 +283,90 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 			SetPVarInt(issuerid, "damage_inf_timer", SetTimerEx("TIMER_RemoveDamageInformer", 4000, false, "i", issuerid));
 
 			g_iDamageGiven[issuerid][playerid] += amount;
+
+			if (!g_sDamageGivenText[issuerid][0])
+			{
+				format(
+					g_sDamageGivenText[issuerid],
+					512,
+					"~w~_~w~%s_~g~~h~~h~~h~-%d (%d hp)~n~~g~~h~~h~~h~(%s - %s)~n~~n~",
+					PLAYER_TEMP[playerid][py_NAME],
+					g_iDamageGiven[issuerid][playerid],
+					((g_iPlayerHealth[playerid] + g_iPlayerArmour[playerid]) - amount),
+					g_rgszWeaponName[weaponid],
+					g_rgszBodyPart[bodypart - 3]
+				);
+			}
+			else
+			{
+				new
+					player_pos_in_td = strfind(g_sDamageGivenText[issuerid], sprintf("~w~_~w~%s_~g~", PLAYER_TEMP[playerid][py_NAME]));
+				
+				if (player_pos_in_td != -1)
+				{
+					strdel(g_sDamageGivenText[issuerid], player_pos_in_td, (strfind(g_sDamageGivenText[issuerid], "~n~~n~", .pos = player_pos_in_td) + 6));
+
+					strins(
+						g_sDamageGivenText[issuerid],
+						sprintf(
+							"~w~_~w~%s_~g~~h~~h~~h~-%d (%d hp)~n~~g~~h~~h~~h~(%s - %s)~n~~n~",
+							PLAYER_TEMP[playerid][py_NAME],
+							g_iDamageGiven[issuerid][playerid],
+							((g_iPlayerHealth[playerid] + g_iPlayerArmour[playerid]) - amount),
+							g_rgszWeaponName[weaponid],
+							g_rgszBodyPart[bodypart - 3]
+						),
+						player_pos_in_td
+					);
+				}
+				else
+				{
+					new
+						lines[3] = { -1, ... };
+					
+					lines[0] = strfind(g_sDamageGivenText[issuerid], "~w~_~w~");
+
+					if (lines[0] != -1) lines[1] = strfind(g_sDamageGivenText[issuerid], "~w~_~w~", .pos = (lines[0] + 7));
+					if (lines[1] != -1) lines[2] = strfind(g_sDamageGivenText[issuerid], "~w~_~w~", .pos = (lines[1] + 7));
+
+					if (lines[2] == -1)
+					{
+						format(
+							g_sDamageGivenText[issuerid],
+							512,
+							"%s~w~_~w~%s_~g~~h~~h~~h~-%d (%d hp)~n~~g~~h~~h~~h~(%s - %s)~n~~n~",
+							g_sDamageGivenText[issuerid],
+							PLAYER_TEMP[playerid][py_NAME],
+							g_iDamageGiven[issuerid][playerid],
+							((g_iPlayerHealth[playerid] + g_iPlayerArmour[playerid]) - amount),
+							g_rgszWeaponName[weaponid],
+							g_rgszBodyPart[bodypart - 3]
+						);
+					}
+					else
+					{
+						new line_selected = random(3);
+
+						strdel(g_sDamageGivenText[issuerid], lines[line_selected], strfind(g_sDamageGivenText[issuerid], "~n~~n~", .pos = lines[line_selected]));
+
+						strins(
+							g_sDamageGivenText[issuerid],
+							sprintf(
+								"~w~_~w~%s_~g~~h~~h~~h~-%d (%d hp)~n~~g~~h~~h~~h~(%s - %s)~n~~n~",
+								PLAYER_TEMP[playerid][py_NAME],
+								g_iDamageGiven[issuerid][playerid],
+								((g_iPlayerHealth[playerid] + g_iPlayerArmour[playerid]) - amount),
+								g_rgszWeaponName[weaponid],
+								g_rgszBodyPart[bodypart - 3]
+							),
+							lines[line_selected]
+						);
+					}
+				}
+			}
+
+			PlayerTextDrawSetString(issuerid, g_ptdDamageGiven[issuerid], TextToSpanish(g_sDamageGivenText[issuerid]));
+			PlayerTextDrawShow(issuerid, g_ptdDamageGiven[issuerid]);
 		}
 	}
 
