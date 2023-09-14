@@ -937,7 +937,7 @@ LoadPlayerVehicles(playerid)
 			VEHICLE_OBJECTS[vehicle_id][vobjects][vobject_text_FONT_SIZE] = db_get_field_assoc_int(Result_vobjects, "FONT_SIZE");
 			VEHICLE_OBJECTS[vehicle_id][vobjects][vobject_text_BOLD] = db_get_field_assoc_int(Result_vobjects, "FONT_BOLD");
 			VEHICLE_OBJECTS[vehicle_id][vobjects][vobject_text_FONT_COLOR] = db_get_field_assoc_int(Result_vobjects, "FONT_COLOR");
-			UpdateVehicleAttachedObject(vehicle_id, vobjects);
+			UpdateVehicleAttachedObject(vehicle_id, vobjects, true);
 
 			vobjects ++;
 			db_next_row(Result_vobjects);
