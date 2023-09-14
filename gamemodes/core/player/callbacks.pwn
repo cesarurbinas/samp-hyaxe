@@ -4358,7 +4358,7 @@ public OnPlayerUpdate(playerid)
 	{
 		if (current_gettime > PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY])
 		{
-			if (floatabs(dis) > 50.0 && CHARACTER_INFO[playerid][ch_POS][2] > -97.0)
+			if (floatabs(dis) > 43.0 && CHARACTER_INFO[playerid][ch_POS][2] > -97.0)
 			{
 				if (player_state != PLAYER_STATE_PASSENGER)
 				{
@@ -5766,6 +5766,26 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 		if (PLAYER_TEMP[playerid][py_TOTAL_SHOT] >= 5)
 		{
 			PLAYER_TEMP[playerid][py_TOTAL_SHOT] = 0;
+
+			// Anti Aimbot
+			new
+				Float:fPX, Float:fPY, Float:fPZ,
+				Float:fVX, Float:fVY, Float:fVZ,
+				Float:object_x, Float:object_y, Float:object_z;
+		
+			// Change me to change the scale you want. A larger scale increases the distance from the camera.
+			// A negative scale will inverse the vectors and make them face in the opposite direction.
+			const
+				Float:fScale = 5.0;
+		
+			GetPlayerCameraPos(playerid, fPX, fPY, fPZ);
+			GetPlayerCameraFrontVector(playerid, fVX, fVY, fVZ);
+	
+			object_x = fPX + floatmul(fVX, fScale);
+			object_y = fPY + floatmul(fVY, fScale);
+			object_z = fPZ + floatmul(fVZ, fScale);
+	
+			CreateObject(345, object_x, object_y, object_z, 0.0, 0.0, 0.0);
 
 			// Anti damager
 			if (!IsShootingAnimation(GetPlayerAnimationIndex(playerid)))
