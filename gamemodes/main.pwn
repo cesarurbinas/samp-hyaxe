@@ -26615,6 +26615,10 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 		printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
     #endif
 
+	new info[3];
+    Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+    if (info[0] == PICKUP_TYPE_MONEY) return 0;
+
     PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] = pickupid;
     return 1;
 }
