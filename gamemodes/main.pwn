@@ -32990,7 +32990,7 @@ CMD:jail(playerid, params[])
     SetPlayerSpecialAction(to_player, SPECIAL_ACTION_NONE);
 
     new str[145];
-    format(str, 145, "[ADMIN] %s (%d) jaileó a %s (%d): %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
+    format(str, 145, "[ADMIN] %s (%d) jaileó a %s (%d) por %s minutos: %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, TimeConvert(time * 60), reason);
     SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
     new webhook[264]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
