@@ -473,14 +473,14 @@ ConsumeFood(playerid, food_id)
 
 	if (FOOD_INFO[food_id][food_ANIM])
 	{
-		ApplyAnimation(playerid, "BAR", "dnk_stndM_loop", 4.0, 0, 1, 1, 0, 2500);
+		ApplyAnimation(playerid, "BAR", "dnk_stndM_loop", 4.0, 0, 1, 1, 0, 2000);
+		SetTimerEx("FinishEat", 2000, false, "i", playerid);
 	}
 	else
 	{
 		ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
-		ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);	
+		ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
+		SetTimerEx("FinishEat", 1000, false, "i", playerid);
 	}
-
-	SetTimerEx("FinishEat", 2500, false, "i", playerid);
 	return 1;
 }
