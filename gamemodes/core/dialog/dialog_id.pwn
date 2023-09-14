@@ -196,149 +196,42 @@ enum
   	DIALOG_BOX_BET,
 	DIALOG_ADMIN_COMMANDS,
 	DIALOG_BOOMBOX_OPTIONS,
-<<<<<<< HEAD
 	DIALOG_ROBBERY_PANEL,
-<<<<<<< HEAD
-	DIALOG_ROBBERY_MEMBERS
-=======
-	DIALOG_ELECTRONIC_SHOP
->>>>>>> refs/rewritten/Arreglos-varios
-=======
 	DIALOG_ROBBERY_MEMBERS,
 	DIALOG_ELECTRONIC_SHOP,
-<<<<<<< HEAD
-	DIALOG_FURNITURE_SHOP
->>>>>>> 6f7ef17 (Guardar muebles comprados)
-=======
 	DIALOG_FURNITURE_SHOP,
 	DIALOG_FURNITURE_LIST,
-<<<<<<< HEAD
-	DIALOG_FURNITURE_OPTIONS
->>>>>>> d3504e5 (Opciones vender, editar, y otras cosas)
-=======
 	DIALOG_FURNITURE_OPTIONS,
 	DIALOG_SELECC_ANSWER,
 	DIALOG_QUESTION_CREATE,
-<<<<<<< HEAD
-	DIALOG_QUESTION_RESPONSE
->>>>>>> c4e0938 (Preguntas de seguridad)
-=======
 	DIALOG_QUESTION_RESPONSE,
-<<<<<<< HEAD
-	DIALOG_SELECC_TYPE_AMMO
->>>>>>> d09f9dd (Balas como antes y arreglos)
-=======
 	DIALOG_SELECC_TYPE_AMMO,
-<<<<<<< HEAD
-	DIALOG_BLACK_MARKET_SELECT
->>>>>>> d80a8b7 (Las armas y balas se comprar en el mismo lugar)
-=======
 	DIALOG_BLACK_MARKET_SELECT,
 	DIALOG_CLUB,
 	DIALOG_CLUB_BUY_FOOD,
-<<<<<<< HEAD
-	DIALOG_CLUB_BUY_DRINK
->>>>>>> 119039e (oooo chad on da house)
-=======
 	DIALOG_CLUB_BUY_DRINK,
 	DIALOG_CLUB_NAME,
 	DIALOG_CLUB_WELCOME,
-<<<<<<< HEAD
-	DIALOG_CLUB_PRODUCTS
->>>>>>> 2d3b8d1 (Puerta y acciones)
-=======
 	DIALOG_CLUB_PRODUCTS,
 	DIALOG_CLUB_RADIO,
-<<<<<<< HEAD
-	DIALOG_CLUB_PRICE
->>>>>>> 5164762 (Cambiar emisora)
-=======
 	DIALOG_CLUB_PRICE,
 	DIALOG_PRODUCT_NAME,
 	DIALOG_PRODUCT_PRICE,
 	DIALOG_PRODUCT_TYPE,
 	DIALOG_PRODUCT_EXTRA,
-<<<<<<< HEAD
-	DIALOG_PRODUCT_DELETE
->>>>>>> 137a817 (Eliminar productos)
-=======
 	DIALOG_PRODUCT_DELETE,
 	DIALOG_VEHICLE_KEYS,
 	DIALOG_VEHICLE_KEYS_ADD,
-<<<<<<< HEAD
-	DIALOG_VEHICLE_KEYS_DEL
->>>>>>> e31d847 (Compartir llaves de vehiculos terminado)
-=======
 	DIALOG_VEHICLE_KEYS_DEL,
-<<<<<<< HEAD
-	DIALOG_REGISTER_CIVIL
->>>>>>> a74d6aa (registro civil)
-=======
 	DIALOG_REGISTER_CIVIL,
-<<<<<<< HEAD
-	DIALOG_SELL_PUMPKIN
->>>>>>> 2211389 (vender las calabazas)
-=======
 	DIALOG_SELL_PUMPKIN,
-<<<<<<< HEAD
-	DIALOG_CONNOR_MAFIA_LIST,
-<<<<<<< HEAD
-	DIALOG_CONNOR_MAFIA_MODIFY
->>>>>>> 583efcd (the family connor)
-=======
-	DIALOG_CONNOR_MAFIA_MODIFY,
-<<<<<<< HEAD
-<<<<<<< HEAD
-	DIALOG_CLUB_SELL
->>>>>>> 9cb7ac2 (arreglos en el /r)
-=======
-=======
-	DIALOG_DIVISO_MAFIA_LIST,
-	DIALOG_DIVISO_MAFIA_MODIFY,
->>>>>>> b35a666 (arreglos en el anti aimbot)
-=======
->>>>>>> 2c40ea27 (android adaptation)
 	DIALOG_CLUB_SELL,
-<<<<<<< HEAD
-<<<<<<< HEAD
-	DIALOG_STORE
->>>>>>> 6a4c3ab (store module)
-=======
-	DIALOG_STORE,
-<<<<<<< HEAD
-	DIALOG_BUY_ROCKET
->>>>>>> e78b0f6 (tienda de cuetes)
-=======
-=======
->>>>>>> d1d2c27 (cosas removidas)
 	DIALOG_BUY_ROCKET,
-<<<<<<< HEAD
-	DIALOG_CHANGE_ACCOUNT
->>>>>>> a6b61b6 (cambio de cuenta)
-=======
 	DIALOG_CHANGE_ACCOUNT,
-<<<<<<< HEAD
-	DIALOG_SINDACCO_MAFIA_LIST,
-<<<<<<< HEAD
-	DIALOG_SINDACCO_MAFIA_MODIFY
->>>>>>> e76ea2e (anti pg removido)
-=======
-	DIALOG_SINDACCO_MAFIA_MODIFY,
-=======
->>>>>>> 2c40ea27 (android adaptation)
 	DIALOG_BUY_NAME_COLOR,
-<<<<<<< HEAD
-	DIALOG_BUY_CHAT_COLOR
->>>>>>> 68c68d6 (tienda de colores)
-=======
 	DIALOG_BUY_CHAT_COLOR,
-<<<<<<< HEAD
-	DIALOG_INV_ORDER
->>>>>>> 4d102db (configurar orden del inventario)
-=======
 	DIALOG_INV_ORDER,
 	DIALOG_PROPERTY_KEYS,
 	DIALOG_PROPERTY_KEYS_ADD,
 	DIALOG_PROPERTY_KEYS_DEL
->>>>>>> ea4c7926 (compartir llaves de propiedades)
 };

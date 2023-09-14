@@ -15,11 +15,8 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 {
 	if (!PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return 1;
 
-<<<<<<< HEAD
-=======
 	PLAYER_TEMP[playerid][py_LAST_SEARCH] = gettime();
 	
->>>>>>> refs/rewritten/assds
 	if(response_code != 200)
 	{
 		PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
@@ -73,13 +70,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 	Logger_Debug("OnDownloadResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
 	PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
 
-<<<<<<< HEAD
-	if (response_code != 200)
-=======
-	ShowPlayerNotification(playerid, "Espere, estamos procesando el video...", 3);
-
 	if (response_code != 200) // data = OK
->>>>>>> refs/rewritten/Bugs-varios-arreglados
 	{
 		switch(response_code)
 		{

@@ -281,210 +281,60 @@ enum Temp_Enum
 	py_FURNITURE_SELECTED,
 	py_PASSWORD[18],
 	bool:py_GODMODE,
-<<<<<<< HEAD
 	py_CUTTING,
 	py_CUTTING_PROGRESS,
 	py_CUTTING_CHECKPOINT,
-<<<<<<< HEAD
-	bool:py_HOLDING_CART
-=======
-=======
 	bool:py_HOLDING_CART,
->>>>>>> 93ebe19 (Usar ColAndreas para calcular la posición)
 	py_ANSWER_INDEX,
 	py_ANSWER_RESPONSE[32],
-<<<<<<< HEAD
-	bool:py_STEAL_SUSPICION
->>>>>>> refs/rewritten/aa
-=======
 	bool:py_STEAL_SUSPICION,
-<<<<<<< HEAD
-	bool:py_COMBAT_MODE
->>>>>>> 8914c15 (Mejoras en el filtro de nombres)
-=======
 	bool:py_COMBAT_MODE,
-<<<<<<< HEAD
-	py_CRANE_VEHICLE
->>>>>>> c59b3ca (Poder mandar el vehiculo al ultimo estacionamiento)
-=======
 	py_CRANE_VEHICLE,
-<<<<<<< HEAD
-	py_LAST_GEO_USE
->>>>>>> 93ee930 (Arreglos)
-=======
 	py_LAST_GEO_USE,
-<<<<<<< HEAD
-	py_CLUB_INDEX
->>>>>>> 119039e (oooo chad on da house)
-=======
 	py_CLUB_INDEX,
 	py_PRODUCT_NAME[32],
 	py_PRODUCT_TYPE,
 	py_PRODUCT_EXTRA,
-<<<<<<< HEAD
-	py_PRODUCT_PRICE
->>>>>>> 137a817 (Eliminar productos)
-=======
 	py_PRODUCT_PRICE,
 	Float:py_MAP_X,
 	Float:py_MAP_Y,
-<<<<<<< HEAD
-	Float:py_MAP_Z
->>>>>>> 94707da (Comando /gotopoint)
-=======
 	Float:py_MAP_Z,
-<<<<<<< HEAD
-	py_LAST_DOUBT[144]
->>>>>>> 45008c5 (neurodmin integrado)
-=======
 	py_LAST_DOUBT[144],
-<<<<<<< HEAD
-	py_INVENTORY_TYPE
->>>>>>> c1402b1 (Tipos de inventario)
-=======
 	py_INVENTORY_TYPE,
-<<<<<<< HEAD
-	py_SURFING_VEHICLE
->>>>>>> ec45603 (valid surfing)
-=======
 	py_SURFING_VEHICLE,
-<<<<<<< HEAD
-	py_BIG_PUNCH
->>>>>>> b1c0b48 (mejoras en el fist slapper)
-=======
 	py_BIG_PUNCH,
 	py_CREDIT[64],
-<<<<<<< HEAD
-	py_CREDIT_PRODUCT
->>>>>>> a0867a3 (credit cache)
-=======
 	py_CREDIT_PRODUCT,
-<<<<<<< HEAD
-	py_DEALER
->>>>>>> e56e79e (dealer menu)
-=======
 	py_DEALER,
 	bool:py_NOCHE_DE_SEXO,
-<<<<<<< HEAD
-	py_LIMIT_FIREWORK
->>>>>>> e78b0f6 (tienda de cuetes)
-=======
 	py_LIMIT_FIREWORK,
-<<<<<<< HEAD
-	py_SPAWNED
->>>>>>> 241f327 (ultimo commit del 2020 ekisde)
-=======
 	py_SPAWNED,
-<<<<<<< HEAD
-	bool:py_MENU
->>>>>>> 41abb25 (infeccion lgbt)
-=======
 	bool:py_MENU,
 	py_TAZER_DELAY,
 	bool:py_TUTORIAL,
-<<<<<<< HEAD
-	py_TUTORIAL_STEP
->>>>>>> deef895 (Cambio de cuenta crasheaba el servidor)
-=======
 	py_TUTORIAL_STEP,
-<<<<<<< HEAD
-	py_GLOBAL_CHANNEL_TIME
->>>>>>> 86b7f68 (global chat)
-=======
 	py_GLOBAL_CHANNEL_TIME,
-<<<<<<< HEAD
-	py_TOTAL_SHOT
->>>>>>> 8fe8170 (anti wallshot)
-=======
 	py_TOTAL_SHOT,
-<<<<<<< HEAD
-<<<<<<< HEAD
-	bool:py_PACIFIC
->>>>>>> 1480c93 (modo pacifico)
-=======
-=======
 	py_TOTAL_SAVE_SHOT,
->>>>>>> 9105f1dc (mi)
 	bool:py_PACIFIC,
 	py_TEMP_CP,
 	bool:py_IN_MISSION,
 	py_MISSION,
-<<<<<<< HEAD
-	py_LAST_AREA
->>>>>>> fa92fd6 (misiones base)
-=======
 	py_LAST_AREA,
-<<<<<<< HEAD
-	py_MISSION_POINTS
->>>>>>> e6faa9e (mision fallida, mejoras de la ai)
-=======
 	py_MISSION_POINTS,
-<<<<<<< HEAD
-	py_MISSION_TYPE
->>>>>>> 3499290 (skin per mission)
-=======
 	py_MISSION_TYPE,
-<<<<<<< HEAD
-	py_KEY_NOT
->>>>>>> 8846614 (not index fix)
-=======
 	py_KEY_NOT,
-<<<<<<< HEAD
-	bool:py_BOT
->>>>>>> b339f02 (fix logs)
-=======
 	bool:py_BOT,
-<<<<<<< HEAD
-	py_NOFUEL_ALERTS
->>>>>>> 039c29d (ammo ban)
-=======
 	py_NOFUEL_ALERTS,
-<<<<<<< HEAD
-	py_WALLSHOT_ALERTS
->>>>>>> 12b2049 (wallshot ban)
-=======
 	py_WALLSHOT_ALERTS,
-<<<<<<< HEAD
-	bool:py_ANDROID
->>>>>>> a116e0a (client check integration)
-=======
 	bool:py_ANDROID,
-<<<<<<< HEAD
-	py_LAST_AIM_SYNC,
-<<<<<<< HEAD
-	py_DAMAGER_ALERTS
->>>>>>> 3e9727b (damager fix)
-=======
-=======
 	py_LAST_DAMAGE,
->>>>>>> ecf5348 (fixes)
 	py_DAMAGER_ALERTS,
 	py_TRUSTED_AIM,
-<<<<<<< HEAD
-	py_SING_AIM
->>>>>>> a68591c (aimbot ban)
-=======
 	py_SING_AIM,
-<<<<<<< HEAD
-<<<<<<< HEAD
-	py_FISH
->>>>>>> d1b24ed (comandos viejos eliminados)
-=======
-	py_FISHS
->>>>>>> 905e9a5 (items migrados)
-=======
 	py_FISHS,
-<<<<<<< HEAD
-	py_EATING
->>>>>>> e31f7fb (alimentos usables)
-=======
 	py_EATING,
-<<<<<<< HEAD
-	py_ACTUAL_SLOT
->>>>>>> b558bff (inventory scroll)
-=======
 	py_ACTUAL_SLOT,
 	py_AMMO
->>>>>>> 81198a54 (me olvide de hacer commit otra vez)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.

@@ -2678,36 +2678,6 @@ CMD:testsound(playerid, params[])
 }
 flags:testsound(CMD_MODERATOR)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*CMD:fakeping(playerid, params[])
-{
-	new fakeping, to_player;
-	if (sscanf(params, "id", to_player, fakeping)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /fakeping <playerid> <value>");
-	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
-
-	SetPlayerFakePing(to_player, fakeping);
-	SendClientMessageEx(playerid, COLOR_WHITE, "FakePing = "COL_GREEN"%d", fakeping);
-	return 1;
-}*/
-
-CMD:botmaster(playerid, params[])
-{
-	new new_ip[16];
-	if (sscanf(params, "s[16]", new_ip)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /botmaster <nueva ip>");
-	
-	BotsMaster = new_ip;
-	SendClientMessageEx(playerid, COLOR_WHITE, "BotsMaster = "COL_GREEN"%s", BotsMaster);
-	return 1;
-}
-
-=======
->>>>>>> refs/rewritten/hmm
-=======
-=======
-=======
 CMD:settime(playerid, params[])
 {
 	new hour, minutes;
@@ -2736,7 +2706,6 @@ CMD:setinterval(playerid, params[])
 }
 flags:setinterval(CMD_OPERATOR)
 
->>>>>>> 0b712a5 (/settime y /setinterval)
 CMD:givecredits(playerid, params[])
 {
 	new to_player, value;
@@ -2786,7 +2755,6 @@ public StoreCreditsUpdate(index, response_code, const data[])
 	return 1;
 }
 
->>>>>>> b6e2fb9 (/givecredits)
 CMD:showdialog(playerid, params[])
 {
 	new dialog;
@@ -2797,7 +2765,6 @@ CMD:showdialog(playerid, params[])
 }
 flags:showdialog(CMD_LORD)
 
->>>>>>> a5291c0 (/showdialog)
 CMD:setfstyle(playerid, params[])
 {
     new to_player, style;
