@@ -1757,6 +1757,7 @@ static const INVALID_NAMES[][100] =
 	"Caverga",
 	"Melano",
 	"Apellido",
+	"Sech",
 	"Nombre",
 	"Pija",
 	"Conazo",
@@ -1768,6 +1769,7 @@ static const INVALID_NAMES[][100] =
 	"Pene",
 	"Vagina",
 	"Pompas",
+	"Gaming",
 	"Polainas",
 	"Pingote",
 	"Yarmak",
@@ -8594,7 +8596,7 @@ CMD:duda(playerid, params[])
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /duda "COL_WHITE"[DUDA]");
 	
 	if (PLAYER_MISC[playerid][MISC_MUTES] >= 5) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tienes muchos muteos, ya no eres aceptado en el canal de dudas.");
-	if (strlen(params) > 64) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Su duda es muy larga");
+	if (strlen(params) > 132) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Su duda es muy larga");
 
 	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
 	{
