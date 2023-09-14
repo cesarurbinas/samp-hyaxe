@@ -2535,7 +2535,7 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 1, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 1145.013916,-1131.447998, 23.828125, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 2, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 2421.501953,-1219.768432, 25.527839, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Mike Santander", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, -245.578720, -2193.103271, 29.839702, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "Club de la pelea", INTERIOR_NO_INFO, -1, false, 16, 0, -14.497008, 100.967079, 1101.521118, 180.0, -1, false, 0, 0, 950.341247, -987.135864, 38.743835, 322.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Club de la pelea", INTERIOR_NO_INFO, -1, false, 0, 16, -14.497008, 100.967079, 1101.521118, 180.0, -1, false, 0, 0, 950.341247, -987.135864, 38.743835, 322.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
@@ -7224,7 +7224,7 @@ CALLBACK: GiveAutoGift()
 
 public OnGameModeInit()
 {
-	print("ongamemodeinit"); // debug juju
+	print("OnGamemodeInit()"); // debug juju
 
 	#if defined VOICE_CHAT
 		sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
@@ -23339,35 +23339,45 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][19]) ClickInventorySlot(playerid, 19);
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][20]) ClickInventorySlot(playerid, 20);
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][21]) ClickInventorySlot(playerid, 21);
-		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][38]) DropItemSlot(playerid);
-		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][39]) UseItemSlot(playerid);
 		return 1;
 	}
 
     if(PLAYER_TEMP[playerid][py_PLAYER_IN_ATM])
     {
-		if(PlayerTextdraws[playerid][ptextdraw_BANK_MENU][3])
+    	printf("0 %i", playertextid);
+		if (PlayerTextdraws[playerid][ptextdraw_BANK_MENU][3])
 		{
+			print("1");
 			HideBankMenu(playerid);
 			ShowDialog(playerid, DIALOG_BANK_DEPOSIT);
+			return 1;
 		}
-		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][4])
+		
+		if (playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][4])
 		{
+			print("2");
 			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_WITHDRAW);
+            return 1;
 		}
-		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][5])
+		
+		if (playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][5])
 		{
+			print("3");
 			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_TRANSFER);
+            return 1;
 		}
-		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][6])
+		
+		if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][6])
 		{
+			print("4");
 			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_TRANSACTIONS);
+            return 1;
 		}
+		print("5");
 	}
-
     return 1;
 }
 
@@ -25273,7 +25283,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_JOINT]) > 2)
 			{
 				PLAYER_TEMP[playerid][py_JOINT_USES] ++;
-				GivePlayerHealthEx(playerid, 1.0);
+				GivePlayerHealthEx(playerid, 3.0);
 
 				if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
 				{
