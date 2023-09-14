@@ -92,6 +92,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/player/misc.pwn"
 #include "core/player/crew.pwn"
 #include "core/player/visual_inventory.pwn"
+#include "core/player/vehicles.pwn"
 
 // Police
 #include "core/police/info.pwn"
@@ -334,15 +335,6 @@ new Float:HARVEST_CHECKPOINTS[][] =
 	{-287.710388, -1497.158325, 8.503927},
 	{-387.908111, -1532.118774, 23.47214}
 };
-
-enum Player_Vehicles_Info
-{
-	bool:player_vehicle_VALID,
-	player_vehicle_ID,
-	player_vehicle_OWNER_ID,
-	bool:player_vehicle_ACCESSIBLE
-};
-new PLAYER_VEHICLES[MAX_VEHICLES][Player_Vehicles_Info];
 
 #define MAX_VEHICLE_OBJECTS_INDEXS 5
 enum
@@ -8069,7 +8061,6 @@ CMD:mp3(playerid, params[])
 	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
 	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
 	
-	PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
 	ShowDialog(playerid, DIALOG_PLAYER_MP3);
 	return 1;
 }

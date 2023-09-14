@@ -76,9 +76,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 	new url[128];
 	format(url, sizeof(url), "http://51.178.211.161:12345/stream/%s.mp3", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_ID]);
 
-	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER) PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = true;
-
-	if (PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY])
+	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY)
 	{
 		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 		{
@@ -91,25 +89,27 @@ public OnDownloadResponse(playerid, response_code, data[])
 				}
 			}
 		}
-		PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
 	}
-	else if (PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE])
+	else if (IsPlayerInAnyVehicle(playerid))
 	{
-		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+		new vehid = GetPlayerVehicleID(playerid);
+		if(PLAYER_VEHICLES[vehid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
 		{
-			if (IsPlayerConnected(i))
+			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 			{
-				if (IsPlayerInAnyVehicle(i))
+				if (IsPlayerConnected(i))
 				{
-					if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
+					if (IsPlayerInAnyVehicle(i))
 					{
-						PlayAudioStreamForPlayer(i, url);
-						ShowPlayerNotification(i, sprintf("Reproduciendo %s", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]), 5);
+						if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
+						{
+							PlayAudioStreamForPlayer(i, url);
+							ShowPlayerNotification(i, sprintf("Reproduciendo %s", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]), 5);
+						}
 					}
 				}
 			}
 		}
-		PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = false;
 	}
 	else
 	{
