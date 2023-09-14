@@ -1,12 +1,25 @@
-// Compiler params
-#pragma option -d3 // un debuj medio como kn dise
+#pragma option -(+
+#pragma option -;+
+
+/*
+ * Modos de debug:
+ *  - 0: No saldrá ningún mensaje de debug ni en la consola ni en el juego.
+ *  - 1: Saldrán mensajes de debug solamente en la consola.
+ *  - 2: Saldrán mensajes de debug en la consola y en el juego.
+*/
+#define DEBUG_MODE 1
+
+#if DEBUG_MODE != 0
+	#pragma option -d3
+#endif
+
 #pragma warning disable 239
 #pragma warning disable 214
-#pragma dynamic 10000000
+
+#pragma dynamic 15000
 
 #include <a_samp>
 
-// Server Config
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
@@ -66,6 +79,8 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #if defined VOICE_CHAT
     #include <sampvoice>
 #endif
+
+#include "core/logger/header.pwn"
 
 // Lang
 #include "core/languages/es.pwn"
