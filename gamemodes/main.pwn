@@ -9050,7 +9050,7 @@ CMD:gps(playerid, params[])
 	return 1;
 }*/
 
-CMD:mapa(playerid, params[])
+/*CMD:mapa(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_OBJECT[playerid][po_GPS])
@@ -9062,7 +9062,7 @@ CMD:mapa(playerid, params[])
 	if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
 	else ShowPlayerGpsMap(playerid);
 	return 1;
-}
+}*/
 
 /*CMD:mp3(playerid, params[])
 {
