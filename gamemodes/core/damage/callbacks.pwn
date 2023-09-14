@@ -170,6 +170,59 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 	if (IsPlayerConnected(issuerid))
 	{
+		if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 2)
+		{
+			new no_homo, chad_id;
+
+			is_lgbt[playerid] = true;
+			SetPlayerSkin(playerid, 252);
+			ShowPlayerAlert(playerid, "Homosexual!", 0xe562e7FF, 4);
+
+			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			{
+				if (IsPlayerConnected(i))
+				{
+					if (PLAYER_MISC[i][MISC_GAMEMODE] == 2)
+					{
+						new str_text[128];
+						format(str_text, sizeof(str_text), "%s se ha convertido en ~p~Homosexual~w~!", PLAYER_TEMP[playerid][py_NAME]);
+						ShowPlayerNotification(i, str_text);
+
+						if (!is_lgbt[playerid])
+						{
+							no_homo ++;
+
+							if (no_homo == 1) chad_id = playerid;
+						}
+					}
+				}
+			}
+
+			if (no_homo == 1)
+			{
+				GiveGoldIngot(chad_id, 5);
+				lgbt_map_index = random(sizeof(LGBT_MAPS));
+
+				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+				{
+					if (IsPlayerConnected(i))
+					{
+						if (PLAYER_MISC[i][MISC_GAMEMODE] == 2)
+						{
+							new str_text[128];
+							format(str_text, sizeof(str_text), "~g~%s~~ ha sido el ganador, siguiente mapa: ~y~%s", PLAYER_TEMP[chad_id][py_NAME], LGBT_MAPS[lgbt_map_index][lm_NAME]);
+							ShowPlayerNotification(i, str_text);
+						}
+					}
+				}
+
+				initial_lgbt = INVALID_PLAYER_ID;
+				SetTimer("NextLgbtMap", 5000, false);
+			}
+
+			GiveGoldIngot(issuerid);
+		}
+
 		GetPlayerPos(playerid, x, y, z);
 		if (IsShortDistanceWeapon(weaponid, GetPlayerDistanceFromPoint(issuerid, x, y, z))) return 0;
 
@@ -243,13 +296,16 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 			}
 		}
 
-		if (!PLAYER_WORKS[issuerid][WORK_POLICE])
+		if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 0)
 		{
-			KillTimer(PLAYER_TEMP[issuerid][py_TIMERS][44]);
-			PLAYER_TEMP[issuerid][py_TIMERS][44] = SetTimerEx("DisableCombatMode", 60000, false, "i", issuerid);
-			
-			if (!PLAYER_TEMP[issuerid][py_COMBAT_MODE]) ShowPlayerNotification(issuerid, "Has entrado en modo de combate.");
-			PLAYER_TEMP[issuerid][py_COMBAT_MODE] = true;
+			if (!PLAYER_WORKS[issuerid][WORK_POLICE])
+			{
+				KillTimer(PLAYER_TEMP[issuerid][py_TIMERS][44]);
+				PLAYER_TEMP[issuerid][py_TIMERS][44] = SetTimerEx("DisableCombatMode", 60000, false, "i", issuerid);
+				
+				if (!PLAYER_TEMP[issuerid][py_COMBAT_MODE]) ShowPlayerNotification(issuerid, "Has entrado en modo de combate.");
+				PLAYER_TEMP[issuerid][py_COMBAT_MODE] = true;
+			}
 		}
 
 		new p_interior = GetPlayerInterior(issuerid);

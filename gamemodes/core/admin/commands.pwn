@@ -2673,6 +2673,20 @@ CMD:darskin(playerid, params[])
     return 1;
 }
 
+CMD:globalskin(playerid, params[])
+{
+    new to_player, skin;
+    if (sscanf(params, "ud", to_player, skin)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /globalskin <player_id> <skin>");
+    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
+
+	PLAYER_MISC[to_player][MISC_SKIN] = skin;
+    if (PLAYER_MISC[to_player][MISC_GAMEMODE] != 0) SetPlayerSkin(to_player, PLAYER_MISC[to_player][MISC_SKIN]);
+    SavePlayerMisc(to_player);
+
+	SendClientMessageEx(playerid, COLOR_WHITE, "Skin global de '%s (%d)' cambiado a '%d'.", ACCOUNT_INFO[to_player][ac_NAME], to_player, PLAYER_MISC[to_player][MISC_SKIN]);
+    return 1;
+}
+
 CMD:testsound(playerid, params[])
 {
 	new sound;

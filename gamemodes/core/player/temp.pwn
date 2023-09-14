@@ -375,8 +375,13 @@ enum Temp_Enum
 >>>>>>> e78b0f6 (tienda de cuetes)
 =======
 	py_LIMIT_FIREWORK,
+<<<<<<< HEAD
 	py_SPAWNED
 >>>>>>> 241f327 (ultimo commit del 2020 ekisde)
+=======
+	py_SPAWNED,
+	bool:py_MENU
+>>>>>>> 41abb25 (infeccion lgbt)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
