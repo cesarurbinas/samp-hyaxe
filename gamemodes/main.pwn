@@ -36112,7 +36112,7 @@ TextureCountryFlag(objectid, index, country)
 			font_size      = 55;
 			text_alignment = 1;
 		}
-		case 4: // Bolivia
+		case 4: // Bolivia con mar
 		{
 			text_flag      = "{d52b1e}ggg\n{f9e300}ggg\n{007934}ggg";
 			material_size  = 60;
