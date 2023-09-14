@@ -372,7 +372,7 @@ CMD:nochesexo(playerid, params[])
 	return 1;
 }
 
-CMD:menu(playerid, params[])
+/*CMD:menu(playerid, params[])
 {
 	PlayerExitGamemode(playerid);
 	StopAudioStreamForPlayer(playerid);
@@ -384,7 +384,7 @@ CMD:menu(playerid, params[])
 	PlayAudioStreamForPlayer(playerid, MAIN_MUSIC[random(sizeof(MAIN_MUSIC))]);
 	ClearPlayerChatBox(playerid);
 	return 1;
-}
+}*/
 
 /* COMMAND FINDING */
 cmd:tr(playerid, params[])
