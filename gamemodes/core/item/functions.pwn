@@ -273,7 +273,7 @@ AddPlayerItem(playerid, type, extra = 1)
 	return false;
 }
 
-SubtractItem(playerid, type, ammount = 1)
+SubtractItem(playerid, type, extra = 1)
 {
 	new
 		DB_Query[164],

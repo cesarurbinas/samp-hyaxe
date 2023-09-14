@@ -152,7 +152,7 @@ inv_AccommodatePropertyItems(playerid, property_id)
 			if (ITEM_INFO[type][item_SINGLE_SLOT])
 				format(str_text, sizeof(str_text), "");
 
-			switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
+			switch(type)
 			{
 				case 9, 10, 11, 39: format(str_text, sizeof(str_text), "Balas");
 				case 40: format(str_text, sizeof(str_text), "Geo");
@@ -219,7 +219,7 @@ inv_AccommodateVehicleItems(playerid, vehicle_id)
 			if (ITEM_INFO[type][item_SINGLE_SLOT])
 				format(str_text, sizeof(str_text), "");
 
-			switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
+			switch(type)
 			{
 				case 9, 10, 11, 39: format(str_text, sizeof(str_text), "Balas");
 				case 40: format(str_text, sizeof(str_text), "Geo");
@@ -285,7 +285,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 			if (ITEM_INFO[type][item_SINGLE_SLOT])
 				format(str_text, sizeof(str_text), "");
 
-			switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
+			switch(type)
 			{
 				case 9, 10, 11, 39: format(str_text, sizeof(str_text), "Balas");
 				case 40: format(str_text, sizeof(str_text), "Geo");
