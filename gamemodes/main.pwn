@@ -3076,7 +3076,7 @@ CALLBACK: UpdateWantedLevelMark()
 
 SetPlayerPoliceSearchLevel(playerid, level)
 {
-	if(!level)
+	if (!level)
 	{
 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
 		SendPoliceMark(playerid, PLAYER_COLOR);
@@ -3087,6 +3087,8 @@ SetPlayerPoliceSearchLevel(playerid, level)
 		format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Ninguna");
 		return 1;
 	}
+
+	if (level > 6) level = 6;
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
 	PLAYER_TEMP[playerid][py_TIMERS][43] = SetTimerEx("DisablePlayerPoliceSearchLevel", 300000 * level, false, "i", playerid);
@@ -29605,6 +29607,8 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		{
 			FreezePlayer(playerid, 2000);
 			ShowPlayerMessage(playerid, "~r~No dispares en zona segura.", 3);
+			SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 3);
+			format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Disturbios");
 		}
 	}
 
@@ -29619,6 +29623,14 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	{
 		ShowPlayerMessage(playerid, "~r~No puedes disparar estando de medico.", 3);
 		FreezePlayer(playerid, 3000);
+	}
+
+	if (GetPlayerVirtualWorld(playerid) == 1336)
+	{
+		ShowPlayerMessage(playerid, "~r~No puedes disparar dentro del estadio.", 3);
+		FreezePlayer(playerid, 3000);
+		SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 3);
+		format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Disturbios");
 	}
 
 	/*if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)

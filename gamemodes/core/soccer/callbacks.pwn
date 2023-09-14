@@ -334,6 +334,7 @@ public PHY_OnObjectUpdate(objectid)
 			GetPlayerName(LastTouch, name, sizeof name);
 			format(string, sizeof string, "%s ha anotado un gol.", name);
 			SendToAllStadium(string);
+			RecreateBall();
 			#pragma unused goal
 		}
 	}
@@ -343,5 +344,21 @@ public PHY_OnObjectUpdate(objectid)
 		PHY_SetObjectZBound(Ball, _, FLOAT_INFINITY, 0.5);
 	}
 
-	return 1;
+	#if defined Soccer_PHY_OnObjectUpdate
+		return Soccer_PHY_OnObjectUpdate(objectid);
+	#else
+		return 1;
+	#endif
 }
+
+#if defined Soccer_PHY_OnObjectUpdate
+	forward Soccer_PHY_OnObjectUpdate(objectid);
+#endif
+
+#if defined _ALS_PHY_OnObjectUpdate
+	#undef PHY_OnObjectUpdate
+#else
+	#define _ALS_PHY_OnObjectUpdate
+#endif
+
+#define PHY_OnObjectUpdate Soccer_PHY_OnObjectUpdate
