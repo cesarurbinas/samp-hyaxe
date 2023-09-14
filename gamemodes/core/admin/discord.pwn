@@ -857,12 +857,6 @@ DC_CMD:dudas(DCC_User:userid, params[], DCC_Message:message)
 	new str[364];
 	format(str, sizeof(str), "[Dudas] "COL_WHITE"Discord: (( %s ))", params);
 
-	strreplace(str, "<", "{A8A8A8}");
-	strreplace(str, ">", "{FFFFFF}");
-
-	strreplace(str, "@", "{4db6ac}@");
-	strreplace(str, ":", "{F0F0F0}");
-
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if (IsPlayerConnected(i))

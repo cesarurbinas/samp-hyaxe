@@ -14,16 +14,12 @@ SendMessageToDoubtChannel(playerid, const message[])
 
 	Log("doubt", str);
 
-	PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
-
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
 	{
-		//strreplace(str, "<", "{A8A8A8}");
-		//strreplace(str, ">", "{FFFFFF}");
-
-		strreplace(str, "@", "{4db6ac}@");
-		strreplace(str, ":", "{F0F0F0}");
+		ReplaceStringByRegex(str, "\\B@(\\w+)", "{4db6ac}@$1{F0F0F0}", str);
 	}
+
+	PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{

@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2016-2020 urShadow
+ * Copyright (c) 2016-2021 katursis
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
     #define PAWNREGEX_INC_
     #define _pawnregex_included // backward compatibility
 
-    #define PAWNREGEX_VERSION 113
+    #define PAWNREGEX_VERSION 120
     #define PAWNREGEX_INCLUDE_VERSION PAWNREGEX_VERSION // backward compatibility
 
     enum E_REGEX_GRAMMAR

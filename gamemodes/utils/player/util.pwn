@@ -5622,6 +5622,17 @@ NearbyMessage(Float:pos_x, Float:pos_y, Float:pos_z, current_int, current_vw, Fl
 	return 1;
 }
 
+ReplaceStringByRegex(const str[], const regexp[], const fmt[], dest[], size = sizeof dest)
+{
+    new Regex:r = Regex_New(regexp);
+
+    if (r)
+    {
+        Regex_Replace(str, r, fmt, dest, MATCH_DEFAULT, size);
+        Regex_Delete(r);
+    }
+}
+
 IsValidRPName(const string[])
 {
     new Regex:reg_exp = Regex_New("[A-Z][a-z]+_[A-Z][a-z]{1,3}[A-Z]?[a-z]*"); 

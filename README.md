@@ -100,7 +100,7 @@ Listado de cosas para hacer
 
 ❌ Agregar cum shot
 
-❌ Usar regex para las d-mentions
+✅ Usar regex para las d-mentions
 
 ❌ Arreglar el sync de los player attach
 
