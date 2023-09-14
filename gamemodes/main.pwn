@@ -5489,7 +5489,7 @@ CheckBallonAction(playerid)
 	{
 		if (PLAYER_MISC[playerid][MISC_BALLOON]) return ShowPlayerMessage(playerid, "~r~Ya tienes un boleto", 2);
 		if (CHARACTER_INFO[playerid][ch_CASH] <= 200) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2);
-     	GameTextForPlayer(playerid, "~r~-200$", 5000, 1);
+     	
      	PLAYER_MISC[playerid][MISC_BALLOON] = true;
      	ShowPlayerNotification(playerid, "Sube a un globo y presiona la tecla Y para comenzar el viaje.", 4);
      	GivePlayerCash(playerid, -200);
@@ -6127,10 +6127,6 @@ Menu:CLUB_MENU(playerid, response, listitem)
 				}
 
 				GivePlayerCash(playerid, CLUBS_INFO[club][club_BALANCE], false);
-
-				new str_text[32];
-				format(str_text, 32, "~g~+%d$", CLUBS_INFO[club][club_BALANCE]);
-     			GameTextForPlayer(playerid, str_text, 5000, 1);
 
 				new DB_Query[128];
 				CLUBS_INFO[club][club_BALANCE] = 0;
@@ -7032,15 +7028,11 @@ public OnPlayerDeath(playerid, killerid, reason)
 					PLAYER_TEMP[i][py_BOX_BETTING] = false;
 
 					GivePlayerCash(i, final_pay, false);
-					format(str_text, sizeof(str_text), "~g~+%d$", final_pay);
-					GameTextForPlayer(i, str_text, 5000, 1);
 					GivePlayerReputation(i);
 				}
 			}
 
 			GivePlayerCash(killerid, PLAYER_TEMP[killerid][py_BOX_PAY]);
-			format(str_text, sizeof(str_text), "~g~+%d$", PLAYER_TEMP[killerid][py_BOX_PAY]);
-			GameTextForPlayer(killerid, str_text, 5000, 1);
 			ShowPlayerNotification(killerid, "Pelea ganada, espera a que alguien vuelva a apostar por ti.", 4);
 			GivePlayerReputation(killerid);
 			PLAYER_TEMP[killerid][py_BOX_PAY] = 0;
@@ -7293,7 +7285,6 @@ PayPlayerMiner(playerid)
 	if (ACCOUNT_INFO[playerid][ac_SU]) pay += minrand(200, 500);
 
 	GivePlayerCash(playerid, pay);
-	format(str_text, sizeof(str_text), "~g~+%d$", pay);
 	
 	PLAYER_SKILLS[playerid][WORK_MINER] ++;
 	SavePlayerSkills(playerid);
@@ -18111,10 +18102,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				GivePlayerCash(playerid, -price);
-
-				new str_text[32];
-				format(str_text, 32, "~r~-%d$", price);
-     			GameTextForPlayer(playerid, str_text, 5000, 1);
 			}
 			else ShowDialog(playerid, DIALOG_SEED_LIST);
 			return 1;
@@ -18354,7 +18341,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						else
 						{
 							GivePlayerCash(playerid, -450, false);
-							GameTextForPlayer(playerid, "~r~-450$", 5000, 1);
 						}
 						return 1;
 					}
@@ -18382,7 +18368,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						else
 						{
 							GivePlayerCash(playerid, -650, false);
-							GameTextForPlayer(playerid, "~r~-650$", 5000, 1);
 						}
 						return 1;
 					}
@@ -18410,7 +18395,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						else
 						{
 							GivePlayerCash(playerid, -850, false);
-							GameTextForPlayer(playerid, "~r~-850$", 5000, 1);
 						}
 						return 1;
 					}
@@ -18438,7 +18422,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						else
 						{
 							GivePlayerCash(playerid, -1350, false);
-							GameTextForPlayer(playerid, "~r~-1350$", 5000, 1);
 						}
 						return 1;
 					}
@@ -18766,13 +18749,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
 				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-
-				new pay_text[32];
-				format(pay_text, 32, "~g~+%s$", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-     			GameTextForPlayer(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pay_text, 5000, 1);
-
-				format(pay_text, 32, "~r~-%s$", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-     			GameTextForPlayer(playerid, pay_text, 5000, 1);
 
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			
@@ -19958,10 +19934,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowPlayerMessage(playerid, "~g~Dinero enviado.", 3);
 				SetPlayerChatBubble(playerid, "\n\n\n\n* saca dinero de su billetera y se lo da a alguien\n\n\n", 0xffcb90FF, 20.0, 5000);
-
-				new pay_str[32];
-				format(pay_str, 32, "~g~+%d$", inputtext[0]);
-     			GameTextForPlayer(PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], pay_str, 5000, 1);
 
 				ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
 
@@ -22400,7 +22372,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				PLAYER_MISC[playerid][MISC_ROD] ++;
             	GivePlayerCash(playerid, -455, false);
-     			GameTextForPlayer(playerid, "~r~-455$", 5000, 1);
 			}
 			return 1;
 		}
@@ -22414,7 +22385,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				PLAYER_MISC[playerid][MISC_FIXKIT] ++;
             	GivePlayerCash(playerid, -800, false);
-     			GameTextForPlayer(playerid, "~r~-800$", 5000, 1);
      			SavePlayerMisc(playerid);
 			}
 			return 1;
@@ -22437,9 +22407,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				PLAYER_MISC[playerid][MISC_FISH] = 0;
             	GivePlayerCash(playerid, payment, true);
-
-            	format(str_text, 32, "~g~+%d$", payment);
-     			GameTextForPlayer(playerid, str_text, 5000, 1);
      			GivePlayerReputation(playerid);
 			}
 			return 1;
@@ -22645,7 +22612,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						PLAYER_MISC[playerid][MISC_MALLET] ++;
 		            	GivePlayerCash(playerid, -150, false);
-		     			GameTextForPlayer(playerid, "~r~-150$", 5000, 1);
 					}
 				}
 			}
@@ -22687,8 +22653,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(db_query(Database, DB_Query));
 
 				GivePlayerCash(playerid, 150000 * inputtext[0], true);
-				format(str_text,sizeof(str_text), "~g~+%d$", (150000 * inputtext[0]));
-				GameTextForPlayer(playerid, str_text, 5000, 1);
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 		}
@@ -22928,9 +22892,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (CHARACTER_INFO[playerid][ch_CASH] <= FURNITURE_OBJECTS[index][furniture_object_PRICE]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 
-				new str_text[128];
-				format(str_text, sizeof(str_text), "~r~-%d$", FURNITURE_OBJECTS[index][furniture_object_PRICE]);
-     			GameTextForPlayer(playerid, str_text, 5000, 1);
 				GivePlayerCash(playerid, -FURNITURE_OBJECTS[index][furniture_object_PRICE], false);
 
 				AddPropertyObject(
@@ -22973,8 +22934,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							pay = minrand(200, 400)
 						;
 
-						format(str_text, sizeof(str_text), "~g~+%d$", pay);
-						GameTextForPlayer(playerid, str_text, 5000, 1);
 						GivePlayerCash(playerid, pay, false);
 
 						DeletePropertyObject(PROPERTY_OBJECT[ PLAYER_TEMP[playerid][py_FURNITURE_SELECTED] ][pobj_DB_ID], PLAYER_TEMP[playerid][py_FURNITURE_SELECTED]);
@@ -23690,8 +23649,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ResetItemBody(playerid);
             	GivePlayerCash(playerid, payment, true);
 
-            	format(str_text, 32, "~g~+%d$", payment);
-     			GameTextForPlayer(playerid, str_text, 5000, 1);
      			GivePlayerReputation(playerid);
 
      			new is_hycoin_best = minrand(0, 10);
@@ -23976,9 +23933,6 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			PLAYER_SKILLS[playerid][WORK_TRUCK] ++;
 			SavePlayerSkills(playerid);
 
-			new str_text[20];
-			format(str_text,sizeof(str_text), "~g~+%s$", number_format_thousand(Truck_Contents[ TRUCK_VEHICLE[vehicleid][truck_vehicle_POINT] ][truck_content_MONEY] + work_extra_payment));
-			GameTextForPlayer(playerid, str_text, 5000, 1);
 			SetVehicleToRespawnEx(vehicleid);
 			GivePlayerReputation(playerid);
 		}
@@ -24028,9 +23982,6 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			}
 
 			GivePlayerCash(playerid, money + driver_work_extra_payment + 1000);
-			new str_text[20];
-			format(str_text,sizeof(str_text), "~g~+%s$", number_format_thousand(money + driver_work_extra_payment));
-			GameTextForPlayer(playerid, str_text, 5000, 1);
 			SavePlayerSkills(playerid);
 			PLAYER_SKILLS[playerid][WORK_TRASH] ++;
 			SavePlayerSkills(playerid);
@@ -24067,8 +24018,6 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 
 			DestroyDynamicCP(PLAYER_TEMP[playerid][py_CLEANER_FINAL]);
 			GivePlayerCash(playerid, payment);
-			format(str_text, sizeof(str_text), "~g~+%d$", payment);
-			GameTextForPlayer(playerid, str_text, 4000, 1);
 			RemovePlayerFromVehicle(playerid);
 			PLAYER_TEMP[playerid][py_CLEANER_INDEX] = 99;
 		}*/
@@ -28051,8 +28000,6 @@ CheckRobActor(playerid)
 							}
 								
 							GivePlayerCash(playerid, randompay);
-							format(str_text, sizeof(str_text), "~g~+%d$", randompay);
-							GameTextForPlayer(playerid, str_text, 4000, 1);
 							PLAYER_TEMP[playerid][py_ROB_PROGRESS] ++;
 
 							ApplyActorAnimation(ActorTarget, "INT_SHOP", "shop_cashier", 4.1, 1, 0, 0, 1, 0);
@@ -32203,9 +32150,6 @@ public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 
 				PLAYER_SKILLS[playerid][WORK_HARVESTER] ++;
 			    SavePlayerSkills(playerid);
-			    new str_text[25];
-			    format(str_text,sizeof(str_text), "~g~+%s$", number_format_thousand(money));
-				GameTextForPlayer(playerid, str_text, 5000, 1);
 			    GetPlayerPos(playerid, x, y, z);
 			    SetPlayerPos(playerid, x, y, z - 1);
 
@@ -35952,16 +35896,11 @@ public StandUpBotikin(medic, playerid)
 	{
 		if (PLAYER_TEMP[playerid][py_WANT_MEDIC])
 		{
-			new 
-				str_text[64],
-				pay = (1000 + PLAYER_SKILLS[medic][WORK_MEDIC])
-			;
+			new pay = (1000 + PLAYER_SKILLS[medic][WORK_MEDIC]);
 
 			if (ACCOUNT_INFO[medic][ac_SU]) pay += minrand(200, 500);
 
 			GivePlayerCash(medic, pay);
-			format(str_text, sizeof(str_text), "~g~+%d$", pay);
-			GameTextForPlayer(medic, str_text, 5000, 1);
 
 			PLAYER_SKILLS[medic][WORK_MEDIC] += 5;
 			SavePlayerSkills(medic);
