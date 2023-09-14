@@ -28913,8 +28913,6 @@ CMD:menu(playerid, params[])
 
 StartPlanting(playerid, type)
 {
-	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
-	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 	if (PLAYER_TEMP[playerid][py_PLANTING]) return ShowPlayerMessage(playerid, "~r~Ya estas plantado algo.", 3);
 
