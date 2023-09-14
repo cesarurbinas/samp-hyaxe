@@ -4250,8 +4250,6 @@ public OnPlayerDisconnect(playerid, reason)
   		if (PLAYER_TEMP[playerid][py_USER_EXIT])
   		{
   			SavePlayerVehicles(playerid, true);
-	  		SaveUserData(playerid);
-	  		SavePlayerMisc(playerid);
 
   			if (PLAYER_CREW[playerid][player_crew_VALID]) CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ONLINE_MEMBERS] --;
 
@@ -4286,35 +4284,19 @@ public OnPlayerDisconnect(playerid, reason)
 	  		ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] -= PLAYER_TEMP[playerid][py_TIME_PASSED_LAST_REP];
 
 	  		if (CHARACTER_INFO[playerid][ch_HEALTH] <= 0.0) CHARACTER_INFO[playerid][ch_HEALTH] = 1.0;
-	  		if (CHARACTER_INFO[playerid][ch_HEALTH] > 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
-	  		if (CHARACTER_INFO[playerid][ch_ARMOUR] > 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
+	  		if (CHARACTER_INFO[playerid][ch_HEALTH] >= 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
+	  		if (CHARACTER_INFO[playerid][ch_ARMOUR] >= 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
 
-			if (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] != 0)
+			if PLAYER_MISC[playerid][MISC_SEARCH_LEVEL])
 			{
-				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-			    {
-				   	if (IsPlayerConnected(i))
-				    {
-				    	if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
-				    	{
-				    		new
-				    			Float:police_pos[3],
-				    			Float:player_pos[3]
-				    		;
-
-				    		GetPlayerPos(i, police_pos[0], police_pos[1], police_pos[2]);
-				    		GetPlayerPos(playerid, player_pos[0], player_pos[1], player_pos[2]);
-
-							new Float:distance = GetDistanceBetweenPoints3D(police_pos[0], police_pos[1], police_pos[2], player_pos[0], player_pos[1], player_pos[2]);
-							if(distance >= 200.0) 
-							{
-								CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
-    							CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 600 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL];
-							}
-						}
-					}
-				}
+				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
+				CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] = 0;
+    			CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 600 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL];
+				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
 			}
+
+			SaveUserData(playerid);
+	  		SavePlayerMisc(playerid);
 
 	  		new disconnect_message[128];
 	  		switch(reason)
@@ -6184,7 +6166,6 @@ public OnPlayerSpawn(playerid)
 				CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 300;
 
 				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
-				if (CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] < 5) CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 5;
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
 				PLAYER_TEMP[playerid][py_TIMERS][15] = SetTimerEx("UnjailPlayer", CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] * 1000, false, "i", playerid);
 
