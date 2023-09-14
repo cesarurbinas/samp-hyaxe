@@ -128,6 +128,11 @@
 // Textdraws
 #include "core/global/textdraws.pwn"
 
+// Actions
+#include "core/action/header.pwn"
+#include "core/action/callbacks.pwn"
+#include "core/action/functions.pwn"
+
 // Player util
 #include "utils/player/header.pwn"
 
