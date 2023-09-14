@@ -147,7 +147,7 @@ CMD:unjailoff(playerid, params[])
 			`POLICE_JAIL_ID` = 0, \
 			`STATE` = %d, \
 			`JAIL_REASON` = NULL, \
-			`JALED_BY` = 0, \
+			`JAILED_BY` = 0, \
 			`POS_X` = 1555.400390, \
 			`POS_Y` = -1675.611694, \
 			`POS_Z` = 16.195312, \
