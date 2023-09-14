@@ -31231,8 +31231,8 @@ CMD:id(playerid, params[])
 	
 	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Versión: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f "COL_RED"|"COL_WHITE" Ping: %d",
 		player_version,
-		NetStats_PacketLossPercent(playerid),
-		GetPlayerPing(playerid)
+		NetStats_PacketLossPercent(to_player),
+		GetPlayerPing(to_player)
 	);
 	return 1;
 }
