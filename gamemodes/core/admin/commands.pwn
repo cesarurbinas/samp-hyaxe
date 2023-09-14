@@ -2661,7 +2661,7 @@ CMD:dreply(playerid, params[])
 	if (strlen( PLAYER_TEMP[to_player][py_LAST_DOUBT] ) > 3)
 	{
 		new payload[264];
-		format(payload, sizeof(payload), "{\"question\": \"%s\", \"answer\": \"%s\"},", PLAYER_TEMP[to_player][py_LAST_DOUBT], content);
+		format(payload, sizeof(payload), "{\"question\": \"%s\", \"answer\": \"%s\"}", PLAYER_TEMP[to_player][py_LAST_DOUBT], content);
 		HTTP(0, HTTP_POST, "51.161.31.157:6666/save_response", payload, "neuroadmin_BotLearning");
 	}
 	return 1;
