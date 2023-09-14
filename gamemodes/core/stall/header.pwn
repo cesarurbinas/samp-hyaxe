@@ -14,12 +14,12 @@ enum stall_product_enum
 
 new STALL_PRODUCT[][stall_product_enum] =
 {
-	{"Kebab", 200, 50.0, 0.0, 0},
-	{"HotDog", 50, 10.0, 0.0, 0},
-	{"Sprunk", 90, 0.0, 30.0, 1},
-	{"Agua Mineral", 50, 0.0, 40.0, 1},
-	{"Helado", 150, 20.0, 20.0, 0},
-	{"Choripan", 200, 50.0, 0.0, 0}
+	{"Kebab", 300, 50.0, 0.0, 0},
+	{"HotDog", 150, 10.0, 0.0, 0},
+	{"Sprunk", 190, 0.0, 30.0, 1},
+	{"Agua Mineral", 150, 0.0, 40.0, 1},
+	{"Helado", 250, 20.0, 20.0, 0},
+	{"Choripan", 300, 50.0, 0.0, 0}
 };
 
 enum stall_enum

@@ -538,7 +538,7 @@ CMD:vincular(playerid, params[])
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Vincular", sprintf(""COL_WHITE"Código de vinculación: "COL_RED"%d", code), "Cerrar", "");
 	
 	new str_text[200];
-	format(str_text, sizeof(str_text), "51.222.21.190:10500/B987Tbt97BTb9SAF9B8Ttasbfdf6/register/%s:%d:%d",
+	format(str_text, sizeof(str_text), "server.hyaxe.com:10500/B987Tbt97BTb9SAF9B8Ttasbfdf6/register/%s:%d:%d",
 		PLAYER_TEMP[playerid][py_NAME],
 		code,
 		ACCOUNT_INFO[playerid][ac_SU]

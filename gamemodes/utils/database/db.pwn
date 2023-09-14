@@ -4,10 +4,7 @@
 
 #define UTILS_DATABASE
 
-new
-	DB:Database,
-	MySQL:RemoteDatabase
-;
+new DB:Database;
 
 public OnGameModeInit()
 {
@@ -17,13 +14,13 @@ public OnGameModeInit()
 		return SendRconCommand("exit");
 	}
 
-	RemoteDatabase = mysql_connect("127.0.0.1", "root", "", "hyaxe");
+	/*RemoteDatabase = mysql_connect("127.0.0.1", "root", "", "hyaxe");
 
 	if (mysql_errno())
 	{
 		Logger_Error("No se pudo abrir la base de datos remota.");
 		return SendRconCommand("exit");
-	}
+	}*/
 
 	Logger_Info("Conexión con la base de datos establecida.");
 

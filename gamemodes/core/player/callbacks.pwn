@@ -1,9 +1,7 @@
 new BOT_ADDRESS[][] =
 {
-	"51.222.21.190",
-	"192.95.10.233",
-	"51.222.21.191",
-	"51.38.208.149",
+	"144.217.19.161",
+	"144.217.19.165",
 	"127.0.0.1"
 };
 
@@ -964,7 +962,7 @@ public StartVehicleEngine(playerid, vehicleid)
 	{
 		StopAudioStreamForPlayer(playerid);
 		
-		if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 5) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com/tutorial_5.mp3");
+		if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 5) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_5.mp3");
 		PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 6;
 
 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
@@ -6085,7 +6083,7 @@ public ContinuePlayerIntro(playerid, step)
 		{
 			StopAudioStreamForPlayer(playerid);
 
-			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 1) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com/tutorial_1.mp3");
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 1) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_1.mp3");
 			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 2;
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
@@ -6094,7 +6092,7 @@ public ContinuePlayerIntro(playerid, step)
 		{
 			StopAudioStreamForPlayer(playerid);
 			
-			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 6) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com/tutorial_6.mp3");
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 6) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_6.mp3");
 			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 7;
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
@@ -6103,7 +6101,7 @@ public ContinuePlayerIntro(playerid, step)
 		case 4:
 		{
 			StopAudioStreamForPlayer(playerid);
-			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 7) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com/tutorial_7.mp3");
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 7) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_7.mp3");
 			PLAYER_TEMP[playerid][py_TUTORIAL] = false;
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
@@ -6113,7 +6111,7 @@ public ContinuePlayerIntro(playerid, step)
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 			StopAudioStreamForPlayer(playerid);
 
-			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 4) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com/tutorial_4.mp3");
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 4) PlayAudioStreamForPlayer(playerid, "http://files.hyaxe.cloud/ost/tutorial_4.mp3");
 			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 5;
 		}
 

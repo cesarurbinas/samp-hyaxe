@@ -361,7 +361,7 @@ alias:adv("advertencia", "san")
 
 CMD:kick(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new to_player, reason[64];
 	if (sscanf(params, "us[64]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /kick <player_id> <razon>");
@@ -810,7 +810,7 @@ alias:get("traer")
 
 CMD:unban(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new name[24];
 	if (sscanf(params, "s[24]", name)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /unban <nombre completo>");
@@ -894,7 +894,7 @@ CMD:jail(playerid, params[])
 
 CMD:ban(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new to_player, reason[32];
 	if (sscanf(params, "us[32]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ban <player_id> <razon>");
@@ -981,7 +981,7 @@ flags:gpciban(CMD_MODERATOR)
 
 CMD:dgpciban(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new reason[32], to_account;
 	if (sscanf(params, "ds[32]", to_account, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dban <DB-ID> <razon>");
@@ -1055,7 +1055,7 @@ alias:cls("log", "clear")
 
 CMD:tban(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new to_player, days, reason[32];
 	if (sscanf(params, "uds[32]", to_player, days, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tban <player_id> <dias> <razon>");
@@ -1100,7 +1100,7 @@ CMD:tban(playerid, params[])
 
 CMD:dban(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new reason[32], to_account;
 	if (sscanf(params, "ds[32]", to_account, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dban <DB-ID> <razon>");
@@ -1163,7 +1163,7 @@ CMD:dban(playerid, params[])
 
 CMD:dtban(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new reason[32], to_account, days;
 	if (sscanf(params, "dds[32]", to_account, days, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dtban <DB-ID> <dias> <razon>");
@@ -2074,7 +2074,7 @@ CMD:setworkexp(playerid, params[])
 
 CMD:setcash(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new to_player, value;
 	if (sscanf(params, "ud", to_player, value)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setcash <player_id> <ammount>");
@@ -2096,7 +2096,7 @@ CMD:setcash(playerid, params[])
 
 CMD:givecash(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new to_player, value;
 	if (sscanf(params, "ud", to_player, value)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /givecash <player_id> <ammount>");
@@ -2604,7 +2604,7 @@ CMD:eco(playerid, params[])
 
 CMD:setearsu(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new to_player, sd;
 	if (sscanf(params, "ud", to_player, sd)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setearsu <player_id> <sd>");
@@ -2625,7 +2625,7 @@ CMD:setearsu(playerid, params[])
 
 CMD:darsu(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new to_player, sd;
 	if (sscanf(params, "ud", to_player, sd)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /darsu <player_id> <sd>");
@@ -2646,7 +2646,7 @@ CMD:darsu(playerid, params[])
 
 CMD:darvip(playerid, params[])
 {
-	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 10) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
 	new to_player, vip_level, days;
 	if (sscanf(params, "udd", to_player, vip_level, days)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setvip <player_id> <VIP level> <dias>");
@@ -2755,7 +2755,7 @@ CMD:givecredits(playerid, params[])
 	}
 
 	new payload[264];
-	format(payload, sizeof(payload), "51.222.21.190:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/give_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
+	format(payload, sizeof(payload), "server.hyaxe.com:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/give_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
 	HTTP(to_player, HTTP_GET, payload, "", "StoreCreditsUpdate");
 
 	SendCmdLogToAdmins(playerid, "givecredits", params);
@@ -2776,7 +2776,7 @@ CMD:setcredits(playerid, params[])
 	}
 
 	new payload[264];
-	format(payload, sizeof(payload), "51.222.21.190:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/update_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
+	format(payload, sizeof(payload), "server.hyaxe.com:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/update_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
 	HTTP(to_player, HTTP_GET, payload, "", "StoreCreditsUpdate");
 
 	SendCmdLogToAdmins(playerid, "setcredits", params);
@@ -3220,7 +3220,7 @@ CMD:dreply(playerid, params[])
 	{
 		new payload[264];
 		format(payload, sizeof(payload), "{\"question\": \"%s\", \"answer\": \"%s\"}", PLAYER_TEMP[to_player][py_LAST_DOUBT], content);
-		HTTP(0, HTTP_POST, "51.222.21.190:6666/save_response", payload, "neuroadmin_BotLearning");
+		HTTP(0, HTTP_POST, "server.hyaxe.com:6666/save_response", payload, "neuroadmin_BotLearning");
 	}
 	return 1;
 }
@@ -3271,7 +3271,7 @@ CMD:muteard(playerid, params[])
 	{
 		new payload[264];
 		format(payload, sizeof(payload), "%s", PLAYER_TEMP[to_player][py_LAST_DOUBT]);
-		HTTP(0, HTTP_POST, "51.222.21.190:6666/save_bad_use", payload, "neuroadmin_BotLearning");
+		HTTP(0, HTTP_POST, "server.hyaxe.com:6666/save_bad_use", payload, "neuroadmin_BotLearning");
 	}
 	return 1;
 }

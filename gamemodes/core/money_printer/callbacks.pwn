@@ -7,7 +7,7 @@ public UpdateMoneyPrinters()
         {
             if (!IsPlayerConnected(MONEY_PRINTERS[i][mp_OWNER])) continue;
 
-            MONEY_PRINTERS[i][mp_HEALTH] -= mathfrandom(1.0, 3.0);
+            MONEY_PRINTERS[i][mp_HEALTH] -= mathfrandom(1.0, 7.0);
             if (MONEY_PRINTERS[i][mp_HEALTH] <= 0.0)
             {
                 MONEY_PRINTERS[i][mp_HEALTH] = 0.0;
@@ -16,7 +16,7 @@ public UpdateMoneyPrinters()
                 continue;
             }
 
-            new prize = minrand(100, 500);
+            new prize = minrand(100, 422);
             MONEY_PRINTERS[i][mp_CASH] += prize;
             GivePlayerCash(MONEY_PRINTERS[i][mp_OWNER], prize);
             UpdateMoneyPrinter(i);

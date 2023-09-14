@@ -7,7 +7,8 @@
 // Compilación
 #pragma option -(+
 #pragma option -;+
-#pragma option -O1
+//#pragma option -O1
+#pragma option -d3
 
 // Anti-DeAMX creado por Daniel-Cortez
 @___ww___@();
@@ -51,11 +52,13 @@ L1:
 #pragma warning disable 239
 #pragma warning disable 214
 
+#pragma dynamic 15000
+
 // Librerías
 #include <a_samp>
 
 #undef MAX_PLAYERS
-#define MAX_PLAYERS 150
+#define MAX_PLAYERS 1000
 
 // Server information
 #define SERVER_VERSION 			"Experimental v2.0" // Old: Legacy v0.9 Build 10
@@ -65,7 +68,7 @@ L1:
 
 // Features
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 //#define DM_MODE
 
 // Special events
@@ -80,7 +83,7 @@ L1:
 #include <ColAndreas>
 
 // Other Library
-#include <a_mysql>
+//#include <a_mysql>
 #include <physics>
 #include <a_http>
 #include <sscanf2>
@@ -2462,7 +2465,7 @@ public OnGameModeInit()
 	CA_Init();
 
 	// Server
-	SetGameModeText(SERVER_MODE);
+	SetGameModeText(SERVER_VERSION);
 
 	SendRconCommand("hostname Hyaxe Role Play [dev]");
 	SetTimer("UpdateMoneyPrinters", 40000, true);

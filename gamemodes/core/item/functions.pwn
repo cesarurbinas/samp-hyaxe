@@ -328,6 +328,8 @@ DeletePlayerItems(playerid)
 	);
 	db_free_result(db_query(Database, DB_Query));
 
+	AddPlayerItem(playerid, 34);
+	AddPlayerItem(playerid, 1, 5);
 	return 1;
 }
 

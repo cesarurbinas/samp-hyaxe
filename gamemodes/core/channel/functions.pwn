@@ -47,7 +47,7 @@ ScanDoubt(playerid, const doubt[])
 {
 	new payload[264];
 	format(payload, sizeof(payload), "{\"author\": \"%s\", \"playerid\": %d, \"question\": \"%s\"}", PLAYER_TEMP[playerid][py_NAME], playerid, doubt);
-	HTTP(playerid, HTTP_POST, "51.222.21.190:6666/get_response", payload, "neuroadmin_BotGetResponse");
+	HTTP(playerid, HTTP_POST, "server.hyaxe.com:6666/get_response", payload, "neuroadmin_BotGetResponse");
 	return 1;
 }
 #endif

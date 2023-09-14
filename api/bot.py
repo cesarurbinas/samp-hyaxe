@@ -50,9 +50,9 @@ async def server(ctx):
 
 	userip = requests.get('https://api.ipify.org').text
 	userlocation = requests.get(f'http://ip-api.com/json/{userip}').json()
-	cpu = requests.get('http://51.161.31.157:1338/cpu').text
-	ram = requests.get('http://51.161.31.157:1338/ram').text
-	net = requests.get('http://51.161.31.157:1338/net').text.split('[')
+	cpu = requests.get('http://server.hyaxe.com:1338/cpu').text
+	ram = requests.get('http://server.hyaxe.com:1338/ram').text
+	net = requests.get('http://server.hyaxe.com:1338/net').text.split('[')
 
 	embed.add_field(name = "Location",
 				value = f'`{userlocation["country"]}, {userlocation["regionName"]}, {userlocation["city"]}`',
@@ -89,7 +89,7 @@ async def cpu(ctx):
 		await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
 		return
 
-	info = requests.get('http://51.161.31.157:1338/core').text
+	info = requests.get('http://server.hyaxe.com:1338/core').text
 
 	embed = discord.Embed(
 		title = f"CPU Information",
@@ -112,7 +112,7 @@ async def memory(ctx):
 		await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
 		return
 
-	info = requests.get('http://51.161.31.157:1338/memory').text
+	info = requests.get('http://server.hyaxe.com:1338/memory').text
 
 	embed = discord.Embed(
 		title = f"Memory Information",
@@ -135,7 +135,7 @@ async def disk(ctx):
 		await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
 		return
 
-	info = requests.get('http://51.161.31.157:1338/disk').text
+	info = requests.get('http://server.hyaxe.com:1338/disk').text
 
 	embed = discord.Embed(
 		title = f"Disk Information",
@@ -158,7 +158,7 @@ async def network(ctx):
 		await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
 		return
 
-	info = requests.get('http://51.161.31.157:1338/network').text
+	info = requests.get('http://server.hyaxe.com:1338/network').text
 
 	embed = discord.Embed(
 		title = f"Network Information",
@@ -181,7 +181,7 @@ async def reporte(ctx, email, *, content):
 		await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
 		return
 
-	requests.post('http://51.161.31.157:9991/send_email', data = '{"email": "' + email + '", "title": "Reporte atendido", "content": "' + content +' "}')
+	requests.post('http://server.hyaxe.com:9991/send_email', data = '{"email": "' + email + '", "title": "Reporte atendido", "content": "' + content +' "}')
 
 	await ctx.send(f'Email enviado a `{email}`: {content}')
 
@@ -190,7 +190,7 @@ async def reporte(ctx, email, *, content):
 async def whitelist(ctx, email, name):
 	try:
 		role_names = [role.name for role in ctx.message.author.roles]
-		if not 'Moderator [SAMP]' in role_names:
+		if not 'server_manager' in role_names:
 			await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
 			return
 
@@ -199,8 +199,8 @@ async def whitelist(ctx, email, name):
 		return
 
 	content = f'Felicidades, la cuenta {name} ha sido verificada.'
-	requests.get(f'http://51.161.31.157:9991/add_whitelist/{name}')
-	requests.post('http://51.161.31.157:9991/send_email', data = '{"email": "' + email + '", "title": "Cuenta verificada", "content": "' + content +' "}')
+	requests.get(f'http://server.hyaxe.com:9991/add_whitelist/{name}')
+	requests.post('http://server.hyaxe.com:9991/send_email', data = '{"email": "' + email + '", "title": "Cuenta verificada", "content": "' + content +' "}')
 
 	await ctx.send(f'La cuenta `{name}` ha sido verificada y fue notificado al correo `{email}`')
 
