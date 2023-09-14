@@ -15,35 +15,39 @@ public OnYouTubeQueryResponse(playerid, response_code, data[])
 	printf("OnYouTubeQueryResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
 	if (!PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return 1;
 
-	if (response_code == 200)
+	if(response_code != 200)
 	{
-		new Node:vidata, results, Node:arr_data, length;
-		JSON_Parse(data, vidata);
-		JSON_GetInt(vidata, "result_count", results);
-		JSON_GetArray(vidata, "results", arr_data);
-		JSON_ArrayLength(arr_data, length);
-
-		new dialog[250 * 10], line[250];
-		format(dialog, sizeof(dialog), ""COL_WHITE"Subido por\t"COL_WHITE"Título\n");
-		for(new i = 0; i < length; i++)
-		{
-			new Node:object;
-			JSON_ArrayObject(arr_data, i, object);
-			JSON_GetString(object, "id", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_ID]);
-			JSON_GetString(object, "title", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
-			JSON_GetString(object, "uploaded_by", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED]);
-			format(line, sizeof(line), "%s\t%s\n", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED], PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
-			strcat(dialog, line);
-		}
-
-		PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
-		ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", results), dialog, "Selecc.", "Cancelar");
-	}
-	else
-	{
-		ShowPlayerMessage(playerid, "~r~No se pudo procesar su busqueda.", 3);
 		PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
+
+		switch(response_code)
+		{
+			case 403: return ShowPlayerMessage(playerid, "~r~No pudimos reproducir esta canción", 4);
+			case 429: return ShowPlayerNotification(playerid, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.", 6);
+			default: return ShowPlayerMessage(playerid, "~r~No pudimos reproducir esta canción, intenta nuevamente en un minuto.", 4);
+		}
 	}
+
+	new Node:vidata, results, Node:arr_data, length;
+	JSON_Parse(data, vidata);
+	JSON_GetInt(vidata, "result_count", results);
+	JSON_GetArray(vidata, "results", arr_data);
+	JSON_ArrayLength(arr_data, length);
+
+	new dialog[250 * 10], line[250];
+	format(dialog, sizeof(dialog), ""COL_WHITE"Subido por\t"COL_WHITE"Título\n");
+	for(new i = 0; i < length; i++)
+	{
+		new Node:object;
+		JSON_ArrayObject(arr_data, i, object);
+		JSON_GetString(object, "id", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_ID]);
+		JSON_GetString(object, "title", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
+		JSON_GetString(object, "uploaded_by", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED]);
+		format(line, sizeof(line), "%s\t%s\n", PLAYER_DIALOG_MP3_RESULT[playerid][i][result_UPLOADED], PLAYER_DIALOG_MP3_RESULT[playerid][i][result_NAME]);
+		strcat(dialog, line);
+	}
+
+	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = false;
+	ShowPlayerDialog(playerid, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_TABLIST_HEADERS, sprintf(""COL_RED"%d resultados", results), dialog, "Selecc.", "Cancelar");
 
 	return 1;
 }
