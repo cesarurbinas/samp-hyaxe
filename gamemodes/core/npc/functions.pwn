@@ -67,3 +67,35 @@ ExitPilotsNpc()
 	}
     return 1;
 }
+
+TrainDriverNextPlayback(index)
+{
+	switch(TrainDriverPlaybackCycle[index])
+    {
+		case 0: FCNPC_StartPlayingPlayback(TrainDriverNPCs[index], "train_ls_to_sf");
+		case 1: FCNPC_StartPlayingPlayback(TrainDriverNPCs[index], "train_sf_to_lv");
+		case 2: FCNPC_StartPlayingPlayback(TrainDriverNPCs[index], "train_lv_to_ls");
+	}
+
+	TrainDriverPlaybackCycle[index] ++;
+	if (TrainDriverPlaybackCycle[index] == 3)
+		TrainDriverPlaybackCycle[index] = 0;
+
+    return 1;
+}
+
+PilotNextPlayback(index)
+{
+	switch(PilotPlaybackCycle[index])
+    {
+		case 0: FCNPC_StartPlayingPlayback(PilotNPCs[index], "at400_ls_to_lv");
+		case 1: FCNPC_StartPlayingPlayback(PilotNPCs[index], "at400_lv_to_sf");
+		case 2: FCNPC_StartPlayingPlayback(PilotNPCs[index], "at400_sf_to_ls");
+	}
+
+	PilotPlaybackCycle[index] ++;
+	if (PilotPlaybackCycle[index] == 3)
+        PilotPlaybackCycle[index] = 0;
+
+    return 1;
+}
