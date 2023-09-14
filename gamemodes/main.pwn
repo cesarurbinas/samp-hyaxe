@@ -33728,7 +33728,7 @@ CMD:cagar(playerid, params[])
 	GetPlayerPos(playerid, x, y, z);
 
 	new shit_particle = CreateDynamicObject(18678, x, y, z - 2.8, 0.0, 0.0, 0.0);
-	SetTimerEx("DestroyShitObject", 1000, false, "i", shit_particle);
+	SetTimerEx("DestroyParticleObject", 1000, false, "i", shit_particle);
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Se baja los pantalones para cagar.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	PLAYER_TEMP[playerid][py_LIMIT_SHIT] = gettime();
