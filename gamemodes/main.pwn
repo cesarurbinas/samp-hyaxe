@@ -29336,7 +29336,7 @@ CMD:dimitir(playerid, params[])
 }
 alias:dimitir("renunciar");
 
-CMD:aparcar(playerid, params[])
+SetPlayerVehiclePark(playerid)
 {
 	new vehicleid = INVALID_VEHICLE_ID;
 	if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER || GetPlayerState(playerid) == PLAYER_STATE_PASSENGER) vehicleid = GetPlayerVehicleID(playerid);
@@ -29359,10 +29359,9 @@ CMD:aparcar(playerid, params[])
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] = 0;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_DOORS] = 1;
 	UpdateVehicleParams(vehicleid);
-	ShowPlayerMessage(playerid, "Has estacionado tu vehículo, cuando sea destruido o spawneado volverá a aparecer aquí.", 3);
+	ShowPlayerNotification(playerid, "Has estacionado tu vehículo, cuando sea destruido o spawneado volverá a aparecer aquí.", 5);
 	return 1;
 }
-alias:aparcar("estacionar");
 
 /*CMD:luces(playerid, params[])
 {
