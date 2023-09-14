@@ -183,6 +183,7 @@ inv_AccommodatePropertyItems(playerid, property_id)
 				td_ammount = td_init + 12,
 				type = db_get_field_assoc_int(Result, "TYPE"),
 				extra = db_get_field_assoc_int(Result, "EXTRA"),
+				id = db_get_field_assoc_int(Result, "ID"),
 				Float:rot[4]
 			;
 
@@ -207,7 +208,7 @@ inv_AccommodatePropertyItems(playerid, property_id)
 			PROPERTY_VISUAL_INV[playerid][slot_VALID][i] = true;
 			PROPERTY_VISUAL_INV[playerid][slot_TYPE][i] = type;
 			PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][i] = extra;
-			PROPERTY_VISUAL_INV[playerid][slot_DB_ID][i] = db_get_field_assoc_int(Result, "ID");
+			PROPERTY_VISUAL_INV[playerid][slot_DB_ID][i] = id;
 
 			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] ++;
 			db_next_row(Result);
