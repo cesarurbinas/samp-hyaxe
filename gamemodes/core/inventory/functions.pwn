@@ -1595,7 +1595,6 @@ UseItemSlot(playerid)
 
 		case 1:
 		{
-			if (PlayerAlreadyHasItem(playerid, 1)) return ShowPlayerMessage(playerid, "~r~No tienes medicamentos.", 3);
 			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_REMEDY]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir medicamentos.", 3);
 
 			SubtractItem(playerid, 1);
@@ -1612,7 +1611,6 @@ UseItemSlot(playerid)
 
 		case 2:
 		{
-			if (PlayerAlreadyHasItem(playerid, 2)) return ShowPlayerMessage(playerid, "~r~No tienes vendas.", 3);
 			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_BAND]) < 10) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 10 segundos para volver a usar vendas.", 3);
 
 			SubtractItem(playerid, 2);
@@ -1627,7 +1625,6 @@ UseItemSlot(playerid)
 
 		case 3:
 		{
-			if (PlayerAlreadyHasItem(playerid, 3)) return ShowPlayerMessage(playerid, "~r~No tienes marihuana.", 3);
 			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
 
 			SubtractItem(playerid, 3);
@@ -1642,7 +1639,6 @@ UseItemSlot(playerid)
 
 		case 4:
 		{
-			if (PlayerAlreadyHasItem(playerid, 4)) return ShowPlayerMessage(playerid, "~r~No tienes crack.", 3);
 			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_CRACK]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir crack.", 3);
 
 			SubtractItem(playerid, 4);
@@ -1767,7 +1763,6 @@ UseItemSlot(playerid)
 
 		case 42:
 		{
-			if (PlayerAlreadyHasItem(playerid, 42)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			SubtractItem(playerid, 42);
 			SavePlayerMisc(playerid);
 
@@ -1777,7 +1772,6 @@ UseItemSlot(playerid)
 
 		case 43:
 		{
-			if (PlayerAlreadyHasItem(playerid, 43)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			SubtractItem(playerid, 43);
 			SavePlayerMisc(playerid);
 
@@ -1787,7 +1781,6 @@ UseItemSlot(playerid)
 
 		case 44:
 		{
-			if (PlayerAlreadyHasItem(playerid, 44)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			SubtractItem(playerid, 44);
 			SavePlayerMisc(playerid);
 
@@ -1797,7 +1790,6 @@ UseItemSlot(playerid)
 
 		case 45:
 		{
-			if (PlayerAlreadyHasItem(playerid, 45)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			SubtractItem(playerid, 45);
 			SavePlayerMisc(playerid);
 
@@ -1807,7 +1799,6 @@ UseItemSlot(playerid)
 
 		case 46:
 		{
-			if (PlayerAlreadyHasItem(playerid, 46)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			SubtractItem(playerid, 46);
 			SavePlayerMisc(playerid);
 
@@ -1817,7 +1808,6 @@ UseItemSlot(playerid)
 
 		case 47:
 		{
-			if (PlayerAlreadyHasItem(playerid, 47)) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			SubtractItem(playerid, 47);
 			SavePlayerMisc(playerid);
 
