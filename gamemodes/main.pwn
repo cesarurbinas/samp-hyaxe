@@ -8956,10 +8956,10 @@ CMD:intentar(playerid, params[])
     	status[15]
     ;
 
-    switch( minrand(0, 1) )
+    switch( minrand(0, 2) )
     {
     	case 0: format(status, sizeof(status), "falla");
-    	case 1: format(status, sizeof(status), "lo logra");
+    	default: format(status, sizeof(status), "lo logra");
     }
     
     format(str_text, sizeof(str_text), "* %s intenta %s y %s.", PLAYER_TEMP[playerid][py_RP_NAME], params, status);
