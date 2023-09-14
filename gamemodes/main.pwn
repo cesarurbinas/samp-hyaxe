@@ -3177,6 +3177,8 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
         BS_IgnoreBits(bs, 8);
         BS_ReadOnFootSync(bs, onFootData);
 
+        SendClientMessageEx(playerid, -1, "%f", GetPlayerSpeed(playerid));
+
         if (onFootData[PR_surfingVehicleId] != 0 && onFootData[PR_surfingVehicleId] != INVALID_VEHICLE_ID)
         {
             if ((floatabs(onFootData[PR_surfingOffsets][0]) >= 50.0) ||
@@ -33425,7 +33427,7 @@ CMD:hablar(playerid, params[])
 	return 1;
 }
 
-GetPlayerVehicleAvaibleBootSlot(vehicleid)
+/*GetPlayerVehicleAvaibleBootSlot(vehicleid)
 {
 	new max_slots = VEHICLE_INFO[GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_BOOT_SLOTS];
 	if (max_slots > MAX_BOOT_SLOTS) max_slots = MAX_BOOT_SLOTS;
@@ -33469,7 +33471,7 @@ SavePlayerWeaponInVehicleBoot(playerid, weapon_slot, vehicleid, boot_slot)
 	return 1;
 }
 
-/*CMD:guardar(playerid, params[])
+CMD:guardar(playerid, params[])
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
