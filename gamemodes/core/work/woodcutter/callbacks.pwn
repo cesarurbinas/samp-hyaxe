@@ -204,7 +204,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				if(PLAYER_TEMP[playerid][py_CUTTING] != -1 && Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPING])
 				{
-					PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] += 5;
+					PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] += 8;
 
 					new Float:size = (382.0 + PLAYER_TEMP[playerid][py_CUTTING_PROGRESS]);
 
