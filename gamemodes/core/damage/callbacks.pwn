@@ -160,7 +160,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 	if (issuerid != INVALID_PLAYER_ID && weaponid == 23)
 	{
 	   SetPlayerChatBubble(playerid, "\n\n\n\n* Cae al piso al recibir el choque eléctrico de un tazer.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	   FreezePlayer(playerid, 15000);
+	   FreezePlayer(playerid, 30000);
 	   ApplyAnimation(playerid,"PED","BIKE_fallR",4.0,0,1,1,1,0);
        ShowPlayerMessage(playerid, "~y~Te dieron una descarga eléctrica con un Tazer.", 3);
 	   return 1;
