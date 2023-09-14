@@ -2813,7 +2813,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 					SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
 					SetPlayerMarkerForPlayer(playerid, i, PLAYER_COLOR);
 
-					GivePlayerCash(i, 1000 + (300 * PLAYER_TEMP[i][py_MISSION_POINTS]));
+					GivePlayerCash(i, 1000 + (400 * PLAYER_TEMP[i][py_MISSION_POINTS]));
 					Cancel_GPS(i);
 					PLAYER_TEMP[i][py_IN_MISSION] = false;
 				}
@@ -3821,7 +3821,7 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 				if (PLAYER_TEMP[playerid][py_MISSION] == SWEET_MISSION)
 				{
 					// Give mission participation points
-					PLAYER_TEMP[playerid][py_MISSION_POINTS] ++;
+					PLAYER_TEMP[playerid][py_MISSION_POINTS] += 5;
 					DestroyDynamicPickup(pickupid);
 
 					// Come back

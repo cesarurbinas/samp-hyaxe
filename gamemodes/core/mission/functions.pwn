@@ -92,6 +92,7 @@ MissionFailed(playerid, bool:disconnected = false)
                 else ShowPlayerNotification(i, sprintf("%s se ha ido la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
                 
                 SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
+                SetPlayerMarkerForPlayer(playerid, i, PLAYER_COLOR);
                 players_in_mission ++;
             }
         }
@@ -115,10 +116,10 @@ MissionFailed(playerid, bool:disconnected = false)
                 {
                     FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 1);
                 }
-            }
 
-            // Delete pickup
-            DestroyDynamicPickup(START_MISSION[SWEET_MISSION][ems_PICKUP]);
+                // Delete pickup
+                DestroyDynamicPickup(START_MISSION[SWEET_MISSION][ems_PICKUP]);
+            }
         }
     }
 }
@@ -321,5 +322,11 @@ CheckMissionPlace(playerid)
             }
         }
     }
+    return 1;
+}
+
+CMD:cancelarmision(playerid, params[])
+{
+    MissionFailed(playerid);
     return 1;
 }
