@@ -7751,7 +7751,15 @@ public OnGameModeInit()
 
     // Server
 	SetGameModeText(SERVER_MODE);
-	SendRconCommand("hostname "SERVER_HOSTNAME"");
+	
+	#if defined FINAL_BUILD
+		SetTimer("GiveAutoGift", 300000, false);
+		SendRconCommand("hostname "SERVER_HOSTNAME"");
+    	//SetTimer("SendGift", 120000, true);
+    	
+	#endif
+
+    SendRconCommand("hostname Hyaxe Roleplay | Developer mode");
 
 	#if defined HALLOWEEN_MODE
 		SendRconCommand("hostname "HALLOWEEN_HOSTNAME"");
@@ -7813,6 +7821,7 @@ public OnGameModeInit()
 	
 =======
 
+<<<<<<< HEAD
 	#if defined FINAL_BUILD
 		SetTimer("GiveAutoGift", 300000, false);
     	//SetTimer("SendGift", 120000, true);
@@ -7822,6 +7831,8 @@ public OnGameModeInit()
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);	
 >>>>>>> 119039e (oooo chad on da house)
 =======
+=======
+>>>>>>> aadac42 (bugsfixes)
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 <<<<<<< HEAD
 	SetTimer("InitLastGraffiti", 120000, false);
@@ -27970,30 +27981,48 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 		type = Streamer_GetIntData(STREAMER_TYPE_ACTOR, actorid, E_STREAMER_EXTRA_ID);
 		GetDynamicActorHealth(actorid, actual_health);
 
-		new_health = (amount - actual_health);
+		//new_health = actual_health - (amount / 2);
+		new_health = (actual_health - amount);
 		if (new_health <= 0.0)
 		{
 			// Death
 			new_health = 0.0;
 
 			ActorBloodParticle(actorid);
-			ApplyDynamicActorAnimation(actorid, "CRACK", "CRCKIDLE1", 4.0, 1, 1, 1, 0, 0);
+			ApplyDynamicActorAnimation(actorid, "WUZI", "CS_Dead_Guy", 4.0, 1, 1, 1, 0, 0);
 
-			SetActorRespawnTime(actorid, 60000);
-
-			// Player
-			if (GetPlayerInterior(playerid) != 0)
+			switch(type)
 			{
-				SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 2);
-				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Homicidio");
-				ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Homicidio", 5);	
+				case ACTOR_TYPE_SHOP
+				{
+					SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 2);
+					format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Homicidio");
+					ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Homicidio", 5);	
+				}
+				case ACTOR_TYPE_DEALER:
+				{
+					// In-Front special drop
+					if (rangom(2) == 1)
+					{
+						new Float:angle, Float:x, Float:y, Float:z;
+						GetDynamicActorFacingAngle(actorid, angle);
+						GetDynamicActorPos(actorid, x, y, z);
+
+						GetXYFromAngle(x, y, angle, 1.1);
+						CreateDropItem(GetItemObjectByType(22), x, y, z, 0.0, 0.0, 0.0, 0, 0, GetItemNameByType(22), PLAYER_TEMP[playerid][py_NAME], 22, minrand(10, 50));
+					}
+
+					// Money drop
+					MoneyDrop(12, x, y, z);
+				}
 			}
 
-			SetTimerEx("RespawnDynamicActor", 30000, false, "id", actorid, type);
+			SetTimerEx("RespawnDynamicActor", 120000, false, "id", actorid, type);
 			SetDynamicActorInvulnerable(actorid, true);
 		}
 		
 		SetDynamicActorHealth(actorid, new_health);
+		SendClientMessageEx(playerid, -1, "amount: %f, actual: %f, new: %f", amount, actual_health, new_health);
 	}
 	return 1;
 }
@@ -28008,6 +28037,12 @@ public RespawnDynamicActor(actorid, type)
 		case ACTOR_TYPE_DEALER:
 		{
 			ApplyDynamicActorAnimation(actorid, "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
+			SetDynamicActorInvulnerable(actorid, false);
+			return 1;
+		}
+		case ACTOR_TYPE_SHOP:
+		{
+			SetDynamicActorInvulnerable(actorid, false);
 			return 1;
 		}
 	}
@@ -28037,60 +28072,65 @@ CheckRobActor(playerid)
 					if (IsPlayerInRangeOfPoint(playerid, 50.0, -198.002197, -1762.759643, 675.768737)) return 0;
 					if (!a_TMP[ActorTarget][a_IN_ROB] && GetPlayerWeapon(playerid) >= 22 && GetPlayerWeapon(playerid) <= 33 && keys & KEY_HANDBRAKE)
 					{
-						if ((gettime() - a_TMP[ActorTarget][a_LAST_ROB]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Este negocio ya fue robado recientemente", 3);
+						new Float:health;
+						GetDynamicActorHealth(ActorTarget, health);
+						if (health > 0.0)
 						{
-							if ((gettime() - a_TMP[ActorTarget][a_IN_ROB_PROGRESS]) < 2) return 0;
-							
-							new str_text[128];
-							if (PLAYER_TEMP[playerid][py_ROB_PROGRESS] > maxprogress)
+							if ((gettime() - a_TMP[ActorTarget][a_LAST_ROB]) < 60 * 5) return ShowPlayerMessage(playerid, "~r~Este negocio ya fue robado recientemente", 3);
 							{
-								SetActorChatBubble(ActorTarget, "{E6E6E6}¡Ya le he dado todo!", 0xE6E6E600, 5.0, 3000);
-								SetActorRespawnTime(ActorTarget, 15000);
-								ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
-								ShowPlayerNotification(playerid, "La policía viene en camino, es mejor que corras.", 3);
-								PLAYER_TEMP[playerid][py_ROB_PROGRESS] = 0;
-								a_TMP[ActorTarget][a_LAST_ROB] = gettime() + 5; // Fix delay
-								a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime() + 5;
-								PLAYER_TEMP[playerid][py_INITIAL_ROB] = false;
-								return 1;
-							}
-
-							if (PLAYER_TEMP[playerid][py_INITIAL_ROB] == false)
-							{
-								PLAYER_TEMP[playerid][py_INITIAL_ROB] = true;
-								ShowPlayerNotification(playerid, "Apuntale al vendedor hasta que te de todo el dinero de la caja.", 4);
-								SetActorChatBubble(ActorTarget, "{E6E6E6}¡No me lastime por favor!\n¡Le daré el dinero!", 0xE6E6E600, 5.0, 3000);
-								ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
-								SetPlayerPoliceSearchLevel(playerid, 1);
-
-								new
-									city[45],
-									zone[45],
-									message[144]
-								;
-
-							    GetPointZone(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X], ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y], city, zone);
-							    format(message, sizeof message, "~r~%s~w~ esta robando un negocio (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
-							    format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Robo");
-							    ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Robo", 5);
-							    SendPoliceNotification(message, 6);
-
-								a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
-								return 0;
-							}
+								if ((gettime() - a_TMP[ActorTarget][a_IN_ROB_PROGRESS]) < 2) return 0;
 								
-							GivePlayerCash(playerid, randompay);
-							PLAYER_TEMP[playerid][py_ROB_PROGRESS] ++;
+								new str_text[128];
+								if (PLAYER_TEMP[playerid][py_ROB_PROGRESS] > maxprogress)
+								{
+									SetActorChatBubble(ActorTarget, "{E6E6E6}¡Ya le he dado todo!", 0xE6E6E600, 5.0, 3000);
+									SetActorRespawnTime(ActorTarget, 15000);
+									ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
+									ShowPlayerNotification(playerid, "La policía viene en camino, es mejor que corras.", 3);
+									PLAYER_TEMP[playerid][py_ROB_PROGRESS] = 0;
+									a_TMP[ActorTarget][a_LAST_ROB] = gettime() + 5; // Fix delay
+									a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime() + 5;
+									PLAYER_TEMP[playerid][py_INITIAL_ROB] = false;
+									return 1;
+								}
 
-							ApplyActorAnimation(ActorTarget, "INT_SHOP", "shop_cashier", 4.1, 1, 0, 0, 1, 0);
-							a_TMP[ActorTarget][a_IN_ROB] = true;
+								if (PLAYER_TEMP[playerid][py_INITIAL_ROB] == false)
+								{
+									PLAYER_TEMP[playerid][py_INITIAL_ROB] = true;
+									ShowPlayerNotification(playerid, "Apuntale al vendedor hasta que te de todo el dinero de la caja.", 4);
+									SetActorChatBubble(ActorTarget, "{E6E6E6}¡No me lastime por favor!\n¡Le daré el dinero!", 0xE6E6E600, 5.0, 3000);
+									ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
+									SetPlayerPoliceSearchLevel(playerid, 1);
 
-							format(str_text, sizeof(str_text), "{E6E6E6}* Le da a %s {85DA74}%d$", PLAYER_TEMP[playerid][py_NAME], randompay);
-							SetActorChatBubble(ActorTarget, str_text, 0xE6E6E600, 5.0, 3000);
+									new
+										city[45],
+										zone[45],
+										message[144]
+									;
+
+								    GetPointZone(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X], ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y], city, zone);
+								    format(message, sizeof message, "~r~%s~w~ esta robando un negocio (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+								    format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Robo");
+								    ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Robo", 5);
+								    SendPoliceNotification(message, 6);
+
+									a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
+									return 0;
+								}
+									
+								GivePlayerCash(playerid, randompay);
+								PLAYER_TEMP[playerid][py_ROB_PROGRESS] ++;
+
+								ApplyActorAnimation(ActorTarget, "INT_SHOP", "shop_cashier", 4.1, 1, 0, 0, 1, 0);
+								a_TMP[ActorTarget][a_IN_ROB] = true;
+
+								format(str_text, sizeof(str_text), "{E6E6E6}* Le da a %s {85DA74}%d$", PLAYER_TEMP[playerid][py_NAME], randompay);
+								SetActorChatBubble(ActorTarget, str_text, 0xE6E6E600, 5.0, 3000);
 
 
-							a_TMP[ActorTarget][a_IN_ROB] = false;
-							a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
+								a_TMP[ActorTarget][a_IN_ROB] = false;
+								a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
+							}
 						}
 					}
 				}
@@ -28748,7 +28788,8 @@ CreateInteriorActor(interior_type, world, interior)
 		}
 	}
 
-	CreateDynamicActor(skin, x, y, z, angle, false, 50.0, world, interior);
+	new actor = CreateDynamicActor(skin, x, y, z, angle, false, 50.0, world, interior);
+	Streamer_SetIntData(STREAMER_TYPE_ACTOR, actor, E_STREAMER_EXTRA_ID, ACTOR_TYPE_SHOP);
 	return 1;
 }
 

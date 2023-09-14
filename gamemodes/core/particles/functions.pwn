@@ -112,7 +112,7 @@ ActorBloodParticle(actorid)
 	new Float:x, Float:y, Float:z;
 	GetDynamicActorPos(actorid, x, y, z);
 
-	for(new i = 0, j = 5; i <= j; i++)
+	for(new i = 0, j = 8; i <= j; i++)
 	{
 		new
 			blood_particle,
