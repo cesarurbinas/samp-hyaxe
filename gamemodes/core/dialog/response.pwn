@@ -99,7 +99,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (!strcmp(password, ACCOUNT_INFO[playerid][ac_PASS], false))
 			{
 				SetPlayerScreenColour(playerid, 0x000000FF);
-				FadePlayerScreenColour(playerid, 0x00000000, 3000, 30);
 
 				LoadPlayerMisc(playerid);
 
@@ -164,6 +163,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
 				format(PLAYER_TEMP[playerid][py_PASSWORD], MAX_PASS_LENGTH, "%s", inputtext);
 				Log("obj", pass_str);
+
+				FadePlayerScreenColour(playerid, 0x00000000, 2000, 50);
 			}
 			else // Error
 			{

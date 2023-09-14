@@ -1663,7 +1663,7 @@ public OnPlayerSpawn(playerid)
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 						PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-						DeleteIlegalItems(playerid);
+						DeleteIlegalItems(playerid, false);
 
 						new random_pos = minrand(0, 12); 
 						PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
@@ -1825,7 +1825,7 @@ public OnPlayerSpawn(playerid)
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 						PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-						DeleteIlegalItems(playerid);
+						DeleteIlegalItems(playerid, false);
 
 						ClearPlayerChatBox(playerid);
 						if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
@@ -6060,6 +6060,9 @@ public ContinuePlayerIntro(playerid, step)
 		}
 		case 1:
 		{
+			SetPlayerScreenColour(playerid, 0x000000FF);
+			FadePlayerScreenColour(playerid, 0x00000000, 4000, 50);
+
 			SavePlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay");
 
 			StopAudioStreamForPlayer(playerid);

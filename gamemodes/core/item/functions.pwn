@@ -316,7 +316,7 @@ PlayerAlreadyHasItem(playerid, type)
 	return false;
 }
 
-DeleteIlegalItems(playerid)
+DeleteIlegalItems(playerid, drugs = true)
 {
 	if (PLAYER_WORKS[playerid][WORK_POLICE]) return 0;
 	
@@ -337,7 +337,16 @@ DeleteIlegalItems(playerid)
 			id = db_get_field_assoc_int(Result, "ID");
 			type = db_get_field_assoc_int(Result, "TYPE");
 			
-			if (IsWeaponType(type) || IsDrugType(type))
+			if (IsWeaponType(type))
+			{
+				format(DB_Query, sizeof DB_Query,
+					"DELETE FROM `PLAYER_INVENTORY` WHERE `ID` = '%d';",
+					id
+				);
+				db_free_result(db_query(Database, DB_Query));
+			}
+
+			if (drugs && IsDrugType(type))
 			{
 				format(DB_Query, sizeof DB_Query,
 					"DELETE FROM `PLAYER_INVENTORY` WHERE `ID` = '%d';",
