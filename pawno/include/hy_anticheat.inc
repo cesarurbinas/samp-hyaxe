@@ -7956,7 +7956,7 @@ public OnPlayerRequestSpawn(playerid)
 		if(!IsPlayerConnected(playerid) || GetVehicleModel(vehicleid) <= 0) return 0;
 		new BitStream:bs = BS_New();
 		BS_WriteValue(bs, PR_UINT16, vehicleid, PR_FLOAT, x, PR_FLOAT, y, PR_FLOAT, z);
-		BS_RPC(bs, playerid, 159);
+		PR_SendRPC(bs, playerid, 159);
 		BS_Delete(bs);
 		return 1;
 	}
@@ -7966,7 +7966,7 @@ public OnPlayerRequestSpawn(playerid)
 		if(!IsPlayerConnected(playerid) || GetVehicleModel(vehicleid) <= 0) return 0;
 		new BitStream:bs = BS_New();
 		BS_WriteValue(bs, PR_UINT16, vehicleid, PR_FLOAT, z_angle);
-		BS_RPC(bs, playerid, 160);
+		PR_SendRPC(bs, playerid, 160);
 		BS_Delete(bs);
 		return 1;
 	}
