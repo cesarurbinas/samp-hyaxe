@@ -25200,6 +25200,7 @@ AddPlayerPoliceHistory(playerid, const by[], const reason[])
 	return 1;
 }
 
+<<<<<<< HEAD
 flags:ufo(CMD_MODERATOR)
 flags:staff(CMD_HELPER)
 flags:setveh(CMD_MODERATOR)
@@ -25327,6 +25328,8 @@ flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_OWNER)
 flags:depositveh(CMD_MODERATOR)
 
+=======
+>>>>>>> a47e1e7 (command flags)
 // Dialogs
 #include "core/dialog/show.pwn"
 #include "core/dialog/response.pwn"
