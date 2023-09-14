@@ -14,11 +14,7 @@ Listado de cosas para hacer
 
 ❌ Actualizar el menu de ayuda
 
-❌ Actualizar el GPS
-
 ❌ Cambiar el inventario
-
-❌ Agregar mas slots al inventario
 
 ❌ Agregar mochilas
 
@@ -84,6 +80,8 @@ Listado de cosas para hacer
 
 ❌ Agregar trabajo taxi
 
+❌ Cambiar sistema de bidon de gasolina
+
 ❌ Agregar trabajo de conductor de bus
 
 ❌ Agregar tintes para armas
@@ -106,9 +104,7 @@ Listado de cosas para hacer
 
 ❌ Ajustar el requisar y revisar a los nuevos items
 
-❌ Ir cambiando los slots del inv con F
-
-❌ Poder seleccionar de que forma se ordena el inventario
+✅ Poder seleccionar de que forma se ordena el inventario
 
 ✅ Arreglar altura de paracaidas, calabaza y regalo
 

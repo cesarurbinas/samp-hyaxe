@@ -821,11 +821,6 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Gasolinera", ""COL_WHITE"Ingrese la cantidad a cargar, cada litro cuesta 5$.", "Cargar", "Cerrar");
 			return 1;
 		}
-		case DIALOG_FUEL_DRUM:
-		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Poner gasolina", ""COL_WHITE"Ingrese la cantidad a cargar desde su bidón de gasolina.", "Cargar", "Cerrar");
-			return 1;
-		}
 		case DIALOG_PROPERTY_OPTIONS:
 		{
 			new caption[40];

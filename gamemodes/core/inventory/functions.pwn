@@ -1674,11 +1674,20 @@ UseItemSlot(playerid)
 
 			if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
 			{
-				ShowPlayerNotification(playerid, "Por favor, para primero el motor del vehí­culo.", 3);
+				ShowPlayerNotification(playerid, "Primero tienes que detener el motor del vehí­culo.", 3);
 				return 1;
 			}
 
-			ShowDialog(playerid, DIALOG_FUEL_DRUM);
+			new Float:ammount = 20.0;
+			if (ammount + GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] > GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS]) ammount = GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS] - GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS];
+
+			GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] += ammount;
+			SubtractItem(playerid, 5);
+
+			format(str_text, sizeof(str_text), "Has vertido ~r~%.1f~w~ litros del bidón.", ammount);
+			ShowPlayerMessage(playerid, str_text, 5);
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Ha puesto gasolina en el vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			
 			ResetItemBody(playerid);
 			return 1;
 		}

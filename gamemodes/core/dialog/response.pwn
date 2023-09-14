@@ -1651,40 +1651,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			return 1;
 		}
-		/*case DIALOG_FUEL_DRUM:
-		{
-			if (response)
-			{
-				if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del vehículo para vertir el bidón.", 3);
-
-				new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-				if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No estás cerca de ningún vehículo.", 3);
-				if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehículo.", 3);
-
-				if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
-				{
-					ShowPlayerNotification(playerid, "Por favor, para primero el motor del vehículo.", 3);
-					return 1;
-				}
-
-				new ammount_load, str_text[128];
-
-				if (sscanf(inputtext, "d", ammount_load)) return ShowPlayerMessage(playerid, "~r~Cantidad de litros no válida.", 3);
-				if (ammount_load <= 0) return ShowPlayerMessage(playerid, "~r~Cantidad de litros no válida.", 3);
-				if (ammount_load > PLAYER_MISC[playerid][MISC_FUEL_DRUM]) return ShowPlayerNotification(playerid, "No te alcanza para llenar el tanque.", 3);
-
-				new Float:ammount = float(ammount_load);
-				if (ammount + GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] > GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS]) ammount = GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS] - GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS];
-
-				PLAYER_MISC[playerid][MISC_FUEL_DRUM] -= floatround(ammount);
-				GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] += ammount;
-
-				format(str_text, sizeof(str_text), "Has vertido ~r~%.1f~w~ litros del bidón, te quedan ~r~%d.0~w~ litros.", ammount, PLAYER_MISC[playerid][MISC_FUEL_DRUM]);
-				ShowPlayerMessage(playerid, str_text, 5);
-				SetPlayerChatBubble(playerid, "\n\n\n\n* Ha puesto gasolina el vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			}
-			return 1;
-		}*/
 		case DIALOG_PROPERTY_OPTIONS:
 		{
 			if (response)
