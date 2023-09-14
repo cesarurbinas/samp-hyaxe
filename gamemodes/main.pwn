@@ -55,7 +55,7 @@
 
 // Features
 #define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -1621,10 +1621,10 @@ new MAFIA_DOORS[][enum_MAFIA_DOORS] =
 	// Maik santander
 	{980, -272.37585, -2170.65015, 30.38364, 12.69130, 0, 0, true, DOOR_TYPE_USER, 8035, INVALID_STREAMER_ID, -1},
 	// The Family Connor
-	{19861, 424.916656, -1002.162231, 94.364418, 57.199977, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1},
-	{974, 431.325744, -1005.314697, 90.215568, 2.699999, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1},
-	{19912, 398.769317, -1005.721862, 94.109245, 181.399993, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1},
-	{1495, 427.982513, -998.614196, 91.848510, 1.399999, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1}
+	{19861, 424.916656, -1002.162231, 94.364418, 57.199977, 0, 0, true, DOOR_TYPE_MAFIA, WORK_CONNOR, INVALID_STREAMER_ID, -1},
+	{974, 431.325744, -1005.314697, 90.215568, 2.699999, 0, 0, true, DOOR_TYPE_MAFIA, WORK_CONNOR, INVALID_STREAMER_ID, -1},
+	{19912, 398.769317, -1005.721862, 94.109245, 181.399993, 0, 0, true, DOOR_TYPE_MAFIA, WORK_CONNOR, INVALID_STREAMER_ID, -1},
+	{1495, 427.982513, -998.614196, 91.848510, 1.399999, 0, 0, true, DOOR_TYPE_MAFIA, WORK_CONNOR, INVALID_STREAMER_ID, -1}
 };
 
 // Barredor
@@ -8440,7 +8440,7 @@ SanAndreas()
 	CreateDynamic3DTextLabel("{a912e2}Family SaintBlood'S\n"COL_WHITE"Equipamiento", 0xF7F7F700, -1387.1334, 492.8735, 2.1851, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel("{f5e30a}Triade di San Andreas\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 882.789611, 1896.002319, -93.898712, 20.0, .testlos = true, .worldid = 0, .interiorid = 29);
-	CreateDynamic3DTextLabel("{FFFFFF}The Family Connor\n"COL_WHITE"Equipamiento", 0xF7F7F700, 419.4871, -1001.7376, 92.8918, 20.0, .testlos = true, .worldid = 0, .interiorid = 29);
+	CreateDynamic3DTextLabel("{FFFFFF}The Family Connor\n"COL_WHITE"Equipamiento", 0xF7F7F700, 419.4871, -1001.7376, 92.8918, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF7F7F700, -187.830596, -2249.291503, 24.332202, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
