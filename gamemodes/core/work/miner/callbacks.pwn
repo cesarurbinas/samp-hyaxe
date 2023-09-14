@@ -99,7 +99,7 @@ public FixProcessorUpdate(playerid, processor_id, type)
 				ApplyAnimation(playerid, "COP_AMBIENT", "COPBROWSE_NOD", 4.1, true, false, false, false, 0, false);
 				
 				new str_text[64];
-				format(str_text, sizeof(str_text), "Cargando gasolina ~r~%d%", ROCK_PROCESSOR[processor_id][rp_FUEL]);
+				format(str_text, sizeof(str_text), "Cargando gasolina ~r~%.1f%", ROCK_PROCESSOR[processor_id][rp_FUEL]);
 				ShowPlayerMessage(playerid, str_text, 2);
 
 				if (ROCK_PROCESSOR[processor_id][rp_FUEL] > 99)
@@ -123,7 +123,7 @@ public FixProcessorUpdate(playerid, processor_id, type)
 				ApplyAnimation(playerid, "COP_AMBIENT", "COPBROWSE_NOD", 4.1, true, false, false, false, 0, false);
 				
 				new str_text[64];
-				format(str_text, sizeof(str_text), "Reparando ~r~%d%", ROCK_PROCESSOR[processor_id][rp_HEALTH]);
+				format(str_text, sizeof(str_text), "Reparando ~r~%.1f%", ROCK_PROCESSOR[processor_id][rp_HEALTH]);
 				ShowPlayerMessage(playerid, str_text, 2);
 
 				if (ROCK_PROCESSOR[processor_id][rp_HEALTH] > 99)
