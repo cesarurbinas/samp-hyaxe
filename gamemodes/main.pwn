@@ -31796,7 +31796,7 @@ EndPlayerJob(playerid, changeskin = true)
 			RemovePlayerAttachedObject(playerid, 1);
 			RemovePlayerAttachedObject(playerid, 2);
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-			ClearAnims(playerid);
+			ClearAnimations(playerid);
 			
 			SetPlayerToys(playerid);
 
