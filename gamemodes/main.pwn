@@ -1137,7 +1137,7 @@ new VEHICLE_INFO[][VEHICLE_INFO_enum] =
     {false, "Cropdust", 1.0, 1.00, 1200000, 12, 0, 0            , 1     , true, true, true, 0, 0, false}, // >>>> No.
     {false, "Stunt", 1.0, 1.00, 1200000, 12, 0, 0               , 1     , true, true, true, 0, 0, false}, // >>>> No.
     {true, "Tanker", 130.0, 121.00, 500000, 20, 0, 0            , 2     , true, true, true, 0, 0, false},
-    {true, "Roadtrain", 150.0, 143.00, 500000, 20, 0, 100         , 2     , true, true, true, 0, 0, false},
+    {true, "Roadtrain", 150.0, 143.00, 500000, 20, 0, 10         , 2     , true, true, true, 0, 0, false},
     {true, "Nebula", 60.0, 158.00, 4000, 1, 0, 4                , 4     , true, true, true, 0, 0, true},
     {true, "Majestic", 45.0, 158.00, 4000, 1, 0, 4              , 2     , true, true, true, 0, 0, true},
     {true, "Buccaneer", 50.0, 165.00, 4500, 1, 0, 4             , 2     , true, true, true, 0, 0, true},
@@ -3893,6 +3893,12 @@ CALLBACK: UpdatePrisionTime(playerid)
 	return 1;
 }
 
+CALLBACK: SavePrisionTime(playerid)
+{
+	SaveUserData(playerid);
+	return 1;
+}
+
 GetPlayersInIP(const ip[])
 {
 	new 
@@ -6163,6 +6169,9 @@ public OnPlayerSpawn(playerid)
 				format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
 				PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
 
+				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
+
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
 				PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
 
@@ -6197,6 +6206,9 @@ public OnPlayerSpawn(playerid)
 				new str_text[128];
 				format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
 				PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
+
+				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
 
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
 				PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 900, true, "i", playerid);
@@ -26471,6 +26483,9 @@ CALLBACK: HealthUp(playerid)
 			format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
 			PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
 
+			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+			PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 120000, true, "i", playerid);
+
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
 			PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
 		}
@@ -32598,6 +32613,7 @@ CALLBACK: UnjailPlayer(playerid)
 	ShowPlayerMessage(playerid, "~g~Cumpliste tu condena.", 3);
 	SetPlayerPoliceSearchLevel(playerid, 0);
 
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
 	hy_DestroyNotification(playerid, PLAYER_TEMP[playerid][py_JAIL_NOT]);
 	return 1;
