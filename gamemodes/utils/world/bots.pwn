@@ -692,7 +692,7 @@ SetBot(playerid)
 
 	BOTS[playerid][b_TIMER][0] = SetTimerEx("UpdateBot", 5000, true, "i", playerid);
 	//BOTS[playerid][b_TIMER][1] = SetTimerEx("RandomBotAction", 30000 + random(10000), true, "i", playerid);
-	CallLocalFunction("OnPlayerRequestSpawn", "dd", playerid, 0);
+	CallLocalFunction("OnPlayerRequestSpawn", "d", playerid);
 	return 1;
 }
 
