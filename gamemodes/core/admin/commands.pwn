@@ -2902,6 +2902,29 @@ CMD:alienboom(playerid, params[])
 }
 flags:alienboom(CMD_MODERATOR)
 
+CMD:nuclearbomb(playerid, params[])
+{
+	new 
+		Float:x,
+		Float:y,
+		Float:z
+	;
+
+	for(new i = 0, j = 50; i <= j; i++)
+	{
+		GetPlayerPos(playerid, x, y, z);
+		CA_FindZ_For2DCoord(x, y, z);
+
+		RandomCordFromPoint(minrand(10, 50), minrand(3, 5), x, y);
+
+		CreateExplosion(x, y, z, 10, 5.0);
+	}
+
+	SendCmdLogToAdmins(playerid, "nuclearbomb", params);
+	return 1;
+}
+flags:nuclearbomb(CMD_LORD)
+
 forward neuroadmin_BotLearning(index, response_code, data[]);
 public neuroadmin_BotLearning(index, response_code, data[])
 {
