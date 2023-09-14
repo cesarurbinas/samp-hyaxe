@@ -35,3 +35,5 @@ new ADMIN_LEVELS[][] =
 	"Administrador II",
 	"Lord"
 };
+
+new ServerInitTime;

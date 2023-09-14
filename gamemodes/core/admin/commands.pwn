@@ -2900,7 +2900,7 @@ CMD:ls(playerid, params[])
     new to_player;
     if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ls <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
-	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL) return SendClientMessage(playerid, COLOR_WHITE, "No puedes usar esto con jugadores en la cárcel.");
+	if(CHARACTER_INFO[to_player][ch_STATE] == ROLEPLAY_STATE_JAIL) return SendClientMessage(playerid, COLOR_WHITE, "No puedes usar esto con jugadores en la cárcel.");
 
 	CHARACTER_INFO[to_player][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 	CHARACTER_INFO[to_player][ch_INTERIOR_EXTRA] = 0;

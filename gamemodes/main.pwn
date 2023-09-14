@@ -12,7 +12,7 @@
  *  - 1: Saldrán mensajes de debug solamente en la consola.
  *  - 2: Saldrán mensajes de debug en la consola y en el juego.
 */
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 #if DEBUG_MODE != 0
 	#pragma option -d3
@@ -97,6 +97,11 @@
 #include <strlib>
 #include <ExtendedActorFunctions>
 #include <gmenu>
+#include <discord-connector>
+#define DC_BOT_NAME         "Server Controller"
+#define DC_PREFIX           "!"
+#define DC_PREFIX_LENGTH    1
+#include <discord-command>
 
 #define safe_db_query(%0) db_free_result(db_query(Database, %0))
 
@@ -241,7 +246,6 @@
 #include "core/admin/macros.pwn"
 #include "core/admin/callbacks.pwn"
 #include "core/admin/commands.pwn"
-//#include "core/admin/discord.pwn"
 
 // Boombox
 #include "core/boombox/main.pwn"
@@ -277,6 +281,9 @@
 
 // Fireworks
 #include "core/fireworks/functions.pwn"
+
+// Discord integration
+#include "core/admin/discord.pwn"
 
 /* Special Features */
 
@@ -553,8 +560,6 @@ new ROCKS_OBJ[][miner_rocks_info] =
 	{3930, 1261.037231, 1006.549682, -96.821304, -68.299987, 179.999954, 179.999908, 11, 38, 27},
 	{3930, 1163.794799, 1011.816040, -96.488059, -111.699996, 0.000000, -55.200004, 8, 36, 25}
 };
-
-new ServerInitTime;
 
 /* Tuning Object System */
 enum e_Tuning_Shop_Objects
@@ -943,7 +948,7 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 461, 1531.4096, 2841.8283, 10.3959, 261.9149, 0, 167, 0}, //PCJ-600
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 428, 1530.2377, 2845.2763, 10.9741, 271.1998, 0, 167, 0}, //Securicar
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 409, 1489.2900, 2843.5915, 10.5647, 0.0653, 0, 167, 0}, //Stretch
-	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 409, 1494.3277, 2843.5014, 10.6104, 359.9656, 0, 167, 0} //Stretch
+	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 409, 1494.3277, 2843.5014, 10.6104, 359.9656, 0, 167, 0}, //Stretch
 	// Triade di San Andreas
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 579, 2768.649, -1617.026, 10.921, 268.936, 0, 158, 0}, //Huntley
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 579, 2769.019, -1613.867, 10.921, 270.459, 0, 158, 0}, //Huntley
@@ -36068,6 +36073,10 @@ CMD:reportar(playerid, params[])
 	SendMessageToAdmins(COLOR_ORANGE, str);
 	Log("reports", str);
 
+	new DCC_Channel:channelid;
+	channelid = DCC_FindChannelById("790742732829491230");
+	SendDiscordMessage(channelid, "[REPORTE] %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[params[0]][py_NAME], params[0], reason);
+
 	PLAYER_TEMP[ params[0] ][py_TOTAL_REPORTS] ++;
 	return 1;
 }
@@ -39003,10 +39012,7 @@ public neuroadmin_BotGetResponse(index, response_code, const data[])
 	    	printf("[NEUROADMIN] Data: %s", data);
 
 	    	format(str_text, sizeof(str_text), 
-	    		"[Dudas] "COL_WHITE"Jugador %s_%s (%d): (( @%d %s ))",
-	    		names[random(sizeof(names))],
-	    		surnames[random(sizeof(surnames))],
-	    		minrand(1, 100),
+	    		"[Dudas] "COL_WHITE"NeuroAdmin: (( @%d %s ))",
 	    		index,
 	    		data
 	    	);
@@ -39022,6 +39028,10 @@ public neuroadmin_BotGetResponse(index, response_code, const data[])
 					}
 				}
 			}
+
+			new DCC_Channel:channelid;
+			channelid = DCC_FindChannelById("790742732829491230");
+			SendDiscordMessage(channelid, "%s", str_text);
 	    }
 	    else
 	    {
@@ -39071,6 +39081,10 @@ public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 
 				format(str_text, 145, "NeuroAdmin silencio a %s (%d) del canal de dudas/anuncios: Mal uso", ACCOUNT_INFO[index][ac_NAME], index);
 			    SendDiscordWebhook(str_text, 1);
+
+			    new DCC_Channel:channelid;
+				channelid = DCC_FindChannelById("790742732829491230");
+				SendDiscordMessage(channelid, "%s", str_text);
 			}
 	    }
 	}
@@ -39114,6 +39128,10 @@ SendMessageToDoubtChannel(playerid, const message[])
 			}
 		}
 	}
+
+	new DCC_Channel:channelid;
+	channelid = DCC_FindChannelById("790742732829491230");
+	SendDiscordMessage(channelid, "%s", str);
 
 	if (!ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) ScanDoubt(playerid, message);
 	return 1;
