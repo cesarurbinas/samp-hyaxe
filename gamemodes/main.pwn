@@ -6471,6 +6471,7 @@ CALLBACK: InitRandomGraffiti()
 	return 1;
 }
 
+/*
 GenString(strDest[], strLen = 10)
 {
     while(strLen --)
@@ -6523,16 +6524,11 @@ CALLBACK: SendGift()
 		GenString(code, 8);
 
 		AddGiftCode(code, type, extra);
-		HTTP(0, HTTP_GET, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "GiftResponse");
+		HTTP(0, HTTP_HEAD, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "");
 	}
 	return 1;
 }
-
-forward GiftResponse(index, response_code, data[]);
-public GiftResponse(index, response_code, data[])
-{
-	return 1;
-}
+*/
 
 CALLBACK: GiveAutoGift()
 {
@@ -6590,7 +6586,6 @@ public OnGameModeInit()
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
 	SetTimer("GiveAutoGift", 300000, false);
-	SetTimer("SendGift", 60000, true);
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
