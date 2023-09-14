@@ -23866,7 +23866,7 @@ public StoreBuyRecv(index, response_code, const data[])
 							1,
 							VEHICLE_INFO[ STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA] - 400 ][vehicle_info_MAX_GAS]
 						);
-						if (!vid) return SendClientMessage(playerid, COLOR_WHITE, "No se pueden añadir más vehículos.");
+						if (!vid) ShowPlayerNotification(playerid, "Tu vehículo se ha comprado correctamente pero no pudo spawnear debido a que ya hay muchos vehículos creados.", 4);
 					}
 
 					// Skin
