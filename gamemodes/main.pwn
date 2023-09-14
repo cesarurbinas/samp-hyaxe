@@ -4734,7 +4734,7 @@ EnterSite(playerid)
 CheckFarmerShop(playerid)
 {
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, -382.580657, -1426.404296, 26.219505)) return 0;
-	if (!PLAYER_WORKS[playerid][WORK_MAFIA]) return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
+	if (!PLAYER_WORKS[playerid][WORK_MAFIA] || !PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA]) return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
 	ShowDialog(playerid, DIALOG_SEED_LIST);
 	return 1;
 }
@@ -8551,6 +8551,15 @@ public OnPlayerText(playerid, text[])
 			else format(str_text, sizeof str_text, "[LCN] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], text[1]);
 
 			SendMafiaMessage(0xca3535FF, str_text);
+			return 0;
+		}
+
+		if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
+		{
+			if (text[1] == '!') format(str_text, sizeof str_text, "[TCC] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
+			else format(str_text, sizeof str_text, "[TCC] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_MAFIA] ], text[1]);
+
+			SendMafiaMessage(0xff9b00FF, str_text);
 			return 0;
 		}
 
