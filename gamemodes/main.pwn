@@ -6590,7 +6590,7 @@ public OnGameModeInit()
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
 	SetTimer("GiveAutoGift", 300000, false);
-	SetTimer("SendGift", 60000, true);
+	//SetTimer("SendGift", 60000, true);
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
@@ -24570,7 +24570,6 @@ public OnPlayerUpdate(playerid)
 		Keys,
 		ud,
 		lr,
-		Float:angle,
 		Float:pos[3]
 	;
 
@@ -24580,17 +24579,13 @@ public OnPlayerUpdate(playerid)
 	{
 		if (PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] == false)
 		{
-			GetPlayerFacingAngle(playerid, angle);
-
 			switch(ud)
 			{
 				case KEY_UP:
 	    		{
-	    			new Float:vector[3];
-					GetPlayerCameraFrontVector(playerid, vector[0], vector[1], vector[2]);
-
-					SetPlayerFacingAngle(playerid, atan2(vector[1], vector[2]) + 180.0);
 					ApplyAnimation(playerid, "PED", "CAR_CRAWLOUTRHS", 4.1, false, true, true, false, 0, false);
+					SetPlayerFacingAngle(playerid, CameraLookToAngle(playerid) + 90.0);
+
 					PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = true;
 					SetTimerEx("InjuredAnimationCut", 470, false, "i", playerid);
 				}

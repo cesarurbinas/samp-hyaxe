@@ -267,3 +267,10 @@ public OnPlayerProxyFound(index, response_code, data[])
 	}
 	return 1;
 }
+
+Float:CameraLookToAngle(playerid)
+{
+	new Float:x, Float:y, Float:z;
+	GetPlayerCameraFrontVector(playerid, x, y, z);
+	return atan2(y, x) + 270.0;
+}
