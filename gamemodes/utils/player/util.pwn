@@ -5158,7 +5158,7 @@ ProxDetector(playerid, Float:radi, string[], col1, col2, col3, col4, col5, div =
 	return 1;
 }
 
-ShowPlayerMessageToRange(playerid, float:range, const message[], seconds)
+stock ShowPlayerMessageToRange(playerid, float:range, const message[], seconds)
 {
 	new
 		Float:oldposx, Float:oldposy, Float:oldposz,
@@ -5176,6 +5176,28 @@ ShowPlayerMessageToRange(playerid, float:range, const message[], seconds)
 
 		if (IsPlayerInRangeOfPoint(i, range, oldposx, oldposy, oldposz))
 			ShowPlayerMessage(i, message, seconds)
+	}
+	return 1;
+}
+
+ShowPlayerNotificationToRange(playerid, float:range, const message[], seconds)
+{
+	new
+		Float:oldposx, Float:oldposy, Float:oldposz,
+		current_vw = GetPlayerVirtualWorld(playerid),
+		current_int = GetPlayerInterior(playerid)
+	;
+	GetPlayerPos(playerid, oldposx, oldposy, oldposz);
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (!IsPlayerConnected(i)) continue;
+		if (!PLAYER_TEMP[i][py_USER_LOGGED]) continue;
+		if (GetPlayerVirtualWorld(i) != current_vw) continue;
+		if (GetPlayerInterior(i) != current_int) continue;
+
+		if (IsPlayerInRangeOfPoint(i, range, oldposx, oldposy, oldposz))
+			ShowPlayerNotification(i, message, seconds)
 	}
 	return 1;
 }
