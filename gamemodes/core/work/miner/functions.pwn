@@ -15,9 +15,13 @@ StartMining(playerid, rock_id)
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][35]);
 	
 	new time = GetRockMiningTime(ROCKS_OBJ[rock_id][r_TYPE]);
-	if (PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER]) time = (time / 2);
+	if (PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER])
+	{
+		time = (time / 2);
+		PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER] -= 1;
+	}
 	if (time < 300) time = 300;
-	
+
 	PLAYER_TEMP[playerid][py_TIMERS][35] = SetTimerEx("UpdateMining", time, true, "ii", playerid, rock_id);
 	
 	ApplyAnimation(playerid, "SWORD", "SWORD_4", 4.1, true, false, false, false, 0, true);
