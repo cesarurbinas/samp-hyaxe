@@ -2556,6 +2556,7 @@ new BLACK_MARKT_WEAPONS[][enum_BLACK_MARKT_WEAPONS] =
 	{22, 2500, 0}, // 9MM
 	{28, 3500, 0}, // Micro UZI
 	{32, 3600, 0}, // Tec 9
+	{25, 4000, 0}, // Escopeta
 	{26, 4500, 0}, // recortada
 	{33, 5200, 0} // Rifle
 };
@@ -6415,7 +6416,7 @@ public OnGameModeInit()
     SetWeaponDamage(WEAPON_COLT45, DAMAGE_TYPE_RANGE, 6.0, 20.0, 3.0, 40.0, 2.0); // Colt
     SetWeaponDamage(WEAPON_SILENCED, DAMAGE_TYPE_RANGE, 0.1, 20.0, 0.1, 40.0, 0.1); // Silenciada
     SetWeaponDamage(WEAPON_DEAGLE, DAMAGE_TYPE_RANGE, 20.0, 15.0, 10.0, 40.0, 8.0); // Desert Eagle
-    SetWeaponDamage(WEAPON_SHOTGUN, DAMAGE_TYPE_RANGE, 2.0, 5.0, 4.0, 60.0, 2.0); // Escopeta
+    SetWeaponDamage(WEAPON_SHOTGUN, DAMAGE_TYPE_RANGE, 2.0, 5.0, 1.0, 60.0, 1.0); // Escopeta
     SetWeaponDamage(WEAPON_SHOTGSPA, DAMAGE_TYPE_RANGE, 0.0, 5.0, 0.0, 40.0, 0.0); // EDC
     SetWeaponDamage(WEAPON_M4, DAMAGE_TYPE_RANGE, 15.0, 20.0, 15.0, 80.0, 15.0); // M4
     SetWeaponDamage(WEAPON_SAWEDOFF, DAMAGE_TYPE_RANGE, 2.5, 10.0, 1.5, 40.0, 1.0);// Recortada
