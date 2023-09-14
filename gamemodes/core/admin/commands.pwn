@@ -2751,7 +2751,7 @@ CMD:setcredits(playerid, params[])
 	SendCmdLogToAdmins(playerid, "setcredits", params);
 	return 1;
 }
-flags:givecredits(CMD_OWNER)
+flags:setcredits(CMD_OWNER)
 
 forward StoreCreditsUpdate(index, response_code, const data[]);
 public StoreCreditsUpdate(index, response_code, const data[])
