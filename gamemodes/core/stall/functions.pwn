@@ -40,7 +40,7 @@ CreateStalls()
 			str_text, 0xF7F7F700,
 			x,
 			y,
-			STALL_INFO[i][st_Z] + 1.0,
+			STALL_INFO[i][st_Z] + 0.9,
 			10.0
 		);
 	}
