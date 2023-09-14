@@ -37424,7 +37424,8 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_ROT][0] = 0.0;
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_ROT][1] = 0.0;
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]][vobject_ROT][2] = 0.0;
-						ShowPlayerNotification(playerid, "No alejes mucho el objeto.", 0);
+						//ShowPlayerNotification(playerid, "No alejes mucho el objeto.", 0);
+						ShowPlayerMessage(playerid, "~r~No alejes mucho el objeto.", 3);
 						return 0;
 					}
 
