@@ -6343,6 +6343,10 @@ InitBlackMarket(market_id)
 
 CALLBACK: InitRandomGraffiti()
 {
+	new hour;
+	gettime(hour);
+	if(hour >= 2 && hour <= 5) return 0;
+	
 	new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
 		//bm_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
 
