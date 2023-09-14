@@ -40,6 +40,28 @@ def update_credit(key, identificator, credit):
 
 	return '0'
 
+# Give credits
+@app.route('/<key>/give_credit/<identificator>/<credit>')
+def give_credit(key, identificator, credit):
+	if key == auth_key:
+		try:
+			f = open(f'data/{identificator}', 'r')
+			actual_credit = int(f.read())
+			positive_credit = int(credit)
+
+			new_credit = (actual_credit + positive_credit)
+			if new_credit < 0:
+				new_credit = 0
+
+			update_credit(auth_key, identificator, str(new_credit))
+			return new_credit
+		
+		except Exception as e:
+			print(f'[Error - update_credit]: {e}')
+			pass
+
+	return '0'
+
 # Buy product
 @app.route('/<key>/product_buy/<identificator>/<credit>')
 def product_buy(key, identificator, credit):
