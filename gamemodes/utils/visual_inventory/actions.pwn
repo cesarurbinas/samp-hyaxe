@@ -242,6 +242,8 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 					RefreshItemList(playerid);
 				}
+
+				SetPlayerChatBubble(playerid, "\n\n\n\n* Saca algo del maletero.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
 			{
@@ -296,6 +298,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				}
 
 				RefreshItemList(playerid);
+				SetPlayerChatBubble(playerid, "\n\n\n\n* Mete algo al maletero.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			else
 			{

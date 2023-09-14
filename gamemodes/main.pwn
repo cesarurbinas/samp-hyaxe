@@ -34672,7 +34672,11 @@ CMD:r(playerid, params[])
 CMD:id(playerid, params[])
 {
 	new to_player;
-	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /id "COL_WHITE"[ID o nombre]");
+	if (sscanf(params, "u", to_player))
+	{
+		to_player = playerid;
+		SendClientMessage(playerid, COLOR_WHITE, "Recuerde que también puede usar: /id "COL_WHITE"[ID o nombre]");
+	}
 	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
 
 	new
