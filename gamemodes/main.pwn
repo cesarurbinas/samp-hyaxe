@@ -8595,11 +8595,11 @@ CMD:duda(playerid, params[])
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar una duda primero debes activar el canal de dudas con "COL_RED"/dudas");
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/duda "COL_WHITE"[DUDA]");
 	
-	if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
+	/*if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
 	{
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Estás silenciado en el canal de dudas y anuncios de forma permanente.");
 		return 1;
-	}
+	}*/
 
 	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
 	{
@@ -8657,11 +8657,11 @@ CMD:anuncio(playerid, params[])
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar un anuncio primero debes activar el canal de dudas con "COL_RED"/dudas");
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/anuncio "COL_WHITE"[TEXTO]");
 	
-	if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
+	/*if ( PLAYER_MISC[playerid][MISC_MUTE] >= 999)
 	{
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Estás silenciado en el canal de dudas y anuncios de forma permanente.");
 		return 1;
-	}
+	}*/
 
 	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
 	{
