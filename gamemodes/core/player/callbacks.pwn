@@ -2813,7 +2813,9 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 					SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
 					SetPlayerMarkerForPlayer(playerid, i, PLAYER_COLOR);
 
-					GivePlayerCash(i, 1000 + (400 * PLAYER_TEMP[i][py_MISSION_POINTS]));
+					new prize = 500 * PLAYER_TEMP[i][py_MISSION_POINTS];
+					GivePlayerCash(i, 1000 + prize);
+					
 					Cancel_GPS(i);
 					PLAYER_TEMP[i][py_IN_MISSION] = false;
 				}

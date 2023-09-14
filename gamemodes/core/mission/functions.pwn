@@ -151,6 +151,7 @@ CheckMissionPlace(playerid)
         PLAYER_TEMP[playerid][py_IN_MISSION] = true;
         PLAYER_TEMP[playerid][py_MISSION] = index;
         PLAYER_TEMP[playerid][py_MISSION_POINTS] = 0;
+        PLAYER_TEMP[playerid][py_PACIFIC] = false;
 
         // Enter message
         for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
