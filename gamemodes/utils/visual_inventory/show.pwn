@@ -442,7 +442,7 @@ ShowHelpMenu(playerid)
 	/* Header */
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Hyaxe");
 	/* Body */
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgi√≥ en 2018, pero no fue hasta mediados de 2019 que comenz√≥ a desarrollarse, con tiempos m√°s activos y otros no tanto, pas√≥ por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opci√≥n porque la encontramos m√°s rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el n√∫mero de miembros del equipo."));
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgiÛ en 2018, pero no fue hasta mediados de 2019 que comenzÛ a desarrollarse, con tiempos m·s activos y otros no tanto, pasÛ por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opciÛn porque la encontramos m·s rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el n˙mero de miembros del equipo."));
 
 	SelectTextDrawEx(playerid, COLOR_RED);
 	return 1;

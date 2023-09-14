@@ -134,11 +134,11 @@ static hy_GetFreeNotificationSlot(playerid)
 	return -1;
 }
 
-ShowPlayerMessage(playerid, const message[], seconds = 0, sound = 0)
+ShowPlayerMessage(playerid, const message[], seconds = 0, sound = 0, len = sizeof(message))
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][17]);
 
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE], TextToSpanish(message));
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE], TextToSpanish(message, len));
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE]);
 
 	if (seconds) PLAYER_TEMP[playerid][py_TIMERS][17] = SetTimerEx("HidePlayerMessage", seconds * 1000, false, "i", playerid);

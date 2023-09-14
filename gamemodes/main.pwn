@@ -57,7 +57,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 
 // Other Library 
 #include <a_http>
-#include <crashdetect>
 #include <streamer>
 #include <sscanf2>
 #include <Pawn.RakNet> 
@@ -200,7 +199,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/anticheat/functions.pwn"
 #include "core/anticheat/main.pwn"
 
-new Float:NewUserPos[][] =
+new const Float:NewUserPos[][] =
 {
 	{1090.567138, -1805.910156, 16.593750, 1.044739},
 	{1098.168090, -1805.921508, 16.593750, 358.225128},
@@ -4137,11 +4136,14 @@ ShowTuningMenu(playerid)
 	AddPlayerMenuItem(playerid, "Objetos");
 	AddPlayerMenuItem(playerid, "Eliminar componentes");
 
-	new DBResult:Result, DB_Query[250];
+	new DBResult:Result, DB_Query[255];
 	format(DB_Query, sizeof DB_Query, "SELECT `COMPONENTS_INFO`.`PART`, `COMPONENTS_INFO`.`PIECES` FROM `COMPONENTS_INFO`, `VEHICLE_COMPONENTS` WHERE `VEHICLE_COMPONENTS`.`MODELID` = '%d' AND `VEHICLE_COMPONENTS`.`COMPONENT_ID` = `COMPONENTS_INFO`.`ID` GROUP BY `COMPONENTS_INFO`.`PART`;", GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID]);
 	Result = db_query(Database, DB_Query);
 
-	if (db_num_rows(Result) == 0) printf("[ERROR] No hay componentes asignados en la base de datos");
+	if (db_num_rows(Result) == 0)
+	{
+		printf("[ERROR] No hay componentes asignados en la base de datos");
+	}
 	else
 	{
 		new line_str[80];
@@ -4517,7 +4519,7 @@ CheckTruckPointAndLoad(playerid)
 			for(new x = 0; x != sizeof Truck_Contents; x ++)
 			{
 				new line_str[105], paga_str[105];
-				format(line_str, sizeof line_str, "%s", TextToSpanish(Truck_Contents[x][truck_content_NAME]));
+				format(line_str, sizeof line_str, "%s", TextToSpanish(Truck_Contents[x][truck_content_NAME], 24));
 				format(paga_str, sizeof paga_str, "Paga: %s$ - Distancia: %.2f Km", number_format_thousand(Truck_Contents[x][truck_content_MONEY]), (GetPlayerDistanceFromPoint(playerid, Truck_Contents[x][truck_content_X], Truck_Contents[x][truck_content_Y], Truck_Contents[x][truck_content_Z]) * 0.01));
 				AddPlayerMenuItem(playerid, line_str, paga_str);
 			}
@@ -12184,7 +12186,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 	if (!isnull(inputtext))
 	{
-		for(new i = 0; i != strlen(inputtext); i ++)
+		for(new i = 0; i < strlen(inputtext); i++)
 		{
 			if (inputtext[i] == '%') inputtext[i] = '#';
 		}
@@ -21662,7 +21664,7 @@ SavePlayerToysData(playerid)
 
 GetEmptyPlayerToySlot(playerid)
 {
-	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++)
+	for(new i = (MAX_PLAYER_ATTACHED_OBJECTS - 1); i != -1; --i)
 	{
 		if (!PLAYER_TOYS[playerid][i][player_toy_VALID]) return i;
 	}
@@ -22971,7 +22973,7 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
     return 1;
 }
 
-SendGraffitiNotification(const ann[])
+SendGraffitiNotification(const ann[], len = sizeof(ann))
 {
 	KillTimer(GraffitiGlobalTime);
 
@@ -22981,7 +22983,7 @@ SendGraffitiNotification(const ann[])
         {
         	if (PLAYER_CREW[i][player_crew_VALID])
 			{
-                ShowPlayerNotification(i, ann, 6);
+                ShowPlayerNotification(i, ann, 6, .len = len);
                 RecalculeCrewGraffitis(PLAYER_CREW[i][player_crew_INDEX]);
             }
         }
@@ -23632,7 +23634,7 @@ CheckBoxClub(playerid)
 	return 1;
 }
 
-SendBoxMessage(message[], time)
+SendBoxMessage(const message[], time, len = sizeof(message))
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -23640,7 +23642,7 @@ SendBoxMessage(message[], time)
 		{
 			if (IsPlayerInRangeOfPoint(i, 30.0, -17.344648, 99.261329, 1100.822021))
 			{
-				ShowPlayerNotification(i, message, time);
+				ShowPlayerNotification(i, message, time, .len = len);
 			}
 		}
 	}
@@ -30840,7 +30842,7 @@ SendOsbornMafiaMessage(color, const message[])
 	return 1;
 }
 
-SendPoliceNotification(const message[], time)
+SendPoliceNotification(const message[], time, len = sizeof(message))
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -30852,7 +30854,7 @@ SendPoliceNotification(const message[], time)
 				{
 					if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
 					{
-						ShowPlayerNotification(i, message, time);
+						ShowPlayerNotification(i, message, time, .len = len);
 					}
 				}
 			}
@@ -33462,10 +33464,10 @@ ShowPlayerKeyMessage(playerid, const key[])
 	return 1;
 }
 
-ShowPlayerNotification(playerid, const message[], time)
+ShowPlayerNotification(playerid, const message[], time, len = sizeof(message))
 {
 	new str_text[264];
-	format(str_text, sizeof(str_text), "~w~%s", TextToSpanish(message));
+	format(str_text, sizeof(str_text), "~w~%s", TextToSpanish(message, len));
 	return hy_ShowNotification(playerid, str_text, time);
 }
 
