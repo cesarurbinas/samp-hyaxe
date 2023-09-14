@@ -1685,7 +1685,6 @@ static const INVALID_WORDS[][] =
 	"pene",
 	"vagina",
 	"mierda",
-	"culo",
 	"goldenstate",
 	"unplayer",
 	"spell",
