@@ -75,6 +75,9 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 #define COLOR_LIGHT_BLUE 0x3a86ffFF
 #define COL_LIGHT_BLUE "{3a86ff}"
 
+#define COLOR_DARK_BLUE 0x6469B7FF
+#define COL_DARK_BLUE "{6469B7}"
+
 #define COLOR_ANTICHEAT 0xc14848FF
 #define COL_ANTICHEAT "{c14848}"
 

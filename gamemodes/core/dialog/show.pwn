@@ -9,8 +9,8 @@ ShowDialog(playerid, dialogid)
 		{
 			new dialog[280];
 			format(dialog, sizeof dialog, ""COL_WHITE"\
-				Bienvenido, "COL_ORANGE"%s"COL_WHITE".\n\n\
-				Esta cuenta aún no está registrada, ingrese\n\
+				Bienvenido, "COL_DARK_BLUE"%s"COL_WHITE".\n\n\
+				Esta cuenta aún "COL_ORANGE"no está registrada"COL_WHITE", ingrese\n\
 				una contraseña en el cuadro a continuación\n\
 				para iniciar el proceso de registro.\n\n\
 				\t{E3E3E3}1. Contraseña\n\
