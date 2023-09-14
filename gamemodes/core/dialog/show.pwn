@@ -1502,7 +1502,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_BLACK_MARKET:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Mercado negro", "Comprar armas\nComprar munición para mis armas", "Comprar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "Mercado negro", "Comprar armas\nComprar munición", "Comprar", "Salir");
 			return 1;
 		}
 		case DIALOG_BLACK_MARKET_WEAPONS:
@@ -1552,8 +1552,6 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_BLACK_MARKET_AMMO:
 		{
-			ResetItemBody(playerid);
-
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Balas", ""COL_WHITE"Cantidad\t"COL_WHITE"Precio\n\
 				"COL_WHITE"50 Balas\t"COL_GREEN"450$\n\
 				"COL_WHITE"100 Balas\t"COL_GREEN"650$\n\

@@ -3600,7 +3600,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 			}
-			else ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
+			else ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO);
 			return 1;
 		}
 		case DIALOG_BLACK_MARKET_SELECT_WEA:
@@ -3625,23 +3625,35 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
+				new weapon_id;
+				if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+				{
+					if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]))
+					{
+						weapon_id = TypeToWeapon(PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]);
+					}
+					else return ShowPlayerMessage(playerid, "~r~Tienes que tener un arma en mano.", 4);
+				}
+				else return ShowPlayerMessage(playerid, "~r~Tienes que tener un arma en mano.", 4);
+
+				if (!WEAPON_INFO[weapon_id][weapon_info_AMMO]) return ShowPlayerMessage(playerid, "~r~Esta arma no usa munición.", 4);
+
+				if (PLAYER_WEAPONS[playerid][ GetWeaponSlot(weapon_id) ][player_weapon_AMMO] >= 1000)
+				{
+					ShowPlayerMessage(playerid, "~r~Esta arma ya tiene mucha munición.", 3);
+					return 1;
+				}
+
 				switch(listitem)
 				{
 					case 0:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 450) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
-						{
-							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munición.", 3);
-							return 1;
-						}
-
-						GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], 50);
+						GivePlayerWeaponEx(playerid, weapon_id, 50, true);
 
 						new str_text[128];
-						format(str_text, sizeof(str_text), "Compraste 50 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
+						format(str_text, sizeof(str_text), "Compraste 50 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
-						//SavePlayerWeaponsData(playerid);
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
@@ -3657,18 +3669,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 1:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 650) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
-						{
-							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munición.", 3);
-							return 1;
-						}
-
-						GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], 100);
+						GivePlayerWeaponEx(playerid, weapon_id, 100, true);
 
 						new str_text[128];
-						format(str_text, sizeof(str_text), "Compraste 100 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
+						format(str_text, sizeof(str_text), "Compraste 100 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
-						//SavePlayerWeaponsData(playerid);
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
@@ -3684,18 +3689,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 2:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 850) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
-						{
-							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munición.", 3);
-							return 1;
-						}
-
-						GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], 200);
+						GivePlayerWeaponEx(playerid, weapon_id, 250, true);
 
 						new str_text[128];
-						format(str_text, sizeof(str_text), "Compraste 200 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
+						format(str_text, sizeof(str_text), "Compraste 200 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
-						//SavePlayerWeaponsData(playerid);
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
@@ -3711,18 +3709,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 3:
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 1350) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
-						if (PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_AMMO] > 1000)
-						{
-							ShowPlayerMessage(playerid, "~r~Esta arma ya tiene ~n~mucha munición.", 3);
-							return 1;
-						}
-
-						GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], 300);
+						GivePlayerWeaponEx(playerid, weapon_id, 300, true);
 
 						new str_text[128];
-						format(str_text, sizeof(str_text), "Compraste 300 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
+						format(str_text, sizeof(str_text), "Compraste 300 balas para tu %s.", WEAPON_INFO[ weapon_id ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
-						//SavePlayerWeaponsData(playerid);
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
@@ -8437,7 +8428,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				switch(listitem)
 				{
 					case 0: ShowDialog(playerid, DIALOG_BLACK_MARKET_WEAPONS);
-					case 1: ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
+					case 1: ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO);
 				}
 			}
 		}
