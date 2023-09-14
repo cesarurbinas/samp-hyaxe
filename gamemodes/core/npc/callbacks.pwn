@@ -113,8 +113,8 @@ public NPC_Update()
 
 public FCNPC_OnSpawn(npcid)
 {
-	SetPlayerTeam(playerid, DEFAULT_TEAM);
-	g_rgbitsPlayerFlags[playerid] &= ~e_bmPlayerDead;
+	SetPlayerTeam(npcid, DEFAULT_TEAM);
+	g_rgbitsPlayerFlags[npci] &= ~e_bmPlayerDead;
 	return 1;
 }
 
@@ -180,13 +180,13 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 		}
 	}
 
-	if (g_rgbitsPlayerFlags[playerid] & e_bmPlayerDead)
+	if (g_rgbitsPlayerFlags[npcid] & e_bmPlayerDead)
 		return 0;
 	
-	g_rgbitsPlayerFlags[playerid] |= e_bmPlayerDead;
+	g_rgbitsPlayerFlags[npcid] |= e_bmPlayerDead;
 
-	g_iPlayerHealth[playerid] = 0;
-	g_iPlayerArmour[playerid] = 0;
+	g_iPlayerHealth[npcid] = 0;
+	g_iPlayerArmour[npcid] = 0;
 	return 1;
 }
 
