@@ -1723,7 +1723,6 @@ static const INVALID_WORDS[][] =
 	"starrp",
 	"fabiking",
 	"kreisel",
-	"sampfive",
 	"pingote",
 	"kanox",
 	"lexerzone",
