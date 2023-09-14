@@ -25426,7 +25426,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 				ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener más objetos.", 4);
 				return 1;
 			}
-			
+
 			if (slot == -1)
 			{
 			    ShowPlayerMessage(playerid, "~r~No hay más espacio para objetos en este vehículo.", 3);
@@ -32042,7 +32042,7 @@ ActiveGeolocation(playerid)
 	return 1;
 }
 
-CMD:piezas(playerid, params[])
+/*CMD:piezas(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mecánico.", 3);
 	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
@@ -32065,7 +32065,7 @@ CMD:piezas(playerid, params[])
 	SavePlayerMisc(playerid);
 	SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has comprado %s piezas por %s$, ahora tienes %s piezas.", number_format_thousand(params[0]), number_format_thousand(price), number_format_thousand(PLAYER_MISC[playerid][MISC_MECHANIC_PIECES]));
 	return 1;
-}
+}*/
 
 VehiclePaintjob(modelid)
 {
@@ -32395,23 +32395,6 @@ public RecycleUp(playerid)
 	return 1;
 }
 
-CreateFlashObject(Float:x, Float:y, Float:z)
-{
-	new oid = CreateObject(18680, x, y, z, 0.0, 0.0, 0.0);
-	SetTimerEx("DestroyFlashObject", 1000, false, "i", oid);
-	return 1;
-}
-
-forward DestroyFlashObject(objectid);
-public DestroyFlashObject(objectid)
-{
-	#if DEBUG_MODE == 1
-		printf("DestroyFlashObject"); // debug juju
-	#endif
-
-	return DestroyObject(objectid);
-}
-
 ShowPlayerInventory(playerid, pid)
 {
 	if (!IsPlayerConnected(pid)) return 0;
@@ -32570,23 +32553,6 @@ DestroyPlayerTrashRouteObjects(playerid)
 		TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
 	}
 	return 1;
-}
-
-CreatePlayerFlashObject(playerid, Float:x, Float:y, Float:z)
-{
-	new oid = CreatePlayerObject(playerid, 18680, x, y, z, 0.0, 0.0, 0.0);
-	SetTimerEx("DestroyPlayerFlashObject", 1000, false, "ii", playerid, oid);
-	return 1;
-}
-
-forward DestroyPlayerFlashObject(playerid, objectid);
-public DestroyPlayerFlashObject(playerid, objectid)
-{
-	#if DEBUG_MODE == 1
-		printf("DestroyPlayerFlashObject"); // debug juju
-	#endif
-
-	return DestroyPlayerObject(playerid, objectid);
 }
 
 UpdatePlantSizeTextdrawPlant(playerid)

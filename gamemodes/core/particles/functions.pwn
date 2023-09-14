@@ -21,6 +21,40 @@ public StopShitting(playerid)
 	return 1;
 }
 
+CreateFlashObject(Float:x, Float:y, Float:z)
+{
+	new oid = CreateObject(18680, x, y, z, 0.0, 0.0, 0.0);
+	SetTimerEx("DestroyFlashObject", 1000, false, "i", oid);
+	return 1;
+}
+
+forward DestroyFlashObject(objectid);
+public DestroyFlashObject(objectid)
+{
+	#if DEBUG_MODE == 1
+		printf("DestroyFlashObject"); // debug juju
+	#endif
+
+	return DestroyObject(objectid);
+}
+
+CreatePlayerFlashObject(playerid, Float:x, Float:y, Float:z)
+{
+	new oid = CreatePlayerObject(playerid, 18680, x, y, z, 0.0, 0.0, 0.0);
+	SetTimerEx("DestroyPlayerFlashObject", 1000, false, "ii", playerid, oid);
+	return 1;
+}
+
+forward DestroyPlayerFlashObject(playerid, objectid);
+public DestroyPlayerFlashObject(playerid, objectid)
+{
+	#if DEBUG_MODE == 1
+		printf("DestroyPlayerFlashObject"); // debug juju
+	#endif
+
+	return DestroyPlayerObject(playerid, objectid);
+}
+
 PlayerBloodParticle(playerid)
 {
 	new Float:x, Float:y, Float:z;
