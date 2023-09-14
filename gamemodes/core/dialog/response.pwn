@@ -3641,7 +3641,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 50 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
-						SavePlayerWeaponsData(playerid);
+						//SavePlayerWeaponsData(playerid);
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
@@ -3668,7 +3668,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 100 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
-						SavePlayerWeaponsData(playerid);
+						//SavePlayerWeaponsData(playerid);
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
@@ -3695,7 +3695,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 200 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
-						SavePlayerWeaponsData(playerid);
+						//SavePlayerWeaponsData(playerid);
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{
@@ -3722,7 +3722,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						new str_text[128];
 						format(str_text, sizeof(str_text), "Compraste 300 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
-						SavePlayerWeaponsData(playerid);
+						//SavePlayerWeaponsData(playerid);
 
 						if (PLAYER_WORKS[playerid][WORK_POLICE])
 						{

@@ -5644,13 +5644,6 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			}
 		}
 
-		/*if (ACCOUNT_INFO[playerid][ac_LEVEL] == 1)
-		{
-			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar siendo nivel 1.");
-			TogglePlayerControllableEx(playerid, false);
-			KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-		}*/
-
 		if (PLAYER_WORKS[playerid][WORK_MEDIC] && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_MEDIC)
 		{
 			ShowPlayerMessage(playerid, "~r~No puedes disparar estando de medico.", 3);

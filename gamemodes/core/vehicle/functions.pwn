@@ -621,7 +621,7 @@ OpenVehicle(playerid, vehicleid)
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha abierto las puertas de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 	new str_text[64];
-	format(str_text, sizeof(str_text), "~n~~n~%s ~g~destrabado", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
+	format(str_text, sizeof(str_text), "%s ~g~destrabado", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 	ShowPlayerMessage(playerid, str_text, 1);
 
 	if (PLAYER_TEMP[playerid][py_SPEEDOMETER])
@@ -645,7 +645,7 @@ CloseVehicle(playerid, vehicleid)
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha cerrado las puertas de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 
 	new str_text[64];
-	format(str_text, sizeof(str_text), "~n~~n~%s ~r~trabado", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
+	format(str_text, sizeof(str_text), "%s ~r~trabado", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
 	ShowPlayerMessage(playerid, str_text, 1);
 
 	if (PLAYER_TEMP[playerid][py_SPEEDOMETER])

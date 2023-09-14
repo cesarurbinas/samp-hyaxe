@@ -1200,6 +1200,25 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 		{
 			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{
+				// Actualizar municion del arma
+				if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+				{
+					if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]))
+					{
+						new 
+							DB_Query[164],
+							weapon_db_id = PLAYER_VISUAL_INV[playerid][slot_DB_ID][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]
+						;
+
+						format(DB_Query, sizeof DB_Query,
+							"UPDATE `PLAYER_INVENTORY` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
+							PLAYER_WEAPONS[playerid][ WEAPON_INFO[ GetPlayerWeapon(playerid) ][weapon_info_SLOT] ][player_weapon_AMMO],
+							weapon_db_id
+						);
+						db_free_result(db_query(Database, DB_Query));
+					}
+				}
+
 				if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
 				
 				new item_str[64];
@@ -1231,18 +1250,20 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 					{
 						if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 						{
-							GivePlayerWeapon(
+							GivePlayerWeaponEx(
 								playerid,
 								TypeToWeapon(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]),
-								PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]
+								PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot],
+								true
 							);
 						}
 						else if (PLAYER_WORKS[playerid][WORK_POLICE] || PlayerIsInMafia(playerid))
 						{
-							GivePlayerWeapon(
+							GivePlayerWeaponEx(
 								playerid,
 								TypeToWeapon(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]),
-								PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]
+								PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot],
+								true
 							);
 						}
 					}
@@ -1306,7 +1327,6 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 					}
 
 					db_free_result(db_query(Database, DB_Query));
-
 					RefreshItemList(playerid);
 				}
 			}
