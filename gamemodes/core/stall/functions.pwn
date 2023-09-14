@@ -43,6 +43,8 @@ CreateStalls()
 			STALL_INFO[i][st_Z] + 0.9,
 			10.0
 		);
+
+		AddKeyArea(x, y, 1.1, KEY_TYPE_ALT);
 	}
 	return 1;
 }
