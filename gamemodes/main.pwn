@@ -32818,18 +32818,6 @@ CMD:parar(playerid, params[])
 	return 1;
 }
 
-CMD:test111(playerid, params[])
-{
-	ApplyAnimation(playerid, "WUZI", "WUZI_GREET_WUZI", 4.0, 1, 1, 1, 0, 0);
-	return 1;
-}
-
-CMD:test222(playerid, params[])
-{
-	ApplyAnimation(playerid, "WUZI", "WUZI_GREET_PLYR", 4.0, 1, 1, 1, 0, 0);
-	return 1;
-}
-
 CMD:rendirse(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
@@ -32841,6 +32829,24 @@ CMD:blowjob(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	ApplyAnimation(playerid, "BLOWJOBZ", "BJ_COUCH_LOOP_W", 4.0, 1, 1, 1, 0, 0);//blowjob
+	return 1;
+}
+
+CMD:sexo(playerid, params[])
+{
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
+	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /sexo "COL_WHITE"<playerid>");
+	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador Desconectado.", 2);
+
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(params[0], x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El jugador no está cerca tuya.", 2);
+
+	new str_text[144]
+	format(str_text, sizeof(str_text), "* %s le hace sexo oral a %s.", PLAYER_TEMP[playerid][py_RP_NAME], PLAYER_TEMP[params[0]][py_RP_NAME]);
+	ProxDetector(playerid, 15.0, str_text, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 0xffcb90FF, 85);
+
+	ApplyAnimation(playerid, "BLOWJOBZ", "BJ_COUCH_LOOP_W", 4.0, 1, 1, 1, 0, 0);
 	return 1;
 }
 
