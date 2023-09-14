@@ -5402,12 +5402,13 @@ Menu:PROPERTY_MENU(playerid, response, listitem)
 			}
 			case 3:
 			{
-				ShowPropertyStorage(playerid);
+				ShowInventory(playerid, 1);
 			}
     	}
     }
     return 1; 
 }
+
 
 ShowPropertyMenu(playerid)
 {
