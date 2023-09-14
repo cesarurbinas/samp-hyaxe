@@ -425,6 +425,26 @@ SetItemToBody(playerid, type)
 		case 41: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.2209, 0.0000, 0.0539, -4.3999, -90.0999, 41.0000, 0.4979, 0.5780, 0.5470, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 42..44: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.0659, 0.0549, 0.0000, 78.6999, 0.0000, 0.0000, 0.4990, 0.5360, 0.6230, 0xFFFFFFFF, 0xFFFFFFFF);
 		case 45..47: SetPlayerAttachedObject(playerid, 9, ITEM_INFO[type][item_MODELID], 6, 0.1480, 0.0000, 0.0000, -0.9000, -98.7000, 0.0000, 0.8480, 0.8320, 0.6209, 0xFFFFFFFF, 0xFFFFFFFF);
+		case 49: SetPlayerAttachedObject(playerid, 9, 2703, 6, 0.0659, 0.0290, 0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // CJ_BURG_1 attached to the Right Hand of Atom
+		case 50: SetPlayerAttachedObject(playerid, 9, 2769, 6, 0.0710, 0.0530, 0.0300, 0.0000, -97.7999, 153.1000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // CJ_CJ_BURG2 attached to the Right Hand of Atom
+		case 51: SetPlayerAttachedObject(playerid, 9, 2804, 6, 0.1209, 0.0380, 0.1460, 79.5999, 0.0000, 0.0000, 0.7179, 0.5869, 0.7480, 0xFFFFFFFF, 0xFFFFFFFF); // CJ_MEAT_1 attached to the Right Hand of Atom
+		case 52: SetPlayerAttachedObject(playerid, 9, 19847, 6, 0.0769, 0.0300, 0.0150, -96.4999, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // LegHam1 attached to the Right Hand of Atom
+		case 53: SetPlayerAttachedObject(playerid, 9, 19574, 6, 0.0619, 0.0520, 0.0000, 0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // Orange1 attached to the Right Hand of Atom
+		case 54: SetPlayerAttachedObject(playerid, 9, 19883, 6, 0.0959, 0.0270, 0.0130, 104.7999, 13.6000, 0.0000, 1.0660, 1.1139, 1.5809, 0xFFFFFFFF, 0xFFFFFFFF); // BreadSlice1 attached to the Right Hand of Atom
+		case 55: SetPlayerAttachedObject(playerid, 9, 19569, 6, 0.0839, 0.0899, -0.0969, 9.8000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // MilkCarton1 attached to the Right Hand of Atom
+		case 56: SetPlayerAttachedObject(playerid, 9, 19563, 6, 0.0909, 0.0719, -0.1079, 6.4000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // JuiceBox1 attached to the Right Hand of Atom
+		case 57: SetPlayerAttachedObject(playerid, 9, 19564, 6, 0.0909, 0.0719, -0.1079, 6.4000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // JuiceBox2 attached to the Right Hand of Atom
+		case 58: SetPlayerAttachedObject(playerid, 9, 11722, 6, 0.0629, 0.0469, 0.0689, 0.0000, 0.0000, 0.0000, 0.7380, 0.6900, 1.1240, 0xFFFFFFFF, 0xFFFFFFFF); // SauceBottle1 attached to the Right Hand of Atom
+		case 59: SetPlayerAttachedObject(playerid, 9, 19567, 6, 0.1489, 0.1350, 0.0330, 104.7000, 5.4999, 94.8999, 0.8380, 0.8640, 0.7969, 0xFFFFFFFF, 0xFFFFFFFF); // IcecreamContainer1 attached to the Right Hand of Atom
+		case 60: SetPlayerAttachedObject(playerid, 9, 19568, 6, 0.1489, 0.1350, 0.0330, 104.7000, 5.4999, 94.8999, 0.8380, 0.8640, 0.7969, 0xFFFFFFFF, 0xFFFFFFFF); // IcecreamContainer1 attached to the Right Hand of Atom
+		case 61: SetPlayerAttachedObject(playerid, 9, 2814, 6, 0.2049, 0.0320, 0.0220, 97.1999, 0.0000, -173.1999, 0.7210, 0.7460, 0.6449, 0xFFFFFFFF, 0xFFFFFFFF); // GB_takeaway01 attached to the Right Hand of Atom
+		case 62: SetPlayerAttachedObject(playerid, 9, 19564, 6, 0.0909, 0.0719, -0.1079, 6.4000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // JuiceBox2 attached to the Right Hand of Atom
+		case 63: SetPlayerAttachedObject(playerid, 9, 1484, 6, 0.0080, -0.0100, 0.0990, 0.0000, 36.5999, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // CJ_BEAR_BOTTLE attached to the Right Hand of Atom
+		case 64: SetPlayerAttachedObject(playerid, 9, 19823, 6, 0.0839, 0.0469, -0.1159, 0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // AlcoholBottle4 attached to the Right Hand of Atom
+		case 65: SetPlayerAttachedObject(playerid, 9, 19824, 6, 0.0619, 0.0639, -0.0939, 0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // AlcoholBottle5 attached to the Right Hand of Atom
+		case 66: SetPlayerAttachedObject(playerid, 9, 1544, 6, 0.0509, 0.0200, -0.0910, 0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // CJ_BEER_B_1 attached to the Right Hand of Atom
+		case 67: SetPlayerAttachedObject(playerid, 9, 2768, 6, 0.0959, 0.0480, 0.0190, 105.0999, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // CJ_CB_BURG attached to the Right Hand of Atom
+		case 68: SetPlayerAttachedObject(playerid, 9, 19835, 6, 0.0729, 0.0409, 0.0290, 9.7000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // CoffeeCup1 attached to the Right Hand of Atom
 	}
 	return 1;
 }
