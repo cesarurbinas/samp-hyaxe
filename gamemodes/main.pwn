@@ -5705,6 +5705,15 @@ CheckRodShop(playerid)
 	return 1;
 }
 
+CheckFixKitShop(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 1.0, -101.229499, -1179.570800, 2.342527) || IsPlayerInRangeOfPoint(playerid, 1.0, 1060.838256, -917.609741, 43.124679))
+	{
+		ShowDialog(playerid, DIALOG_BUY_FIXKIT);
+	}
+	return 1;
+}
+
 CheckMinerShop(playerid)
 {
 	if (!IsPlayerInRangeOfPoint(playerid, 1.5, 509.910125, -708.205383, 19.242210)) return 1;
@@ -7795,16 +7804,15 @@ SanAndreas()
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF7F7F700, -187.830596, -2249.291503, 24.332202, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	//meca
-	/*CreateDynamicPickup(1558, 1, -82.038078, -1208.153564, 2.704517, 0, 0);
-	CreateDynamic3DTextLabel(""COL_WHITE"Comprar piezas\n/piezas [cantidad]", 0xF7F7F700, -82.038078, -1208.153564, 2.704517, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	*/
-
 	for(new i = 0; i != sizeof(MECHANIC_POSITIONS); i++ )
 	{
 		new str_text[128];
 		format(str_text, sizeof(str_text), ""COL_RED"Levantador nº %d\n"COL_WHITE"Acércate para usar", i + 1);
 		CreateDynamic3DTextLabel(str_text, 0xF7F7F700, MECHANIC_POSITIONS[i][0], MECHANIC_POSITIONS[i][1], MECHANIC_POSITIONS[i][2] + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	}
+
+	CreateDynamic3DTextLabel(""COL_RED"Taller mecánico\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, -101.229499, -1179.570800, 2.342527, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Taller mecánico\n"COL_WHITE"1 producto disponible", 0xF7F7F7FF, 1060.838256, -917.609741, 43.124679, 10.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	//pescador
 	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nº 1", 0xF7F7F7FF, 1955.022094, -189.402023, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -8076,6 +8084,12 @@ UpdatePlayerZoneMessages(playerid)
 	}
 
 	if (IsPlayerInRangeOfPoint(playerid, 1.0, 2125.901123, -65.776679, 1.585963))
+	{
+		ShowPlayerKeyMessage(playerid, "Y");
+		return 1;
+	}
+
+	if (IsPlayerInRangeOfPoint(playerid, 1.0, -101.229499, -1179.570800, 2.342527) || IsPlayerInRangeOfPoint(playerid, 1.0, 1060.838256, -917.609741, 43.124679))
 	{
 		ShowPlayerKeyMessage(playerid, "Y");
 		return 1;
@@ -13025,6 +13039,12 @@ ShowDialog(playerid, dialogid)
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Caña de pescar", ""COL_WHITE"¿Comprar una caña de pescar?\n\n\
     			Costo:"COL_GREEN" $455", "Comprar", "Cerrar");
+			return 1;
+    	}
+    	case DIALOG_BUY_FIXKIT:
+    	{
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Taller mecánico", ""COL_WHITE"¿Comprar un kit de reparación?\n\n\
+    			Costo:"COL_GREEN" $800", "Comprar", "Cerrar");
 			return 1;
     	}
     	case DIALOG_SELL_FISH:
@@ -21222,6 +21242,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			return 1;
 		}
+		case DIALOG_BUY_FIXKIT:
+		{
+			if (response)
+			{
+				if (CHARACTER_INFO[playerid][ch_CASH] <= 799) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
+
+				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+
+				PLAYER_MISC[playerid][MISC_FIXKIT] ++;
+            	GivePlayerCash(playerid, -800, false);
+     			GameTextForPlayer(playerid, "~r~-800$", 5000, 1);
+     			SavePlayerMisc(playerid);
+			}
+			return 1;
+		}
 		case DIALOG_SELL_FISH:
 		{
 			if (response)
@@ -25429,6 +25464,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
     	CheckPlayerDoors(playerid);
     	CheckRodShop(playerid);
+    	CheckFixKitShop(playerid);
     	CheckMinerShop(playerid);
     	CheckFishSell(playerid);
     	CheckBlackMarket(playerid);
@@ -30079,6 +30115,7 @@ CALLBACK: FixVehicleUpdate(playerid, vehicleid)
 			UpdateVehicleParams(vehicleid);
 
 			ResetItemBody(playerid);
+			SavePlayerMisc(playerid);
 		}
 	}
 	return 1;

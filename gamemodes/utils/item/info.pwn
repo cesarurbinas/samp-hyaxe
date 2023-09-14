@@ -41,7 +41,7 @@ GetItemNameByType(type)
 		case 50: name = "Celular";
 		case 51: name = "Caña de pescar";
 		case 52: name = "Mazo";
-		case 53: name = "Kit de reparacion";
+		case 53: name = "Kit de reparación";
 	}
 	return name;
 }
