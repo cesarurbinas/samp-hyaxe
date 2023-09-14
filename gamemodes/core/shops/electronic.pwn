@@ -13,6 +13,6 @@ enum E_ELECTRONICS_DATA {
 new ELECTRONIC_PRODUCTS[][E_ELECTRONICS_DATA] = {
 	{ ELECTRONIC_MP3, "Reproductor MP3", 500 },
 	{ ELECTRONIC_BOOMBOX, "Parlantes", 1750 },
-	{ ELECTRONIC_GEO, "Geolocalizador", 5000 }
+	{ ELECTRONIC_GEO, "Geolocalizador", 5000 },
 	{ ELECTRONIC_CAM, "Cámara", 100 }
 };

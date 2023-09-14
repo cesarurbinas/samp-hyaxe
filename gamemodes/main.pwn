@@ -21963,6 +21963,29 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SavePlayerMisc(playerid);
 						return 1;
 					}
+					case ELECTRONIC_CAM:
+					{
+						new 
+							weapon_id = 43, 
+							weapon_slot = WEAPON_INFO[weapon_id][weapon_info_SLOT],
+							str_text[128]
+						;
+
+						if(PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
+						{
+							format(str_text, sizeof(str_text), "Para comprar esto tienes que deshacerte de tu %s para tener espacio.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] ][weapon_info_NAME]);
+							ShowPlayerNotification(playerid, str_text, 4);
+							return 1;
+						}
+
+						RegisterNewPlayerWeapon(playerid, weapon_slot);
+						GivePlayerWeaponEx(playerid, weapon_id, 1000, 0x00F7F7F7);
+
+						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						ShowPlayerNotification(playerid, "Has comprado una cámara.", 4);
+						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
+						return 1;
+					}
 					default: return 0;
 				}
 			}

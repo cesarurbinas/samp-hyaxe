@@ -112,7 +112,8 @@ GrabWeapon(playerid, type, ammount, color = 0x00F7F7F7)
 	new 
 		weapon_id = TypeToWeapon(type), 
 		weapon_slot = WEAPON_INFO[weapon_id][weapon_info_SLOT],
-		str_text[128];
+		str_text[128]
+	;
 
 	if(PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
 	{
