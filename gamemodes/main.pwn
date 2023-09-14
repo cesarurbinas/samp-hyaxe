@@ -23030,21 +23030,25 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		{
 			HideBankMenu(playerid);
 			ShowDialog(playerid, DIALOG_BANK_DEPOSIT);
+			return 1;
 		}
 		else if(clickedid == Textdraws[textdraw_BANK_MENU][4])
 		{
 			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_WITHDRAW);
+			return 1;
 		}
 		else if(clickedid == Textdraws[textdraw_BANK_MENU][5])
 		{
 			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_TRANSFER);
+			return 1;
 		}
 		else if(clickedid == Textdraws[textdraw_BANK_MENU][6])
 		{
 			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_TRANSACTIONS);
+			return 1;
 		}
 	}
 
