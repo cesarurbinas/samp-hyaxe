@@ -16958,8 +16958,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				format(DB_Query_update, sizeof(DB_Query_update),
 					"\
-						UPDATE `BANK_ACCOUNT` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';\
-						UPDATE `BANK_ACCOUNT` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';\
+						UPDATE `BANK_ACCOUNTS` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';\
+						UPDATE `BANK_ACCOUNTS` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';\
 					",
 						BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
 						BANK_ACCOUNT[seller][bank_account_BALANCE], BANK_ACCOUNT[seller][bank_account_ID]
@@ -17112,7 +17112,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_NOTARY_TO_PLAYER] != playerid) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
 				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
 				if (ENTER_EXIT[ PLAYER_TEMP[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CITY_HALL_LS) return ShowPlayerMessage(playerid, "~r~El vendedor no está en la sala.", 3);
-				if (!IsPlayerInRangeOfPoint(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER],6.0, 1796.071655,-1414.565307,2770.660156)) return ShowPlayerMessage(playerid, "~r~El vendedor no está en la sala.", 3);
+				if (!IsPlayerInRangeOfPoint(PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER], 6.0, 1796.071655, -1414.565307, 2770.660156)) return ShowPlayerMessage(playerid, "~r~El vendedor no está en la sala.", 3);
 				if (BANK_ACCOUNT[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~El vendedor no tiene cuenta vancaria.", 3);
 
 				// Traspasar
@@ -17152,8 +17152,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				format(DB_Query_update, sizeof(DB_Query_update),
 					"\
-						UPDATE `BANK_ACCOUNT` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';\
-						UPDATE `BANK_ACCOUNT` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';\
+						UPDATE `BANK_ACCOUNTS` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';\
+						UPDATE `BANK_ACCOUNTS` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';\
 					",
 						BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
 						BANK_ACCOUNT[seller][bank_account_BALANCE], BANK_ACCOUNT[seller][bank_account_ID]

@@ -30,8 +30,12 @@ def get_response():
 		else:
 			final_data = request.data.decode('latin1')
 
-		final_data = json.loads(final_data)
-		answer = response.get_response_for_question( final_data['question'] )
+		try:
+			final_data = json.loads(final_data)
+			answer = response.get_response_for_question( final_data['question'] )
+
+		except Exception as e:
+			return 'INTERNAL_SERVER_ERROR', 1
 		
 		if answer == None:
 			return 'INTERNAL_SERVER_ERROR', 1
@@ -59,9 +63,12 @@ def check_bad_use():
 		else:
 			final_data = request.data.decode('latin1')
 
-		final_data = json.loads(final_data)
-		
-		final_data['message'] = utils.clean_text(final_data['message'])
+		try:
+			final_data = json.loads(final_data)
+			final_data['message'] = utils.clean_text(final_data['message'])
+
+		except Exception as e:
+			return 'INTERNAL_SERVER_ERROR', 1
 		
 		if final_data['message'] in bad_use.positive_msg:
 			print(f'[bad_use.debug] { final_data["message"] }')
@@ -141,4 +148,4 @@ def save_bad_use():
 # Intialize Flask App
 if __name__ == '__main__':
 	print('[api.debug] Initializing API:')
-	app.run(host = '0.0.0.0', port = 6666, debug = True)
+	app.run(host = '0.0.0.0', port = 6666, debug = False)
