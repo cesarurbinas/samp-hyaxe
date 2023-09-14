@@ -190,7 +190,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 							PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", time, false, "dd", playerid, treeid);
 							PLAYER_TEMP[playerid][py_TIMERS][46] = SetTimerEx("UpdateTreeCutting", 100, true, "d", playerid);
 							ApplyAnimation(playerid, "CHAINSAW", "null", 0.0, 0, 0, 0, 0, 0, 0); // Preload
-							ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 4.1, true, true, true, true, 0, true);
+							ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 4.1, true, false, false, true, 0, true);
 
 							PLAYER_TEMP[playerid][py_CUTTING] = treeid;
 
