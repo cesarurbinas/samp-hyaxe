@@ -1106,32 +1106,12 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 		Float:size_gasoline
 	;
 
-	/*if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] < 450.0)
-	{
-		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1]);
-	}
-	else
-	{
-		PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1]);
-	}*/
-
-	/*size_vel = 544.0 + (floatround(vel) * 0.5);
-	if (size_vel < 632.0)
-	{
-		PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], size_vel, 0.000000);
-	}*/
-
 	size_gasoline = 516.0 + (GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] * 0.9);
-	if (size_gasoline < 601.0)
+	if (size_gasoline < 630.0)
 	{
 		PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], size_gasoline, 0.000000);
 	}
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1]);
-
-	//PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], AdjustDarkness(VEHICLE_COLORS[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_COLOR_2] ], 1.75));
-	//PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], VEHICLE_COLORS[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_COLOR_2] ]);
-	//PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], AdjustDarkness(VEHICLE_COLORS[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_COLOR_2] ], 1.75));
-	//PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], VEHICLE_COLORS[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_COLOR_2] ]);
 
 	format(td_str, sizeof td_str, "%.1f", GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]);
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], td_str);
@@ -2875,7 +2855,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 
 			GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
 			if (PLAYER_TEMP[playerid][py_SPEEDOMETER]) PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 0x3D3D3DFF);
-			
+
 			UpdateVehicleParams(vehicleid);
 
 			TRUCK_VEHICLE[vehicleid][truck_vehicle_UNLOADING] = true;
@@ -4925,7 +4905,11 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 				}
 			}
 		}
-		if (VEHICLE_INFO[GetVehicleModel(vehicleid) - 400][vehicle_info_VALID] && !PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE]) ShowPlayerSpeedoMeter(playerid);
+		if (VEHICLE_INFO[GetVehicleModel(vehicleid) - 400][vehicle_info_VALID] && !PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE])
+		{
+			ShowPlayerSpeedoMeter(playerid);
+			ShowPlayerNotification(playerid, "Presione ~y~2~w~ para abrir el panel vehicular");
+		}
 
 		if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
 		{
