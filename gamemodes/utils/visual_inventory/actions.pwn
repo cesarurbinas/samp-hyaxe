@@ -106,7 +106,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 					new DB_Query[132];
 
-					if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] =< 0)
+					if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] <= 0)
 					{
 						format(DB_Query, sizeof DB_Query,
 							"DELETE FROM `PROPERTY_STORAGE` WHERE `ID` = '%d';", 
@@ -146,6 +146,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				{
 					SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot);
 				}
+				else SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot, 1);
 
 				HideInventory(playerid);
 				ShowInventory(playerid, 2);
