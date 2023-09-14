@@ -654,7 +654,6 @@ CMD:jail(playerid, params[])
 
     StopAudioStreamForPlayer(to_player);
     CancelEdit(to_player);
-    if (!BOTS[playerid][b_ACTIVE]) HidePlayerDialog(to_player);
     EndPlayerJob(to_player);
 
     PLAYER_MISC[to_player][MISC_JAILS] ++;
@@ -2329,6 +2328,7 @@ CMD:testsound(playerid, params[])
 	return 1;
 }
 
+<<<<<<< HEAD
 /*CMD:fakeping(playerid, params[])
 {
 	new fakeping, to_player;
@@ -2350,6 +2350,8 @@ CMD:botmaster(playerid, params[])
 	return 1;
 }
 
+=======
+>>>>>>> refs/rewritten/hmm
 CMD:setfstyle(playerid, params[])
 {
     new to_player, style;

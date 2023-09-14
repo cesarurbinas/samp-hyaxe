@@ -164,9 +164,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "utils/edit_mode/edit.pwn"
 #include "utils/furniture/object.pwn"
 
-// Bots
-#include "utils/world/bots.pwn"
-
 // Admin
 #include "core/admin/macros.pwn"
 #include "core/admin/level.pwn"
@@ -215,6 +212,7 @@ main()
 	printf("\n[build] Hyaxe SA-MP "SERVER_VERSION"\n");
 }
 
+<<<<<<< HEAD
 /*enum b1g_enum
 {
 	PING,
@@ -222,6 +220,8 @@ main()
 }
 new B1G_PLAYER[MAX_PLAYERS][b1g_enum];*/
 
+=======
+>>>>>>> refs/rewritten/hmm
 enum
 {
 	TYPE_LEGAL,
@@ -1757,33 +1757,6 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
-enum Doubt_Enum
-{
-	d_QUESTION[144],
-	d_RESPONSE[144]
-};
-
-new DOUBT_RESPONSES[][Doubt_Enum] = // EE = EnterExits
-{
-	{"como veo el numero de alguien", "use /guia id"},
-	{"como pico", "con alt, si no te anda usa /minero"},
-	{"como se pica", "con alt, si no te anda usa /minero"},
-	{"como soy policia", "postulandote en foro.hyaxe.com si es que estan abiertas"},
-	{"cual es el foro", "foro.hyaxe.com"},
-	{"donde compro armas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
-	{"donde compro las armas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
-	{"donde compro drogas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
-	{"donde compro una arma", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
-	{"a que nivel puedo usar armas", "a nivel 2"},
-	{"estoy bug necesito un staff", "/reportar tu id"},
-	{"quien es el dueño del sv", "atom alias yahir_kozer"},
-	{"como acepto muerte", "con la c"},
-	{"como guardo un arma en mi maletero", "/guardar arma usa /armas para ver el slot"},
-	{"cual es el mejor trabajo", "averigua ic"},
-	{"como veo el inventario", "presiona la tecla N"},
-	{"como contacto a un staff", "/reportar tu id"}
-};
-
 enum enum_JAIL_POSITIONS
 {
 	jail_INT,
@@ -2819,6 +2792,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
     return 1;
 }
 
+<<<<<<< HEAD
 /*public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
 {
 	switch(rpcid)
@@ -2871,6 +2845,8 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 	return 1;
 }*/
 
+=======
+>>>>>>> refs/rewritten/hmm
 ClearPlayerChatBox(playerid, ammount = 20)
 {
 	for(new i = 0; i != ammount; i++) SendClientMessage(playerid, -1, " ");
@@ -3100,12 +3076,6 @@ public OnPlayerConnect(playerid)
 
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
 	GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
-
-	if(!strcmp(PLAYER_TEMP[playerid][py_IP], BotsMaster))
-	{
-		SetBot(playerid);
-		return 1;
-	}
 
 	#if defined VOICE_CHAT
 		if (sv_get_version(playerid) == SV_VERSION)
@@ -3562,13 +3532,6 @@ public OnPlayerDisconnect(playerid, reason)
 
 ResetPlayerVariables(playerid)
 {
-	if (BOTS[playerid][b_ACTIVE])
-	{
-		KillTimer(BOTS[playerid][b_TIMER][0]);
-		KillTimer(BOTS[playerid][b_TIMER][1]);
-		BOTS[playerid][b_ACTIVE] = false;
-	}
-
 	#if defined VOICE_CHAT
 		VALID_CLIENT[playerid] = false;
 	#endif
@@ -3586,8 +3549,11 @@ ResetPlayerVariables(playerid)
 	new temp_PLAYER_POCKET[Player_Pocket_Enum];
 	for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++) PLAYER_POCKET[playerid][i] = temp_PLAYER_POCKET;
 
+<<<<<<< HEAD
 	//B1G_PLAYER[playerid][FAKE_PING] = false;
 
+=======
+>>>>>>> refs/rewritten/hmm
 	new temp_PLAYER_PHONE[Phone_Info_Enum]; PLAYER_PHONE[playerid] = temp_PLAYER_PHONE;
 
 	new temp_PLAYER_PHONE_BOOK[Phone_Book_Enum];
@@ -5807,7 +5773,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 	HidePlayerHud(playerid);
 	CancelEdit(playerid);
-	if (!BOTS[playerid][b_ACTIVE]) HidePlayerDialog(playerid);
 	SetNormalPlayerMarkers(playerid);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) EndPlayerJob(playerid, false);
 	PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE] = false;
@@ -5995,7 +5960,6 @@ public OnPlayerRequestClass(playerid, classid)
 		if (!PLAYER_TEMP[playerid][py_USER_VALID_NAME] || PLAYER_TEMP[playerid][py_KICKED]) return 0;
 		
 		TogglePlayerSpectatingEx(playerid, true);
-		if (BOTS[playerid][b_ACTIVE]) return SetBotInit(playerid);
 
 		if (PLAYER_TEMP[playerid][py_USER_EXIT])
 		{
@@ -11261,17 +11225,6 @@ ShowDialog(playerid, dialogid)
 					listitem ++;
 				}
 			}
-
-			if (BOTS[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][b_ACTIVE])
-			{
-				if (!BOTS[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][b_OCCUPIED])
-				{
-					strcat(dialog, "Seguimiento\n");
-					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 10;
-					listitem ++;
-				}
-			}
-
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Cerrar");
 			return 1;
@@ -29909,14 +29862,6 @@ public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 
 	//printf("damage %d %d", playerid, weapon);
 
-	/*if (BOTS[playerid][b_ACTIVE])
-	{
-		switch(weapon)
-		{
-			case 0: SetTimerEx("BotDamageResponse", 1000, false, "i", playerid);
-		}
-	}*/
-
 	if (issuerid != INVALID_PLAYER_ID && weapon == 23)
 	{
 	   SetPlayerChatBubble(playerid, "\n\n\n\n* Cae al piso al recibir el choque eléctrico de un tazer.\n\n\n", 0xffcb90FF, 20.0, 5000);
@@ -29952,7 +29897,6 @@ OnCheatDetected(playerid, ip_address[], type, code)
 	#pragma unused ip_address, type
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
-	if (BOTS[playerid][b_ACTIVE]) return 1;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	new ac_message[145];
@@ -29970,7 +29914,6 @@ OnCheatDetected(playerid, ip_address[], type, code)
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 {
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
-	if (BOTS[playerid][b_ACTIVE]) return 1;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 
@@ -31160,7 +31103,6 @@ CALLBACK: CuffPlayer(playerid)
 	SetPlayerDrunkLevel(playerid, 0);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	CancelEdit(playerid);
-	if (!BOTS[playerid][b_ACTIVE]) HidePlayerDialog(playerid);
 	EndPlayerJob(playerid);
 	PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE] = false;
 	PLAYER_TEMP[playerid][py_THIRST_MESSAGE] = false;
@@ -31959,7 +31901,6 @@ EndPlayerJob(playerid, changeskin = true)
 				{
 					if (TRUCK_VEHICLE[ PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] ][truck_vehicle_LOADING])
 					{
-						if (!BOTS[playerid][b_ACTIVE]) HidePlayerDialog(playerid);
 						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][9]);
 						SetVehicleToRespawnEx(PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID]);
 					}
@@ -34178,24 +34119,6 @@ CheckNameFilterViolation(const str_text[])
 	return false;
 }
 
-CALLBACK: BotDoubtResponse(playerid, response_id)
-{
-	new str[364];
-	format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"Jugador %s_%s (%d): (( @%d %s ))", names[random(sizeof(names))], surnames[random(sizeof(surnames))], minrand(0, 1000), playerid, DOUBT_RESPONSES[response_id][d_RESPONSE]);
-
-	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-	{
-		if (IsPlayerConnected(i))
-		{
-			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL] && !PLAYER_TEMP[playerid][py_NEW_USER])
-			{
-				SendResponsiveMessage(i, COLOR_DARK_GREEN, str, 125);
-			}
-		}
-	}
-	return 1;
-}
-
 SendMessageToDoubtChannel(playerid, message[])
 {
 	new str[364];
@@ -34229,18 +34152,9 @@ SendMessageToDoubtChannel(playerid, message[])
 		{
 			if ((PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL || PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_DEAD) && ACCOUNT_INFO[i][ac_DOUBT_CHANNEL] && !PLAYER_TEMP[playerid][py_NEW_USER])
 			{
-				if (BOTS[playerid][b_ACTIVE] && ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) continue;
+				if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) continue;
 				SendResponsiveMessage(i, COLOR_DARK_GREEN, str, 125);
 			}
-		}
-	}
-
-	for(new i = 0; i != sizeof(DOUBT_RESPONSES); i++ )
-	{
-		if (strfind(message, DOUBT_RESPONSES[i][d_QUESTION], true) != -1)
-		{
-			SetTimerEx("BotDoubtResponse", 4000, false, "id", playerid, i);
-			break;
 		}
 	}
 	return 1;
@@ -34391,8 +34305,11 @@ flags:atenderre(CMD_MODERATOR)
 flags:deletead(CMD_MODERATOR2)
 flags:settime(CMD_MODERATOR3)
 flags:darstaff(CMD_OWNER)
+<<<<<<< HEAD
 //flags:fakeping(CMD_OWNER)
 flags:botmaster(CMD_OWNER)
+=======
+>>>>>>> refs/rewritten/hmm
 flags:hy(CMD_OWNER)
 flags:ac(CMD_OWNER)
 flags:setthirst(CMD_MODERATOR2)
