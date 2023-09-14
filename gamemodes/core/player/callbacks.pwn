@@ -709,6 +709,10 @@ public SavePlayerData(playerid)
 	SavePlayerVehicles(playerid, false);
 	SavePlayerMisc(playerid);
 	SavePlayerWeaponsData(playerid);
+
+	if (GetPlayerPing(playerid) >= 400)
+		Anticheat_Kick(playerid, "Ping alto");
+
 	return 1;
 }
 

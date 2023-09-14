@@ -52,9 +52,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
-	{
-		printf("CODE 1: %d", code);
-		
+	{	
 		switch(code)
 		{
 			case 0: Anticheat_Kick(playerid, "AirBreak (onfoot)");
