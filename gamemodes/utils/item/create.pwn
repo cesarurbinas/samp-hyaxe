@@ -13,7 +13,7 @@ CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz,
 	new index = GetFreeDropItemSlot();
 	if (index == -1) return print("[DEBUG] Error: Todos los slots de item sueltos estan ocupados.");
 
-	DROP_ITEMS[index][itm_ID] = CreateDynamicObject(modelid, x, y, z, rx, ry, rz, worldid, interiorid, 80.0, 80.0);
+	DROP_ITEMS[index][itm_ID] = CreateDynamicObject(modelid, x, y, z, rx, ry, rz, worldid, interiorid, .streamdistance = 80.0, .drawdistance = 80.0);
 	DROP_ITEMS[index][itm_MODELID] = modelid;
 	DROP_ITEMS[index][itm_VALID] = true;
 	DROP_ITEMS[index][itm_TYPE] = type;
