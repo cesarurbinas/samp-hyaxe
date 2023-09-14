@@ -143,7 +143,7 @@ SetFirstPerson(playerid, bool:toggle, bool:tele = false)
 
 		PLAYER_TEMP[playerid][py_FP_OBJ] = CreateObject(19300, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
-		if (tele == true) AttachObjectToPlayer(PLAYER_TEMP[playerid][py_FP_OBJ], playerid, 0.0, 0.80, 0.3, 0.0, 0.0, 0.0);
+		if (tele == true) AttachObjectToPlayer(PLAYER_TEMP[playerid][py_FP_OBJ], playerid, 0.0, 0.100, 0.3, 0.0, 0.0, 0.0);
 		else AttachObjectToPlayer(PLAYER_TEMP[playerid][py_FP_OBJ], playerid, 0.0, 0.35, 0.5, 0.0, 0.0, 0.0);
 
 		AttachCameraToObject(playerid, PLAYER_TEMP[playerid][py_FP_OBJ]);

@@ -131,6 +131,7 @@ new FURNITURE_OBJECTS[][enum_furtniture_objects] =
 	{2099, "Muskita", 500, 5},
 	{2206, "Office 2", 500, 5},
 	{2184, "Gamer", 500, 5},
+	// Sillas
 	{1000, "", 500, 5},
 	{1000, "", 500, 5},
 	{1000, "", 500, 5},
