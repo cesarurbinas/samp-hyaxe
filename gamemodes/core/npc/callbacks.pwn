@@ -158,6 +158,15 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 							PLAYER_TEMP[i][py_IN_MISSION] = false;
 						}
 					}
+
+					// Respawn npcs
+					if (npc_lives <= 0)
+					{
+						for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+						{
+							FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 1);
+						}
+					}
 				}
 			}
 		}
