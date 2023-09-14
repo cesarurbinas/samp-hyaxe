@@ -1958,7 +1958,7 @@ CMD:putboot(playerid, params[])
 
 	PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] = vehicleid;
 	ResetItemBody(playerid);
-	ShowInventory(playerid, 3);
+	ShowInventory(playerid, 4);
 	
 	SendCmdLogToAdmins(playerid, "putboot", params);
 	return 1;
