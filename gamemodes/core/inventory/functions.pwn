@@ -290,8 +290,8 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		case 1: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `TYPE` ASC;", ACCOUNT_INFO[playerid][ac_ID]);
 		case 2: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `EXTRA` ASC;", ACCOUNT_INFO[playerid][ac_ID]);
 
-		case 1: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `TYPE` DESC;", ACCOUNT_INFO[playerid][ac_ID]);
-		case 2: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `EXTRA` DESC;", ACCOUNT_INFO[playerid][ac_ID]);
+		case 3: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `TYPE` DESC;", ACCOUNT_INFO[playerid][ac_ID]);
+		case 4: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d' ORDER BY `EXTRA` DESC;", ACCOUNT_INFO[playerid][ac_ID]);
 		
 		default: format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 	}
@@ -1684,6 +1684,7 @@ UseItemSlot(playerid)
 			GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] += ammount;
 			SubtractItem(playerid, 5);
 
+			new str_text[128];
 			format(str_text, sizeof(str_text), "Has vertido ~r~%.1f~w~ litros del bidón.", ammount);
 			ShowPlayerMessage(playerid, str_text, 5);
 			SetPlayerChatBubble(playerid, "\n\n\n\n* Ha puesto gasolina en el vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);

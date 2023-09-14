@@ -7861,6 +7861,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				PLAYER_MISC[playerid][MISC_INV_CONFIG] = listitem;
 				SavePlayerMisc(playerid);
+
+				ShowPlayerNotification(playerid, sprintf("Nueva orden de inventario establecida: ~y~%s", INV_CONFIG[listitem]), 5);
 			}
 			ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 		}
