@@ -27552,8 +27552,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 		if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 		{
-			CheckStellPoint(playerid);
-			
+			CheckStallPoint(playerid);
+
 			for(new i = 0; i != MAX_DROP_ITEMS; i ++)
 			{
 				if (DROP_ITEMS[i][itm_VALID] == true)

@@ -24,7 +24,7 @@ CreateStalls()
 
 		GetXYFromAngle(x, y, STALL_INFO[i][st_ANGLE], 1.0);
 
-		// Stell object
+		// Stall object
 		STALL_INFO[i][st_OBJECT] = CreateDynamicObject(
 			3039,
 			x,
@@ -55,16 +55,16 @@ CreateStalls()
 	return 1;
 }
 
-CheckStellPoint(playerid)
+CheckStallPoint(playerid)
 {
 	for (new i; i < sizeof(STALL_INFO); i++)
 	{
-		if (IsPlayerInRangeOfPoint(playerid, 1.5, STALL_INFO[i][st_X], STALL_INFO[i][st_Y], STALL_INFO[i][st_Z]))
+		if (IsPlayerInRangeOfPoint(playerid, 2.6, STALL_INFO[i][st_X], STALL_INFO[i][st_Y], STALL_INFO[i][st_Z]))
 		{
 			if (CHARACTER_INFO[playerid][ch_CASH] <= STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE])
 				return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 			
-			GivePlayerCash(playerid, STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE], false);
+			GivePlayerCash(playerid, -STALL_PRODUCT[ STALL_INFO[i][st_PRODUCT] ][stp_PRICE], false);
 
 			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 0, 0, 0, 0, 0, 0);
 			ApplyAnimation(playerid, "FOOD", "EAT_Pizza", 4.1, false, true, true, false, 1000);
