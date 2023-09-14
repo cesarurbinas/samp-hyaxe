@@ -26899,7 +26899,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     {
 		CheckAndOpenBoot(playerid, 0);
 		return 1;
-	}
+	} 
 	else if (PRESSED( KEY_WALK ))
 	{
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
