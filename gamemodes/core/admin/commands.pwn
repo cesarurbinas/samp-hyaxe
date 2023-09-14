@@ -2677,6 +2677,7 @@ CMD:testsound(playerid, params[])
 	PlayerPlaySound(playerid, sound, 0.0, 0.0, 0.0);
 	return 1;
 }
+flags:testsound(CMD_MODERATOR)
 
 <<<<<<< HEAD
 /*CMD:fakeping(playerid, params[])
