@@ -6549,7 +6549,7 @@ public OnGameModeInit()
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
 	SetTimer("GiveAutoGift", 300000, false);
-	SetTimer("SendGift", 30000, true);
+	SetTimer("SendGift", 60000, true);
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
