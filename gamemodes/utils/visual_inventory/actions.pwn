@@ -1,10 +1,10 @@
 ClickInventorySlot(playerid, td_init, bool:simple = false)
 {
 	new slot;
-	if(simple == false) slot = (td_init - 10);
+	if (simple == false) slot = (td_init - 10);
 	else slot = td_init;
 	
-	if(PLAYER_VISUAL_INV[playerid][slot_VALID][slot] == true)
+	if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot] == true)
 	{
 		if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
 		new item_str[64];
@@ -14,7 +14,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 		ResetItemBody(playerid);
 
-		if(PLAYER_TEMP[playerid][py_PLAYER_IN_INV] == true)
+		if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV] == true)
 		{
 			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10], COLOR_GREY_TWO);
 			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11], COLOR_GREY_TWO);
@@ -34,10 +34,11 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 		
 		SetItemToBody(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
-		if(PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot] == true)
+		if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot] == true)
 		{
-			if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
-			
+			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
+			if (IsPlayerInRangeOfPoint(playerid, 30.0, -17.344648, 99.261329, 1100.822021)) return ShowPlayerMessage(playerid, "~r~No puedes sacar armas en el club.", 3);
+
 			ac_ResetPlayerWeapons(playerid);
 			ac_GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
 			CheckBlockedWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID]);
@@ -58,21 +59,21 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 DropItemSlot(playerid, anim = true)
 {
-	if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT)
 	{
-		if(anim) return 0;
+		if (anim) return 0;
 	}
 	
 	new 
 		Float:pos[3],
 		slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
 
-	if(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50) return 0;
+	if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50) return 0;
 
 	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
 	if (anim) ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
 	
-	if(PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot] == true)
+	if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot] == true)
 	{
 		CreateDropItem(GetItemObjectByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), PLAYER_TEMP[playerid][py_NAME], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 	}
@@ -91,7 +92,6 @@ UseItemSlot(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 	new slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
-	
 
 	switch(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot])
 	{
@@ -104,7 +104,7 @@ UseItemSlot(playerid)
 			PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] = target_player;
 			GetPlayerPos(target_player, pos[0], pos[1], pos[2]);
 
-			if(IsPlayerInRangeOfPoint(playerid, 1.2, pos[0], pos[1], pos[2]))
+			if (IsPlayerInRangeOfPoint(playerid, 1.2, pos[0], pos[1], pos[2]))
 			{
 				KillTimer(PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16]);
 				PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16] = SetTimerEx("StandUpBotikin", 5000, false, "ii", playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
@@ -117,8 +117,8 @@ UseItemSlot(playerid)
 
 		case 1:
 		{
-			if(PLAYER_MISC[playerid][MISC_MEDICINE] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes medicamentos.", 3);
-			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_REMEDY]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir medicamentos.", 3);
+			if (PLAYER_MISC[playerid][MISC_MEDICINE] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes medicamentos.", 3);
+			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_REMEDY]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir medicamentos.", 3);
 			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
 
 			PLAYER_MISC[playerid][MISC_MEDICINE] --;
@@ -135,8 +135,8 @@ UseItemSlot(playerid)
 
 		case 2:
 		{
-			if(PLAYER_MISC[playerid][MISC_VENDAS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes vendas.", 3);
-			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_BAND]) < 10) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 10 segundos para volver a usar vendas.", 3);
+			if (PLAYER_MISC[playerid][MISC_VENDAS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes vendas.", 3);
+			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_BAND]) < 10) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 10 segundos para volver a usar vendas.", 3);
 			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
 
 			PLAYER_MISC[playerid][MISC_VENDAS] --;
@@ -151,7 +151,7 @@ UseItemSlot(playerid)
 
 		case 3:
 		{
-			if(PLAYER_MISC[playerid][MISC_CANNABIS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes marihuana.", 3);
+			if (PLAYER_MISC[playerid][MISC_CANNABIS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes marihuana.", 3);
 			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
 
 			PLAYER_MISC[playerid][MISC_CANNABIS] --;
@@ -165,8 +165,8 @@ UseItemSlot(playerid)
 
 		case 4:
 		{
-			if(PLAYER_MISC[playerid][MISC_CRACK] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes crack.", 3);
-			if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_CRACK]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir crack.", 3);
+			if (PLAYER_MISC[playerid][MISC_CRACK] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes crack.", 3);
+			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_CRACK]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir crack.", 3);
 			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
 			
 			PLAYER_MISC[playerid][MISC_CRACK] --;
@@ -184,12 +184,12 @@ UseItemSlot(playerid)
 
 		case 5:
 		{
-			if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del vehículo para vertir el bidón.", 3);
+			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del vehículo para vertir el bidón.", 3);
 
 			new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-			if(vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No estás cerca de ningún vehículo.", 3);
+			if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No estás cerca de ningún vehículo.", 3);
 
-			if(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
+			if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
 			{
 				ShowPlayerNotification(playerid, "Por favor, para primero el motor del vehículo.", 3);
 				return 1;
@@ -208,15 +208,15 @@ UseItemSlot(playerid)
 
 		case 51:
 		{
-			if(GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
+			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
 
-			if(PLAYER_WORKS[playerid][WORK_FISHER])
+			if (PLAYER_WORKS[playerid][WORK_FISHER])
 			{
-				if(!IsPlayerInWater(playerid))
+				if (!IsPlayerInWater(playerid))
 				{
-					if(PLAYER_TEMP[playerid][py_FISHING] == false)
+					if (PLAYER_TEMP[playerid][py_FISHING] == false)
 					{
-						if(IsPlayerInRangeOfPoint(playerid, 30.0, 1955.022094, -189.402023, -2.332746) || IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 1858.291503, -69.229499, -2.332746))
+						if (IsPlayerInRangeOfPoint(playerid, 30.0, 1955.022094, -189.402023, -2.332746) || IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 2209.482421, -231.312026, -2.332746)|| IsPlayerInRangeOfPoint(playerid, 30.0, 1858.291503, -69.229499, -2.332746))
 						{
 							PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2], "Espera a que muerdan el anzuelo...");
 							TextDrawShowForPlayer(playerid, Textdraws[textdraw_PROGRESS_BG]);
