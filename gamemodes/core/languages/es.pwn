@@ -53,6 +53,7 @@ new POLICE_RANKS[][] =
 // Mafia Ranks
 new MAFIA_RANKS[][] =
 {
+	"Civil",
 	/* 0 */ "Associato",
 	/* 1 */ "Soldato",
 	/* 2 */ "Avvocato",
@@ -60,7 +61,7 @@ new MAFIA_RANKS[][] =
 	/* 4 */ "Casetto",
 	/* 5 */ "Numerale",
 	/* 6 */ "Sottocapo",
-	/* 7 */ "consigliere",
+	/* 7 */ "Consigliere",
 	/* 8 */ "Don",
 	/* 9 */ "Capo di tutti capo",
 	/* 10 */ "Ricardo."
@@ -69,6 +70,7 @@ new MAFIA_RANKS[][] =
 // enemy mafia
 new ENEMY_MAFIA_RANKS[][] =
 {
+	"Civil",
 	/* 0 */ "Traficante",
 	/* 1 */ "Armeros",
 	/* 2 */ "Renta de seguridad",

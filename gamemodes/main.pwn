@@ -7698,7 +7698,7 @@ SanAndreas()
 	
 	//base mafia
 	CreateDynamic3DTextLabel("{ca3535}La cosa nostra\n"COL_WHITE"Equipamiento", 0xF7F7F700, 726.2478, -1276.3830, 13.5662, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel("{ff9b00}The Crew Criminals\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{ff9b00}The Crew Criminals\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
 
 	//meca
 	/*CreateDynamicPickup(1558, 1, -82.038078, -1208.153564, 2.704517, 0, 0);
