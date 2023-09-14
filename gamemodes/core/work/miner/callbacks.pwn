@@ -5,6 +5,8 @@ public RespawnMinerRock(rock_id)
 		printf("RespawnMinerRock"); // debug juju
 	#endif
 
+	SetRandomRockType(index);
+
 	new color_type = GetRockColorType(ROCKS_OBJ[rock_id][r_TYPE]);
 	ROCKS_OBJ[rock_id][r_OBJECT_ID] = CreateDynamicObject(ROCKS_OBJ[rock_id][r_MODELID], ROCKS_OBJ[rock_id][r_X], ROCKS_OBJ[rock_id][r_Y], ROCKS_OBJ[rock_id][r_Z], ROCKS_OBJ[rock_id][r_RX], ROCKS_OBJ[rock_id][r_RY], ROCKS_OBJ[rock_id][r_RZ], ROCKS_OBJ[rock_id][r_WORLD], ROCKS_OBJ[rock_id][r_INTERIOR]);
 	SetDynamicObjectMaterial(ROCKS_OBJ[rock_id][r_OBJECT_ID], 0, -1, "none", "none", color_type);

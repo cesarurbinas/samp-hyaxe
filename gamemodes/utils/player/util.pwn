@@ -3711,7 +3711,6 @@ PlayerPayday(playerid)
 	if (money > 4500) money = 4500;
 	money += minrand(100, 200);
 
-
 	for(new i = 0; i < MAX_CLUBS; i++)
 	{
 		if (CLUBS_INFO[i][club_USER_ID] == ACCOUNT_INFO[playerid][ac_ID])
