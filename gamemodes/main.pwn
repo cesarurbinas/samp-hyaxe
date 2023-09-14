@@ -55,7 +55,7 @@
 
 // Features
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -26844,7 +26844,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     {
     	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999) UseItemSlot(playerid);
 
-    	CheckPlayerDoors(playerid);
     	CheckRodShop(playerid);
     	CheckFixKitShop(playerid);
     	CheckMinerShop(playerid);
@@ -27012,6 +27011,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if (PRESSED( KEY_HANDBRAKE | KEY_NO ))
     {
 		SetVehicleLightsAction(playerid);
+		return 1;
+	}
+	else if (PRESSED( KEY_HANDBRAKE | KEY_YES ))
+    {
+		CheckPlayerDoors(playerid);
 		return 1;
 	}
 	else if (PRESSED( KEY_NO ) && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
