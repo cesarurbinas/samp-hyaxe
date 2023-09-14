@@ -13,7 +13,13 @@ StartMining(playerid, rock_id)
 	
 	ROCKS_OBJ[rock_id][r_ACTIVATED] = false;
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][35]);
-	PLAYER_TEMP[playerid][py_TIMERS][35] = SetTimerEx("UpdateMining", GetRockMiningTime(ROCKS_OBJ[rock_id][r_TYPE]), true, "ii", playerid, rock_id);
+	
+	new time = GetRockMiningTime(ROCKS_OBJ[rock_id][r_TYPE]);
+	if (PLAYER_MISC[playerid][MISC_MINER_MULTIPLIER]) time = (time / 2);
+	if (time < 300) time = 300;
+	
+	PLAYER_TEMP[playerid][py_TIMERS][35] = SetTimerEx("UpdateMining", time, true, "ii", playerid, rock_id);
+	
 	ApplyAnimation(playerid, "SWORD", "SWORD_4", 4.1, true, false, false, false, 0, true);
 	SetTimerEx("RespawnMinerRock", 60000, false, "i", rock_id);
 	return 1;
@@ -240,7 +246,7 @@ UpdateRockProcessorLabel(processor_id)
 	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] <= 0.0) ROCK_PROCESSOR[processor_id][rp_HEALTH] = 0.0;
 
 	new str_text[164];
-	format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquíi.\n\nGasolina: %.1f\nEstado: %.1f%", processor_id, ROCK_PROCESSOR[processor_id][rp_FUEL], ROCK_PROCESSOR[processor_id][rp_HEALTH]);
+	format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aqui.\n\nGasolina: %.1f\nEstado: %.1f%", processor_id, ROCK_PROCESSOR[processor_id][rp_FUEL], ROCK_PROCESSOR[processor_id][rp_HEALTH]);
 	printf("update 1: %s", str_text);
 	if (ROCK_PROCESSOR[processor_id][rp_FUEL] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere gasolina");
 	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere reparación");
