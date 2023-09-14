@@ -1,290 +1,850 @@
-new NAME_WHITELIST[][24] =
+enum
 {
-	"Yahir_Kozel",
-	"Atom_Palomita",
-	"Pepe_Garcia",
-	"Radric_Dresta",
-	"Alex_Flores",
-	"Travis Dalkowa",
-	"Atom"
+	INTERIOR_NO_INFO,
+	INTERIOR_BINCO,
+	INTERIOR_SUBURBAN,
+	INTERIOR_PROLAPS,
+	INTERIOR_DIDIER_SACHS,
+	INTERIOR_VICTIM,
+	INTERIOR_ZIP,
+	INTERIOR_247,
+	INTERIOR_PIZZA,
+	INTERIOR_CLUCKIN_BELL,
+	INTERIOR_BURGER_SHOT,
+	INTERIOR_BANK_LS,
+	INTERIOR_BANK_SF,
+	INTERIOR_BANK_LV,
+	INTERIOR_CITY_HALL_LS,
+	INTERIOR_UNITY_STATION,
+	INTERIOR_TRUCK,
+	INTERIOR_POLICE_LS,
+	INTERIOR_POLICE_SF,
+	INTERIOR_POLICE_LV,
+	INTERIOR_ALHAMBRA,
+	INTERIOR_POLICE_GARAGE,
+	INTERIOR_HOSPITAL,
+	INTERIOR_CLUB
+};
+enum Enter_Exits
+{
+	ee_ID,
+	ee_NAME[32],
+	
+	ee_INTERIOR_TYPE,
+	
+	ee_INT_MAPICON,
+	ee_INT_FREEZE,
+	ee_INT_WORLD,
+	ee_INT_INTERIOR,
+	Float:ee_INT_X,
+	Float:ee_INT_Y,
+	Float:ee_INT_Z,
+	Float:ee_INT_ANGLE,
+	
+	ee_EXT_MAPICON,
+	ee_EXT_FREEZE,
+	ee_EXT_WORLD,
+	ee_EXT_INTERIOR,
+	Float:ee_EXT_X,
+	Float:ee_EXT_Y,
+	Float:ee_EXT_Z,
+	Float:ee_EXT_ANGLE,
+	
+	ee_TIME_OPEN,
+	ee_TIME_CLOSE,
+	
+	ee_INT_MAPICON_ID,
+	ee_EXT_MAPICON_ID,
+	Text3D:ee_INT_LABEL_ID,
+	Text3D:ee_EXT_LABEL_ID,
+	
+	
+	ee_INT_PICKUP_ID,	// No son pickups decorativos
+	ee_EXT_PICKUP_ID	// Son pickups para identificar el id
 };
 
-static const QUIT_KEYWORDS[][16] =
+new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 {
-	"7q",
-	"(q",
-	"9/q",
-	"(/q",
-	"*/q",
-	")q",
-	"8q",
-	"9q"
+	// Tiendas de ropa
+	{-1, "Binco", INTERIOR_BINCO, -1, false, 0, 15, 207.744949, -111.073318, 1005.132812, 0.0,	45, false, 0, 0, 2244.484863, -1665.223510, 15.476562, 0.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Binco", INTERIOR_BINCO, -1, false, 1, 15, 207.744949, -111.073318, 1005.132812, 0.0,	45, false, 0, 0, 2102.4263, 2257.5750, 11.0234, 273.9107, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // binco lv
+	{-1, "Binco", INTERIOR_BINCO, -1, false, 2, 15, 207.744949, -111.073318, 1005.132812, 0.0,	45, false, 0, 0, 1656.5707, 1733.1418, 10.8281, 91.4768, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // binco lv
+	{-1, "Binco", INTERIOR_BINCO, -1, false, 3, 15, 207.744949, -111.073318, 1005.132812, 0.0,	45, false, 0, 0, -2374.1768, 910.1226, 45.4317, 88.0863, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // binco sf
+	{-1, "SubUrban", INTERIOR_SUBURBAN, -1, false, 0, 1, 203.906326, -50.494247, 1001.804687, 0.0,	45, false, 0, 0, 2112.835205, -1211.456665, 23.962865, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "SubUrban", INTERIOR_SUBURBAN, -1, false, 1, 1, 203.906326, -50.494247, 1001.804687, 0.0,	45, false, 0, 0, 2779.4438, 2453.6345, 11.0625, 133.9879, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // su lv
+	{-1, "SubUrban", INTERIOR_SUBURBAN, -1, false, 2, 1, 203.906326, -50.494247, 1001.804687, 0.0,	45, false, 0, 0, -2490.3079, -28.9528, 25.6172, 87.1329, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // su sf
+	{-1, "ProLaps", INTERIOR_PROLAPS, -1, false, 0, 3, 206.995925, -140.021163, 1003.507812, 0.0,	45, false, 0, 0, 499.498168, -1360.616088, 16.368682, 340.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Didier Sachs", INTERIOR_DIDIER_SACHS, -1, false, 0, 14, 204.348281, -168.678985, 1000.523437, 0.0,	45, false, 0, 0, 453.858032, -1478.098632, 30.813968, 111.110641, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Victim", INTERIOR_VICTIM, -1, false, 0, 5, 227.350250, -8.188652, 1002.210937, 90.0,	45, false, 0, 0, 461.541320, -1500.892333, 31.049194, 98.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Victim", INTERIOR_VICTIM, -1, false, 1, 5, 227.350250, -8.188652, 1002.210937, 90.0,	45, false, 0, 0, -1694.8934, 951.5375, 24.8906, 138.3028, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // victim sf
+	{-1, "Victim", INTERIOR_VICTIM, -1, false, 2, 5, 227.350250, -8.188652, 1002.210937, 90.0,	45, false, 0, 0, 2802.7219, 2430.3391, 11.0625, 133.3612, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // victim lv
+	{-1, "ZIP", INTERIOR_ZIP, -1, false, 0, 18, 161.401184, -96.887367, 1001.804687, 0.0,	45, false, 0, 0, 1456.611816, -1137.818969, 23.961400, 215.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "ZIP", INTERIOR_ZIP, -1, false, 1, 18, 161.401184, -96.887367, 1001.804687, 0.0,	45, false, 0, 0, 2571.9072, 1904.4851, 11.0234, 191.6232, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // zip lv
+	{-1, "ZIP", INTERIOR_ZIP, -1, false, 2, 18, 161.401184, -96.887367, 1001.804687, 0.0,	45, false, 0, 0, 2090.3845, 2224.2493, 11.0234, 179.2598, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // zip lv
+	{-1, "ZIP", INTERIOR_ZIP, -1, false, 3, 18, 161.401184, -96.887367, 1001.804687, 0.0,	45, false, 0, 0, -1882.4941, 866.1361, 35.1719, 135.4828, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // zip sf
+	// 24/7
+	{-1, "24/7", INTERIOR_247, -1, false, 0, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 1352.314941, -1758.961425, 13.507812, 0.0,	0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "24/7", INTERIOR_247, -1, false, 1, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 1833.540771, -1842.542724, 13.578125, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "24/7", INTERIOR_247, -1, false, 2, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 1315.453247, -897.967102, 39.578125, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "24/7", INTERIOR_247, -1, false, 3, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 1000.317199, -919.933349, 42.328125, 105.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "24/7", INTERIOR_247, -1, false, 4, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 2117.6494, 897.1806, 11.1797, 12.1038, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 5, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 2637.5356, 1129.2190, 11.1797, 182.5185, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 6, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 2546.6067, 1972.2355, 10.8203, 180.0468, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 7, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 2452.4578, 2064.7595, 10.8203, 181.0483, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 8, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 2194.5137, 1991.1290, 12.2969, 91.8167, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 9, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 2097.4353, 2224.2637, 11.0234, 180.5131, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 10, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 1937.4686, 2307.2776, 10.8203, 92.3837, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 11, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 2188.1104, 2469.9355, 11.2422, 272.2827, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 12, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 2150.9756, 2734.2964, 11.1763, 3.1420, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 13, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, 2884.8887, 2453.7634, 11.0690, 224.2287, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 lv
+	{-1, "24/7", INTERIOR_247, -1, false, 14, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, -1676.0208, 432.0192, 7.1797, 223.0368, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 sf
+	{-1, "24/7", INTERIOR_247, -1, false, 15, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, -2419.8621, 969.9724, 45.2969, 271.3646, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 sf
+	{-1, "24/7", INTERIOR_247, -1, false, 16, 18, -30.958774, -91.807441, 1003.546875, 0.0,	17, false, 0, 0, -2442.8604, 755.0207, 35.1719, 179.8825, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, //  24/7 sf
+	// WSP
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 0, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, 2105.234619, -1806.479614, 13.554687, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 1, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, 1366.856079, 248.451507, 19.566932, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 2, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, 2333.892333, 74.830787, 26.620975, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 3, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, 2637.8176, 1849.6595, 11.0234, 91.6690, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // ps lv
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 4, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, 2540.3069, 2150.0823, 10.8203, 92.0697, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // ps lv
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 5, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, 2469.5881, 2124.7515, 10.8203, 2.2244, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // ps lv
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 6, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, 2083.4851, 2224.2705, 11.0234, 181.7665, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // ps lv
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 7, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, 2351.9446, 2532.8774, 10.8203, 184.0101, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // ps lv
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 8, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, 2756.3547, 2477.1909, 11.0625, 140.5680, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // ps lv
+	{-1, "Well Stacked Pizza", INTERIOR_PIZZA, -1, false, 9, 5, 372.310729, -133.246292, 1001.492187, 0.0,	29, false, 0, 0, -1808.3300, 945.7053, 24.8906, 219.7702, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // ps sf
+	// CB
+	{-1, "Cluckin Bell", INTERIOR_CLUCKIN_BELL, -1, false, 0, 9, 364.914093, -11.778851, 1001.851562, 0.0,	14, false, 0, 0, 2419.926025, -1509.024780, 24.000000, 270.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Cluckin Bell", INTERIOR_CLUCKIN_BELL, -1, false, 1, 9, 364.914093, -11.778851, 1001.851562, 0.0,	14, false, 0, 0, 2397.772949, -1898.847778, 13.546875, 0.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Cluckin Bell", INTERIOR_CLUCKIN_BELL, -1, false, 2, 9, 364.914093, -11.778851, 1001.851562, 0.0,	14, false, 0, 0, 928.553466, -1352.848876, 13.343750, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Cluckin Bell", INTERIOR_CLUCKIN_BELL, -1, false, 3, 9, 364.914093, -11.778851, 1001.851562, 0.0,	14, false, 0, 0, 2637.8179, 1671.8778, 11.0234, 91.0423, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // cb lv
+	{-1, "Cluckin Bell", INTERIOR_CLUCKIN_BELL, -1, false, 4, 9, 364.914093, -11.778851, 1001.851562, 0.0,	14, false, 0, 0, 2393.0376, 2042.6967, 10.8203, 4.9767, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // cb lv
+	{-1, "Cluckin Bell", INTERIOR_CLUCKIN_BELL, -1, false, 5, 9, 364.914093, -11.778851, 1001.851562, 0.0,	14, false, 0, 0, 2102.3667, 2228.7712, 11.0234, 270.4406, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // cb lv
+	{-1, "Cluckin Bell", INTERIOR_CLUCKIN_BELL, -1, false, 6, 9, 364.914093, -11.778851, 1001.851562, 0.0,	14, false, 0, 0, 2838.4988, 2407.5911, 11.0690, 222.9754, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // cb lv
+	{-1, "Cluckin Bell", INTERIOR_CLUCKIN_BELL, -1, false, 7, 9, 364.914093, -11.778851, 1001.851562, 0.0,	14, false, 0, 0, -2672.3337, 258.6855, 4.6328, 0.1230, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // cb sf
+	{-1, "Cluckin Bell", INTERIOR_CLUCKIN_BELL, -1, false, 8, 9, 364.914093, -11.778851, 1001.851562, 0.0,	14, false, 0, 0, -2671.8418, 258.2193, 4.6328, 4.9983, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // cb sf
+	// BS
+	{-1, "Burger Shot", INTERIOR_BURGER_SHOT, -1, false, 0, 10, 362.869354, -75.153747, 1001.507812, 315.0,	10, false, 0, 0, 810.715270, -1616.163330, 13.546875, 270.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Burger Shot", INTERIOR_BURGER_SHOT, -1, false, 1, 10, 362.869354, -75.153747, 1001.507812, 315.0,	10, false, 0, 0, 1199.272216, -918.372253, 43.121376, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Burger Shot", INTERIOR_BURGER_SHOT, -1, false, 2, 10, 362.869354, -75.153747, 1001.507812, 315.0,	10, false, 0, 0, 2478.7559, 2034.7145, 11.0625, 112.9093, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // bs lv
+	{-1, "Burger Shot", INTERIOR_BURGER_SHOT, -1, false, 3, 10, 362.869354, -75.153747, 1001.507812, 315.0,	10, false, 0, 0, 2366.6165, 2071.0725, 10.8203, 88.0179, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // bs lv
+	{-1, "Burger Shot", INTERIOR_BURGER_SHOT, -1, false, 4, 10, 362.869354, -75.153747, 1001.507812, 315.0,	10, false, 0, 0, 1872.5840, 2071.9214, 11.0625, 270.1482, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // bs lv
+	{-1, "Burger Shot", INTERIOR_BURGER_SHOT, -1, false, 5, 10, 362.869354, -75.153747, 1001.507812, 315.0,	10, false, 0, 0, 2169.7883, 2795.8948, 10.8203, 272.9245, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // bs lv
+	{-1, "Burger Shot", INTERIOR_BURGER_SHOT, -1, false, 6, 10, 362.869354, -75.153747, 1001.507812, 315.0,	10, false, 0, 0, -2336.4749, -166.7181, 35.5547, 270.8090, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // bs sf
+	{-1, "Burger Shot", INTERIOR_BURGER_SHOT, -1, false, 7, 10, 362.869354, -75.153747, 1001.507812, 315.0,	10, false, 0, 0, -1912.3065, 828.4004, 35.1852, 317.1945, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // bs sf
+	// OTHER
+	{-1, P_BANK, INTERIOR_CITY_HALL_LS, -1, true, 20, 20, 1807.021240, -1393.364135, 2770.660156, 177.306365, 37, false, 0, 0, 1571.468627, -1336.893188, 16.484375, 0.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Sanitary Andreas", INTERIOR_UNITY_STATION, -1, false, 0, 3, 1494.416015, 1303.681884, 1093.289062, 0.0, -1, false, 0, 0, 1664.634033, -2185.537353, 13.546875, 270.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, P_TRUCKS, INTERIOR_TRUCK, -1, true, 25, 18, 1297.457031, -61.437820, 1002.498046, 180.0, -1, false, 0, 0, 2509.533935, -2637.530761, 13.645265, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, P_SAPD, INTERIOR_POLICE_LS, -1, true, 0, 6, 1881.801635, -1688.519531, 5216.709960, 130.0, 30, false, 0, 0, 1555.400390, -1675.611694, 16.195312, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, P_GARAGE, INTERIOR_POLICE_GARAGE, -1, true, 0, 6, 1881.341674, -1727.080688, 5216.709960, 270.594818, -1, false, 0, 0, 1568.651977, -1690.080688, 6.218750, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	//{-1, "Alhambra Club", INTERIOR_ALHAMBRA, -1, false, 0, 17, 493.487731, -24.662528, 1000.679687, 0.0, 48, false, 0, 0, 1836.876586, -1682.407104, 13.329626, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Tecno", INTERIOR_NO_INFO, -1, true, 1, 17, 1715.986572, -1254.442993, 471.174316, 269.257873, 42, false, 0, 0, 1738.542846, -1269.991577, 13.543532, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, P_CHURCH, INTERIOR_NO_INFO, -1, true, 2, 17, 387.479644, 2324.503906, 1889.583374, 88.438690, 38, false, 0, 0, 2233.164306, -1333.295043, 23.981561, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, P_CHURCH, INTERIOR_NO_INFO, -1, true, 3, 17, 387.479644, 2324.503906, 1889.583374, 88.438690, 38, false, 0, 0, 2490.7651, 918.6208, 11.0234, 95.5125, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // iglesia lv
+	{-1, P_CHURCH, INTERIOR_NO_INFO, -1, true, 4, 17, 387.479644, 2324.503906, 1889.583374, 88.438690, 38, false, 0, 0, 2519.0901, 2033.3397, 11.1719, 77.3339, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // iglesia lv
+	{-1, P_CHURCH, INTERIOR_NO_INFO, -1, true, 5, 17, 387.479644, 2324.503906, 1889.583374, 88.438690, 38, false, 0, 0, 2225.2419, 2522.4724, 11.0222, 182.3552, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // iglesia lv
+	{-1, P_CHURCH, INTERIOR_NO_INFO, -1, true, 6, 17, 387.479644, 2324.503906, 1889.583374, 88.438690, 38, false, 0, 0, 1455.4608, 750.8949, 11.0234, 94.6260, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // iglesia lv
+	{-1, P_CHURCH, INTERIOR_NO_INFO, -1, true, 7, 17, 387.479644, 2324.503906, 1889.583374, 88.438690, 38, false, 0, 0, -2664.6973, -2.3037, 6.1328, 89.0111, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // iglesia sf
+	{-1, P_CHURCH, INTERIOR_NO_INFO, -1, true, 8, 17, 387.479644, 2324.503906, 1889.583374, 88.438690, 38, false, 0, 0, -1989.4664, 1117.8735, 54.4688, 271.7057, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}, // iglesia sf
+	//{-1, P_D_BM, INTERIOR_NO_INFO, -1, true, 11, 17, 2319.062011, -1786.475708, 1600.751953, 90.0, 23, false, 0, 0, 2071.894287, -1551.255737, 13.424154, 90.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, P_W_BM, INTERIOR_NO_INFO, -1, true, 21, 20, 2140.289062, -1172.987060, -10.893062, 350.0, 23, false, 0, 0, 2355.609375, -1039.150268, 54.148437, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, P_W_BM, INTERIOR_NO_INFO, -1, true, 31, 21, 2140.289062, -1172.987060, -10.893062, 350.0, 23, false, 0, 0, 2494.093261, -1464.236328, 24.025127, 360.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Mina", INTERIOR_NO_INFO, -1, true, 36, 25, 1147.865356, 1001.796081, -99.214622, 273.832519, 11, false, 0, 0, 509.152374, -723.324951, 19.869243, 340.774505, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Sección B", INTERIOR_NO_INFO, -1, true, 37, 26, 1988.257446, 1204.595825, -63.139907, 268.650756, 56, false, 36, 25, 1270.046142, 1000.668884, -99.214637, 81.757308, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Sección C", INTERIOR_NO_INFO, -1, true, 38, 27, 2546.433105, 1924.534423, -58.649192, 265.830688, 56, false, 37, 26, 2067.543212, 1201.233398, -61.074184, 85.059127, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "MFB", INTERIOR_NO_INFO, -1, true, 0, 28, 3854.231933, -1265.252319, 7547.983398, 188.315292, -1, false, 0, 0, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 0, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 693.761047, 1967.498168, 5.539062, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 1, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 1145.013916,-1131.447998, 23.828125, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 2, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 2421.501953,-1219.768432, 25.527839, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Maik Santander", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, -245.578720, -2193.103271, 29.839702, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Maik Santander", INTERIOR_CLUB, -1, false, 174, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, 1456.5785, 2773.6423, 10.8203, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Club de la pelea", INTERIOR_NO_INFO, -1, false, 0, 16, -14.497008, 100.967079, 1101.521118, 180.0, -1, false, 0, 0, 950.341247, -987.135864, 38.743835, 322.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Osborn", INTERIOR_NO_INFO, -1, true, 0, 29, 887.343566, 1918.198364, -88.974365, 93.182411, -1, false, 0, 0, -2517.1223, -664.4894, 139.3531, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Estadio", INTERIOR_NO_INFO, -1, true, 1336, 0, 2684.587890, -1733.565185, 424.386718, 180.0, -1, false, 0, 0, 2781.461181, -1813.566162, 11.843750, 211.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	//{-1, "Moriarty Luxury Bar", INTERIOR_NO_INFO, -1, true, 0, 64, 2627.9360, 490.5309, 2621.2078, 173.315292, -1, false, 0, 0, 2851.3330, -1532.3297, 11.0991, 271.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "TFC", INTERIOR_NO_INFO, -1, true, 0, 55, 436.9655, -996.6303, 931.0529, -90.0, -1, false, 0, 0, 437.3256, -999.9439, 93.1982, 92.18, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "DPT", INTERIOR_CLUB, -1, false, 264, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, 1132.5565, -2034.1417, 69.1477, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
-static const INVALID_WORDS[][] =
+enum enum_JAIL_POSITIONS
 {
-	"zoor",
-	"zo0r",
-	"samphub",
-	"chanpu",
-	"champu",
-	"fenixzone",
-	"pene",
-	"vagina",
-	"mierda",
-	"goldenstate",
-	"unplayer",
-	"spell",
-	"ecuazone",
-	"pelotudo",
-	"boludo",
-	"omegazone",
-	"starrp",
-	"fabiking",
-	"kreisel",
-	"pingote",
-	"kanox",
-	"lexerzone",
-	"puta",
-	"sampdroid",
-	"samp droid",
-	"samp_droid",
-	"puto",
-	"put0",
-	"chupas",
-	"adobe",
-	"chitero",
-	"bots",
-	".ga",
-	"b0ts",
-	".net",
-	".xyz",
-	".ml",
-	".tk",
-	"samptab",
-	"heix",
-	"aver no",
-	"aber no",
-	"- mong",
-	"aver sido",
-	"aber sido",
-	"blade",
-	"yarmak",
-	"scythekill",
-	"exterminio total",
-	"BOTNET",
-	"botnet",
-	"betazone",
-	"imgui",
-	"adri1",
-	"superroleplay",
-	"sampvoice",
-	"daniel mor",
-	"github",
-	"b0tnet",
-	"botn3t",
-	"b o t n e t",
-	"botonet",
-	"bot n3t",
-	"b0t net",
-	"b0t n3t",
-	"pawncode",
-	"pawnes",
-	"hispawno",
-	"world champion pawno scripta",
-	"bigmommymilkers"
+	jail_INT,
+	Float:jail_X,
+	Float:jail_Y,
+	Float:jail_Z,
+	Float:jail_ANGLE,
+	jail_INTERIOR
+};
+new JAIL_POSITIONS[][enum_JAIL_POSITIONS] =
+{
+	{INTERIOR_POLICE_LS, 1899.122192, -1757.699584, 5218.986816, 180.0, 6}, //jaills
+	{INTERIOR_POLICE_SF, 1899.122192, -1757.699584, 5218.986816, 180.0, 6}, //jailsf
+	{INTERIOR_POLICE_LV, 1899.122192, -1757.699584, 5218.986816, 180.0, 6} //jaillv
 };
 
-static const INVALID_NAMES[][100] =
+// Cloths
+enum Clothing_Shop_Info
 {
-	"Capija",
-	"Mierda",
-	"Caverga",
-	"Melano",
-	"Yahir_Kozel",
-	"Apellido",
-	"Sech",
-	"Nombre",
-	"Pija",
-	"Conazo",
-	"Misco_Jonnes",
-	"Portuano",
-	"Chorizo",
-	"Turbado",
-	"Nanero",
-	"Pene",
-	"Vagina",
-	"Pompas",
-	"Gaming",
-	"Polainas",
-	"Pingote",
-	"Yarmak",
-	"BetaZone",
-	"Pearce",
-	"Kanox",
-	"Pingo",
-	"Heix",
-	"Avant",
-	"Come_",
-	"_Tela",
-	"Morgan_Skulls",
-	"Imgui",
-	"ImGui",
-	"Sampvoice",
-	"Diablo",
-	"Pito_Corto",
-	"Empanada",
-	"Hamburguesa",
-	"Willyrex",
-	"Telapone",
-	"Tedoma",
-	"Hambre",
-	"Trabuco",
-	"Mirry",
-	"Mirri",
-	"Verdesin",
-	"Verdoso",
-	"Verde",
-	"Cheat",
-	"Cheater",
-	"Cheto",
-	"Maricon",
-	"Chitero",
-	"Neptunia",
-	"Pito",
-	"Corto",
-	"Fizio",
-	"Peruano",
-	"Boliviano",
-	"Narizon",
-	"Culon",
-	"Gordo",
-	"Teton",
-	"Rubius",
-	"Goku",
-	"Vegeta",
-	"Vegetta",
-	"Puto",
-	"Negro",
-	"Fraca",
-	"Heladero",
-	"Panadero",
-	"Whatsapp",
-	"Facebook",
-	"Instagram",
-	"Lil_",
-	"Gamer",
-	"Chupador",
-	"Play",
-	"El_Vaginon",
-	"El_",
-	"Vaginon",
-	"Elva_",
-	"_Ginon",
-	"Kreisel",
-	"Ryan_West"
+	clothing_shop_INTERIOR_TYPE,
+	clothing_shop_NAME[24],
+	Float:clothing_shop_X,
+	Float:clothing_shop_Y,
+	Float:clothing_shop_Z,
+	Float:clothing_shop_ANGLE,
+	clothing_shop_INTERIOR
 };
 
-static const BAN_KEYWORDS[][100] =
+new Clothing_Shop_Positions[][Clothing_Shop_Info] =
 {
-	"fenixzone",
-	"goldenstate",
-	"golden state",
-	"golden states",
-	"unplayer",
-	"z0ne",
-	"zon3",
-	"z0n3",
-	"linox",
-	"ZONE",
-	"Z0NE",
-	"LINOX",
-	"z.o.n.e",
-	"f.e.n.i.x",
-	"samphub",
-	"s4mp hub",
-	"samp hub",
-	"github",
-	"b0tnet",
-	"botn3t",
-	"b o t n e t",
-	"botonet",
-	"bot n3t",
-	"b0t net",
-	"b0t n3t",
-	"world champion pawno scripta",
-	"sampvoice",
-	"adobe",
-	"ad0be",
-	"ad0b3",
-	"a.d.o.b.e",
-	"b0ts",
-	".net",
-	".xyz",
-	".ml",
-	".tk",
-	"bots",
-	"omegazone",
-	"ecuazone",
-	"lexerzone",
-	"sampdroid",
-	"samp droid",
-	"samp_droid",
-	"B-O-T-S",
-	"H-U-B",
-	"b-o-t-s",
-	"V0TS",
-	"B0TS",
-	"B-0-T-S",
-	"VOTS",
-	"V-O-T-S",
-	"V-0-T-S",
-	"B.O.T.S",
-	"B.0.T.S",
-	"V.O.T.S",
-	"V.0.T.S",
-	"B O T S",
-	"B 0 T S",
-	"V 0 T S",
-	"V O T S",
-	"H.U.B",
-	"170.83.221.2",
-	"BREÑAS",
-	"cable color",
-	"CABLE COLOR",
-	"170.83.220.0/22",
-	"doxbin",
-	"wearelegal",
-	"bit.ly",
-	"dox",
-	"server de mierda",
-	"sampfive",
-	"samp5",
-	"sampfaiv",
-	"samp five",
-	"SAMPFIVE",
-	"kreisel",
-	"KREISEL",
-	"SAMP FIVE"
+	{INTERIOR_BINCO, "Binco", 207.733657, -100.633468, 1005.257812, 180.0, 15}, //Binco
+	{INTERIOR_SUBURBAN, "SubUrban", 203.905395, -43.450450, 1001.804687, 180.0, 1}, //SubUrban
+	{INTERIOR_PROLAPS, "ProLaps", 207.049148, -129.177581, 1003.507812, 180.0, 3}, //prolaps
+	{INTERIOR_DIDIER_SACHS, "Didier Sachs", 204.348281, -159.493728, 1000.523437, 180.0, 14}, //Didier
+	{INTERIOR_VICTIM, "Victim", 206.374328, -7.241514, 1001.210937, 270.0, 5}, //Victim
+	{INTERIOR_ZIP, "ZIP", 161.443634, -83.589271, 1001.804687, 180.0, 18} //Zip
 };
 
-new g_iPlayerLastUpdate[MAX_PLAYERS];
-
-new const Float:NewUserPos[][] =
+// Super products
+enum
 {
-	{1090.567138, -1805.910156, 16.593750, 1.044739},
-	{1098.168090, -1805.921508, 16.593750, 358.225128},
-	{1109.456787, -1802.678344, 16.593750, 88.465942},
-	{1109.102416, -1799.647583, 16.593750, 88.465942},
-	{1108.857299, -1796.502441, 16.593750, 89.092605},
-	{1108.432617, -1793.480102, 16.593750, 89.092605},
-	{1108.954711, -1790.486816, 16.593750, 89.092605},
-	{1108.645629, -1785.879882, 16.593750, 89.092559},
-	{1109.832763, -1783.515502, 16.593750, 1.358403},
-	{1097.333251, -1800.550903, 13.604625, 33.295372},
-	{1096.499511, -1788.365478, 13.624750, 88.755897},
-	{1084.961181, -1795.690673, 13.670027, 359.768463}
+	PRODUCT_TYPE_NONE,
+	PRODUCT_TYPE_FOOD,
+	PRODUCT_TYPE_PHONE,
+	PRODUCT_TYPE_GPS,
+	PRODUCT_TYPE_PHONE_RESOLVER
 };
+enum Supermarket_Enum
+{
+	product_TYPE,
+	product_NAME[24],
+	product_PRICE,
+	Float:product_HUNGRY,
+	Float:product_THIRST,
+	product_DRUNK
+};
+new Supermarket_Product_List[][Supermarket_Enum] =
+{
+	{PRODUCT_TYPE_PHONE, NAME_PHONE, 350, 0.0, 0.0, 0},
+	{PRODUCT_TYPE_PHONE_RESOLVER, NAME_PHONE_R, 200, 0.0, 0.0, 0},
+	{PRODUCT_TYPE_GPS, "GPS", 300, 0.0, 0.0, 0},
+	{PRODUCT_TYPE_FOOD, "Botella de agua", 80, 0.0, 25.0, 0},
+	{PRODUCT_TYPE_FOOD, "Sprunk", 40, 0.0, 12.0, 0},
+	//{PRODUCT_TYPE_FOOD, "Lata de refresco cola", 30, 0.0, 10.0, 0},
+	{PRODUCT_TYPE_FOOD, "Barrita energética", 80, 15.0, 0.0, 0},
+	//{PRODUCT_TYPE_FOOD, "Porción de pizza", 60, 20.0, 0.0, 0},
+	//{PRODUCT_TYPE_FOOD, "Ensalada", 50, 15.0, 2.0, 0},
+	{PRODUCT_TYPE_FOOD, "Leche", 70, 25.0, 25.0, 0},
+	//{PRODUCT_TYPE_FOOD, "Sándwich de milanesa", 45, 10.0, 2.0, 0},
+	//{PRODUCT_TYPE_FOOD, "Choripan", 45, 10.0, 2.0, 0},
+	{PRODUCT_TYPE_FOOD, "Galletas", 20, 8.0, 2.0, 0},
+	{PRODUCT_TYPE_FOOD, "Caramelos masticables", 1, 2.0, 0.0, 0},
+	{PRODUCT_TYPE_FOOD, "Chicle bubbaloo", 3, 2.0, 0.0, 0},
+	{PRODUCT_TYPE_FOOD, "Cerveza", 40, 0.0, 3.0, 1000},
+	//{PRODUCT_TYPE_FOOD, "Vodka", 80, 0.0, 3.0, 2500},
+	{PRODUCT_TYPE_FOOD, "Vino", 80, 0.0, 3.0, 2500}
+	//{PRODUCT_TYPE_FOOD, "Orina de toro", 3000, 0.0, 40.0, 9500},
+	//{PRODUCT_TYPE_FOOD, "Whisky", 200, 0.0, 3.0, 3000}
+};
+
+ExitSite(playerid)
+{
+    if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
+
+    if (IsPlayerInRangeOfPoint(playerid, 2.0, 1881.801635, -1688.519531, 5216.709960))
+    {
+    	SetPlayerPosEx(playerid, 1555.400390, -1675.611694, 16.195312, 180.0, 0, 0, false);
+        return 1;
+    }
+
+    if (IsPlayerInRangeOfPoint(playerid, 2.0, 1881.341674, -1727.080688, 5216.709960))
+    {
+    	SetPlayerPosEx(playerid, 1568.651977, -1690.080688, 6.218750, 180.0, 0, 0, false);
+        return 1;
+    }
+
+    if (PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] == 0) return 1;
+
+    new info[3];
+    Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+    if (info[0] == PICKUP_TYPE_NONE) return 0;
+
+    new Float:x, Float:y, Float:z; 
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
+
+    if (!IsPlayerInRangeOfPoint(playerid, 1.0, x, y, z)) return 0;
+
+    PLAYER_TEMP[playerid][py_IN_MARKET] = false;
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
+
+    switch(info[0])
+    {
+        case PICKUP_TYPE_ENTER_EXIT:
+        {
+            if (info[2] == 1) // Está en el Pickup Interior y quiere ir al exterior
+            {
+                CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+                CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+                PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
+                SetPlayerPosEx(playerid, ENTER_EXIT[info[1]][ee_EXT_X], ENTER_EXIT[info[1]][ee_EXT_Y], ENTER_EXIT[info[1]][ee_EXT_Z], ENTER_EXIT[info[1]][ee_EXT_ANGLE], ENTER_EXIT[info[1]][ee_EXT_INTERIOR], ENTER_EXIT[info[1]][ee_EXT_WORLD], false /*ENTER_EXIT[info[1]][ee_EXT_FREEZE]*/);
+                SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+                if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
+                FreezePlayer(playerid);
+
+                if (ENTER_EXIT[ info[1] ][ee_EXT_INTERIOR] == 0) SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
+                if (ENTER_EXIT[info[1]][ee_INTERIOR_TYPE] == INTERIOR_ALHAMBRA) if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
+            }
+            else ShowPlayerMessage(playerid, "~r~No estás en sitio correcto.", 2);
+        }
+        case PICKUP_TYPE_PROPERTY:
+        {
+            if (info[2] == 1) // Está en el Pickup Interior y quiere ir al exterior
+            {
+            	PLAYER_TEMP[playerid][py_ACTUAL_PROPERTY] = 0;
+                CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+                CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+                PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
+                PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
+                SetPlayerPosEx(playerid, PROPERTY_INFO[info[1]][property_EXT_X], PROPERTY_INFO[info[1]][property_EXT_Y], PROPERTY_INFO[info[1]][property_EXT_Z], PROPERTY_INFO[info[1]][property_EXT_ANGLE], PROPERTY_INFO[info[1]][property_EXT_INTERIOR], 0, false /*PROPERTY_INFO[info[1]][property_EXT_FREEZE]*/, false);
+                SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+                if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
+                FreezePlayer(playerid);
+            }
+            else ShowPlayerMessage(playerid, "~r~No estás en sitio correcto.", 2);
+        }
+        case PICKUP_TYPE_CLUB:
+        {
+            if (info[2] == 1) // Está en el Pickup Interior y quiere ir al exterior
+            {
+            	PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
+                CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+                CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+
+                SetPlayerPosEx(
+                	playerid,
+                	CLUBS_INFO[ info[1] ][club_X],
+                	CLUBS_INFO[ info[1] ][club_Y],
+                	CLUBS_INFO[ info[1] ][club_Z],
+                	CLUBS_INFO[ info[1] ][club_ANGLE],
+                	0,
+                	0,
+                	false,
+                	false
+                );
+
+                SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+                if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
+                FreezePlayer(playerid);
+            }
+            else ShowPlayerMessage(playerid, "~r~No estás en sitio correcto.", 2);
+        }
+        default: ShowPlayerMessage(playerid, "~r~No estás en sitio correcto.", 2);
+    }
+    return 1;
+}
+
+EnterSite(playerid)
+{
+    if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
+    if (PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] == 0) return 1;
+        
+    new info[3];
+    Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+    if (info[0] == PICKUP_TYPE_NONE) return 0;
+    
+    new Float:x, Float:y, Float:z; 
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
+    
+    if (!IsPlayerInRangeOfPoint(playerid, 1.0, x, y, z)) return 0;
+    
+    switch(info[0])
+    {
+        case PICKUP_TYPE_ENTER_EXIT:
+        {
+            PLAYER_TEMP[playerid][py_HOSPITAL] = GetNearestHospitalForPlayer(playerid);
+            if (PLAYER_TEMP[playerid][py_HOSPITAL] == -1) PLAYER_TEMP[playerid][py_HOSPITAL] = 1;
+    
+            if (info[2] == 2) // Está en el Pickup Exterior y quiere ir al interior
+            {
+                if (ENTER_EXIT[info[1]][ee_TIME_OPEN] == 0 && ENTER_EXIT[info[1]][ee_TIME_CLOSE] == 0) // 24 horas
+                {
+                	if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
+
+                    if (ENTER_EXIT[ info[1] ][ee_INT_INTERIOR] == 25)
+                 	{
+                 		SetPlayerTime(playerid, 2, 2);
+                 	}
+
+                 	if (ENTER_EXIT[ info[1] ][ee_INT_INTERIOR] == 26)
+                 	{
+                 		if (PLAYER_SKILLS[playerid][WORK_MINER] < 150) return ShowPlayerMessage(playerid, "~r~Necesitas 150 de experiencia de minero para~n~picar en esta zona.", 5);
+                 		SetPlayerTime(playerid, 2, 2);
+                 	}
+
+                 	if (ENTER_EXIT[ info[1] ][ee_INT_INTERIOR] == 27)
+                 	{
+                 		if (PLAYER_SKILLS[playerid][WORK_MINER] < 500) return ShowPlayerMessage(playerid, "~r~Necesitas 500 de experiencia de minero para~n~picar en esta zona.", 5);
+                 		SetPlayerTime(playerid, 2, 2);
+                 	}
+
+                    CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_INTERIOR;
+                    CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = ENTER_EXIT[info[1]][ee_ID];
+                    PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = info[1];
+                    SetPlayerPosEx(playerid, ENTER_EXIT[info[1]][ee_INT_X], ENTER_EXIT[info[1]][ee_INT_Y], ENTER_EXIT[info[1]][ee_INT_Z], ENTER_EXIT[info[1]][ee_INT_ANGLE], ENTER_EXIT[info[1]][ee_INT_INTERIOR], ENTER_EXIT[info[1]][ee_INT_WORLD], false /*ENTER_EXIT[info[1]][ee_INT_FREEZE]*/, true);
+                    FreezePlayer(playerid);
+
+                    if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
+
+                    if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_CLUB)
+					{
+						StopAudioStreamForPlayer(playerid);
+						PlayAudioStreamForPlayer(playerid, "http://somafm.com/tags.pls");			
+					}
+                }
+                else
+                {
+                    if (is_open(SERVER_TIME[0], ENTER_EXIT[info[1]][ee_TIME_OPEN], ENTER_EXIT[info[1]][ee_TIME_CLOSE]))
+                    {
+                        CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_INTERIOR;
+                        CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = ENTER_EXIT[info[1]][ee_ID];
+                        PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = info[1];
+                        SetPlayerPosEx(playerid, ENTER_EXIT[info[1]][ee_INT_X], ENTER_EXIT[info[1]][ee_INT_Y], ENTER_EXIT[info[1]][ee_INT_Z], ENTER_EXIT[info[1]][ee_INT_ANGLE], ENTER_EXIT[info[1]][ee_INT_INTERIOR], ENTER_EXIT[info[1]][ee_INT_WORLD], false /*ENTER_EXIT[info[1]][ee_INT_FREEZE]*/, true);
+                        FreezePlayer(playerid);
+                    }
+                    else SendClientMessageEx(playerid, COLOR_WHITE, "{C4FF66}%s "COL_WHITE"está cerrado, su horario es: {C4FF66}%02d:00 - %02d:00.", ENTER_EXIT[info[1]][ee_NAME], ENTER_EXIT[info[1]][ee_TIME_OPEN], ENTER_EXIT[info[1]][ee_TIME_CLOSE]);
+                }
+            }
+            else ExitSite(playerid);
+        }
+        case PICKUP_TYPE_PROPERTY:
+        {
+            PLAYER_TEMP[playerid][py_HOSPITAL] = GetNearestHospitalForPlayer(playerid);
+            if (PLAYER_TEMP[playerid][py_HOSPITAL] == -1) PLAYER_TEMP[playerid][py_HOSPITAL] = 1;
+            
+            if (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] > 0) return ShowPlayerMessage(playerid, "~r~No puedes entrar a una propiedad~n~teniendo cargos.", 3);
+
+            if (info[2] == 2) // Está en el Pickup Exterior y quiere ir al interior
+            {
+                if (!PROPERTY_INFO[info[1]][property_SOLD])
+                {
+                	new str_text[264];
+                	if (PROPERTY_INFO[info[1]][property_EXTRA])
+                	{
+                		format(str_text, sizeof(str_text), ""COL_WHITE"Precio: %d "SERVER_COIN"\nNivel: %d\n\nVIP: %d\n\nUse /comprar para comprar la propiedad", PROPERTY_INFO[info[1]][property_EXTRA], PROPERTY_INFO[info[1]][property_LEVEL], PROPERTY_INFO[info[1]][property_VIP_LEVEL]);
+                	}
+                	else
+                	{
+                		format(str_text, sizeof(str_text), ""COL_WHITE"Precio: %s$\nNivel: %d\nVIP: %d\n\nUse /comprar para comprar la propiedad", number_format_thousand(PROPERTY_INFO[info[1]][property_PRICE]), PROPERTY_INFO[info[1]][property_LEVEL], PROPERTY_INFO[info[1]][property_VIP_LEVEL]);	
+                	}
+
+                	PLAYER_TEMP[playerid][py_ACTUAL_PROPERTY] = PROPERTY_INFO[info[1]][property_ID];
+					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Propiedad", str_text, "Cerrar", "");
+
+					new Float:apos[3];
+                    GetPlayerPos(playerid, apos[0], apos[1], apos[2]);
+                    SetTimerEx("RestorePlayerPos", 30000, false, "ifff", playerid, apos[0], apos[1], apos[2]);
+
+                	CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_OWN_PROPERTY;
+                    CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = PROPERTY_INFO[info[1]][property_ID];
+                    PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = info[1];
+                    PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
+                    SetPlayerPosEx(playerid, PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_ANGLE], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_INTERIOR], PROPERTY_INFO[info[1]][property_ID], false /*PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_FREEZE]*/, true);
+                    FreezePlayer(playerid);
+
+                    ShowPlayerMessage(playerid, "Tienes ~r~30 segundos~w~ para ver la propiedad.", 10);
+                    return 1;
+                }
+
+                if (PROPERTY_INFO[info[1]][property_CREW])
+                {
+                    if (!PLAYER_CREW[playerid][player_crew_VALID]) return SendClientMessageEx(playerid, COLOR_WHITE, "{999999}Solo miembros de la banda pueden entrar.");
+                    if (PLAYER_CREW[playerid][player_crew_ID] != PROPERTY_INFO[info[1]][property_CREW_ID]) return SendClientMessageEx(playerid, COLOR_WHITE, "{999999}Solo miembros de la banda pueden entrar.");
+                    
+                    CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_GUEST_PROPERTY;
+                    CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = PROPERTY_INFO[info[1]][property_ID];
+                    PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = info[1];
+                    PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
+                    SetPlayerPosEx(playerid, PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_ANGLE], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_INTERIOR], PROPERTY_INFO[info[1]][property_ID], false /*PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_FREEZE]*/, true);
+                    FreezePlayer(playerid);
+                }
+                else
+                {
+                    if (PROPERTY_INFO[info[1]][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+                    {
+                        CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_OWN_PROPERTY;
+                        CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = PROPERTY_INFO[info[1]][property_ID];
+                        PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = info[1];
+                        PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
+                        SetPlayerPosEx(playerid, PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_X], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Y], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_Z], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_ANGLE], PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_INTERIOR], PROPERTY_INFO[info[1]][property_ID], false /*PROPERTY_INTERIORS[ PROPERTY_INFO[info[1]][property_ID_INTERIOR] ][property_INT_FREEZE]*/, true);
+                        FreezePlayer(playerid);
+                    }
+                    else
+                    {
+                        if (gettime() < PLAYER_TEMP[playerid][py_ANTIFLOOD_KNOCK_PROPERTY] + 10) return SendClientMessage(playerid, 0x999999AA, "Espera para volver a tocar, si no te quieren abrir, vete.");
+                        
+                        new owner_playerid = GetOwnerIntProperty(PROPERTY_INFO[info[1]][property_ID]);
+                        if (owner_playerid == -1) return ShowPlayerMessage(playerid, "Has tocado en la puerta, pero parece que no hay nadie.", 4);
+                        PLAYER_TEMP[playerid][py_ANTIFLOOD_KNOCK_PROPERTY] = gettime();
+                        PLAYER_TEMP[owner_playerid][py_KNOCK_PLAYER_ID] = playerid;
+                        ShowPlayerNotification(owner_playerid, "Están tocando en la puerta, presione la tecla Y estando en la puerta para dejarlo entrar o simplemente ignórelo.", 4);
+                        ShowPlayerMessage(playerid, "Has tocado en la puerta, espera a que te abran.", 7);
+                    }
+                }
+            }
+            else ExitSite(playerid);
+        }
+        case PICKUP_TYPE_CLUB:
+        {
+            PLAYER_TEMP[playerid][py_HOSPITAL] = GetNearestHospitalForPlayer(playerid);
+            if (PLAYER_TEMP[playerid][py_HOSPITAL] == -1) PLAYER_TEMP[playerid][py_HOSPITAL] = 1;
+    
+            if (info[2] == 2) // Está en el Pickup Exterior y quiere ir al interior
+            {
+            	if (CLUBS_INFO[ info[1] ][club_STATE] == 0 && CLUBS_INFO[ info[1] ][club_USER_ID] != ACCOUNT_INFO[playerid][ac_ID]) ShowPlayerMessage(playerid, "~r~Este negocio se encuentra cerrado.", 4);
+                else
+                {
+                	if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
+
+                	if (CLUBS_INFO[ info[1] ][club_USER_ID] != ACCOUNT_INFO[playerid][ac_ID])
+                	{
+	                	if (CLUBS_INFO[ info[1] ][club_ENTER_PRICE] > 0)
+	                	{
+	                		if (CHARACTER_INFO[playerid][ch_CASH] <= CLUBS_INFO[ info[1] ][club_ENTER_PRICE])
+	                		{
+	                			new str_text[64];
+	                			format(str_text, 64, "~r~La entrada al negocio vale %d$", CLUBS_INFO[ info[1] ][club_ENTER_PRICE]);
+	                			ShowPlayerMessage(playerid, str_text, 4);
+	                			return 0;
+	                		}
+
+	                		CLUBS_INFO[ info[1] ][club_BALANCE] += CLUBS_INFO[ info[1] ][club_ENTER_PRICE];
+
+							new DB_Query[128];
+							format(DB_Query, sizeof(DB_Query), "\
+								UPDATE `CLUB_INFO` SET\
+									`BALANCE` = '%d' \
+								WHERE `ID` = '%d';\
+							", CLUBS_INFO[ info[1] ][club_BALANCE], info[1]);
+							db_free_result(db_query(Database, DB_Query));
+
+							GivePlayerCash(playerid, -CLUBS_INFO[ info[1] ][club_ENTER_PRICE], false);
+	                	}
+	                }
+
+                	new interior = CLUBS_INFO[ info[1] ][club_INTERIOR];
+                    CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_OWN_CLUB;
+                    CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = CLUBS_INFO[ info[1] ][club_ID];
+                    PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = info[1];
+                    PLAYER_TEMP[playerid][py_CLUB_INDEX] = info[1];
+
+                    SetPlayerPosEx(playerid,
+                    	CLUBS_INTERIORS[interior][interior_X],
+                    	CLUBS_INTERIORS[interior][interior_Y],
+                    	CLUBS_INTERIORS[interior][interior_Z],
+                    	CLUBS_INTERIORS[interior][interior_ANGLE],
+                    	CLUBS_INTERIORS[interior][interior_ID],
+                    	CLUBS_INFO[ info[1] ][club_ID],
+                    	false,
+                    	true
+                    );
+                    FreezePlayer(playerid);
+
+                    if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
+
+                    if (CLUBS_INFO[ info[1] ][club_RADIO] < 100)
+					{
+						PlayAudioStreamForPlayer(playerid, RADIO_STATIONS[ CLUBS_INFO[ info[1] ][club_RADIO] ][r_URL]);
+					}
+
+					ShowPlayerNotification(playerid, CLUBS_INFO[ info[1] ][club_WELCOME], 4);
+                }
+            }
+            else ExitSite(playerid);
+        }
+        default: ExitSite(playerid);
+    }
+    return 1;
+}
+
+CheckFarmerShop(playerid)
+{
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, -382.580657, -1426.404296, 26.219505)) return 0;
+	if (PlayerIsInMafia(playerid))
+	{
+		ShowDialog(playerid, DIALOG_SEED_LIST);
+	}
+	else return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
+	return 1;
+}
+
+CheckTrashJobSite(playerid)
+{
+	if (!PLAYER_WORKS[playerid][WORK_TRASH]) return 0;
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_TRASH) return 0;
+
+	if (GetPlayerVirtualWorld(playerid) != 0) return 0;
+	if (GetPlayerInterior(playerid) != 0) return 0;
+	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
+	if (!IsPlayerInRangeOfPoint(playerid, 1.0, 1626.089355, -2174.786132, 13.554687)) return 0;
+
+	if (!PLAYER_TEMP[playerid][py_WORKING_IN]) StartPlayerJob(playerid, WORK_TRASH);
+	else EndPlayerJob(playerid);
+	return 1;
+}
+
+CheckMedicJobSite(playerid)
+{
+	if (!PLAYER_WORKS[playerid][WORK_MEDIC]) return 0;
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_MEDIC) return 0;
+
+	if (IsPlayerInRangeOfPoint(playerid, 1.0, -212.521926, -1739.015014, 675.768737))
+	{
+		if (!PLAYER_TEMP[playerid][py_WORKING_IN]) StartPlayerJob(playerid, WORK_MEDIC);
+		else EndPlayerJob(playerid);
+	}
+	return 1;
+}
+
+CheckIsFireWeapon(weapon)
+{
+	switch(weapon)
+	{
+		case 0..18: return 0;
+		case 22..38: return 1;
+		case 39..46: return 0;
+	}
+	return 1;
+}
+
+ResyncWeapon(playerid, weapon)
+{
+	switch(weapon)
+	{
+		case 22: // 9MM
+		{
+			GivePlayerWeaponEx(playerid, weapon, 15, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+15"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+		case 24: // Desert
+		{
+			GivePlayerWeaponEx(playerid, weapon, 7, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+7"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+		case 32: // TEC9
+		{
+			GivePlayerWeaponEx(playerid, weapon, 20, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+20"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+		case 28: // UZI
+		{
+			GivePlayerWeaponEx(playerid, weapon, 25, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+25"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+		case 33: // Rifle
+		{
+			GivePlayerWeaponEx(playerid, weapon, 8, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+8"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "RIFLE", "RIFLE_load", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+		case 26: // Recortada
+		{
+			GivePlayerWeaponEx(playerid, weapon, 2, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+2"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+		case 25: // Escopeta
+		{
+			GivePlayerWeaponEx(playerid, weapon, 5, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+5"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+		case 29: // MP5
+		{
+			GivePlayerWeaponEx(playerid, weapon, 35, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+35"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+		case 30: // AK-47
+		{
+			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+		case 31: // M4
+		{
+			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F7F7F7, true);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
+			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
+			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
+			return 1;
+		}
+	}
+	return 1;
+}
+
+CheckAndReload(playerid)
+{
+	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL && GetPlayerAnimationIndex(playerid) != 1537 && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+	{
+		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+		{
+			new slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
+
+			if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+			{
+				new actual_weapon = PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID];
+				if (CheckIsFireWeapon(actual_weapon))
+				{
+					switch(actual_weapon)
+					{
+						case 22..24: // Pistolas
+						{
+							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_1] > 0)
+							{
+								ResyncWeapon(playerid, actual_weapon);
+								PLAYER_MISC[playerid][MISC_CARTRIDGE_1] --;
+								return 1;
+							}
+						}
+						case 25..27: // Escopetas
+						{
+							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_2] > 0)
+							{
+								ResyncWeapon(playerid, actual_weapon);
+								PLAYER_MISC[playerid][MISC_CARTRIDGE_2] --;
+								return 1;
+							}
+						}
+						case 33, 34: // Rifles
+						{
+							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_3] > 0)
+							{
+								ResyncWeapon(playerid, actual_weapon);
+								PLAYER_MISC[playerid][MISC_CARTRIDGE_3] --;
+								return 1;
+							}
+						}
+						case 28..32: // Subfusiles
+						{
+							if (PLAYER_MISC[playerid][MISC_CARTRIDGE_4] > 0)
+							{
+								ResyncWeapon(playerid, actual_weapon);
+								PLAYER_MISC[playerid][MISC_CARTRIDGE_4] --;
+								return 1;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+GetPlayerZones(playerid, city[], zone[])
+{
+	new Float:f_Pos[3];
+
+	switch(CHARACTER_INFO[playerid][ch_STATE])
+	{
+		case ROLEPLAY_STATE_INTERIOR:
+		{
+			f_Pos[0] = ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X];
+			f_Pos[1] = ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y];
+			f_Pos[2] = ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Z];
+		}
+		case ROLEPLAY_STATE_OWN_PROPERTY, ROLEPLAY_STATE_GUEST_PROPERTY:
+		{
+			f_Pos[0] = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PROPERTY_INDEX] ][property_EXT_X];
+			f_Pos[1] = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PROPERTY_INDEX] ][property_EXT_Y];
+			f_Pos[2] = PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PROPERTY_INDEX] ][property_EXT_Z];
+		}
+		default: GetPlayerPos(playerid, f_Pos[0], f_Pos[1], f_Pos[2]);
+	}
+
+    format(city, 45, "San Andreas");
+    format(zone, 45, "Desconocida");
+
+	for(new i = 0; i < sizeof(g_Cities); i++)
+	{
+	    if (   (f_Pos[0] >= g_Cities[i][z_MinX] && f_Pos[0] < g_Cities[i][z_MaxX]) && (f_Pos[1] >= g_Cities[i][z_MinY] && f_Pos[1] < g_Cities[i][z_MaxY]) )
+		{
+			format(city, 45, g_Cities[i][z_Name]);
+		    break;
+		}
+	}
+
+	for(new i = 0; i < sizeof(g_Zones); i++)
+	{
+	    if (   (f_Pos[0] >= g_Zones[i][z_MinX] && f_Pos[0] < g_Zones[i][z_MaxX]) && (f_Pos[1] >= g_Zones[i][z_MinY] && f_Pos[1] < g_Zones[i][z_MaxY]) )
+		{
+			format(zone, 45, g_Zones[i][z_Name]);
+		    break;
+		}
+	}
+
+	return 1;
+}
+
+JailPlayer(playerid, seconds = 300)
+{
+	PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
+	ResetItemBody(playerid);
+
+    CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
+    CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = seconds;
+
+    PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME] = gettime();
+    SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
+
+    KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
+    PLAYER_TEMP[playerid][py_TIMERS][15] = SetTimerEx("UnjailPlayer", CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] * 1000, false, "i", playerid);
+
+    new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
+    
+    new str_text[128];
+	format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
+	ShowPlayerMessage(playerid, str_text, 1);
+
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+	PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
+
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
+	PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
+
+    ResetPlayerWeaponsEx(playerid);
+    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+    TogglePlayerControllableEx(playerid, false);
+    SetPlayerPoliceSearchLevel(playerid, 0);
+    SendPoliceMark(playerid, PLAYER_COLOR);
+    SetPlayerColorEx(playerid, PLAYER_COLOR);
+    return 1;
+}
 
 /*IsPlayerPaused(playerid)
 {
@@ -789,7 +1349,7 @@ stock Float:frand(Float:min, Float:max)
     return float(random(floatround(min) - floatround(max))) + min + float(random(1000)) / 1000.0;
 }
 
-stock Float:float_random(Float:max) 
+Float:float_random(Float:max) 
 { 
 	return floatdiv(float(random(0)), floatdiv(float(cellmax), max)); 
 }
@@ -1781,4 +2341,302 @@ ClearPlayerChatBox(playerid, ammount = 20)
 {
 	for(new i = 0; i != ammount; i++) SendClientMessage(playerid, -1, " ");
 	return 1;
+}
+
+ShowPlayerStats(playerid, pid)
+{
+	if (!IsPlayerConnected(pid)) return 0;
+	if (ACCOUNT_INFO[pid][ac_ID] == 0) return 0;
+
+	ACCOUNT_INFO[pid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[pid][py_TIME_PLAYING];
+	PLAYER_TEMP[pid][py_TIME_PLAYING] = gettime();
+
+	new Float:hours;
+	ConvertTime_SecondsToHoursFloat(ACCOUNT_INFO[pid][ac_TIME_PLAYING], hours);
+
+	new next_rep[24], neccessary_rep = ACCOUNT_INFO[pid][ac_LEVEL] * REP_MULTIPLIER;
+	if (ACCOUNT_INFO[pid][ac_REP] < neccessary_rep)
+	{
+		new time = (ACCOUNT_INFO[pid][ac_TIME_FOR_REP] - (gettime() * 1000 - PLAYER_TEMP[pid][py_TIME_PASSED_LAST_REP])) / 1000;
+		if (time < 3) time = 3;
+
+		format(next_rep, sizeof next_rep, "%sm", TimeConvert(time));
+	}
+	else format(next_rep, sizeof next_rep, "/comprarnivel");
+
+	new caption[48], dialog[600 + (27 * sizeof(work_info))];
+	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
+
+	new
+		drive[3],
+		dni[64]
+	;
+
+	if (PLAYER_MISC[playerid][MISC_DRIVE] != 0) drive = "Si";
+	else drive = "No";
+
+	if (PLAYER_MISC[playerid][MISC_DNI]) format(dni, sizeof(dni), "%d", PLAYER_MISC[playerid][MISC_DNI]);
+	else dni = "No";
+
+	format(dialog, sizeof dialog,
+
+		"\
+		"COL_WHITE"  ID de cuenta: "COL_RED"%d\n\
+		"COL_WHITE"  Fecha de registro: "COL_RED"%s\n\
+		"COL_WHITE"  Tiempo jugando: "COL_GREEN"%.1f horas\n\
+		"COL_WHITE"  Nivel: "COL_YELLOW"%d\n\
+		"COL_WHITE"  Reputación: "COL_ORANGE"%d/%d\n\
+		"COL_WHITE"  Siguiente reputación: "COL_ORANGE"%s\n\
+		"COL_WHITE"  Banda: "COL_RED"%s\n\
+		"COL_WHITE"  Trabajo: "COL_GREEN"%s\n\
+		"COL_WHITE"  "SERVER_COIN": "COL_GREEN"%d\n\
+	    "COL_WHITE"  Muteos: "COL_RED"%d\n\
+	    "COL_WHITE"  Kicks: "COL_RED"%d\n\
+	    "COL_WHITE"  Baneos: "COL_RED"%d\n\
+	    "COL_WHITE"  Advertencias: "COL_RED"%d\n\
+	    "COL_WHITE"  Jails: "COL_RED"%d\n\
+	    "COL_WHITE"  Dudas enviadas: "COL_GREEN"%d\n\
+		"COL_WHITE"  VIP: "COL_YELLOW"%s\n\
+		"COL_WHITE"  DNI: %s\n\
+		"COL_WHITE"  Licencia de conducir: %s\n\
+		"COL_WHITE"  Estado social: %s",
+
+			ACCOUNT_INFO[pid][ac_ID],
+			ACCOUNT_INFO[pid][reg_DATE],
+			hours,
+			ACCOUNT_INFO[pid][ac_LEVEL],
+			ACCOUNT_INFO[pid][ac_REP], neccessary_rep,
+			next_rep,
+			getPlayerCrew(pid),
+			getPlayerWorks(pid),
+			ACCOUNT_INFO[pid][ac_SD],
+			PLAYER_MISC[pid][MISC_MUTES],
+			PLAYER_MISC[pid][MISC_KICKS],
+			PLAYER_MISC[pid][MISC_BANS],
+			PLAYER_MISC[pid][MISC_SANS],
+			PLAYER_MISC[pid][MISC_JAILS],
+			PLAYER_MISC[pid][MISC_DOUBT_SENT],
+			getPlayerVip(pid),
+			dni,
+			drive,
+			GetAccountStatusName(playerid)
+	);
+
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
+	return 1;
+}
+
+getCrewIndexWithId(id)
+{
+	for(new i = 0; i < sizeof(CREW_INFO); i ++)
+	{
+		if (CREW_INFO[i][crew_ID] == id) return i;
+	}
+	return 0;
+}
+
+getPlayerCrew(playerid)
+{
+	new crew[32];
+	if (!PLAYER_CREW[playerid][player_crew_VALID]) crew = "ninguna";
+	else format(crew, sizeof crew, "%s", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
+	return crew;
+}
+
+getPlayerCrewColor(playerid)
+{
+    return !PLAYER_CREW[playerid][player_crew_VALID] ? -1 : CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR];
+}
+
+getPlayerVip(playerid)
+{
+	new vip[16];
+	if (!ACCOUNT_INFO[playerid][ac_SU]) vip = "No";
+	else if (ACCOUNT_INFO[playerid][ac_SU] == 1) vip = "Classic";
+	else if (ACCOUNT_INFO[playerid][ac_SU] >= 2) vip = "Turbo";
+	return vip;
+}
+
+AddPlayerBadHistory(account_id, by_account_id, type, const text[])
+{
+	new DB_Query[266];
+	format(DB_Query, sizeof DB_Query, "INSERT INTO `BAD_HISTORY` (`ID_USER`, `TYPE`, `BY`, `TEXT`) VALUES('%d', '%d', '%d', '%q');", account_id, type, by_account_id, text);
+	db_free_result(db_query(Database, DB_Query));
+	return 1;
+}
+
+AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, const text[], days = 0, mod[] = "day", const account_gpci[] = "NULL")
+{
+	new DB_Query[450];
+
+	if (!days)
+	{
+		format(DB_Query, sizeof DB_Query,
+
+			"\
+			INSERT INTO `BAD_HISTORY` (`ID_USER`, `TYPE`, `BY`, `TEXT`) VALUES('%d', '%d', '%d', '%q');\
+			INSERT INTO `BANS` (`NAME`, `IP`, `GPCI`, `ID_HISTORY`, `EXPIRE_DATE`) SELECT '%q', '%q', '%q', MAX(`ID`), '0' FROM `BAD_HISTORY`;\
+			",
+
+				account_id, type, by_account_id, text,
+				account_name, account_ip, account_gpci
+
+		);
+	}
+	else
+	{
+		format(DB_Query, sizeof DB_Query,
+
+			"\
+			INSERT INTO `BAD_HISTORY` (`ID_USER`, `TYPE`, `BY`, `TEXT`) VALUES('%d', '%d', '%d', '%q');\
+			INSERT INTO `BANS` (`NAME`, `IP`, `GPCI`, `ID_HISTORY`, `EXPIRE_DATE`) SELECT '%q', '%q', '%q', MAX(`ID`), DATETIME('NOW', '+%d %s') FROM `BAD_HISTORY`;\
+			",
+
+				account_id, type, by_account_id, text,
+				account_name, account_ip, account_gpci, days, mod
+
+		);
+	}
+
+	safe_db_query(DB_Query);
+	return 1;
+}
+
+DeletePlayerJobs(playerid)
+{
+	for(new i = 0; i != sizeof work_info; i ++)
+	{
+		if (work_info[i][work_info_TYPE] == WORK_TYPE_NORMAL)
+		{
+			new DB_Query[256];
+			format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", ACCOUNT_INFO[playerid][ac_ID], i);
+			db_free_result(db_query(Database, DB_Query));
+
+			PLAYER_WORKS[playerid][i] = 0;
+			SavePlayerWorks(playerid);
+		}
+	}
+	return 1;
+}
+
+SendMessageToAdmins(color, const message[], level = 0)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+	    if (IsPlayerConnected(i))
+	    {
+		   if (ACCOUNT_INFO[i][ac_ADMIN_LEVEL] > level && PLAYER_TEMP[i][py_ADMIN_SERVICE])
+		   {
+			  SendClientMessage(i, color, message);
+		   }
+	    }
+	}
+	return 1;
+}
+
+SendCmdLogToAdmins(playerid, const cmdtext[], const params[])
+{
+	new
+		message[144],
+		str_text[144];
+
+	if (isnull(params)) format(message, sizeof message, "%s (%d) uso el comando /%s", ACCOUNT_INFO[playerid][ac_NAME], playerid, cmdtext);
+	else format(message, sizeof message, "%s (%d) uso el comando /%s %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, cmdtext, params);
+
+	format(str_text, sizeof(str_text), ":page_with_curl: %s", message);
+	SendDiscordWebhook(str_text, 1);
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+	    if (IsPlayerConnected(i))
+	    {
+		   if (ACCOUNT_INFO[i][ac_ADMIN_LEVEL] >= ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] && PLAYER_TEMP[i][py_ADMIN_SERVICE])
+		   {
+			  if (PLAYER_TEMP[i][py_SEE_ACMD_LOG]) SendClientMessage(i, 0x9A9A9AFF, message);
+		   }
+	    }
+	}
+	return 1;
+}
+
+SendMessageToAdminsAC(color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+	    if (IsPlayerConnected(i))
+	    {
+		   if (ACCOUNT_INFO[i][ac_ADMIN_LEVEL] > 1 && PLAYER_TEMP[i][py_ADMIN_SERVICE])
+		   {
+			  if (PLAYER_TEMP[i][py_SEE_AC_LOG]) SendClientMessage(i, color, message);
+		   }
+	    }
+	}
+	printf(message);
+	return 1;
+}
+
+RespawnAllUnoccupiedVehicles()
+{
+	for(new i = 0; i != MAX_VEHICLES; i ++)
+	{
+		if (!GLOBAL_VEHICLES[i][gb_vehicle_VALID]) continue;
+		if (GLOBAL_VEHICLES[i][gb_vehicle_OCCUPIED]) continue;
+		if (GLOBAL_VEHICLES[i][gb_vehicle_TYPE] == VEHICLE_TYPE_TEST)
+		{
+			DestroyVehicleEx(i);
+			continue;
+		}
+
+		SetVehicleToRespawnEx(i);
+	}
+	return 1;
+}
+
+RespawnGlobalUnoccupiedVehicles()
+{
+	for(new i = 0; i != MAX_VEHICLES; i ++)
+	{
+		if (!GLOBAL_VEHICLES[i][gb_vehicle_VALID]) continue;
+		if (GLOBAL_VEHICLES[i][gb_vehicle_TYPE] == VEHICLE_TYPE_PERSONAL) continue;
+		if (GLOBAL_VEHICLES[i][gb_vehicle_OCCUPIED]) continue;
+
+		SetVehicleToRespawnEx(i);
+	}
+	return 1;
+}
+
+getRandomSalt(salt[], length = sizeof salt)
+{
+    for(new i = 0; i != length; i ++)
+	{
+		salt[i] = random(2) ? (random(26) + (random(2) ? 'a' : 'A')) : (random(10) + '0');
+	}
+	return true;
+}
+
+GetTickDiff(newtick, oldtick)
+{
+	if (oldtick < 0 && newtick >= 0) {
+		return newtick - oldtick;
+	} else if (oldtick >= 0 && newtick < 0 || oldtick > newtick) {
+		return (cellmax - oldtick + 1) - (cellmin - newtick);
+	}
+	return newtick - oldtick;
+}
+
+GetPlayerSpeed(vehicleid)
+{
+	new Float:xPos[3];
+	GetPlayerVelocity(vehicleid, xPos[0], xPos[1], xPos[2]);
+	return floatround(floatsqroot(xPos[0] * xPos[0] + xPos[1] * xPos[1] + xPos[2] * xPos[2]) * 170.00);
+}
+
+GetEnterExitIndexById(id)
+{
+	for(new i = 0; i != sizeof ENTER_EXIT; i ++)
+	{
+		if (ENTER_EXIT[i][ee_ID] == 0) continue;
+		if (ENTER_EXIT[i][ee_ID] == id) return i;
+	}
+	return -1;
 }

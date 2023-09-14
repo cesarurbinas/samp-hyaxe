@@ -56,3 +56,10 @@ forward Float:frandom(Float:max, Float:min, dp);
 18 = intro
 19 = anti cj
 */
+
+#define MAX_PLAYER_MAP_GPS_POINTS 20
+#define MAX_BANK_TRANSACTIONS_DIALOG 5
+
+#define MAX_ROUTES  5
+#define MAX_OBJECTS_PER_ROUTE 20
+#define MAX_PLAYER_GPS_SAVES 10

@@ -27,3 +27,30 @@ enum Character_Enum
 	ch_JAILED_BY
 };
 new CHARACTER_INFO[MAX_PLAYERS][Character_Enum]; // CI (CharacterInfo)
+
+// Player gps
+enum
+{
+	CHECKPOINT_TYPE_NONE,
+	CHECKPOINT_TYPE_GPS,
+	CHECKPOINT_TYPE_UNLOAD_TRUCK,
+	CHECKPOINT_TYPE_FINISH_TRUCK,
+	CHECKPOINT_TYPE_HARVEST,
+	CHECKPOINT_TYPE_TRASH,
+	CHECKPOINT_TYPE_FINISH_TRASH
+	//CHECKPOINT_TYPE_CLEANER,
+	//CHECKPOINT_TYPE_FINISH_CLEANER
+};
+
+enum Player_GPS_Enum
+{
+	player_gps_VALID,
+	player_gps_ID,
+	player_gps_NAME[24],
+	Float:player_gps_X,
+	Float:player_gps_Y,
+	Float:player_gps_Z,
+	player_gps_WORLD,
+	player_gps_INTERIOR
+};
+new PLAYER_GPS[MAX_PLAYERS][MAX_PLAYER_GPS_SAVES][Player_GPS_Enum];

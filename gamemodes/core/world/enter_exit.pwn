@@ -1,4 +1,3 @@
-//EnterExits
 enum
 {
 	INTERIOR_NO_INFO,
@@ -60,8 +59,8 @@ enum Enter_Exits
 	Text3D:ee_EXT_LABEL_ID,
 	
 	
-	ee_INT_PICKUP_ID,	/* No son pickups decorativos */
-	ee_EXT_PICKUP_ID	/* Son pickups para identificar el id */
+	ee_INT_PICKUP_ID,	// No son pickups decorativos
+	ee_EXT_PICKUP_ID	// Son pickups para identificar el id
 };
 
 new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
