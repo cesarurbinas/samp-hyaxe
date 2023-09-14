@@ -4631,6 +4631,19 @@ CheckTrashJobSite(playerid)
 	return 1;
 }
 
+CheckMedicJobSite(playerid)
+{
+	if (!PLAYER_WORKS[playerid][WORK_MEDIC]) return 0;
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_MEDIC) return 0;
+
+	if (IsPlayerInRangeOfPoint(playerid, 1.0, -212.521926, -1739.015014, 675.768737))
+	{
+		if (!PLAYER_TEMP[playerid][py_WORKING_IN]) StartPlayerJob(playerid, WORK_MEDIC);
+		else EndPlayerJob(playerid);
+	}
+	return 1;
+}
+
 CheckIsFireWeapon(weapon)
 {
 	switch(weapon)
@@ -25187,6 +25200,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		CheckCraneSiteRequest(playerid);
 		ShellingThings(playerid);
 		CheckTrashJobSite(playerid);
+		CheckMedicJobSite(playerid);
 		//CheckAndReload(playerid);
 
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
