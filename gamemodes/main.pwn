@@ -3184,7 +3184,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				SavePlayerMisc(playerid);
 
 				new str[144];
-				format(str, 145, "[ADMIN] %s (%d) fue baneado: Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				format(str, 144, "[ADMIN] %s (%d) fue baneado: Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
@@ -7212,7 +7212,7 @@ InitBlackMarket(market_id)
 	format(str_text, sizeof(str_text), "[MERCADO] Mercado en %s.", BLACK_MARKET_OBJ[market_id][bm_ZONE_NAME]);
     SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 
-    format(str_text, 145, "Mercado en %s.", BLACK_MARKET_OBJ[market_id][bm_ZONE_NAME]);
+    format(str_text, 144, "Mercado en %s.", BLACK_MARKET_OBJ[market_id][bm_ZONE_NAME]);
     SendDiscordWebhook(str_text, 3);
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -7259,10 +7259,10 @@ InitGraffiti(graff_id)
 	format(str_text, sizeof(str_text), "   ~w~Graffiti en %s", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
 
 	new str[144];
-	format(str, 145, "[GRAFFITI] Graffiti en %s.", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
+	format(str, 144, "[GRAFFITI] Graffiti en %s.", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
     SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
-    format(str, 145, "Graffiti en %s.", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
+    format(str, 144, "Graffiti en %s.", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
     SendDiscordWebhook(str, 2);
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -8507,7 +8507,7 @@ public OnPlayerText(playerid, text[])
 		SavePlayerMisc(playerid);
 
 		new str[144];
-		format(str, 145, "[ADMIN] %s (%d) fue baneado permanentemente: Superar los 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(str, 144, "[ADMIN] %s (%d) fue baneado permanentemente: Superar los 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8566,13 +8566,13 @@ public OnPlayerText(playerid, text[])
 
 	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_STATE] == CALL_STATE_ESTABLISHED)
 	{
-		format(str_text, 145, "%s "COL_RED"(teléfono){E6E6E6}: %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
+		format(str_text, 144, "%s "COL_RED"(teléfono){E6E6E6}: %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
 		SendClientMessageEx(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], COLOR_WHITE, ""COL_RED"Teléfono (%s):"COL_WHITE" %s", convertPhoneNumber(PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID], PLAYER_PHONE[playerid][player_phone_NUMBER]), text);
 	}
 	else
 	{
-		if (GetPlayerDrunkLevel(playerid) > 2000) format(str_text, 145, "%s (mareado): %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
-		else format(str_text, 145, "%s: %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
+		if (GetPlayerDrunkLevel(playerid) > 2000) format(str_text, 144, "%s (mareado): %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
+		else format(str_text, 144, "%s: %s", PLAYER_TEMP[playerid][py_RP_NAME], text);
 	}
 
 	//Do code
@@ -8630,13 +8630,13 @@ CMD:duda(playerid, params[])
 			SavePlayerMisc(playerid);
 
 			new str[144], webhook[144];
-			format(str, 145, "[ADMIN] %s (%d) fue baneado: Spam (Dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			format(str, 144, "[ADMIN] %s (%d) fue baneado: Spam (Dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 			SendDiscordWebhook(webhook, 1);
 
-			format(str, 145, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			format(str, 144, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8647,7 +8647,7 @@ CMD:duda(playerid, params[])
 		if (CheckFilterViolation(params))
 		{
 			new str[144], webhook[144];
-			format(str, 145, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			format(str, 144, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8671,14 +8671,14 @@ CMD:duda(playerid, params[])
 		SavePlayerMisc(playerid);
 
 		new str[144];
-		format(str, 145, "[ADMIN] %s (%d) fue baneado: Spam (IP en el dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		format(str, 144, "[ADMIN] %s (%d) fue baneado: Spam (IP en el dudas).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144];
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 		
-		format(str, 145, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+		format(str, 144, "[DUDAS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8746,14 +8746,14 @@ CMD:anuncio(playerid, params[])
 			SavePlayerMisc(playerid);
 
 			new str[144];
-			format(str, 145, "[ADMIN] %s (%d) fue baneado: Spam (Anuncios).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			format(str, 144, "[ADMIN] %s (%d) fue baneado: Spam (Anuncios).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			new webhook[144];
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 			SendDiscordWebhook(webhook, 1);
 
-			format(str, 145, "[ANUNCIOS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			format(str, 144, "[ANUNCIOS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8764,7 +8764,7 @@ CMD:anuncio(playerid, params[])
 		if (CheckFilterViolation(params))
 		{
 			new str[144], webhook[144];
-			format(str, 145, "[ANUNCIOS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+			format(str, 144, "[ANUNCIOS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
 			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8795,7 +8795,7 @@ CMD:anuncio(playerid, params[])
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 
-		format(str, 145, "[ANUNCIOS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
+		format(str, 144, "[ANUNCIOS] %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -19248,7 +19248,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowPlayerMessage(playerid, "~g~Tu reporte fue enviado a los administradores en línea.", 3);
 
-				new str[144]; format(str, 145, "[REPORTE]"COL_WHITE" %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME], PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], reason);
+				new str[144]; format(str, 144, "[REPORTE]"COL_WHITE" %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ac_NAME], PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER], reason);
 				SendMessageToAdmins(COLOR_ORANGE, str);
 			}
 			else ShowDialog(playerid, DIALOG_RANGE_USER);
@@ -24474,7 +24474,7 @@ CheckBlockedWeapon(playerid, weapon_ip)
 		    	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
 
 		    	new str[144];
-		    	format(str, 145, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		    	format(str, 144, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		    	SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 		    	SendDiscordWebhook(str, 1);
 		    
@@ -25801,7 +25801,7 @@ CheckMarketProgress(playerid)
 				SendGraffitiNotification(str_text);
 				SendDiscordWebhook(str_text, 3);
 
-				new str[144]; format(str, 145, "[MERCADO] %s ha ganado el mercado en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], BLACK_MARKET_OBJ[i][bm_ZONE_NAME]);
+				new str[144]; format(str, 144, "[MERCADO] %s ha ganado el mercado en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], BLACK_MARKET_OBJ[i][bm_ZONE_NAME]);
     			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
     			format(str_text, sizeof(str_text), "\n"COL_WHITE"Dominado por: {%06x}%s",  CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
@@ -25905,7 +25905,7 @@ CheckGraffitiProgress(playerid)
 				SendGraffitiNotification(str_text);
 				SendDiscordWebhook(str_text, 2);
 
-				new str[144]; format(str, 145, "[GRAFFITI] %s ha ganado el graffiti en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], GRAFFITIS_OBJ[i][g_ZONE_NAME]);
+				new str[144]; format(str, 144, "[GRAFFITI] %s ha ganado el graffiti en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], GRAFFITIS_OBJ[i][g_ZONE_NAME]);
     			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				SetDynamicObjectMaterialText(GRAFFITIS_OBJ[i][g_ID], 0, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], OBJECT_MATERIAL_SIZE_512x64, GRAFFITIS_OBJ[i][g_FONT], 60, 0, CrewColorGraffiti_ARGB, 0x00000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
@@ -32082,7 +32082,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				SavePlayerMisc(playerid);
 
 				new str[144];
-				format(str, 145, "[ADMIN] %s (%d) fue baneado: Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				format(str, 144, "[ADMIN] %s (%d) fue baneado: Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
@@ -34008,7 +34008,7 @@ CMD:reportar(playerid, params[])
 	ShowPlayerMessage(playerid, "~g~Tu reporte fue enviado a los administradores en línea.", 3);
 
 	new str[144];
-	format(str, 145, "[REPORTE]"COL_WHITE" %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[params[0]][py_NAME], params[0], reason);
+	format(str, 144, "[REPORTE]"COL_WHITE" %s (%d) > %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[params[0]][py_NAME], params[0], reason);
 	SendMessageToAdmins(COLOR_ORANGE, str);
 	Log("reports", str);
 
