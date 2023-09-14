@@ -13386,7 +13386,7 @@ ShowDialog(playerid, dialogid)
 
 				format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
 
-				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '1' LIMIT "MAX_CLUB_PRODUCTS";", CLUBS_INFO[club][club_ID]);
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '1' LIMIT %d;", MAX_CLUB_PRODUCTS, CLUBS_INFO[club][club_ID]);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -13433,7 +13433,7 @@ ShowDialog(playerid, dialogid)
 
 				format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
 
-				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '0' LIMIT "MAX_CLUB_PRODUCTS";", CLUBS_INFO[club][club_ID]);
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '0' LIMIT %d;", MAX_CLUB_PRODUCTS, CLUBS_INFO[club][club_ID]);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -13526,7 +13526,7 @@ ShowDialog(playerid, dialogid)
 
 				format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
 
-				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' LIMIT "MAX_CLUB_PRODUCTS";", CLUBS_INFO[club][club_ID]);
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' LIMIT %d;", MAX_CLUB_PRODUCTS, CLUBS_INFO[club][club_ID]);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
@@ -22002,7 +22002,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (db_num_rows(Result) >= MAX_CLUB_PRODUCTS)
 						{
 							ShowDialog(playerid, dialogid);
-							ShowPlayerMessage(playerid, "~r~Solo puedes poner hasta "MAX_CLUB_PRODUCTS" productos.", 4);
+							ShowPlayerMessage(playerid, sprintf("~r~Solo puedes poner hasta %d productos.", MAX_CLUB_PRODUCTS), 4);
 							return 1;
 						}
 						db_free_result(Result);
