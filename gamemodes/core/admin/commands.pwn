@@ -1968,7 +1968,7 @@ flags:putboot(CMD_MODERATOR3)
 CMD:setgang(playerid, params[])
 {
     new gang;
-    if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setgang <gang_id>");
+    if (sscanf(params, "d", gang)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setgang <gang_id>");
 
     if (!CREW_INFO[gang][crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta banda ya no existe.", 2);
 	if (!CREW_RANK_INFO[gang][ CREW_INFO[gang][crew_ID] ][crew_rank_VALID]) return ShowPlayerMessage(playerid, "~r~El rango principal ya no existe.", 2);
@@ -2010,7 +2010,7 @@ CMD:getgang(playerid, params[])
 
     SendClientMessage(playerid, COLOR_WHITE, "Buscando...");
     
-    new count ++;
+    new count;
     for(new x = 0; x < MAX_CREWS; x ++)
     {
         if (strfind(gang_name, CREW_INFO[x][crew_NAME], true) != -1)
