@@ -267,6 +267,11 @@
 #include "core/anticheat/callbacks.pwn"
 #include "core/anticheat/main.pwn"
 
+// Aimbot
+#define BUSTAIM_MAX_PING 600
+#define BUSTAIM_MAX_PL_PERCENT_ALLOWED 5
+#include <aimbot>
+
 // Soccer
 #include "core/soccer/header.pwn"
 #include "core/soccer/functions.pwn"
