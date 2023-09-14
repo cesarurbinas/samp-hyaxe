@@ -77,6 +77,9 @@
 #include <Pawn.Regex>
 //#tryinclude <profiler>
 
+// Math
+#include "utils/player/math.pwn"
+
 // Macros
 #include "core/misc/macros.pwn"
 #include "core/misc/packets.pwn"

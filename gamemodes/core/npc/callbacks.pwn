@@ -137,46 +137,52 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 
 					SetMissionPlayerMarkers(killerid);
 
-					// Check lives npc's
-					new npc_lives;
-					for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+					switch(PLAYER_TEMP[killerid][py_MISSION_TYPE])
 					{
-						if (FCNPC_IsSpawned(SWEET_DEALERS[i][sd_ID]) && !FCNPC_IsDead(SWEET_DEALERS[i][sd_ID]))
-							npc_lives ++;
-					}
-
-					// Change color and check mission win
-					for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-					{
-						if (!IsPlayerConnected(i)) continue;
-
-						// Color
-						if (PLAYER_TEMP[i][py_IN_MISSION])
+						case 0:
 						{
-							if (PLAYER_TEMP[i][py_MISSION] == mission)
+							// Check lives npc's
+							new npc_lives;
+							for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
 							{
-								SetPlayerMarkerForPlayer(i, npcid, PLAYER_COLOR);
-                                SetPlayerColor(npcid, PLAYER_COLOR);
+								if (FCNPC_IsSpawned(SWEET_DEALERS[i][sd_ID]) && !FCNPC_IsDead(SWEET_DEALERS[i][sd_ID]))
+									npc_lives ++;
 							}
-						}
 
-						// Mission win
-						if (npc_lives <= 0)
-						{
-							GivePlayerReputation(i, 1, false);
-							ShowPlayerAlert(i, "COMPLETADA~n~~w~+EXP", 0xd5900aFF, 5);
-							SetPlayerMarkerForPlayer(i, killerid, PLAYER_COLOR);
-							GivePlayerCash(i, 1000 + (300 * PLAYER_TEMP[i][py_MISSION_POINTS]));
-							PLAYER_TEMP[i][py_IN_MISSION] = false;
-						}
-					}
+							// Change color and check mission win
+							for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+							{
+								if (!IsPlayerConnected(i)) continue;
 
-					// Respawn npcs
-					if (npc_lives <= 0)
-					{
-						for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
-						{
-							FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 1);
+								// Color
+								if (PLAYER_TEMP[i][py_IN_MISSION])
+								{
+									if (PLAYER_TEMP[i][py_MISSION] == mission)
+									{
+										SetPlayerMarkerForPlayer(i, npcid, PLAYER_COLOR);
+										SetPlayerColor(npcid, PLAYER_COLOR);
+									}
+								}
+
+								// Mission win
+								if (npc_lives <= 0)
+								{
+									GivePlayerReputation(i, 1, false);
+									ShowPlayerAlert(i, "COMPLETADA~n~~w~+EXP", 0xd5900aFF, 5);
+									SetPlayerMarkerForPlayer(i, killerid, PLAYER_COLOR);
+									GivePlayerCash(i, 1000 + (300 * PLAYER_TEMP[i][py_MISSION_POINTS]));
+									PLAYER_TEMP[i][py_IN_MISSION] = false;
+								}
+							}
+
+							// Respawn npcs
+							if (npc_lives <= 0)
+							{
+								for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+								{
+									FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 1);
+								}
+							}
 						}
 					}
 				}

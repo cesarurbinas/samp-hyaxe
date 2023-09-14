@@ -184,16 +184,13 @@ CheckMissionPlace(playerid)
                             {
                                 PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
                                 CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-
                                 NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_FIRE] = false;
 
                                 SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
                                 FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
-                                
+
                                 FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
-
                                 FCNPC_Respawn(SWEET_DEALERS[i][sd_ID]);
-
                                 FCNPC_SetSkin(SWEET_DEALERS[i][sd_ID], DEALER_SKIN[ random(sizeof(DEALER_SKIN))]);
 
                                 FCNPC_SetPosition(
@@ -202,7 +199,6 @@ CheckMissionPlace(playerid)
                                     SWEET_DEALERS[i][sd_Y],
                                     SWEET_DEALERS[i][sd_Z]
                                 );
-
                                 FCNPC_SetAngle(SWEET_DEALERS[i][sd_ID], SWEET_DEALERS[i][sd_ANGLE]);
 
                                 FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
@@ -210,13 +206,8 @@ CheckMissionPlace(playerid)
                                 FCNPC_UseInfiniteAmmo(SWEET_DEALERS[i][sd_ID], true);
 
                                 FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 0);
-
                                 FCNPC_SetInvulnerable(SWEET_DEALERS[i][sd_ID], false);
-
                                 FCNPC_AimAtPlayer(SWEET_DEALERS[i][sd_ID], playerid, true, 1000);
-
-                                SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 100.0);
-                                FCNPC_GiveHealth(SWEET_DEALERS[i][sd_ID], 100.0);
                             }
 
                             if (FCNPC_IsSpawned(SWEET_DEALERS[i][sd_ID]) && !FCNPC_IsDead(SWEET_DEALERS[i][sd_ID]))
@@ -232,41 +223,49 @@ CheckMissionPlace(playerid)
                     // Drug stealer
                     case 1:
                     {
-                        for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+                        new drug_index = random( sizeof(INIT_DRUG_STEAL) );
+
+                        for(new i = 0; i < 6; i++)
                         {
                             if (players_in_mission <= 1)
                             {
                                 PLAYER_TEMP[ SWEET_DEALERS[i][sd_ID] ][py_GAME_STATE] = GAME_STATE_NORMAL;
                                 CHARACTER_INFO[ SWEET_DEALERS[i][sd_ID] ][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-
                                 NPC_INFO[ SWEET_DEALERS[i][sd_ID] ][ni_STATIC_FIRE] = true;
 
                                 SetPlayerHealthEx(SWEET_DEALERS[i][sd_ID], 80.0);
                                 FCNPC_SetHealth(SWEET_DEALERS[i][sd_ID], 80.0);
-                                
+
                                 FCNPC_ClearAnimations(SWEET_DEALERS[i][sd_ID]);
-
                                 FCNPC_Respawn(SWEET_DEALERS[i][sd_ID]);
-
                                 FCNPC_SetSkin(SWEET_DEALERS[i][sd_ID], BALLAS_SKINS[ random(sizeof(BALLAS_SKINS))]);
+
+                                new
+                                    Float:x = INIT_DRUG_STEAL[drug_index][0],
+                                    Float:y = INIT_DRUG_STEAL[drug_index][1],
+                                    Float:z = INIT_DRUG_STEAL[drug_index][2],
+                                    negative
+                                ;
+
+                                x = ( x + ( float_random( 20.0 ) - float_random( 20.0 ) ) );
+	                            y = ( y + ( float_random( 20.0 ) - float_random( 20.0 ) ) );
+
+                                CA_FindZ_For2DCoord(x, y, z);
 
                                 FCNPC_SetPosition(
                                     SWEET_DEALERS[i][sd_ID],
-                                    SWEET_DEALERS[i][sd_X],
-                                    SWEET_DEALERS[i][sd_Y],
-                                    SWEET_DEALERS[i][sd_Z]
+                                    x,
+                                    y,
+                                    z
                                 );
-
-                                FCNPC_SetAngle(SWEET_DEALERS[i][sd_ID], SWEET_DEALERS[i][sd_ANGLE]);
+                                FCNPC_SetAngle(SWEET_DEALERS[i][sd_ID], mathfrandom(10.0, 180.0));
 
                                 FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
                                 FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
                                 FCNPC_UseInfiniteAmmo(SWEET_DEALERS[i][sd_ID], true);
 
                                 FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 0);
-
                                 FCNPC_SetInvulnerable(SWEET_DEALERS[i][sd_ID], false);
-
                                 FCNPC_AimAtPlayer(SWEET_DEALERS[i][sd_ID], playerid, true, 1000);
                             }
 
@@ -275,6 +274,14 @@ CheckMissionPlace(playerid)
                             
                             SetPlayerColor(SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
                         }
+
+                        SetPlayer_GPS_Checkpoint(
+                            playerid,
+                            INIT_DRUG_STEAL[drug_index][0],
+                            INIT_DRUG_STEAL[drug_index][1],
+                            INIT_DRUG_STEAL[drug_index][2],
+                            0, 0
+                        );
 
                         ShowPlayerMessage(playerid, "Roba la ~b~cocaina~w~ de la banda rival.", 15);
                     }
