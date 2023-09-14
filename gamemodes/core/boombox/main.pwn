@@ -44,7 +44,7 @@ CreateBoombox(playerid)
 	BOOMBOX[id][bb_INTERIOR] = GetPlayerInterior(playerid);
 	BOOMBOX[id][bb_WORLD] = GetPlayerVirtualWorld(playerid);
 	BOOMBOX[id][bb_OBJECT] = CreateDynamicObject(2226, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2] - 1.0, 0.0, 0.0, 0.0, .worldid = BOOMBOX[id][bb_WORLD], .interiorid = BOOMBOX[id][bb_INTERIOR]);
-	BOOMBOX[id][bb_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_RED"Parlante de %s\n"COL_WHITE"Público: "COL_RED"No", ACCOUNT_INFO[playerid][ac_NAME]), 0xFFFFFFFF, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2], 5.0, .testlos = 1, .worldid = BOOMBOX[id][bb_WORLD], .interiorid = BOOMBOX[id][bb_INTERIOR]);
+	BOOMBOX[id][bb_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_RED"Parlante de %s (ID %d)\n"COL_WHITE"Público: "COL_RED"No", ACCOUNT_INFO[playerid][ac_NAME], id), 0xFFFFFFFF, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2], 5.0, .testlos = 1, .worldid = BOOMBOX[id][bb_WORLD], .interiorid = BOOMBOX[id][bb_INTERIOR]);
 	BOOMBOX[id][bb_PUBLIC] =
 	BOOMBOX[id][bb_PLAYING] = false;
 	BOOMBOX[id][bb_OWNER] = ACCOUNT_INFO[playerid][ac_ID];
@@ -75,8 +75,8 @@ UpdateBoombox(id, bool:ispublic)
 {
 	if(!BOOMBOX[id][bb_VALID]) return 0;
 	BOOMBOX[id][bb_PUBLIC] = ispublic;
-	if(ispublic) UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_RED"Parlante de %s\n"COL_WHITE"Público: "COL_RED"Sí", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME]));
-	else UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_RED"Parlante de %s\n"COL_WHITE"Público: "COL_RED"No", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME]));
+	if(ispublic) UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_RED"Parlante de %s (ID %d)\n"COL_WHITE"Público: "COL_RED"Sí", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME], id));
+	else UpdateDynamic3DTextLabelText(BOOMBOX[id][bb_LABEL], 0xFFFFFFFF, sprintf(""COL_RED"Parlante de %s (ID %d)\n"COL_WHITE"Público: "COL_RED"No", ACCOUNT_INFO[ GetBoomboxOwner(id) ][ac_NAME], id));
 	return 1;
 }
 
@@ -235,3 +235,15 @@ CMD:parlante(playerid, params[])
 	return 1;
 }
 alias:parlante("boombox")
+
+CMD:destruirparlante(playerid, params[])
+{
+	new id;
+	if(sscanf(params, "d", id)) return SendClientMessage(playerid, COLOR_RED, "Syntax: "COL_WHITE"/destruirparlante (id)");
+	if(!BOOMBOX[id][bb_VALID]) return SendClientMessage(playerid, COLOR_RED, "La ID proporcionada no corresponde a un parlante válido.");
+
+	DestroyBoombox(id);
+	return 1;
+}
+flags:destruirparlante(CMD_MODERATOR2)
+alias:destruirparlante("destruirboombox")
