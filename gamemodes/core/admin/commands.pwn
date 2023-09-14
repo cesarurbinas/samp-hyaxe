@@ -10,7 +10,8 @@ CMD:comandosadmin(playerid, params[])
     }
     else if(level >= sizeof(ADMIN_LEVELS)) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de un rango que no existe.");
     else if(level > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de un rango mayor al tuyo.");
-
+	else if(!level) return SendClientMessage(playerid, COLOR_WHITE, "Estas intentando ver comandos de usuarios.");
+	
     new CmdArray:command_arr = PC_GetCommandArray();
     new len = PC_GetArraySize(command_arr);
     new dialog[1250], line[50];
