@@ -111,6 +111,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					CA_FindZ_For2DCoord(x, y, z);
 
 					LogCarts[playerid][cart_OBJECT] = CreateDynamicObject(1458, x, y, z, 0.0, 0.0, 0.0);
+					LogCarts[playerid][cart_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_RED"Carrito de %s\n"COL_WHITE"Usa "COL_RED"ALT + CLICK "COL_WHITE"para agarrarlo.", ACCOUNT_INFO[playerid][ac_NAME]), 0xFFFFFFFF, x, y, z, 5.0);
+			
 					SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 					RemovePlayerAttachedObject(playerid, 1);
 					
@@ -128,6 +130,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 							SetPlayerAttachedObject(playerid, 1, 1458, 6, 1.840000, -0.546001, 0.419000, 62.100097, -158.799804, 78.600196, 0.474999, 1.000000, 1.000000);
 							SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 							DestroyDynamicObject(LogCarts[playerid][cart_OBJECT]);
+							DestroyDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]);
 							PLAYER_TEMP[playerid][py_HOLDING_CART] = true;
 						}
 					}
@@ -175,7 +178,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 			if(newkeys & KEY_SPRINT)
 			{
-				if(PLAYER_TEMP[playerid][py_CUTTING] != -1)
+				if(PLAYER_TEMP[playerid][py_CUTTING] != -1 && Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPING])
 				{
 					PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] += 5;
 
@@ -187,6 +190,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					}
 
 					PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
+				}
+				else
+				{
+					PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
 				}
 			}
 		}
@@ -234,6 +241,8 @@ public FinishTreeCutting(playerid, treeid)
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
 	ClearAnimations(playerid);
 
+	PLAYER_TEMP[playerid][py_CUTTING] = -1;
+
 	if(!IsPlayerInRangeOfPoint(playerid, 5.0, Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z]))
 	{
 		PLAYER_TEMP[playerid][py_CUTTING] = -1;
@@ -264,7 +273,7 @@ public FinishTreeCutting(playerid, treeid)
 
 	switch(Trees[treeid][tree_TYPE])
 	{
-		case TREE_TYPE_NORMAL: format(label, sizeof(label), "Talaste un árbol y un tronco fue agregado a tu carrito. Acerca tu carrito para agarrar los troncos.");
+		case TREE_TYPE_NORMAL: format(label, sizeof(label), "Talaste un árbol. Acerca tu carrito para agarrar los troncos.");
 		case TREE_TYPE_UNCOMMON: format(label, sizeof(label), "Talaste un árbol poco común. Acerca tu carrito para agarrar los troncos.");
 		case TREE_TYPE_RARE: format(label, sizeof(label), "Talaste un árbol raro. Acerca tu carrito para agarrar los troncos.");
 	}
@@ -272,6 +281,7 @@ public FinishTreeCutting(playerid, treeid)
 	ShowPlayerNotification(playerid, label, 5);
 
 	PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT] = CreateDynamicCP(Trees[treeid][tree_X], Trees[treeid][tree_Y], Trees[treeid][tree_Z], 5.0, .playerid = playerid);
+	Streamer_SetIntData(STREAMER_TYPE_CP, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], E_STREAMER_EXTRA_ID, treeid);
 	TogglePlayerDynamicCP(playerid, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], true);
 
 	Streamer_Update(playerid);
@@ -289,7 +299,8 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			{
 				if(PLAYER_TEMP[playerid][py_HOLDING_CART])
 				{
-					LogCarts[playerid][cart_AMOUNT] += Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_TYPE] + 1;
+					new index = Streamer_GetIntData(STREAMER_TYPE_CP, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], E_STREAMER_EXTRA_ID);
+					LogCarts[playerid][cart_AMOUNT] += Trees[index][tree_TYPE] + 1;
 					if(LogCarts[playerid][cart_AMOUNT] > 10)
 					{
 						LogCarts[playerid][cart_AMOUNT] = 10;
@@ -297,10 +308,9 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 					}
 					else
 					{
-						ShowPlayerNotification(playerid, sprintf("Agarraste ~r~%d ~w~troncos. Tu carrito ahora tiene ~r~%d/10 ~w~troncos.", Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_TYPE] + 1, LogCarts[playerid][cart_AMOUNT]), 5);
+						ShowPlayerNotification(playerid, sprintf("Agarraste ~r~%d ~w~tronco%s. Tu carrito ahora tiene ~r~%d/10 ~w~troncos.", Trees[index][tree_TYPE] + 1, Trees[index][tree_TYPE] + 1 > 1 ? "s" : "", LogCarts[playerid][cart_AMOUNT]), 5);
 					}
 
-					PLAYER_TEMP[playerid][py_CUTTING] = -1;
 					TogglePlayerDynamicCP(playerid, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], false);
 					DestroyDynamicCP(PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT]);
 				}

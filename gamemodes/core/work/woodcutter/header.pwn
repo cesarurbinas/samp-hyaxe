@@ -58,7 +58,8 @@ enum E_CART_DATA {
 	bool:cart_VALID,
 	cart_AMOUNT,
 
-	cart_OBJECT
+	cart_OBJECT,
+	Text3D:cart_LABEL
 }
 new LogCarts[MAX_PLAYERS][E_CART_DATA];
 

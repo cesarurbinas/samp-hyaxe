@@ -109,6 +109,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/global/textdraws.pwn"
 
 // Player
+#include "core/player/account.pwn"
 #include "core/player/temp.pwn"
 #include "core/player/misc.pwn"
 #include "core/player/character.pwn"
@@ -129,7 +130,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/player/weapons.pwn"
 #include "core/player/phone.pwn"
 #include "core/player/toys.pwn"
-#include "core/player/account.pwn"
 #include "core/player/crew.pwn"
 #include "core/player/visual_inventory.pwn"
 #include "core/player/vehicles.pwn"
@@ -20852,7 +20852,7 @@ EditPlayerToy(playerid)
 }
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
-{
+{	
 	//printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
 	if (index != PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]) return 0;
 
@@ -31684,13 +31684,15 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 			SetPlayerAttachedObject(playerid, 0, 18638, 2, 0.152999, 0.007999, -0.005000, 0.0, 0.0, -16.199993, 1.0, 1.0, 1.0);
 			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 			SetPlayerAttachedObject(playerid, 1, 1458, 6, 1.840000, -0.546001, 0.419000, 62.100097, -158.799804, 78.600196, 0.474999, 1.000000, 1.000000);
+			SetPlayerAttachedObject(playerid, 2, 341, 6, 0.026999, -0.015000, -0.096999, 0.000000, -35.600006, 0.000000, 1.000000, 1.000000, 1.000000);
+			EditAttachedObject(playerid, 2);
 
 			LogCarts[playerid][cart_VALID] = true;
 			LogCarts[playerid][cart_AMOUNT] = 0;
 			LogCarts[playerid][cart_OBJECT] = INVALID_OBJECT_ID;
 			PLAYER_TEMP[playerid][py_HOLDING_CART] = true;
 
-			ShowPlayerNotification(playerid, "Ahora estas de servicio como leñador, ve al bosque con tu carro y tala algunos arboles. Usa ALT + Y para soltar tu carrito.", 5);
+			ShowPlayerNotification(playerid, "Ahora estas de servicio como leñador, ve al bosque y tala algunos arboles. Usa ~r~ALT ~w~+ ~r~CLICK ~w~para soltar tu carrito.", 5);
 		}
 	}
 
