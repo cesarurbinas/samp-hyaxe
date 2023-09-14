@@ -13310,6 +13310,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetDamageFeedForPlayer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
 				EnableHealthBarForPlayer(playerid, false);
 
+				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Desconicida");
+
 				/*ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Chat de voz", ""COL_WHITE"\
 					Hemos removido el chat de voz ya que nadie lo usaba, pero tranquilo\n\
 					vamos a abrir un Hyaxe #2 con chat de voz y whitelist (mejor rol)\n\
@@ -31485,6 +31487,12 @@ CMD:requisar(playerid, params[])
 	if (!PLAYER_TEMP[params[0]][py_CUFFED]) return ShowPlayerMessage(playerid, "~r~Para revisar a esta persona tiene que estar esposada.", 3);
 
 	RequisarilegalInv(params[0]);
+
+	PLAYER_MISC[params[0]][MISC_SEED_CANNABIS] = 0;
+	PLAYER_MISC[params[0]][MISC_SEED_CRACK] = 0;
+	PLAYER_MISC[params[0]][MISC_CANNABIS] = 0;
+	PLAYER_MISC[params[0]][MISC_CRACK] = 0;
+
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Requisa las pertenecias ilegales de alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	ShowPlayerMessage(playerid, "Has requisado a este jugador", 3);
 	return 1;
