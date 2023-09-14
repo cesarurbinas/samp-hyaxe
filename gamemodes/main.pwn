@@ -9053,13 +9053,13 @@ GetPropertyIndexByID(id)
 HideBankMenu(playerid)
 {
     CancelSelectTextDrawEx(playerid);
-    PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][0]);
-    PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][1]);
-    PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][2]);
-    PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][3]);
-    PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][4]);
-    PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][5]);
-    PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][6]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][0]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][1]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][2]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][3]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][4]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][5]);
+    TextDrawHideForPlayer(playerid, Textdraws[textdraw_BANK_MENU][6]);
     PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = false;
     return 1;
 }
@@ -9067,13 +9067,13 @@ HideBankMenu(playerid)
 ShowBankMenu(playerid)
 {
     SelectTextDrawEx(playerid, 0x618448FF);
-    PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][0]);
-    PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][1]);
-    PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][2]);
-    PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][3]);
-    PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][4]);
-    PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][5]);
-    PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_BANK_MENU][6]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][0]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][1]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][2]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][3]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][4]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][5]);
+    TextDrawShowForPlayer(playerid, Textdraws[textdraw_BANK_MENU][6]);
     PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = true;
     return 1;
 }
@@ -23023,6 +23023,31 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 			ShowPlayerMessage(playerid, "Presiona ~r~ALT~w~ para salir.", 2);
 		}
 	}
+
+	if(PLAYER_TEMP[playerid][py_PLAYER_IN_ATM])
+    {
+		if(clickedid == Textdraws[textdraw_BANK_MENU][3])
+		{
+			HideBankMenu(playerid);
+			ShowDialog(playerid, DIALOG_BANK_DEPOSIT);
+		}
+		else if(clickedid == Textdraws[textdraw_BANK_MENU][4])
+		{
+			HideBankMenu(playerid);
+            ShowDialog(playerid, DIALOG_BANK_WITHDRAW);
+		}
+		else if(clickedid == Textdraws[textdraw_BANK_MENU][5])
+		{
+			HideBankMenu(playerid);
+            ShowDialog(playerid, DIALOG_BANK_TRANSFER);
+		}
+		else if(clickedid == Textdraws[textdraw_BANK_MENU][6])
+		{
+			HideBankMenu(playerid);
+            ShowDialog(playerid, DIALOG_BANK_TRANSACTIONS);
+		}
+	}
+
 	return 1;
 }
 
@@ -23342,30 +23367,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][38]) DropItemSlot(playerid);
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][39]) UseItemSlot(playerid);
 		return 1;
-	}
-
-    if(PLAYER_TEMP[playerid][py_PLAYER_IN_ATM])
-    {
-		if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][3])
-		{
-			HideBankMenu(playerid);
-			ShowDialog(playerid, DIALOG_BANK_DEPOSIT);
-		}
-		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][4])
-		{
-			HideBankMenu(playerid);
-            ShowDialog(playerid, DIALOG_BANK_WITHDRAW);
-		}
-		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][5])
-		{
-			HideBankMenu(playerid);
-            ShowDialog(playerid, DIALOG_BANK_TRANSFER);
-		}
-		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][6])
-		{
-			HideBankMenu(playerid);
-            ShowDialog(playerid, DIALOG_BANK_TRANSACTIONS);
-		}
 	}
 
     return 1;

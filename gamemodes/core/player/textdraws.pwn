@@ -17,7 +17,6 @@ enum Player_Textdraws_Enum
 	PlayerText:ptextdraw_NOTIFICATION_MESSAGE,
 	PlayerText:ptextdraw_KEY,
 	PlayerText:ptextdraw_HUD[5],
-    PlayerText:ptextdraw_BANK_MENU[7],
     PlayerText:ptextdraw_PHONE_MENU,
     PlayerText:ptextdraw_PROGRESS[5]
 };

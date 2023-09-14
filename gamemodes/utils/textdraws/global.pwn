@@ -669,6 +669,102 @@ CreateTextDraws()
 	TextDrawFont(Textdraws[textdraw_HUD][1], 4);
 	TextDrawSetProportional(Textdraws[textdraw_HUD][1], 0);
 	TextDrawSetShadow(Textdraws[textdraw_HUD][1], 0);
+
+	Textdraws[textdraw_BANK_MENU][0] = TextDrawCreate(244.626632, 134.500015, "box");
+    TextDrawLetterSize(Textdraws[textdraw_BANK_MENU][0], 0.000000, 20.494873);
+    TextDrawTextSize(Textdraws[textdraw_BANK_MENU][0], 392.000000, 0.000000);
+    TextDrawAlignment(Textdraws[textdraw_BANK_MENU][0], 1);
+    TextDrawColor(Textdraws[textdraw_BANK_MENU][0], 1330597887);
+    TextDrawUseBox(Textdraws[textdraw_BANK_MENU][0], 1);
+    TextDrawBoxColor(Textdraws[textdraw_BANK_MENU][0], 336860908);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][0], 0);
+    TextDrawSetOutline(Textdraws[textdraw_BANK_MENU][0], 0);
+    TextDrawBackgroundColor(Textdraws[textdraw_BANK_MENU][0], 1330597887);
+    TextDrawFont(Textdraws[textdraw_BANK_MENU][0], 1);
+    TextDrawSetProportional(Textdraws[textdraw_BANK_MENU][0], 1);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][0], 0);
+
+    Textdraws[textdraw_BANK_MENU][1] = TextDrawCreate(297.496246, 140.416717, "banco");
+    TextDrawLetterSize(Textdraws[textdraw_BANK_MENU][1], 0.403748, 1.530001);
+    TextDrawAlignment(Textdraws[textdraw_BANK_MENU][1], 1);
+    TextDrawColor(Textdraws[textdraw_BANK_MENU][1], -1);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][1], 0);
+    TextDrawSetOutline(Textdraws[textdraw_BANK_MENU][1], 2);
+    TextDrawBackgroundColor(Textdraws[textdraw_BANK_MENU][1], 255);
+    TextDrawFont(Textdraws[textdraw_BANK_MENU][1], 3);
+    TextDrawSetProportional(Textdraws[textdraw_BANK_MENU][1], 1);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][1], 0);
+
+    Textdraws[textdraw_BANK_MENU][2] = TextDrawCreate(317.642852, 157.916748, "San_Andreas");
+    TextDrawLetterSize(Textdraws[textdraw_BANK_MENU][2], 0.552269, 2.025834);
+    TextDrawAlignment(Textdraws[textdraw_BANK_MENU][2], 2);
+    TextDrawColor(Textdraws[textdraw_BANK_MENU][2], -1);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][2], 0);
+    TextDrawSetOutline(Textdraws[textdraw_BANK_MENU][2], 2);
+    TextDrawBackgroundColor(Textdraws[textdraw_BANK_MENU][2], 255);
+    TextDrawFont(Textdraws[textdraw_BANK_MENU][2], 0);
+    TextDrawSetProportional(Textdraws[textdraw_BANK_MENU][2], 1);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][2], 0);
+
+    Textdraws[textdraw_BANK_MENU][3] = TextDrawCreate(318.111358, 199.916625, "Depositar");
+    TextDrawLetterSize(Textdraws[textdraw_BANK_MENU][3], 0.337218, 1.337500);
+    TextDrawTextSize(Textdraws[textdraw_BANK_MENU][3], 15.000000, 143.000000);
+    TextDrawAlignment(Textdraws[textdraw_BANK_MENU][3], 2);
+    TextDrawColor(Textdraws[textdraw_BANK_MENU][3], -1);
+    TextDrawUseBox(Textdraws[textdraw_BANK_MENU][3], 1);
+    TextDrawBoxColor(Textdraws[textdraw_BANK_MENU][3], 659766630);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][3], 0);
+    TextDrawSetOutline(Textdraws[textdraw_BANK_MENU][3], 0);
+    TextDrawBackgroundColor(Textdraws[textdraw_BANK_MENU][3], 659767259);
+    TextDrawFont(Textdraws[textdraw_BANK_MENU][3], 1);
+    TextDrawSetProportional(Textdraws[textdraw_BANK_MENU][3], 1);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][3], 0);
+    TextDrawSetSelectable(Textdraws[textdraw_BANK_MENU][3], true);
+
+    Textdraws[textdraw_BANK_MENU][4] = TextDrawCreate(318.111358, 224.416488, "Retirar");
+    TextDrawLetterSize(Textdraws[textdraw_BANK_MENU][4], 0.337218, 1.337500);
+    TextDrawTextSize(Textdraws[textdraw_BANK_MENU][4], 15.000000, 143.000000);
+    TextDrawAlignment(Textdraws[textdraw_BANK_MENU][4], 2);
+    TextDrawColor(Textdraws[textdraw_BANK_MENU][4], -1);
+    TextDrawUseBox(Textdraws[textdraw_BANK_MENU][4], 1);
+    TextDrawBoxColor(Textdraws[textdraw_BANK_MENU][4], 659766630);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][4], 0);
+    TextDrawSetOutline(Textdraws[textdraw_BANK_MENU][4], 0);
+    TextDrawBackgroundColor(Textdraws[textdraw_BANK_MENU][4], 659767259);
+    TextDrawFont(Textdraws[textdraw_BANK_MENU][4], 1);
+    TextDrawSetProportional(Textdraws[textdraw_BANK_MENU][4], 1);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][4], 0);
+    TextDrawSetSelectable(Textdraws[textdraw_BANK_MENU][4], true);
+
+    Textdraws[textdraw_BANK_MENU][5] = TextDrawCreate(318.111358, 250.666336, "Transferir");
+    TextDrawLetterSize(Textdraws[textdraw_BANK_MENU][5], 0.337218, 1.337500);
+    TextDrawTextSize(Textdraws[textdraw_BANK_MENU][5], 15.000000, 143.000000);
+    TextDrawAlignment(Textdraws[textdraw_BANK_MENU][5], 2);
+    TextDrawColor(Textdraws[textdraw_BANK_MENU][5], -1);
+    TextDrawUseBox(Textdraws[textdraw_BANK_MENU][5], 1);
+    TextDrawBoxColor(Textdraws[textdraw_BANK_MENU][5], 659766630);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][5], 0);
+    TextDrawSetOutline(Textdraws[textdraw_BANK_MENU][5], 0);
+    TextDrawBackgroundColor(Textdraws[textdraw_BANK_MENU][5], 659767259);
+    TextDrawFont(Textdraws[textdraw_BANK_MENU][5], 1);
+    TextDrawSetProportional(Textdraws[textdraw_BANK_MENU][5], 1);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][5], 0);
+    TextDrawSetSelectable(Textdraws[textdraw_BANK_MENU][5], true);
+
+    Textdraws[textdraw_BANK_MENU][6] = TextDrawCreate(318.111358, 276.916320, "Transacciones");
+    TextDrawLetterSize(Textdraws[textdraw_BANK_MENU][6], 0.337218, 1.337500);
+    TextDrawTextSize(Textdraws[textdraw_BANK_MENU][6], 15.000000, 143.000000);
+    TextDrawAlignment(Textdraws[textdraw_BANK_MENU][6], 2);
+    TextDrawColor(Textdraws[textdraw_BANK_MENU][6], -1);
+    TextDrawUseBox(Textdraws[textdraw_BANK_MENU][6], 1);
+    TextDrawBoxColor(Textdraws[textdraw_BANK_MENU][6], 659766630);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][6], 0);
+    TextDrawSetOutline(Textdraws[textdraw_BANK_MENU][6], 0);
+    TextDrawBackgroundColor(Textdraws[textdraw_BANK_MENU][6], 659767259);
+    TextDrawFont(Textdraws[textdraw_BANK_MENU][6], 1);
+    TextDrawSetProportional(Textdraws[textdraw_BANK_MENU][6], 1);
+    TextDrawSetShadow(Textdraws[textdraw_BANK_MENU][6], 0);
+    TextDrawSetSelectable(Textdraws[textdraw_BANK_MENU][6], true);
 	
 	return 1;
 }
