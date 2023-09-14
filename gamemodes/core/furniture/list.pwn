@@ -152,7 +152,7 @@ new FURNITURE_OBJECTS[][enum_furtniture_objects] =
 	{11734, "Dou", 300, 6}	
 };
 
-#define MAX_FURNITURE_OBJECTS 50000
+#define MAX_FURNITURE_OBJECTS 500000
 enum property_obj_enum
 {
 	bool:pobj_VALID,

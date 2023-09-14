@@ -163,6 +163,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Edit mode
 #include "utils/edit_mode/edit.pwn"
 #include "utils/furniture/object.pwn"
+#include "core/furniture/callbacks.pwn"
 
 // Bots
 #include "utils/world/bots.pwn"
@@ -5713,9 +5714,7 @@ Log(const nombre[], const texto[])
 /*CMD:editmodetestxd(playerid, params[])
 {
 	new Float:pos[3];
-
 	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
-
 	PLAYER_TEMP[playerid][py_EDITING_OBJ] = CreateDynamicObject(2738, pos[0] + 0.6, pos[1] + 0.6, pos[2], 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 	EditingMode(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
 	return 1;
@@ -20579,7 +20578,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (PLAYER_TEMP[playerid][py_ACTUAL_PROPERTY] > 0) return ShowPlayerMessage(playerid, "~r~Tienes que estar en una propiedad.", 5);
 				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
 				new index = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
 
@@ -20590,7 +20588,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
      			GameTextForPlayer(playerid, str_text, 5000, 1);
 				GivePlayerCash(playerid, -FURNITURE_OBJECTS[index][furniture_object_PRICE], false);
 
-				AddPropertyObject(playerid, PLAYER_TEMP[playerid][py_ACTUAL_PROPERTY], FURNITURE_OBJECTS[index][furniture_object_NAME], FURNITURE_OBJECTS[index][furniture_object_TYPE], GetPlayerInterior(playerid), GetPlayerVirtualWorld(playerid));
+				AddPropertyObject(
+					playerid,
+					FURNITURE_OBJECTS[index][furniture_object_MODELID],
+					PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],
+					FURNITURE_OBJECTS[index][furniture_object_NAME],
+					FURNITURE_OBJECTS[index][furniture_object_TYPE],
+					GetPlayerInterior(playerid),
+					GetPlayerVirtualWorld(playerid)
+				);
 			}
 			else ShowFurnitureMenu(playerid);
 		}
