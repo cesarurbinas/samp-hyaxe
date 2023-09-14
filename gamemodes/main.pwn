@@ -3344,7 +3344,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Jetpack");
 
 				KickEx(playerid, 500);
-				PLAYER_MISC[playerid][MISC_BANEOS] ++;
+				PLAYER_MISC[playerid][MISC_BANS] ++;
 				SavePlayerMisc(playerid);
 
 				new str[144];
@@ -8734,7 +8734,7 @@ public OnPlayerText(playerid, text[])
 
 		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado automáticamente, razón: Superar los 10 jails", "Cerrar", "");
 		KickEx(playerid, 500);
-		PLAYER_MISC[playerid][MISC_BANEOS] ++;
+		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
 		new str[144];
@@ -8871,7 +8871,7 @@ CMD:duda(playerid, params[])
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Dudas)");
 
 			KickEx(playerid, 500);
-			PLAYER_MISC[playerid][MISC_BANEOS] ++;
+			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
 			new str[144], webhook[144];
@@ -8911,7 +8911,7 @@ CMD:duda(playerid, params[])
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el dudas)");
 
 			KickEx(playerid, 500);
-			PLAYER_MISC[playerid][MISC_BANEOS] ++;
+			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
 			new str[144];
@@ -8988,7 +8988,7 @@ CMD:anuncio(playerid, params[])
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (Anuncios)");
 
 			KickEx(playerid, 500);
-			PLAYER_MISC[playerid][MISC_BANEOS] ++;
+			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
 			new str[144];
@@ -9030,7 +9030,7 @@ CMD:anuncio(playerid, params[])
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IP en el anuncio)");
 
 		KickEx(playerid, 500);
-		PLAYER_MISC[playerid][MISC_BANEOS] ++;
+		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
 		new str[144];
@@ -32564,7 +32564,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazer sin ser policia");
 
 				KickEx(playerid, 500);
-				PLAYER_MISC[playerid][MISC_BANEOS] ++;
+				PLAYER_MISC[playerid][MISC_BANS] ++;
 				SavePlayerMisc(playerid);
 
 				new str[144];
@@ -34523,8 +34523,8 @@ ShowPlayerStats(playerid, pid)
 			getPlayerWorks(pid),
 			ACCOUNT_INFO[pid][ac_SD],
 			PLAYER_MISC[pid][MISC_MUTES],
-			PLAYER_MISC[pid][MISC_KIKEOS],
-			PLAYER_MISC[pid][MISC_BANEOS],
+			PLAYER_MISC[pid][MISC_KICKS],
+			PLAYER_MISC[pid][MISC_BANS],
 			PLAYER_MISC[pid][MISC_SANS],
 			PLAYER_MISC[pid][MISC_JAILS],
 			PLAYER_MISC[pid][MISC_DOUBT_SENT],

@@ -346,7 +346,7 @@ CMD:kick(playerid, params[])
 	format(dialog, sizeof dialog, ""COL_WHITE"%s te expulsó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
-	PLAYER_MISC[to_player][MISC_KIKEOS] ++;
+	PLAYER_MISC[to_player][MISC_KICKS] ++;
 	SavePlayerMisc(to_player);
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' dbid: '%d', pid: '%d') expulsado.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player);
@@ -556,7 +556,7 @@ CMD:ip(playerid, params[])
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Subnormal");
 
 		KickEx(playerid, 500);
-		PLAYER_MISC[playerid][MISC_BANEOS] ++;
+		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
 		new str[144];
@@ -580,7 +580,7 @@ CMD:ip(playerid, params[])
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Subnormal");
 
 		KickEx(playerid, 500);
-		PLAYER_MISC[playerid][MISC_BANEOS] ++;
+		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
 		new str[144];
@@ -910,7 +910,7 @@ CMD:ban(playerid, params[])
 	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
-	PLAYER_MISC[to_player][MISC_BANEOS] ++;
+	PLAYER_MISC[to_player][MISC_BANS] ++;
 	SavePlayerMisc(to_player);
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' dbid: '%d', id: '%d') baneado.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player);
@@ -954,7 +954,7 @@ CMD:gpciban(playerid, params[])
 	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
-	PLAYER_MISC[to_player][MISC_BANEOS] ++;
+	PLAYER_MISC[to_player][MISC_BANS] ++;
 	SavePlayerMisc(to_player);
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' dbid: '%d', id: '%d') baneado.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player);
@@ -1073,7 +1073,7 @@ CMD:tban(playerid, params[])
 	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó por %d días, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], days, reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
-	PLAYER_MISC[to_player][MISC_BANEOS] ++;
+	PLAYER_MISC[to_player][MISC_BANS] ++;
 	SavePlayerMisc(to_player);
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' dbid: '%d', pid: '%d') baneado por %d días.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player, days);
@@ -1672,7 +1672,7 @@ CMD:setbans(playerid, params[])
     if (sscanf(params, "ud", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setbans <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
 
-    PLAYER_MISC[to_player][MISC_BANEOS] = ammount;
+    PLAYER_MISC[to_player][MISC_BANS] = ammount;
     SavePlayerMisc(to_player);
 	SendCmdLogToAdmins(playerid, "setbans", params);
 	return 1;
@@ -1696,7 +1696,7 @@ CMD:setkicks(playerid, params[])
     if (sscanf(params, "ud", to_player, ammount)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setkicks <player_id>");
     if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
 
-    PLAYER_MISC[to_player][MISC_KIKEOS] = ammount;
+    PLAYER_MISC[to_player][MISC_KICKS] = ammount;
     SavePlayerMisc(to_player);
 	SendCmdLogToAdmins(playerid, "setkicks", params);
 	return 1;

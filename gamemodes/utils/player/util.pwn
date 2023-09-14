@@ -3,7 +3,8 @@ new NAME_WHITELIST[][24] =
 	"Yahir_Kozel",
 	"Atom_Palomita",
 	"Pepe_Garcia",
-	"Radric_Dresta"
+	"Radric_Dresta",
+	"Alex_Flores"
 };
 
 new g_iPlayerLastUpdate[MAX_PLAYERS];
@@ -401,16 +402,19 @@ GetAccountStatusValue(playerid)
 	new value;
 	if (PLAYER_MISC[playerid][MISC_MUTES] >= 4) value ++;
 	
-	if (PLAYER_MISC[playerid][MISC_KIKEOS] >= 1) value ++;
-	else if (PLAYER_MISC[playerid][MISC_KIKEOS] >= 3) value ++;
+	if (PLAYER_MISC[playerid][MISC_KICKS] >= 1) value ++;
+	if (PLAYER_MISC[playerid][MISC_KICKS] >= 3) value ++;
 	
-	if (PLAYER_MISC[playerid][MISC_BANEOS] >= 1) value ++;
-	else if (PLAYER_MISC[playerid][MISC_BANEOS] >= 3) value += 5;
+	if (PLAYER_MISC[playerid][MISC_BANS] >= 1) value ++;
+	if (PLAYER_MISC[playerid][MISC_BANS] >= 3) value += 5;
 	
 	if (PLAYER_MISC[playerid][MISC_JAILS] >= 3) value ++;
+	if (PLAYER_MISC[playerid][MISC_JAILS] >= 5) value += 5;
 
 	if (PLAYER_MISC[playerid][MISC_SANS] >= 3) value ++;
-	else if (PLAYER_MISC[playerid][MISC_SANS] >= 10) value += 5;
+	if (PLAYER_MISC[playerid][MISC_SANS] >= 10) value += 5;
+	
+	SendClientMessageEx(playerid, -1, "%d", value);
 	return value;
 }
 
