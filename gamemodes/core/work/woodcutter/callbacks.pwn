@@ -355,7 +355,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 				if(PLAYER_TEMP[playerid][py_HOLDING_CART])
 				{
 					new index = Streamer_GetIntData(STREAMER_TYPE_CP, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], E_STREAMER_EXTRA_ID);
-					LogCarts[playerid][cart_AMOUNT] += Trees[index][tree_TYPE] + 1;
+					LogCarts[playerid][cart_AMOUNT] += Trees[index][tree_TYPE];
 					if(LogCarts[playerid][cart_AMOUNT] > 10)
 					{
 						LogCarts[playerid][cart_AMOUNT] = 10;
@@ -363,7 +363,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 					}
 					else
 					{
-						ShowPlayerNotification(playerid, sprintf("Agarraste ~r~%d ~w~tronco%s. Tu carrito ahora tiene ~r~%d/10 ~w~troncos.", Trees[index][tree_TYPE] + 1, Trees[index][tree_TYPE] + 1 > 1 ? "s" : "", LogCarts[playerid][cart_AMOUNT]), 5);
+						ShowPlayerNotification(playerid, sprintf("Agarraste ~r~%d ~w~tronco%s. Tu carrito ahora tiene ~r~%d/10 ~w~troncos.", Trees[index][tree_TYPE], Trees[index][tree_TYPE] + 1 > 1 ? "s" : "", LogCarts[playerid][cart_AMOUNT]), 5);
 					}
 
 					TogglePlayerDynamicCP(playerid, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], false);
