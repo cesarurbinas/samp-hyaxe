@@ -14434,7 +14434,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(url, 128, "51.178.211.161:12345/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
 				printf("%s", url);
 				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
-			}
+			} else PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
 			return 1;
 		}
 		case DIALOG_BUY_VEHICLE:
