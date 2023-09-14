@@ -1,7 +1,29 @@
 #include <a_samp>
 
+// Server Config
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
+
+#define SERVER_VERSION 			"v0.5 Pre-Release Build 107"
+#define SERVER_NAME 			"Hyaxe"
+#define SERVER_WEBSITE 			"www.hyaxe.com"
+#define SERVER_DISCORD 			"www.hyaxe.com/discord"
+#define SERVER_COIN 			"Hycoins"
+#define MAX_BAD_LOGIN_ATTEMPS 	3
+#define REP_MULTIPLIER 			12
+#define TIME_FOR_REP 			1020000
+#define REP_FOR_PAYDAY 			3
+#define CMD_LOGGIN 				0
+#define MAX_NU_VEHICLES 		3
+#define MAX_NU_PROPERTIES 		2
+#define MAX_NU_WORKS 			8
+#define MAX_NU_TOYS 			4
+#define MAX_NU_VOBJECTS 		5
+#define MAX_SU_VEHICLES 		6
+#define MAX_SU_PROPERTIES 		4
+#define MAX_SU_WORKS 			8
+#define MAX_SU_VOBJECTS 		10
+#define VOICE_CHAT
 
 // Other Library 
 #include <a_http>
@@ -110,27 +132,6 @@
 
 // Bots
 #include <../../gamemodes/utils/world/bots.pwn>
-
-// Server Config
-#define SERVER_VERSION 			"v0.5 Pre-Release Build 80"
-#define SERVER_NAME 			"Hyaxe"
-#define SERVER_WEBSITE 			"www.hyaxe.com"
-#define SERVER_DISCORD 			"www.hyaxe.com/discord"
-#define SERVER_COIN 			"Hycoins"
-#define MAX_BAD_LOGIN_ATTEMPS 	3
-#define REP_MULTIPLIER 			12
-#define TIME_FOR_REP 			1020000
-#define REP_FOR_PAYDAY 			3
-#define CMD_LOGGIN 				0
-#define MAX_NU_VEHICLES 		3
-#define MAX_NU_PROPERTIES 		2
-#define MAX_NU_WORKS 			8
-#define MAX_NU_TOYS 			4
-#define MAX_NU_VOBJECTS 		5
-#define MAX_SU_VEHICLES 		6
-#define MAX_SU_PROPERTIES 		4
-#define MAX_SU_WORKS 			8
-#define MAX_SU_VOBJECTS 		10
 
 // Macros
 #define CALLBACK:%0(%1) forward%0(%1);public%0(%1)
@@ -920,7 +921,7 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 487, 752.9639, -1200.7141, 25.0576, 317.7830, 0, 3, 0}, //Maverick
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 409, 679.6872, -1227.8555, 15.4913, 117.8353, 0, 3, 0}, //Stretch
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 521, 669.6936, -1256.8299, 13.0307, 177.2782, 0, 3, 0}, //FCR-900
-	// the crew criminals
+	// Moriarty Family Business
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 560, 2770.7566, -1625.6304, 10.6675, 90.0000, 0, 158, 0},
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 560, 2770.7566, -1622.4185, 10.6675, 90.0000, 0, 158, 0},
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 560, 2770.7566, -1619.4664, 10.6675, 90.0000, 0, 158, 0},
@@ -948,7 +949,21 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1178.3592, -1307.1132, 13.9921, 269.3424, 1, 198, 0}, //Ambulance
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1177.1497, -1340.5240, 14.0583, 267.7389, 1, 198, 0}, //Ambulance
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1177.3006, -1337.4774, 14.0541, 269.2554, 1, 198, 0}, //Ambulance
-	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1178.1733, -1310.3139, 14.0096, 267.6561, 1, 198, 0} //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1178.1733, -1310.3139, 14.0096, 267.6561, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1191.3575, -1295.4772, 13.5318, 1.5553, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1191.9063, -1347.8963, 13.5295, 2.5654, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1191.5485, -1315.9310, 13.5559, 0.7362, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1141.8619, -1294.4260, 13.7328, 1.2849, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1191.7652, -1325.1263, 13.5021, 0.2819, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1146.7989, -1294.7625, 13.7995, 359.1800, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1136.6824, -1310.1545, 13.7511, 358.9764, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1136.7680, -1294.7271, 13.7599, 0.3464, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1147.9570, -1311.5208, 13.7742, 2.2327, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1147.3717, -1347.7252, 13.8199, 179.1260, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1141.9129, -1310.7205, 13.7429, 1.9830, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1140.9035, -1380.3851, 13.9015, 178.2289, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1135.7231, -1339.8988, 13.9399, 357.7536, 1, 198, 0}, //Ambulance
+	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1096.2836, -1319.2452, 13.8689, 269.6707, 1, 198, 0} //Ambulance
 	/*{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1613.2410, -1886.6025, 13.2697, 281.5541, 1, 7, 0},
 	{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1612.5444, -1883.5178, 13.2577, 274.7869, 1, 7, 0},
 	{VEHICLE_TYPE_WORK, WORK_CLEANER, 0, 574, 1616.1304, -1895.8029, 13.2565, 357.8182, 1, 7, 0},
@@ -2348,9 +2363,22 @@ new INVALID_WORDS[][100] =
 	"kanox",
 	"lexerzone",
 	"puta",
+	"sampdroid",
+	"samp droid",
+	"samp_droid",
 	"puto",
 	"put0",
-	"chupas"
+	"chupas",
+	"adobe",
+	"chitero",
+	"bots",
+	".ga",
+	"b0ts",
+	".net",
+	".xyz",
+	".ml",
+	".tk",
+	"samptab"
 };
 
 new INVALID_NAMES[][100] =
@@ -2521,8 +2549,9 @@ enum Doubt_Enum
 
 new DOUBT_RESPONSES[][Doubt_Enum] = // EE = EnterExits
 {
-	{"como veo el nuevo de alguien", "use /guia id"},
+	{"como veo el numero de alguien", "use /guia id"},
 	{"como pico", "con alt, si no te anda usa /minero"},
+	{"como se pica", "con alt, si no te anda usa /minero"},
 	{"como soy policia", "postulandote en foro.hyaxe.com si es que estan abiertas"},
 	{"cual es el foro", "foro.hyaxe.com"},
 	{"donde compro armas", "en un mercado negro, su ubicacion la tienes que adivinar ic"},
@@ -4387,22 +4416,10 @@ public OnRconLoginAttempt(ip[], password[], success)
     return 1;
 }
 
-FreezeThenAutoUnfreeze(playerid, time)
-{
-    TogglePlayerControllableEx(playerid, false);
-    SetTimerEx("UnfreezeBastard", time, false, "i", playerid);
-}
-
-CALLBACK: UnfreezeBastard(playerid)
-{
-	ClearAnimations(playerid);
-    TogglePlayerControllableEx(playerid, true);
-}
-
 ExitSite(playerid)
-{   
+{
     if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
-    
+
     if (IsPlayerInRangeOfPoint(playerid, 2.0, 1881.801635, -1688.519531, 5216.709960))
     {
     	SetPlayerPosEx(playerid, 1555.400390, -1675.611694, 16.195312, 180.0, 0, 0, false);
@@ -4425,7 +4442,7 @@ ExitSite(playerid)
     Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, pos[0]);
     Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, pos[1]);
     Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, pos[2]);
-    
+
     if (!IsPlayerInRangeOfPoint(playerid, 1.0, pos[0], pos[1], pos[2])) return 0;
 
     switch(info[0])
@@ -5155,7 +5172,7 @@ CheckHeliPort(playerid)
 
 CheckMechanicMenu(playerid)
 {
-	if (IsPlayerInRangeOfPoint(playerid, 1.2, -64.154220, -1162.446533, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -70.391883, -1175.106201, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -75.486938, -1185.539672, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -94.757438, -1170.204589, 2.504477))
+	if (IsPlayerInRangeOfPoint(playerid, 1.2, -64.154220, -1162.446533, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -70.391883, -1175.106201, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -75.486938, -1185.539672, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -94.757438, -1170.204589, 2.504477) || IsPlayerInRangeOfPoint(playerid, 1.2, 1050.390014, -914.704772, 44.379787) || IsPlayerInRangeOfPoint(playerid, 1.2, 1060.965087, -904.656127, 44.482654))
 	{
 		new vehicleid = GetPlayerVehicleID(playerid);
 		if (vehicleid == INVALID_VEHICLE_ID) return 1;
@@ -5621,8 +5638,10 @@ CheckDrugBlackMarket(playerid)
 
 CheckBlackMarketAmmo(playerid)
 {
-	if (!IsPlayerInRangeOfPoint(playerid, 1.5, 2162.462158, -1169.053222, -16.871662)) return 1;
-    ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
+	if (IsPlayerInRangeOfPoint(playerid, 1.5, 2162.462158, -1169.053222, -16.871662) || IsPlayerInRangeOfPoint(playerid, 1.5, -187.830596, -2249.291503, 24.332202))
+	{
+    	ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
+    }
     return 1;
 }
 
@@ -7660,9 +7679,10 @@ SanAndreas()
 
 	//base mafia
 	CreateDynamic3DTextLabel("{ca3535}La cosa nostra\n"COL_WHITE"Equipamiento", 0xF7F7F700, 726.2478, -1276.3830, 13.5662, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel("{ff9b00}The Crew Criminals\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
+	CreateDynamic3DTextLabel("{33D1FF}Moriarty Family Business\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 976.715881, -1442.519775, 13.717537, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel(""COL_WHITE"Mini Mercado Negro", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF7F7F700, -187.830596, -2249.291503, 24.332202, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
 	//meca
 	/*CreateDynamicPickup(1558, 1, -82.038078, -1208.153564, 2.704517, 0, 0);
@@ -7673,6 +7693,9 @@ SanAndreas()
 	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 3\n"COL_WHITE"Acércate para usar", 0xF7F7F700, -75.486938, -1185.539672, 2.148341 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 4\n"COL_WHITE"Acércate para usar", 0xF7F7F700, -94.757438, -1170.204589, 2.504477 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	
+	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 1\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1050.390014, -914.704772, 44.379787 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Levantador nº 2\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1060.965087, -904.656127, 44.482654 + 1.8, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+
 	//pescador
 	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nº 1", 0xF7F7F7FF, 1955.022094, -189.402023, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_RED"Boya\n"COL_WHITE"nº 2", 0xF7F7F7FF, 2209.482421, -231.312026, -2.332746 + 1.3, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -8026,7 +8049,7 @@ UpdatePlayerZoneMessages(playerid)
         return 1;
     }
 
-    if (IsPlayerInRangeOfPoint(playerid, 1.2, -64.154220, -1162.446533, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -70.391883, -1175.106201, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -75.486938, -1185.539672, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -94.757438, -1170.204589, 2.504477))
+    if (IsPlayerInRangeOfPoint(playerid, 1.2, -64.154220, -1162.446533, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -70.391883, -1175.106201, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -75.486938, -1185.539672, 2.148341) || IsPlayerInRangeOfPoint(playerid, 1.2, -94.757438, -1170.204589, 2.504477) || IsPlayerInRangeOfPoint(playerid, 1.2, 1050.390014, -914.704772, 44.379787) || IsPlayerInRangeOfPoint(playerid, 1.2, 1060.965087, -904.656127, 44.482654))
 	{
 		if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 		{
@@ -8205,6 +8228,23 @@ public OnPlayerText(playerid, text[])
 		return 0;
 	}
 
+	if (PLAYER_MISC[playerid][MISC_JAILS] >= 10)
+	{
+		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Superar 10 jails");
+
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado automáticamente, razón: Superar los 10 jails", "Entiendo", "");
+		KickEx(playerid, 500);
+		PLAYER_MISC[playerid][MISC_BANEOS] ++;
+		SavePlayerMisc(playerid);
+
+		new str[145];
+		format(str, 145, "[ADMIN] %s (%d) fue baneado permanentemente: Superar los 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+		new webhook[264]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		SendDiscordWebhook(webhook, 1);	
+	}
+
 	new str_text[190];
 	new CrewColorChat = getPlayerCrewColor(playerid);
 	if (text[0] == '!')
@@ -8229,10 +8269,10 @@ public OnPlayerText(playerid, text[])
 
 		if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
 		{
-			if (text[1] == '!') format(str_text, sizeof str_text, "[TCC] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-			else format(str_text, sizeof str_text, "[TCC] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], text[1]);
+			if (text[1] == '!') format(str_text, sizeof str_text, "[MFB] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
+			else format(str_text, sizeof str_text, "[MFB] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], text[1]);
 
-			SendEnemyMafiaMessage(0xff9b00FF, str_text);
+			SendEnemyMafiaMessage(0x33D1FFFF, str_text);
 			return 0;
 		}
 
@@ -9045,7 +9085,6 @@ SendPlayerAction(playerid, action[])
 	return 1;
 }
 
-#define DEFAULT_DIALOG_CAPTION SERVER_NAME
 ShowDialog(playerid, dialogid)
 {
 	PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
@@ -9083,9 +9122,9 @@ ShowDialog(playerid, dialogid)
 			\t{5c5c5c}2. Correo\n\
 			\t{E3E3E3}3. Sexo del personaje"COL_WHITE"\n\n\
 			Este va a ser el sexo inicial de su personaje.", "Hombre", "Mujer");
-		case DIALOG_FOOD_PIZZA: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED""DEFAULT_DIALOG_CAPTION" - Comida rápida", DIALOG_FOOD_PIZZA_String, "Pedir", "Salir");
-		case DIALOG_FOOD_CLUCKIN: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED""DEFAULT_DIALOG_CAPTION" - Comida rápida", DIALOG_FOOD_CLUCKIN_String, "Pedir", "Salir");
-		case DIALOG_FOOD_BURGER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED""DEFAULT_DIALOG_CAPTION" - Comida rápida", DIALOG_FOOD_BURGER_String, "Pedir", "Salir");
+		case DIALOG_FOOD_PIZZA: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", DIALOG_FOOD_PIZZA_String, "Pedir", "Salir");
+		case DIALOG_FOOD_CLUCKIN: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", DIALOG_FOOD_CLUCKIN_String, "Pedir", "Salir");
+		case DIALOG_FOOD_BURGER: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comida rápida", DIALOG_FOOD_BURGER_String, "Pedir", "Salir");
 		case DIALOG_PLAYER_TOYS:
 		{
 			new dialog[96 * (MAX_PLAYER_ATTACHED_OBJECTS + 2)], line_str[64];
@@ -9122,7 +9161,7 @@ ShowDialog(playerid, dialogid)
 			}
 			strcat(dialog, ""COL_RED"Eliminar todo\n");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""DEFAULT_DIALOG_CAPTION" - Mis accesorios", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis accesorios", dialog, ">>", "-");
 			SavePlayerToysData(playerid);
 			return 1;
 		}
@@ -9330,7 +9369,7 @@ ShowDialog(playerid, dialogid)
 			db_free_result(Result);
 
 			new caption[40];
-			format(caption, sizeof caption, "ID: %d", BANK_ACCOUNT[playerid][bank_account_ID]);
+			format(caption, sizeof caption, ""COL_GREEN"ID de cuenta: %d", BANK_ACCOUNT[playerid][bank_account_ID]);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, "Salir", "Atrás");
 			return 1;
@@ -9362,7 +9401,7 @@ ShowDialog(playerid, dialogid)
 			}
 			strcat(dialog, ""COL_RED"Eliminar todo\n");
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""DEFAULT_DIALOG_CAPTION" - Alimentos", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Alimentos", dialog, ">>", "-");
 			return 1;
 		}
 		case DIALOG_PLAYER_POCKET_OPTIONS:
@@ -11018,7 +11057,7 @@ ShowDialog(playerid, dialogid)
 
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{ff9b00}The Crew Criminals", dialog, ">>", "-");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{33D1FF}Moriarty Family Business", dialog, ">>", "-");
 			return 1;
 		}
 		case DIALOG_ENEMY_MAFIA_MODIFY:
@@ -13165,11 +13204,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				SetDamageInformer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
 
-				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Chat de voz", ""COL_WHITE"\
-					Hemos removidos el chat de voz ya que nadie lo usaba, pero tranquilo\n\
+				/*ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Chat de voz", ""COL_WHITE"\
+					Hemos removido el chat de voz ya que nadie lo usaba, pero tranquilo\n\
 					vamos a abrir un Hyaxe #2 con chat de voz y whitelist (mejor rol)\n\
 					con las mismas cuestas que el día de apertura, ingresa a nuestro\n\
-					discord para estar al tanto (/discord).", "Aceptar", "");
+					discord para estar al tanto (/discord).", "Aceptar", "");*/
 			}
 			else // Error
 			{
@@ -17635,7 +17674,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_ENEMY_MAFIA);
 				db_query(Database, DB_Query);
-				SendClientMessageEx(playerid, 0xff9b00FF, "[TCC] "COL_WHITE" El nuevo rango de %s es: %s.", name, ENEMY_MAFIA_RANKS[listitem]);
+				SendClientMessageEx(playerid, 0x33D1FFFF, "[MFB] "COL_WHITE" El nuevo rango de %s es: %s.", name, ENEMY_MAFIA_RANKS[listitem]);
 
 				if (listitem == 0)
 				{
@@ -17651,9 +17690,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_ENEMY_MAFIA) EndPlayerJob(player_id);
 						PLAYER_WORKS[player_id][WORK_ENEMY_MAFIA] = false;
-						SendClientMessageEx(player_id, 0xff9b00FF, "[TCC] "COL_WHITE" El %s %s te ha expulsado de The Crew Criminals.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+						SendClientMessageEx(player_id, 0x33D1FFFF, "[MFB] "COL_WHITE" El %s %s te ha expulsado de Moriarty Family Business.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME]);
 					}
-					else SendClientMessageEx(player_id, 0xff9b00FF, "[TCC] "COL_WHITE" El %s %s ha modificado tu rango a %s.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[listitem]);
+					else SendClientMessageEx(player_id, 0x33D1FFFF, "[MFB] "COL_WHITE" El %s %s ha modificado tu rango a %s.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[listitem]);
 				}
 			}
 			else ShowDialog(playerid, DIALOG_ENEMY_MAFIA_LIST);
@@ -17744,7 +17783,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_OSBORN) EndPlayerJob(player_id);
 						PLAYER_WORKS[player_id][WORK_OSBORN] = false;
-						SendClientMessageEx(player_id, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" El %s %s te ha expulsado de The Crew Criminals.", OSBORN_RANKS[ PLAYER_SKILLS[playerid][WORK_OSBORN] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+						SendClientMessageEx(player_id, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" El %s %s te ha expulsado de Moriarty Family Business.", OSBORN_RANKS[ PLAYER_SKILLS[playerid][WORK_OSBORN] ], PLAYER_TEMP[playerid][py_RP_NAME]);
 					}
 					else SendClientMessageEx(player_id, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" El %s %s ha modificado tu rango a %s.", OSBORN_RANKS[ PLAYER_SKILLS[playerid][WORK_OSBORN] ], PLAYER_TEMP[playerid][py_RP_NAME], OSBORN_RANKS[listitem]);
 				}
@@ -25136,6 +25175,8 @@ CheckAmbulance(playerid)
 		if (vehicleid == INVALID_VEHICLE_ID) return 0;
 		if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] == 416)
 		{
+			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_AMBULANCE]) < 60) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 60 segundos para volver a hacer esto.", 3);
+
 			SetTimerEx("GetAmbulanceItem", 2100, false, "ii", playerid, vehicleid);
 
 			new doors[4];
@@ -25143,6 +25184,8 @@ CheckAmbulance(playerid)
 			SetVehicleParamsCarDoors(vehicleid, doors[0], doors[1], 1, 1);
 
 			ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 2000, true);
+
+			PLAYER_TEMP[playerid][py_LIMIT_AMBULANCE] = gettime();
 		}
 	}
 	return 1;
@@ -25685,7 +25728,7 @@ CALLBACK: CloseBarrier(i)
 
 CheckRobActor(playerid)
 {
-	if (GetPlayerInterior(playerid) > 0)
+	if (GetPlayerInterior(playerid) > 0 && PLAYER_TEMP[playerid][py_INTERIOR_INDEX] > 0)
 	{
 		if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] != INTERIOR_CLUB)
 		{
@@ -29069,6 +29112,7 @@ SendAlertToMedics(playerid)
 
 	format(str_text, sizeof(str_text), "Has solicitado una ambulancia~n~Médicos activos: ~y~%d", total_medics);
 	ShowPlayerMessage(playerid, str_text, 5);
+	PLAYER_TEMP[playerid][py_WANT_MEDIC] = true;
 	return 1;
 }
 
@@ -29112,6 +29156,24 @@ DisablePlayerMechanicMark(playerid)
 			}
 		}
 	}
+	return 1;
+}
+
+DisablePlayerMedicMark(playerid)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (i == playerid) continue;
+			if (!PLAYER_WORKS[i][WORK_MEDIC]) continue;
+			if (PLAYER_TEMP[i][py_WORKING_IN] != WORK_MEDIC) continue;
+
+			SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
+		}
+	}
+
+	PLAYER_TEMP[playerid][py_WANT_MEDIC] = false;
 	return 1;
 }
 
@@ -30725,7 +30787,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	{
 		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
 		{
-			FreezeThenAutoUnfreeze(playerid, 2000);
+			FreezePlayer(playerid, 2000);
 			ShowPlayerMessage(playerid, "~r~No dispares en zona segura.", 3);
 		}
 	}
@@ -30733,13 +30795,21 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	if (ACCOUNT_INFO[playerid][ac_LEVEL] == 1)
 	{
 		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar siendo nivel 1.");
-		KickEx(playerid);
+		TogglePlayerControllableEx(playerid, false);
+		KickEx(playerid, 500);
+	}
+
+	if (PLAYER_WORKS[playerid][WORK_MEDIC] && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_MEDIC)
+	{
+		ShowPlayerMessage(playerid, "~r~No puedes disparar estando de medico.", 3);
+		FreezePlayer(playerid, 3000);
 	}
 
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
 	{
 		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar estando herido.");
-		KickEx(playerid);
+		TogglePlayerControllableEx(playerid, false);
+		KickEx(playerid, 500);
 	}
 
 	if (PLAYER_TEMP[playerid][py_EXPLOSION_BULLET] == true)
@@ -30793,18 +30863,18 @@ public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
 	if (IsPlayerPaused(playerid)) return 0;
 	//printf("damage %d %d", playerid, weapon);
 
-	if (BOTS[playerid][b_ACTIVE])
+	/*if (BOTS[playerid][b_ACTIVE])
 	{
 		switch(weapon)
 		{
 			case 0: SetTimerEx("BotDamageResponse", 1000, false, "i", playerid);
 		}
-	}
+	}*/
 
 	if (issuerid != INVALID_PLAYER_ID && weapon == 23)
 	{
 	   SetPlayerChatBubble(playerid, "\n\n\n\n* Cae al piso al recibir el choque eléctrico de un tazer.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	   FreezeThenAutoUnfreeze(playerid, 10000);
+	   FreezePlayer(playerid, 15000);
 	   ApplyAnimation(playerid,"PED","BIKE_fallR",4.0,0,1,1,1,0);
        ShowPlayerMessage(playerid, "~y~Te dieron una descarga eléctrica con un Tazer.", 3);
 	   return 1;
@@ -30844,7 +30914,8 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 		else format(ac_message, sizeof ac_message, "[ANTI-CHEAT] Kick sobre %s (%d): %s (cd: %02d, ps: %02d, ping: %d, dec: %d:%d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, ac_Info[cheat][ac_Name], cheat, player_state, GetPlayerPing(playerid), PLAYER_AC_INFO[playerid][cheat][p_ac_info_DETECTIONS], ac_Info[cheat][ac_Interval]);
 
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (%s)", ac_Info[cheat][ac_Name]);
-		KickEx(playerid);
+		TogglePlayerControllableEx(playerid, false);
+		KickEx(playerid, 500);
 
 		if (cheat == CHEAT_PLAYER_HEALTH) CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
 		if (cheat == CHEAT_PLAYER_ARMOUR) CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
@@ -31547,6 +31618,8 @@ CMD:esposar(playerid, params[])
 	    CHARACTER_INFO[params[0]][ch_STATE] = ROLEPLAY_STATE_NORMAL;
 		if (ACCOUNT_INFO[params[0]][ac_SU]) SetPlayerHealthEx(playerid, 50.0);
 		else SetPlayerHealthEx(params[0], 25.0);
+
+		DisablePlayerMedicMark(playerid);
 
 		ApplyAnimation(params[0], "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 		ClearAnimations(params[0]);
@@ -32424,7 +32497,7 @@ AddPlayerBadHistory(account_id, by_account_id, type, const text[])
 	return 1;
 }
 
-AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, text[], days = 0, mod[] = "day")
+AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, const text[], days = 0, mod[] = "day")
 {
 	new DBResult:Result, DB_Query[485];
 
@@ -32533,7 +32606,7 @@ CMD:id(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Nombre: %s (%d) [Nivel %d] "COL_RED"|"COL_WHITE" ID de cuenta: %d",
 		PLAYER_TEMP[to_player][py_NAME],
 		to_player,
-		ACCOUNT_INFO[to_player][ac_LEVEL],
+		GetPlayerScore(to_player),
 		acid
 	);
 	
@@ -35099,20 +35172,26 @@ CALLBACK: StandUpBotikin(medic, playerid)
 
 	if (PLAYER_WORKS[medic][WORK_MEDIC] && PLAYER_TEMP[medic][py_WORKING_IN] == WORK_MEDIC)
 	{
-		new 
-			str_text[64],
-			pay = (1000 + PLAYER_SKILLS[medic][WORK_MEDIC])
-		;
+		if (PLAYER_TEMP[playerid][py_WANT_MEDIC])
+		{
+			new 
+				str_text[64],
+				pay = (1000 + PLAYER_SKILLS[medic][WORK_MEDIC])
+			;
 
-		if (ACCOUNT_INFO[medic][ac_SU]) pay += minrand(200, 500);
+			if (ACCOUNT_INFO[medic][ac_SU]) pay += minrand(200, 500);
 
-		GivePlayerCash(medic, pay);
-		format(str_text, sizeof(str_text), "~g~+%d$", pay);
-		GameTextForPlayer(medic, str_text, 5000, 1);
+			GivePlayerCash(medic, pay);
+			format(str_text, sizeof(str_text), "~g~+%d$", pay);
+			GameTextForPlayer(medic, str_text, 5000, 1);
 
-		PLAYER_SKILLS[medic][WORK_MEDIC] ++;
-		SavePlayerSkills(medic);
+			PLAYER_SKILLS[medic][WORK_MEDIC] ++;
+			SavePlayerSkills(medic);
+		}
+		else ShowPlayerNotification(playerid, "Este jugador no ha pedido un medico entonces no has ganado nada.", 4);
 	}
+
+	DisablePlayerMedicMark(playerid);
 	return 1;
 }
 
@@ -36527,6 +36606,7 @@ CMD:rev(playerid, params[])
 
 	ApplyAnimation(to_player, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 	ClearAnimations(to_player);
+	DisablePlayerMedicMark(playerid);
 
 	SendCmdLogToAdmins(playerid, "rev", params);
 	return 1;
@@ -37442,10 +37522,10 @@ CheckNameFilterViolation(const str_text[])
 	return false;
 }
 
-CALLBACK: BotDoubtResponse(playerid, response[])
+CALLBACK: BotDoubtResponse(playerid, response_id)
 {
 	new str[364];
-	format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"Jugador %s_%s (%d): (( @%d %s ))", names[random(sizeof(names))], surnames[random(sizeof(surnames))], minrand(0, 1000), playerid, response);
+	format(str, COLOR_WHITE, "[Dudas] "COL_WHITE"Jugador %s_%s (%d): (( @%d %s ))", names[random(sizeof(names))], surnames[random(sizeof(surnames))], minrand(0, 1000), playerid, DOUBT_RESPONSES[response_id][d_RESPONSE]);
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -37494,11 +37574,19 @@ SendMessageToDoubtChannel(playerid, message[])
 
 	for(new i = 0; i != sizeof(DOUBT_RESPONSES); i++ )
 	{
-		if (strfind(message, DOUBT_RESPONSES[i][d_QUESTION], true) == -1)
+		if (strfind(message, DOUBT_RESPONSES[i][d_QUESTION], true) != -1)
 		{
-			SetTimerEx("BotDoubtResponse", 1000, false, "is[264]", playerid, DOUBT_RESPONSES[i][d_RESPONSE]);
+			SetTimerEx("BotDoubtResponse", 1000, false, "id", playerid, i);
+			break;
 		}
 	}
+	return 1;
+}
+
+CMD:ufo(playerid, params[])
+{
+	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_USEJETPACK);
+	SetPlayerAttachedObject(playerid, 9, 18846, 1, -1.3500, 0.0000, 0.0000, 0.9999, 92.4998, 2.2000, 0.8859, 0.8629, 1.0170, 0xFFFFFFFF, 0xFFFFFFFF);
 	return 1;
 }
 
@@ -37659,6 +37747,7 @@ CMD:admac(playerid, params[])
 }
 
 flags:ayudante(CMD_HELPER);
+flags:ufo(CMD_OPERATOR);
 flags:staff(CMD_HELPER);
 flags:setveh(CMD_MODERATOR);
 flags:setvh(CMD_MODERATOR);

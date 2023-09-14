@@ -7745,3 +7745,3505 @@ v0.3.7-R2, (C)2005-2015 SA-MP Team
 [build] Hyaxe SA-MP v0.5 Pre-Release Build 80
 
 [22:30:58] Number of vehicle models: 121
+[22:34:09] [connection] incoming connection: 127.0.0.1:52769 id: 0
+[22:34:10] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[22:41:15] 
+[22:41:15] Server Plugins
+[22:41:15] --------------
+[22:41:15]  Loading plugin: crashdetect.dll
+[22:41:15]   CrashDetect v4.18.1 is OK.
+[22:41:15]   Loaded.
+[22:41:15]  Loading plugin: streamer.dll
+[22:41:15] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[22:41:15]   Loaded.
+[22:41:15]  Loading plugin: sscanf.dll
+[22:41:15] 
+
+[22:41:15]  ===============================
+
+[22:41:15]       sscanf plugin loaded.     
+
+[22:41:15]          Version:  2.8.3        
+
+[22:41:15]   (c) 2018 Alex "Y_Less" Cole  
+
+[22:41:15]  ===============================
+
+[22:41:15]   Loaded.
+[22:41:15]  Loading plugin: pawnraknet.dll
+[22:41:15] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[22:41:15]   Loaded.
+[22:41:15]  Loading plugin: SKY.dll
+[22:41:15] 
+[22:41:15]  ===============================
+[22:41:15]    
+[22:41:15]    ## SKY - 2.1.1 ## 
+[22:41:15]    
+[22:41:15]    (c) 2008 - Present | YSF Maintainers
+[22:41:15]    (c) 2015 | Oscar "Slice" Broman
+[22:41:15]    
+[22:41:15]    Server Version: 0.3.7 R2
+[22:41:15]    Operating System: Windows
+[22:41:15]    Built on: Dec 12 2019 at 12:21:36
+[22:41:15]    
+[22:41:15]  ===============================
+[22:41:15] 
+[22:41:15]   Loaded.
+[22:41:15]  Loading plugin: pawncmd.dll
+[22:41:15] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[22:41:15]   Loaded.
+[22:41:15]  Loading plugin: pawnregex.dll
+[22:41:15] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[22:41:15]   Loaded.
+[22:41:15]  Loading plugin: GPS.dll
+[22:41:17] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[22:41:17]   Loaded.
+[22:41:17]  Loading plugin: profiler.dll
+[22:41:17]   Profiler plugin 2.15.3
+[22:41:17]   Loaded.
+[22:41:17]  Loaded 9 plugins.
+
+[22:41:17] 
+[22:41:17] Filterscripts
+[22:41:17] ---------------
+[22:41:17]   Loading filterscript 'maps.amx'...
+[22:41:18]   Loaded 1 filterscripts.
+
+[22:41:22] [ANTI-CHEAT] Cargado
+[22:41:22] [ANTI-CHEAT] Version: 1.9.46
+[22:41:22] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[22:41:22] [debug] Base de datos conectada
+[22:41:34] [debug] Lugares cargados: 38
+[22:41:36] [debug] Propiedades libres: 1681.
+[22:41:36] [debug] Propiedades totales: 1775.
+[22:41:38] [debug] Bandas cargadas: 158
+[22:41:38] [debug] Territorios totales: 13
+[22:41:40] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[22:41:40] [info: language] Español - Spanish
+[22:41:40] [info: website] www.hyaxe.com
+[22:41:40] [info: discord] www.hyaxe.com/discord
+[22:41:40] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 80
+
+[22:41:40] Number of vehicle models: 121
+[22:43:01] [connection] incoming connection: 127.0.0.1:52548 id: 0
+[22:43:02] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[23:21:54] 
+[23:21:54] Server Plugins
+[23:21:54] --------------
+[23:21:54]  Loading plugin: crashdetect.dll
+[23:21:55]   CrashDetect v4.18.1 is OK.
+[23:21:55]   Loaded.
+[23:21:55]  Loading plugin: streamer.dll
+[23:21:55] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[23:21:55]   Loaded.
+[23:21:55]  Loading plugin: sscanf.dll
+[23:21:56] 
+
+[23:21:56]  ===============================
+
+[23:21:56]       sscanf plugin loaded.     
+
+[23:21:56]          Version:  2.8.3        
+
+[23:21:56]   (c) 2018 Alex "Y_Less" Cole  
+
+[23:21:56]  ===============================
+
+[23:21:56]   Loaded.
+[23:21:56]  Loading plugin: pawnraknet.dll
+[23:21:56] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[23:21:56]   Loaded.
+[23:21:56]  Loading plugin: SKY.dll
+[23:21:56] 
+[23:21:56]  ===============================
+[23:21:56]    
+[23:21:56]    ## SKY - 2.1.1 ## 
+[23:21:56]    
+[23:21:56]    (c) 2008 - Present | YSF Maintainers
+[23:21:56]    (c) 2015 | Oscar "Slice" Broman
+[23:21:56]    
+[23:21:56]    Server Version: 0.3.7 R2
+[23:21:56]    Operating System: Windows
+[23:21:56]    Built on: Dec 12 2019 at 12:21:36
+[23:21:56]    
+[23:21:56]  ===============================
+[23:21:56] 
+[23:21:56]   Loaded.
+[23:21:56]  Loading plugin: pawncmd.dll
+[23:21:57] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[23:21:57]   Loaded.
+[23:21:57]  Loading plugin: pawnregex.dll
+[23:21:57] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[23:21:57]   Loaded.
+[23:21:57]  Loading plugin: GPS.dll
+[23:22:00] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[23:22:00]   Loaded.
+[23:22:00]  Loading plugin: profiler.dll
+[23:22:01]   Profiler plugin 2.15.3
+[23:22:01]   Loaded.
+[23:22:01]  Loaded 9 plugins.
+
+[23:22:02] 
+[23:22:02] Filterscripts
+[23:22:02] ---------------
+[23:22:02]   Loading filterscript 'maps.amx'...
+[23:22:05]   Loaded 1 filterscripts.
+
+[23:22:15] [ANTI-CHEAT] Cargado
+[23:22:15] [ANTI-CHEAT] Version: 1.9.46
+[23:22:15] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[23:22:15] [debug] Base de datos conectada
+[23:22:43] [debug] Lugares cargados: 38
+[23:22:48] [debug] Propiedades libres: 1681.
+[23:22:48] [debug] Propiedades totales: 1775.
+[23:22:52] [debug] Bandas cargadas: 158
+[23:22:52] [debug] Territorios totales: 13
+[23:22:54] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[23:22:54] [info: language] Español - Spanish
+[23:22:54] [info: website] www.hyaxe.com
+[23:22:54] [info: discord] www.hyaxe.com/discord
+[23:22:54] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 107
+
+[23:22:54] Number of vehicle models: 121
+[23:24:03] [connection] incoming connection: 127.0.0.1:54221 id: 0
+[23:24:04] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:59:36] 
+[13:59:36] Server Plugins
+[13:59:36] --------------
+[13:59:36]  Loading plugin: crashdetect.dll
+[13:59:37]   CrashDetect v4.18.1 is OK.
+[13:59:37]   Loaded.
+[13:59:37]  Loading plugin: streamer.dll
+[13:59:37] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[13:59:37]   Loaded.
+[13:59:37]  Loading plugin: sscanf.dll
+[13:59:37] 
+
+[13:59:37]  ===============================
+
+[13:59:37]       sscanf plugin loaded.     
+
+[13:59:37]          Version:  2.8.3        
+
+[13:59:37]   (c) 2018 Alex "Y_Less" Cole  
+
+[13:59:37]  ===============================
+
+[13:59:37]   Loaded.
+[13:59:37]  Loading plugin: pawnraknet.dll
+[13:59:39] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[13:59:39]   Loaded.
+[13:59:39]  Loading plugin: SKY.dll
+[13:59:40] 
+[13:59:40]  ===============================
+[13:59:40]    
+[13:59:40]    ## SKY - 2.1.1 ## 
+[13:59:40]    
+[13:59:40]    (c) 2008 - Present | YSF Maintainers
+[13:59:40]    (c) 2015 | Oscar "Slice" Broman
+[13:59:40]    
+[13:59:40]    Server Version: 0.3.7 R2
+[13:59:40]    Operating System: Windows
+[13:59:40]    Built on: Dec 12 2019 at 12:21:36
+[13:59:40]    
+[13:59:40]  ===============================
+[13:59:40] 
+[13:59:40]   Loaded.
+[13:59:40]  Loading plugin: pawncmd.dll
+[13:59:40] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[13:59:40]   Loaded.
+[13:59:40]  Loading plugin: pawnregex.dll
+[13:59:42] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[13:59:42]   Loaded.
+[13:59:42]  Loading plugin: GPS.dll
+[13:59:45] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[13:59:45]   Loaded.
+[13:59:45]  Loading plugin: profiler.dll
+[13:59:47]   Profiler plugin 2.15.3
+[13:59:47]   Loaded.
+[13:59:47]  Loaded 9 plugins.
+
+[13:59:47] 
+[13:59:47] Filterscripts
+[13:59:47] ---------------
+[13:59:47]   Loading filterscript 'maps.amx'...
+[13:59:48]   Loaded 1 filterscripts.
+
+[13:59:51] [ANTI-CHEAT] Cargado
+[13:59:51] [ANTI-CHEAT] Version: 1.9.46
+[13:59:51] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[13:59:51] [debug] Base de datos conectada
+[14:00:28] [debug] Lugares cargados: 38
+[14:00:32] [debug] Propiedades libres: 1681.
+[14:00:32] [debug] Propiedades totales: 1775.
+[14:00:34] [debug] Bandas cargadas: 158
+[14:00:34] [debug] Territorios totales: 13
+[14:00:35] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[14:00:35] [info: language] Español - Spanish
+[14:00:35] [info: website] www.hyaxe.com
+[14:00:35] [info: discord] www.hyaxe.com/discord
+[14:00:35] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 107
+
+[14:00:35] Number of vehicle models: 121
+[14:01:44] [connection] incoming connection: 127.0.0.1:54237 id: 0
+[14:01:45] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:09:23] 
+[13:09:23] Server Plugins
+[13:09:23] --------------
+[13:09:23]  Loading plugin: crashdetect.dll
+[13:09:24]   CrashDetect v4.18.1 is OK.
+[13:09:24]   Loaded.
+[13:09:24]  Loading plugin: streamer.dll
+[13:09:26] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[13:09:26]   Loaded.
+[13:09:26]  Loading plugin: sscanf.dll
+[13:09:26] 
+
+[13:09:26]  ===============================
+
+[13:09:26]       sscanf plugin loaded.     
+
+[13:09:26]          Version:  2.8.3        
+
+[13:09:26]   (c) 2018 Alex "Y_Less" Cole  
+
+[13:09:26]  ===============================
+
+[13:09:26]   Loaded.
+[13:09:26]  Loading plugin: pawnraknet.dll
+[13:09:28] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[13:09:28]   Loaded.
+[13:09:28]  Loading plugin: SKY.dll
+[13:09:29] 
+[13:09:29]  ===============================
+[13:09:29]    
+[13:09:29]    ## SKY - 2.1.1 ## 
+[13:09:29]    
+[13:09:29]    (c) 2008 - Present | YSF Maintainers
+[13:09:29]    (c) 2015 | Oscar "Slice" Broman
+[13:09:29]    
+[13:09:29]    Server Version: 0.3.7 R2
+[13:09:29]    Operating System: Windows
+[13:09:29]    Built on: Dec 12 2019 at 12:21:36
+[13:09:29]    
+[13:09:29]  ===============================
+[13:09:29] 
+[13:09:29]   Loaded.
+[13:09:29]  Loading plugin: pawncmd.dll
+[13:09:30] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[13:09:30]   Loaded.
+[13:09:30]  Loading plugin: pawnregex.dll
+[13:09:31] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[13:09:31]   Loaded.
+[13:09:31]  Loading plugin: GPS.dll
+[13:09:34] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[13:09:34]   Loaded.
+[13:09:34]  Loading plugin: profiler.dll
+[13:09:35]   Profiler plugin 2.15.3
+[13:09:35]   Loaded.
+[13:09:35]  Loaded 9 plugins.
+
+[13:09:36] 
+[13:09:36] Filterscripts
+[13:09:36] ---------------
+[13:09:36]   Loading filterscript 'maps.amx'...
+[13:09:44]   Loaded 1 filterscripts.
+
+[13:09:52] [ANTI-CHEAT] Cargado
+[13:09:52] [ANTI-CHEAT] Version: 1.9.46
+[13:09:52] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[13:09:52] [debug] Base de datos conectada
+[13:10:29] [debug] Lugares cargados: 38
+[13:10:32] [debug] Propiedades libres: 1681.
+[13:10:32] [debug] Propiedades totales: 1775.
+[13:10:33] [debug] Bandas cargadas: 158
+[13:10:33] [debug] Territorios totales: 13
+[13:10:34] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[13:10:34] [info: language] Español - Spanish
+[13:10:34] [info: website] www.hyaxe.com
+[13:10:34] [info: discord] www.hyaxe.com/discord
+[13:10:34] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 107
+
+[13:10:34] Number of vehicle models: 121
+[13:12:31] [connection] incoming connection: 127.0.0.1:58089 id: 0
+[13:12:32] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[13:15:59] [debug] Run time error 4: "Array index out of bounds"
+[13:15:59] [debug]  Attempted to read/write array element at negative index -1
+[13:15:59] [debug] AMX backtrace:
+[13:15:59] [debug] #0 001b0b20 in ?? (0) from main.amx
+[13:15:59] [debug] #1 001b5748 in public Menu_OnPlayerUpdate (0) from main.amx
+[13:15:59] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[13:15:59] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[13:15:59] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[13:15:59] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[13:16:21] [debug] Run time error 4: "Array index out of bounds"
+[13:16:21] [debug]  Attempted to read/write array element at negative index -1
+[13:16:21] [debug] AMX backtrace:
+[13:16:21] [debug] #0 001b0b20 in ?? (0) from main.amx
+[13:16:21] [debug] #1 001b5748 in public Menu_OnPlayerUpdate (0) from main.amx
+[13:16:21] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[13:16:21] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[13:16:21] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[13:16:21] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[13:18:25] [debug] Run time error 4: "Array index out of bounds"
+[13:18:25] [debug]  Attempted to read/write array element at negative index -1
+[13:18:25] [debug] AMX backtrace:
+[13:18:25] [debug] #0 001b0b20 in ?? (0) from main.amx
+[13:18:25] [debug] #1 001b5748 in public Menu_OnPlayerUpdate (0) from main.amx
+[13:18:25] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[13:18:25] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[13:18:25] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[13:18:25] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[13:18:36] [debug] Run time error 4: "Array index out of bounds"
+[13:18:36] [debug]  Attempted to read/write array element at negative index -1
+[13:18:36] [debug] AMX backtrace:
+[13:18:36] [debug] #0 001b0b20 in ?? (0) from main.amx
+[13:18:36] [debug] #1 001b5748 in public Menu_OnPlayerUpdate (0) from main.amx
+[13:18:36] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[13:18:36] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[13:18:36] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[13:18:36] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[13:20:37] [debug] Run time error 4: "Array index out of bounds"
+[13:20:37] [debug]  Attempted to read/write array element at negative index -1
+[13:20:37] [debug] AMX backtrace:
+[13:20:38] [debug] #0 001b0b20 in ?? (0) from main.amx
+[13:20:38] [debug] #1 001b5748 in public Menu_OnPlayerUpdate (0) from main.amx
+[13:20:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[13:20:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[13:20:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[13:20:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[13:20:51] [debug] Run time error 4: "Array index out of bounds"
+[13:20:51] [debug]  Attempted to read/write array element at negative index -1
+[13:20:51] [debug] AMX backtrace:
+[13:20:51] [debug] #0 001b0b20 in ?? (0) from main.amx
+[13:20:51] [debug] #1 001b5748 in public Menu_OnPlayerUpdate (0) from main.amx
+[13:20:51] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[13:20:51] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[13:20:51] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[13:20:51] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+Console input: exit
+[13:22:04] [part] Yahir_Kozel has left the server (0:1)
+[13:22:04] --- Server Shutting Down.
+[13:22:04] Deteniendo servidor...
+[13:22:04]  
+[13:22:04] --------------------------------------
+[13:22:04]  Estadisticas ANTI-CHEAT
+[13:22:04]  Detectado y evitado:
+[13:22:04]   0 los intentos de conspiraciones
+[13:22:04]   0 intentos de intrusion
+[13:22:04]   0 los intentos de el desmoldeo
+[13:22:04]   0 los intentos de flood
+[13:22:04]   0 los ataques
+[13:22:04]  Todo es descubierto y castigado 0 jugadores deshonestos
+[13:22:04] --------------------------------------
+
+[13:22:05] 
+
+*** Streamer Plugin v2.9.1 by Incognito unloaded ***
+
+[13:22:05] 
+
+[13:22:05]  ===============================
+
+[13:22:05]      sscanf plugin unloaded.    
+
+[13:22:05]  ===============================
+
+[13:22:05] Pawn.RakNet plugin v1.3.0 by urShadow has been unloaded
+[13:22:05] Pawn.CMD plugin v3.1.4 by urShadow unloaded
+[13:22:05] Pawn.Regex plugin v1.1.2 by urShadow unloaded
+[13:22:05] [GPS plugin]: Unloaded.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[13:34:49] 
+[13:34:49] Server Plugins
+[13:34:49] --------------
+[13:34:49]  Loading plugin: crashdetect.dll
+[13:34:50]   CrashDetect v4.18.1 is OK.
+[13:34:50]   Loaded.
+[13:34:50]  Loading plugin: streamer.dll
+[13:34:50] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[13:34:50]   Loaded.
+[13:34:50]  Loading plugin: sscanf.dll
+[13:34:50] 
+
+[13:34:50]  ===============================
+
+[13:34:50]       sscanf plugin loaded.     
+
+[13:34:50]          Version:  2.8.3        
+
+[13:34:50]   (c) 2018 Alex "Y_Less" Cole  
+
+[13:34:50]  ===============================
+
+[13:34:50]   Loaded.
+[13:34:50]  Loading plugin: pawnraknet.dll
+[13:34:50] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[13:34:50]   Loaded.
+[13:34:50]  Loading plugin: SKY.dll
+[13:34:50] 
+[13:34:50]  ===============================
+[13:34:50]    
+[13:34:50]    ## SKY - 2.1.1 ## 
+[13:34:50]    
+[13:34:50]    (c) 2008 - Present | YSF Maintainers
+[13:34:50]    (c) 2015 | Oscar "Slice" Broman
+[13:34:50]    
+[13:34:50]    Server Version: 0.3.7 R2
+[13:34:50]    Operating System: Windows
+[13:34:50]    Built on: Dec 12 2019 at 12:21:36
+[13:34:50]    
+[13:34:50]  ===============================
+[13:34:50] 
+[13:34:50]   Loaded.
+[13:34:50]  Loading plugin: pawncmd.dll
+[13:34:50] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[13:34:50]   Loaded.
+[13:34:50]  Loading plugin: pawnregex.dll
+[13:34:50] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[13:34:50]   Loaded.
+[13:34:50]  Loading plugin: GPS.dll
+[13:34:52] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[13:34:52]   Loaded.
+[13:34:52]  Loading plugin: profiler.dll
+[13:34:52]   Profiler plugin 2.15.3
+[13:34:52]   Loaded.
+[13:34:52]  Loaded 9 plugins.
+
+[13:34:52] 
+[13:34:52] Filterscripts
+[13:34:52] ---------------
+[13:34:52]   Loading filterscript 'maps.amx'...
+[13:34:54]   Loaded 1 filterscripts.
+
+[13:34:55] [ANTI-CHEAT] Cargado
+[13:34:55] [ANTI-CHEAT] Version: 1.9.46
+[13:34:55] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[13:34:55] [debug] Base de datos conectada
+[13:34:57] [debug] Lugares cargados: 38
+[13:34:59] [debug] Propiedades libres: 1681.
+[13:34:59] [debug] Propiedades totales: 1775.
+[13:35:01] [debug] Bandas cargadas: 158
+[13:35:01] [debug] Territorios totales: 13
+[13:35:02] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[13:35:02] [info: language] Español - Spanish
+[13:35:02] [info: website] www.hyaxe.com
+[13:35:02] [info: discord] www.hyaxe.com/discord
+[13:35:02] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 107
+
+[13:35:02] Number of vehicle models: 121
+[13:36:40] [connection] incoming connection: 127.0.0.1:63601 id: 0
+[13:36:41] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[13:37:55] enter
+[13:38:02] enter
+[13:38:02] exit
+[13:38:02] [debug] Run time error 4: "Array index out of bounds"
+[13:38:02] [debug]  Attempted to read/write array element at negative index -1
+[13:38:02] [debug] AMX backtrace:
+[13:38:02] [debug] #0 001aeae4 in ?? (0) from main.amx
+[13:38:02] [debug] #1 001b36f0 in public Menu_OnPlayerUpdate (0) from main.amx
+[13:38:02] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[13:38:02] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[13:38:02] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[13:38:02] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[13:38:22] enter
+[13:38:31] enter
+[13:38:32] enter
+[13:38:32] enter
+[13:38:32] enter
+[13:38:32] enter
+[13:38:33] enter
+[13:38:34] enter
+[13:38:35] enter
+[13:38:35] enter
+[13:38:35] enter
+[13:38:35] enter
+[13:38:35] enter
+[13:38:36] enter
+[13:38:48] enter
+[13:38:48] exit
+[13:38:48] [debug] Run time error 4: "Array index out of bounds"
+[13:38:48] [debug]  Attempted to read/write array element at negative index -1
+[13:38:48] [debug] AMX backtrace:
+[13:38:48] [debug] #0 001aeae4 in ?? (0) from main.amx
+[13:38:48] [debug] #1 001b36f0 in public Menu_OnPlayerUpdate (0) from main.amx
+[13:38:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[13:38:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[13:38:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[13:38:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+Console input: exit
+[13:40:54] [part] Yahir_Kozel has left the server (0:1)
+[13:40:54] --- Server Shutting Down.
+[13:40:54] Deteniendo servidor...
+[13:40:54]  
+[13:40:54] --------------------------------------
+[13:40:54]  Estadisticas ANTI-CHEAT
+[13:40:54]  Detectado y evitado:
+[13:40:54]   0 los intentos de conspiraciones
+[13:40:54]   0 intentos de intrusion
+[13:40:54]   0 los intentos de el desmoldeo
+[13:40:54]   0 los intentos de flood
+[13:40:54]   0 los ataques
+[13:40:54]  Todo es descubierto y castigado 0 jugadores deshonestos
+[13:40:54] --------------------------------------
+
+[13:40:55] 
+
+*** Streamer Plugin v2.9.1 by Incognito unloaded ***
+
+[13:40:55] 
+
+[13:40:55]  ===============================
+
+[13:40:55]      sscanf plugin unloaded.    
+
+[13:40:55]  ===============================
+
+[13:40:55] Pawn.RakNet plugin v1.3.0 by urShadow has been unloaded
+[13:40:55] Pawn.CMD plugin v3.1.4 by urShadow unloaded
+[13:40:55] Pawn.Regex plugin v1.1.2 by urShadow unloaded
+[13:40:55] [GPS plugin]: Unloaded.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:02:24] 
+[15:02:24] Server Plugins
+[15:02:24] --------------
+[15:02:24]  Loading plugin: crashdetect.dll
+[15:02:24]   CrashDetect v4.18.1 is OK.
+[15:02:24]   Loaded.
+[15:02:24]  Loading plugin: streamer.dll
+[15:02:24] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:02:24]   Loaded.
+[15:02:24]  Loading plugin: sscanf.dll
+[15:02:24] 
+
+[15:02:24]  ===============================
+
+[15:02:24]       sscanf plugin loaded.     
+
+[15:02:24]          Version:  2.8.3        
+
+[15:02:24]   (c) 2018 Alex "Y_Less" Cole  
+
+[15:02:24]  ===============================
+
+[15:02:24]   Loaded.
+[15:02:24]  Loading plugin: pawnraknet.dll
+[15:02:25] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[15:02:25]   Loaded.
+[15:02:25]  Loading plugin: SKY.dll
+[15:02:25] 
+[15:02:25]  ===============================
+[15:02:25]    
+[15:02:25]    ## SKY - 2.1.1 ## 
+[15:02:25]    
+[15:02:25]    (c) 2008 - Present | YSF Maintainers
+[15:02:25]    (c) 2015 | Oscar "Slice" Broman
+[15:02:25]    
+[15:02:25]    Server Version: 0.3.7 R2
+[15:02:25]    Operating System: Windows
+[15:02:25]    Built on: Dec 12 2019 at 12:21:36
+[15:02:25]    
+[15:02:25]  ===============================
+[15:02:25] 
+[15:02:25]   Loaded.
+[15:02:25]  Loading plugin: pawncmd.dll
+[15:02:25] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[15:02:25]   Loaded.
+[15:02:25]  Loading plugin: pawnregex.dll
+[15:02:26] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[15:02:26]   Loaded.
+[15:02:26]  Loading plugin: GPS.dll
+[15:02:27] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[15:02:27]   Loaded.
+[15:02:27]  Loading plugin: profiler.dll
+[15:02:27]   Profiler plugin 2.15.3
+[15:02:27]   Loaded.
+[15:02:27]  Loaded 9 plugins.
+
+[15:02:27] 
+[15:02:27] Filterscripts
+[15:02:27] ---------------
+[15:02:27]   Loading filterscript 'maps.amx'...
+[15:02:30]   Loaded 1 filterscripts.
+
+[15:02:32] [ANTI-CHEAT] Cargado
+[15:02:32] [ANTI-CHEAT] Version: 1.9.46
+[15:02:32] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[15:02:32] [debug] Base de datos conectada
+[15:02:44] [debug] Lugares cargados: 38
+[15:02:46] [debug] Propiedades libres: 1681.
+[15:02:46] [debug] Propiedades totales: 1775.
+[15:02:50] [debug] Bandas cargadas: 158
+[15:02:50] [debug] Territorios totales: 13
+[15:02:51] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[15:02:51] [info: language] Español - Spanish
+[15:02:51] [info: website] www.hyaxe.com
+[15:02:51] [info: discord] www.hyaxe.com/discord
+[15:02:51] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 107
+
+[15:02:51] Number of vehicle models: 121
+[15:04:16] [connection] incoming connection: 127.0.0.1:51765 id: 0
+[15:04:17] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[15:05:07] enter
+[15:05:22] enter
+[15:05:45] enter
+[15:05:45] exit
+[15:05:45] 1
+[15:05:45] 3
+[15:05:45] 4
+[15:05:45] 5
+[15:05:45] 6
+[15:05:45] 7
+[15:05:45] 8
+[15:05:45] 9
+[15:05:45] 10
+[15:05:45] final
+[15:05:45] [debug] Run time error 4: "Array index out of bounds"
+[15:05:45] [debug]  Attempted to read/write array element at negative index -1
+[15:05:45] [debug] AMX backtrace:
+[15:05:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:05:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:05:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:05:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:05:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:05:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:06:28] enter
+[15:06:31] enter
+[15:06:31] enter
+[15:06:32] enter
+[15:06:32] enter
+[15:06:32] enter
+[15:06:32] enter
+[15:06:33] enter
+[15:06:33] enter
+[15:06:33] enter
+[15:06:33] enter
+[15:06:33] enter
+[15:06:34] enter
+[15:06:35] enter
+[15:06:35] exit
+[15:06:35] 1
+[15:06:35] 3
+[15:06:35] 4
+[15:06:35] 5
+[15:06:35] 6
+[15:06:35] 7
+[15:06:35] 8
+[15:06:35] 9
+[15:06:35] 10
+[15:06:35] final
+[15:06:35] [debug] Run time error 4: "Array index out of bounds"
+[15:06:35] [debug]  Attempted to read/write array element at negative index -1
+[15:06:35] [debug] AMX backtrace:
+[15:06:35] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:06:35] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:06:35] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:06:35] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:06:35] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:06:36] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:08:09] exit
+[15:08:09] 1
+[15:08:09] 3
+[15:08:09] 4
+[15:08:09] 5
+[15:08:09] 6
+[15:08:09] 7
+[15:08:14] enter
+[15:08:18] enter
+[15:08:18] exit
+[15:08:18] 1
+[15:08:18] 3
+[15:08:18] 4
+[15:08:18] 5
+[15:08:18] 6
+[15:08:18] 7
+[15:08:18] 8
+[15:08:18] 9
+[15:08:18] 10
+[15:08:18] final
+[15:08:18] [debug] Run time error 4: "Array index out of bounds"
+[15:08:18] [debug]  Attempted to read/write array element at negative index -1
+[15:08:18] [debug] AMX backtrace:
+[15:08:19] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:08:19] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:08:19] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:08:19] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:08:19] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:08:19] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:08:19] [debug] Run time error 4: "Array index out of bounds"
+[15:08:19] [debug]  Attempted to read/write array element at negative index -1
+[15:08:19] [debug] AMX backtrace:
+[15:08:19] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:08:19] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:08:19] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:08:19] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:08:19] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:08:19] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:08:23] enter
+[15:08:28] exit
+[15:08:28] 1
+[15:08:28] 3
+[15:08:28] 4
+[15:08:28] 5
+[15:08:28] 6
+[15:08:29] 7
+[15:08:29] 8
+[15:08:29] 9
+[15:08:29] 10
+[15:08:29] final
+[15:08:44] enter
+[15:08:45] enter
+[15:08:45] enter
+[15:08:45] enter
+[15:08:45] enter
+[15:08:46] enter
+[15:08:50] enter
+[15:08:54] enter
+[15:08:54] exit
+[15:08:54] 1
+[15:08:54] 3
+[15:08:54] 4
+[15:08:54] 5
+[15:08:54] 6
+[15:08:54] 7
+[15:08:54] 8
+[15:08:54] 9
+[15:08:54] 10
+[15:08:54] final
+[15:08:54] [debug] Run time error 4: "Array index out of bounds"
+[15:08:54] [debug]  Attempted to read/write array element at negative index -1
+[15:08:54] [debug] AMX backtrace:
+[15:08:54] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:08:54] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:08:54] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:08:54] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:08:54] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:08:54] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:33] enter
+[15:10:33] [debug] Run time error 4: "Array index out of bounds"
+[15:10:33] [debug]  Attempted to read/write array element at negative index -1
+[15:10:33] [debug] AMX backtrace:
+[15:10:33] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:33] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:33] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:33] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:33] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:33] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] Run time error 4: "Array index out of bounds"
+[15:10:35] [debug]  Attempted to read/write array element at negative index -1
+[15:10:35] [debug] AMX backtrace:
+[15:10:35] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:35] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] Run time error 4: "Array index out of bounds"
+[15:10:35] [debug]  Attempted to read/write array element at negative index -1
+[15:10:35] [debug] AMX backtrace:
+[15:10:35] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:35] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] Run time error 4: "Array index out of bounds"
+[15:10:35] [debug]  Attempted to read/write array element at negative index -1
+[15:10:35] [debug] AMX backtrace:
+[15:10:35] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:35] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:35] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:36] [debug] Run time error 4: "Array index out of bounds"
+[15:10:36] [debug]  Attempted to read/write array element at negative index -1
+[15:10:36] [debug] AMX backtrace:
+[15:10:36] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:36] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:36] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:36] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:36] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:36] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:37] [debug] Run time error 4: "Array index out of bounds"
+[15:10:37] [debug]  Attempted to read/write array element at negative index -1
+[15:10:37] [debug] AMX backtrace:
+[15:10:37] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:37] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:37] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:37] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:37] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:37] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:37] [debug] Run time error 4: "Array index out of bounds"
+[15:10:37] [debug]  Attempted to read/write array element at negative index -1
+[15:10:37] [debug] AMX backtrace:
+[15:10:37] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:37] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:37] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:37] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] Run time error 4: "Array index out of bounds"
+[15:10:38] [debug]  Attempted to read/write array element at negative index -1
+[15:10:38] [debug] AMX backtrace:
+[15:10:38] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:38] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:38] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] Run time error 4: "Array index out of bounds"
+[15:10:39] [debug]  Attempted to read/write array element at negative index -1
+[15:10:39] [debug] AMX backtrace:
+[15:10:39] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:39] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:39] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:40] [debug] AMX backtrace:
+[15:10:40] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:40] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:40] [debug] Run time error 4: "Array index out of bounds"
+[15:10:40] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:41] [debug] AMX backtrace:
+[15:10:41] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:41] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:41] [debug] Run time error 4: "Array index out of bounds"
+[15:10:41] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:42] [debug] AMX backtrace:
+[15:10:42] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:42] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:42] [debug] Run time error 4: "Array index out of bounds"
+[15:10:42] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:43] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:43] [debug] Run time error 4: "Array index out of bounds"
+[15:10:43] [debug]  Attempted to read/write array element at negative index -1
+[15:10:43] [debug] AMX backtrace:
+[15:10:43] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:44] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:44] [debug] Run time error 4: "Array index out of bounds"
+[15:10:44] [debug]  Attempted to read/write array element at negative index -1
+[15:10:44] [debug] AMX backtrace:
+[15:10:44] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] Run time error 4: "Array index out of bounds"
+[15:10:45] [debug]  Attempted to read/write array element at negative index -1
+[15:10:45] [debug] AMX backtrace:
+[15:10:45] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:45] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:45] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] Run time error 4: "Array index out of bounds"
+[15:10:46] [debug]  Attempted to read/write array element at negative index -1
+[15:10:46] [debug] AMX backtrace:
+[15:10:46] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:46] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:46] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] Run time error 4: "Array index out of bounds"
+[15:10:47] [debug]  Attempted to read/write array element at negative index -1
+[15:10:47] [debug] AMX backtrace:
+[15:10:47] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:47] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:47] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] Run time error 4: "Array index out of bounds"
+[15:10:48] [debug]  Attempted to read/write array element at negative index -1
+[15:10:48] [debug] AMX backtrace:
+[15:10:48] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:48] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:48] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] Run time error 4: "Array index out of bounds"
+[15:10:49] [debug]  Attempted to read/write array element at negative index -1
+[15:10:49] [debug] AMX backtrace:
+[15:10:49] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:49] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:49] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] Run time error 4: "Array index out of bounds"
+[15:10:50] [debug]  Attempted to read/write array element at negative index -1
+[15:10:50] [debug] AMX backtrace:
+[15:10:50] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:50] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:50] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] Run time error 4: "Array index out of bounds"
+[15:10:51] [debug]  Attempted to read/write array element at negative index -1
+[15:10:51] [debug] AMX backtrace:
+[15:10:51] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:51] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] Run time error 4: "Array index out of bounds"
+[15:10:51] [debug]  Attempted to read/write array element at negative index -1
+[15:10:51] [debug] AMX backtrace:
+[15:10:51] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:51] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] Run time error 4: "Array index out of bounds"
+[15:10:51] [debug]  Attempted to read/write array element at negative index -1
+[15:10:51] [debug] AMX backtrace:
+[15:10:51] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:51] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] Run time error 4: "Array index out of bounds"
+[15:10:51] [debug]  Attempted to read/write array element at negative index -1
+[15:10:51] [debug] AMX backtrace:
+[15:10:51] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:51] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] Run time error 4: "Array index out of bounds"
+[15:10:51] [debug]  Attempted to read/write array element at negative index -1
+[15:10:51] [debug] AMX backtrace:
+[15:10:51] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:51] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] Run time error 4: "Array index out of bounds"
+[15:10:51] [debug]  Attempted to read/write array element at negative index -1
+[15:10:51] [debug] AMX backtrace:
+[15:10:51] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:51] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] Run time error 4: "Array index out of bounds"
+[15:10:51] [debug]  Attempted to read/write array element at negative index -1
+[15:10:51] [debug] AMX backtrace:
+[15:10:51] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:51] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:51] [debug] Run time error 4: "Array index out of bounds"
+[15:10:51] [debug]  Attempted to read/write array element at negative index -1
+[15:10:51] [debug] AMX backtrace:
+[15:10:51] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:51] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:52] [debug] AMX backtrace:
+[15:10:52] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:52] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:52] [debug] Run time error 4: "Array index out of bounds"
+[15:10:52] [debug]  Attempted to read/write array element at negative index -1
+[15:10:53] [debug] AMX backtrace:
+[15:10:53] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:53] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] Run time error 4: "Array index out of bounds"
+[15:10:53] [debug]  Attempted to read/write array element at negative index -1
+[15:10:53] [debug] AMX backtrace:
+[15:10:53] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:53] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] Run time error 4: "Array index out of bounds"
+[15:10:53] [debug]  Attempted to read/write array element at negative index -1
+[15:10:53] [debug] AMX backtrace:
+[15:10:53] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:53] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] Run time error 4: "Array index out of bounds"
+[15:10:53] [debug]  Attempted to read/write array element at negative index -1
+[15:10:53] [debug] AMX backtrace:
+[15:10:53] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:53] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] Run time error 4: "Array index out of bounds"
+[15:10:53] [debug]  Attempted to read/write array element at negative index -1
+[15:10:53] [debug] AMX backtrace:
+[15:10:53] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:53] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] Run time error 4: "Array index out of bounds"
+[15:10:53] [debug]  Attempted to read/write array element at negative index -1
+[15:10:53] [debug] AMX backtrace:
+[15:10:53] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:53] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] Run time error 4: "Array index out of bounds"
+[15:10:53] [debug]  Attempted to read/write array element at negative index -1
+[15:10:53] [debug] AMX backtrace:
+[15:10:53] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:53] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] Run time error 4: "Array index out of bounds"
+[15:10:53] [debug]  Attempted to read/write array element at negative index -1
+[15:10:53] [debug] AMX backtrace:
+[15:10:53] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:53] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] Run time error 4: "Array index out of bounds"
+[15:10:53] [debug]  Attempted to read/write array element at negative index -1
+[15:10:53] [debug] AMX backtrace:
+[15:10:53] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:53] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:53] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] Run time error 4: "Array index out of bounds"
+[15:10:54] [debug]  Attempted to read/write array element at negative index -1
+[15:10:54] [debug] AMX backtrace:
+[15:10:54] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:54] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] Run time error 4: "Array index out of bounds"
+[15:10:54] [debug]  Attempted to read/write array element at negative index -1
+[15:10:54] [debug] AMX backtrace:
+[15:10:54] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:54] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] Run time error 4: "Array index out of bounds"
+[15:10:54] [debug]  Attempted to read/write array element at negative index -1
+[15:10:54] [debug] AMX backtrace:
+[15:10:54] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:54] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] Run time error 4: "Array index out of bounds"
+[15:10:54] [debug]  Attempted to read/write array element at negative index -1
+[15:10:54] [debug] AMX backtrace:
+[15:10:54] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:54] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] Run time error 4: "Array index out of bounds"
+[15:10:54] [debug]  Attempted to read/write array element at negative index -1
+[15:10:54] [debug] AMX backtrace:
+[15:10:54] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:54] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] Run time error 4: "Array index out of bounds"
+[15:10:54] [debug]  Attempted to read/write array element at negative index -1
+[15:10:54] [debug] AMX backtrace:
+[15:10:54] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:54] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:54] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:54] enter
+[15:10:54] exit
+[15:10:54] 1
+[15:10:54] 3
+[15:10:54] 4
+[15:10:54] 5
+[15:10:54] 6
+[15:10:54] 7
+[15:10:54] 8
+[15:10:54] 11
+[15:10:54] 12
+[15:10:54] final
+[15:10:54] [debug] Run time error 4: "Array index out of bounds"
+[15:10:54] [debug]  Attempted to read/write array element at negative index -1
+[15:10:54] [debug] AMX backtrace:
+[15:10:54] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] enter
+[15:10:55] exit
+[15:10:55] 1
+[15:10:55] 3
+[15:10:55] 4
+[15:10:55] 5
+[15:10:55] 6
+[15:10:55] 7
+[15:10:55] 8
+[15:10:55] 11
+[15:10:55] 12
+[15:10:55] final
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] enter
+[15:10:55] exit
+[15:10:55] 1
+[15:10:55] 3
+[15:10:55] 4
+[15:10:55] 5
+[15:10:55] 6
+[15:10:55] 7
+[15:10:55] 8
+[15:10:55] 11
+[15:10:55] 12
+[15:10:55] final
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] enter
+[15:10:55] exit
+[15:10:55] 1
+[15:10:55] 3
+[15:10:55] 4
+[15:10:55] 5
+[15:10:55] 6
+[15:10:55] 7
+[15:10:55] 8
+[15:10:55] 11
+[15:10:55] 12
+[15:10:55] final
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] Run time error 4: "Array index out of bounds"
+[15:10:55] [debug]  Attempted to read/write array element at negative index -1
+[15:10:55] [debug] AMX backtrace:
+[15:10:55] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:55] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:55] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:56] enter
+[15:10:56] exit
+[15:10:56] 1
+[15:10:56] 3
+[15:10:56] 4
+[15:10:56] 5
+[15:10:56] 6
+[15:10:56] 7
+[15:10:56] 8
+[15:10:56] 11
+[15:10:56] 12
+[15:10:56] final
+[15:10:56] [debug] Run time error 4: "Array index out of bounds"
+[15:10:56] [debug]  Attempted to read/write array element at negative index -1
+[15:10:56] [debug] AMX backtrace:
+[15:10:56] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:56] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] Run time error 4: "Array index out of bounds"
+[15:10:56] [debug]  Attempted to read/write array element at negative index -1
+[15:10:56] [debug] AMX backtrace:
+[15:10:56] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:56] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:56] enter
+[15:10:56] exit
+[15:10:56] 1
+[15:10:56] 3
+[15:10:56] 4
+[15:10:56] 5
+[15:10:56] 6
+[15:10:56] 7
+[15:10:56] 8
+[15:10:56] 11
+[15:10:56] 12
+[15:10:56] final
+[15:10:56] [debug] Run time error 4: "Array index out of bounds"
+[15:10:56] [debug]  Attempted to read/write array element at negative index -1
+[15:10:56] [debug] AMX backtrace:
+[15:10:56] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:56] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] Run time error 4: "Array index out of bounds"
+[15:10:56] [debug]  Attempted to read/write array element at negative index -1
+[15:10:56] [debug] AMX backtrace:
+[15:10:56] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:56] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:56] enter
+[15:10:56] exit
+[15:10:56] 1
+[15:10:56] 3
+[15:10:56] 4
+[15:10:56] 5
+[15:10:56] 6
+[15:10:56] 7
+[15:10:56] 8
+[15:10:56] 11
+[15:10:56] 12
+[15:10:56] final
+[15:10:56] [debug] Run time error 4: "Array index out of bounds"
+[15:10:56] [debug]  Attempted to read/write array element at negative index -1
+[15:10:56] [debug] AMX backtrace:
+[15:10:56] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:56] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] Run time error 4: "Array index out of bounds"
+[15:10:56] [debug]  Attempted to read/write array element at negative index -1
+[15:10:56] [debug] AMX backtrace:
+[15:10:56] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:56] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:56] enter
+[15:10:56] exit
+[15:10:56] 1
+[15:10:56] 3
+[15:10:56] 4
+[15:10:56] 5
+[15:10:56] 6
+[15:10:56] 7
+[15:10:56] 8
+[15:10:56] 11
+[15:10:56] 12
+[15:10:56] final
+[15:10:56] [debug] Run time error 4: "Array index out of bounds"
+[15:10:56] [debug]  Attempted to read/write array element at negative index -1
+[15:10:56] [debug] AMX backtrace:
+[15:10:56] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:56] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] Run time error 4: "Array index out of bounds"
+[15:10:56] [debug]  Attempted to read/write array element at negative index -1
+[15:10:56] [debug] AMX backtrace:
+[15:10:56] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:56] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:56] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:56] enter
+[15:10:56] exit
+[15:10:56] 1
+[15:10:56] 3
+[15:10:56] 4
+[15:10:56] 5
+[15:10:56] 6
+[15:10:56] 7
+[15:10:56] 8
+[15:10:57] 11
+[15:10:57] 12
+[15:10:57] final
+[15:10:57] [debug] Run time error 4: "Array index out of bounds"
+[15:10:57] [debug]  Attempted to read/write array element at negative index -1
+[15:10:57] [debug] AMX backtrace:
+[15:10:57] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:57] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] Run time error 4: "Array index out of bounds"
+[15:10:57] [debug]  Attempted to read/write array element at negative index -1
+[15:10:57] [debug] AMX backtrace:
+[15:10:57] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:57] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:57] enter
+[15:10:57] exit
+[15:10:57] 1
+[15:10:57] 3
+[15:10:57] 4
+[15:10:57] 5
+[15:10:57] 6
+[15:10:57] 7
+[15:10:57] 8
+[15:10:57] 11
+[15:10:57] 12
+[15:10:57] final
+[15:10:57] [debug] Run time error 4: "Array index out of bounds"
+[15:10:57] [debug]  Attempted to read/write array element at negative index -1
+[15:10:57] [debug] AMX backtrace:
+[15:10:57] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:57] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] Run time error 4: "Array index out of bounds"
+[15:10:57] [debug]  Attempted to read/write array element at negative index -1
+[15:10:57] [debug] AMX backtrace:
+[15:10:57] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:57] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] Run time error 4: "Array index out of bounds"
+[15:10:57] [debug]  Attempted to read/write array element at negative index -1
+[15:10:57] [debug] AMX backtrace:
+[15:10:57] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:57] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:57] exit
+[15:10:57] 1
+[15:10:57] 3
+[15:10:57] 4
+[15:10:57] 5
+[15:10:57] 6
+[15:10:57] 7
+[15:10:57] 8
+[15:10:57] 11
+[15:10:57] 12
+[15:10:57] final
+[15:10:57] [debug] Run time error 4: "Array index out of bounds"
+[15:10:57] [debug]  Attempted to read/write array element at negative index -1
+[15:10:57] [debug] AMX backtrace:
+[15:10:57] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:57] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] Run time error 4: "Array index out of bounds"
+[15:10:57] [debug]  Attempted to read/write array element at negative index -1
+[15:10:57] [debug] AMX backtrace:
+[15:10:57] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:57] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] Run time error 4: "Array index out of bounds"
+[15:10:57] [debug]  Attempted to read/write array element at negative index -1
+[15:10:57] [debug] AMX backtrace:
+[15:10:57] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:57] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] Run time error 4: "Array index out of bounds"
+[15:10:57] [debug]  Attempted to read/write array element at negative index -1
+[15:10:57] [debug] AMX backtrace:
+[15:10:57] [debug] #0 001b0ccc in ?? (0) from main.amx
+[15:10:57] [debug] #1 001b58f4 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:10:57] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+Console input: exit
+[15:12:02] [part] Yahir_Kozel has left the server (0:1)
+[15:12:02] --- Server Shutting Down.
+[15:12:02] Deteniendo servidor...
+[15:12:02]  
+[15:12:02] --------------------------------------
+[15:12:02]  Estadisticas ANTI-CHEAT
+[15:12:02]  Detectado y evitado:
+[15:12:02]   0 los intentos de conspiraciones
+[15:12:02]   0 intentos de intrusion
+[15:12:02]   0 los intentos de el desmoldeo
+[15:12:02]   0 los intentos de flood
+[15:12:02]   0 los ataques
+[15:12:02]  Todo es descubierto y castigado 0 jugadores deshonestos
+[15:12:02] --------------------------------------
+
+[15:12:02] 
+
+*** Streamer Plugin v2.9.1 by Incognito unloaded ***
+
+[15:12:02] 
+
+[15:12:02]  ===============================
+
+[15:12:02]      sscanf plugin unloaded.    
+
+[15:12:02]  ===============================
+
+[15:12:02] Pawn.RakNet plugin v1.3.0 by urShadow has been unloaded
+[15:12:02] Pawn.CMD plugin v3.1.4 by urShadow unloaded
+[15:12:02] Pawn.Regex plugin v1.1.2 by urShadow unloaded
+[15:12:02] [GPS plugin]: Unloaded.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:13:08] 
+[15:13:08] Server Plugins
+[15:13:08] --------------
+[15:13:08]  Loading plugin: crashdetect.dll
+[15:13:08]   CrashDetect v4.18.1 is OK.
+[15:13:08]   Loaded.
+[15:13:08]  Loading plugin: streamer.dll
+[15:13:08] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:13:08]   Loaded.
+[15:13:08]  Loading plugin: sscanf.dll
+[15:13:08] 
+
+[15:13:08]  ===============================
+
+[15:13:08]       sscanf plugin loaded.     
+
+[15:13:08]          Version:  2.8.3        
+
+[15:13:08]   (c) 2018 Alex "Y_Less" Cole  
+
+[15:13:08]  ===============================
+
+[15:13:08]   Loaded.
+[15:13:08]  Loading plugin: pawnraknet.dll
+[15:13:08] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[15:13:08]   Loaded.
+[15:13:08]  Loading plugin: SKY.dll
+[15:13:08] 
+[15:13:08]  ===============================
+[15:13:08]    
+[15:13:08]    ## SKY - 2.1.1 ## 
+[15:13:08]    
+[15:13:08]    (c) 2008 - Present | YSF Maintainers
+[15:13:08]    (c) 2015 | Oscar "Slice" Broman
+[15:13:08]    
+[15:13:08]    Server Version: 0.3.7 R2
+[15:13:08]    Operating System: Windows
+[15:13:08]    Built on: Dec 12 2019 at 12:21:36
+[15:13:08]    
+[15:13:08]  ===============================
+[15:13:08] 
+[15:13:08]   Loaded.
+[15:13:08]  Loading plugin: pawncmd.dll
+[15:13:08] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[15:13:08]   Loaded.
+[15:13:08]  Loading plugin: pawnregex.dll
+[15:13:08] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[15:13:08]   Loaded.
+[15:13:08]  Loading plugin: GPS.dll
+[15:13:10] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[15:13:10]   Loaded.
+[15:13:10]  Loading plugin: profiler.dll
+[15:13:10]   Profiler plugin 2.15.3
+[15:13:10]   Loaded.
+[15:13:10]  Loaded 9 plugins.
+
+[15:13:10] 
+[15:13:10] Filterscripts
+[15:13:10] ---------------
+[15:13:10]   Loading filterscript 'maps.amx'...
+[15:13:13]   Loaded 1 filterscripts.
+
+[15:13:21] [ANTI-CHEAT] Cargado
+[15:13:21] [ANTI-CHEAT] Version: 1.9.46
+[15:13:21] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[15:13:21] [debug] Base de datos conectada
+[15:13:33] [debug] Lugares cargados: 38
+[15:13:36] [debug] Propiedades libres: 1681.
+[15:13:36] [debug] Propiedades totales: 1775.
+[15:13:38] [debug] Bandas cargadas: 158
+[15:13:38] [debug] Territorios totales: 13
+[15:13:39] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[15:13:39] [info: language] Español - Spanish
+[15:13:39] [info: website] www.hyaxe.com
+[15:13:39] [info: discord] www.hyaxe.com/discord
+[15:13:39] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 107
+
+[15:13:39] Number of vehicle models: 121
+[15:33:58] [connection] incoming connection: 127.0.0.1:61129 id: 0
+[15:33:58] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[15:35:44] [debug] Run time error 4: "Array index out of bounds"
+[15:35:44] [debug]  Attempted to read/write array element at negative index -1
+[15:35:44] [debug] AMX backtrace:
+[15:35:44] [debug] #0 001b0ad4 in ?? (0) from main.amx
+[15:35:44] [debug] #1 001b4450 in public Menu_OnPlayerUpdate (0) from main.amx
+[15:35:44] [debug] #2 00070ff0 in public AC_OnPlayerUpdate (0) from main.amx
+[15:35:44] [debug] #3 00069814 in public WC_OnPlayerUpdate (0) from main.amx
+[15:35:44] [debug] #4 00057f08 in public ac_OnPlayerUpdate (0) from main.amx
+[15:35:44] [debug] #5 00023e04 in public OnPlayerUpdate (0) from main.amx
+Console input: exit
+[15:38:31] [part] Yahir_Kozel has left the server (0:1)
+[15:38:31] --- Server Shutting Down.
+[15:38:31] Deteniendo servidor...
+[15:38:31]  
+[15:38:31] --------------------------------------
+[15:38:31]  Estadisticas ANTI-CHEAT
+[15:38:31]  Detectado y evitado:
+[15:38:31]   0 los intentos de conspiraciones
+[15:38:31]   0 intentos de intrusion
+[15:38:31]   0 los intentos de el desmoldeo
+[15:38:31]   0 los intentos de flood
+[15:38:31]   0 los ataques
+[15:38:31]  Todo es descubierto y castigado 0 jugadores deshonestos
+[15:38:31] --------------------------------------
+
+[15:38:32] 
+
+*** Streamer Plugin v2.9.1 by Incognito unloaded ***
+
+[15:38:32] 
+
+[15:38:32]  ===============================
+
+[15:38:32]      sscanf plugin unloaded.    
+
+[15:38:32]  ===============================
+
+[15:38:32] Pawn.RakNet plugin v1.3.0 by urShadow has been unloaded
+[15:38:32] Pawn.CMD plugin v3.1.4 by urShadow unloaded
+[15:38:33] Pawn.Regex plugin v1.1.2 by urShadow unloaded
+[15:38:33] [GPS plugin]: Unloaded.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7-R2, (C)2005-2015 SA-MP Team
+
+[15:40:00] 
+[15:40:00] Server Plugins
+[15:40:00] --------------
+[15:40:00]  Loading plugin: crashdetect.dll
+[15:40:00]   CrashDetect v4.18.1 is OK.
+[15:40:00]   Loaded.
+[15:40:00]  Loading plugin: streamer.dll
+[15:40:00] 
+
+*** Streamer Plugin v2.9.1 by Incognito loaded ***
+
+[15:40:00]   Loaded.
+[15:40:00]  Loading plugin: sscanf.dll
+[15:40:00] 
+
+[15:40:00]  ===============================
+
+[15:40:00]       sscanf plugin loaded.     
+
+[15:40:00]          Version:  2.8.3        
+
+[15:40:00]   (c) 2018 Alex "Y_Less" Cole  
+
+[15:40:00]  ===============================
+
+[15:40:00]   Loaded.
+[15:40:00]  Loading plugin: pawnraknet.dll
+[15:40:00] Pawn.RakNet plugin v1.3.0 by urShadow has been loaded
+[15:40:00]   Loaded.
+[15:40:00]  Loading plugin: SKY.dll
+[15:40:00] 
+[15:40:00]  ===============================
+[15:40:00]    
+[15:40:00]    ## SKY - 2.1.1 ## 
+[15:40:00]    
+[15:40:00]    (c) 2008 - Present | YSF Maintainers
+[15:40:00]    (c) 2015 | Oscar "Slice" Broman
+[15:40:00]    
+[15:40:00]    Server Version: 0.3.7 R2
+[15:40:00]    Operating System: Windows
+[15:40:00]    Built on: Dec 12 2019 at 12:21:36
+[15:40:00]    
+[15:40:00]  ===============================
+[15:40:00] 
+[15:40:00]   Loaded.
+[15:40:00]  Loading plugin: pawncmd.dll
+[15:40:00] Pawn.CMD plugin v3.1.4 by urShadow loaded
+[15:40:00]   Loaded.
+[15:40:00]  Loading plugin: pawnregex.dll
+[15:40:00] Pawn.Regex plugin v1.1.2 by urShadow loaded
+[15:40:00]   Loaded.
+[15:40:00]  Loading plugin: GPS.dll
+[15:40:01] [GPS plugin]: Read 84462 lines, loaded 27608 nodes and 55891 connections.
+[15:40:01]   Loaded.
+[15:40:01]  Loading plugin: profiler.dll
+[15:40:01]   Profiler plugin 2.15.3
+[15:40:01]   Loaded.
+[15:40:01]  Loaded 9 plugins.
+
+[15:40:02] 
+[15:40:02] Filterscripts
+[15:40:02] ---------------
+[15:40:02]   Loading filterscript 'maps.amx'...
+[15:40:04]   Loaded 1 filterscripts.
+
+[15:40:07] [ANTI-CHEAT] Cargado
+[15:40:07] [ANTI-CHEAT] Version: 1.9.46
+[15:40:07] [-] route-tracing v0.0.1 by Atom initialized successfully [-]
+[15:40:07] [debug] Base de datos conectada
+[15:40:30] [debug] Lugares cargados: 38
+[15:40:32] [debug] Propiedades libres: 1681.
+[15:40:32] [debug] Propiedades totales: 1775.
+[15:40:35] [debug] Bandas cargadas: 158
+[15:40:35] [debug] Territorios totales: 13
+[15:40:36] [info: hostname] Hyaxe | Trabajo médico ¡NUEVO!
+[15:40:36] [info: language] Español - Spanish
+[15:40:36] [info: website] www.hyaxe.com
+[15:40:36] [info: discord] www.hyaxe.com/discord
+[15:40:36] 
+[build] Hyaxe SA-MP v0.5 Pre-Release Build 107
+
+[15:40:36] Number of vehicle models: 121
+[15:41:53] [connection] incoming connection: 127.0.0.1:58582 id: 0
+[15:41:54] [join] Yahir_Kozel has joined the server (0:127.0.0.1)
+[15:42:42] [part] Yahir_Kozel has left the server (0:0)
+[15:45:18] [join] Yahir_Kozel has joined the server (0:127.0.0.1)

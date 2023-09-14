@@ -263,5 +263,6 @@ enum Temp_Enum
 	bool:py_IN_TELE,
 	py_POLICE_REASON[32],
 	bool:py_WANT_MEDIC,
+	py_LIMIT_AMBULANCE
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
