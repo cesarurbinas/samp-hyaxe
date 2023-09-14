@@ -1544,7 +1544,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 	    	if (IsPlayerMoving(playerid))
             {
             	new string[128];
-				format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): NOP Animation", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+				format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): NOP Animation", PLAYER_TEMP[playerid][py_NAME], playerid);
 				SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 				SendDiscordWebhook(string, 1);
 				KickEx(playerid);
@@ -2205,20 +2205,20 @@ public OnPlayerDeath(playerid, killerid, reason)
 					gunname[32],
 					Float:x, Float:y, Float:z;
 
-				format(str_killer, sizeof str_killer, "Heriste a ~y~%s", ACCOUNT_INFO[playerid][ac_NAME]);
+				format(str_killer, sizeof str_killer, "Heriste a ~y~%s", PLAYER_TEMP[playerid][py_NAME]);
 				ShowPlayerMessage(killerid, str_killer, 3);
 
 				GetWeaponName(reason, gunname, sizeof(gunname));
 				GetPlayerPos(killerid, x, y, z);
 
-				format(str_killer, sizeof str_killer, "Heriste a %s con %s desde %.1f metros.", ACCOUNT_INFO[playerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_killer, sizeof str_killer, "Heriste a %s con %s desde %.1f metros.", PLAYER_TEMP[playerid][py_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SavePlayerNotification(killerid, str_killer);
 
-				format(str_victim, sizeof(str_victim), "%s te hirió con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_victim, sizeof(str_victim), "%s te hirió con %s desde %.1f metros.", PLAYER_TEMP[killerid][py_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				ShowPlayerNotification(playerid, str_victim, 4);
 				SavePlayerNotification(playerid, str_victim);
 
-				format(str_victim, sizeof(str_victim), "[KILL] %s (%d) hirió a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_victim, sizeof(str_victim), "[KILL] %s (%d) hirió a %s (%d) con %s desde %.1f metros.", PLAYER_TEMP[killerid][py_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 1);
 
 				if (!PLAYER_WORKS[killerid][WORK_POLICE])
@@ -2249,14 +2249,14 @@ public OnPlayerDeath(playerid, killerid, reason)
 						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Silent Aimbot (0)");
 						ShowPlayerDialog(killerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 						
-						AddPlayerBan(ACCOUNT_INFO[killerid][ac_ID], ACCOUNT_INFO[killerid][ac_NAME], ACCOUNT_INFO[killerid][ac_IP], 11, TYPE_BAN, "Silent Aimbot (0)");
+						AddPlayerBan(ACCOUNT_INFO[killerid][ac_ID], PLAYER_TEMP[killerid][py_NAME], ACCOUNT_INFO[killerid][ac_IP], 11, TYPE_BAN, "Silent Aimbot (0)");
 
 						KickEx(killerid, 500);
 						PLAYER_MISC[killerid][MISC_BANS] ++;
 						SavePlayerMisc(killerid);
 
 						new str[144];
-						format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Silent Aimbot (0).", ACCOUNT_INFO[killerid][ac_NAME], killerid);
+						format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Silent Aimbot (0).", PLAYER_TEMP[killerid][py_NAME], killerid);
 						SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 						new webhook[144];
@@ -2277,19 +2277,19 @@ public OnPlayerDeath(playerid, killerid, reason)
 					gunname[32],
 					Float:x, Float:y, Float:z;
 
-				format(str_killer, sizeof str_killer, "Asesinaste a ~r~%s", ACCOUNT_INFO[playerid][ac_NAME]);
+				format(str_killer, sizeof str_killer, "Asesinaste a ~r~%s", PLAYER_TEMP[playerid][py_NAME]);
 				ShowPlayerMessage(killerid, str_killer, 3);
 
 				GetWeaponName(reason, gunname, sizeof(gunname));
 				GetPlayerPos(killerid, x, y, z);
 
-				format(str_killer, sizeof str_killer, "Asesinaste a %s con %s desde %.1f metros.", ACCOUNT_INFO[playerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_killer, sizeof str_killer, "Asesinaste a %s con %s desde %.1f metros.", PLAYER_TEMP[playerid][py_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SavePlayerNotification(killerid, str_killer);
 
-				format(str_victim, sizeof(str_victim), "%s te mató con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_victim, sizeof(str_victim), "%s te mató con %s desde %.1f metros.", PLAYER_TEMP[killerid][py_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SavePlayerNotification(playerid, str_victim);
 
-				format(str_victim, sizeof(str_victim), "[KILL] %s (%d) mató a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+				format(str_victim, sizeof(str_victim), "[KILL] %s (%d) mató a %s (%d) con %s desde %.1f metros.", PLAYER_TEMP[killerid][py_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 				SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 1);
 
 				GetPlayerPos(playerid, x, y, z);
@@ -2542,7 +2542,7 @@ public OnPlayerText(playerid, text[])
 	if (text[0] == '#' && ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] != 0 && PLAYER_TEMP[playerid][py_ADMIN_SERVICE])
 	{
 		new string[144];
-	    format(string, sizeof(string), "[C-A]"COL_WHITE" %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, text[1]);
+	    format(string, sizeof(string), "[C-A]"COL_WHITE" %s (%d): %s", PLAYER_TEMP[playerid][py_NAME], playerid, text[1]);
 		SendMessageToAdmins(0x80E266FF, string);
 		return 0;
 	}
@@ -2790,6 +2790,8 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 		printf("OnPlayerEnterDynamicArea %d %d",playerid, areaid); // debug juju
 	#endif
 
+	PLAYER_TEMP[playerid][py_LAST_AREA] = areaid;
+
 	new
 		info[2],
 		type
@@ -2839,6 +2841,19 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 					ShowPlayerNotification(playerid, str_text, 6);	
 				}
 			}
+		}
+		case KEY_TYPE_MISSION:
+		{
+			new index = info[1];
+
+			PLAYER_TEMP[playerid][py_TEMP_CP] = CreateDynamicCP(
+				START_MISSION[index][ems_X],
+                START_MISSION[index][ems_Y],
+                START_MISSION[index][ems_Z] - 0.2,
+				2.0, 0, 0, playerid
+			);
+
+			ShowPlayerNotification(playerid, sprintf("Pulsa ~y~Y~w~ para iniciar la misión de ~y~%s~w~.", START_MISSION[index][ems_NAME]), 4);
 		}
 	}
 	return 1;
@@ -2900,6 +2915,10 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 					TextDrawHideForPlayer(playerid, TERRITORIES[index][territory_TEXTDRAW]);
 				}
 			}
+		}
+		case KEY_TYPE_MISSION:
+		{
+			DestroyDynamicCP(PLAYER_TEMP[playerid][py_TEMP_CP]);
 		}
 	}
 	
@@ -3926,6 +3945,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckClubMenu(playerid);
         CheckRegister(playerid);
         CheckDealerSite(playerid);
+		CheckMissionPlace(playerid);
 
         #if defined HALLOWEEN_MODE
        		CheckPumpkinWitch(playerid);
@@ -6289,7 +6309,7 @@ public ContinuePlayerIntro(playerid, step)
 			SetCameraBehindPlayer(playerid);
 
 			TogglePlayerControllableEx(playerid, true);
-			ShowPlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay, versi? experimental.", 12);
+			ShowPlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay, version experimental.", 12);
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 
 			SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0);

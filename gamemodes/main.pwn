@@ -106,11 +106,6 @@
 #include <discord-connector>
 #include <discord-command>
 
-// Npcs
-#include "core/npc/header.pwn"
-#include "core/npc/functions.pwn"
-#include "core/npc/callbacks.pwn"
-
 // Anticheat
 #include "core/anticheat/header.pwn"
 
@@ -148,8 +143,8 @@
 // Player util
 #include "utils/player/header.pwn"
 
-// Missions
-#include "code/mission/header.pwn"
+// Areas
+#include "core/key_areas/areas.pwn"
 
 // Player
 #include "core/player/account.pwn"
@@ -158,6 +153,17 @@
 #include "core/player/character.pwn"
 #include "core/player/textdraws.pwn"
 #include "core/work/header.pwn"
+
+// Dealer
+#include "core/dealer/header.pwn"
+
+// Missions
+#include "core/mission/header.pwn"
+#include "core/mission/functions.pwn"
+
+// Npcs
+#include "core/npc/header.pwn"
+#include "core/npc/functions.pwn"
 
 // World
 #include "core/world/header.pwn"
@@ -207,9 +213,6 @@
 #include "utils/item/create.pwn"
 #include "utils/item/info.pwn"
 #include "utils/item/grab.pwn"
-
-// Areas
-#include "core/key_areas/areas.pwn"
 
 // Audio
 #include "core/audio/handlers.pwn"
@@ -274,9 +277,6 @@
 #include "core/club/header.pwn"
 #include "core/club/functions.pwn"
 #include "core/club/callbacks.pwn"
-
-// Dealer
-#include "core/dealer/header.pwn"
 
 // Player util
 #include "utils/player/util.pwn"
@@ -369,6 +369,9 @@
 
 // World configuration
 #include "core/world/config.pwn"
+
+// Npcs
+#include "core/npc/callbacks.pwn"
 
 // Gamemodes
 //#include "core/lgbt_infection/functions.pwn"
@@ -2464,7 +2467,7 @@ public OnGameModeInit()
 	// Server
 	SetGameModeText(SERVER_MODE);
 
-	SendRconCommand("hostname Hyaxe (dev) | Características del singleplayer");
+	SendRconCommand("hostname Hyaxe | Servidor de pruebas");
 	
 	#if defined FINAL_BUILD
 		SetTimer("GiveAutoGift", 300000, false);

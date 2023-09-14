@@ -3,6 +3,11 @@ new DEALER_SKIN[] =
 	28, 29, 21, 100
 };
 
+new DEALER_WEAPONS[] =
+{
+	22, 28, 32
+};
+
 enum dealer_enum
 {
 	Float:dl_X,

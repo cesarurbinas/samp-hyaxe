@@ -7,3 +7,5 @@ new TrainDriverNPCs[MAX_STANDARD_NPC_TRAINDRIVERS] = {INVALID_PLAYER_ID, ...};
 new PilotNPCs[MAX_STANDARD_NPC_PILOTS] = {INVALID_PLAYER_ID, ...};
 new TrainDriverPlaybackCycle[MAX_STANDARD_NPC_TRAINDRIVERS] = {0, ...};
 new PilotPlaybackCycle[MAX_STANDARD_NPC_PILOTS] = {0, ...};
+
+forward NPC_Update();

@@ -5,7 +5,8 @@ enum
 	KEY_TYPE_ENTER,
 	KEY_TYPE_Y,
 	KEY_TYPE_H,
-	KEY_TYPE_ALT
+	KEY_TYPE_ALT,
+	KEY_TYPE_MISSION
 };
 
 AddKeyArea(Float:x, Float:y, Float:range, key)

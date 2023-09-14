@@ -6,14 +6,14 @@ ShowMainMenu(playerid)
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][47]);
 	ShowPlayerMessage(playerid, "_", 1);
 
-	#if defined VOICE_CHAT
+	/*#if defined VOICE_CHAT
 	if (!SvGetVersion(playerid))
 	{
 		PLAYER_MISC[playerid][MISC_GAMEMODE] = 5000;
 		PlayerJoinGamemode(playerid);
 		return 0;
 	}
-	#endif
+	#endif*/
 
 	PLAYER_MISC[playerid][MISC_GAMEMODE] = 5000;
 	PlayerJoinGamemode(playerid);
@@ -157,7 +157,7 @@ PlayerJoinGamemode(playerid, announce = true)
 				
 				ResetPlayerWeapons(playerid);
 				ResetPlayerMoney(playerid);
-				
+
 				GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
 				SetPlayerFightingStyle(playerid, CHARACTER_INFO[playerid][ch_FIGHT_STYLE]);
 				SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);

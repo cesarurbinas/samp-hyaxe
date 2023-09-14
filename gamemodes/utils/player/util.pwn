@@ -1247,13 +1247,19 @@ Float:CameraLookToAngle(playerid)
 IsFakeClient(playerid)
 {  
 	if (IsPlayerNPC(playerid)) return 0;
-	new TempId[80], TempNumb;  
-	gpci(playerid, TempId, sizeof(TempId));  
-	for(new i = 0; i < strlen(TempId); i++)  
+	
+	new
+		temp_id[80],
+		temp_number
+	;  
+	gpci(playerid, temp_id, sizeof(temp_id));  
+	
+	for(new i = 0; i < strlen(temp_id); i++)  
 	{  
-		if(TempId[i] >= '0' && TempId[i] <= '9')  TempNumb++;  
+		if (temp_id[i] >= '0' && temp_id[i] <= '9')
+			temp_number ++;  
 	}  
-	return (TempNumb >= 30 || strlen(TempId) <= 30) ? true : false;
+	return (temp_number >= 30 || strlen(temp_id) <= 30) ? true : false;
 }
 
 GetDatabaseUserName(db_id)

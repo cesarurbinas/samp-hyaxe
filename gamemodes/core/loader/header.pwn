@@ -226,6 +226,9 @@ SanAndreas()
 		Streamer_SetArrayData(STREAMER_TYPE_PICKUP, atm_pickup_id, E_STREAMER_EXTRA_ID, info);
 	}
 
+	// Missions
+	CreateMissionsPlaces();
+
 	// 3D Texts Gasolinera
 	for(new i = 0; i < sizeof Fuel_Stations; i++)
 	{

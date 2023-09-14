@@ -402,8 +402,16 @@ enum Temp_Enum
 >>>>>>> 8fe8170 (anti wallshot)
 =======
 	py_TOTAL_SHOT,
+<<<<<<< HEAD
 	bool:py_PACIFIC
 >>>>>>> 1480c93 (modo pacifico)
+=======
+	bool:py_PACIFIC,
+	py_TEMP_CP,
+	bool:py_IN_MISSION,
+	py_MISSION,
+	py_LAST_AREA
+>>>>>>> fa92fd6 (misiones base)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
