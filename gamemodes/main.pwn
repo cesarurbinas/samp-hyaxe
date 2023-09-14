@@ -58,7 +58,8 @@
 #define YSI_NO_VERSION_CHECK
 #define NO_SUSPICION_LOGS
 
-// Other Library 
+// Other Library
+#include <physics>
 #include <a_http>
 #include <sscanf2>
 #include <Pawn.RakNet> 
@@ -226,6 +227,11 @@
 // Anticheat
 #include "core/anticheat/functions.pwn"
 #include "core/anticheat/main.pwn"
+
+// Soccer
+#include "core/soccer/header.pwn"
+#include "core/soccer/functions.pwn"
+#include "core/soccer/callbacks.pwn"
 
 new const Float:NewUserPos[][] =
 {
@@ -1806,6 +1812,7 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Mike Santander", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, -245.578720, -2193.103271, 29.839702, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Club de la pelea", INTERIOR_NO_INFO, -1, false, 0, 16, -14.497008, 100.967079, 1101.521118, 180.0, -1, false, 0, 0, 950.341247, -987.135864, 38.743835, 322.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Osborn", INTERIOR_NO_INFO, -1, true, 0, 29, 887.343566, 1918.198364, -88.974365, 93.182411, -1, false, 0, 0, 3025.392333, -2004.350708, 3.214900, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Estadio", INTERIOR_NO_INFO, -1, true, 1336, 0, 2684.587890, -1733.565185, 424.386718, 180.0, -1, false, 0, 0, 2781.461181, -1813.566162, 11.843750, 211.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
@@ -7258,6 +7265,11 @@ SanAndreas()
 	AddKeyArea(1626.089355, -2174.786132, 0.8, KEY_TYPE_H);
 	AddKeyArea(-212.521926, -1739.015014, 0.8, KEY_TYPE_H);
 	AddKeyArea(-11.283934, 88.862136, 0.8, KEY_TYPE_Y);
+
+	// Soccer
+	CreateBall();
+	Soccer_LoadCollisions();
+	Soccer_LoadMap();
 	return 1;
 }
 
