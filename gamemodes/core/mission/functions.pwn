@@ -108,7 +108,7 @@ CheckMissionPlace(playerid)
                 }
             }
 
-            if (!players_in_mission > 1) START_MISSION[index][ems_TYPE] = random(START_MISSION[index][ems_MAX_MISSIONS]);
+            if (players_in_mission <= 1) START_MISSION[index][ems_TYPE] = random(START_MISSION[index][ems_MAX_MISSIONS]);
 
             // Show message
             switch(index)
@@ -124,7 +124,7 @@ CheckMissionPlace(playerid)
                         {
                             for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
                             {
-                                if (!players_in_mission > 1)
+                                if (players_in_mission <= 1)
                                 {
                                     FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
                                     FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);
