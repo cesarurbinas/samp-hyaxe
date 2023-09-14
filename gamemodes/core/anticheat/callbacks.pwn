@@ -3,25 +3,27 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
     {
 		new
-			interval = GetTickCountDifference(lastShotTick[playerid], GetTickCount()),
+			interval = GetTickDiff(GetTickCount(), lastShotTick[playerid]),
 			weaponshotinterval = WEAPON_INFO[weaponid][weapon_info_SHOT_TIME];
 
-		SendClientMessageEx(playerid, -1, "%s, %d, %d, %d (%d)", WEAPON_INFO[weaponid][weapon_info_NAME], interval, lastShotTick[playerid], GetTickCount(), weaponshotinterval);
+		//SendClientMessageEx(playerid, -1, "%s, %d, %d, %d (%d)", WEAPON_INFO[weaponid][weapon_info_NAME], interval, lastShotTick[playerid], GetTickCount(), weaponshotinterval);
 
 		if (interval < weaponshotinterval)
 		{
-			PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS]++;
+			new current_gettime = gettime();
 
-			if (PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS] >= 3)
+			if (current_gettime - PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_LAST_DETECTION] > 3) PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS] = 0;
+			else PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS] ++;
+
+			PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_LAST_DETECTION] = current_gettime;
+			if (PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS] >= 5)
 			{
-				PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS] = 0;
-
 				new str_text[144];
 				format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): RapidFire", PLAYER_TEMP[playerid][py_NAME], playerid);
 				SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-				//SendDiscordWebhook(str_text, 1);
-				//SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: RapidFire");
-				//KickEx(playerid, 500);
+				SendDiscordWebhook(str_text, 1);
+				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: RapidFire");
+				KickEx(playerid, 500);
 			}
 		}
 

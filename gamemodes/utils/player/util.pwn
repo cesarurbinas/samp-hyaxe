@@ -276,24 +276,6 @@ Float:CameraLookToAngle(playerid)
 	return atan2(y, x) + 270.0;
 }
 
-/*stock GetTickCountDifference(newtick, oldtick)
-{
-	if (oldtick < 0 && newtick >= 0)
-	{
-		return newtick - oldtick;
-	}
-	else if (oldtick >= 0 && newtick < 0 || oldtick > newtick)
-	{
-		return (cellmax - oldtick + 1) - (cellmin - newtick);
-	}
-	return newtick - oldtick;
-}*/
-
-GetTickCountDifference(newtick, oldtick)
-{
-	return newtick - oldtick;
-}
-
 IsFakeClient(playerid)
 {  
 	if(IsPlayerNPC(playerid)) return 0;
