@@ -4304,8 +4304,8 @@ Menu:MECHANICTUNING(playerid, response, listitem)
        	
        	else if (listitem == 3)
         {
-        	ShowPlayerMessage(playerid, "~r~Esto no esta disponible", 4);
-        	//ShowObjTuning(playerid);
+        	//ShowPlayerMessage(playerid, "~r~Esto no esta disponible", 4);
+        	ShowObjTuning(playerid);
         }
 
        	else if (listitem == 4)
@@ -4351,7 +4351,6 @@ ShowObjTuning(playerid)
 	ShowPlayerMenu(playerid, OBJTUNINGMENU, "Objetos");
 	AddPlayerMenuItem(playerid, "Mis objetos");
 	AddPlayerMenuItem(playerid, "Comprar objetos");
-	AddPlayerMenuItem(playerid, "Texto", "Precio: 500$");
 	AddPlayerMenuItem(playerid, "Bandera", "Precio: 2.000$");
 	return 1;
 }
@@ -4426,7 +4425,7 @@ Menu:OBJTUNINGMENU(playerid, response, listitem)
 				VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][slot][vobject_text_FONT_COLOR] = 0xFF000000;
 
 				RegisterNewVehicleObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
-				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot, true);
+				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
 
 				ShowPlayerMessage(playerid, "El objeto de texto fue añadido.", 2);
 				PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;
@@ -4434,36 +4433,6 @@ Menu:OBJTUNINGMENU(playerid, response, listitem)
 			}
 
 			case 3:
-			{
-				new slot = GetVehicleFreeObjectSlot(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID]);
-				if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
-				{
-					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener más objetos.", 4);
-					ShowObjTuning(playerid);
-					return 1;
-				}
-
-				if (slot == -1)
-				{
-					ShowPlayerMessage(playerid, "~r~No hay más espacio para objetos en este vehículo.", 3);
-					ShowObjTuning(playerid);
-					return 1;
-				}
-
-				if (2000 > CHARACTER_INFO[playerid][ch_CASH])
-				{
-					ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowObjTuning(playerid);
-					return 1;
-				}
-
-				PLAYER_TEMP[playerid][py_COUNTRY_TYPE] = 0;
-				ShowDialog(playerid, DIALOG_VOBJECT_COUNTRY);
-			}
-
-			case 4:
 			{
 				new slot = GetVehicleFreeObjectSlot(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID]);
 				if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_VOBJECTS)
@@ -19231,7 +19200,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][slot][vobject_text_FONT_COLOR] = 0xFF000000;
 
 						RegisterNewVehicleObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
-						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot, true);
+						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
 
 						ShowPlayerMessage(playerid, "El objeto de texto fue añadido.", 2);
 						PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;
@@ -19343,7 +19312,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][slot][vobject_COLORS][0] = listitem;
 
 				RegisterNewVehicleObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
-				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot, true);
+				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
+				UpdateVehicleMaterialObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], slot);
 
 				ShowPlayerMessage(playerid, "El objeto fue añadido.", 3);
 				PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] = slot;
@@ -19389,7 +19359,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 						    ShowPlayerMessage(playerid, "Objeto colocado.", 2);
 							VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED] = true;
-							UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
+							UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 							ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
 						}
 					}
@@ -19479,21 +19449,21 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 0:
 					{
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][ PLAYER_TEMP[playerid][py_TUNING_EDIT_COLOR_SLOT] ] = 0;
-						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
-				        ShowPlayerMessage(playerid, "Color actualizado.", 2);
+						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
+						ShowPlayerMessage(playerid, "Color actualizado.", 2);
 						ShowDialog(playerid, DIALOG_VOBJECT_OBJECT_COLORS);
 					}
 					case 1:
 					{
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][ PLAYER_TEMP[playerid][py_TUNING_EDIT_COLOR_SLOT] ] = hy_RGBAToARGB(VEHICLE_COLORS[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_COLOR_1] ]);
-						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
+						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 						ShowPlayerMessage(playerid, "Color actualizado.", 2);
 						ShowDialog(playerid, DIALOG_VOBJECT_OBJECT_COLORS);
 					}
 					case 2:
 					{
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][ PLAYER_TEMP[playerid][py_TUNING_EDIT_COLOR_SLOT] ] = hy_RGBAToARGB(VEHICLE_COLORS[ GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][gb_vehicle_COLOR_2] ]);
-						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
+						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 						ShowPlayerMessage(playerid, "Color actualizado.", 2);
 						ShowDialog(playerid, DIALOG_VOBJECT_OBJECT_COLORS);
 					}
@@ -19517,7 +19487,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][ PLAYER_TEMP[playerid][py_TUNING_EDIT_COLOR_SLOT] ] = hexcolor;
-				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
+				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 				ShowPlayerMessage(playerid, "Color actualizado.", 2);
 				ShowDialog(playerid, DIALOG_VOBJECT_OBJECT_COLORS);
 			}
@@ -19594,7 +19564,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_BOLD] = true;
 							ShowPlayerMessage(playerid, "Negrita ~g~habilitada", 2);
 						}
-						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
+
+						UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 						ShowDialog(playerid, dialogid);
 					}
 					case 4: ShowDialog(playerid, DIALOG_VOBJECT_TEXT_FONT_COLOR);
@@ -19622,8 +19593,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				format(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_TEXT], 32, "%s", inputtext);
-				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
-			    ShowPlayerMessage(playerid, "Texto actualizado.", 2);
+				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
+				ShowPlayerMessage(playerid, "Texto actualizado.", 2);
 			}
 			ShowDialog(playerid, DIALOG_VOBJECT_TEXT_MENU);
 			return 1;
@@ -19645,8 +19616,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ShowDialog(playerid, dialogid);
 					return 1;
 				}
+
 				format(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT], 24, "%s", inputtext);
-				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
+				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 				ShowPlayerMessage(playerid, "Fuente actualizada.", 2);
 			}
 			ShowDialog(playerid, DIALOG_VOBJECT_TEXT_MENU);
@@ -19669,7 +19641,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 				VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_SIZE] = inputtext[0];
-				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
+				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 				ShowPlayerMessage(playerid, "Tamaño de letra actualizado.", 2);
 			}
 			ShowDialog(playerid, DIALOG_VOBJECT_TEXT_MENU);
@@ -19680,7 +19652,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_COLOR] = hy_RGBAToARGB(CrewColors[listitem]);
-				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT], true);
+				UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 				ShowPlayerMessage(playerid, "Color de letra actualizado.", 2);
 			}
 			ShowDialog(playerid, DIALOG_VOBJECT_TEXT_MENU);
@@ -26794,7 +26766,8 @@ LoadPlayerVehicles(playerid)
 			VEHICLE_OBJECTS[vehicle_id][vobjects][vobject_text_FONT_SIZE] = db_get_field_assoc_int(Result_vobjects, "FONT_SIZE");
 			VEHICLE_OBJECTS[vehicle_id][vobjects][vobject_text_BOLD] = db_get_field_assoc_int(Result_vobjects, "FONT_BOLD");
 			VEHICLE_OBJECTS[vehicle_id][vobjects][vobject_text_FONT_COLOR] = db_get_field_assoc_int(Result_vobjects, "FONT_COLOR");
-			UpdateVehicleAttachedObject(vehicle_id, vobjects, true);
+			UpdateVehicleAttachedObject(vehicle_id, vobjects);
+			UpdateVehicleMaterialObject(vehicle_id, vobjects);
 
 			vobjects ++;
 			db_next_row(Result_vobjects);
@@ -26802,8 +26775,6 @@ LoadPlayerVehicles(playerid)
 		db_free_result(Result_vobjects);
 
 		SetVehicleToRespawnEx(vehicle_id);
-
-
 
 		new max_slots = VEHICLE_INFO[GLOBAL_VEHICLES[vehicle_id][gb_vehicle_MODELID] - 400][vehicle_info_BOOT_SLOTS];
 		if (max_slots > 0)
@@ -33336,13 +33307,46 @@ GetVehicleFreeObjectSlot(vehicleid)
 	return -1;
 }
 
-UpdateVehicleAttachedObject(vehicleid, slot, material = false)
+UpdateVehicleMaterialObject(vehicleid, slot)
+{
+	switch(VEHICLE_OBJECTS[vehicleid][slot][vobject_TYPE])
+	{
+		case VOBJECT_TYPE_OBJECT:
+		{
+			for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
+			{
+				SetDynamicObjectMaterial(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][i]);
+			}
+		}
+		case VOBJECT_TYPE_TEXT:
+		{
+			SetDynamicObjectMaterialText
+			(
+				VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID],
+				0,
+				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_TEXT],
+				130,
+				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT],
+				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT_SIZE],
+				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_BOLD],
+				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT_COLOR],
+				0,
+				OBJECT_MATERIAL_TEXT_ALIGN_CENTER
+			);
+		}
+		case VOBJECT_TYPE_COUNTRY_FLAG: TextureCountryFlag(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], 1, VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][0]);
+		case VOBJECT_TYPE_COUNTRY_PANEL: TextureCountryFlag(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], 0, VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][0]);
+	}
+	return 1;
+}
+
+UpdateVehicleAttachedObject(vehicleid, slot)
 {
 	if (VEHICLE_OBJECTS[vehicleid][slot][vobject_ATTACHED])
 	{
 		if (VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] == INVALID_STREAMER_ID)
 		{
-			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = 	CreateDynamicObject
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = CreateDynamicObject
 																	(
 																		VEHICLE_OBJECTS[vehicleid][slot][vobject_MODELID],
 																		0.0,
@@ -33353,43 +33357,16 @@ UpdateVehicleAttachedObject(vehicleid, slot, material = false)
 																		0.0
 																	);
 		}
-		
-		if (material)
+
+		for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
 		{
-			switch(VEHICLE_OBJECTS[vehicleid][slot][vobject_TYPE])
-			{
-				case VOBJECT_TYPE_OBJECT:
-				{
-					for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
-					{
-						SetDynamicObjectMaterial(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][i]);
-					}
-				}
-				case VOBJECT_TYPE_TEXT:
-				{
-					SetDynamicObjectMaterialText
-					(
-						VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID],
-						0,
-						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_TEXT],
-						130,
-						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT],
-						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT_SIZE],
-						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_BOLD],
-						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT_COLOR],
-						0,
-						OBJECT_MATERIAL_TEXT_ALIGN_CENTER
-					);
-				}
-				case VOBJECT_TYPE_COUNTRY_FLAG: TextureCountryFlag(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], 1, VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][0]);
-				case VOBJECT_TYPE_COUNTRY_PANEL: TextureCountryFlag(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], 0, VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][0]);
-			}
+			SetDynamicObjectMaterial(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][i]);
 		}
 		
 		new Float:v_size[3];
 		GetVehicleModelInfo(GLOBAL_VEHICLES[ vehicleid ][gb_vehicle_MODELID], VEHICLE_MODEL_INFO_SIZE, v_size[0], v_size[1], v_size[2]);
 
-		if	(
+		if (
 				(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0] >= v_size[0] || -v_size[0] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][0]) || 
 				(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1] >= v_size[1] || -v_size[1] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][1]) ||
 				(VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2] >= v_size[2] || -v_size[2] >= VEHICLE_OBJECTS[ vehicleid ][ slot ][vobject_OFFSET][2])
@@ -33450,10 +33427,15 @@ EditVehicleObject(playerid, vehicleid, slot)
 	PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][4] = VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][1];
 	PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][5] = VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ROT][2];
 	
+	for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
+	{
+		SetDynamicObjectMaterial(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][i]);
+	}
+
 	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = CreatePlayerObject(playerid, 999, x, y, z, VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][0], VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][1], VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][2]);
 	SetPlayerObjectMaterial(playerid, PLAYER_TEMP[playerid][py_PIVOT_OBJECT], 0, 0, "null", "null");
 	SetPlayerObjectMaterial(playerid, PLAYER_TEMP[playerid][py_PIVOT_OBJECT], 1, 0, "null", "null");
-	
+
 	Streamer_Update(playerid);
 	EditPlayerObject(playerid, PLAYER_TEMP[playerid][py_PIVOT_OBJECT]);
 	return 1;
@@ -33486,6 +33468,35 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 					UpdateVehicleAttachedObject(PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID], PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT]);
 					Streamer_Update(playerid);
 					
+					switch(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_TYPE])
+					{
+					case VOBJECT_TYPE_OBJECT:
+					{
+						for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
+						{
+							SetDynamicObjectMaterial(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][i]);
+						}
+					}
+					case VOBJECT_TYPE_TEXT:
+					{
+						SetDynamicObjectMaterialText
+						(
+							VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID],
+							0,
+							VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_TEXT],
+							130,
+							VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT],
+							VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_SIZE],
+							VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_BOLD],
+							VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_COLOR],
+							0,
+							OBJECT_MATERIAL_TEXT_ALIGN_CENTER
+						);
+					}
+					case VOBJECT_TYPE_COUNTRY_FLAG: TextureCountryFlag(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], 1, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][0]);
+					case VOBJECT_TYPE_COUNTRY_PANEL: TextureCountryFlag(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], 0, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][0]);
+					}
+
 					ShowPlayerMessage(playerid, "Has cancelado la edición.", 3);
 					ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
 				}
@@ -33519,6 +33530,36 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 					}
 					
 					VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ATTACHED] = true;
+					
+					switch(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_TYPE])
+					{
+						case VOBJECT_TYPE_OBJECT:
+						{
+							for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
+							{
+								SetDynamicObjectMaterial(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][i]);
+							}
+						}
+						case VOBJECT_TYPE_TEXT:
+						{
+							SetDynamicObjectMaterialText
+							(
+								VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID],
+								0,
+								VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_TEXT],
+								130,
+								VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT],
+								VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_SIZE],
+								VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_BOLD],
+								VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_text_FONT_COLOR],
+								0,
+								OBJECT_MATERIAL_TEXT_ALIGN_CENTER
+							);
+						}
+						case VOBJECT_TYPE_COUNTRY_FLAG: TextureCountryFlag(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], 1, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][0]);
+						case VOBJECT_TYPE_COUNTRY_PANEL: TextureCountryFlag(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], 0, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][0]);
+					}
+
 					ShowPlayerMessage(playerid, "Objeto actualizado.", 4);
 					ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
 				}
