@@ -95,10 +95,34 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 					db_free_result(db_query(Database, DB_Query));
 
 					HideInventory(playerid);
+					ShowInventory(playerid, 1);
 				}
 			}
 			else
 			{
+				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Vacio", 2000, 5);
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+				return 1;
+			}
+		}
+		case 2:
+		{
+			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
+			{
+				GameTextForPlayer(playerid, "Item guardado", 2000, 5);
+				ResetItemBody(playerid);
+
+				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+				{
+					SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot);
+				}
+
+				HideInventory(playerid);
+				ShowInventory(playerid, 2);
+			}
+			else
+			{
+				ResetItemBody(playerid);
 				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Vacio", 2000, 5);
 				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 				return 1;

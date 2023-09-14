@@ -1824,7 +1824,9 @@ static const INVALID_NAMES[][100] =
 	"Facebook",
 	"Instagram",
 	"Lil_",
-	"Gamer"
+	"Gamer",
+	"Chupador",
+	"Play"
 };
 
 static const BAN_KEYWORDS[][100] =

