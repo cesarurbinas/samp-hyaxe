@@ -42,8 +42,8 @@ public OnPlayerConnect(playerid)
 	
 	Player_SetTeam(playerid, NO_TEAM);
 
-	Player_SetHealth(playerid, 100);
-	Player_SetArmour(playerid, 0);
+	/*Player_SetHealth(playerid, 100);
+	Player_SetArmour(playerid, 0);*/
 	
 	#if defined Damage_OnPlayerConnect
 		return Damage_OnPlayerConnect(playerid);

@@ -50,7 +50,7 @@ Damage_Send(to, from, Float:amount, weaponid)
 	}
 	else
 	{
-		if ((g_iPlayerHealth[to] - damage) <= 1)
+		if ((g_iPlayerHealth[to] - damage) <= 0)
 		{
 			OnPlayerDeath(to, from, weaponid);
 			g_rgbitsPlayerFlags[to] |= e_bmPlayerDead;

@@ -95,7 +95,16 @@ new const g_rgszWeaponName[][] = {
 		{ 20, 15, 15, 15, 15, 15, 30 }, // M4
 		{ 9, 9, 9, 9, 9, 9, 12 }, // Tec-9
 		{ 25, 25, 25, 25, 25, 25, 35 }, // Rifle
-		{ 100, 70, 70, 70, 70, 70, 100 } // Sniper
+		{ 100, 70, 70, 70, 70, 70, 100 }, // Sniper
+		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: RPG
+		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: Bazooka
+		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: Lanzallamas
+		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: Minigun
+		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: C4
+		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: Detonador
+		{ 0, 0, 0, 0, 0, 0, 0 }, // NO USADO: RPG
+		{ 0, 0, 0, 0, 0, 0, 0 }, // Spray
+		{ 0, 0, 0, 0, 0, 0, 0 } // NO USADO: Extinguidor
     };
 
 forward OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart);

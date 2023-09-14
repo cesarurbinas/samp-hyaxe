@@ -23874,6 +23874,7 @@ CheckMarketProgress(playerid)
 			{
 				BLACK_MARKET_OBJ[i][bm_ACTIVATED] = false;
 				//TextDrawColor(Textdraws[textdraw_GRAFFITI][0], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);
+				SetTimer("FirstGraffitiAnnounce", 1500000, false);
 				format(str_text, sizeof(str_text), "%s ahora domina el mercado de %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], BLACK_MARKET_OBJ[i][bm_ZONE_NAME]);
 				SendGraffitiNotification(str_text);
 				SendDiscordWebhook(str_text, 3);
@@ -31260,8 +31261,8 @@ CALLBACK: DisableGangRefMark(playerid)
 			{
 				if (PLAYER_CREW[i][player_crew_ID] == PLAYER_CREW[playerid][player_crew_ID])
 				{
-					SetPlayerMarkerForPlayer(i, playerid, 0x6060FF00);
-                    SetPlayerColorEx(playerid, 0x6060FF00);
+					SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
+                    SetPlayerColorEx(playerid, PLAYER_COLOR);
                     ShowPlayerNotification(i, message, 4);
 				}
 			}

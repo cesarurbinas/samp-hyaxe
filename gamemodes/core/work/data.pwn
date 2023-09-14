@@ -46,7 +46,7 @@ new work_info[][work_info_info] =
 	{WORK_TYPE_NORMAL, 1, "basurero",                      	true, 200, 50, 2000},
 	{WORK_TYPE_FAMILY, 3, "granjero",                      	false, 0, 0, 0},
 	{WORK_TYPE_NORMAL, 1, "minero",		   					false, 0, 0, 0},
-	{WORK_TYPE_FAMILY, 0, "policí­a",                       	true, 1000, 1, 0},
+	{WORK_TYPE_FAMILY, 0, "policía",                       	true, 1000, 1, 0},
 	{WORK_TYPE_NORMAL, 1, "pescador",                     	false, 500, 50, 1300},
 	{WORK_TYPE_FAMILY, 1, "barredor",						false, 500, 50, 1300},
 	{WORK_TYPE_FAMILY, 0, "mafioso",		                false, 1000, 1, 0},
