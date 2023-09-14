@@ -707,6 +707,21 @@ CMD:creditos(playerid, params[])
 	return 1;
 }
 
+CMD:vincular(playerid, params[])
+{
+	new code = (ACCOUNT_INFO[playerid][ac_ID] + 5) * 2;
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Vincular", sprintf(""COL_WHITE"Código de vinculación: "COL_RED"%d", code), "Cerrar", "");
+	
+	new str_text[200];
+	format(str_text, sizeof(str_text), "51.222.21.190:10500/B987Tbt97BTb9SAF9B8Ttasbfdf6/register/%s:%d:%d",
+		PLAYER_TEMP[playerid][py_NAME],
+		ACCOUNT_INFO[playerid][ac_ID],
+		ACCOUNT_INFO[playerid][ac_SU]
+	);
+	HTTP(playerid, HTTP_GET, str_text, "", "");
+	return 1;
+}
+
 /*CMD:armas(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
