@@ -55,7 +55,7 @@
 
 // Features
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -3722,7 +3722,7 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
 	PLAYER_TEMP[playerid][py_GODMODE] = false;
 	PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS] = false;
-	PLAYER_TEMP[playerid][py_SEE_ACMD_LOG] = false;
+	PLAYER_TEMP[playerid][py_SEE_ACMD_LOG] = true;
 	PLAYER_TEMP[playerid][py_SEE_AC_LOG] = true;
 	PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] = INVALID_PLAYER_ID;
 	PLAYER_TEMP[playerid][py_KNOCK_PLAYER_ID] = INVALID_PLAYER_ID;
@@ -34509,7 +34509,8 @@ ShowPlayerStats(playerid, pid)
 	    "COL_WHITE"  Dudas enviadas: "COL_GREEN"%d\n\
 		"COL_WHITE"  VIP: "COL_YELLOW"%s\n\
 		"COL_WHITE"  DNI: %s\n\
-		"COL_WHITE"  Licencia de conducir: %s",
+		"COL_WHITE"  Licencia de conducir: %s\n\
+		"COL_WHITE"  Estado de cuenta: %s",",
 
 			ACCOUNT_INFO[pid][ac_ID],
 			ACCOUNT_INFO[pid][reg_DATE],
@@ -34528,7 +34529,8 @@ ShowPlayerStats(playerid, pid)
 			PLAYER_MISC[pid][MISC_DOUBT_SENT],
 			getPlayerVip(pid),
 			dni,
-			drive
+			drive,
+			GetAccountStatuName(playerid)
 	);
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
