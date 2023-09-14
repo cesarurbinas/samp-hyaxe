@@ -94,7 +94,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 			}
 		}
 		PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = false;
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su vehÃ­culo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	}
 	else
 	{
