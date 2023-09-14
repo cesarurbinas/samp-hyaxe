@@ -28023,7 +28023,7 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 
 					// Money drop
 					MoneyDrop(minrand(8, 15), x, y, z - 0.9, 0, 0);
-					if (random(2) == 1) GivePlayerReputation(playerid);
+					if (random(10) == 3) GivePlayerReputation(playerid);
 				}
 			}
 
