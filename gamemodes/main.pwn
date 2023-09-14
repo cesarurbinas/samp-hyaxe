@@ -12702,7 +12702,7 @@ ShowDialog(playerid, dialogid)
 				else format(line_str, sizeof line_str, "{666666}%d. Vacío\n", i + 1);
 				strcat(dialog, line_str);
 			}
-			strcat(dialog, ""COL_RED"Eliminar todo\n");//{e2503f}LSC
+			strcat(dialog, ""COL_RED"Eliminar todo\n");
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, caption, dialog, ">>", "Atrás");
 			return 1;
