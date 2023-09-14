@@ -534,7 +534,8 @@ DC_CMD:player(DCC_User:userid, params[], DCC_Message:message)
 	}
 	db_free_result(Result);
 
-	SendDiscordMessage(channelid, ":x: No existen usuarios con esos nombres", count);
+	if (!count)
+		SendDiscordMessage(channelid, ":x: No existen usuarios con esos nombres", count);
 	return 1;
 }
 
