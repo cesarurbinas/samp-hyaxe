@@ -353,8 +353,14 @@ enum Temp_Enum
 >>>>>>> ec45603 (valid surfing)
 =======
 	py_SURFING_VEHICLE,
+<<<<<<< HEAD
 	py_BIG_PUNCH
 >>>>>>> b1c0b48 (mejoras en el fist slapper)
+=======
+	py_BIG_PUNCH,
+	py_CREDIT[64],
+	py_CREDIT_PRODUCT
+>>>>>>> a0867a3 (credit cache)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
