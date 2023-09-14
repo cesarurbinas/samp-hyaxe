@@ -34103,7 +34103,6 @@ AddPlayerPoliceHistory(playerid, const by[], const reason[])
 }
 
 flags:ayudante(CMD_HELPER)
-flags:comandosadmin(CMD_HELPER)
 flags:ufo(CMD_OPERATOR)
 flags:staff(CMD_HELPER)
 flags:setveh(CMD_MODERATOR)
@@ -34232,8 +34231,6 @@ flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_MODERATOR4)
 flags:depositveh(CMD_MODERATOR)
-
-// comandos by jeiks dije
 flags:jailoff(CMD_MODERATOR)
 flags:unjailloff(CMD_MODERATOR)
 flags:comandosadmin(CMD_HELPER)
