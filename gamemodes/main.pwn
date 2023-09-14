@@ -3659,7 +3659,34 @@ public UpdateWantedLevelMark()
 	return 1;
 }
 
-SetPlayerPoliceSearchLevel(playerid, level)
+SetPlayerRangePoliceSearchLevel(playerid, level, Float:range, const reason)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				if (PLAYER_WORKS[i][WORK_POLICE])
+				{
+					new Float:x, Float:y, Float:z;
+					GetPlayerPos(playerid, x, y, z);
+					if (GetPlayerDistanceFromPoint(playerid, x, y, z) <= range)
+					{
+						SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + level);
+						
+						format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "%s", reason);
+						ShowPlayerMessage(playerid, sprintf("~b~Has cometido un crimen: %s", reason), 5);
+						break;
+					}
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+SetPlayerPoliceSearchLevel(playerid, level, bool:message = true)
 {
 	if (!level)
 	{
@@ -3684,7 +3711,7 @@ SetPlayerPoliceSearchLevel(playerid, level)
 	SendPoliceMark(playerid, 0xCB2828FF);
 
     SavePlayerMisc(playerid);
-    ShowPlayerNotification(playerid, "Sera mejor que corras, la policía te esta buscando", 3);
+    if (message) ShowPlayerNotification(playerid, "Sera mejor que corras, la policía te esta buscando", 3);
     return 1;
 }
 
