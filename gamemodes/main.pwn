@@ -29782,6 +29782,26 @@ public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
     return 1;
 }
 
+OnCheatDetected(playerid, ip_address[], type, code)
+{
+	#pragma unused ip_address, type
+
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
+	if (BOTS[playerid][b_ACTIVE]) return 1;
+	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
+
+	new ac_message[145];
+	format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d). El código de mótivo: #%03d.", PLAYER_TEMP[playerid][py_NAME], playerid, code);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
+	SendDiscordWebhook(ac_message, 1);
+
+	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
+	TogglePlayerControllableEx(playerid, false);
+	KickEx(playerid, 500);
+
+	return 1;
+}
+
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 {
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
