@@ -34006,7 +34006,7 @@ CMD:kick(playerid, params[])
 	AddPlayerBadHistory(ACCOUNT_INFO[to_player][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, reason);
 
 	new dialog[170];
-	format(dialog, sizeof dialog, ""COL_WHITE"%s te expulsó, razón:\n%s\n", ACCOUNT_INFO[playerid][ac_NAME], reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"%s te expulsó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_KIKEOS] ++;
@@ -34396,7 +34396,7 @@ CMD:jail(playerid, params[])
 	SendDiscordWebhook(webhook, 1);
 
     new dialog[250];
-	format(dialog, sizeof dialog, ""COL_WHITE"%s te jaileó, razón:\n%s\n", ACCOUNT_INFO[playerid][ac_NAME], reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"%s te jaileó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
     return 1;
 }
@@ -34414,7 +34414,7 @@ CMD:ban(playerid, params[])
 	AddPlayerBan(ACCOUNT_INFO[to_player][ac_ID], ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_IP], ACCOUNT_INFO[playerid][ac_ID], TYPE_BAN, reason);
 
 	new dialog[250];
-	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó, razón:\n%s\n", ACCOUNT_INFO[playerid][ac_NAME], reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_BANEOS] ++;
@@ -34460,7 +34460,7 @@ CMD:tban(playerid, params[])
 	AddPlayerBan(ACCOUNT_INFO[to_player][ac_ID], ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_IP], ACCOUNT_INFO[playerid][ac_ID], TYPE_TEMP_BAN, reason, days);
 
 	new dialog[250];
-	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó por %d días, razón:\n%s\n", ACCOUNT_INFO[playerid][ac_NAME], days, reason);
+	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó por %d días, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], days, reason);
 	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
 	KickEx(to_player, 500);
 	PLAYER_MISC[to_player][MISC_BANEOS] ++;
