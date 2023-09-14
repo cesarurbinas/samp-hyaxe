@@ -352,3 +352,7 @@ enum Temp_Enum
 >>>>>>> ec45603 (valid surfing)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
+
+#if defined VOICE_CHAT
+	new SV_LSTREAM:lstream[MAX_PLAYERS] = { SV_NULL, ... };
+#endif
