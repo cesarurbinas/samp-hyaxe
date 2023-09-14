@@ -20519,7 +20519,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
-				if (inputtext[0] > 10000)
+				if (inputtext[0] > 500)
 				{
 					ShowPlayerMessage(playerid, "~r~Demasiado, tampoco te pases.", 4);
 					ShowDialog(playerid, dialogid);
