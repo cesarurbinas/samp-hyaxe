@@ -73,7 +73,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <strlib>
 #include <ExtendedActorFunctions>
 #include <gmenu>
-#include <json>
 
 #define safe_db_query(%0) db_free_result(db_query(Database, %0))
 
@@ -14230,7 +14229,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new url[128];
 				PLAYER_TEMP[playerid][py_RESULT_INDEX] = listitem;
 				format(url, 128, "51.178.211.161:12345/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
-				printf("%s", url);
 				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
 				ShowPlayerNotification(playerid, "Espere, estamos procesando el video...", 3);
 			} else PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
