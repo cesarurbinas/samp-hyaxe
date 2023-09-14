@@ -475,6 +475,8 @@ SubtractItem(playerid, type, extra = 1)
 		);
 		db_free_result(db_query(Database, DB_Query));
 	}
+
+	ResetItemBody(playerid);
 	return 1;
 }
 
@@ -528,6 +530,7 @@ SetItemToBody(playerid, type)
 		case 66: SetPlayerAttachedObject(playerid, 9, 1544, 6, 0.0509, 0.0200, -0.0910, 0.0000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // CJ_BEER_B_1 attached to the Right Hand of Atom
 		case 67: SetPlayerAttachedObject(playerid, 9, 2768, 6, 0.0959, 0.0480, 0.0190, 105.0999, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // CJ_CB_BURG attached to the Right Hand of Atom
 		case 68: SetPlayerAttachedObject(playerid, 9, 19835, 6, 0.0729, 0.0409, 0.0290, 9.7000, 0.0000, 0.0000, 1.0000, 1.0000, 1.0000, 0xFFFFFFFF, 0xFFFFFFFF); // CoffeeCup1 attached to the Right Hand of Atom
+		case 69: SetPlayerAttachedObject(playerid, 9, 2202, 6, 0.3539, -0.1079, 0.1069, 0.0000, -99.9000, 87.6999, 0.1739, 0.6760, 0.2420, 0xFFFFFFFF, 0xFFFFFFFF); // PHOTOCOPIER_2 attached to the Right Hand of Atom
 	}
 	return 1;
 }

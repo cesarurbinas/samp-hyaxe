@@ -146,6 +146,9 @@ L1:
 // Colors
 #include "core/color/pallete.pwn"
 
+// Entity
+#include "core/entity/header.pwn"
+
 // Weapons
 #include "core/weapons/info.pwn"
 
@@ -177,6 +180,11 @@ L1:
 #include "core/player/character.pwn"
 #include "core/player/textdraws.pwn"
 #include "core/work/header.pwn"
+
+// Money printers
+#include "core/money_printer/header.pwn"
+#include "core/money_printer/callbacks.pwn"
+#include "core/money_printer/functions.pwn"
 
 // World
 #include "core/world/header.pwn"
@@ -221,7 +229,6 @@ L1:
 #include "core/player/objects.pwn"
 
 // Entity
-#include "core/entity/header.pwn"
 #include "core/entity/functions.pwn"
 #include "core/entity/callbacks.pwn"
 
@@ -2458,7 +2465,8 @@ public OnGameModeInit()
 	SetGameModeText(SERVER_MODE);
 
 	SendRconCommand("hostname Hyaxe Role Play [dev]");
-	
+	SetTimer("UpdateMoneyPrinters", 40000, true);
+
 	#if defined FINAL_BUILD
 		SetTimer("GiveAutoGift", 300000, false);
 		SendRconCommand("hostname "SERVER_HOSTNAME"");

@@ -2166,8 +2166,8 @@ SetPlayerPosEx(playerid, Float:x, Float:y, Float:z, Float:angle, interior, world
 
 	if (freeze)
 	{
-		SetPlayerScreenColour(playerid, 0x000000FF);
-		FadePlayerScreenColour(playerid, 0x00000000, 2500, 50);
+		//SetPlayerScreenColour(playerid, 0x000000FF);
+		//FadePlayerScreenColour(playerid, 0x00000000, 2500, 50);
 
 		Streamer_UpdateEx(playerid, x, y, z, world, interior, -1, -1, 1);
 		TogglePlayerControllableEx(playerid, false);

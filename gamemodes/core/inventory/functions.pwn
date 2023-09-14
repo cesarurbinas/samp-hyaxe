@@ -1841,6 +1841,13 @@ UseItemSlot(playerid)
 			ConsumeFood(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] - 49);
 		}
 
+		case 69:
+		{
+			SubtractItem(playerid, 69);
+			if (!CreateMoneyPrinter(playerid)) return ShowPlayerMessage(playerid, "~r~No se ha podido crear la impresora porque hay muchas.", 5);
+			return 1;
+		}
+
 		//default: CheckAndReload(playerid);
 	}
 	return 1;

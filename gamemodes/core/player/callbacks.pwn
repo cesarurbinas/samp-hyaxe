@@ -623,6 +623,8 @@ public OnPlayerDisconnect(playerid, reason)
 				}
 			}
 
+			DestroyPlayerPrinters(playerid);
+
 			if (PLAYER_TEMP[playerid][py_DL_LABEL] != INVALID_3DTEXT_ID)
 			{
 				DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_DL_LABEL]);
@@ -6058,8 +6060,8 @@ public ContinuePlayerIntro(playerid, step)
 		}
 		case 1:
 		{
-			SetPlayerScreenColour(playerid, 0x000000FF);
-			FadePlayerScreenColour(playerid, 0x00000000, 4000, 50);
+			//SetPlayerScreenColour(playerid, 0x000000FF);
+			//FadePlayerScreenColour(playerid, 0x00000000, 4000, 50);
 
 			SavePlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay");
 
@@ -6205,7 +6207,7 @@ public RespawnATM(atm_id)
 public OnPlayerShootDynamicObject(playerid, weaponid, objectid, Float:x, Float:y, Float:z)
 {
 	new info[2];
-	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, areaid, E_STREAMER_EXTRA_ID, info);
+	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
 
 	if (info[0] == OBJECT_TYPE_ATM)
 	{
@@ -6218,7 +6220,7 @@ public OnPlayerShootDynamicObject(playerid, weaponid, objectid, Float:x, Float:y
 			ATM_BANK[info[1]][atm_HEALTH] = 0.0;
 
 			new str_text[164], prize = minrand(1000, 4000);
-			format(str_text, sizeof(str_text), "Has destruido un cajero automático y le has sacado ~g~$%d~w~. ¡Corre, ahí viene la policía!", prize);
+			format(str_text, sizeof(str_text), "Has destruido un cajero automático y le has sacado ~g~$%d~w~.", prize);
 			ShowPlayerNotification(playerid, str_text, 6);
 			GivePlayerCash(playerid, prize);
 
@@ -6242,6 +6244,39 @@ public OnPlayerShootDynamicObject(playerid, weaponid, objectid, Float:x, Float:y
 		if (ATM_BANK[info[1]][atm_HEALTH] < 300.0) format(str_text, sizeof(str_text), "Cajero: ~r~%.2f", ATM_BANK[info[1]][atm_HEALTH]);
 
 		ShowPlayerMessage(playerid, str_text, 2);
+	}
+
+	if (info[0] == OBJECT_TYPE_PRINTER)
+	{
+		if (MONEY_PRINTERS[info[1]][mp_HEALTH] <= 0.0) return ShowPlayerMessage(playerid, "~r~Esta impresora ya fue destruida.", 4);
+
+		MONEY_PRINTERS[info[1]][mp_HEALTH] -= mathfrandom(5.0, 25.0);
+		if (MONEY_PRINTERS[info[1]][mp_HEALTH] <= 0.0)
+		{
+			MONEY_PRINTERS[info[1]][mp_HEALTH] = 0.0;
+
+			if (MONEY_PRINTERS[info[1]][mp_OWNER] != playerid)
+			{
+				new str_text[164], prize = minrand(2000, 3000);
+				format(str_text, sizeof(str_text), "Has destruido le impresora ilegal de %s y le has sacado ~g~$%d~w~.", PLAYER_TEMP[ MONEY_PRINTERS[info[1]][mp_OWNER] ][py_NAME], prize);
+				ShowPlayerNotification(playerid, str_text, 6);
+				GivePlayerCash(playerid, prize);
+
+				format(str_text, sizeof(str_text), "~r~%s (ID: %d)~w~ te ha destruido una impresora de dinero.", PLAYER_TEMP[playerid][py_NAME], playerid);
+				ShowPlayerNotification(MONEY_PRINTERS[info[1]][mp_OWNER], str_text, 6);
+			}
+
+			DestroyMoneyPrinter(info[1]);
+			return 1;
+		}
+
+		new str_text[64];
+		if (MONEY_PRINTERS[info[1]][mp_HEALTH] > 800.0) format(str_text, sizeof(str_text), "Impresora: ~g~%.2f", MONEY_PRINTERS[info[1]][mp_HEALTH]);
+		if (MONEY_PRINTERS[info[1]][mp_HEALTH] < 800.0) format(str_text, sizeof(str_text), "Impresora: ~y~%.2f", MONEY_PRINTERS[info[1]][mp_HEALTH]);
+		if (MONEY_PRINTERS[info[1]][mp_HEALTH] < 300.0) format(str_text, sizeof(str_text), "Impresora: ~r~%.2f", MONEY_PRINTERS[info[1]][mp_HEALTH]);
+
+		ShowPlayerMessage(playerid, str_text, 2);
+		UpdateMoneyPrinter(info[1]);
 	}
 	return 1;
 }
