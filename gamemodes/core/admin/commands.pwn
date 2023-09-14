@@ -1368,12 +1368,6 @@ CMD:fixperazoli(playerid, params[])
 	return 1;
 }
 
-CMD:randomgraffiti(playerid, params[])
-{
-	SetTimer("InitRandomGraffiti", 100, 0);
-	return 1;
-}
-
 CMD:initmarket(playerid, params[])
 {
 	new id;
