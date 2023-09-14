@@ -8289,6 +8289,8 @@ CMD:duda(playerid, params[])
 		return 1;
 	}*/
 
+	if (PLAYER_MISC[playerid][MISC_MUTES] >= 5) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tienes muchos muteos, ya no eres aceptado en el canal de dudas.");
+
 	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
 	{
 		new seconds = PLAYER_MISC[playerid][MISC_MUTE] - gettime();
