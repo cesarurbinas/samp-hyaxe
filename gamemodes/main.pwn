@@ -13213,7 +13213,7 @@ ShowDialog(playerid, dialogid)
 
 				format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
 
-				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` LIMIT 10;", CLUBS_INFO[club][club_ID]);
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` WHERE `CLUB_ID` = '%d' AND `TYPE` = '1' LIMIT 10;", CLUBS_INFO[club][club_ID]);
 				Result = db_query(Database, DB_Query);
 
 				if (db_num_rows(Result))
