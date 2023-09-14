@@ -40,7 +40,7 @@ CMD:jailoff(playerid, params[])
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
 	new DBResult:Result, query[175];
-	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, PERSONAJE.`POLICE_JAIL_TIME`, PERSONAJE.`STATE` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID` LIMIT 1;", dbid);
+	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, PERSONAJE.`POLICE_JAIL_TIME`, PERSONAJE.`STATE` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result))
 	{
@@ -97,7 +97,7 @@ CMD:unjailoff(playerid, params[])
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
 	new DBResult:Result, query[175];
-	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID` LIMIT 1;", dbid);
+	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result)) 
 	{
@@ -504,19 +504,30 @@ CMD:vehinfo(playerid, params[])
 	if (to_car >= MAX_VEHICLES) return 1;
 	if (!GLOBAL_VEHICLES[to_car][gb_vehicle_VALID]) return SendClientMessage(playerid, COLOR_WHITE, "Vehículo no válido.");
 
+	new owner_plyid;
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if(!IsPlayerConnected(i)) continue;
+		if(PLAYER_VEHICLES[to_car][player_vehicle_OWNER_ID] == ACCOUNT_INFO[i][ac_ID])
+		{
+			owner_plyid = i;
+			break;
+		}
+	}
+
 	new dialog[280];
 	format(dialog, sizeof dialog, ""COL_WHITE"\
 		Vehículo: %i\n\
 		Ocupado: %d\n\
 		Gasolina: %.1f/%.1f\n\
 		Motor: %d\n\
-		Dueño: %s",
+		Dueño: %s (ID %d)",
 		to_car,
 		GLOBAL_VEHICLES[to_car][gb_vehicle_OCCUPIED],
 		GLOBAL_VEHICLES[to_car][gb_vehicle_GAS],
 		GLOBAL_VEHICLES[to_car][gb_vehicle_MAX_GAS],
 		GLOBAL_VEHICLES[to_car][gb_vehicle_PARAMS_ENGINE],
-		ACCOUNT_INFO[ PLAYER_VEHICLES[to_car][player_vehicle_OWNER_ID] ][ac_NAME]
+		ACCOUNT_INFO[owner_plyid][ac_NAME], owner_plyid
 	);
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Veh info", dialog, "Cerrar", "");
 
