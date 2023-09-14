@@ -169,6 +169,8 @@ bool:PlayerHasBoombox(playerid)
 
 CMD:parlante(playerid, params[])
 {
+	if(!PLAYER_OBJECT[playerid][po_BOOMBOX]) return ShowPlayerMessage(playerid, "~r~No tienes parlantes. Ve a una tienda electrónica.", 4);
+	
 	new options[12];
 	if(sscanf(params, "s[12]", options)) return SendClientMessage(playerid, COLOR_WHITE, "USO: /parlante (colocar/reproducir/recoger/parar/opciones)");
 

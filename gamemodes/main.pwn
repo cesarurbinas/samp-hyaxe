@@ -93,6 +93,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/player/crew.pwn"
 #include "core/player/visual_inventory.pwn"
 #include "core/player/vehicles.pwn"
+#include "core/player/objects.pwn"
 
 // Police
 #include "core/police/info.pwn"
@@ -1102,16 +1103,6 @@ enum Player_GPS_Enum
 	player_gps_INTERIOR
 };
 new PLAYER_GPS[MAX_PLAYERS][MAX_PLAYER_GPS_SAVES][Player_GPS_Enum];
-
-/* SYSTEM - PLAYER OBJECTS */
-enum Player_Objects_Enum
-{
-	po_GPS,
-	po_MP3,
-	po_PHONE_RESOLVER,
-	po_BOOMBOX
-};
-new PLAYER_OBJECT[MAX_PLAYERS][Player_Objects_Enum];
 
 enum e_ZONEINFO
 {
@@ -8086,6 +8077,7 @@ CMD:stop(playerid, params[])
 
 CMD:mp3(playerid, params[])
 {
+	if(!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes un reproductor MP3. Ve a una tienda electrónica.", 4);
 	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
 	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
 	if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada un minuto.", 3, 1085);
@@ -20296,7 +20288,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if (listitem == 1)
 				{
-					PC_EmulateCommand(playerid, "/mp3");
+					if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
+					if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar YouTube cada un minuto.", 3, 1085);
+
+					ShowDialog(playerid, DIALOG_PLAYER_MP3);
 					PLAYER_MISC[playerid][MISC_RADIO_STATION] = 666;
 				}
 				else
