@@ -23357,7 +23357,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][4])
 		{
 			HideBankMenu(playerid);
-            ShowDialog(playerid, DIALOG_BANK_DEPOSIT);
+            ShowDialog(playerid, DIALOG_BANK_WITHDRAW);
 		}
 		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][5])
 		{
