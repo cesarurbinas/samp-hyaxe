@@ -30070,7 +30070,12 @@ CALLBACK: FixVehicleUpdate(playerid, vehicleid)
 			new Float:health;
 			health = GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] + 150.0;
 			if (health > 1000.0) health = 1000.0;
-			SetVehicleHealthEx(vehicleid, health);
+
+			GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] = health;
+			SetVehicleHealthEx(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH]);
+			UpdateVehicleParams(vehicleid);
+
+			ResetItemBody(playerid);
 		}
 	}
 	return 1;
@@ -33740,7 +33745,7 @@ CMD:setgas(playerid, params[])
 CMD:setvh(playerid, params[])
 {
 	new Float:val, vehicleid;
-	if (sscanf(params, "fi", val, vehicleid)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setvh <vehicleid> <valor>");
+	if (sscanf(params, "if", vehicleid, val)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setvh <vehicleid> <valor>");
 	if (val < 0.0) return SendClientMessage(playerid, COLOR_WHITE, "Valor no válido.");
 	if (val > 1000.0) return SendClientMessage(playerid, COLOR_WHITE, "Valor no válido.");
 	if (vehicleid >= MAX_VEHICLES) return SendClientMessage(playerid, COLOR_WHITE, "Vehículo no válido.");
@@ -33751,7 +33756,6 @@ CMD:setvh(playerid, params[])
 	UpdateVehicleParams(vehicleid);
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "La vida del vehículo (%d) ahora es %.1f.", vehicleid, val);
-
 	SendCmdLogToAdmins(playerid, "setvh", params);
 	return 1;
 }
