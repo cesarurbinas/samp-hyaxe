@@ -60,7 +60,7 @@ public UpdateWorldTime()
 
 	new minute;
 	gettime(.minute = minute);
-	if (minute == 30)
+	if (minute == 25)
 	{
 		if ((gettime() - GraffitiLastInit) >= 120)
 		{

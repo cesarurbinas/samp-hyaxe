@@ -5431,6 +5431,9 @@ public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
 	//SendClientMessage(playerid, -1, "OnPlayerWeaponShot");
+	PLAYER_TEMP[playerid][py_AMMO] --;
+	if (PLAYER_TEMP[playerid][py_AMMO] <= 0) PLAYER_TEMP[playerid][py_AMMO] = 0;
+	
 	if (WEAPON_INFO[weaponid][weapon_info_AMMO]) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] --;
 	
 	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] <= 0) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] = 0;

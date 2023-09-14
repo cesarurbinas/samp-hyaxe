@@ -254,10 +254,11 @@ SaveActualWeapon(playerid, reset = false)
 				DB_Query[164],
 				weapon_db_id = PLAYER_VISUAL_INV[playerid][slot_DB_ID][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]
 			;
-
+			// PLAYER_TEMP[playerid][py_AMMO]
+			//PLAYER_WEAPONS[playerid][ WEAPON_INFO[ GetPlayerWeapon(playerid) ][weapon_info_SLOT] ][player_weapon_AMMO]
 			format(DB_Query, sizeof DB_Query,
 				"UPDATE `PLAYER_INVENTORY` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
-				PLAYER_WEAPONS[playerid][ WEAPON_INFO[ GetPlayerWeapon(playerid) ][weapon_info_SLOT] ][player_weapon_AMMO],
+				PLAYER_TEMP[playerid][py_AMMO],
 				weapon_db_id
 			);
 			db_free_result(db_query(Database, DB_Query));

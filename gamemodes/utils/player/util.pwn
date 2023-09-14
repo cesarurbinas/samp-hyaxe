@@ -4512,11 +4512,15 @@ PlayerPayday(playerid)
 
 GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false, bool:save = false, prevent = false)
 {
+	PLAYER_TEMP[playerid][py_AMMO] = 0;
+
 	if (!prevent) ResetPlayerWeaponsEx(playerid);
 
 	if (PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] == weapon_id)
 		PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] += ammo;
 	else PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO] = ammo;
+
+	PLAYER_TEMP[playerid][py_AMMO] = PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO];
 
 	PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY] = gettime() + 3;
