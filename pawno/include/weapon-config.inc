@@ -735,25 +735,25 @@ static s_DamageArmour[][2] = {
 
 // That's right, it's called cuntgun
 stock const g_WeaponName[57][WC_MAX_WEAPON_NAME] = {
-	{"Fist"             }, {"Brass knuckles"}, {"Golf club"           },
-	{"Nightstick"       }, {"Knife"         }, {"Bat"                 },
-	{"Shovel"           }, {"Pool cue"      }, {"Katana"              },
-	{"Chainsaw"         }, {"Purple dildo"  }, {"Dildo"               },
-	{"Vibrator"         }, {"Vibrator"      }, {"Flowers"             },
-	{"Cane"             }, {"Grenade"       }, {"Tear gas"            },
-	{"Molotov"          }, {"Vehicle gun"   }, {"Vehicle gun"         },
-	{""                 }, {"Colt 45"       }, {"Silenced pistol"     },
-	{"Deagle"           }, {"Shotgun"       }, {"Sawn-off shotgun"    },
-	{"Combat shotgun"   }, {"Mac-10"        }, {"MP5"                 },
+	{"Golpe"            }, {"Golpe"			}, {"Palo de golf"        },
+	{"Porra de policía" }, {"Cuchillo"      }, {"Bate"                 },
+	{"Pala"             }, {"Taco de billar"}, {"Katana"              },
+	{"Motocierra"       }, {"Dildo Morado"  }, {"Dildo"               },
+	{"Vibrador"         }, {"Vibrador"      }, {"Ramo de flores"      },
+	{"Caña"             }, {"Grenada"       }, {"Gases lacrimógenos"  },
+	{"Molotov"          }, {"M4 de vehículo"}, {"M4 de vehículo"      },
+	{""                 }, {"9mm"	        }, {"Tazer"   	  		  },
+	{"Deagle"           }, {"Escopeta"      }, {"Escopeta recortada"  },
+	{"Escopeta militar" }, {"Mac-10"        }, {"MP5"                 },
 	{"AK-47"            }, {"M4"            }, {"Tec-9"               },
-	{"Cuntgun"          }, {"Sniper"        }, {"Rocket launcher"     },
-	{"Heat seeking RPG" }, {"Flamethrower"  }, {"Minigun"             },
-	{"Satchel"          }, {"Detonator"     }, {"Spraycan"            },
-	{"Fire extinguisher"}, {"Camera"        }, {"Night vision goggles"},
-	{"Infrared goggles" }, {"Parachute"     }, {"Fake pistol"         },
-	{"Pistol whip"      }, {"Vehicle"       }, {"Helicopter blades"   },
-	{"Explosion"        }, {"Car parking"   }, {"Drowning"            },
-	{"Collision"        }, {"Splat"         }, {"Unknown"             }
+	{"Rifle"          	}, {"Sniper"        }, {"Rocket launcher"     },
+	{"Heat seeking RPG" }, {"Llamas"  		}, {"Minigun"             },
+	{"Cartera"          }, {"Detonator"     }, {"Spray"         	  },
+	{"Extinguidor"		}, {"Camara"        }, {"Night vision goggles"},
+	{"Infrared goggles" }, {"Paracaidas"    }, {"Fake pistol"         },
+	{"Golpe de arma"    }, {"Vehiculo"      }, {"Helicopter blades"   },
+	{"Explosion"        }, {"Car parking"   }, {"Ahogo"            	  },
+	{"Colision"        	}, {"Golpe"         }, {"Desconocido"         }
 };
 
 // Yes - this is every single one of them
