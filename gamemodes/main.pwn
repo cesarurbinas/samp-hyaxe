@@ -48,7 +48,7 @@
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 #define NO_SUSPICION_LOGS
 
@@ -36790,8 +36790,9 @@ CheckNameFilterViolation(const str_text[])
 	return false;
 }
 
-CALLBACK: SendBotResponse(content[])
+CALLBACK: SendBotResponse(const content[])
 {
+	printf("%s", content);
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if (IsPlayerConnected(i))
