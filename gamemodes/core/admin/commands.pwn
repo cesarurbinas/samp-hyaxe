@@ -1,4 +1,4 @@
-new ADMIN_LEVEL_AC_IMMUNITY = 2; // Moderador en adelante
+new ADMIN_LEVEL_AC_IMMUNITY = 2;
 
 CMD:comandosadmin(playerid, params[])
 {
@@ -37,10 +37,8 @@ CMD:jailoff(playerid, params[])
 	if(minutes <= 0 || minutes > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Solo puedes jailear por 1440 minutos.");
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
-	printf("jailoff %d %d %s", dbid, minutes, reason);
-
 	new DBResult:Result, query[175];
-	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID` LIMIT 1;", dbid);
+	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, PERSONAJE.`POLICE_JAIL_TIME`, PERSONAJE.`STATE` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID` LIMIT 1;", dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result))
 	{
@@ -55,7 +53,7 @@ CMD:jailoff(playerid, params[])
 		return 1;
 	}
 
-	if(db_get_field_assoc_int(Result, "POLICE_JAIL_TIME"))
+	if(db_get_field_assoc_int(Result, "POLICE_JAIL_TIME") > 0 || db_get_field_assoc_int(Result, "STATE") == ROLEPLAY_STATE_JAIL)
 	{
 		db_free_result(Result);
 		return SendClientMessage(playerid, COLOR_WHITE, "Este jugador ya esta en prisión.");
@@ -97,7 +95,7 @@ CMD:unjailoff(playerid, params[])
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
 	new DBResult:Result, query[175];
-	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
+	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = CUENTA.`ID` LIMIT 1;", dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result)) 
 	{
@@ -1119,6 +1117,37 @@ CMD:administrador(playerid, params[])
 	return 1;
 }
 alias:administrador("admin")
+
+CMD:comandosadmin(playerid, params[])
+{
+	new level;
+	if(sscanf(params, "d", level))
+	{
+		level = ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL];
+		SendClientMessage(playerid, COLOR_WHITE, "Para ver comandos de otro nivel, usa /comandosadmin (nivel).");
+	}
+	else if(level >= sizeof(ADMIN_LEVELS)) return SendClientMessage(playerid, COLOR_RED, "Estas intentando ver comandos de un rango que no existe.");
+	else if(level > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_RED, "Estas intentando ver comandos de un rango mayor al tuyo.");
+
+	new CmdArray:command_arr = PC_GetCommandArray();
+	new len = PC_GetArraySize(command_arr);
+	new dialog[1250], line[50];
+	for(new i = 0; i != len; i++)
+	{
+		new cmdname[31], flags;
+		PC_GetCommandName(command_arr, i, cmdname);
+		flags = PC_GetFlags(cmdname);
+		if(!flags) continue;
+		if(flags != level) continue;
+		format(line, sizeof(line), "{FFFFFF}/%s (Nivel %d)\n", cmdname, flags);
+		strcat(dialog, line);
+	}
+
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Comandos administrativos", dialog, "Aceptar", "");
+	SendCmdLogToAdmins(playerid, "comandosadmin", params);
+	return 1;
+}
+alias:comandosadmin("admcmd")
 
 CMD:sethealth(playerid, params[])
 {
