@@ -23016,6 +23016,12 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 					format(str_text, sizeof(str_text), "Este territorio está siendo atacado por la banda %s, es mejor alejarse.", CREW_INFO[ TERRITORIES[index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
 					ShowPlayerNotification(playerid, str_text, 6);
 				}
+				else if (TERRITORIES[index][territory_OCCUPIED])
+				{
+					new str_text[164];
+					format(str_text, sizeof(str_text), "Este territorio es de la banda %s.", CREW_INFO[ TERRITORIES[index][territory_CREW_INDEX] ][crew_NAME]);
+					ShowPlayerNotification(playerid, str_text, 6);	
+				}
 			}
 		}
 	}
