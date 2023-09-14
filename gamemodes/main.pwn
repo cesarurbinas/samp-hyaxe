@@ -29781,6 +29781,7 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, color = 0x00F7F7F7)
 	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_COLOR] = color;
 
     SavePlayerWeaponsData(playerid);
+    lastShotTick[playerid] = GetTickCount();
 	return 1;
 }
 
