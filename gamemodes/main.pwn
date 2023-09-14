@@ -239,9 +239,6 @@
 #include "utils/visual_inventory/accommodate.pwn"
 #include "utils/visual_inventory/actions.pwn"
 
-// Notifications
-#include "utils/notification/show.pwn"
-
 // Club's
 #include "core/club/header.pwn"
 #include "core/club/functions.pwn"
