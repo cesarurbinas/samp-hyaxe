@@ -28,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.8 Build 20"
+#define SERVER_VERSION 			"v0.8 Build 21"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -541,7 +541,6 @@ new Tuning_Shop_Objects[][e_Tuning_Shop_Objects] =
     {18651, "PinkNeonTube1", 1000},
     {18652, "WhiteNeonTube1", 1000},
     {18749, "SAMPLogoSmall", 500},
-    {19054, "XmasBox1", 1000},
     {19133, "ArrowType4", 1000},
     {19471, "forsale02", 500},
     {19878, "Skateboard1", 800},
@@ -1538,6 +1537,14 @@ new SAFE_ZONES[][enum_SAFE_ZONES] =
 	{INVALID_STREAMER_ID, 2760.0, -1843.0, 2810.0, -1793.0, 0, 0} // Futbolista
 };
 
+enum enum_MAFIA_DOORS_TYPES
+{
+	DOOR_TYPE_ALL,
+	DOOR_TYPE_MAFIA,
+	DOOR_TYPE_USER,
+	DOOR_TYPE_CREW
+}
+
 enum enum_MAFIA_DOORS
 {
 	mafia_door_MODELID,
@@ -1548,23 +1555,24 @@ enum enum_MAFIA_DOORS
 	mafia_door_INTERIOR,
 	mafia_door_WORLD,
 	bool:mafia_door_CLOSED,
+	mafia_door_TYPE,
+	mafia_door_MAFIA,
 	mafia_door_OBJECT_ID,
-	mafia_door_TIMER,
-	mafia_door_MAFIA
+	mafia_door_TIMER
 };
 new MAFIA_DOORS[][enum_MAFIA_DOORS] =
 {
 	// Saints bloods
-	{19912, 659.0961, -1311.3387, 15.4062, -179.8999, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_MAFIA},
-	{19912, 655.2785, -1231.4831, 17.8062, -117.6996, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_MAFIA},
-	{19912, 787.4024, -1158.2618, 25.5062, -90.1996, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_MAFIA},
+	{19912, 659.0961, -1311.3387, 15.4062, -179.8999, 0, 0, true, DOOR_TYPE_MAFIA, WORK_MAFIA, INVALID_STREAMER_ID, -1},
+	{19912, 655.2785, -1231.4831, 17.8062, -117.6996, 0, 0, true, DOOR_TYPE_MAFIA, WORK_MAFIA, INVALID_STREAMER_ID, -1},
+	{19912, 787.4024, -1158.2618, 25.5062, -90.1996, 0, 0, true, DOOR_TYPE_MAFIA, WORK_MAFIA, INVALID_STREAMER_ID, -1},
 	// MFB
-	{19912, 2829.415527, -1561.982666, 12.851902, 89.400123, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_ENEMY_MAFIA},
-    {19912, 2821.517822, -1597.741455, 12.841901, -107.600006, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_ENEMY_MAFIA},
+	{19912, 2829.415527, -1561.982666, 12.851902, 89.400123, 0, 0, true, DOOR_TYPE_MAFIA, WORK_ENEMY_MAFIA, INVALID_STREAMER_ID, -1},
+    {19912, 2821.517822, -1597.741455, 12.841901, -107.600006, 0, 0, true, DOOR_TYPE_MAFIA, WORK_ENEMY_MAFIA, INVALID_STREAMER_ID, -1},
     // Osborn
-	{19912, -2350.201416, -662.360290, 120.741500, 30.000000, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_OSBORN},
-	{19912, -2464.229003, -488.837310, 105.451400, 30.000000, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_OSBORN},
-	{8378, -1166.879516, -202.562149, 23.027000, -65.000000, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_OSBORN}
+	{19912, -2350.201416, -662.360290, 120.741500, 30.000000, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1},
+	{19912, -2464.229003, -488.837310, 105.451400, 30.000000, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1},
+	{8378, -1166.879516, -202.562149, 23.027000, -65.000000, 0, 0, true, DOOR_TYPE_MAFIA, WORK_OSBORN, INVALID_STREAMER_ID, -1}
 };
 
 // Barredor
@@ -2293,6 +2301,12 @@ enum Toys_Info
 }
 new Toys_Shop[][Toys_Info] =
 {
+	// Halloween
+	{"Caldera", 19527, 3000, 0},
+	{"Bruja", 19528, 3000, 0},
+	{"Diablo", 11704, 3000, 0},
+	{"Calabaza", 19320, 3000, 0},
+	// Normal
 	{"motorcyclehelmet2", 18976, 2000, 0},
 	{"motorcyclehelmet3", 18977, 500, 0},
 	{"motorcyclehelmet4", 18978, 500, 0},
@@ -2426,9 +2440,6 @@ new Toys_Shop[][Toys_Info] =
 	{"hatcool1", 18971, 1500, 0},
 	{"hatcool2", 18972, 1500, 0},
 	{"hatcool3", 18973, 1500, 0},
-	{"santahat1", 19064, 100, 0},
-	{"santahat2", 19065, 100, 0},
-	{"santahat3", 19066, 100, 0},
 	{"hoodyhat1", 19067, 500, 0},
 	{"hoodyhat2", 19068, 500, 0},
 	{"hoodyhat3", 19069, 500, 0},
@@ -2741,7 +2752,7 @@ new RADIO_STATIONS[][radio_enum] =
 	{"Dubatek", "Drum'N'Bass", "http://web.zionsound.fr:8010/stream/1/"},
 	{"Country NY", "Country", "https://streaming.radiostreamlive.com/radiocountrylive_devices"},
 	{"BadRadio", "Phonk", "https://s2.radio.co/s2b2b68744/listen"},
-	{"Hyaxe Radio (En construcción)", "Variadas", "http://radio.hyaxe.com/stream.pls"}
+	{"Hyaxe Radio "COL_GREEN"[APERTURA]", "Variadas", "http://boombox.hyaxe.com:8000/;?type=http&nocache=1"}
 };
 
 new Intro_Music[][] =
@@ -26596,6 +26607,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		CheckTrashJobSite(playerid);
 		CheckMedicJobSite(playerid);
 		//CheckAndReload(playerid);
+		OpenMafiaDoor(playerid);
 
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
     	{
@@ -26738,26 +26750,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					}
 				}
 
-				for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
-				{
-					if (PLAYER_WORKS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ]) continue;
-					if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-					if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-
-					if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
-					{
-						KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-						MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
-
-						new Float:distance = 15.0;
-						if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
-							distance = 50.0;
-
-						MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-						MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-						break;
-					}
-				}
+				OpenMafiaDoor(playerid);
 			}
 
 			CheckMechanicMenu(playerid);
@@ -30651,26 +30644,28 @@ CMD:policia(playerid, params[])
 	return 1;
 }
 
-CMD:porton(playerid, params[])
+OpenMafiaDoor(playerid)
 {
 	for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
 	{
-		if (PLAYER_WORKS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ]) continue;
-		if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-		if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-
-		if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+		if (PLAYER_SKILLS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ] > 0)
 		{
-			KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-			MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
+			if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
+			if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
 
-			new Float:distance = 15.0;
-			if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
-				distance = 50.0;
+			if (IsPlayerInRangeOfPoint(playerid, 33.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+			{
+				KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
+				MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
 
-			MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-			MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-			break;
+				new Float:distance = 15.0;
+				if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
+					distance = 50.0;
+
+				MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
+				MAFIA_DOORS[i][mafia_door_CLOSED] = false;
+				break;
+			}
 		}
 	}
 	return 1;
@@ -32307,7 +32302,7 @@ PlayerPayday(playerid)
 {
 	if (IsPlayerPaused(playerid)) return 0;
 	
-	GivePlayerReputation(playerid);
+	//GivePlayerReputation(playerid);
 
 	new 
 		str_payday[364],
@@ -33387,7 +33382,6 @@ CMD:mafia(playerid, params[])
 
 CALLBACK: CuffPlayer(playerid)
 {
-	StopAudioStreamForPlayer(playerid);
 	SetPlayerDrunkLevel(playerid, 0);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	CancelEdit(playerid);

@@ -2920,3 +2920,17 @@ CMD:profilerdump(playerid, params[])
 	return 1;
 }
 flags:profilerdump(CMD_OWNER)
+
+CMD:allradio(playerid, params[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			StopAudioStreamForPlayer(i);
+			PlayAudioStreamForPlayer(i, "http://boombox.hyaxe.com:8000/;?type=http&nocache=1");
+		}
+	}
+	return 1;
+}
+flags:allradio(CMD_OWNER)

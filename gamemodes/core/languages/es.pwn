@@ -1,5 +1,5 @@
 // Server
-#define SERVER_HOSTNAME "Hyaxe Role Play | Experiencia X2"
+#define SERVER_HOSTNAME "Hyaxe Role Play | Accesorios de Halloween"
 #define SERVER_LANGUAGE "Español / Spanish"
 #define SERVER_MODE "Roleplay"
 
