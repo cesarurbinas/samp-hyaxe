@@ -1,4 +1,4 @@
-#define MAX_DROP_ITEMS 500
+#define MAX_DROP_ITEMS 600
 #define DELETE_ITEM_TIME 600000 // 5 minutos
 
 enum Droped_Items_Enum
