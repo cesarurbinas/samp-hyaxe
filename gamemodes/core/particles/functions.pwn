@@ -159,6 +159,16 @@ ActorBloodParticle(actorid)
 	return 1;
 }
 
+forward DestroyMoneyObject(pickupid);
+public DestroyMoneyObject(pickupid)
+{
+	#if DEBUG_MODE == 1
+		printf("DestroyMoneyObject"); // debug juju
+	#endif
+
+	return DestroyDynamicPickup(pickupid);
+}
+
 MoneyDrop(count, Float:x, Float:y, Float:z, world, interior)
 {
 	for(new i = 0, j = count; i <= j; i++)
