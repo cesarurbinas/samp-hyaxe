@@ -3,19 +3,12 @@ import json
 from sqlite3 import Error
 from flask import Flask, jsonify
 from datetime import datetime
+import sqlite_database
 
 app_url = 'http://www.hyaxe.com/'
-db_path = './scriptfiles/DATABASE/server.db'
 
-# Funcs
-def sql_connection():
-	try:
-		con = sqlite3.connect(db_path)
-		return con
-
-	except Error:
-		pass
-
+database = sqlite_database.hyDatabase()
+database.connect()
 
 def IsValidKey(key):
 	if key == 'I88B7B7F7Es6bKkNS9SB77svJA':
@@ -31,10 +24,7 @@ app = Flask(__name__)
 @app.route('/<key>/GetUser=<id>')
 def GetUser(key, id):
 	if IsValidKey(key) == True:
-		con = sql_connection()
-		sql_cursor = con.cursor()
-		sql_cursor.execute(f"SELECT `ID`, `NAME`, `EMAIL`, `PASS`, `SALT`, `IP`, `LAST_CONNECTION`, `ADMIN_LEVEL`, `LEVEL`, `SU`, `SU_EXPIRE_DATE`, `SD`, `CONNECTED`, `PLAYERID`, `REP` FROM `CUENTA` WHERE `ID` = '{id}';")
-		rows = sql_cursor.fetchall()
+		rows = database.execute(f"SELECT `ID`, `NAME`, `EMAIL`, `PASS`, `SALT`, `IP`, `LAST_CONNECTION`, `ADMIN_LEVEL`, `LEVEL`, `SU`, `SU_EXPIRE_DATE`, `SD`, `CONNECTED`, `PLAYERID`, `REP` FROM `CUENTA` WHERE `ID` = '{id}';")
 
 		if not len(rows) == 0:
 			return jsonify(
@@ -63,10 +53,7 @@ def GetUser(key, id):
 @app.route('/<key>/GetNameId=<name>')
 def GetNameId(key, name):
 	if IsValidKey(key) == True:
-		con = sql_connection()
-		sql_cursor = con.cursor()
-		sql_cursor.execute(f"SELECT `ID`, `NAME` FROM `CUENTA` WHERE `NAME` = '{name}';")
-		rows = sql_cursor.fetchall()
+		rows = database.execute(f"SELECT `ID`, `NAME` FROM `CUENTA` WHERE `NAME` = '{name}';")
 
 		if not len(rows) == 0:
 			return jsonify(
@@ -82,11 +69,7 @@ def GetNameId(key, name):
 @app.route('/<key>/GetUserNotifications=<id>,<limit>')
 def GetUserNotifications(key, id, limit):
 	if IsValidKey(key) == True:
-		con = sql_connection()
-		con.text_factory = bytes
-		sql_cursor = con.cursor()
-		sql_cursor.execute(f"SELECT `ID_USER`, `MESSAGE`, `DATE` FROM `PLAYER_NOTIFICATIONS` WHERE `ID_USER` = '{id}' ORDER BY `DATE` DESC LIMIT {limit};")
-		rows = sql_cursor.fetchall()
+		rows = database.execute(f"SELECT `ID_USER`, `MESSAGE`, `DATE` FROM `PLAYER_NOTIFICATIONS` WHERE `ID_USER` = '{id}' ORDER BY `DATE` DESC LIMIT {limit};")
 
 		if not len(rows) == 0:
 			final_json = []
@@ -104,10 +87,7 @@ def GetUserNotifications(key, id, limit):
 @app.route('/<key>/GetBank=<id>')
 def GetBank(key, id):
 	if IsValidKey(key) == True:
-		con = sql_connection()
-		sql_cursor = con.cursor()
-		sql_cursor.execute(f"SELECT `ID_ACCOUNT`, `ID_USER`, `BALANCE` FROM `BANK_ACCOUNTS` WHERE `ID_USER` = '{id}';")
-		rows = sql_cursor.fetchall()
+		rows = database.execute(f"SELECT `ID_ACCOUNT`, `ID_USER`, `BALANCE` FROM `BANK_ACCOUNTS` WHERE `ID_USER` = '{id}';")
 
 		if not len(rows) == 0:
 			return jsonify(
@@ -124,10 +104,7 @@ def GetBank(key, id):
 @app.route('/<key>/GetCharacter=<id>')
 def GetCharacter(key, id):
 	if IsValidKey(key) == True:
-		con = sql_connection()
-		sql_cursor = con.cursor()
-		sql_cursor.execute(f"SELECT `ID_USER`, `SKIN`, `CASH`, `HEALTH`, `ARMOUR`, `SEX`, `HUNGRY`, `THIRST`, `POLICE_JAIL_TIME` FROM `PERSONAJE` WHERE `ID_USER` = '{id}';")
-		rows = sql_cursor.fetchall()
+		rows = database.execute(f"SELECT `ID_USER`, `SKIN`, `CASH`, `HEALTH`, `ARMOUR`, `SEX`, `HUNGRY`, `THIRST`, `POLICE_JAIL_TIME` FROM `PERSONAJE` WHERE `ID_USER` = '{id}';")
 
 		if not len(rows) == 0:
 			return jsonify(
@@ -150,10 +127,7 @@ def GetCharacter(key, id):
 @app.route('/<key>/GetUserCrew=<id>')
 def GetUserCrew(key, id):
 	if IsValidKey(key) == True:
-		con = sql_connection()
-		sql_cursor = con.cursor()
-		sql_cursor.execute(f"SELECT `ID_USER`, `ID_CREW`, `RANK` FROM `PLAYER_CREW` WHERE `ID_USER` = '{id}';")
-		rows = sql_cursor.fetchall()
+		rows = database.execute(f"SELECT `ID_USER`, `ID_CREW`, `RANK` FROM `PLAYER_CREW` WHERE `ID_USER` = '{id}';")
 
 		if not len(rows) == 0:
 			return jsonify(
@@ -170,10 +144,7 @@ def GetUserCrew(key, id):
 @app.route('/<key>/GetCrew=<id>')
 def GetCrew(key, id):
 	if IsValidKey(key) == True:
-		con = sql_connection()
-		sql_cursor = con.cursor()
-		sql_cursor.execute(f"SELECT `ID`, `NAME`, `COLOR`, `GRAFFITIS_COUNT`, `MARKETS_COUNT`, `DESC` FROM `CREW` WHERE `ID` = '{id}';")
-		rows = sql_cursor.fetchall()
+		rows = database.execute(f"SELECT `ID`, `NAME`, `COLOR`, `GRAFFITIS_COUNT`, `MARKETS_COUNT`, `DESC` FROM `CREW` WHERE `ID` = '{id}';")
 
 		markets = rows[0][4]
 		if rows[0][4] == None:
@@ -201,10 +172,7 @@ def GetCrew(key, id):
 @app.route('/<key>/GetCrewMembers=<id>')
 def GetCrewMembers(key, id):
 	if IsValidKey(key) == True:
-		con = sql_connection()
-		sql_cursor = con.cursor()
-		sql_cursor.execute(f"SELECT `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`ID`, `CUENTA`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '{id}' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK`;")
-		rows = sql_cursor.fetchall()
+		rows = database.execute(f"SELECT `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`ID`, `CUENTA`.`CONNECTED`, `PLAYER_CREW`.`RANK` FROM `CUENTA`, `PLAYER_CREW` WHERE `PLAYER_CREW`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_CREW`.`ID_CREW` = '{id}' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_CREW`.`RANK`;")
 
 		if not len(rows) == 0:
 			final_json = []
@@ -231,10 +199,7 @@ def GetCrewMembers(key, id):
 @app.route('/<key>/GetCrewRank=<id>,<pos>')
 def GetCrewRank(key, id, pos):
 	if IsValidKey(key) == True:
-		con = sql_connection()
-		sql_cursor = con.cursor()
-		sql_cursor.execute(f"SELECT `ID`, `RANK_NAME`, `RANK_POS`, `ID_CREW` FROM `CREW_RANKS` WHERE `ID_CREW` = '{id}' AND `RANK_POS` = '{pos}';")
-		rows = sql_cursor.fetchall()
+		rows = database.execute(f"SELECT `ID`, `RANK_NAME`, `RANK_POS`, `ID_CREW` FROM `CREW_RANKS` WHERE `ID_CREW` = '{id}' AND `RANK_POS` = '{pos}';")
 
 		if not len(rows) == 0:
 			return jsonify(
@@ -250,10 +215,7 @@ def GetCrewRank(key, id, pos):
 
 
 def intern_GetCrewRank(id, pos):
-	con = sql_connection()
-	sql_cursor = con.cursor()
-	sql_cursor.execute(f"SELECT `ID`, `RANK_NAME`, `RANK_POS`, `ID_CREW` FROM `CREW_RANKS` WHERE `ID_CREW` = '{id}' AND `RANK_POS` = '{pos}';")
-	rows = sql_cursor.fetchall()
+	rows = database.execute(f"SELECT `ID`, `RANK_NAME`, `RANK_POS`, `ID_CREW` FROM `CREW_RANKS` WHERE `ID_CREW` = '{id}' AND `RANK_POS` = '{pos}';")
 
 	if not len(rows) == 0:
 		return {
@@ -267,10 +229,7 @@ def intern_GetCrewRank(id, pos):
 
 
 def intern_GetCharacter(id):
-	con = sql_connection()
-	sql_cursor = con.cursor()
-	sql_cursor.execute(f"SELECT `ID_USER`, `SKIN`, `CASH`, `HEALTH`, `ARMOUR`, `SEX`, `HUNGRY`, `THIRST`, `POLICE_JAIL_TIME` FROM `PERSONAJE` WHERE `ID_USER` = '{id}';")
-	rows = sql_cursor.fetchall()
+	rows = database.execute(f"SELECT `ID_USER`, `SKIN`, `CASH`, `HEALTH`, `ARMOUR`, `SEX`, `HUNGRY`, `THIRST`, `POLICE_JAIL_TIME` FROM `PERSONAJE` WHERE `ID_USER` = '{id}';")
 
 	if not len(rows) == 0:
 		return {
