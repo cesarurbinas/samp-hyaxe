@@ -4273,16 +4273,16 @@ public OnPlayerDisconnect(playerid, reason)
 
 	  		if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
 
-			if(PlayerHasBoombox(playerid))
+			if (PlayerHasBoombox(playerid))
 			{
 				for(new i = 0; i < MAX_BOOMBOXS; i++)
 				{
-					if(BOOMBOX[i][bb_OWNER] == ACCOUNT_INFO[playerid][ac_ID])
+					if (BOOMBOX[i][bb_OWNER] == ACCOUNT_INFO[playerid][ac_ID])
 						DestroyBoombox(i);
 				}
 			}
 
-			if(PLAYER_TEMP[playerid][py_DL_LABEL] != INVALID_3DTEXT_ID)
+			if (PLAYER_TEMP[playerid][py_DL_LABEL] != INVALID_3DTEXT_ID)
 			{
 				DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_DL_LABEL]);
 				KillTimer(PLAYER_TEMP[playerid][py_DL_TIMER]);
@@ -6410,7 +6410,7 @@ public OnPlayerSpawn(playerid)
 				new DBResult:NameR, query[65];
 				format(query, sizeof(query), "SELECT `NAME` FROM `CUENTA` WHERE `ID` = %d LIMIT 1;", CHARACTER_INFO[playerid][ch_JAILED_BY]);
 				NameR = db_query(Database, query);
-				if(db_num_rows(NameR))
+				if (db_num_rows(NameR))
 				{
 					new name[25];
 					db_get_field_assoc(NameR, "NAME", name);
@@ -7153,7 +7153,7 @@ public OnPlayerRequestClass(playerid, classid)
 				PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = true;
 			}
 			
-			if(strcmp(PLAYER_TEMP[playerid][py_SERIAL], ACCOUNT_INFO[playerid][ac_SERIAL], false))
+			if (strcmp(PLAYER_TEMP[playerid][py_SERIAL], ACCOUNT_INFO[playerid][ac_SERIAL], false))
 			{
 				format(ACCOUNT_INFO[playerid][ac_SERIAL], 50, "%s", PLAYER_TEMP[playerid][py_SERIAL]);
 			}
@@ -7437,7 +7437,7 @@ public FirstGraffitiAnnounce()
 
 	new hour, minute, second;
 	gettime(hour, minute, second);
-	if(hour >= 2 && hour <= 6) 
+	if (hour >= 2 && hour <= 6) 
 	{
 		print("Skipping graffiti event activation until 6 AM.");
 		SetTimer("FirstGraffitiAnnounce", 1500000, false);
@@ -8769,9 +8769,9 @@ public OnGameModeExit()
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
-		if(!IsPlayerConnected(i)) continue;
+		if (!IsPlayerConnected(i)) continue;
 
-		if(CHARACTER_INFO[i][ch_POLICE_JAIL_TIME] > 0)
+		if (CHARACTER_INFO[i][ch_POLICE_JAIL_TIME] > 0)
 			CHARACTER_INFO[i][ch_POLICE_JAIL_TIME] -= gettime() - PLAYER_TEMP[i][py_ENTER_JAIL_TIME];
 			
 		SaveUserData(i);
@@ -9292,11 +9292,11 @@ CMD:desbug(playerid, params[])
 	;
 
 	GetPlayerPos(playerid, x, y, z);
-	// if(interior != 0) SetPlayerPos(playerid, x, y, z + 0.5);
+	// if (interior != 0) SetPlayerPos(playerid, x, y, z + 0.5);
 
-	if(CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_NORMAL) return 1;
+	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_NORMAL) return 1;
 
-	if(IsPlayerInRangeOfPoint(playerid, 50.0, -198.002197, -1762.759643, 675.768737))
+	if (IsPlayerInRangeOfPoint(playerid, 50.0, -198.002197, -1762.759643, 675.768737))
 		SetPlayerPosEx(playerid, 1172.832763, -1323.269531, 15.400051, 270.0, 0, 0);
 
 	switch(interior)
@@ -9321,7 +9321,7 @@ CMD:pos(playerid, params[])
 
 CMD:b(playerid, params[])
 {
-	if(isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /b "COL_WHITE"[TEXTO]");
+	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /b "COL_WHITE"[TEXTO]");
 
     new str_text[190];
     format(str_text, sizeof(str_text), "[ID: %d] %s: (( %s ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME], params);
@@ -9822,10 +9822,10 @@ CMD:stop(playerid, params[])
 
 CMD:mp3(playerid, params[])
 {
-	if(!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes un reproductor MP3. Ve a una tienda electrónica.", 4);
-	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
-	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
-	if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada un minuto.", 3, 1085);
+	if (!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes un reproductor MP3. Ve a una tienda electrónica.", 4);
+	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
+	if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
+	if (gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada un minuto.", 3, 1085);
 
 	ShowDialog(playerid, DIALOG_PLAYER_MP3);
 	return 1;
@@ -14328,7 +14328,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_BOOMBOX_OPTIONS:
 		{
 			new dialog[350];
-			if(BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), ""COL_WHITE"Opción\t"COL_WHITE"Estado\nParlante público\t< "COL_GREEN"Sí\n");
+			if (BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), ""COL_WHITE"Opción\t"COL_WHITE"Estado\nParlante público\t< "COL_GREEN"Sí\n");
 			else format(dialog, sizeof(dialog), ""COL_WHITE"Opción\t"COL_WHITE"Estado\nParlante público\t< "COL_RED"No\n");
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Opciones del parlante", dialog, "Cambiar", "Salir");
 		}
@@ -16747,7 +16747,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				for(new i = 0; i < strlen(inputtext); i++)
 				{
-					if(inputtext[i] == ' ') inputtext[i] = '+';
+					if (inputtext[i] == ' ') inputtext[i] = '+';
 				}
 
 				new str[180];
@@ -16760,7 +16760,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case DIALOG_PLAYER_MP3_RESULTS:
 		{
-			if(response)
+			if (response)
 			{
 				new url[128];
 				PLAYER_TEMP[playerid][py_RESULT_INDEX] = listitem;
@@ -22265,7 +22265,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case DIALOG_POLICE_DELETE_BYC:
 		{
-			if(response)
+			if (response)
 			{
 				new DB_Query[128];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `POLICE_HISTORY` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_BYC_ID]);
@@ -22515,8 +22515,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if (listitem == 1)
 				{
-					if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
-					if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar YouTube cada un minuto.", 3, 1085);
+					if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
+					if (gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar YouTube cada un minuto.", 3, 1085);
 
 					ShowDialog(playerid, DIALOG_PLAYER_MP3);
 					PLAYER_MISC[playerid][MISC_RADIO_STATION] = 666;
@@ -22818,7 +22818,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case DIALOG_BOOMBOX_OPTIONS:
 		{
-			if(response)
+			if (response)
 			{
 				switch(listitem)
 				{
@@ -22830,15 +22830,15 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		}
 		case DIALOG_ELECTRONIC_SHOP:
 		{
-			if(response)
+			if (response)
 			{
-				if(ELECTRONIC_PRODUCTS[listitem][ep_PRICE] > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 2);
+				if (ELECTRONIC_PRODUCTS[listitem][ep_PRICE] > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 2);
 				
 				switch(ELECTRONIC_PRODUCTS[listitem][ep_TYPE])
 				{
 					case ELECTRONIC_MP3:
 					{
-						if(PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~Ya tienes un MP3.", 2);
+						if (PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~Ya tienes un MP3.", 2);
 
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
 						PLAYER_OBJECT[playerid][po_MP3] = true;
@@ -22848,7 +22848,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case ELECTRONIC_BOOMBOX:
 					{
-						if(PLAYER_OBJECT[playerid][po_BOOMBOX]) return ShowPlayerMessage(playerid, "~r~Ya tienes un parlante.", 2);
+						if (PLAYER_OBJECT[playerid][po_BOOMBOX]) return ShowPlayerMessage(playerid, "~r~Ya tienes un parlante.", 2);
 
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
 						PLAYER_OBJECT[playerid][po_BOOMBOX] = true;
@@ -22873,7 +22873,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							str_text[128]
 						;
 
-						if(PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
+						if (PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] != 0)
 						{
 							format(str_text, sizeof(str_text), "Para comprar esto tienes que deshacerte de tu %s para tener espacio.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][weapon_slot][player_weapon_ID] ][weapon_info_NAME]);
 							ShowPlayerNotification(playerid, str_text, 4);
@@ -25426,6 +25426,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 				ShowPlayerMessage(playerid, "Necesitas ser ~p~VIP~w~ para tener más objetos.", 4);
 				return 1;
 			}
+			
 			if (slot == -1)
 			{
 			    ShowPlayerMessage(playerid, "~r~No hay más espacio para objetos en este vehículo.", 3);
@@ -25507,27 +25508,27 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		}
 	}
 
-	if(PLAYER_TEMP[playerid][py_PLAYER_IN_ATM])
+	if (PLAYER_TEMP[playerid][py_PLAYER_IN_ATM])
     {
-		if(clickedid == Textdraws[textdraw_BANK_MENU][3])
+		if (clickedid == Textdraws[textdraw_BANK_MENU][3])
 		{
 			HideBankMenu(playerid);
 			ShowDialog(playerid, DIALOG_BANK_DEPOSIT);
 			return 1;
 		}
-		else if(clickedid == Textdraws[textdraw_BANK_MENU][4])
+		else if (clickedid == Textdraws[textdraw_BANK_MENU][4])
 		{
 			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_WITHDRAW);
 			return 1;
 		}
-		else if(clickedid == Textdraws[textdraw_BANK_MENU][5])
+		else if (clickedid == Textdraws[textdraw_BANK_MENU][5])
 		{
 			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_TRANSFER);
 			return 1;
 		}
-		else if(clickedid == Textdraws[textdraw_BANK_MENU][6])
+		else if (clickedid == Textdraws[textdraw_BANK_MENU][6])
 		{
 			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_TRANSACTIONS);
@@ -27433,7 +27434,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         return 1;
     }
 
-	if(PRESSED(KEY_CTRL_BACK))
+	if (PRESSED(KEY_CTRL_BACK))
 	{
 		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 			DropItemSlot(playerid);
@@ -27690,7 +27691,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     	}
 	}
 
-	if(PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
 	{
 		if (PRESSED( KEY_ANALOG_UP  ))
 		{
@@ -27751,7 +27752,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		{
 			if (GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_SMOKE_CIGGY &&  PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ] == 54)
 			{
-				if((gettime() - PLAYER_TEMP[playerid][py_LIMIT_JOINT]) > 2)
+				if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_JOINT]) > 2)
 				{
 					PLAYER_TEMP[playerid][py_JOINT_USES] ++;
 					GivePlayerHealthEx(playerid, 3.0);
@@ -31574,7 +31575,7 @@ LoadPlayerWorks(playerid)
 
 SavePlayerSkills(playerid)
 {
-	if(ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
 
 	new DB_Query[150];
 	format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_SKILLS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
@@ -31609,7 +31610,7 @@ LoadPlayerSkills(playerid)
 
 SavePlayerMisc(playerid)
 {
-	if(ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
 
 	new DB_Query[150];
 	format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_MISC` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
@@ -33726,7 +33727,7 @@ CMD:no(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
-	if(IsPlayerJumping(playerid)) return 1;
+	if (IsPlayerJumping(playerid)) return 1;
 	
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	ClearAnimations(playerid);
@@ -35755,13 +35756,13 @@ EndPlayerJob(playerid, changeskin = true)
 			
 			SetPlayerToys(playerid);
 
-			if(IsValidDynamicObject(LogCarts[playerid][cart_OBJECT]))
+			if (IsValidDynamicObject(LogCarts[playerid][cart_OBJECT]))
 				DestroyDynamicObject(LogCarts[playerid][cart_OBJECT]);
 
-			if(IsValidDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]))
+			if (IsValidDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]))
 				DestroyDynamic3DTextLabel(LogCarts[playerid][cart_LABEL]);
 
-			if(IsValidDynamicCP(PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT]))
+			if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT]))
 			{
 				TogglePlayerDynamicCP(playerid, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], false);
 				DestroyDynamicCP(PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT]);
@@ -35824,7 +35825,7 @@ SetPlayerSkillLevels(playerid)
 
 DeleteIlegalInv(playerid, bool:drugs = false)
 {
-	if(!PLAYER_WORKS[playerid][WORK_POLICE])
+	if (!PLAYER_WORKS[playerid][WORK_POLICE])
 	{
 		new DB_Query[90];
 		format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
@@ -36508,7 +36509,7 @@ public UpdateTerritoryAttack(territory_index)
 		new DBResult:rows, query[200];
 		format(query, sizeof(query), "SELECT * FROM `CREW_TERRITORIES` WHERE `ID_TERRITORY` = %d;", TERRITORIES[territory_index][territory_ID]);
 		rows = db_query(Database, query);
-		if(!db_num_rows(rows))
+		if (!db_num_rows(rows))
 		{
 			format(query, sizeof(query), "\
 				INSERT INTO `CREW_TERRITORIES` (`ID_CREW`, `ID_TERRITORY`) VALUES (%d, %d);", TERRITORIES[territory_index][territory_CREW_ID], TERRITORIES[territory_index][territory_ID]);
