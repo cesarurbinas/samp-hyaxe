@@ -322,5 +322,31 @@ HalloweenMap()
 
 CALLBACK: SpawnPumpkin()
 {
+	for(new i = 0, j = 10; i <= j; i++)
+	{
+		new 
+			index = random(sizeof(PUMPKIN_POSITIONS)),
+			Float:x,
+			Float:y
+		;
+
+		RandomCordFromPoint(minrand(10, 50), minrand(3, 5), x, y);
+
+		CreateDropItem(
+			57,
+			x,
+			y,
+			100.0,
+			0.0,
+			0.0,
+			0.0,
+			0,
+			0,
+			"Calabaza",
+			"Null",
+			57,
+			1
+		);
+	}
 	return 1;
 }
