@@ -167,6 +167,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Admin
 #include "core/admin/macros.pwn"
 #include "core/admin/level.pwn"
+#include "core/admin/callbacks.pwn"
 #include "core/admin/commands.pwn"
 
 new Float:NewUserPos[][] =
@@ -3162,6 +3163,7 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] = INVALID_PLAYER_ID;
 	PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] = INVALID_VEHICLE_ID;
 	PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] = INVALID_VEHICLE_ID;
+	PLAYER_TEMP[playerid][py_CHECK_OBJECT] =
 	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = INVALID_OBJECT_ID;
 	//PLAYER_TEMP[playerid][py_CLEANER_INDEX] = 99;
 	for(new i = 0; i != MAX_OBJECTS_PER_ROUTE; i ++) TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
@@ -34155,7 +34157,6 @@ AddPlayerPoliceHistory(playerid, const by[], const reason[])
 	return 1;
 }
 
-flags:ayudante(CMD_HELPER)
 flags:ufo(CMD_OPERATOR)
 flags:staff(CMD_HELPER)
 flags:setveh(CMD_MODERATOR)
@@ -34169,8 +34170,8 @@ flags:setadv(CMD_MODERATOR4)
 flags:setkicks(CMD_MODERATOR4)
 flags:initmarket(CMD_OPERATOR)
 flags:dropitem(CMD_MODERATOR3)
-flags:gmx(CMD_OPERATOR)
-flags:closeserver(CMD_OPERATOR)
+flags:gmx(CMD_ADMIN)
+flags:closeserver(CMD_ADMIN)
 #if defined PROFILER_PROFILER_INCLUDE
 	flags:profilerstart(CMD_OPERATOR)
 	flags:profilerstop(CMD_OPERATOR)
@@ -34186,9 +34187,6 @@ flags:setpd(CMD_OPERATOR)
 flags:moderador(CMD_MODERATOR)
 flags:pnot(CMD_MODERATOR)
 flags:addcode(CMD_OPERATOR)
-flags:supermoderador(CMD_MODERATOR2)
-flags:operador(CMD_MODERATOR3)
-flags:administrador(CMD_MODERATOR4)
 flags:muteard(CMD_HELPER)
 flags:desmuteard(CMD_HELPER)
 flags:trabajos(CMD_MODERATOR)
@@ -34228,11 +34226,11 @@ flags:pm(CMD_HELPER)
 flags:atenderre(CMD_MODERATOR)
 flags:deletead(CMD_MODERATOR2)
 flags:settime(CMD_MODERATOR3)
-flags:darstaff(CMD_ADMIN)
-flags:fakeping(CMD_ADMIN)
-flags:botmaster(CMD_ADMIN)
-flags:hy(CMD_ADMIN)
-flags:ac(CMD_OPERATOR)
+flags:darstaff(CMD_OWNER)
+flags:fakeping(CMD_OWNER)
+flags:botmaster(CMD_OWNER)
+flags:hy(CMD_OWNER)
+flags:ac(CMD_OWNER)
 flags:setthirst(CMD_MODERATOR2)
 flags:sethungry(CMD_MODERATOR2)
 flags:setgas(CMD_MODERATOR2)
@@ -34260,7 +34258,7 @@ flags:gotoproperty(CMD_MODERATOR4)
 flags:setpass(CMD_MODERATOR4)
 flags:setip(CMD_MODERATOR4)
 flags:accsaveall(CMD_MODERATOR4)
-flags:delete(CMD_ADMIN)
+flags:delete(CMD_OWNER)
 flags:rproperty(CMD_OPERATOR)
 flags:eproperty(CMD_OPERATOR)
 flags:cproperty(CMD_OPERATOR)
@@ -34282,8 +34280,11 @@ flags:vpcar(CMD_ADMIN)
 flags:rev(CMD_MODERATOR2)
 flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
-flags:admac(CMD_MODERATOR4)
+flags:admac(CMD_OWNER)
 flags:depositveh(CMD_MODERATOR)
+
+// dije que komandos by jeiks
 flags:jailoff(CMD_MODERATOR)
 flags:unjailloff(CMD_MODERATOR)
 flags:comandosadmin(CMD_HELPER)
+flags:freezedetect(CMD_MODERATOR2) // Detecta freezecolls

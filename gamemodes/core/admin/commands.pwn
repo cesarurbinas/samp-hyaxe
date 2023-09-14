@@ -39,7 +39,7 @@ CMD:jailoff(playerid, params[])
 	if(minutes <= 0 || minutes > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Solo puedes jailear por 1440 minutos.");
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
-	new DBResult:Result, query[175];
+	new DBResult:Result, query[250];
 	format(query, sizeof(query), "SELECT CUENTA.`NAME`, CUENTA.`CONNECTED`, PERSONAJE.`POLICE_JAIL_TIME`, PERSONAJE.`STATE` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result))
@@ -96,7 +96,7 @@ CMD:unjailoff(playerid, params[])
 	if(sscanf(params, "d", dbid)) return SendClientMessage(playerid, COLOR_WHITE, "USO: /unjailoff (dbid)");
 	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
 
-	new DBResult:Result, query[175];
+	new DBResult:Result, query[185];
 	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
 	Result = db_query(Database, query);
 	if(!db_num_rows(Result)) 
@@ -1091,46 +1091,6 @@ CMD:repairveh(playerid, params[])
 }
 alias:repairveh("repararveh")
 
-CMD:ayudante(playerid, params[])
-{
-	ShowDialog(playerid, DIALOG_HELP_HELPER);
-	SendCmdLogToAdmins(playerid, "ayudante", params);
-	return 1;
-}
-alias:ayudante("helper")
-
-CMD:moderador(playerid, params[])
-{
-	ShowDialog(playerid, DIALOG_HELP_MOD);
-	SendCmdLogToAdmins(playerid, "moderador", params);
-	return 1;
-}
-alias:moderador("mod")
-
-CMD:supermoderador(playerid, params[])
-{
-	ShowDialog(playerid, DIALOG_HELP_SMOD);
-	SendCmdLogToAdmins(playerid, "supermoderador", params);
-	return 1;
-}
-alias:supermoderador("smod")
-
-CMD:operador(playerid, params[])
-{
-	ShowDialog(playerid, DIALOG_HELP_OPER);
-	SendCmdLogToAdmins(playerid, "operador", params);
-	return 1;
-}
-alias:operador("oper")
-
-CMD:administrador(playerid, params[])
-{
-	ShowDialog(playerid, DIALOG_HELP_ADMIN);
-	SendCmdLogToAdmins(playerid, "administrador", params);
-	return 1;
-}
-alias:administrador("admin")
-
 CMD:sethealth(playerid, params[])
 {
 	new to_player, Float:ammount;
@@ -1323,15 +1283,16 @@ CMD:purga(playerid, params[])
 CMD:dafuqungordoxdd(playerid, params[])
 {
 	new DB_Query[70];
-	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = '8' WHERE `ID` = %d;", ACCOUNT_INFO[playerid][ac_ID]);
+	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = %d WHERE `ID` = %d;", CMD_OWNER, ACCOUNT_INFO[playerid][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
-	ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] = 8;
+	ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] = CMD_OWNER;
 	SendClientMessageEx(playerid, COLOR_RED, "Aviso: "COL_WHITE"Ahora tu nivel administrativo es: %d", ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]);
 	return 1;
 }
 
-CMD:marselobotikin(playerid, params[])
+// Al chupame la pija nenazo de mierda
+CMD:fixbotiquines(playerid, params[])
 {
 	PLAYER_MISC[playerid][MISC_BOTIKIN] = 0;
 	return 1;
@@ -1347,7 +1308,8 @@ CMD:initmarket(playerid, params[])
 {
 	new id;
 	if (sscanf(params, "d", id)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /initmarket <id>");
-
+	if(id <= -1 || id >= sizeof(BLACK_MARKET_OBJ)) return SendClientMessage(playerid, COLOR_WHITE, sprintf("Syntax: /initmarket <0-%d>", sizeof(BLACK_MARKET_OBJ)));
+	
 	InitBlackMarket(id);
 	return 1;
 }
@@ -2686,7 +2648,7 @@ CMD:admac(playerid, params[])
 CMD:depositveh(playerid, params[])
 {
 	new vehicleid;
-	if (sscanf(params, "if", vehicleid)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /depositveh <vehicleid>");
+	if (sscanf(params, "i", vehicleid)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /depositveh <vehicleid>");
 	if (vehicleid >= MAX_VEHICLES) return SendClientMessage(playerid, COLOR_WHITE, "Vehículo no válido.");
 	if (!GLOBAL_VEHICLES[vehicleid][gb_vehicle_VALID]) return SendClientMessage(playerid, COLOR_WHITE, "Vehículo no válido.");
 
@@ -2707,5 +2669,36 @@ CMD:depositveh(playerid, params[])
 	SendClientMessage(playerid, COLOR_WHITE, "El vehículo fue enviado al estacionamiento municipal");
 
 	SendCmdLogToAdmins(playerid, "depositveh", params);
+	return 1;
+}
+
+CMD:freezedetect(playerid, params[])
+{
+	new toply;
+	if(sscanf(params, "r", toply)) return SendClientMessage(playerid, COLOR_WHITE, "USO: /freezedetect (playerid)");
+	if(!IsPlayerInAnyVehicle(toply)) return SendClientMessage(playerid, COLOR_WHITE, "El jugador tiene que estar en un vehículo.");
+	if(PLAYER_TEMP[toply][py_CHECK_OBJECT] != INVALID_OBJECT_ID) return SendClientMessage(playerid, COLOR_WHITE, "El jugador ya tiene un chequeo activo.");
+
+	new Float:vx, Float:vy, Float:vz, vehicleid = GetPlayerVehicleID(toply);
+	GetVehicleVelocity(vehicleid, vx, vy, vz);
+	if(floatabs(vx) <= 0.0 || floatabs(vy) <= 0.0) return SendClientMessage(playerid, COLOR_WHITE, "Su vehículo no se esta moviendo.");
+
+	GetVehicleHealth(vehicleid, PLAYER_TEMP[toply][py_CHECK_VEHICLE_HEALTH]);
+	GetVehicleDamageStatus(vehicleid, PLAYER_TEMP[toply][py_CHECK_DAMAGES][0], PLAYER_TEMP[toply][py_CHECK_DAMAGES][1], PLAYER_TEMP[toply][py_CHECK_DAMAGES][2], PLAYER_TEMP[toply][py_CHECK_DAMAGES][3]);
+	new Float:vehposx, Float:vehposy, Float:vehposz;
+	GetVehiclePos(vehicleid, vehposx, vehposy, vehposz);
+
+	new Float:vpx, Float:vpy;
+	GetXYInFrontOfPlayer(toply, vpx, vpy, 7.5);
+
+	if(floatabs(vy) > floatabs(vx)) PLAYER_TEMP[toply][py_CHECK_OBJECT] = CreatePlayerObject(toply, 19463, vpx, vpy, vehposz, 0.0, 0.0, -100.0);
+	else PLAYER_TEMP[toply][py_CHECK_OBJECT] = CreatePlayerObject(toply, 19463, vpx, vpy, vehposz, 0.0, 0.0, 0.0);
+
+	SetPlayerObjectMaterial(toply, PLAYER_TEMP[toply][py_CHECK_OBJECT], 0, 0, "none", "none", 0x00000000);
+
+	SetTimerEx("OnFreezeCheckEnd", 1500, false, "ddd", toply, playerid, vehicleid);
+	SendClientMessage(playerid, COLOR_WHITE, "Chequeo iniciado.");
+
+	SendCmdLogToAdmins(playerid, "freezedetect", params);
 	return 1;
 }

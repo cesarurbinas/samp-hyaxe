@@ -17,6 +17,7 @@ enum
 	CMD_MODERATOR5,
 	CMD_OPERATOR,
 	CMD_ADMIN,
+	CMD_OWNER
 };
 new ADMIN_LEVELS[][] =
 {
@@ -28,5 +29,6 @@ new ADMIN_LEVELS[][] =
 	"Mod IIII",
 	"Mod IIIII",
 	"Operador",
-	"Administrador"
+	"Administrador",
+	"Administrador II"
 };
