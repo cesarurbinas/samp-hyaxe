@@ -14661,7 +14661,7 @@ ShowDialog(playerid, dialogid)
 			if (PLAYER_TEMP[playerid][py_CLUB_INDEX] == -1) return 0;
 
 			new str_text[128];
-			format(str_text, sizeof(str_text), ""COL_WHITE"%d "SERVER_COIN"?", CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE]);
+			format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender el local por %d "SERVER_COIN"?", CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Vender local", str_text, "Si", "No");
 		}
 		default: return 0;
@@ -23678,6 +23678,24 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					db_free_result(db_query(Database, DB_Query));
 			    }
 			}
+		}
+		case DIALOG_CLUB_SELL:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_CLUB_INDEX] == -1) return 0;
+
+				new extra =  CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE];
+
+				ACCOUNT_INFO[playerid][ac_SD] += extra;
+
+				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
+				db_free_result(db_query(Database, DB_Query));
+
+				format(str_text, sizeof(str_text), "Acabas de vender el local por ~y~%d Hycoins", extra);
+				ShowPlayerMessage(playerid, str_text, 6);
+			}
+			else CheckClubMenu(playerid);
 		}
 	}
 	return 0;
@@ -35297,7 +35315,7 @@ CMD:r(playerid, params[])
 	if (sscanf(params, "s[128]", message)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /r "COL_WHITE"[MENSAJE]");
 
 	if (PLAYER_TEMP[playerid][py_ADMIN_PM_PID] == INVALID_PLAYER_ID || !PLAYER_TEMP[playerid][py_ADMIN_PM_AID]) 
-		return ShowPlayerMessage(playerid, "~r~Nada que responder.", 2);
+		return ShowPlayerMessage(playerid, "~r~Nada que responder.", 3);
 	
 	if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_ADMIN_PM_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_ADMIN_PM_AID])
 	{
