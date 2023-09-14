@@ -29,7 +29,6 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	KillTimer(GetPVarInt(playerid, "notification_timer"));
 	g_ActiveNotification[playerid] = false;
 
 	#if defined Notifications_OPDisconnect

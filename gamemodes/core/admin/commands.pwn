@@ -3480,9 +3480,21 @@ CMD:setbankcash(playerid, params[])
 }
 flags:setbankcash(CMD_ADMIN)
 
-CMD:testnotification(playerid, params)
+CMD:testnotification(playerid, params[])
 {
-	ShowPlayerNotification(playerid, sprintf("Esto no se va a romper el que me crea que me crea y el que no me crea que no me creda, random: ~y~%d~w~.", random(50)), 5);
+	ShowPlayerNotification(playerid, sprintf("BUabu bua, random: ~y~%d~w~.", random(50)), 3);
+	return 1;
+}
+
+CMD:falsenotification(playerid, params[])
+{
+	g_ActiveNotification[playerid] = true;
+	return 1;
+}
+
+CMD:killnotification(playerid, params[])
+{
+	SetTimerEx("TIMER_NotificationHide", 100, false, "i", playerid);
 	return 1;
 }
 
