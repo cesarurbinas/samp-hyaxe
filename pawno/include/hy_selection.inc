@@ -139,7 +139,7 @@ native ShowPlayerMenu(playerid, menuid[], caption[], type[] = "Interaction Menu"
 #define ShowPlayerMenu(%0,%1, \
 	Internal_ShowPlayerMenu(%0, #%1,
 
-stock Internal_ShowPlayerMenu(playerid, const menuid[], const caption[], const type[] = "INTERACTION MENU", captionTextColor = 0xf7f7f7ff, captionBoxColor = 0xdb0dd0bb, const captionSprite[] = "loadsc12:loadsc12")
+stock Internal_ShowPlayerMenu(playerid, const menuid[], const caption[], const type[] = "MENU", captionTextColor = 0xac2323FF, captionBoxColor = 0x000000FF, const captionSprite[] = "loadsc12:loadsc12")
 {
 	if (playerid < 0 || playerid >= MAX_PLAYERS)
 	{
@@ -313,6 +313,7 @@ stock Internal_ShowPlayerMenu(playerid, const menuid[], const caption[], const t
 	playerMenu[playerid][E_PLAYER_MENU_LISTITEM] = 0;
 	playerMenu[playerid][E_PLAYER_MENU_TOTAL_LISTITEMS] = 0;
 	playerMenu[playerid][E_PLAYER_MENU_TICKCOUNT] = 0;
+	TogglePlayerControllable(playerid, false);
 	return 1;
 }
 
@@ -361,6 +362,7 @@ stock HidePlayerMenu(playerid)
     menuPlayerTextDrawsCount[playerid] = 0;
 
     playerMenu[playerid][E_PLAYER_MENU_ID][0] = EOS;
+    TogglePlayerControllable(playerid, true);
 	return 1;
 }
 
@@ -403,6 +405,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 		    menuPlayerTextDrawsCount[playerid] = 0;
 		    playerMenu[playerid][E_PLAYER_MENU_ID][0] = EOS;
+		    TogglePlayerControllable(playerid, true);
 
 			CallLocalFunction(menuid, "iii", playerid, MENU_RESPONSE_CLOSE, (playerMenu[playerid][E_PLAYER_MENU_LISTITEM] + (playerMenu[playerid][E_PLAYER_MENU_PAGE] * MENU_MAX_LISTITEMS_PERPAGE)));
 		}
@@ -420,6 +423,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 		    menuPlayerTextDrawsCount[playerid] = 0;
 		    playerMenu[playerid][E_PLAYER_MENU_ID][0] = EOS;
+		    TogglePlayerControllable(playerid, true);
 
 			CallLocalFunction(menuid, "iii", playerid, MENU_RESPONSE_SELECT, (playerMenu[playerid][E_PLAYER_MENU_LISTITEM] + (playerMenu[playerid][E_PLAYER_MENU_PAGE] * MENU_MAX_LISTITEMS_PERPAGE)));
 		}

@@ -39,6 +39,69 @@ enum string_edges {
 	edge_both = edge_left | edge_right
 };
 
+TextToSpanish(const string[])
+{
+    new result_text[1024],
+        ASCII,
+        Len;
+
+    for (Len = strlen(string); ASCII < Len; ASCII ++)
+    {
+        switch (string[ASCII])
+        {
+            case 'à':   result_text[ASCII] = 151;
+            case 'á':   result_text[ASCII] = 152;
+            case 'â':   result_text[ASCII] = 153;
+            case 'ä':   result_text[ASCII] = 154;
+            case 'À':   result_text[ASCII] = 128;
+            case 'Á':   result_text[ASCII] = 129;
+            case 'Â':   result_text[ASCII] = 130;
+            case 'Ä':   result_text[ASCII] = 131;
+            case 'è':   result_text[ASCII] = 157;
+            case 'é':   result_text[ASCII] = 158;
+            case 'ê':   result_text[ASCII] = 159;
+            case 'ë':   result_text[ASCII] = 160;
+            case 'È':   result_text[ASCII] = 134;
+            case 'É':   result_text[ASCII] = 135;
+            case 'Ê':   result_text[ASCII] = 136;
+            case 'Ë':   result_text[ASCII] = 137;
+            case 'ì':   result_text[ASCII] = 161;
+            case 'í':   result_text[ASCII] = 162;
+            case 'î':   result_text[ASCII] = 163;
+            case 'ï':   result_text[ASCII] = 164;
+            case 'Ì':   result_text[ASCII] = 138;
+            case 'Í':   result_text[ASCII] = 139;
+            case 'Î':   result_text[ASCII] = 140;
+            case 'Ï':   result_text[ASCII] = 141;
+            case 'ò':   result_text[ASCII] = 165;
+            case 'ó':   result_text[ASCII] = 166;
+            case 'ô':   result_text[ASCII] = 167;
+            case 'ö':   result_text[ASCII] = 168;
+            case 'Ò':   result_text[ASCII] = 142;
+            case 'Ó':   result_text[ASCII] = 143;
+            case 'Ô':   result_text[ASCII] = 144;
+            case 'Ö':   result_text[ASCII] = 145;
+            case 'ù':   result_text[ASCII] = 169;
+            case 'ú':   result_text[ASCII] = 170;
+            case 'û':   result_text[ASCII] = 171;
+            case 'ü':   result_text[ASCII] = 172;
+            case 'Ù':   result_text[ASCII] = 146;
+            case 'Ú':   result_text[ASCII] = 147;
+            case 'Û':   result_text[ASCII] = 148;
+            case 'Ü':   result_text[ASCII] = 149;
+            case 'ñ':   result_text[ASCII] = 174;
+            case 'Ñ':   result_text[ASCII] = 173;
+            case '¡':   result_text[ASCII] = 64;
+            case '¿':   result_text[ASCII] = 175;
+            case '`':   result_text[ASCII] = 177;
+            case '#':   result_text[ASCII] = 35;
+            case '&':   result_text[ASCII] = 38;
+            default:    result_text[ASCII] = string[ASCII];
+        }
+    }
+    return result_text;
+}
+
 /*
  * Returns a formatted string.
  *
@@ -490,13 +553,11 @@ static stock IsOverlapping(const str1[], size1 = sizeof(str1), const str2[], siz
 }
 
 // strlib functions
-#if !defined ispacked
-    #define ispacked(%1) \
-        ((%1)[0] > 255)
-#endif
+#define isstrpackeded(%1) \
+	((%1)[0] > 255)
 
 stock strgetfirstc(const string[]) {
-	return ispacked(string) ? string{0} : string[0];
+	return isstrpackeded(string) ? string{0} : string[0];
 }
 
 stock strgetc(const string[], index) {
@@ -508,20 +569,20 @@ stock strgetc(const string[], index) {
 	if (index >= len)
 		return '\0';
 	
-	return ispacked(string) ? string{index} : string[index];
+	return isstrpackeded(string) ? string{index} : string[index];
 }
 
 stock strsize(const string[]) {
 	new len = strlen(string);
 	
-	if (ispacked(string))
+	if (isstrpackeded(string))
 		return len + 1;
 	
 	return (len + 1) * 4;
 }
 
 stock bool:isempty(const string[]) {
-	if (ispacked(string))
+	if (isstrpackeded(string))
 		return string{0} == '\0';
 	else
 		return string[0] == '\0';
@@ -546,8 +607,8 @@ stock strdistance(const str1[], const str2[], bool:ignorecase = false) {
 
 	static data[128][128];
 
-	new bool:pack1 = ispacked(str1),
-		bool:pack2 = ispacked(str2);
+	new bool:pack1 = isstrpackeded(str1),
+		bool:pack2 = isstrpackeded(str2);
 
 	new size1 = strlen(str1),
 		size2 = strlen(str2);
@@ -652,7 +713,7 @@ stock strexplode(output[][], const input[], const delimiter[] = !",", limit = ce
 	if (trim) {
 		new i = -1;
 		
-		if (ispacked(input)) {
+		if (isstrpackeded(input)) {
 			while (input{++i}) {
 				if (input{i} > ' ') {
 					i = -1;
@@ -685,7 +746,7 @@ stock strexplode(output[][], const input[], const delimiter[] = !",", limit = ce
 	new
 		     pos = 0,
 		     next,
-		bool:packed = ispacked(input),
+		bool:packed = isstrpackeded(input),
 		     dlen = strlen(delimiter),
 		     count = 0,
 		     end
@@ -734,7 +795,7 @@ stock strreplace(string[], const search[], const replacement[], bool:ignorecase 
     new
              sublen = strlen(search),
              replen = strlen(replacement),
-        bool:packed = ispacked(string),
+        bool:packed = isstrpackeded(string),
              maxlen = maxlength,
              len = strlen(string),
              count = 0
@@ -774,7 +835,7 @@ stock strreplace(string[], const search[], const replacement[], bool:ignorecase 
 }
 
 stock strtrim(string[], const chars[] = !"", string_edges:edge = edge_both) {
-	new bool:packed = ispacked(string);
+	new bool:packed = isstrpackeded(string);
 	
 	// If "chars" is empty, trim whitespace
 	if (!strgetfirstc(chars)) {
@@ -877,7 +938,7 @@ stock strpad(string[], length, const substr[] = !" ", string_edges:edge = edge_b
 		     len = strlen(string),
 		     sublen = strlen(substr),
 		bool:packed,
-		bool:subpacked = ispacked(substr)
+		bool:subpacked = isstrpackeded(substr)
 	;
 	
 	if (len > length)
@@ -923,7 +984,7 @@ stock strpad(string[], length, const substr[] = !" ", string_edges:edge = edge_b
 	if (length_right) {
 		len = strlen(string);
 		length_right += len;
-		packed = ispacked(string);
+		packed = isstrpackeded(string);
 		
 		while (len < length_right) {
 			if (packed)
@@ -1210,7 +1271,7 @@ stock strurlencode(output[], const input[], maxlength = sizeof(output), bool:pac
 	
 	new
 		     len = strlen(input),
-		bool:packed = ispacked(input),
+		bool:packed = isstrpackeded(input),
 		     outlen = 0,
 		     heap = 0
 	;
@@ -1322,10 +1383,10 @@ stock strcatmid(dest[], const source[], start = 0, end = -1, maxlength = sizeof(
 		if (end == -1)
 			end = strlen(source);
 		
-		if (ispacked(dest)) {
+		if (isstrpackeded(dest)) {
 			new len = strlen(dest);
 			
-			if (ispacked(source)) {
+			if (isstrpackeded(source)) {
 				strunpack(g_StrlibBuffer, source);
 			
 				strcat(dest, g_StrlibBuffer[start], min(maxlength, (len + end - start) / 4 + 1));
@@ -1335,7 +1396,7 @@ stock strcatmid(dest[], const source[], start = 0, end = -1, maxlength = sizeof(
 			
 			dest{len + end - start} = '\0';
 		} else {
-			if (ispacked(source)) {
+			if (isstrpackeded(source)) {
 				strunpack(g_StrlibBuffer, source);
 			
 				strcat(dest, g_StrlibBuffer[start], min(maxlength, strlen(dest) + end - start + 1));
@@ -1357,7 +1418,7 @@ stock utf8encode(dest[], const source[], maxlength = sizeof(dest)) {
 	}
 	
 	new len = strlen(source);
-	new packed = ispacked(source);
+	new packed = isstrpackeded(source);
 	
 	dest[0] = '\0';
 	
@@ -1722,7 +1783,7 @@ stock sprintf(const fmat[], {Float, _}:...) {
 	
 	const output_size = sizeof(output);
 	
-	if (ispacked(fmat)) {
+	if (isstrpackeded(fmat)) {
 		heap = CopyArgumentToHeap(0);
 	} else {
 		heap = 0;
