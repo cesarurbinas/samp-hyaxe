@@ -5,7 +5,7 @@
 
 // Special hostnames
 #define HALLOWEEN_HOSTNAME "Hyaxe Role Play | Evento de Halloween"
-#define CHRISTMAS_HOSTNAME "Hyaxe Role Play | Evento de Navidad"
+#define CHRISTMAS_HOSTNAME "Hyaxe Role Play | Navidad"
 #define EASTER_HOSTNAME "Hyaxe Role Play | Evento de Pascuas"
 
 // Item names
