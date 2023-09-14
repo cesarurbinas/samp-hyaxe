@@ -18259,7 +18259,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
 						{
 							GivePlayerCash(playerid, -50, false);
-							GameTextForPlayer(playerid, "~r~-50$", 5000, 1);
 						}
 						return 1;
 					}
@@ -18273,7 +18272,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
 						{
 							GivePlayerCash(playerid, -100, false);
-							GameTextForPlayer(playerid, "~r~-100$", 5000, 1);
 						}
 						return 1;
 					}
@@ -18287,7 +18285,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
 						{
 							GivePlayerCash(playerid, -400, false);
-							GameTextForPlayer(playerid, "~r~-400$", 5000, 1);
 						}
 						return 1;
 					}
@@ -18301,7 +18298,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (!PLAYER_WORKS[playerid][WORK_POLICE] || !PLAYER_WORKS[playerid][WORK_MAFIA])
 						{
 							GivePlayerCash(playerid, -250, false);
-							GameTextForPlayer(playerid, "~r~-250$", 5000, 1);
 						}
 						return 1;
 					}
@@ -26175,7 +26171,7 @@ GivePlayerCash(playerid, ammount, bool:update = true, bool:game_text = true)
 		
 		GameTextForPlayer(playerid, str_text, 4000, 1);
 	}
-	
+
 	CHARACTER_INFO[playerid][ch_CASH] += ammount;
 	ResetPlayerMoney(playerid);
 	GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
