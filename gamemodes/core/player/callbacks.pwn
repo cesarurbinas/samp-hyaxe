@@ -1451,12 +1451,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        	{
 		        		if (onFootData[PR_position][2] > 1.0)
 						{
-							new str_text[144];
-							format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (%f, %f)", PLAYER_TEMP[playerid][py_NAME], playerid, depth, playerdepth);
-						    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
-						    SendDiscordWebhook(str_text, 1);
-						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (3)");
-							KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+							Anticheat_Ban(playerid, "Fly #2");
 							return 0;
 						}
 					}

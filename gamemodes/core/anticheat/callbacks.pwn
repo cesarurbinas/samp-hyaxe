@@ -18,12 +18,7 @@
 			PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_LAST_DETECTION] = current_gettime;
 			if (PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS] >= 5)
 			{
-				new str_text[144];
-				format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): RapidFire", PLAYER_TEMP[playerid][py_NAME], playerid);
-				SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
-				SendDiscordWebhook(str_text, 1);
-				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: RapidFire");
-				KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+				ssss
 			}
 		}
 
