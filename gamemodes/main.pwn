@@ -17491,15 +17491,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (!PLAYER_WORKS[playerid][WORK_MAFIA])
-				{
-					if (POLICE_SHOP_WEAPONS[listitem][police_shop_RANK] > PLAYER_SKILLS[playerid][WORK_POLICE])
-					{
-						ShowPlayerNotification(playerid, "No tienes rango para usar esta arma.", 3);
-						return 1;
-					}
-				}
-
 				if (CHARACTER_INFO[playerid][ch_CASH] >= POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_PRICE])
 				{
 					new weapon_slot = WEAPON_INFO[ POLICE_SHOP_WEAPONS[listitem][police_shop_WEAPON_ID] ][weapon_info_SLOT];
