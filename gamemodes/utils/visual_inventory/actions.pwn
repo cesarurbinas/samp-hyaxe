@@ -277,7 +277,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				}
 				else
 				{
-					new already_exists = ItemAlreadyInProperty(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
+					new already_exists = ItemAlreadyInVehicle(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
 
 					if (already_exists)
 					{
