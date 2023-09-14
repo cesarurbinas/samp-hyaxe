@@ -7292,7 +7292,7 @@ PayPlayerMiner(playerid)
 	PLAYER_SKILLS[playerid][WORK_MINER] ++;
 	SavePlayerSkills(playerid);
 
-	GivePlayerReputation(playerid);
+	if (random(2) == 1) GivePlayerReputation(playerid);
 	return 1;
 }
 
