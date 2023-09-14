@@ -17791,14 +17791,25 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
 				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
 
-				new str_text[32];
-				format(str_text, 32, "~g~+%s$", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-     			GameTextForPlayer(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], str_text, 5000, 1);
+				new pay_text[32];
+				format(pay_text, 32, "~g~+%s$", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
+     			GameTextForPlayer(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], pay_text, 5000, 1);
 
-				format(str_text, 32, "~r~-%s$", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-     			GameTextForPlayer(playerid, str_text, 5000, 1);
+				format(pay_text, 32, "~r~-%s$", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
+     			GameTextForPlayer(playerid, pay_text, 5000, 1);
 
 				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			
+				new str_text[164];
+				format(str_text, sizeof(str_text), "%s (%d) le ha vendido %d hycoins a %s (%d) al precio de %d$.",
+					PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_NAME],
+					PLAYER_TEMP[playerid][py_TRICK_SELLER_PID],
+					PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
+					PLAYER_TEMP[playerid][py_NAME],
+					playerid,
+					PLAYER_TEMP[playerid][py_TRICK_PRICE]
+				);
+				Log("hycoin_sell", str_text);
 			}
 			else
 			{
