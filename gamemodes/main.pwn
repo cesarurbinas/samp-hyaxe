@@ -2503,8 +2503,9 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Sección C", INTERIOR_NO_INFO, -1, true, 38, 27, 2546.433105, 1924.534423, -58.649192, 265.830688, 56, false, 37, 26, 2067.543212, 1201.233398, -61.074184, 85.059127, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "TCC", INTERIOR_NO_INFO, -1, true, 0, 28, 3854.231933, -1265.252319, 7547.983398, 188.315292, -1, false, 0, 0, 2770.574462, -1628.717163, 12.177460, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 0, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 693.761047, 1967.498168, 5.539062, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 1, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 1145.013916,-1131.447998,23.828125, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 2, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 2421.501953,-1219.768432,25.527839, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 1, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 1145.013916,-1131.447998, 23.828125, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 2, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 2421.501953,-1219.768432, 25.527839, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Mike Santander", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, -245.578720, -2193.103271, 29.839702, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
@@ -8607,9 +8608,7 @@ CALLBACK: SavePlayerData(playerid)
 {
 	SaveUserData(playerid);
 	SavePlayerVehicles(playerid, false);
-	SavePlayerSkills(playerid);
 	SavePlayerWeaponsData(playerid);
-	SavePlayerToysData(playerid);
 	return 1;
 }
 
@@ -8667,7 +8666,7 @@ CMD:gps(playerid, params[])
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_OBJECT[playerid][po_GPS])
 	{
-		ShowPlayerMessage(playerid, "No tienes ningún GPS, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
+		ShowPlayerMessage(playerid, "~r~No tienes ningún GPS, ve a un 24/7.", 3, 1085);
 		return 1;
 	}
 
@@ -8721,7 +8720,7 @@ CMD:guia(playerid, params[])
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_OBJECT[playerid][po_PHONE_RESOLVER])
 	{
-		ShowPlayerMessage(playerid, "No tienes una guía telefónica, puedes ir a cualquier 24/7 para comprar una.", 3, 1085);
+		ShowPlayerMessage(playerid, "~r~No tienes una guía telefónica, ve a un 24/7.", 3, 1085);
 		return 1;
 	}
 
@@ -8740,7 +8739,7 @@ CMD:responder(playerid, params[])
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_PHONE[playerid][player_phone_VALID])
 	{
-		ShowPlayerMessage(playerid, "No tienes ningún teléfono, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
+		ShowPlayerMessage(playerid, "~r~No tienes ningún teléfono, ve a 24/7.", 3, 1085);
 		return 1;
 	}
 	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu teléfono está apagado, para encenderlo usa /movil.", 3);
@@ -8771,7 +8770,7 @@ CMD:colgar(playerid, params[])
 {
 	if (!PLAYER_PHONE[playerid][player_phone_VALID])
 	{
-		ShowPlayerMessage(playerid, "No tienes ningún teléfono, puedes ir a cualquier 24/7 para comprar uno.", 3, 1085);
+		ShowPlayerMessage(playerid, "~r~No tienes ningún teléfono, ve a un 24/7.", 3, 1085);
 		return 1;
 	}
 	if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_OFF) return ShowPlayerMessage(playerid, "~r~Tu teléfono está apagado, para encenderlo usa /movil.", 3);
@@ -12863,13 +12862,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
             if (response)
             {
                 CHARACTER_INFO[playerid][ch_SEX] = SEX_MALE;
-                RandomMaleSkin(playerid);
+                CHARACTER_INFO[playerid][ch_SKIN] = 250;
             }
         
             if (!response)
             {
                 CHARACTER_INFO[playerid][ch_SEX] = SEX_FEMALE;
-                RandomFemaleSkin(playerid);
+                CHARACTER_INFO[playerid][ch_SKIN] = 192;
             }
             PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 500, false, "id", playerid, 0);
         }       
@@ -12950,7 +12949,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowPlayerNotification(playerid, str_text, 4);
 
 				// ONLY HOST
-				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 300000, true, "i", playerid);				
+				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 600000, true, "i", playerid);				
 
 				new pass_str[364];
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
@@ -22533,34 +22532,6 @@ SetIntroCamera(playerid)
     return 1;
 }
 
-RandomMaleSkin(playerid)
-{
-    new RandomMaleSelect = random(5);
-    switch (RandomMaleSelect)
-    {
-        case 0: CHARACTER_INFO[playerid][ch_SKIN] = 250;
-        case 1: CHARACTER_INFO[playerid][ch_SKIN] = 15;
-        case 2: CHARACTER_INFO[playerid][ch_SKIN] = 14;
-        case 3: CHARACTER_INFO[playerid][ch_SKIN] = 60;
-        case 4: CHARACTER_INFO[playerid][ch_SKIN] = 170;
-    }
-    return 1;
-}
-
-RandomFemaleSkin(playerid)
-{
-    new RandomFemaleSelect = random(5);
-    switch (RandomFemaleSelect)
-    {
-        case 0: CHARACTER_INFO[playerid][ch_SKIN] = 56;
-        case 1: CHARACTER_INFO[playerid][ch_SKIN] = 69;
-        case 2: CHARACTER_INFO[playerid][ch_SKIN] = 93;
-        case 3: CHARACTER_INFO[playerid][ch_SKIN] = 151;
-        case 4: CHARACTER_INFO[playerid][ch_SKIN] = 192;
-    }
-    return 1;
-}
-
 CheckBlockedWeapon(playerid)
 {
   	new weaponID = GetPlayerWeapon(playerid);
@@ -30918,7 +30889,7 @@ CMD:pmaletero(playerid, params[])
 CMD:esposar(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /esposar [ID o nombre]");
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
@@ -30959,7 +30930,7 @@ CMD:esposar(playerid, params[])
 CMD:placa(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /placa [ID o nombre]");
 
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador no conectado.", 3);
@@ -30969,14 +30940,14 @@ CMD:placa(playerid, params[])
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Le enseña su placa a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	SendClientMessageEx(params[0], COLOR_WHITE, "%s %c. %s "COL_YELLOW"[Placa: %d]", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME], PLAYER_MISC[playerid][MISC_PLACA_PD]);
-	ShowPlayerMessage(playeris, "Has mostrado tu placa", 3);
+	ShowPlayerMessage(playerid, "Has mostrado tu placa", 3);
 	return 1;
 }
 
 CMD:revisar(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /revisar [ID o nombre]");
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
@@ -30997,7 +30968,7 @@ alias:revisar("cachear");
 CMD:requisar(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /requisar [ID o nombre]");
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
@@ -31017,7 +30988,7 @@ CMD:requisar(playerid, params[])
 CMD:ref(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
 	new city[45], zone[45];
 	GetPlayerZones(playerid, city, zone);
@@ -31085,7 +31056,7 @@ CALLBACK: DisableRefMark(playerid)
 CMD:control(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
 	if (GetPlayerVirtualWorld(playerid) != 0 || GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No puedes colocar objetos policiales aquí.", 3);
@@ -31158,7 +31129,7 @@ public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, model
 		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
 		{
 			CancelEdit(playerid);
-			ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+			ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 			return 1;
 		}
 		if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8)
@@ -31194,7 +31165,7 @@ public OnPlayerEditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, respons
 			if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
 			{
 				CancelEdit(playerid);
-				ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+				ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 				return 1;
 			}
 			if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8)
@@ -31217,7 +31188,7 @@ public OnPlayerEditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, respons
 CMD:multar(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /multar [ID o nombre] [precio$]");
 	if (params[1] < 0) return ShowPlayerMessage(playerid, "~r~El precio no puede ser menor a 0$.", 3);
 	else if (params[1] > 500000) return ShowPlayerMessage(playerid, "~r~El precio no puede ser mayor a 500.000$.", 3);
@@ -31241,7 +31212,7 @@ CMD:multar(playerid, params[])
 CMD:arrestar(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
 	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /arrestar [ID o nombre] [Asiento 1 ó 2]");
 	if (params[1] < 1 || params[1] > 2) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /arrestar [ID o nombre] [Asiento 1 ó 2]");
@@ -31276,11 +31247,10 @@ CMD:arrestar(playerid, params[])
 	return 1;
 }
 
-
 CMD:callsing(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 11) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /callsing [Texto]");
@@ -31302,7 +31272,7 @@ CMD:callsing(playerid, params[])
 CMD:m(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
 	if (!IsPlayerInAnyVehicle(playerid)) return ShowPlayerMessage(playerid, "~r~Para usar el megáfono tienes que estar dentro de un vehículo policial.", 3);
 
@@ -31331,7 +31301,7 @@ PutPlayerInVehicleEx(playerid, vehicleid, seat)
 CMD:entregar(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
 	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /entregar [ID o nombre] [Minutos]");
 	if (params[1] < 1 || params[1] > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: cantidad de minutos no válida.");
@@ -31441,7 +31411,7 @@ CALLBACK: CuffPlayer(playerid)
 CMD:frecuencias(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
 	ShowDialog(playerid, DIALOG_POLICE_RADIOS);
 	return 1;
@@ -32537,7 +32507,13 @@ CMD:ban(playerid, params[])
 	return 1;
 }
 
-CMD:cls(playerid,params[])
+CMD:clearchat(playerid, params[])
+{
+	ClearPlayerChatBox(playerid);
+	return 1;
+}
+
+CMD:cls(playerid, params[])
 {
 	for(new i = 0; i != 40; i ++) SendClientMessageToAll(-1, " ");
 
@@ -34887,8 +34863,6 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 
 	if (TERRITORIES[territory_index][territory_WAR_TIME_LEFT] <= 0)
 	{
-		new old_crew = TERRITORIES[territory_index][territory_CREW_ID];
-
 		CREW_INFO[ TERRITORIES[territory_index][territory_CREW_INDEX] ][crew_FIGHTING] = false;
 		TERRITORIES[territory_index][territory_CREW_ID] = CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_ID];
 		TERRITORIES[territory_index][territory_CREW_INDEX] = TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX];
@@ -34899,38 +34873,6 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 
 		new message[145];
 		format(message, sizeof message, "%s ha conquistado un nuevo territorio.", CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
-
-		new DB_Query[256], label_str[256];
-		if (TERRITORIES[territory_index][territory_OCCUPIED])
-		{
-			for(new i = 0; i != MAX_PROPERTIES; i ++)
-			{
-				if (!PROPERTY_INFO[i][property_VALID]) continue;
-				if (!PROPERTY_INFO[i][property_CREW]) continue;
-				if (PROPERTY_INFO[i][property_CREW_ID] != old_crew) continue;
-
-				if (IsPointInDynamicArea(TERRITORIES[territory_index][territory_AREA], PROPERTY_INFO[i][property_EXT_X], PROPERTY_INFO[i][property_EXT_Y], PROPERTY_INFO[i][property_EXT_Z]))
-				{
-					PROPERTY_INFO[i][property_CREW_ID] = TERRITORIES[territory_index][territory_CREW_ID];
-
-					format
-					(
-						label_str,
-						sizeof label_str,
-						""COL_WHITE"\
-							Propiedad %d\n\
-							Banda: %s\n\
-						", PROPERTY_INFO[i][property_ID], CREW_INFO[ TERRITORIES[territory_index][territory_CREW_INDEX] ][crew_NAME]
-					);
-
-					UpdateDynamic3DTextLabelText(PROPERTY_INFO[i][property_EXT_LABEL_ID], COLOR_WHITE, label_str);
-				}
-			}
-
-			format(DB_Query, sizeof DB_Query, "UPDATE `CREW_TERRITORIES` SET `ID_CREW` = '%d' WHERE `ID_TERRITORY` = '%d';", CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_ID], TERRITORIES[territory_index][territory_ID]);
-		}
-		else format(DB_Query, sizeof DB_Query, "INSERT INTO `CREW_TERRITORIES` (`ID_CREW`, `ID_TERRITORY`) VALUES ('%d', '%d');", CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_ID], TERRITORIES[territory_index][territory_ID]);
-		db_query(Database, DB_Query);
 
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_LAST_ATTACK] = gettime();
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_FIGHTING] = false;
@@ -36883,7 +36825,7 @@ CMD:borrarop(playerid, params[])
 CMD:abyc(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
 	new to_player, reason[128];
 	if (sscanf(params, "us[128]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /abyc [Playerid o nombre] [razon]");
@@ -36901,7 +36843,7 @@ CMD:abyc(playerid, params[])
 CMD:dbyc(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 11) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
 
 	new to_player;
@@ -36921,7 +36863,7 @@ CMD:dbyc(playerid, params[])
 CMD:byc(playerid, params[])
 {
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía..", 3);
+	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
 	ShowDialog(playerid, DIALOG_POLICE_BYC);
 	return 1;

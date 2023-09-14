@@ -14239,13 +14239,8 @@ public OnFilterScriptInit()
 public OnPlayerConnect(playerid)
 {
     // base mc maik
-    RemoveBuildingForPlayer(playerid, 17429, -288.3125, -2143.8516, 58.1953, 0.25);
-    RemoveBuildingForPlayer(playerid, 825, -631.1797, -2444.9531, 330.5234, 0.25);
-    RemoveBuildingForPlayer(playerid, 823, -622.3516, -2448.9141, 330.5234, 0.25);
     RemoveBuildingForPlayer(playerid, 3276, -300.9375, -2148.4219, 28.3203, 0.25);
-    RemoveBuildingForPlayer(playerid, 1308, -303.3125, -2143.9141, 27.6328, 0.25);
     RemoveBuildingForPlayer(playerid, 3276, -297.1875, -2141.5703, 28.3203, 0.25);
-    RemoveBuildingForPlayer(playerid, 703, -191.6797, -2323.3984, 29.5078, 0.25);
     RemoveBuildingForPlayer(playerid, 705, -220.5391, -2281.0156, 27.3906, 0.25);
     RemoveBuildingForPlayer(playerid, 705, -208.9766, -2306.9531, 27.8906, 0.25);
     RemoveBuildingForPlayer(playerid, 3276, -257.5625, -2241.5234, 28.3203, 0.25);
@@ -14269,29 +14264,6 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 3276, -248.0391, -2192.8125, 29.0234, 0.25);
     RemoveBuildingForPlayer(playerid, 3276, -244.8594, -2203.8672, 29.0234, 0.25);
     RemoveBuildingForPlayer(playerid, 3276, -243.7266, -2214.7266, 28.8984, 0.25);
-    RemoveBuildingForPlayer(playerid, 14388, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14389, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14390, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14417, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14418, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14419, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14420, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14421, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14423, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14425, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14426, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14427, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14429, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14430, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14431, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 14485, 1255.0313, -812.4688, 1086.2578, 0.25);
-    RemoveBuildingForPlayer(playerid, 2307, 1272.4844, -812.8438, 1088.9453, 0.25);
-    RemoveBuildingForPlayer(playerid, 14456, 1282.2500, -805.2266, 1093.2344, 0.25);
-    RemoveBuildingForPlayer(playerid, 14392, 1251.5234, -803.9453, 1084.2500, 0.25);
-    RemoveBuildingForPlayer(playerid, 14460, 1263.2266, -801.7344, 1089.7500, 0.25);
-    RemoveBuildingForPlayer(playerid, 14470, 1258.4141, -775.3047, 1089.7500, 0.25);
-    RemoveBuildingForPlayer(playerid, 14488, 1233.8594, -763.5625, 1085.4297, 0.25);
-    RemoveBuildingForPlayer(playerid, 14455, 1287.5234, -799.6953, 1090.6016, 0.25);
 
 	//Objetos removidos de LCN HQ
     RemoveBuildingForPlayer(playerid, 726, 743.2422, -1151.4766, 20.8750, 0.25);
