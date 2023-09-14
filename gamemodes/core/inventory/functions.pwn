@@ -1563,11 +1563,11 @@ DropItemSlot(playerid, anim = true)
 	
 	if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]))
 	{
-		CreateDropItem(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), PLAYER_TEMP[playerid][py_NAME], PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+		CreateDropItem(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), PLAYER_TEMP[playerid][py_NAME], PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot], .playerid = playerid);
 	}
 	else
 	{
-		CreateDropItem(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), PLAYER_TEMP[playerid][py_NAME]);
+		CreateDropItem(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], pos[0], pos[1], pos[2] - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), PLAYER_TEMP[playerid][py_NAME], .playerid = playerid);
 	}
 
 	SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);

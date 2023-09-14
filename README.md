@@ -190,3 +190,4 @@ Diferencia: 16 dias
 * Se ha arreglado el equipamiento de The Family Sindacco
 * Se ha arreglado el bug que al golpear con la culata de un arma sacaba la vida como si fuera un disparo
 * Se ha arreglado el bug que al agarrar un tazer en LSPD te daba un botiquin
+* Se ha mejorado el spawn de items, ahora ya no se podran arriba tuyo

@@ -81,7 +81,7 @@ GetFreeDropItemSlot()
     return -1;
 }
 
-CreateDropItem(type, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, worldid, interiorid, const owner[] = "Null", ammount = 1)
+CreateDropItem(type, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, worldid, interiorid, const owner[] = "Null", ammount = 1, playerid = INVALID_PLAYER_ID)
 {
 	new index = GetFreeDropItemSlot();
 	if (index == -1) return print("[DEBUG] Error: Todos los slots de item sueltos estan ocupados.");
@@ -97,10 +97,24 @@ CreateDropItem(type, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, wo
 	if (interiorid == 0)
 	{
 		CA_FindZ_For2DCoord(x, y, z);
+
+		if (playerid != INVALID_PLAYER_ID)
+		{
+			new Float:px, Float:py, Float:pz, distance;
+			GetPlayerPos(playerid, px, py, pz);
+			distance = (px - z);
+
+			if (distance >= 3.0)
+			{
+				x = px;
+				y = py;
+				z = pz;
+			}
+		}
 		
 		switch(type)
 		{
-			case 41: z+= 0.3;
+			case 41: z += 0.3;
 			case 48: z += 0.7;
 			case 33: z += 0.2;
 		}
