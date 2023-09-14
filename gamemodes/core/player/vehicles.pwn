@@ -30,12 +30,27 @@ AddPlayerKey(vehicle_id, user_id)
 
 bool:IsPlayerInKeys(vehicle_id, user_id)
 {
-	new DBResult:Result, DB_Query[164];
+	new DBResult:Result, DB_Query[164], bool:is_valid;
 	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_KEYS` WHERE `VEHICLE_ID` = '%d' AND `USER_ID` = '%d';", vehicle_id, user_id);
 
 	Result = db_query(Database, DB_Query);
-	if (db_num_rows(Result)) return true;
-	return false;
+	if (db_num_rows(Result)) is_valid = true;
+	else is_valid = false;
+	
+	db_free_result(Result);
+	return is_valid;
+}
+
+GetUsedKeys(vehicle_id)
+{
+	new DBResult:Result, DB_Query[164], total;
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_KEYS` WHERE `VEHICLE_ID` = '%d';", vehicle_id);
+
+	Result = db_query(Database, DB_Query);
+	total = db_num_rows(Result);
+	
+	db_free_result(Result);
+	return total;
 }
 
 ClearVehicleKeys(vehicle_id, user_id)
