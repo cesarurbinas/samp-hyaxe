@@ -128,8 +128,6 @@ CheckMarketProgress(playerid)
 			if (BLACK_MARKET_OBJ[i][bm_ACTIVATED])
 			{
 				BLACK_MARKET_OBJ[i][bm_ACTIVATED] = false;
-				//TextDrawColor(Textdraws[textdraw_GRAFFITI][0], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);
-				//SetTimer("FirstGraffitiAnnounce", 1500000, false);
 				format(str_text, sizeof(str_text), "%s ahora domina el mercado de %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], BLACK_MARKET_OBJ[i][bm_ZONE_NAME]);
 				SendGraffitiNotification(str_text);
 				SendDiscordWebhook(str_text, 3);

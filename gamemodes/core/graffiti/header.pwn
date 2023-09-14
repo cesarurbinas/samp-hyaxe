@@ -2,7 +2,8 @@
 new 
 	GraffitiGlobalTime,
 	GraffitiGetTime,
-	GraffitiCancelTimer;
+	GraffitiCancelTimer
+;
 
 enum graffitis_info
 {

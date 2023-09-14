@@ -2478,8 +2478,6 @@ public OnGameModeInit()
 
 	#if defined FINAL_BUILD
 		SetTimer("UpdateWantedLevelMark", 30000, true);
-
-		SetTimer("FirstGraffitiAnnounce", 1500000, false);
 		SetTimer("InitLastGraffiti", 60000, false);
 	#endif
 

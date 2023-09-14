@@ -29,7 +29,6 @@ public FirstGraffitiAnnounce()
 	if (hour >= 2 && hour <= 6) 
 	{
 		print("Skipping graffiti event activation until 6 AM.");
-		SetTimer("FirstGraffitiAnnounce", 1500000, false);
 		return 0;
 	}
 
@@ -81,7 +80,6 @@ public CancelGraffiti()
 			new str_text[144];
 
 			GRAFFITIS_OBJ[i][g_ACTIVATED] = false;
-			SetTimer("FirstGraffitiAnnounce", 1500000, false);
 
 			format(str_text, sizeof(str_text), "Nadie ha ganado el graffiti en %s.", GRAFFITIS_OBJ[i][g_ZONE_NAME]);
 			SendGraffitiNotification(str_text);

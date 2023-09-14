@@ -173,7 +173,6 @@ CheckGraffitiProgress(playerid)
 			{
 				GRAFFITIS_OBJ[i][g_ACTIVATED] = false;
 				KillTimer(GraffitiCancelTimer);
-				SetTimer("FirstGraffitiAnnounce", 1500000, false);
 
 				format(str_text, sizeof(str_text), "%s ha ganado el graffiti en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], GRAFFITIS_OBJ[i][g_ZONE_NAME]);
 				SendGraffitiNotification(str_text);

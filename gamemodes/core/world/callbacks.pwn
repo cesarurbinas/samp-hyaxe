@@ -1,3 +1,5 @@
+new GraffitiLastInit;
+
 forward UpdateThePutis();
 public UpdateThePutis()
 {
@@ -39,7 +41,6 @@ public UpdateWorldTime()
 		if (SERVER_TIME[0] > 23) SERVER_TIME[0] = 0;
 	}
 
-
 	SetWorldTime(SERVER_TIME[0]);
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -58,6 +59,17 @@ public UpdateWorldTime()
 					case 25..27: SetPlayerTime(i, 2, 2);
 				}
 			}
+		}
+	}
+
+	new minute;
+	gettime(.minute = minute);
+	if (minute == 30)
+	{
+		if ((gettime() - GraffitiLastInit) >= 120)
+		{
+			FirstGraffitiAnnounce();
+			GraffitiLastInit = gettime();
 		}
 	}
 	return 1;

@@ -92,9 +92,9 @@ Listado de cosas para hacer
 
 ✅ Enumerations en inventory type
 
-❌ Agregar para compartir llaves de casas
+✅ Agregar para compartir llaves de casas
 
-❌ Mejorar el inicio de disputas
+✅ Mejorar el inicio de disputas
 
 ❌ Arreglar el tiempo restante para una disputa en el panel de banda
 
@@ -137,3 +137,28 @@ Listado de cosas para hacer
 ❌ Arreglar bypass del vehicle health
 
 ✅ Arreglar barras de sed y hambre
+
+# Changelog
+* Arreglos en la apariencia del inventario
+* El comando /repairveh fue arreglado
+* Mas de 40 items nuevos
+* El sistema de items y inventario fue reescrito totalmente
+* Arreglos en el aspecto del login
+* Ahora hay tiendas en los burdeles
+* Las tiendas de comida fueron reescritas
+* Cambios en la apariencia del preview dialog
+* Los nombres de los accesorios ahora son mas cortos
+* Ahora puedes moverte por el inventario usando el numpad
+	- 4 para ir atras
+	- 6 para ir hacia adelante
+* Las barras de sed y hambre fueron arregladas
+* Los botones del inventario fueron arreglados
+* Ahora puedes llevar comida en el inventario
+* Ahora puedes seleccionar de que forma quieres que se ordene el inventario desde /config
+* Ahora se puede compartir la llave de las propiedades
+* Ahora las menciones en el canal de dudas funcionan solo con poner @, ya no hace falta poner los dos puntos al final
+* El sistema de bidones de gasolina fue reescrito, ahora cada bidon solo tiene un uso, y subira 20 de gasolina al vehiculo
+* Se arreglaron los caracteres espanoles en las notificaciones
+* Nuevo velocimetro
+	- Ahora este marca el estado de las puertas y las luces
+* Ahora las disputas de graffiti inician cada hora a los 45 minutos, el primer aviso sale a las xx:30
