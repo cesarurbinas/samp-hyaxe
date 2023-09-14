@@ -217,13 +217,6 @@ public OnPlayerConnect(playerid)
 		    KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			return 0;
 		}
-
-		if (IsFakeClient(playerid))
-		{   
-		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inválido");
-		    KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-			return 0;	
-		}
 	}
 	//printf("[%d] OnPlayerConnect 6", playerid);
 	EnablePlayerCameraTarget(playerid, true);
@@ -6089,6 +6082,9 @@ public ContinuePlayerIntro(playerid, step)
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 500, false, "id", playerid, 1);
+
+			if (!PLAYER_TEMP[playerid][py_ANDROID] && IsFakeClient(playerid))
+				Anticheat_Ban(playerid, "Cliente externo");
 		}
 		case 1:
 		{
