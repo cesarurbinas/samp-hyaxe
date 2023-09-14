@@ -7077,7 +7077,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP_TUNING][2]);
 						TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP_TUNING][3]);
 						TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP_TUNING][4]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP]);
 						//PLAYER_TEMP[playerid][py_SELECT_TUNING_OBJECT] = 0;
 
 						UpdateTuningShop(playerid);

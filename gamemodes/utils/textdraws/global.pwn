@@ -836,91 +836,6 @@ CreateTextDraws()
 	TextDrawUseBox(Textdraws[textdraw_LOGO][2], 0);
 	TextDrawSetProportional(Textdraws[textdraw_LOGO][2], 1);
 	TextDrawSetSelectable(Textdraws[textdraw_LOGO][2], 0);
-
-	Textdraws[textdraw_MAIN_MENU][0] = TextDrawCreate(0.000000, -1.000000, "HYAXE:mainmenu");
-	TextDrawFont(Textdraws[textdraw_MAIN_MENU][0], 4);
-	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][0], 0.600000, 2.000000);
-	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][0], 641.000000, 449.500000);
-	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][0], 1);
-	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][0], 0);
-	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][0], 1);
-	TextDrawColor(Textdraws[textdraw_MAIN_MENU][0], -1);
-	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][0], 255);
-	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][0], 50);
-	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][0], 1);
-	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][0], 1);
-	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][0], 0);
-
-	Textdraws[textdraw_MAIN_MENU][1] = TextDrawCreate(43.000000, 198.000000, "HYAXE:modo");
-	TextDrawFont(Textdraws[textdraw_MAIN_MENU][1], 4);
-	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][1], 0.600000, 2.000000);
-	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][1], 156.000000, 43.000000);
-	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][1], 1);
-	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][1], 0);
-	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][1], 1);
-	TextDrawColor(Textdraws[textdraw_MAIN_MENU][1], -1);
-	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][1], 255);
-	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][1], 50);
-	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][1], 1);
-	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][1], 1);
-	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][1], 1);
-
-	Textdraws[textdraw_MAIN_MENU][2] = TextDrawCreate(43.000000, 248.000000, "HYAXE:cuenta");
-	TextDrawFont(Textdraws[textdraw_MAIN_MENU][2], 4);
-	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][2], 0.600000, 2.000000);
-	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][2], 156.000000, 43.000000);
-	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][2], 1);
-	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][2], 0);
-	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][2], 1);
-	TextDrawColor(Textdraws[textdraw_MAIN_MENU][2], -1);
-	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][2], 255);
-	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][2], 50);
-	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][2], 1);
-	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][2], 1);
-	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][2], 1);
-
-	Textdraws[textdraw_MAIN_MENU][3] = TextDrawCreate(43.000000, 299.000000, "HYAXE:config");
-	TextDrawFont(Textdraws[textdraw_MAIN_MENU][3], 4);
-	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][3], 0.600000, 2.000000);
-	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][3], 156.000000, 43.000000);
-	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][3], 1);
-	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][3], 0);
-	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][3], 1);
-	TextDrawColor(Textdraws[textdraw_MAIN_MENU][3], -1);
-	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][3], 255);
-	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][3], 50);
-	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][3], 1);
-	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][3], 1);
-	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][3], 1);
-
-	Textdraws[textdraw_MAIN_MENU][4] = TextDrawCreate(43.000000, 351.000000, "HYAXE:salir");
-	TextDrawFont(Textdraws[textdraw_MAIN_MENU][4], 4);
-	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][4], 0.600000, 2.000000);
-	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][4], 156.000000, 43.000000);
-	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][4], 1);
-	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][4], 0);
-	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][4], 1);
-	TextDrawColor(Textdraws[textdraw_MAIN_MENU][4], -1);
-	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][4], 255);
-	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][4], 50);
-	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][4], 1);
-	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][4], 1);
-	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][4], 1);
-
-	// Jugar
-	Textdraws[textdraw_MAIN_MENU][5] = TextDrawCreate(458.000000, 386.000000, "_");
-	TextDrawFont(Textdraws[textdraw_MAIN_MENU][5], 1);
-	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][5], 1.158332, 4.499986);
-	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][5], 621.500000, 20.000000);
-	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][5], 1);
-	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][5], 0);
-	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][5], 1);
-	TextDrawColor(Textdraws[textdraw_MAIN_MENU][5], 0x00000000);
-	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][5], 0x00000000);
-	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][5], 0x00000000);
-	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][5], 1);
-	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][5], 1);
-	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][5], 1);
 	
 	Textdraws[textdraw_SPEEDO_METER][0] = TextDrawCreate(546.000000, 346.000000, "_");
 	TextDrawFont(Textdraws[textdraw_SPEEDO_METER][0], 1);
@@ -952,7 +867,7 @@ CreateTextDraws()
 
 	Textdraws[textdraw_SPEEDO_METER][2] = TextDrawCreate(502.000000, 371.000000, "KM/H");
 	TextDrawFont(Textdraws[textdraw_SPEEDO_METER][2], 2);
-	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][2], 0.154166, 0.899999);
+	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][2], 0.154164, 0.899999);
 	TextDrawTextSize(Textdraws[textdraw_SPEEDO_METER][2], 400.000000, 17.000000);
 	TextDrawSetOutline(Textdraws[textdraw_SPEEDO_METER][2], 0);
 	TextDrawSetShadow(Textdraws[textdraw_SPEEDO_METER][2], 0);
@@ -966,7 +881,7 @@ CreateTextDraws()
 
 	Textdraws[textdraw_SPEEDO_METER][3] = TextDrawCreate(553.000000, 355.000000, "_");
 	TextDrawFont(Textdraws[textdraw_SPEEDO_METER][3], 1);
-	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][3], 0.516665, 2.299979);
+	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][3], 0.516664, 2.299978);
 	TextDrawTextSize(Textdraws[textdraw_SPEEDO_METER][3], 274.500000, 20.000000);
 	TextDrawSetOutline(Textdraws[textdraw_SPEEDO_METER][3], 1);
 	TextDrawSetShadow(Textdraws[textdraw_SPEEDO_METER][3], 0);
@@ -980,7 +895,7 @@ CreateTextDraws()
 
 	Textdraws[textdraw_SPEEDO_METER][4] = TextDrawCreate(591.000000, 355.000000, "_");
 	TextDrawFont(Textdraws[textdraw_SPEEDO_METER][4], 1);
-	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][4], 0.516665, 2.299979);
+	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][4], 0.516664, 2.299978);
 	TextDrawTextSize(Textdraws[textdraw_SPEEDO_METER][4], 274.500000, 20.000000);
 	TextDrawSetOutline(Textdraws[textdraw_SPEEDO_METER][4], 1);
 	TextDrawSetShadow(Textdraws[textdraw_SPEEDO_METER][4], 0);
@@ -1006,9 +921,9 @@ CreateTextDraws()
 	TextDrawSetProportional(Textdraws[textdraw_SPEEDO_METER][5], 1);
 	TextDrawSetSelectable(Textdraws[textdraw_SPEEDO_METER][5], 0);
 
-	Textdraws[textdraw_SPEEDO_METER][6] = TextDrawCreate(497.000000, 388.000000, "O");
+	Textdraws[textdraw_SPEEDO_METER][6] = TextDrawCreate(496.000000, 388.000000, "O");
 	TextDrawFont(Textdraws[textdraw_SPEEDO_METER][6], 2);
-	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][6], 0.308333, 2.149998);
+	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][6], 0.362499, 2.149996);
 	TextDrawTextSize(Textdraws[textdraw_SPEEDO_METER][6], 400.000000, 17.000000);
 	TextDrawSetOutline(Textdraws[textdraw_SPEEDO_METER][6], 0);
 	TextDrawSetShadow(Textdraws[textdraw_SPEEDO_METER][6], 0);
@@ -1034,7 +949,7 @@ CreateTextDraws()
 	TextDrawSetProportional(Textdraws[textdraw_SPEEDO_METER][7], 1);
 	TextDrawSetSelectable(Textdraws[textdraw_SPEEDO_METER][7], 0);
 
-	Textdraws[textdraw_SPEEDO_METER][8] = TextDrawCreate(503.000000, 394.000000, "\");
+	Textdraws[textdraw_SPEEDO_METER][8] = TextDrawCreate(504.000000, 398.000000, "\\");
 	TextDrawFont(Textdraws[textdraw_SPEEDO_METER][8], 1);
 	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][8], 0.308333, 1.000000);
 	TextDrawTextSize(Textdraws[textdraw_SPEEDO_METER][8], 400.000000, 17.000000);
@@ -1048,23 +963,23 @@ CreateTextDraws()
 	TextDrawSetProportional(Textdraws[textdraw_SPEEDO_METER][8], 1);
 	TextDrawSetSelectable(Textdraws[textdraw_SPEEDO_METER][8], 0);
 
-	Textdraws[textdraw_SPEEDO_METER][9] = TextDrawCreate(591.000000, 365.000000, "O");
-	TextDrawFont(Textdraws[textdraw_SPEEDO_METER][9], 2);
+	Textdraws[textdraw_SPEEDO_METER][9] = TextDrawCreate(591.000000, 365.000000, "8");
+	TextDrawFont(Textdraws[textdraw_SPEEDO_METER][9], 1);
 	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][9], 0.104166, 0.750000);
 	TextDrawTextSize(Textdraws[textdraw_SPEEDO_METER][9], 400.000000, 17.000000);
 	TextDrawSetOutline(Textdraws[textdraw_SPEEDO_METER][9], 0);
 	TextDrawSetShadow(Textdraws[textdraw_SPEEDO_METER][9], 0);
 	TextDrawAlignment(Textdraws[textdraw_SPEEDO_METER][9], 1);
-	TextDrawColor(Textdraws[textdraw_SPEEDO_METER][9], 255);
+	TextDrawColor(Textdraws[textdraw_SPEEDO_METER][9], 163);
 	TextDrawBackgroundColor(Textdraws[textdraw_SPEEDO_METER][9], 255);
 	TextDrawBoxColor(Textdraws[textdraw_SPEEDO_METER][9], 50);
 	TextDrawUseBox(Textdraws[textdraw_SPEEDO_METER][9], 0);
 	TextDrawSetProportional(Textdraws[textdraw_SPEEDO_METER][9], 1);
 	TextDrawSetSelectable(Textdraws[textdraw_SPEEDO_METER][9], 0);
 
-	Textdraws[textdraw_SPEEDO_METER][10] = TextDrawCreate(542.000000, 383.000000, "GAS");
+	Textdraws[textdraw_SPEEDO_METER][10] = TextDrawCreate(556.000000, 390.000000, "GAS");
 	TextDrawFont(Textdraws[textdraw_SPEEDO_METER][10], 1);
-	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][10], 0.237499, 1.350000);
+	TextDrawLetterSize(Textdraws[textdraw_SPEEDO_METER][10], 0.279164, 1.100000);
 	TextDrawTextSize(Textdraws[textdraw_SPEEDO_METER][10], 400.000000, 17.000000);
 	TextDrawSetOutline(Textdraws[textdraw_SPEEDO_METER][10], 0);
 	TextDrawSetShadow(Textdraws[textdraw_SPEEDO_METER][10], 0);

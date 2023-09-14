@@ -394,7 +394,6 @@ UpdateTuningShop(playerid)
 
 	new td_str[128];
 	format(td_str, sizeof td_str, "_%d/%d~n~Precio:_%s$", PLAYER_TEMP[playerid][py_SELECT_TUNING_OBJECT] + 1, sizeof Tuning_Shop_Objects, number_format_thousand( Tuning_Shop_Objects[ PLAYER_TEMP[playerid][py_SELECT_TUNING_OBJECT] ][tuning_object_PRICE] ) );
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], td_str);
 	return 1;
 }
 
@@ -412,7 +411,6 @@ CancelPlayerTuningShop(playerid)
 	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_TUNING][2]);
 	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_TUNING][3]);
 	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_TUNING][4]);
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP]);
 	CancelSelectTextDrawEx(playerid);
 
 	PLAYER_TEMP[playerid][py_TUNING_GARAGE_SHOP] = false;
@@ -1235,21 +1233,31 @@ ShowPlayerSpeedoMeter(playerid)
 	if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return 0;
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][8]);
 
-	new td_str[64];
-	format(td_str, sizeof td_str, "%.1f", GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]);
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][11], td_str);
+	//new td_str[64];
+	//format(td_str, sizeof td_str, "%.1f", GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]);
+	//PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][11], td_str);
 
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0]);
+	/*TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][0]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][1]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][2]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][3]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][4]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][5]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][6]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][7]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][8]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][10]);*/
+
+	/*PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][9]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][10]);
-	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][11]);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8]);*/
+
 
 	PLAYER_TEMP[playerid][py_SPEEDOMETER] = true;
 	PLAYER_TEMP[playerid][py_FUEL_DOWN_TIME] = gettime();
@@ -1261,6 +1269,19 @@ HidePlayerSpeedoMeter(playerid)
 {
 	PLAYER_TEMP[playerid][py_SPEEDOMETER] = false;
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][8]);
+
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][0]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][1]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][2]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][3]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][4]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][5]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][6]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][7]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][8]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
+	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][10]);
+
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0]);
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1]);
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2]);
@@ -1270,9 +1291,6 @@ HidePlayerSpeedoMeter(playerid)
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6]);
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8]);
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][9]);
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][10]);
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][11]);
 	return 1;
 }
 

@@ -1635,19 +1635,6 @@ ReduceMentalState(playerid, points)
 	return 1;
 }
 
-forward HidePlayerNotification(playerid);
-public HidePlayerNotification(playerid)
-{
-	#if DEBUG_MODE == 1
-		printf("HidePlayerNotification"); // debug juju
-	#endif
-
-	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], "_");
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE]);
-	return 1;
-}
-
 GetPlayerCameraLookAt(playerid, &Float:X, &Float:Y, &Float:Z)
 {
     new Float:pos[6];

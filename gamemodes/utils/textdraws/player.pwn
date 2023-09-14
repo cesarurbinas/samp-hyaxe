@@ -1154,10 +1154,9 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][20], 0);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][20], 0);
 
-
 	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0] = CreatePlayerTextDraw(playerid, 510.000000, 358.000000, "260");
 	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], 2);
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], 0.287499, 1.549999);
+	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], 0.287499, 1.549998);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], 0);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], 0);
@@ -1169,13 +1168,13 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], 1);
 	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][0], 0);
 
-	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1] = CreatePlayerTextDraw(playerid, 550.000000, 404.000000, "_");
+	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1] = CreatePlayerTextDraw(playerid, 520.000000, 404.000000, "_");
 	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 1);
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 0.600000, 0.449990);
-	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 291.500000, 60.000000);
+	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 601.500000, 60.000000);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 1);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 0);
-	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 2);
+	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 1);
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], -1);
 	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 255);
 	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 1570070015);
@@ -1185,7 +1184,7 @@ CreatePlayerTextDraws(playerid)
 
 	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2] = CreatePlayerTextDraw(playerid, 553.000000, 354.000000, "D");
 	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 2);
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 0.308333, 2.149998);
+	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 0.308333, 2.149996);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 0);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 0);
@@ -1199,7 +1198,7 @@ CreatePlayerTextDraws(playerid)
 
 	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3] = CreatePlayerTextDraw(playerid, 542.000000, 355.000000, "-");
 	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 1);
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 0.795832, 0.899999);
+	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 0.795831, 0.899999);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 0);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 0);
@@ -1213,7 +1212,7 @@ CreatePlayerTextDraws(playerid)
 
 	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4] = CreatePlayerTextDraw(playerid, 542.000000, 364.000000, "-");
 	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 1);
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 0.795832, 0.899999);
+	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 0.795831, 0.899999);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 0);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 0);
@@ -1227,7 +1226,7 @@ CreatePlayerTextDraws(playerid)
 
 	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5] = CreatePlayerTextDraw(playerid, 542.000000, 359.000000, "-");
 	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 1);
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 0.795832, 0.899999);
+	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 0.795831, 0.899999);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 0);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 0);
@@ -1255,7 +1254,7 @@ CreatePlayerTextDraws(playerid)
 
 	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7] = CreatePlayerTextDraw(playerid, 589.000000, 354.000000, "O");
 	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 2);
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 0.204166, 1.549999);
+	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 0.216664, 1.549998);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 0);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 0);
@@ -1267,13 +1266,13 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 1);
 	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7], 0);
 
-	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8] = CreatePlayerTextDraw(playerid, 560.000000, 383.000000, "0000000");
+	PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8] = CreatePlayerTextDraw(playerid, 605.000000, 388.000000, "500.0");
 	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 2);
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 0.237499, 1.350000);
+	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 0.237498, 1.350000);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 400.000000, 17.000000);
 	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 0);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 0);
-	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 1);
+	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 3);
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], -1153745921);
 	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 255);
 	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 50);
@@ -1281,7 +1280,6 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 1);
 	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][8], 0);
     
-
 	PlayerTextdraws[playerid][ptextdraw_PLANT_PLANT][0] = CreatePlayerTextDraw(playerid, 260.000000, 350.000000, "Borde");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_PLANT_PLANT][0], 0.000000, 2.633335);
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_PLANT_PLANT][0], 380.000000, 0.000000);
@@ -1335,17 +1333,6 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_PLANT_PLANT][3], 1);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_PLANT_PLANT][3], 0);
 
-	PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP] = CreatePlayerTextDraw(playerid, 320.000000, 350.000000, "Objeto:_0/0~n~Precio:_0$");
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], 0.200333, 1.098074);
-	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], 2);
-	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], -121);
-	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], 0);
-	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], 0);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], 255);
-	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], 1);
-	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], 1);
-	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_TUNING_SHOP], 0);
-
     PlayerTextdraws[playerid][ptextdraw_MESSAGE] = CreatePlayerTextDraw(playerid, 320.000000, 393.855682, "_");
     PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE], 0.320999, 1.736888);
     PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_MESSAGE], 2);
@@ -1370,34 +1357,6 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawUseBox(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 0);
 	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 1);
 	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_ALERT], 0);
-
-    PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE] = CreatePlayerTextDraw(playerid, 24.500000, 166.977783, "_");
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 0.341500, 1.487998);
-	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 193.000000, 0.000000);
-	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 1);
-	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], -1);
-	PlayerTextDrawUseBox(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 1);
-	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 0x000000EE);
-	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 0);
-	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 0);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 0x000000EE);
-	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 1);
-	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 1);
-	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], 0);
-
-    PlayerTextdraws[playerid][ptextdraw_KEY] = CreatePlayerTextDraw(playerid, 317.000000, 432.666778, "Pulse ALT");
-	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0.241499, 1.226666);
-	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0.000000, 67.000000);
-	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 2);
-	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], -1);
-	PlayerTextDrawUseBox(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 1);
-	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
-	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0);
-	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
-	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 1);
-	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 1);
-	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0);
 
 	/* barra hambre */
 	PlayerTextdraws[playerid][ptextdraw_HUD][0] = CreatePlayerTextDraw(playerid, 17.000000, 436.400054, "box");
