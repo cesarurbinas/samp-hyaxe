@@ -86,8 +86,8 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 
 				if (is_weapon)
 				{
-					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
 					grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
 				}
 				else
 				{
