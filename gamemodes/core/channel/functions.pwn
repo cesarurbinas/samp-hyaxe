@@ -56,7 +56,7 @@ SendMessageToGlobalChannel(playerid, const message[])
 {
 	new str[364];
 
-	format(str, sizeof(str), "[Todos] "COL_WHITE"%s (%d): %s", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
+	format(str, sizeof(str), "%s (%d) (GLOBAL): %s", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
 
 	Log("global", str);
 
@@ -68,7 +68,7 @@ SendMessageToGlobalChannel(playerid, const message[])
 		{
 			if (PLAYER_MISC[playerid][MISC_GLOBAL_CHAT])
 			{
-				SendResponsiveMessage(i, COLOR_GREY_THREE, str, 135);
+				SendResponsiveMessage(i, COLOR_WHITE, str, 135);
 			}
 		}
 	}
