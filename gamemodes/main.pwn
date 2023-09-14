@@ -6424,7 +6424,7 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-				DeleteIlegalInv(playerid);
+				DeleteIlegalInv(playerid, true);
 
 				new random_pos = minrand(0, 12); 
 				PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
@@ -6555,7 +6555,7 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-				DeleteIlegalInv(playerid);
+				DeleteIlegalInv(playerid, true);
 
 				ClearPlayerChatBox(playerid);
 				if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
