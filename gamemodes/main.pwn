@@ -23092,7 +23092,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				payment = (payment + vip_payment);
 
-				PLAYER_MISC[playerid][MISC_FISH] = 0;
+				PLAYER_MISC[playerid][MISC_PUMPKIN] = 0;
+				ResetItemBody(playerid);
             	GivePlayerCash(playerid, payment, true);
 
             	format(str_text, 32, "~g~+%d$", payment);
