@@ -6491,15 +6491,15 @@ public OnGameModeInit()
     SetWeaponDamage(WEAPON_DEAGLE, DAMAGE_TYPE_RANGE, 20.0, 15.0, 10.0, 40.0, 8.0); // Desert Eagle
     SetWeaponDamage(WEAPON_SHOTGUN, DAMAGE_TYPE_RANGE, 2.0, 5.0, 1.0, 60.0, 1.0); // Escopeta
     SetWeaponDamage(WEAPON_SHOTGSPA, DAMAGE_TYPE_RANGE, 0.0, 5.0, 0.0, 40.0, 0.0); // EDC
-    SetWeaponDamage(WEAPON_M4, DAMAGE_TYPE_RANGE, 15.0, 20.0, 15.0, 80.0, 15.0); // M4
+    SetWeaponDamage(WEAPON_M4, DAMAGE_TYPE_RANGE, 10.0, 20.0, 7.0, 80.0, 5.0); // M4
     SetWeaponDamage(WEAPON_SAWEDOFF, DAMAGE_TYPE_RANGE, 2.5, 10.0, 1.5, 40.0, 1.0);// Recortada
-    SetWeaponDamage(WEAPON_AK47, DAMAGE_TYPE_RANGE, 9.0, 20.0, 1.5, 80.0, 1.0); // AL-47
+    SetWeaponDamage(WEAPON_AK47, DAMAGE_TYPE_RANGE, 8.0, 20.0, 1.5, 80.0, 1.0); // AL-47
     SetWeaponDamage(WEAPON_SPRAYCAN, DAMAGE_TYPE_RANGE, 0.2, 20.0, 0.2, 40.0, 0.2); // Spray
     SetWeaponDamage(WEAPON_FIREEXTINGUISHER, DAMAGE_TYPE_RANGE, 0.2, 20.0, 0.2, 40.0, 0.2); // Extinguidor
     SetWeaponDamage(WEAPON_CHAINSAW, DAMAGE_TYPE_RANGE, 2.0, 20.0, 2.0, 40.0, 2.0); // Motosierra
     SetWeaponDamage(WEAPON_UZI, DAMAGE_TYPE_RANGE, 9.0, 20.0, 9.0, 60.0, 7.0); // Uzi
     SetWeaponDamage(WEAPON_TEC9, DAMAGE_TYPE_RANGE, 10.0, 20.0, 10.0, 60.0, 7.0); // Tec-9
-    SetWeaponDamage(WEAPON_MP5, DAMAGE_TYPE_RANGE, 12.0, 20.0, 10.0, 40.0, 7.0); // MP5
+    SetWeaponDamage(WEAPON_MP5, DAMAGE_TYPE_RANGE, 10.0, 20.0, 5.0, 40.0, 5.0); // MP5
     SetWeaponDamage(WEAPON_KATANA, DAMAGE_TYPE_RANGE, 40.0, 20.0, 40.0, 20.0, 40.0); // Katana
 
     // Weapons range
