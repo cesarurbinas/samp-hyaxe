@@ -55,7 +55,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 						{
 							GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
 						}
-						else if (PLAYER_WORKS[playerid][WORK_POLICE] || PLAYER_WORKS[playerid][WORK_MAFIA] || PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA] || PLAYER_WORKS[playerid][WORK_OSBORN])
+						else if (PLAYER_WORKS[playerid][WORK_POLICE] || PlayerIsInMafia(playerid))
 						{
 							GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
 						}

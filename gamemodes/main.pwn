@@ -55,7 +55,7 @@
 
 // Features
 #define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -28265,6 +28265,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 							{
 								if (DROP_ITEMS[i][itm_TYPE] == 64)
 								{
+									ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
+
 									new gift = random(10);
 
 									switch(gift)
