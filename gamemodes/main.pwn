@@ -26886,7 +26886,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			}
 		}
 
-		if(IsPlayerInRangeOfPoint(playerid, 1.0, 1722.2310, -1253.8021, 471.1665))
+		if (IsPlayerInRangeOfPoint(playerid, 1.0, 1722.2310, -1253.8021, 471.1665))
 			ShowDialog(playerid, DIALOG_ELECTRONIC_SHOP);
 	}
 
