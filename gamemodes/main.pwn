@@ -2350,7 +2350,10 @@ new INVALID_WORDS[][100] =
 	"sampfive",
 	"pingote",
 	"kanox",
-	"lexerzone"
+	"lexerzone",
+	"puta",
+	"puto",
+	"put0"
 };
 
 new INVALID_NAMES[][100] =
@@ -4468,7 +4471,7 @@ public OnRconLoginAttempt(ip[], password[], success)
 
 FreezeThenAutoUnfreeze(playerid, time)
 {
-    TogglePlayerControllableEx(playerid, 0);
+    TogglePlayerControllableEx(playerid, false);
     SetTimerEx("UnfreezeBastard", time, false, "i", playerid);
 }
 
@@ -6092,7 +6095,7 @@ public OnPlayerSpawn(playerid)
     			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
     			TogglePlayerControllableEx(playerid, false);
     			DeleteIlegalInv(playerid);
-    			TogglePlayerControllableEx(playerid, 1);
+    			TogglePlayerControllableEx(playerid, true);
     			SetPlayerColorEx(playerid, PLAYER_COLOR);
 
 				SetPlayerHud(playerid);
