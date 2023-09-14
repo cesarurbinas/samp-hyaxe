@@ -149,3 +149,32 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 	}
 	return 1;
 }
+
+public FCNPC_OnTakeDamage(npcid, issuerid, Float:amount, weaponid, bodypart)
+{
+	new mission = NPC_INFO[npcid][ni_MISSION];
+
+	switch(mission)
+	{
+		case SWEET_MISSION:
+		{
+			if (FCNPC_IsSpawned(npcid) && !FCNPC_IsDead(npcid))
+			{
+				if (PLAYER_TEMP[issuerid][py_IN_MISSION])
+				{
+					if (PLAYER_TEMP[issuerid][py_MISSION] == mission)
+					{
+						FCNPC_AimAtPlayer(npcid, issuerid, true, 1000);
+						FCNPC_GoToPlayer(npcid, issuerid);
+					}
+				}
+			}
+			else
+			{
+				SetPlayerMarkerForPlayer(issuerid, npcid, PLAYER_COLOR);
+				SetPlayerColor(npcid, PLAYER_COLOR);
+			}
+		}
+	}
+	return 1;
+}
