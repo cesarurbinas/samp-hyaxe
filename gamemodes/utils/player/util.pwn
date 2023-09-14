@@ -8,6 +8,13 @@ new NAME_WHITELIST[][24] =
 	"Oleksandr_Volkov"
 };
 
+new g_iPlayerLastUpdate[MAX_PLAYERS];
+
+IsPlayerPaused(playerid)
+{
+	return (GetTickCount() - g_iPlayerLastUpdate[playerid] > 2000);
+}
+
 IsPlayerInWater(playerid)
 {
 	new lib[16], anims[32];

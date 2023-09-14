@@ -99,13 +99,13 @@ OSBORN_RANKS[][] =
 	/* 9 */ "Capo di tutti capo"
 };
 
-TextToSpanish(const base[], size = sizeof(base))
+TextToSpanish(const base[])
 {
 	new result[256];
 
 	strcat(result, base);
 
-	for (new i = (size - 1); i != -1; --i)
+	for (new i = (strlen(result) - 1); i != -1; --i)
 	{
         switch (result[i])
         {

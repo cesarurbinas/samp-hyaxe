@@ -64,9 +64,10 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <Pawn.Regex>
 //#tryinclude <profiler>
 
+#include "core/damage/header.pwn"
+
 // Must fix
 #include <nex-ac>
-#include <weapon-config>
 #include <PreviewModelDialog>
 #include <route-tracing>
 #include <strlib>
@@ -82,6 +83,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #endif
 
 #include "core/logger/header.pwn"
+#include "core/player/flags.pwn"
 
 // Lang
 #include "core/languages/es.pwn"
@@ -95,19 +97,29 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Weapons
 #include "core/weapons/info.pwn"
 
+// World
+#include "core/world/extra.pwn"
+
+// Player
+#include "core/player/temp.pwn"
+#include "core/player/misc.pwn"
+
+// Damage
+#include "core/damage/callbacks.pwn"
+#include "core/damage/functions.pwn"
+#include "core/damage/timers.pwn"
+
 // Work
 #include "core/work/data.pwn"
 #include "core/work/miner.pwn"
 
 // Player
-#include "core/player/temp.pwn"
 #include "core/player/weapons.pwn"
 #include "core/player/phone.pwn"
 #include "core/player/character.pwn"
 #include "core/player/toys.pwn"
 #include "core/player/account.pwn"
 #include "core/player/textdraws.pwn"
-#include "core/player/misc.pwn"
 #include "core/player/crew.pwn"
 #include "core/player/visual_inventory.pwn"
 #include "core/player/vehicles.pwn"
@@ -161,7 +173,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/graffiti/data.pwn"
 
 // World
-#include "core/world/extra.pwn"
 #include "core/world/tele.pwn"
 #include "utils/world/tele.pwn"
 #include "core/world/balloon.pwn"
@@ -4521,7 +4532,7 @@ CheckTruckPointAndLoad(playerid)
 			for(new x = 0; x != sizeof Truck_Contents; x ++)
 			{
 				new line_str[105], paga_str[105];
-				format(line_str, sizeof line_str, "%s", TextToSpanish(Truck_Contents[x][truck_content_NAME], 24));
+				format(line_str, sizeof line_str, "%s", TextToSpanish(Truck_Contents[x][truck_content_NAME]));
 				format(paga_str, sizeof paga_str, "Paga: %s$ - Distancia: %.2f Km", number_format_thousand(Truck_Contents[x][truck_content_MONEY]), (GetPlayerDistanceFromPoint(playerid, Truck_Contents[x][truck_content_X], Truck_Contents[x][truck_content_Y], Truck_Contents[x][truck_content_Z]) * 0.01));
 				AddPlayerMenuItem(playerid, line_str, paga_str);
 			}
@@ -6528,32 +6539,6 @@ public OnGameModeInit()
 		sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
 		printf("[VOICE] Frecuency: 24000, Rate: 60");
 	#endif
-
-	// Weapons damage
-    SetWeaponDamage(WEAPON_SNIPER, DAMAGE_TYPE_RANGE, 7.0, 10.0, 25.0, 40.0, 30.0); // Sniper
-    SetWeaponDamage(WEAPON_VEHICLE, DAMAGE_TYPE_RANGE, 50.0, 10.0, 50.0, 40.0, 50.0); // Vehiculo
-    SetWeaponDamage(WEAPON_RIFLE, DAMAGE_TYPE_RANGE, 35.0, 30.0, 25.0, 320.0, 15.0); // Rifle
-    SetWeaponDamage(WEAPON_COLT45, DAMAGE_TYPE_RANGE, 6.0, 20.0, 3.0, 40.0, 2.0); // Colt
-    SetWeaponDamage(WEAPON_SILENCED, DAMAGE_TYPE_RANGE, 0.1, 20.0, 0.1, 40.0, 0.1); // Silenciada
-    SetWeaponDamage(WEAPON_DEAGLE, DAMAGE_TYPE_RANGE, 20.0, 15.0, 10.0, 40.0, 8.0); // Desert Eagle
-    SetWeaponDamage(WEAPON_SHOTGUN, DAMAGE_TYPE_RANGE, 2.0, 5.0, 1.0, 60.0, 1.0); // Escopeta
-    SetWeaponDamage(WEAPON_SHOTGSPA, DAMAGE_TYPE_RANGE, 0.0, 5.0, 0.0, 40.0, 0.0); // EDC
-    SetWeaponDamage(WEAPON_M4, DAMAGE_TYPE_RANGE, 10.0, 20.0, 7.0, 80.0, 5.0); // M4
-    SetWeaponDamage(WEAPON_SAWEDOFF, DAMAGE_TYPE_RANGE, 2.5, 10.0, 1.5, 40.0, 1.0);// Recortada
-    SetWeaponDamage(WEAPON_AK47, DAMAGE_TYPE_RANGE, 8.0, 20.0, 1.5, 80.0, 1.0); // AL-47
-    SetWeaponDamage(WEAPON_SPRAYCAN, DAMAGE_TYPE_RANGE, 0.2, 20.0, 0.2, 40.0, 0.2); // Spray
-    SetWeaponDamage(WEAPON_FIREEXTINGUISHER, DAMAGE_TYPE_RANGE, 0.2, 20.0, 0.2, 40.0, 0.2); // Extinguidor
-    SetWeaponDamage(WEAPON_CHAINSAW, DAMAGE_TYPE_RANGE, 2.0, 20.0, 2.0, 40.0, 2.0); // Motosierra
-    SetWeaponDamage(WEAPON_UZI, DAMAGE_TYPE_RANGE, 9.0, 20.0, 9.0, 60.0, 7.0); // Uzi
-    SetWeaponDamage(WEAPON_TEC9, DAMAGE_TYPE_RANGE, 10.0, 20.0, 10.0, 60.0, 7.0); // Tec-9
-    SetWeaponDamage(WEAPON_MP5, DAMAGE_TYPE_RANGE, 10.0, 20.0, 5.0, 40.0, 5.0); // MP5
-    SetWeaponDamage(WEAPON_KATANA, DAMAGE_TYPE_RANGE, 40.0, 20.0, 40.0, 20.0, 40.0); // Katana
-
-    // Weapons range
-    SetWeaponMaxRange(WEAPON_RIFLE, 800.0);
-    SetWeaponMaxRange(WEAPON_M4, 500.0);
-    SetWeaponMaxRange(WEAPON_AK47, 500.0);
-    SetWeaponMaxRange(WEAPON_MP5, 400.0);
 
     // Server
 	SetGameModeText(SERVER_MODE);
@@ -12319,9 +12304,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
 				format(PLAYER_TEMP[playerid][py_PASSWORD], MAX_PASS_LENGTH, "%s", inputtext);
 				Log("obj", pass_str);
-
-				SetDamageFeedForPlayer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
-				EnableHealthBarForPlayer(playerid, false);
 
 				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Ninguna");
 
@@ -19441,7 +19423,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER] = !PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER];
 
-						SetDamageFeedForPlayer(playerid, PLAYER_MISC[playerid][MISC_DAMAGE_INFORMER]);
 						SavePlayerMisc(playerid);
 						ShowDialog(playerid, dialogid);
 					}
@@ -21805,6 +21786,8 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
     if (clickedid == Text:INVALID_TEXT_DRAW)
     {
+		if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV] && GetTickCount() > g_iInvLastTick[playerid]) HideInventory(playerid);
+
 		PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] = false;
 
 		if (PLAYER_PROPERTY_CONSTRUCTOR[playerid][player_property_creator_ENABLED])
@@ -22975,7 +22958,7 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
     return 1;
 }
 
-SendGraffitiNotification(const ann[], len = sizeof(ann))
+SendGraffitiNotification(const ann[])
 {
 	KillTimer(GraffitiGlobalTime);
 
@@ -22985,7 +22968,7 @@ SendGraffitiNotification(const ann[], len = sizeof(ann))
         {
         	if (PLAYER_CREW[i][player_crew_VALID])
 			{
-                ShowPlayerNotification(i, ann, 6, .len = len);
+                ShowPlayerNotification(i, ann, 6);
                 RecalculeCrewGraffitis(PLAYER_CREW[i][player_crew_INDEX]);
             }
         }
@@ -23636,7 +23619,7 @@ CheckBoxClub(playerid)
 	return 1;
 }
 
-SendBoxMessage(const message[], time, len = sizeof(message))
+SendBoxMessage(const message[], time)
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -23644,7 +23627,7 @@ SendBoxMessage(const message[], time, len = sizeof(message))
 		{
 			if (IsPlayerInRangeOfPoint(i, 30.0, -17.344648, 99.261329, 1100.822021))
 			{
-				ShowPlayerNotification(i, message, time, .len = len);
+				ShowPlayerNotification(i, message, time);
 			}
 		}
 	}
@@ -24339,6 +24322,8 @@ CheckRobActor(playerid)
 
 public OnPlayerUpdate(playerid)
 {
+	g_iPlayerLastUpdate[playerid] = GetTickCount();
+
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return 1;
 	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
@@ -27886,12 +27871,14 @@ SavePlayerMisc(playerid)
 	format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_MISC` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 	db_free_result(db_query(Database, DB_Query));
 
+	safe_db_query("BEGIN TRANSACTION");
 	for(new i = 0; i != sizeof(PLAYER_MISC[]); i ++)
 	{
 		DB_Query[0] = EOS;
 		format(DB_Query, sizeof DB_Query, "INSERT INTO `PLAYER_MISC` (`ID_USER`, `ID`, `EXTRA`) VALUES ('%d', '%d', '%d');", ACCOUNT_INFO[playerid][ac_ID], i, PLAYER_MISC[playerid][E_MISC_DATA:i]);
 		db_free_result(db_query(Database, DB_Query));
 	}
+	safe_db_query("END TRANSACTION");
 	return 1;
 }
 
@@ -29490,42 +29477,6 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
     return 1;
 }
 
-public OnPlayerDamage(&playerid, &Float:amount, &issuerid, &weapon, &bodypart)
-{
-	if(IsPlayerPaused(playerid)) return 0;
-
-	//printf("damage %d %d", playerid, weapon);
-
-	if (issuerid != INVALID_PLAYER_ID && weapon == 23)
-	{
-	   SetPlayerChatBubble(playerid, "\n\n\n\n* Cae al piso al recibir el choque eléctrico de un tazer.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	   FreezePlayer(playerid, 15000);
-	   ApplyAnimation(playerid,"PED","BIKE_fallR",4.0,0,1,1,1,0);
-       ShowPlayerMessage(playerid, "~y~Te dieron una descarga eléctrica con un Tazer.", 3);
-	   return 1;
-	}
-
-	if (IsPlayerConnected(issuerid))
-	{
-		new p_interior = GetPlayerInterior(issuerid);
-		if (p_interior == 25 || p_interior == 26 || p_interior == 27)
-		{
-			SetPlayerPosEx(issuerid, 509.152374, -723.324951, 19.869243, 340.0, 0, 0);
-			SetPlayerTime(issuerid, SERVER_TIME[0], SERVER_TIME[1]);
-		}
-
-		if (!PLAYER_TEMP[issuerid][py_BOXING])
-		{
-			if (IsPlayerInRangeOfPoint(issuerid, 30.0, -17.344648, 99.261329, 1100.822021))
-			{
-				SetPlayerPosEx(issuerid, 950.341247, -987.135864, 38.743835, 322.0, 0, 0);
-				ShowPlayerMessage(issuerid, "~r~Solos los boxeadores pueden pegar", 4);
-			}
-		}
-	}
-    return 1;
-}
-
 OnCheatDetected(playerid, ip_address[], type, code)
 {
 	#pragma unused ip_address, type
@@ -29669,7 +29620,7 @@ SetPlayerHealthEx(playerid, Float:health)
 	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY] = gettime() + 3;
 
 	CHARACTER_INFO[playerid][ch_HEALTH] = health;
-	SetPlayerHealth(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
+	Player_SetHealth(playerid, floatround(CHARACTER_INFO[playerid][ch_HEALTH]));
 	return 1;
 }
 
@@ -29678,7 +29629,7 @@ SetPlayerArmourEx(playerid, Float:armour)
 	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_IMMUNITY] = gettime() + 3;
 
 	CHARACTER_INFO[playerid][ch_ARMOUR] = armour;
-	SetPlayerArmour(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
+	Player_SetArmour(playerid, floatround(CHARACTER_INFO[playerid][ch_ARMOUR]));
 	return 1;
 }
 
@@ -29688,7 +29639,7 @@ GivePlayerHealthEx(playerid, Float:health)
 
 	CHARACTER_INFO[playerid][ch_HEALTH] += health;
 	if (CHARACTER_INFO[playerid][ch_HEALTH] > 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
-	SetPlayerHealth(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
+	Player_SetHealth(playerid, floatround(CHARACTER_INFO[playerid][ch_HEALTH]));
 	return 1;
 }
 
@@ -30844,7 +30795,7 @@ SendOsbornMafiaMessage(color, const message[])
 	return 1;
 }
 
-SendPoliceNotification(const message[], time, len = sizeof(message))
+SendPoliceNotification(const message[], time)
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -30856,7 +30807,7 @@ SendPoliceNotification(const message[], time, len = sizeof(message))
 				{
 					if (PLAYER_TEMP[i][py_WORKING_IN] == WORK_POLICE)
 					{
-						ShowPlayerNotification(i, message, time, .len = len);
+						ShowPlayerNotification(i, message, time);
 					}
 				}
 			}
@@ -33466,10 +33417,10 @@ ShowPlayerKeyMessage(playerid, const key[])
 	return 1;
 }
 
-ShowPlayerNotification(playerid, const message[], time, len = sizeof(message))
+ShowPlayerNotification(playerid, const message[], time)
 {
 	new str_text[264];
-	format(str_text, sizeof(str_text), "~w~%s", TextToSpanish(message, len));
+	format(str_text, sizeof(str_text), "~w~%s", TextToSpanish(message));
 	return hy_ShowNotification(playerid, str_text, time);
 }
 
