@@ -25,8 +25,8 @@ CreateStalls()
 			3039,
 			x,
 			y,
-			STALL_INFO[i][st_Z],
-			0.0, 0.0, 0.0, 0, 0
+			STALL_INFO[i][st_Z] - 1.0,
+			0.0, 0.0, STALL_INFO[i][st_ANGLE], 0, 0
 		);
 
 		new str_text[128];
