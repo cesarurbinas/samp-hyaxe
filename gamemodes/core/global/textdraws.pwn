@@ -13,6 +13,6 @@ enum Textdraws_Enum
 	Text:textdraw_PHONE_MENU[22],
 	Text:textdraw_PROGRESS_BG,
 	Text:textdraw_BANK_MENU[7],
-	Text:textdraw_GODMODE
+	Text:textdraw_GODMODE[2]
 };
 new Textdraws[Textdraws_Enum];
