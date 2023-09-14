@@ -1750,7 +1750,7 @@ DestroyPlayerTextDraws(playerid)
 {
 	for(new i; i < sizeof(PlayerTextdraws[]); i++)
 	{
-		if(PlayerTextdraws[playerid][Player_Textdraws_Enum:i] == INVALID_TEXT_DRAW) continue;
+		if (PlayerTextdraws[playerid][Player_Textdraws_Enum:i] == INVALID_TEXT_DRAW) continue;
 		PlayerTextDrawDestroy(playerid, PlayerText:PlayerTextdraws[playerid][Player_Textdraws_Enum:i]);
 		PlayerTextdraws[playerid][Player_Textdraws_Enum:i] = INVALID_TEXT_DRAW;
 	}
