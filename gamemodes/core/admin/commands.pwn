@@ -115,3 +115,21 @@ CMD:unjailoff(playerid, params[])
 
 	return 1;
 }
+
+CMD:getphone(playerid, params[])
+{
+	new phone;
+	if (sscanf(params, "d", phone)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /getphone <numero>");
+
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+  	{
+		if (phone == PLAYER_PHONE[i][player_phone_NUMBER])
+		{
+			SendClientMessageEx(playerid, COLOR_WHITE, "El numero es de: %s (%d)", PLAYER_TEMP[i][py_NAME], i);
+			return 1;
+		}
+	}
+
+	SendClientMessage(playerid, COLOR_WHITE, "No se encontraron resultados");
+	return 1;
+}

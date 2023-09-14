@@ -3663,7 +3663,17 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 	        if (IsPlayerInRangeOfPoint(playerid, 1.0, -17.344648, 99.261329, 1100.822021))
 			{
 				PLAYER_TEMP[playerid][py_BOXING] = false;
-				ShowPlayerNotification(playerid, "Te suspendieron de esta pelea por salir del ring.", 4);
+				ShowPlayerNotification(playerid, "Te suspendieron de esta pelea por salir del ring.", 5);
+
+				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+				{
+					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid)
+					{
+						ShowPlayerNotification(playerid, "Te hemos devuelto el dinero porque el luchador que apostaste se ha ido del ring.", 6);
+						GivePlayerCash(playerid, PLAYER_TEMP[i][py_BOX_BET]);
+						PLAYER_TEMP[i][py_BOX_PLAYER] = INVALID_PLAYER_ID;
+					}
+				}
 			}
 		}
     }
@@ -4282,6 +4292,19 @@ public OnPlayerDisconnect(playerid, reason)
 				CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] = 0;
     			CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 600 * PLAYER_MISC[playerid][MISC_SEARCH_LEVEL];
 				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
+			}
+
+			if (PLAYER_TEMP[playerid][py_BOXING])
+			{
+				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+				{
+					if (PLAYER_TEMP[i][py_BOX_PLAYER] == playerid)
+					{
+						ShowPlayerNotification(playerid, "Te hemos devuelto el dinero porque el luchador que apostaste se ha ido del ring.", 6);
+						GivePlayerCash(playerid, PLAYER_TEMP[i][py_BOX_BET]);
+						PLAYER_TEMP[i][py_BOX_PLAYER] = INVALID_PLAYER_ID;
+					}
+				}
 			}
 
 			SaveUserData(playerid);
@@ -7576,10 +7599,10 @@ SanAndreas()
 	CreateDynamic3DTextLabel(""COL_RED"Tienda 24/7\n"COL_WHITE"12 productos disponibles", 0xF7F7F7FF, -27.964675, -89.948631, 1003.546875, 10.0, .testlos = true, .interiorid = 18);
 
 	// Farmacia
-	CreateDynamic3DTextLabel(""COL_RED"Farmacia\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, -11.283934, 88.862136, 1101.522705, 10.0, .testlos = true, .interiorid = 3);
+	CreateDynamic3DTextLabel(""COL_RED"Farmacia\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, -198.002197, -1762.759643, 675.768737, 10.0, .testlos = true, .interiorid = 3);
 
 	// club de la pelea
-	CreateDynamic3DTextLabel(""COL_YELLOW"Club de la pelea\n"COL_WHITE"3 opciones disponibles", 0xF7F7F7FF, -198.002197, -1762.759643, 675.768737, 5.0, .testlos = true, .interiorid = 16);
+	CreateDynamic3DTextLabel(""COL_YELLOW"Club de la pelea\n"COL_WHITE"3 opciones disponibles", 0xF7F7F7FF, -11.283934, 88.862136, 1101.522705, 5.0, .testlos = true, .interiorid = 16, .worldid = 0);
 
 	//Vehs venta
 	for(new i = 0; i != sizeof SELL_INFO_VEHICLES; i ++)
@@ -8276,9 +8299,10 @@ UpdatePlayerZoneMessages(playerid)
 		}
 	}
 
-	if (IsPlayerInRangeOfPoint(playerid, 1.0, -11.283934, 88.862136, 1101.522705))
+	if (IsPlayerInRangeOfPoint(playerid, 1.5, -11.283934, 88.862136, 1101.522705))
 	{
 		ShowPlayerKeyMessage(playerid, "Y");
+		return 1;
 	}
 
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
@@ -25012,6 +25036,12 @@ CheckAmbulance(playerid)
 	return 1;
 }
 
+CheckBoxClub(playerid)
+{
+	if (IsPlayerInRangeOfPoint(playerid, 1.5, -11.283934, 88.862136, 1101.522705)) return ShowDialog(playerid, DIALOG_BOX_CLUB);
+	return 1;
+}
+
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
 	printf("OnPlayerKeyState %d %d %d",playerid, newkeys, oldkeys); // debug juju
@@ -25152,6 +25182,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckFarmerShop(playerid);
         CheckBallonAction(playerid);
         CheckAmbulance(playerid);
+        CheckBoxClub(playerid);
 
         for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
 		{
@@ -37325,6 +37356,7 @@ flags:desmuteard(CMD_HELPER)
 flags:trabajos(CMD_MODERATOR)
 flags:getid(CMD_MODERATOR)
 flags:getname(CMD_MODERATOR)
+flags:getphone(CMD_MODERATOR)
 flags:aka(CMD_MODERATOR)
 flags:adv(CMD_MODERATOR)
 flags:kick(CMD_MODERATOR)
