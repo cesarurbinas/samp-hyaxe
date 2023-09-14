@@ -4347,7 +4347,7 @@ public SV_BOOL:OnPlayerVoice(SV_UINT:playerid, SV_PACKET:packet, SV_UINT:volume)
 			{
 				if (playerid == i) continue;
 			}
-			
+
 			if (!IsPlayerConnected(i)) continue; 
 			if (GetPlayerState(i) == PLAYER_STATE_SPECTATING) continue;
 			if (VALID_CLIENT[i] == false) continue;
@@ -33273,6 +33273,8 @@ CMD:dv(playerid, params[])
 	new vehicleid = GetPlayerVehicleID(playerid);
 	if (!vehicleid) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: no estás en ningún vehículo de prueba.");
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] != VEHICLE_TYPE_TEST) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: no estás en ningún vehículo de prueba.");
+	
+	HidePlayerSpeedoMeter(playerid);
 
 	DestroyVehicleEx(vehicleid);
 	SendClientMessage(playerid, COLOR_WHITE, "Vehículo de prueba destruido.");
