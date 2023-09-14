@@ -390,6 +390,12 @@ ValidSurfingVehicle(modelid)
 	return true;
 }
 
+enum {
+	STATUS_TRUSTED,
+	STATUS_MEDIUM,
+	STATUS_WASTED
+}
+
 GetAccountStatusValue(playerid)
 {
 	new value;
@@ -408,6 +414,22 @@ GetAccountStatusValue(playerid)
 	return value;
 }
 
+GetAccountStatus(playerid)
+{
+	new status = GetAccountStatusValue(playerid);
+
+	if (value < 3)
+		return STATUS_TRUSTED;
+
+	if (value >= 3)
+		return STATUS_MEDIUM;
+
+	if (value >= 5)
+		return STATUS_WASTED;
+	
+	return 0;
+}
+
 GetAccountStatusName(playerid)
 {
 	new 
@@ -424,5 +446,5 @@ GetAccountStatusName(playerid)
 	if (value >= 5)
 		format(name, sizeof(name), ""COL_RED"Desconfiable"COL_WHITE"");
 	
-	return name'
+	return name;
 }

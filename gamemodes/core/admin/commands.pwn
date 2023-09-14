@@ -314,9 +314,10 @@ CMD:adv(playerid, params[])
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' dbid: '%d', pid: '%d') advertido.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player);
 
-
-	new str[145]; format(str, 145, "[ADMIN] %s (%d) advirtió a %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
+	new str[145];
+	format(str, 145, "[ADMIN] %s (%d) advirtió a %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
 	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+	SendDiscordWebhook(str, 1);
 	return 1;
 }
 alias:adv("advertencia", "san")
@@ -730,6 +731,26 @@ CMD:gotopoint(playerid, params[])
 }
 flags:gotopoint(CMD_MODERATOR)
 
+CMD:reportmute(playerid, params[])
+{
+	new to_player;
+	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /reportmute <player_id>");
+	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "reportmute");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
+	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' dbid: '%d', pid: '%d') advertido.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player);
+
+	new str[145];
+	format(str, 145, "[ADMIN] %s (%d) le bloqueó los reportes a %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
+	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+	return 1;
+}
+flags:reportmute(CMD_MODERATOR2)
+
 CMD:get(playerid, params[])
 {
 	new to_player;
@@ -777,7 +798,8 @@ CMD:unban(playerid, params[])
 		new str[145]; format(str, 145, "[ADMIN] %s (%d) ha desbaneado a '%s'.", ACCOUNT_INFO[playerid][ac_NAME], playerid, name);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-		new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		new webhook[145];
+		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 	}
 	else SendClientMessageEx(playerid, COLOR_WHITE, "El nombre '%s' no está en la lista de baneados.", name);

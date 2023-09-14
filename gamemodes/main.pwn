@@ -34617,6 +34617,7 @@ AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, cons
 // Comandos admins
 CMD:reportar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_REPORT_MUTE]) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Te encuentras bloqueado de esta opción.");
 	if ((gettime() - PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT]) < 60) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 60 segundos para volver a reportar.", 3);
 	PLAYER_TEMP[playerid][py_ANTIFLOOD_REPORT] = gettime();
 
