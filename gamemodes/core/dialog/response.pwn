@@ -2585,6 +2585,39 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else ShowTuningMenu(playerid);
 			return 1;
 		}
+		case DIALOG_TUNING_MENU_COMPONENT:
+		{
+			if (response)
+			{
+				if (isnull(PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_NAME]) || !PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID]) return 1;
+
+				new vehicleid = GetPlayerVehicleID(playerid);
+				if (vehicleid == INVALID_VEHICLE_ID) return 1;
+				if (!GLOBAL_VEHICLES[vehicleid][gb_vehicle_VALID]) return 1;
+
+				new Float:Vehicle_Pos[3];
+				GetVehiclePos(vehicleid, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2]);
+
+				if (!IsPlayerInRangeOfPoint(playerid, 5.0, Vehicle_Pos[0], Vehicle_Pos[1], Vehicle_Pos[2])) return ShowPlayerMessage(playerid, "~r~El vehículo está muy lejos.", 3);
+
+				if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+				{
+					new slot = GetVehicleComponentType( PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID] );
+					new current_component = GetVehicleComponentInSlot(vehicleid, slot);
+					if (current_component) RemoveVehicleComponent(vehicleid, current_component);
+
+					if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
+
+					GLOBAL_VEHICLES[vehicleid][gb_vehicle_COMPONENTS][slot] = PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID];
+					AddVehicleComponent(vehicleid, PLAYER_TUNING_MENU[playerid][listitem][tuning_menu_ID]);
+					ShowPlayerMessage(playerid, "Componente ~g~añadido", 2);
+					GivePlayerCash(playerid, -50, false);
+					ShowTuningMenu(playerid);
+				}
+			}
+			else ShowTuningMenu(playerid);
+			return 1;
+		}
 		/*case DIALOG_SELECT_TRASH_ROUTE:
 		{
 			if (response)
