@@ -545,3 +545,66 @@ TazerPlayer(playerid)
 	ShowPlayerMessage(playerid, "~y~Te dieron una descarga eléctrica con un Tazer.", 3);
 	return 1;
 }
+
+SetPlayerNormalColor(playerid)
+{
+	SetPlayerColorEx(playerid, PLAYER_COLOR);
+	return 1;
+}
+
+FreezePlayer(playerid, ms = 2000)
+{
+	TogglePlayerControllableEx(playerid, false);
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
+	PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", ms, false, "ib", playerid, true);
+	return 1;
+}
+
+IsPlayerInSafeZone(playerid)
+{
+	for(new i = 0; i != sizeof SAFE_ZONES; i ++)
+	{
+		if (IsPlayerInDynamicArea(playerid, SAFE_ZONES[i][safe_zone_AREA_ID]))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+SetPlayerVip(playerid, vip_level, price_coin = 0, days = 30)
+{
+	if (vip_level < 1) return 0;
+
+	ACCOUNT_INFO[playerid][ac_SD] -= price_coin;
+	ACCOUNT_INFO[playerid][ac_SU] = vip_level;
+
+	new DB_Query[128], DBResult:Result;
+	format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d', `SU` = '%d', `SU_EXPIRE_DATE` = DATETIME('NOW', '+%d day') WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SU], days, ACCOUNT_INFO[playerid][ac_ID]);
+	db_free_result(db_query(Database, DB_Query));
+
+	format(DB_Query, sizeof DB_Query, "SELECT `SU_EXPIRE_DATE` FROM `CUENTA` WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+	if (db_num_rows(Result)) db_get_field(Result, 0, ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE], 24);
+	db_free_result(Result);
+
+	SendClientMessageEx(playerid, COLOR_RED, "VIP %d:"COL_WHITE" %d días, fecha de caducidad: %s.", ACCOUNT_INFO[playerid][ac_SU], days, ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE]);
+	ShowPlayerNotification(playerid, "Ahora tienes VIP, felicidades.", 3);
+	ShowPlayerMessage(playerid, "Puedes utilizar ~p~/vip ~w~para ver el tiempo restante o renovar.", 5);
+
+	UnlockPlayerVehicles(playerid);
+	if (GetPlayerSkin(playerid) == CHARACTER_INFO[playerid][ch_SKIN]) SetPlayerToys(playerid);
+	return 1;
+}
+
+PlayerPlaySoundEx(playerid, sound, Float:X, Float:Y, Float:Z)
+{
+	if (PLAYER_MISC[playerid][MISC_CONFIG_SOUNDS]) PlayerPlaySound(playerid, sound, X, Y, Z);
+	return 1;
+}
+
+TogglePlayerControllableEx(playerid, bool:controllable)
+{
+	PLAYER_TEMP[playerid][py_CONTROL] = controllable;
+	return TogglePlayerControllable(playerid, controllable);
+}
