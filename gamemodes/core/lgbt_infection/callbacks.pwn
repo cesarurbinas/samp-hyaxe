@@ -69,6 +69,9 @@ public ChangeLgbtMap()
 forward NextLgbtMap();
 public NextLgbtMap()
 {
+	KillTimer(lgbt_timers[0]);
+	lgbt_timers[0] = SetTimer("ChangeLgbtMap", 600000, false);
+
 	lgtb_players = 0;
 	lgbt_started = false;
 
@@ -78,8 +81,10 @@ public NextLgbtMap()
 		{
 			if (PLAYER_MISC[i][MISC_GAMEMODE] == 2)
 			{
+				PlayerExitGamemode(i, false);
+
 				minigames_page[i] = 2;
-				PlayerJoinGamemode(i);
+				PlayerJoinGamemode(i, false);
 			}
 		}
 	}	

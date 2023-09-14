@@ -257,6 +257,59 @@ DC_CMD:unban(DCC_User:userid, params[], DCC_Message:message)
 	return 1;
 }
 
+DC_CMD:dban(DCC_User:userid, params[], DCC_Message:message)
+{
+	new DCC_Channel:channelid;
+	DCC_GetMessageChannel(message, channelid);
+
+	if(!DCC_IsUserModerator(userid)) return SendDiscordMessage(channelid, ":x: No tienes permisos suficientes");
+
+	new reason[32], to_account;
+	if (sscanf(params, "ds[32]", to_account, reason)) return SendDiscordMessage(channelid, ":x: `!dban <DB-ID> <razon>`");
+
+	new DBResult:Result, DB_Query[160];
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		new id, ip[16], get_name[24], connected, player_id;
+
+		id = db_get_field_assoc_int(Result, "ID");
+		db_get_field_assoc(Result, "IP", ip, 16);
+		db_get_field_assoc(Result, "NAME", get_name, 24);
+		connected = db_get_field_assoc_int(Result, "CONNECTED");
+		player_id = db_get_field_assoc_int(Result, "PLAYERID");
+
+		if (connected) SendDiscordMessage(channelid, "JUGADOR '%s' DB-ID '%d' conectado utilice !ban, su player_id: %d.", get_name, id, player_id);
+		else
+		{
+			new DBResult:is_banned;
+			format(DB_Query, sizeof DB_Query, "SELECT * FROM `BANS` WHERE `NAME` = '%q' OR `IP` = '%q';", get_name, ip);
+			is_banned = db_query(Database, DB_Query);
+
+			if (db_num_rows(is_banned))
+			{
+				new expire_date[24];
+				db_get_field_assoc(is_banned, "EXPIRE_DATE", expire_date, 24);
+
+				if (!strcmp(expire_date, "0", false)) SendDiscordMessage(channelid, "JUGADOR (Nombre: '%s' DB-ID: '%d') ya está baneado (permanentemente).", get_name, id);
+				else SendDiscordMessage(channelid, "JUGADOR (Nombre: '%s' DB-ID: '%d') ya está baneado (temporalmente, fecha de readmisión: %s).", get_name, id, expire_date);
+			}
+			else
+			{
+				AddPlayerBan(id, get_name, ip, 11, TYPE_BAN, reason);
+				SendDiscordMessage(channelid, "Jugador (nick: '%s' db_id: '%d') baneado.", get_name, id);
+			}
+
+			db_free_result(is_banned);
+		}
+	}
+	else SendDiscordMessage(channelid, ":x: No se encontro la DB-ID.");
+	db_free_result(Result);
+	return 1;
+}
+
 DC_CMD:dtban(DCC_User:userid, params[], DCC_Message:message)
 {
 	new DCC_Channel:channelid;
@@ -452,6 +505,38 @@ DC_CMD:getname(DCC_User:userid, params[], DCC_Message:message)
 	return 1;
 }
 
+DC_CMD:player(DCC_User:userid, params[], DCC_Message:message)
+{
+	new DCC_Channel:channelid;
+	DCC_GetMessageChannel(message, channelid);
+	
+	new name[24];
+	if (sscanf(params, "s[24]", name)) return SendDiscordMessage(channelid, ":warning: Uso: `!player <nombre o parte del nombre>`");
+
+	new DBResult:Result, DB_Query[264];
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` LIKE '%%%q%%' LIMIT 3;", name);
+	Result = db_query(Database, DB_Query);
+
+	new count;
+	for(new i = 0; i < db_num_rows(Result); i ++)
+	{
+		new id, get_name[24], last_connection[32];
+
+		id = db_get_field_assoc_int(Result, "ID");
+		db_get_field_assoc(Result, "NAME", get_name, 24);
+		db_get_field_assoc(Result, "LAST_CONNECTION", last_connection, 32);
+
+		SendDiscordMessage(channelid, "Nombre: `%s (id: %d)` | `%s`", get_name, id, last_connection);
+
+		count ++;
+		db_next_row(Result);
+	}
+	db_free_result(Result);
+
+	SendDiscordMessage(channelid, ":x: No existen usuarios con esos nombres", count);
+	return 1;
+}
+
 DC_CMD:getid(DCC_User:userid, params[], DCC_Message:message)
 {
 	new DCC_Channel:channelid;
@@ -633,7 +718,7 @@ DC_CMD:setmutes(DCC_User:userid, params[], DCC_Message:message)
 	return 1;
 }
 
-DC_CMD:exproperty(DCC_User:userid, params[], DCC_Message:message)
+DC_CMD:expro(DCC_User:userid, params[], DCC_Message:message)
 {
 	new DCC_Channel:channelid;
 	DCC_GetMessageChannel(message, channelid);

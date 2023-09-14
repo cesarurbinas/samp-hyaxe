@@ -260,7 +260,7 @@ static bool:ac_ACAllow[] =
 	false,	//18 Anti-Special actions hack
 	true,	//19 Anti-GodMode from bullets (onfoot)
 	true,	//20 Anti-GodMode from bullets (in vehicle)
-	true,	//21 Anti-Invisible hack
+	false,	//21 Anti-Invisible hack
 	true,	//22 Anti-lagcomp-spoof
 	true,	//23 Anti-Tuning hack
 	false,	//24 Anti-Parkour mod

@@ -524,7 +524,7 @@ stock Float:mathfrandom(Float:min, Float:max)
 	return floatadd(float_random(floatsub(max, min)), min); 
 }
 
-GiveGoldIngot(playerid, ammount = 1)
+stock GiveGoldIngot(playerid, ammount = 1)
 {
 	PLAYER_MISC[playerid][MISC_GOLD_INGOT] += ammount;
 	SavePlayerMisc(playerid);

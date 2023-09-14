@@ -55,7 +55,7 @@
 
 // Features
 #define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -85,7 +85,7 @@
 #include "core/dialog/dialog_id.pwn"
 
 // LGBT infection
-#include "core/lgbt_infection/header.pwn"
+//#include "core/lgbt_infection/header.pwn"
 
 // Damage
 #include "core/damage/header.pwn"
@@ -293,8 +293,8 @@
 #include "core/gui/functions.pwn"
 
 // Gamemodes
-#include "core/lgbt_infection/functions.pwn"
-#include "core/lgbt_infection/callbacks.pwn"
+//#include "core/lgbt_infection/functions.pwn"
+//#include "core/lgbt_infection/callbacks.pwn"
 
 /* Special Features */
 
@@ -3228,7 +3228,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 {
     if (packetid == PLAYER_SYNC)
     {
-    	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
+    	//if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
         new onFootData[PR_OnFootSync];
 
@@ -4377,6 +4377,10 @@ public OnPlayerDisconnect(playerid, reason)
 
 ResetPlayerVariables(playerid)
 {
+	minigames_page[playerid] = 0;
+	in_main_menu[playerid] = false;
+	in_gamemode_menu[playerid] = false;
+
 	new temp_PLAYER_TEMP[Temp_Enum]; PLAYER_TEMP[playerid] = temp_PLAYER_TEMP;
 	new temp_ACCOUNT_INFO[Account_Enum]; ACCOUNT_INFO[playerid] = temp_ACCOUNT_INFO;
 	new temp_CHARACTER_INFO[Character_Enum]; CHARACTER_INFO[playerid] = temp_CHARACTER_INFO;
@@ -6456,442 +6460,469 @@ public OnPlayerSpawn(playerid)
 
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO]);
 
-	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_OCCUPIED) // Primer spawn
+	switch(PLAYER_MISC[playerid][MISC_GAMEMODE])
 	{
-		PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
-		PLAYER_TEMP[playerid][py_USER_LOGGED] = true;
-
-		if (PLAYER_CREW[playerid][player_crew_VALID]) SetPlayerGangZones(playerid);
-		SetPlayerSkillLevels(playerid);
-		ApplyAnimation(playerid, "SWAT", "null", 0.0, 0, 0, 0, 0, 0);
-		ApplyAnimation(playerid, "MEDIC", "null", 0.0, 0, 0, 0, 0, 0);
-
-		switch(CHARACTER_INFO[playerid][ch_STATE])
+		case 0:
 		{
-			case ROLEPLAY_STATE_NORMAL:
+			if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_OCCUPIED) // Primer spawn
 			{
-				SetPlayerHud(playerid);
-				SetCameraBehindPlayer(playerid);
-				TogglePlayerControllableEx(playerid, false);
-				if (!PLAYER_TEMP[playerid][py_NEW_USER])
+				PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
+				PLAYER_TEMP[playerid][py_USER_LOGGED] = true;
+
+				if (PLAYER_CREW[playerid][player_crew_VALID]) SetPlayerGangZones(playerid);
+				SetPlayerSkillLevels(playerid);
+				ApplyAnimation(playerid, "SWAT", "null", 0.0, 0, 0, 0, 0, 0);
+				ApplyAnimation(playerid, "MEDIC", "null", 0.0, 0, 0, 0, 0, 0);
+
+				switch(CHARACTER_INFO[playerid][ch_STATE])
 				{
+					case ROLEPLAY_STATE_NORMAL:
+					{
+						SetPlayerHud(playerid);
+						SetCameraBehindPlayer(playerid);
+						TogglePlayerControllableEx(playerid, false);
+						if (!PLAYER_TEMP[playerid][py_NEW_USER])
+						{
+							KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
+							PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
+						}
+						else SetPlayerVirtualWorld(playerid, playerid);
+					}
+					case ROLEPLAY_STATE_JAIL:
+					{
+						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
+						if (CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] < 5) CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 5;
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
+						PLAYER_TEMP[playerid][py_TIMERS][15] = SetTimerEx("UnjailPlayer", CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] * 1000, false, "i", playerid);
+
+						PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME] = gettime();
+						SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
+						Streamer_UpdateEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], 0, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], .freezeplayer = 1);
+						new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
+
+						new str_text[128];
+						format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
+						ShowPlayerMessage(playerid, str_text, 1);
+
+						new DBResult:NameR, query[65];
+						format(query, sizeof(query), "SELECT `NAME` FROM `CUENTA` WHERE `ID` = %d LIMIT 1;", CHARACTER_INFO[playerid][ch_JAILED_BY]);
+						NameR = db_query(Database, query);
+						if (db_num_rows(NameR))
+						{
+							new name[25];
+							db_get_field_assoc(NameR, "NAME", name);
+							format(str_text, sizeof(str_text), "Fuiste encarcelado por %s. Razón: %s.", name, CHARACTER_INFO[playerid][ch_JAIL_REASON]);
+							SendClientMessage(playerid, 0xF7F7F7CC, str_text);
+						}
+						db_free_result(NameR);
+
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+						PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
+
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
+						PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
+
+		    			ResetPlayerWeapons(playerid);
+		    			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+		    			DeleteIlegalInv(playerid);
+		    			SetPlayerColorEx(playerid, PLAYER_COLOR);
+
+						SetPlayerHud(playerid);
+						SetCameraBehindPlayer(playerid);
+						TogglePlayerControllableEx(playerid, false);
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
+						PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
+					}
+					case ROLEPLAY_STATE_ARRESTED:
+					{
+						CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 300;
+
+						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
+						PLAYER_TEMP[playerid][py_TIMERS][15] = SetTimerEx("UnjailPlayer", CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] * 1000, false, "i", playerid);
+
+						PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME] = gettime();
+						SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
+
+						new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
+
+						new str_text[128];
+						format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
+						ShowPlayerMessage(playerid, str_text, 1);
+
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+						PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
+
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
+						PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 900, true, "i", playerid);
+
+						SetPlayerHud(playerid);
+						SetCameraBehindPlayer(playerid);
+						TogglePlayerControllableEx(playerid, false);
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
+						PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
+					}
+					case ROLEPLAY_STATE_OWN_PROPERTY:
+					{
+						new index = GetPropertyIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
+						if (index == -1)
+						{
+							CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+							CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+							new index_pos = minrand(0, sizeof(NewUserPos));
+							CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+							CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+							CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+							CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
+							CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+
+							SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
+						}
+						else
+						{
+							if (PROPERTY_INFO[index][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+							{
+								SetPlayerInterior(playerid, PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_INTERIOR]);
+								SetPlayerVirtualWorld(playerid, PROPERTY_INFO[index][property_ID]);
+							}
+							else
+							{
+								CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+								CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+								CHARACTER_INFO[playerid][ch_POS][0] = PROPERTY_INFO[index][property_EXT_X];
+								CHARACTER_INFO[playerid][ch_POS][1] = PROPERTY_INFO[index][property_EXT_Y];
+								CHARACTER_INFO[playerid][ch_POS][2] = PROPERTY_INFO[index][property_EXT_Z];
+								CHARACTER_INFO[playerid][ch_ANGLE] = PROPERTY_INFO[index][property_EXT_ANGLE];
+								CHARACTER_INFO[playerid][ch_INTERIOR] = PROPERTY_INFO[index][property_EXT_INTERIOR];
+
+								SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
+							}
+						}
+
+						SetPlayerHud(playerid);
+						SetCameraBehindPlayer(playerid);
+						TogglePlayerControllableEx(playerid, false);
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
+						PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
+					}
+					case ROLEPLAY_STATE_HOSPITAL:
+					{
+						Logger_Debug("OK 2");
+
+						PLAYER_TEMP[playerid][py_HOSPITAL] = GetNearestHospitalForPlayer(playerid);
+						PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = false;
+						PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_DEAD;
+
+						TogglePlayerControllableEx(playerid, true);
+						SetPlayerInterior(playerid, 3);
+						SetPlayerVirtualWorld(playerid, 2);
+						CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+						PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
+						PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
+						PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
+
+						PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] = 35;
+						UpdateHospitalSizeTextdrawLife(playerid);
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
+						PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
+
+						if (ACCOUNT_INFO[playerid][ac_SU] >= 2) DeleteIlegalInv(playerid);
+						else DeleteIlegalInv(playerid, true);
+
+						new random_pos = minrand(0, 12); 
+						PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
+						PLAYER_TEMP[playerid][py_HP_POS_DATA][1] = Hp_Spawn_Interior_Pos[random_pos][1];
+						PLAYER_TEMP[playerid][py_HP_POS_DATA][2] = Hp_Spawn_Interior_Pos[random_pos][2];
+						PLAYER_TEMP[playerid][py_HP_POS_DATA][3] = Hp_Spawn_Interior_Pos[random_pos][3];
+
+						SetPlayerPosEx(playerid, Hp_Spawn_Interior_Pos[random_pos][0], Hp_Spawn_Interior_Pos[random_pos][1], Hp_Spawn_Interior_Pos[random_pos][2], Hp_Spawn_Interior_Pos[random_pos][3], 3, 2);
+						TogglePlayerControllableEx(playerid, false);
+						ApplyAnimation(playerid, "INT_HOUSE", "BED_In_R", 4.1, 0, 0, 0, 1, 0);
+						ShowPlayerNotification(playerid, "Fuiste ingresado en el centro médico más cercano.", 3);
+					}
+					case ROLEPLAY_STATE_CRACK:
+					{
+						Logger_Debug("OK 1");
+
+						SetPlayerHud(playerid);
+						SetCameraBehindPlayer(playerid);
+						TogglePlayerControllableEx(playerid, false);
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
+						PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
+
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][16]);
+						PLAYER_TEMP[playerid][py_TIMERS][16] = SetTimerEx("HealthDown", 3000, false, "i", playerid);
+
+						PLAYER_TEMP[playerid][py_INJURED_POS][0] = CHARACTER_INFO[playerid][ch_POS][0];
+						PLAYER_TEMP[playerid][py_INJURED_POS][1] = CHARACTER_INFO[playerid][ch_POS][1];
+						PLAYER_TEMP[playerid][py_INJURED_POS][2] = CHARACTER_INFO[playerid][ch_POS][2];
+						PLAYER_TEMP[playerid][py_INJURED_POS][3] = CHARACTER_INFO[playerid][ch_ANGLE];
+
+						TogglePlayerControllableEx(playerid, false);
+						SetPlayerColorEx(playerid, PLAYER_COLOR);
+					}
+					case ROLEPLAY_STATE_BOX:
+					{
+						Logger_Debug("OK 3");
+
+						if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 2)
+						{
+							/*SetSpawnInfo(playerid, DEFAULT_TEAM,
+								PLAYER_MISC[playerid][MISC_SKIN],
+								LGBT_MAPS[lgbt_map_index][lm_X],
+								LGBT_MAPS[lgbt_map_index][lm_Y],
+								LGBT_MAPS[lgbt_map_index][lm_Z],
+								LGBT_MAPS[lgbt_map_index][lm_ANGLE],
+								0, 0, 0, 0, 0, 0
+							);
+
+							CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+							PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
+							CHARACTER_INFO[playerid][ch_INTERIOR] = LGBT_MAPS[lgbt_map_index][lm_INTERIOR];
+							
+							SetPlayerPosEx(playerid,
+								LGBT_MAPS[lgbt_map_index][lm_X],
+								LGBT_MAPS[lgbt_map_index][lm_Y],
+								LGBT_MAPS[lgbt_map_index][lm_Z],
+								LGBT_MAPS[lgbt_map_index][lm_ANGLE],
+								LGBT_MAPS[lgbt_map_index][lm_INTERIOR],
+								LGBT_MAPS[lgbt_map_index][lm_WORLD],
+								false, true
+							);
+
+							SetPlayerFacingAngle(playerid, LGBT_MAPS[lgbt_map_index][lm_ANGLE]);
+							SetCameraBehindPlayer(playerid);*/
+						}
+						else
+						{
+							SetSpawnInfo(playerid, DEFAULT_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
+							SetCameraBehindPlayer(playerid);
+							SetPlayerPosEx(playerid, -25.157732, 87.987953, 1098.070190, 0.481732, 16, 0, false);
+							CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+							PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
+						}
+						return 1;
+					}
+					case ROLEPLAY_STATE_OWN_CLUB:
+					{
+						new index = GetClubIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
+						if (index == -1)
+						{
+							CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+							CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+							new index_pos = minrand(0, sizeof(NewUserPos));
+							CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+							CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+							CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+							CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
+							CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+							CHARACTER_INFO[playerid][ch_WORLD] = 0;
+							SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
+						}
+						else
+						{
+							CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+							CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+							CHARACTER_INFO[playerid][ch_POS][0] = CLUBS_INFO[index][club_X];
+							CHARACTER_INFO[playerid][ch_POS][1] = CLUBS_INFO[index][club_Y];
+							CHARACTER_INFO[playerid][ch_POS][2] = CLUBS_INFO[index][club_Z];
+							CHARACTER_INFO[playerid][ch_ANGLE] = CLUBS_INFO[index][club_ANGLE];
+							CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+							SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
+						}
+					}
+				}
+
+				new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
+				if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
+				{
+					if (ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] > TIME_FOR_REP) ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
+					if (ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] <= 900) ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = 3000;
+
+					PLAYER_TEMP[playerid][py_TIME_PASSED_LAST_REP] = gettime() * 1000;
+					PLAYER_TEMP[playerid][py_TIMERS][2] = SetTimerEx("AddPlayerReputation", ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], false, "i", playerid);
+				}
+				else NextLevel(playerid);
+
+				if (PLAYER_PHONE[playerid][player_phone_VALID])
+				{
+					new DBResult:Result, DB_Query[220];
+					format(DB_Query, sizeof(DB_Query),
+						"\
+							SELECT COUNT() FROM `PHONE_MESSAGES` WHERE `TO` = '%d' AND `OFFLINE` = '1' ORDER BY `DATE` DESC LIMIT 10;\
+							UPDATE `PHONE_MESSAGES` SET `OFFLINE` = '0' WHERE `TO` = '%d';\
+						",
+					PLAYER_PHONE[playerid][player_phone_NUMBER],
+					PLAYER_PHONE[playerid][player_phone_NUMBER]);
+
+					Result = db_query(Database, DB_Query);
+					if (db_num_rows(Result))
+					{
+						new new_messages = db_get_field_int(Result, 0);
+						if (new_messages > 0)
+						{
+							new str_text[128];
+							format(str_text, sizeof(str_text), "Tienes %d SMS sin leer", new_messages);
+							ShowPlayerNotification(playerid, str_text, 4);
+						}
+					}
+					db_free_result(Result);
+				}
+			}
+			else if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_DEAD) // Viene de morir
+			{
+				if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL)
+				{
+					if (!PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL])
+					{
+						SetPlayerInterior(playerid, 3);
+						SetPlayerVirtualWorld(playerid, 2);
+						PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = false;
+						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_HOSPITAL;
+						CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+						PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
+						PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
+						PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
+
+						PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] = 35;
+						UpdateHospitalSizeTextdrawLife(playerid);
+						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
+						PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
+
+						if (ACCOUNT_INFO[playerid][ac_SU] >= 2) DeleteIlegalInv(playerid);
+						else DeleteIlegalInv(playerid, true);
+
+						ClearPlayerChatBox(playerid);
+						if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
+						{
+							ShowPlayerNotification(playerid, "Estas en el centro médico más cercano, cuando te recuperes te llevaran a la cárcel.", 3);
+							SetPlayerPoliceSearchLevel(playerid, 0);
+						}
+						else
+						{
+						    ShowPlayerNotification(playerid, "Fuiste ingresado en el centro médico más cercano.", 3);
+						}
+
+						ResetItemBody(playerid);
+
+						new random_pos = minrand(0, 12);
+						PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
+						PLAYER_TEMP[playerid][py_HP_POS_DATA][1] = Hp_Spawn_Interior_Pos[random_pos][1];
+						PLAYER_TEMP[playerid][py_HP_POS_DATA][2] = Hp_Spawn_Interior_Pos[random_pos][2];
+						PLAYER_TEMP[playerid][py_HP_POS_DATA][3] = Hp_Spawn_Interior_Pos[random_pos][3];
+
+						SetPlayerPosEx(playerid, Hp_Spawn_Interior_Pos[random_pos][0], Hp_Spawn_Interior_Pos[random_pos][1], Hp_Spawn_Interior_Pos[random_pos][2], Hp_Spawn_Interior_Pos[random_pos][3], 3, 2);
+						TogglePlayerControllableEx(playerid, false);
+						ApplyAnimation(playerid,"INT_HOUSE","BED_In_R", 4.1, 0, 0, 0, 1, 0);
+					}
+				}
+				else if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
+				{
+					SetPlayerHud(playerid);
+					SetPlayerHealthEx(playerid, 60.0);
+					TogglePlayerControllableEx(playerid, false);
 					KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
 					PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
+
+					KillTimer(PLAYER_TEMP[playerid][py_TIMERS][16]);
+					PLAYER_TEMP[playerid][py_TIMERS][16] = SetTimerEx("HealthDown", 3000, false, "i", playerid);
+
+					SetPlayerColorEx(playerid, PLAYER_COLOR);
 				}
-				else SetPlayerVirtualWorld(playerid, playerid);
+
+				SetPlayerSkin(playerid, PLAYER_TEMP[playerid][py_SKIN]);
 			}
-			case ROLEPLAY_STATE_JAIL:
+
+			if (PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL])
 			{
-				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
-				if (CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] < 5) CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 5;
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
-				PLAYER_TEMP[playerid][py_TIMERS][15] = SetTimerEx("UnjailPlayer", CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] * 1000, false, "i", playerid);
-
-				PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME] = gettime();
-				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
-				Streamer_UpdateEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], 0, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], .freezeplayer = 1);
-				new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
-
-				new str_text[128];
-				format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
-				ShowPlayerMessage(playerid, str_text, 1);
-
-				new DBResult:NameR, query[65];
-				format(query, sizeof(query), "SELECT `NAME` FROM `CUENTA` WHERE `ID` = %d LIMIT 1;", CHARACTER_INFO[playerid][ch_JAILED_BY]);
-				NameR = db_query(Database, query);
-				if (db_num_rows(NameR))
+				if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL)
 				{
-					new name[25];
-					db_get_field_assoc(NameR, "NAME", name);
-					format(str_text, sizeof(str_text), "Fuiste encarcelado por %s. Razón: %s.", name, CHARACTER_INFO[playerid][ch_JAIL_REASON]);
-					SendClientMessage(playerid, 0xF7F7F7CC, str_text);
+					KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
+					PLAYER_TEMP[playerid][py_TIMERS][15] = SetTimerEx("UnjailPlayer", CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] * 1000, false, "i", playerid);
 				}
-				db_free_result(NameR);
 
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
-				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
-
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
-				PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
-
-    			ResetPlayerWeapons(playerid);
-    			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
-    			DeleteIlegalInv(playerid);
-    			SetPlayerColorEx(playerid, PLAYER_COLOR);
-
+				SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
+				SetPlayerVirtualWorld(playerid, 0);
 				SetPlayerHud(playerid);
-				SetCameraBehindPlayer(playerid);
 				TogglePlayerControllableEx(playerid, false);
+				PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = false;
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
+				SetCameraBehindPlayer(playerid);
 				PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
 			}
-			case ROLEPLAY_STATE_ARRESTED:
+
+			if (PLAYER_TEMP[playerid][py_NOCHE_DE_SEXO]) SetPlayerTime(playerid, 0, 0);
+			else SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
+			
+			SetPlayerWeather(playerid, SERVER_WEATHER);
+
+			PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_NORMAL;
+			SetPlayerSkin(playerid, PLAYER_TEMP[playerid][py_SKIN]);
+			SetPlayerToys(playerid);
+			SetPlayerArmedWeapon(playerid, 0);
+			SetPlayerNormalColor(playerid);
+			SetTracingColor(playerid, COLOR_RED);
+			PreloadAnims(playerid);
+
+			if (PLAYER_CREW[playerid][player_crew_VALID])
 			{
-				CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 300;
-
-				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
-				PLAYER_TEMP[playerid][py_TIMERS][15] = SetTimerEx("UnjailPlayer", CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] * 1000, false, "i", playerid);
-
-				PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME] = gettime();
-				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
-
-				new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
-
-				new str_text[128];
-				format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
-				ShowPlayerMessage(playerid, str_text, 1);
-
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
-				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
-
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
-				PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 900, true, "i", playerid);
-
-				SetPlayerHud(playerid);
-				SetCameraBehindPlayer(playerid);
-				TogglePlayerControllableEx(playerid, false);
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
-				PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
-			}
-			case ROLEPLAY_STATE_OWN_PROPERTY:
-			{
-				new index = GetPropertyIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
-				if (index == -1)
+				for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
 				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					new index_pos = minrand(0, sizeof(NewUserPos));
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
-
-					SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
-				}
-				else
-				{
-					if (PROPERTY_INFO[index][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+					if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
 					{
-						SetPlayerInterior(playerid, PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_INTERIOR]);
-						SetPlayerVirtualWorld(playerid, PROPERTY_INFO[index][property_ID]);
-					}
-					else
-					{
-						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-						CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-						CHARACTER_INFO[playerid][ch_POS][0] = PROPERTY_INFO[index][property_EXT_X];
-						CHARACTER_INFO[playerid][ch_POS][1] = PROPERTY_INFO[index][property_EXT_Y];
-						CHARACTER_INFO[playerid][ch_POS][2] = PROPERTY_INFO[index][property_EXT_Z];
-						CHARACTER_INFO[playerid][ch_ANGLE] = PROPERTY_INFO[index][property_EXT_ANGLE];
-						CHARACTER_INFO[playerid][ch_INTERIOR] = PROPERTY_INFO[index][property_EXT_INTERIOR];
-
-						SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
+						SetPlayerMapIcon(playerid, 0, GRAFFITIS_OBJ[i][g_X], GRAFFITIS_OBJ[i][g_Y], GRAFFITIS_OBJ[i][g_Z], 63, 0, MAPICON_GLOBAL);
 					}
 				}
-
-				SetPlayerHud(playerid);
-				SetCameraBehindPlayer(playerid);
-				TogglePlayerControllableEx(playerid, false);
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
-				PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
 			}
-			case ROLEPLAY_STATE_HOSPITAL:
+
+			if (CHARACTER_INFO[playerid][ch_HEALTH] <= 0.0) CHARACTER_INFO[playerid][ch_HEALTH] = 1.0;
+			if (CHARACTER_INFO[playerid][ch_HEALTH] >= 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
+			if (CHARACTER_INFO[playerid][ch_ARMOUR] >= 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
+
+			SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
+			SetPlayerArmourEx(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
+
+			lastShotTick[playerid] = GetTickCount();
+			
+			if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
 			{
-				Logger_Debug("OK 2");
-
-				PLAYER_TEMP[playerid][py_HOSPITAL] = GetNearestHospitalForPlayer(playerid);
-				PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = false;
-				PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_DEAD;
-
-				TogglePlayerControllableEx(playerid, true);
-				SetPlayerInterior(playerid, 3);
-				SetPlayerVirtualWorld(playerid, 2);
-				CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-				PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
-				PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
-				PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
-
-				PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] = 35;
-				UpdateHospitalSizeTextdrawLife(playerid);
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
-				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
-
-				if (ACCOUNT_INFO[playerid][ac_SU] >= 2) DeleteIlegalInv(playerid);
-				else DeleteIlegalInv(playerid, true);
-
-				new random_pos = minrand(0, 12); 
-				PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
-				PLAYER_TEMP[playerid][py_HP_POS_DATA][1] = Hp_Spawn_Interior_Pos[random_pos][1];
-				PLAYER_TEMP[playerid][py_HP_POS_DATA][2] = Hp_Spawn_Interior_Pos[random_pos][2];
-				PLAYER_TEMP[playerid][py_HP_POS_DATA][3] = Hp_Spawn_Interior_Pos[random_pos][3];
-
-				SetPlayerPosEx(playerid, Hp_Spawn_Interior_Pos[random_pos][0], Hp_Spawn_Interior_Pos[random_pos][1], Hp_Spawn_Interior_Pos[random_pos][2], Hp_Spawn_Interior_Pos[random_pos][3], 3, 2);
-				TogglePlayerControllableEx(playerid, false);
-				ApplyAnimation(playerid, "INT_HOUSE", "BED_In_R", 4.1, 0, 0, 0, 1, 0);
-				ShowPlayerNotification(playerid, "Fuiste ingresado en el centro médico más cercano.", 3);
+				SetFirstPerson(playerid, true);
 			}
-			case ROLEPLAY_STATE_CRACK:
-			{
-				Logger_Debug("OK 1");
 
-				SetPlayerHud(playerid);
-				SetCameraBehindPlayer(playerid);
-				TogglePlayerControllableEx(playerid, false);
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
-				PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
+			if (PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_POLICE) SetPlayerColorEx(playerid, 0x6060FF00);
 
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][16]);
-				PLAYER_TEMP[playerid][py_TIMERS][16] = SetTimerEx("HealthDown", 3000, false, "i", playerid);
+			PLAYER_TEMP[playerid][py_CONTROL] = false;
 
-				PLAYER_TEMP[playerid][py_INJURED_POS][0] = CHARACTER_INFO[playerid][ch_POS][0];
-				PLAYER_TEMP[playerid][py_INJURED_POS][1] = CHARACTER_INFO[playerid][ch_POS][1];
-				PLAYER_TEMP[playerid][py_INJURED_POS][2] = CHARACTER_INFO[playerid][ch_POS][2];
-				PLAYER_TEMP[playerid][py_INJURED_POS][3] = CHARACTER_INFO[playerid][ch_ANGLE];
+			PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
+			PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
+			PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY] = gettime() + 3;
+			PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_IMMUNITY] = gettime() + 3;
+			PLAYER_AC_INFO[playerid][CHEAT_UNOCCUPIED_VEHICLE_TP][p_ac_info_IMMUNITY] = gettime() + 5;
 
-				TogglePlayerControllableEx(playerid, false);
-				SetPlayerColorEx(playerid, PLAYER_COLOR);
-			}
-			case ROLEPLAY_STATE_BOX:
-			{
-				Logger_Debug("OK 3");
-
-				if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 2)
-				{
-					SetSpawnInfo(playerid, DEFAULT_TEAM,
-						PLAYER_MISC[playerid][MISC_SKIN],
-						LGBT_MAPS[lgbt_map_index][lm_X],
-						LGBT_MAPS[lgbt_map_index][lm_Y],
-						LGBT_MAPS[lgbt_map_index][lm_Z],
-						LGBT_MAPS[lgbt_map_index][lm_ANGLE],
-						0, 0, 0, 0, 0, 0
-					);
-
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
-					CHARACTER_INFO[playerid][ch_INTERIOR] = LGBT_MAPS[lgbt_map_index][lm_INTERIOR];
-					
-					SetPlayerPosEx(playerid,
-						LGBT_MAPS[lgbt_map_index][lm_X],
-						LGBT_MAPS[lgbt_map_index][lm_Y],
-						LGBT_MAPS[lgbt_map_index][lm_Z],
-						LGBT_MAPS[lgbt_map_index][lm_ANGLE],
-						LGBT_MAPS[lgbt_map_index][lm_INTERIOR],
-						LGBT_MAPS[lgbt_map_index][lm_WORLD],
-						false, true
-					);
-
-					SetPlayerFacingAngle(playerid, LGBT_MAPS[lgbt_map_index][lm_ANGLE]);
-					SetCameraBehindPlayer(playerid);
-				}
-				else
-				{
-					SetSpawnInfo(playerid, DEFAULT_TEAM, PLAYER_TEMP[playerid][py_SKIN], -25.157732, 87.987953, 1098.070190, 0.481732, 0, 0, 0, 0, 0, 0);
-					SetCameraBehindPlayer(playerid);
-					SetPlayerPosEx(playerid, -25.157732, 87.987953, 1098.070190, 0.481732, 16, 0, false);
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
-				}
-				return 1;
-			}
-			case ROLEPLAY_STATE_OWN_CLUB:
-			{
-				new index = GetClubIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
-				if (index == -1)
-				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					new index_pos = minrand(0, sizeof(NewUserPos));
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
-					CHARACTER_INFO[playerid][ch_WORLD] = 0;
-					SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
-				}
-				else
-				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					CHARACTER_INFO[playerid][ch_POS][0] = CLUBS_INFO[index][club_X];
-					CHARACTER_INFO[playerid][ch_POS][1] = CLUBS_INFO[index][club_Y];
-					CHARACTER_INFO[playerid][ch_POS][2] = CLUBS_INFO[index][club_Z];
-					CHARACTER_INFO[playerid][ch_ANGLE] = CLUBS_INFO[index][club_ANGLE];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
-					SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_INTERIOR], 0);
-				}
-			}
+			SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
 		}
-
-		new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
-		if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
+		case 2:
 		{
-			if (ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] > TIME_FOR_REP) ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
-			if (ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] <= 900) ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = 3000;
+			/*ResetPlayerWeapons(playerid);
+			ResetPlayerMoney(playerid);
 
-			PLAYER_TEMP[playerid][py_TIME_PASSED_LAST_REP] = gettime() * 1000;
-			PLAYER_TEMP[playerid][py_TIMERS][2] = SetTimerEx("AddPlayerReputation", ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], false, "i", playerid);
-		}
-		else NextLevel(playerid);
+			SetPlayerHealthEx(playerid, 100.0);
 
-		if (PLAYER_PHONE[playerid][player_phone_VALID])
-		{
-			new DBResult:Result, DB_Query[220];
-			format(DB_Query, sizeof(DB_Query),
-				"\
-					SELECT COUNT() FROM `PHONE_MESSAGES` WHERE `TO` = '%d' AND `OFFLINE` = '1' ORDER BY `DATE` DESC LIMIT 10;\
-					UPDATE `PHONE_MESSAGES` SET `OFFLINE` = '0' WHERE `TO` = '%d';\
-				",
-			PLAYER_PHONE[playerid][player_phone_NUMBER],
-			PLAYER_PHONE[playerid][player_phone_NUMBER]);
+			SetPlayerVirtualWorld(playerid, LGBT_MAPS[lgbt_map_index][lm_WORLD]);
 
-			Result = db_query(Database, DB_Query);
-			if (db_num_rows(Result))
-			{
-				new new_messages = db_get_field_int(Result, 0);
-				if (new_messages > 0)
-				{
-					new str_text[128];
-					format(str_text, sizeof(str_text), "Tienes %d SMS sin leer", new_messages);
-					ShowPlayerNotification(playerid, str_text, 4);
-				}
-			}
-			db_free_result(Result);
+			SetSpawnInfo(playerid, DEFAULT_TEAM,
+				PLAYER_MISC[playerid][MISC_SKIN],
+				LGBT_MAPS[lgbt_map_index][lm_X],
+				LGBT_MAPS[lgbt_map_index][lm_Y],
+				LGBT_MAPS[lgbt_map_index][lm_Z],
+				LGBT_MAPS[lgbt_map_index][lm_ANGLE],
+				0, 0, 0, 0, 0, 0
+			);
+
+			SetPlayerInterior(playerid, LGBT_MAPS[lgbt_map_index][lm_INTERIOR]);
+			PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_NORMAL;*/
 		}
 	}
-	else if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_DEAD) // Viene de morir
-	{
-		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL)
-		{
-			if (!PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL])
-			{
-				SetPlayerInterior(playerid, 3);
-				SetPlayerVirtualWorld(playerid, 2);
-				PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = false;
-				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_HOSPITAL;
-				CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-				PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = -1;
-				PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
-				PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
-
-				PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] = 35;
-				UpdateHospitalSizeTextdrawLife(playerid);
-				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
-				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
-
-				if (ACCOUNT_INFO[playerid][ac_SU] >= 2) DeleteIlegalInv(playerid);
-				else DeleteIlegalInv(playerid, true);
-
-				ClearPlayerChatBox(playerid);
-				if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
-				{
-					ShowPlayerNotification(playerid, "Estas en el centro médico más cercano, cuando te recuperes te llevaran a la cárcel.", 3);
-					SetPlayerPoliceSearchLevel(playerid, 0);
-				}
-				else
-				{
-				    ShowPlayerNotification(playerid, "Fuiste ingresado en el centro médico más cercano.", 3);
-				}
-
-				ResetItemBody(playerid);
-
-				new random_pos = minrand(0, 12);
-				PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
-				PLAYER_TEMP[playerid][py_HP_POS_DATA][1] = Hp_Spawn_Interior_Pos[random_pos][1];
-				PLAYER_TEMP[playerid][py_HP_POS_DATA][2] = Hp_Spawn_Interior_Pos[random_pos][2];
-				PLAYER_TEMP[playerid][py_HP_POS_DATA][3] = Hp_Spawn_Interior_Pos[random_pos][3];
-
-				SetPlayerPosEx(playerid, Hp_Spawn_Interior_Pos[random_pos][0], Hp_Spawn_Interior_Pos[random_pos][1], Hp_Spawn_Interior_Pos[random_pos][2], Hp_Spawn_Interior_Pos[random_pos][3], 3, 2);
-				TogglePlayerControllableEx(playerid, false);
-				ApplyAnimation(playerid,"INT_HOUSE","BED_In_R", 4.1, 0, 0, 0, 1, 0);
-			}
-		}
-		else if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
-		{
-			SetPlayerHud(playerid);
-			SetPlayerHealthEx(playerid, 60.0);
-			TogglePlayerControllableEx(playerid, false);
-			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
-			PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
-
-			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][16]);
-			PLAYER_TEMP[playerid][py_TIMERS][16] = SetTimerEx("HealthDown", 3000, false, "i", playerid);
-
-			SetPlayerColorEx(playerid, PLAYER_COLOR);
-		}
-
-		SetPlayerSkin(playerid, PLAYER_TEMP[playerid][py_SKIN]);
-	}
-
-	if (PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL])
-	{
-		if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL)
-		{
-			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
-			PLAYER_TEMP[playerid][py_TIMERS][15] = SetTimerEx("UnjailPlayer", CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] * 1000, false, "i", playerid);
-		}
-
-		SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
-		SetPlayerVirtualWorld(playerid, 0);
-		SetPlayerHud(playerid);
-		TogglePlayerControllableEx(playerid, false);
-		PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = false;
-		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][3]);
-		SetCameraBehindPlayer(playerid);
-		PLAYER_TEMP[playerid][py_TIMERS][3] = SetTimerEx("TogglePlayerControl", 2000, false, "ib", playerid, true);
-	}
-
-	if (PLAYER_TEMP[playerid][py_NOCHE_DE_SEXO]) SetPlayerTime(playerid, 0, 0);
-	else SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
-	
-	SetPlayerWeather(playerid, SERVER_WEATHER);
-
-	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_NORMAL;
-	SetPlayerSkin(playerid, PLAYER_TEMP[playerid][py_SKIN]);
-	SetPlayerToys(playerid);
-	SetPlayerArmedWeapon(playerid, 0);
-	SetPlayerNormalColor(playerid);
-	SetTracingColor(playerid, COLOR_RED);
-	PreloadAnims(playerid);
-
-	if (PLAYER_CREW[playerid][player_crew_VALID])
-	{
-		for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
-		{
-			if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
-			{
-				SetPlayerMapIcon(playerid, 0, GRAFFITIS_OBJ[i][g_X], GRAFFITIS_OBJ[i][g_Y], GRAFFITIS_OBJ[i][g_Z], 63, 0, MAPICON_GLOBAL);
-			}
-		}
-	}
-
-	if (CHARACTER_INFO[playerid][ch_HEALTH] <= 0.0) CHARACTER_INFO[playerid][ch_HEALTH] = 1.0;
-	if (CHARACTER_INFO[playerid][ch_HEALTH] >= 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
-	if (CHARACTER_INFO[playerid][ch_ARMOUR] >= 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
-
-	SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
-	SetPlayerArmourEx(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
-
-	lastShotTick[playerid] = GetTickCount();
-	
-	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
-	{
-		SetFirstPerson(playerid, true);
-	}
-
-	if (PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_POLICE) SetPlayerColorEx(playerid, 0x6060FF00);
-
-	PLAYER_TEMP[playerid][py_CONTROL] = false;
-
-	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
-	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
-	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY] = gettime() + 3;
-	PLAYER_AC_INFO[playerid][CHEAT_PLAYER_ARMOUR][p_ac_info_IMMUNITY] = gettime() + 3;
-	PLAYER_AC_INFO[playerid][CHEAT_UNOCCUPIED_VEHICLE_TP][p_ac_info_IMMUNITY] = gettime() + 5;
-
-	SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
 
 	if (PLAYER_TEMP[playerid][py_GODMODE])
 	{
@@ -7229,7 +7260,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		}
 		case 2:
 		{
-			SetSpawnInfo(playerid, DEFAULT_TEAM,
+			/*SetSpawnInfo(playerid, DEFAULT_TEAM,
 				PLAYER_MISC[playerid][MISC_SKIN],
 				LGBT_MAPS[lgbt_map_index][lm_X],
 				LGBT_MAPS[lgbt_map_index][lm_Y],
@@ -7254,7 +7285,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 			//PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_NORMAL;
 
 			PLAYER_TEMP[playerid][py_PLAYER_FINISH_HOSPITAL] = true;
-			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_BOX;
+			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_BOX;*/
 		}
 	}
 
@@ -7996,8 +8027,8 @@ public OnGameModeInit()
 	GraffitiGetTime = gettime();
 	MarketGetTime = gettime();
 	
-	lgbt_timers[0] = SetTimer("ChangeLgbtMap", 600000, false);
-	lgbt_map_index = random(sizeof(LGBT_MAPS));
+	/*lgbt_timers[0] = SetTimer("ChangeLgbtMap", 600000, false);
+	lgbt_map_index = random(sizeof(LGBT_MAPS));*/
 
     Log("status", "Servidor iniciado ("SERVER_VERSION").");
     SendDiscordWebhook(":fire: Servidor iniciado ("SERVER_VERSION").", 1);
@@ -9193,14 +9224,14 @@ public OnPlayerText(playerid, text[])
 				}
 			}
 		}
-		case 2:
+		/*case 2:
 		{
 			new str_text[288];
 			if (is_lgbt[playerid]) format(str_text, sizeof(str_text), "{e562e7}[LGBT]"COL_WHITE" %s (%d): %s", PLAYER_TEMP[playerid][py_NAME], playerid, text);
 			else format(str_text, sizeof(str_text), "{6286e7}[NORMAL]"COL_WHITE" %s (%d): %s", PLAYER_TEMP[playerid][py_NAME], playerid, text);
 
 			SendLGBTMessage(COLOR_WHITE, str_text);
-		}
+		}*/
 	}
 	return 0;
 }
@@ -10052,7 +10083,8 @@ CMD:mp3(playerid, params[])
 	if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
 	if (gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada un minuto.", 3, 1085);
 
-	ShowDialog(playerid, DIALOG_PLAYER_MP3);
+	ShowPlayerMessage(playerid, "~r~YouTube nos ha baneado, esta opcion se encuentra desactivada.", 4);
+	//ShowDialog(playerid, DIALOG_PLAYER_MP3);
 	return 1;
 }
 alias:mp3("youtube")
@@ -23011,7 +23043,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
 					if (gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar YouTube cada un minuto.", 3, 1085);
 
-					ShowDialog(playerid, DIALOG_PLAYER_MP3);
+					ShowPlayerMessage(playerid, "~r~YouTube nos ha baneado, esta opcion se encuentra desactivada.", 4);
+					//ShowDialog(playerid, DIALOG_PLAYER_MP3);
 					PLAYER_MISC[playerid][MISC_RADIO_STATION] = 666;
 				}
 				else

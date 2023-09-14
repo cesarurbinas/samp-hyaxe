@@ -170,38 +170,15 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 	if (IsPlayerConnected(issuerid))
 	{
-		if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 2)
+		/*if (PLAYER_MISC[playerid][MISC_GAMEMODE] == 2)
 		{
-			new no_homo, chad_id;
-
-			is_lgbt[playerid] = true;
-			SetPlayerSkin(playerid, 252);
-			ShowPlayerAlert(playerid, "Homosexual!", 0xe562e7FF, 4);
-
-			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			if (is_lgbt[issuerid] && !is_lgbt[playerid])
 			{
-				if (IsPlayerConnected(i))
-				{
-					if (PLAYER_MISC[i][MISC_GAMEMODE] == 2)
-					{
-						new str_text[128];
-						format(str_text, sizeof(str_text), "%s se ha convertido en ~p~Homosexual~w~!", PLAYER_TEMP[playerid][py_NAME]);
-						ShowPlayerNotification(i, str_text);
+				new no_homo, chad_id;
 
-						if (!is_lgbt[playerid])
-						{
-							no_homo ++;
-
-							if (no_homo == 1) chad_id = playerid;
-						}
-					}
-				}
-			}
-
-			if (no_homo == 1)
-			{
-				GiveGoldIngot(chad_id, 5);
-				lgbt_map_index = random(sizeof(LGBT_MAPS));
+				is_lgbt[playerid] = true;
+				SetPlayerSkin(playerid, 252);
+				ShowPlayerAlert(playerid, "Homosexual!", 0xe562e7FF, 4);
 
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{
@@ -210,18 +187,44 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 						if (PLAYER_MISC[i][MISC_GAMEMODE] == 2)
 						{
 							new str_text[128];
-							format(str_text, sizeof(str_text), "~g~%s~~ ha sido el ganador, siguiente mapa: ~y~%s", PLAYER_TEMP[chad_id][py_NAME], LGBT_MAPS[lgbt_map_index][lm_NAME]);
+							format(str_text, sizeof(str_text), "%s se ha convertido en ~p~Homosexual~w~!", PLAYER_TEMP[playerid][py_NAME]);
 							ShowPlayerNotification(i, str_text);
+
+							if (!is_lgbt[i])
+							{
+								no_homo ++;
+
+								if (no_homo == 1) chad_id = i;
+							}
 						}
 					}
 				}
 
-				initial_lgbt = INVALID_PLAYER_ID;
-				SetTimer("NextLgbtMap", 5000, false);
-			}
+				if (no_homo == 1)
+				{
+					GiveGoldIngot(chad_id, 5);
+					lgbt_map_index = random(sizeof(LGBT_MAPS));
 
-			GiveGoldIngot(issuerid);
-		}
+					for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+					{
+						if (IsPlayerConnected(i))
+						{
+							if (PLAYER_MISC[i][MISC_GAMEMODE] == 2)
+							{
+								new str_text[128];
+								format(str_text, sizeof(str_text), "~g~%s~w~ ha sido el ganador, siguiente mapa: ~y~%s", PLAYER_TEMP[chad_id][py_NAME], LGBT_MAPS[lgbt_map_index][lm_NAME]);
+								ShowPlayerNotification(i, str_text);
+							}
+						}
+					}
+
+					initial_lgbt = INVALID_PLAYER_ID;
+					SetTimer("NextLgbtMap", 10000, false);
+				}
+
+				GiveGoldIngot(issuerid);
+			}
+		}*/
 
 		GetPlayerPos(playerid, x, y, z);
 		if (IsShortDistanceWeapon(weaponid, GetPlayerDistanceFromPoint(issuerid, x, y, z))) return 0;

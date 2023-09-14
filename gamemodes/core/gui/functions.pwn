@@ -95,8 +95,9 @@ HideGamemodesMenu(playerid)
 	return 1;
 }
 
-PlayerJoinGamemode(playerid)
+PlayerJoinGamemode(playerid, announce = true)
 {
+	#pragma unused announce
 	//SendClientMessageEx(playerid, -1, "players: %d, is_lgbt: %d, lgbt_started: %d, init: %d", lgtb_players, is_lgbt[playerid], lgbt_started, initial_lgbt);
 
 	for(new i = 0; i != MAX_TIMERS_PER_PLAYER; i++) KillTimer(PLAYER_TEMP[playerid][py_TIMERS][i]);
@@ -117,11 +118,9 @@ PlayerJoinGamemode(playerid)
 	{
 		case 0:
 		{
-			if (!PLAYER_MISC[playerid][MISC_RP_PLAYER])
+			LoadPlayerPhoneData(playerid);
+			if (!PLAYER_PHONE[playerid][player_phone_NUMBER])
 			{
-				PLAYER_MISC[playerid][MISC_RP_PLAYER] = true;
-				SavePlayerMisc(playerid);
-
 				PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 500, false, "id", playerid, 0);
 			}
 			else
@@ -131,7 +130,6 @@ PlayerJoinGamemode(playerid)
 				
 				LoadPlayerToysData(playerid);
 				LoadPlayerPocketData(playerid);
-				LoadPlayerPhoneData(playerid);
 				LoadPlayerGPSData(playerid);
 				LoadPlayerObjectsData(playerid);
 				LoadPlayerVehicles(playerid);
@@ -170,15 +168,34 @@ PlayerJoinGamemode(playerid)
 				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Ninguna");
 			}
 		}
-		case 2:
+		default:
 		{
-			TogglePlayerSpectatingEx(playerid, false);
-			TogglePlayerControllableEx(playerid, false);
+			ShowPlayerMessage(playerid, "~r~Modo de juego desactivado.", 4);
+			return 1;
+		}
+		/*case 2:
+		{
+			SetPlayerSkin(playerid, PLAYER_MISC[playerid][MISC_SKIN]);
+			// Welcome
+			is_lgbt[playerid] = false;
+			lgtb_players ++;
 
+			if (announce)
+			{
+				new str_text[144];
+				format(str_text, sizeof(str_text), "%s (%d) ha ingresado a la partida", PLAYER_TEMP[playerid][py_NAME], playerid);
+				SendLGBTMessage(COLOR_WHITE, str_text);
+			}
+			ShowPlayerNotification(playerid, sprintf("Mapa actual: ~y~%s", LGBT_MAPS[lgbt_map_index][lm_NAME]));
+
+			// Spawn
 			ResetPlayerWeapons(playerid);
 			ResetPlayerMoney(playerid);
 
+			SetPlayerHealthEx(playerid, 100.0);
+
 			SetPlayerVirtualWorld(playerid, LGBT_MAPS[lgbt_map_index][lm_WORLD]);
+
 			SetSpawnInfo(playerid, DEFAULT_TEAM,
 				PLAYER_MISC[playerid][MISC_SKIN],
 				LGBT_MAPS[lgbt_map_index][lm_X],
@@ -187,35 +204,13 @@ PlayerJoinGamemode(playerid)
 				LGBT_MAPS[lgbt_map_index][lm_ANGLE],
 				0, 0, 0, 0, 0, 0
 			);
-			SpawnPlayer(playerid);
+
 			SetPlayerInterior(playerid, LGBT_MAPS[lgbt_map_index][lm_INTERIOR]);
-
-			SetPlayerPosEx(playerid,
-				LGBT_MAPS[lgbt_map_index][lm_X],
-				LGBT_MAPS[lgbt_map_index][lm_Y],
-				LGBT_MAPS[lgbt_map_index][lm_Z],
-				LGBT_MAPS[lgbt_map_index][lm_ANGLE],
-				LGBT_MAPS[lgbt_map_index][lm_INTERIOR],
-				LGBT_MAPS[lgbt_map_index][lm_WORLD],
-				false, true
-			);
-
-			SetPlayerFacingAngle(playerid, LGBT_MAPS[lgbt_map_index][lm_ANGLE]);
 			PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_NORMAL;
-
-			new str_text[144];
-			format(str_text, sizeof(str_text), "%s (%d) ha ingresado a la partida", PLAYER_TEMP[playerid][py_NAME], playerid);
-			SendLGBTMessage(COLOR_WHITE, str_text);
-
-			SetPlayerHealthEx(playerid, 100.0);
 
 			if (lgbt_started || lgtb_players < 3)
 			{
-				TogglePlayerSpectatingEx(playerid, true);
-				TogglePlayerControllableEx(playerid, false);
-
 				new Float:x = LGBT_MAPS[lgbt_map_index][lm_X], Float:y = LGBT_MAPS[lgbt_map_index][lm_Y];
-
 				GetXYFromAngle(x, y, LGBT_MAPS[lgbt_map_index][lm_ANGLE], 15.0);
 
 				InterpolateCameraPos(playerid,
@@ -237,11 +232,7 @@ PlayerJoinGamemode(playerid)
 				if (lgbt_started) ShowPlayerMessage(playerid, "Espera a que termine la partida...", 300);
 				else if (lgtb_players < 3) ShowPlayerMessage(playerid, "Esperando jugadores...", 300);
 			}
-
-			is_lgbt[playerid] = false;
-			lgtb_players ++;
-
-			if (lgtb_players >= 3)
+			else if (!lgbt_started || lgtb_players >= 3)
 			{
 				KillTimer(lgbt_timers[1]);
 				lgbt_started = true;
@@ -265,14 +256,15 @@ PlayerJoinGamemode(playerid)
 								false, true
 							);
 
-							ShowPlayerNotification(i, "El primer ~p~Homosexual~w~ sera elegido en 10 segundos.");
+							ShowPlayerMessage(i, "Partida iniciada", 3);
+							ShowPlayerNotification(i, "El primer ~p~Homosexual~w~ sera elegido en 30 segundos.");
 						}
 					}
 				}
-				lgbt_timers[1] = SetTimer("FirstGay", 10000, false);
+				lgbt_timers[1] = SetTimer("FirstGay", 30000, false);
 			}
 			// DIN DIN DIN U MOM IN FOUR MAMADAFAKKAKAKAAKAK
-		}
+		}*/
 	}
 
 	HideGamemodesMenu(playerid);
@@ -283,14 +275,15 @@ PlayerJoinGamemode(playerid)
 	SvRemoveKey(playerid, 0x53); // S
 	SvRemoveKey(playerid, 0x44); // D
 
-	SetPlayerSkin(playerid, PLAYER_MISC[playerid][MISC_SKIN]);
 	CancelSelectTextDrawEx(playerid);
 	return 1;
 }
 
 PlayerExitGamemode(playerid, announce = true)
 {
-	switch(minigames_page[playerid])
+	#pragma unused announce
+	#pragma unused playerid
+	/*switch(minigames_page[playerid])
 	{
 		case 2:
 		{
@@ -303,6 +296,18 @@ PlayerExitGamemode(playerid, announce = true)
 
 			lgtb_players -= 1; 
 		}
-	}
+	}*/
 	return 1;
 }
+
+/*CMD:lgbtgo(playerid, params[])
+{
+	lgtb_players = 5;
+	return 1;
+}
+
+CMD:lgbtmap(playerid, params[])
+{
+	ChangeLgbtMap();
+	return 1;
+}*/
