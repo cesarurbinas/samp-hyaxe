@@ -342,6 +342,11 @@ enum
 >>>>>>> 6a4c3ab (store module)
 =======
 	DIALOG_STORE,
+<<<<<<< HEAD
 	DIALOG_BUY_ROCKET
 >>>>>>> e78b0f6 (tienda de cuetes)
+=======
+	DIALOG_BUY_ROCKET,
+	DIALOG_CHANGE_ACCOUNT
+>>>>>>> a6b61b6 (cambio de cuenta)
 };

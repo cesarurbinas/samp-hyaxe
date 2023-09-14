@@ -14978,6 +14978,10 @@ ShowDialog(playerid, dialogid)
     			"COL_WHITE"Lavako x10\t"COL_GREEN"800$\n\
     			"COL_WHITE"12 Tiros x10\t"COL_GREEN"1500$\n", "Comprar", "Cerrar");
 		}
+		case DIALOG_CHANGE_ACCOUNT:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cuenta", ""COL_WHITE"Ingrese el nombre de usuario:", "Entrar", "Cerrar");
+		}
 		default: return 0;
 	}
 	return 1;
@@ -22545,6 +22549,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 			}
+			else
+			{
+				if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
+    			if (in_main_menu[playerid]) return ShowMainMenu(playerid);
+			}
 			return 1;
 		}
 		case DIALOG_POLICE_BYC:
@@ -24165,6 +24174,40 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						SavePlayerMisc(playerid);
 					}
 				}
+			}
+		}
+		case DIALOG_CHANGE_ACCOUNT:
+		{
+			if (response)
+			{
+				/* NAME CHECk */
+				PLAYER_TEMP[playerid][py_USER_VALID_NAME] = true;
+
+				if (strlen(inputtext) > 24) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+				if (CheckNameFilterViolation(inputtext)) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+				if (!IsValidRPName(inputtext)) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+
+				if (PLAYER_TEMP[playerid][py_USER_VALID_NAME] == false)
+				{
+					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
+						Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
+						no están permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
+
+					if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
+    				if (in_main_menu[playerid]) return ShowMainMenu(playerid);
+
+					return 0;
+				}
+
+				SetPlayerName(playerid, inputtext);
+
+				OnPlayerDisconnect(playerid, 0);
+				OnPlayerConnect(playerid);
+			}
+			else
+			{
+				if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
+    			if (in_main_menu[playerid]) return ShowMainMenu(playerid);
 			}
 		}
 	}
@@ -26069,15 +26112,16 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		}
 
 		// Cuenta
-		if (clickedid == Textdraws[textdraw_MAIN_MENU][4])
+		if (clickedid == Textdraws[textdraw_MAIN_MENU][2])
 		{
 			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-			return Kick(playerid);
+			ShowDialog(playerid, DIALOG_CHANGE_ACCOUNT);
 		}
 
 		// Config
 		if (clickedid == Textdraws[textdraw_MAIN_MENU][3])
 		{
+			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 			ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 		}
 
@@ -26091,6 +26135,7 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		// Gamemode
 		if (clickedid == Textdraws[textdraw_MAIN_MENU][5])
 		{
+			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 			PlayerJoinGamemode(playerid);
 		}
 	}
