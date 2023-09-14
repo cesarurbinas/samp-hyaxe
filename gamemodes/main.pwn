@@ -8062,7 +8062,8 @@ CMD:mp3(playerid, params[])
 	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
 	if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 120) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada 2 minutos.", 3, 1085);
 
-	ShowDialog(playerid, DIALOG_PLAYER_MP3);
+	ShowPlayerMessage(playerid, "No disponible", 4);
+	//ShowDialog(playerid, DIALOG_PLAYER_MP3);
 	return 1;
 }
 alias:mp3("youtube")
@@ -20251,7 +20252,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if (listitem == 1)
 				{
-					ShowDialog(playerid, DIALOG_PLAYER_MP3);
+					ShowPlayerMessage(playerid, "~r~No disponible", 4);
+					//ShowDialog(playerid, DIALOG_PLAYER_MP3);
 					PLAYER_MISC[playerid][MISC_RADIO_STATION] = 666;
 				}
 				else
@@ -29545,6 +29547,30 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 					if (PLAYER_AC_INFO[playerid][CHEAT_UNDETECTED_WEAPON][p_ac_info_DETECTIONS] >= ac_Info[CHEAT_UNDETECTED_WEAPON][ac_Detections]) OnPlayerCheatDetected(playerid, CHEAT_UNDETECTED_WEAPON);
 				}
 			}
+		}
+	}
+
+	if (weaponid == 23)
+	{
+		if (!PLAYER_WORKS[playerid][WORK_POLICE])
+		{
+			new dialog[250];
+			format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Usar tazin sin ser policia");
+			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+			
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazin sin ser policia");
+
+			KickEx(playerid, 500);
+			PLAYER_MISC[playerid][MISC_BANEOS] ++;
+			SavePlayerMisc(playerid);
+
+			new str[145];
+			format(str, 145, "[ADMIN] %s (%d) fue baneado: Usar tazin sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+			new webhook[264];
+			format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+			SendDiscordWebhook(webhook, 1);
 		}
 	}
 
