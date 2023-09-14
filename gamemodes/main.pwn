@@ -64,7 +64,7 @@
 
 // Anti-Cheat
 #define NO_SUSPICION_LOGS
- 
+
 #include <streamer>
 #include <ColAndreas>
 #include <YSF>
@@ -22930,6 +22930,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
+				if (PLAYER_TEMP[playerid][py_ANSWER_INDEX] == 1337) return ShowDialog(playerid, DIALOG_SELECC_ANSWER);;
+				
 				if (!strcmp(inputtext, PLAYER_TEMP[playerid][py_ANSWER_RESPONSE], false))
 				{
 					if (strlen(inputtext) >= 32)
