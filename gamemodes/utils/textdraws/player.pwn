@@ -1375,7 +1375,7 @@ CreatePlayerTextDraws(playerid)
 
 	PlayerTextdraws[playerid][ptextdraw_HUD][1] = CreatePlayerTextDraw(playerid, 17.000000, 436.400054, "box");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1], 0.000000, -0.049999);
-	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1], 12.000000, 0.000000);
+	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1], 54.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1], 1);
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1], -1);
 	PlayerTextDrawUseBox(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1], 1);
@@ -1404,7 +1404,7 @@ CreatePlayerTextDraws(playerid)
 
 	PlayerTextdraws[playerid][ptextdraw_HUD][3] = CreatePlayerTextDraw(playerid, 79.000000, 436.400054, "box");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], 0.000000, -0.049999);
-	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], 74.000000, 0.000000);
+	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], 120.000000, 0.000000);
 	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], 1);
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], -1);
 	PlayerTextDrawUseBox(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], 1);

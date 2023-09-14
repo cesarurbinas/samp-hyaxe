@@ -3864,10 +3864,12 @@ UpdatePlayerHud(playerid)
 
 	new Float:size;
 
-	size = 12.0 + (CHARACTER_INFO[playerid][ch_HUNGRY] * 0.4);
+	size = 17.0 + (CHARACTER_INFO[playerid][ch_HUNGRY] * 0.4); // 12.0
+	if (size >= 54.0) size = 54.0;
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][1], size, 0.000000);
 
-	size = 74.5 + (CHARACTER_INFO[playerid][ch_THIRST] * 0.4);
+	size = 79.0 + (CHARACTER_INFO[playerid][ch_THIRST] * 0.4); // 74.5
+	if (size >= 120.0) size = 120.5;
 	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_HUD][3], size, 0.000000);
 
 	if (PLAYER_MISC[playerid][MISC_CONFIG_HUD])

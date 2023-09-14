@@ -127,3 +127,5 @@ Listado de cosas para hacer
 ❌ Agregar el poder de remolcar tus propios autos con otro auto
 
 ❌ Arreglar bypass del vehicle health
+
+✅ Arreglar barras de sed y hambre

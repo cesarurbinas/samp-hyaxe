@@ -342,7 +342,6 @@ ShowInventory(playerid, type = 0)
 	PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = type;
 
 	new ms = (200 + GetPlayerPing(playerid));
-
 	g_iInvLastTick[playerid] = GetTickCount() + ms;
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
@@ -354,7 +353,7 @@ ShowInventory(playerid, type = 0)
 	
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_INV_BG]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][0]);
-	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], COLOR_RED);
+	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], COLOR_INV_RED);
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2], COLOR_WHITE);
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3], COLOR_WHITE);
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40], COLOR_WHITE);
@@ -385,7 +384,7 @@ ShowInventory(playerid, type = 0)
 
 	RefreshItemList(playerid);
 
-	SelectTextDrawEx(playerid, COLOR_RED);
+	SelectTextDrawEx(playerid, COLOR_INV_RED);
 	return 1;
 }
 
@@ -857,7 +856,7 @@ ShowHelpMenu(playerid)
 	/* Body */
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgió en 2018, pero no fue hasta mediados de 2019 que comenzó a desarrollarse, con tiempos más activos y otros no tanto, pasó por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opción porque la encontramos más rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el número de miembros del equipo."));
 
-	SelectTextDrawEx(playerid, COLOR_RED);
+	SelectTextDrawEx(playerid, COLOR_INV_RED);
 	return 1;
 }
 
