@@ -57,3 +57,61 @@ CMD:jailoff(playerid, params[])
 
 	return 1;
 }
+
+CMD:unjailoff(playerid, params[])
+{
+	new dbid;
+	if(sscanf(params, "d", dbid)) return SendClientMessage(playerid, COLOR_WHITE, "USO: /unjailoff (dbid)");
+	if(dbid <= 0) return SendClientMessage(playerid, COLOR_WHITE, "DB-ID inválida.");
+
+	new DBResult:Result, query[85];
+	format(query, sizeof(query), "SELECT CUENTA.`NAME`, PERSONAJE.`POLICE_JAIL_TIME` FROM `CUENTA`, `PERSONAJE` WHERE CUENTA.`ID` = %d AND PERSONAJE.`ID_USER` = %d LIMIT 1;", dbid, dbid);
+	Result = db_query(Database, query);
+	if(!db_num_rows(Result)) 
+	{
+		db_free_result(Result);
+		return SendClientMessage(playerid, COLOR_WHITE, "Jugador no encontrado.");
+	}
+	
+	if(!db_get_field_assoc_int(Result, "POLICE_JAIL_TIME"))
+	{
+		db_free_result(Result);
+		return SendClientMessage(playerid, COLOR_WHITE, "Este jugador no está jaileado.");
+	}
+
+	new name[25];
+	db_get_field_assoc(Result, "NAME", name);
+
+	db_free_result(Result);
+
+	new update_query[375];
+	format(update_query, sizeof(update_query), "\
+		UPDATE `PERSONAJE` SET \
+			`POLICE_JAIL_TIME` = 0, \
+			`POLICE_JAIL_ID` = 0, \
+			`STATE` = %d, \
+			`JAIL_REASON` = NULL, \
+			`JALED_BY` = 0, \
+			`POS_X` = 1555.400390, \
+			`POS_Y` = -1675.611694, \
+			`POS_Z` = 16.195312, \
+			`ANGLE` = 0.0, \
+			`INTERIOR` = 0, \
+			`WORLD` = 0, \
+			`LOCAL_INTERIOR` = 0 \
+		WHERE `ID_USER` = %d;",
+	ROLEPLAY_STATE_NORMAL, dbid);
+	db_free_result(db_query(Database, update_query));
+
+	SendClientMessage(playerid, COLOR_WHITE, "Jugador unjaileado.");
+
+	new str[145];
+    format(str, 145, "[ADMIN] %s (%d) unjaileó offline a %s (%d).", ACCOUNT_INFO[playerid][ac_NAME], playerid, name, dbid);
+    SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+    new webhook[264];
+	format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+	SendDiscordWebhook(webhook, 1);
+
+	return 1;
+}

@@ -37327,3 +37327,4 @@ flags:admac(CMD_MODERATOR4)
 
 // comandos por jeiks
 flags:jailoff(CMD_MODERATOR)
+flags:unjailloff(CMD_MODERATOR)
