@@ -2206,6 +2206,7 @@ native ShowPlayerDialog(playerid, dialogid, style, const caption[], const info[]
 /// <param name="serial">Where to save the unique ID</param>
 /// <param name="maxlen">The size of "serial"</param>
 native gpci(playerid, serial[], maxlen);
+native SendClientCheck(playerid, type, arg, offset, size);
 
 // --------------------------------------------------
 // Forwards (Callback declarations)

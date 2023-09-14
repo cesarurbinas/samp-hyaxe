@@ -440,8 +440,13 @@ enum Temp_Enum
 >>>>>>> 039c29d (ammo ban)
 =======
 	py_NOFUEL_ALERTS,
+<<<<<<< HEAD
 	py_WALLSHOT_ALERTS
 >>>>>>> 12b2049 (wallshot ban)
+=======
+	py_WALLSHOT_ALERTS,
+	bool:py_ANDROID
+>>>>>>> a116e0a (client check integration)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

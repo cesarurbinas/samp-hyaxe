@@ -177,6 +177,7 @@ public OnPlayerConnect(playerid)
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
 	GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
 	gpci(playerid, PLAYER_TEMP[playerid][py_SERIAL], 50);
+	SendClientCheck(playerid, 0x48, 0, 0, 2);
 	//printf("[%d] OnPlayerConnect 5", playerid);
 	#if defined VOICE_CHAT
 		if (!SvGetVersion(playerid))
