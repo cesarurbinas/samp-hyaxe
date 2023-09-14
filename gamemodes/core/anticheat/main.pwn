@@ -87,7 +87,7 @@ IPacket:PLAYER_SYNC(playerid, BitStream:bs)
 
 	if(ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
-		if(!IsPlayerInAnyVehicle(playerid) && onFootData[PR_specialAction] != SPECIAL_ACTION_USEJETPACK)
+		if(!IsPlayerInAnyVehicle(playerid) && onFootData[PR_specialAction] != SPECIAL_ACTION_USEJETPACK && !onFootData[PR_surfingVehicleId])
 		{
 			if(!IsPlayerJumping(playerid))
 			{
