@@ -303,7 +303,7 @@
 
 // GPS
 #include "core/gps/callbacks.pwn"
-#include "core/gps/functions.pwn"
+#include "core/gps/functions.pwn" 
 
 // Gamemodes
 //#include "core/lgbt_infection/functions.pwn"
