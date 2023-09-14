@@ -1384,7 +1384,7 @@ CMD:initgraffiti(playerid, params[])
 	if (sscanf(params, "d", id)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /initgraffiti <id>");
 	if(id <= -1 || id >= sizeof(GRAFFITIS_OBJ)) return SendClientMessage(playerid, COLOR_WHITE, sprintf("Syntax: /initgraffiti <0-%d>", sizeof(GRAFFITIS_OBJ)));
 	
-	initgraffiti(id);
+	InitGraffiti(id);
 	return 1;
 }
 
