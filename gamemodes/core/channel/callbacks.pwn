@@ -31,7 +31,7 @@ public neuroadmin_BotGetResponse(index, response_code, const data[])
 	    else
 	    {
 			format(str_text, sizeof(str_text), "{\"author\": \"%s\", \"playerid\": %d, \"message\": \"%s\"}", PLAYER_TEMP[index][py_NAME], index, PLAYER_TEMP[index][py_LAST_DOUBT]);
-			HTTP(index, HTTP_POST, "vulcan.hyaxe.com:6666/check_bad_use", str_text, "neuroadmin_BotCheckBadUse");
+			HTTP(index, HTTP_POST, "hyaxe.hyaxe.com:6666/check_bad_use", str_text, "neuroadmin_BotCheckBadUse");
 	    }
 	}
 	return 1;

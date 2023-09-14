@@ -1,8 +1,7 @@
 new BOT_ADDRESS[][] =
 {
 	"144.217.19.161",
-	"144.217.19.165",
-	"127.0.0.1"
+	"144.217.19.165"
 };
 
 isBotConnection(playerid)
@@ -3264,10 +3263,10 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][41])
 		{
 			/* Header */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Vulcan");
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Hyaxe");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Vulcan surgió en 2018, pero no fue hasta mediados de 2019 que comenzó a desarrollarse, con tiempos más activos y otros no tanto, pasó por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opción porque la encontramos más rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el número de miembros del equipo."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgió en 2018, pero no fue hasta mediados de 2019 que comenzó a desarrollarse, con tiempos más activos y otros no tanto, pasó por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opción porque la encontramos más rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el número de miembros del equipo."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3282,7 +3281,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Trabajos");
 			
 			/* Body */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Los trabajos es un sistema en el que los jugadores pueden obtener recompensas, como dinero, vulcoins, entre otros. Llevando a cabo diversas tareas, como picar, recoger basura, transportar cargas, etc. Esto dependerá del trabajo que elija, puede ser basurero, cosechador, pescador, minero o un trabajo especial como la policía, pero para esto debe postularse en ~y~foro.vulcan-roleplay.com~w~, solo cuando las aplicaciones estén abiertas. Cuando consigas un trabajo, renunciarás automáticamente a todos los otros, a menos que sean especiales (como policía), cuanto más trabajes, más experiencia tendrás, con más experiencia podrás desbloquear pagos más altos. También puedes comprar una membresía VIP en ~y~www.vulcan-roleplay.com/store~w~ con la cual vas a desbloquear pagas extras."));
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Los trabajos es un sistema en el que los jugadores pueden obtener recompensas, como dinero, vulcoins, entre otros. Llevando a cabo diversas tareas, como picar, recoger basura, transportar cargas, etc. Esto dependerá del trabajo que elija, puede ser basurero, cosechador, pescador, minero o un trabajo especial como la policía, pero para esto debe postularse en ~y~foro.hyaxe-roleplay.com~w~, solo cuando las aplicaciones estén abiertas. Cuando consigas un trabajo, renunciarás automáticamente a todos los otros, a menos que sean especiales (como policía), cuanto más trabajes, más experiencia tendrás, con más experiencia podrás desbloquear pagos más altos. También puedes comprar una membresía VIP en ~y~www.hyaxe-roleplay.com/store~w~ con la cual vas a desbloquear pagas extras."));
 			
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47]);
 			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
@@ -3338,7 +3337,7 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][46])
 		{
 			/* Header */
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Vulcan Client");
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Hyaxe Client");
 			
 			/* Body */
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~Hyaxe Client es un cliente personalizado que incluye nuevas características al servidor, como por ejemplo, un chat de voz. Es muy fácil instalarlo, solo visite ~y~www.hyaxe.com/client~w~, si se le dificulta busque en YouTube: ~y~Chat de voz Hyaxe tutorial~w~. Muchos usuarios hicieron tutoriales, aprovéchelo."));
@@ -5851,7 +5850,7 @@ public ContinuePlayerIntro(playerid, step)
 			//SetPlayerScreenColour(playerid, 0x000000FF);
 			//FadePlayerScreenColour(playerid, 0x00000000, 4000, 50);
 
-			SavePlayerNotification(playerid, "Bienvenido a Vulcan Roleplay");
+			SavePlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay");
 
 			StopAudioStreamForPlayer(playerid);
 			PLAYER_MISC[playerid][MISC_CONFIG_HUD] = true;
@@ -5863,7 +5862,7 @@ public ContinuePlayerIntro(playerid, step)
 			SetCameraBehindPlayer(playerid);
 
 			TogglePlayerControllableEx(playerid, true);
-			ShowPlayerNotification(playerid, "Bienvenido a Vulcan Roleplay ("SERVER_VERSION").", 12);
+			ShowPlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay ("SERVER_VERSION").", 12);
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
 
 			SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0);
@@ -5960,7 +5959,6 @@ public OnIncomingRPC(playerid, rpcid, BitStream:bs)
 {
 	if(rpcid == 0x67) // RPC_ClientCheck
 	{
-		printf("id %d no es android che", playerid);
 		PLAYER_TEMP[playerid][py_ANDROID] = false;
 	}
 

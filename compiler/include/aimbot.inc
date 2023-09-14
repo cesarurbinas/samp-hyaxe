@@ -28,33 +28,33 @@
 //	native BustAim::GetAimStats(playerid,Float:arr[],sz = sizeof(arr))
 //	native BustAim::GetRangeStats(playerid,Float:arr[],sz = sizeof(arr))
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#if defined _INCLUDE_BUSTAIM_
+#if defined _INCLUDE_AIMBOT_
 	#endinput
 #endif
-#define _INCLUDE_BUSTAIM_
+#define _INCLUDE_AIMBOT_
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #define BustAim:: BS_
 
-#if !defined BUSTAIM_MAX_PL_PERCENTAGE
-	#define BUSTAIM_MAX_PL_PERCENTAGE 5
+#if !defined AIMBOT_MAX_PL_PERCENTAGE
+	#define AIMBOT_MAX_PL_PERCENTAGE 5
 #endif
-#if !defined BUSTAIM_MAX_PING
-	#define BUSTAIM_MAX_PING 600
+#if !defined AIMBOT_MAX_PING
+	#define AIMBOT_MAX_PING 600
 #endif
-#if !defined BUSTAIM_SKIP_WEAPON_IDS
-	#define BUSTAIM_SKIP_WEAPON_IDS 38
+#if !defined AIMBOT_SKIP_WEAPON_IDS
+	#define AIMBOT_SKIP_WEAPON_IDS 38
 #endif
-#if !defined BUSTAIM_MAX_CONTINOUS_SHOTS
-	#define BUSTAIM_MAX_CONTINOUS_SHOTS 10
+#if !defined AIMBOT_MAX_CONTINOUS_SHOTS
+	#define AIMBOT_MAX_CONTINOUS_SHOTS 10
 #endif
-#if !defined BUSTAIM_PROAIM_TELEPORT_PROBES
-	#define BUSTAIM_PROAIM_TELEPORT_PROBES 3
+#if !defined AIMBOT_PROAIM_TELEPORT_PROBES
+	#define AIMBOT_PROAIM_TELEPORT_PROBES 3
 #endif
-#if !defined BUSTAIM_OUT_OF_RANGE_PROBES
-	#define BUSTAIM_OUT_OF_RANGE_PROBES 2
+#if !defined AIMBOT_OUT_OF_RANGE_PROBES
+	#define AIMBOT_OUT_OF_RANGE_PROBES 2
 #endif
-#if !defined BUSTAIM_RANDOM_AIM_PROBES
-	#define BUSTAIM_RANDOM_AIM_PROBES 5
+#if !defined AIMBOT_RANDOM_AIM_PROBES
+	#define AIMBOT_RANDOM_AIM_PROBES 5
 #endif
 #if !defined MIN_DIST_FOR_AIM_CHECKS
 	#define MIN_DIST_FOR_AIM_CHECKS 10
@@ -62,14 +62,14 @@
 #if !defined MAX_B2V_DEVIATION
 	#define MAX_B2V_DEVIATION 15
 #endif
-#if !defined BUSTAIM_PLAYER_SPHERE_RADIUS
-	#define BUSTAIM_PLAYER_SPHERE_RADIUS 3
+#if !defined AIMBOT_PLAYER_SPHERE_RADIUS
+	#define AIMBOT_PLAYER_SPHERE_RADIUS 3
 #endif
-#if !defined BUSTAIM_DEFAULT_PLAYER_FLAGS
-	#define BUSTAIM_DEFAULT_PLAYER_FLAGS (CHECK_FOR_OUT_OF_RANGE_SHOTS	|	CHECK_FOR_PROAIM_TELEPORT	|	CHECK_FOR_RANDOM_AIM_SHOTS	| 	CHECK_FOR_CONTINOUS_SHOTS)
+#if !defined AIMBOT_DEFAULT_PLAYER_FLAGS
+	#define AIMBOT_DEFAULT_PLAYER_FLAGS (CHECK_FOR_OUT_OF_RANGE_SHOTS	|	CHECK_FOR_PROAIM_TELEPORT	|	CHECK_FOR_RANDOM_AIM_SHOTS	| 	CHECK_FOR_CONTINOUS_SHOTS)
 #endif
-#if !defined BUSTAIM_WSTATS_SHOTS
-	#define BUSTAIM_WSTATS_SHOTS 3
+#if !defined AIMBOT_WSTATS_SHOTS
+	#define AIMBOT_WSTATS_SHOTS 3
 #endif
 
 //DO NOT CHANGE THIS
@@ -155,7 +155,7 @@ static BustAim_g_RandomAimShots[MAX_PLAYERS char];
 static BustAim_g_TeleportShots[MAX_PLAYERS char];
 static BustAim_g_OutOfRangeShots[MAX_PLAYERS char];
 
-#if !defined BUSTAIM_DISABLE_PROFILING
+#if !defined AIMBOT_DISABLE_PROFILING
 static BustAim_g_TotalRandomAimWarns[MAX_PLAYERS][BS_TOTAL_SHOOTING_WEAPONS];
 static BustAim_g_TotalTeleportWarns[MAX_PLAYERS][BS_TOTAL_SHOOTING_WEAPONS];
 static BustAim_g_TotalOutOfRangeWarns[MAX_PLAYERS][BS_TOTAL_SHOOTING_WEAPONS];
@@ -164,14 +164,14 @@ static BustAim_g_ShotsFired[MAX_PLAYERS][BS_TOTAL_SHOOTING_WEAPONS];
 static BustAim_g_ShotsHit[MAX_PLAYERS][BS_TOTAL_SHOOTING_WEAPONS];
 #endif
 
-#if !defined BUSTAIM_DISABLE_WSTATS
-static Float:BustAim_g_TeleportWarningStats[MAX_PLAYERS][BUSTAIM_WSTATS_SHOTS];
-static Float:BustAim_g_AimWarningStats[MAX_PLAYERS][BUSTAIM_WSTATS_SHOTS];
-static Float:BustAim_g_RangeWarningStats[MAX_PLAYERS][BUSTAIM_WSTATS_SHOTS];
+#if !defined AIMBOT_DISABLE_WSTATS
+static Float:BustAim_g_TeleportWarningStats[MAX_PLAYERS][AIMBOT_WSTATS_SHOTS];
+static Float:BustAim_g_AimWarningStats[MAX_PLAYERS][AIMBOT_WSTATS_SHOTS];
+static Float:BustAim_g_RangeWarningStats[MAX_PLAYERS][AIMBOT_WSTATS_SHOTS];
 static Float:BustAim_g_DCTTL_temp;
 #endif
 
-#if !defined BUSTAIM_IS_PAUSED_FUNCTION
+#if !defined AIMBOT_IS_PAUSED_FUNCTION
 static BustAim_g_LastUpdateTick[MAX_PLAYERS];
 #endif
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -235,7 +235,7 @@ static internal_BS_IsCameraAimingAt(weaponid,Float:x, Float:y, Float:z,Float:vec
 	new Float:resize_x, Float:resize_y, Float:resize_z = floatsin(angle+vertical, degrees);
 
 	internal_BS_GXYIFOP(resize_x, resize_y, internal_BS_GPATP(0, 0, vector_x, vector_y)+horizontal, floatcos(angle+vertical, degrees));
-	#if !defined BUSTAIM_DISABLE_WSTATS
+	#if !defined AIMBOT_DISABLE_WSTATS
 		if ((BustAim_g_DCTTL_temp = internal_BS_DCTTL(camera_x, camera_y, camera_z, x, y, z, resize_x, resize_y, resize_z)) < radius) return true;
 	#else
 		if (internal_BS_DCTTL(camera_x, camera_y, camera_z, x, y, z, resize_x, resize_y, resize_z) < radius) return true;
@@ -276,13 +276,13 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		}
 	}
 
-	#if !defined BUSTAIM_DISABLE_PROFILING
+	#if !defined AIMBOT_DISABLE_PROFILING
 	BustAim_g_ShotsFired[playerid][weaponid-22]++;
 	#endif
 
 	if(hittype == BULLET_HIT_TYPE_PLAYER)
 	{
-		#if !defined BUSTAIM_DISABLE_PROFILING
+		#if !defined AIMBOT_DISABLE_PROFILING
 			BustAim_g_ShotsHit[playerid][weaponid-22]++;
 		#endif
 
@@ -310,8 +310,8 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				return 1;
 			#endif
 
-		#if defined BUSTAIM_IS_PAUSED_FUNCTION
-			if(BUSTAIM_IS_PAUSED_FUNCTION(hitid))
+		#if defined AIMBOT_IS_PAUSED_FUNCTION
+			if(AIMBOT_IS_PAUSED_FUNCTION(hitid))
 			#if defined BustAim_OnPlayerWeaponShot
  				return BustAim_OnPlayerWeaponShot(playerid,weaponid,hittype,hitid,fX,fY,fZ);
 			#else
@@ -326,14 +326,14 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			#endif
 		#endif
 
-		if(NetStats_PacketLossPercent(playerid) > BUSTAIM_MAX_PL_PERCENTAGE || NetStats_PacketLossPercent(hitid) > BUSTAIM_MAX_PL_PERCENTAGE)
+		if(NetStats_PacketLossPercent(playerid) > AIMBOT_MAX_PL_PERCENTAGE || NetStats_PacketLossPercent(hitid) > AIMBOT_MAX_PL_PERCENTAGE)
 			#if defined BustAim_OnPlayerWeaponShot
 				return BustAim_OnPlayerWeaponShot(playerid,weaponid,hittype,hitid,fX,fY,fZ);
 			#else
 				return 1;
 			#endif
 
-		if(GetPlayerPing(playerid) > BUSTAIM_MAX_PING || GetPlayerPing(hitid) > BUSTAIM_MAX_PING)
+		if(GetPlayerPing(playerid) > AIMBOT_MAX_PING || GetPlayerPing(hitid) > AIMBOT_MAX_PING)
 			#if defined BustAim_OnPlayerWeaponShot
 				return BustAim_OnPlayerWeaponShot(playerid,weaponid,hittype,hitid,fX,fY,fZ);
 			#else
@@ -356,7 +356,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 		switch(weaponid)
 		{
-			case BUSTAIM_SKIP_WEAPON_IDS:
+			case AIMBOT_SKIP_WEAPON_IDS:
 			{
 				#if defined BustAim_OnPlayerWeaponShot
 					return BustAim_OnPlayerWeaponShot(playerid,weaponid,hittype,hitid,fX,fY,fZ);
@@ -372,7 +372,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 		if(BustAim_g_PlayerSettings{playerid} & CHECK_FOR_CONTINOUS_SHOTS)
 			if((pX*pX + pY*pY + pZ*pZ) > 0.01)
-				if(!(++BustAim_g_ContinousShots{playerid} % BUSTAIM_MAX_CONTINOUS_SHOTS))
+				if(!(++BustAim_g_ContinousShots{playerid} % AIMBOT_MAX_CONTINOUS_SHOTS))
 					warning |= WARNING_CONTINOUS_SHOTS;
 
 		GetPlayerPos(hitid,hX,hY,hZ);
@@ -384,15 +384,15 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		{
 			if(S2V_dist > BustAim_g_WeaponRange[weaponid-22])
 			{
-				#if !defined BUSTAIM_DISABLE_WSTATS
-					BustAim_g_RangeWarningStats[playerid][BustAim_g_OutOfRangeShots{playerid}%BUSTAIM_WSTATS_SHOTS] = S2V_dist;
+				#if !defined AIMBOT_DISABLE_WSTATS
+					BustAim_g_RangeWarningStats[playerid][BustAim_g_OutOfRangeShots{playerid}%AIMBOT_WSTATS_SHOTS] = S2V_dist;
 				#endif
 				if(BustAim_g_IntrnlPlayerSettings{playerid} & PREVIOUS_SHOT_DID_DAMAGE)
 				{
-					if(++BustAim_g_OutOfRangeShots{playerid} > BUSTAIM_OUT_OF_RANGE_PROBES)
+					if(++BustAim_g_OutOfRangeShots{playerid} > AIMBOT_OUT_OF_RANGE_PROBES)
 					{
 						BustAim_g_OutOfRangeShots{playerid} = 0;
-						#if !defined BUSTAIM_DISABLE_PROFILING
+						#if !defined AIMBOT_DISABLE_PROFILING
 							BustAim_g_TotalOutOfRangeWarns[playerid][weaponid-22]++;
 						#endif
 						warning |= WARNING_OUT_OF_RANGE_SHOT;
@@ -405,13 +405,13 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		if(BustAim_g_PlayerSettings{playerid} & CHECK_FOR_PROAIM_TELEPORT)
 			if(VectorSize(cX-hX,cY-hY,cZ-hZ) > MAX_B2V_DEVIATION)
 			{
-				#if !defined BUSTAIM_DISABLE_WSTATS
-					BustAim_g_TeleportWarningStats[playerid][BustAim_g_TeleportShots{playerid}%BUSTAIM_WSTATS_SHOTS] = VectorSize(cX-hX,cY-hY,cZ-hZ);
+				#if !defined AIMBOT_DISABLE_WSTATS
+					BustAim_g_TeleportWarningStats[playerid][BustAim_g_TeleportShots{playerid}%AIMBOT_WSTATS_SHOTS] = VectorSize(cX-hX,cY-hY,cZ-hZ);
 				#endif
-				if(++BustAim_g_TeleportShots{playerid} > BUSTAIM_PROAIM_TELEPORT_PROBES)
+				if(++BustAim_g_TeleportShots{playerid} > AIMBOT_PROAIM_TELEPORT_PROBES)
 				{
 					BustAim_g_TeleportShots{playerid} = 0;
-					#if !defined BUSTAIM_DISABLE_PROFILING
+					#if !defined AIMBOT_DISABLE_PROFILING
 						BustAim_g_TotalTeleportWarns[playerid][weaponid-22]++;
 					#endif
 					warning |= WARNING_PROAIM_TELEPORT;
@@ -423,15 +423,15 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			{
 				GetPlayerCameraFrontVector(playerid,pX,pY,pZ);
 				GetPlayerCameraPos(playerid,cX,cY,cZ);
-				if(!internal_BS_IsCameraAimingAt(weaponid,hX,hY,hZ,pX,pY,pZ,cX,cY,cZ,BUSTAIM_PLAYER_SPHERE_RADIUS))
+				if(!internal_BS_IsCameraAimingAt(weaponid,hX,hY,hZ,pX,pY,pZ,cX,cY,cZ,AIMBOT_PLAYER_SPHERE_RADIUS))
 				{
-					#if !defined BUSTAIM_DISABLE_WSTATS
-						BustAim_g_AimWarningStats[playerid][BustAim_g_RandomAimShots{playerid}%BUSTAIM_WSTATS_SHOTS] = BustAim_g_DCTTL_temp;
+					#if !defined AIMBOT_DISABLE_WSTATS
+						BustAim_g_AimWarningStats[playerid][BustAim_g_RandomAimShots{playerid}%AIMBOT_WSTATS_SHOTS] = BustAim_g_DCTTL_temp;
 					#endif
-					if(++BustAim_g_RandomAimShots{playerid} > BUSTAIM_RANDOM_AIM_PROBES)
+					if(++BustAim_g_RandomAimShots{playerid} > AIMBOT_RANDOM_AIM_PROBES)
 					{
 						BustAim_g_RandomAimShots{playerid} = 0;
-						#if !defined BUSTAIM_DISABLE_PROFILING
+						#if !defined AIMBOT_DISABLE_PROFILING
 							BustAim_g_TotalRandomAimWarns[playerid][weaponid-22]++;
 						#endif
 						warning |= WARNING_RANDOM_AIM;
@@ -445,7 +445,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	}
 	else
 	{
-		#if !defined BUSTAIM_DISABLE_PROFILING
+		#if !defined AIMBOT_DISABLE_PROFILING
 			if(BustAim_g_ContinousShots{playerid} > BustAim_g_MaxContinousShots[playerid][weaponid-22])
 				BustAim_g_MaxContinousShots[playerid][weaponid-22] = BustAim_g_ContinousShots{playerid};
 		#endif
@@ -493,7 +493,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart
 	forward BustAim_OnPlayerGiveDamage(playerid, damagedid, Float: amount, weaponid, bodypart);
 #endif
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#if defined BUSTAIM_DISABLE_WSTATS
+#if defined AIMBOT_DISABLE_WSTATS
 stock BustAim::GetTeleportStats(playerid,Float:arr[],sz = sizeof(arr))
 {
 	#pragma unused playerid
@@ -530,7 +530,7 @@ stock BustAim::GetRangeStats(playerid,Float:arr[],sz = sizeof(arr))
 }
 #endif
 
-#if defined BUSTAIM_DISABLE_PROFILING
+#if defined AIMBOT_DISABLE_PROFILING
 stock BustAim::GetPlayerWeaponProfile(playerid,weaponid,&allshots,&hitshots,&max_cont_shots,&out_of_range_warns,&random_aim_warns,&proaim_tele_warns)
 {
 	#pragma unused playerid
@@ -619,7 +619,7 @@ stock BustAim::GetPlayerFlags(playerid,&flags)
 }
 stock BustAim::ResetPlayerFlags(playerid)
 {
-	BustAim_g_PlayerSettings{playerid} = BUSTAIM_DEFAULT_PLAYER_FLAGS;
+	BustAim_g_PlayerSettings{playerid} = AIMBOT_DEFAULT_PLAYER_FLAGS;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 static stock Fill68(loc[])
@@ -632,13 +632,13 @@ static stock Fill68(loc[])
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 public OnPlayerConnect(playerid)
 {
-	BustAim_g_PlayerSettings{playerid} = BUSTAIM_DEFAULT_PLAYER_FLAGS;
+	BustAim_g_PlayerSettings{playerid} = AIMBOT_DEFAULT_PLAYER_FLAGS;
 	BustAim_g_IntrnlPlayerSettings{playerid} =
 	BustAim_g_ContinousShots{playerid} =
 	BustAim_g_RandomAimShots{playerid} =
 	BustAim_g_TeleportShots{playerid} =
 	BustAim_g_OutOfRangeShots{playerid} = 0;
-	#if !defined BUSTAIM_DISABLE_PROFILING
+	#if !defined AIMBOT_DISABLE_PROFILING
 		Fill68(BustAim_g_TotalRandomAimWarns[playerid]);
 		Fill68(BustAim_g_TotalTeleportWarns[playerid]);
 		Fill68(BustAim_g_TotalOutOfRangeWarns[playerid]);
@@ -665,7 +665,7 @@ public OnPlayerConnect(playerid)
 	forward BustAim_OnPlayerConnect(playerid);
 #endif
 
-#if !defined BUSTAIM_IS_PAUSED_FUNCTION
+#if !defined AIMBOT_IS_PAUSED_FUNCTION
 	public OnPlayerUpdate(playerid)
 	{
 		BustAim_g_LastUpdateTick[playerid] = GetTickCount();

@@ -1,6 +1,14 @@
 /*
- *      Vulcan Roleplay (Hyaxe based)
+ *      Hyaxe Roleplay
  * 		Créditos/Autores: Atom, Heix, Wurty, Zeint, Boorz, Vinter, Blade, Deru
+ *		Este código tiene bastante tiempo y ha pasado por muchos desarrolladores diferentes al
+ *		mismo tiempo, hay código que necesita ser refactorizado pero la mayoría está en perfectas condiciones.
+ *
+ *		Para tener en cuenta:
+ *		- Si el servidor se usará en producción defina "FINAL_BUILD"
+ *		- El modo debug reduce el rendimiento considerablemente
+ *		- Hay cosas que necesitan de la API para funcionar, asegurece de haberla montado en su dominio
+ *		- Los modos festivos se activan manualmente
 */
 
 // Compilación
@@ -14,7 +22,7 @@
     #emit    stack    0x7FFFFFFF
     #emit    inc.s    cellmax
 
-    static const ___[][] = {"haha", "no."};
+    static const ___[][] = {"sls", "422"};
 
     #emit    retn
     #emit    load.s.pri    ___
@@ -38,7 +46,7 @@ L1:
  *  - 1: Saldrán mensajes de debug solamente en la consola.
  *  - 2: Saldrán mensajes de debug en la consola y en el juego.
 */
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 #if DEBUG_MODE != 0
 	#pragma option -d3
@@ -60,12 +68,12 @@ L1:
 
 // Server information
 #define SERVER_VERSION 			"Alpha 1"
-#define SERVER_NAME 			"Vulcan"
-#define SERVER_WEBSITE 			"www.vulcan-roleplay.com"
-#define SERVER_DISCORD 			"www.vulcan-roleplay.com/discord"
+#define SERVER_NAME 			"Hyaxe"
+#define SERVER_WEBSITE 			"www.hyaxe-roleplay.com"
+#define SERVER_DISCORD 			"www.hyaxe-roleplay.com/discord"
 
 // Features
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -109,8 +117,8 @@ L1:
 #include "core/notification/header.pwn"
 
 // Libs
-#define BUSTAIM_MAX_PING 600
-#define BUSTAIM_MAX_PL_PERCENT_ALLOWED 5
+#define AIMBOT_MAX_PING 600
+#define AIMBOT_MAX_PL_PERCENT_ALLOWED 5
 #include <aimbot>
 #include <hyaxe-anticheat>
 #include <hyaxe-preview>
@@ -378,11 +386,18 @@ L1:
 
 main()
 {
+	printf("     __  __                    ");
+	printf("    / / / /_  ______ __  _____ ");
+	printf("   / /_/ / / / / __ `/ |/_/ _ \\");
+	printf("  / __  / /_/ / /_/ />  </  __/");
+	printf(" /_/ /_/\\__, /\\__,_/_/|_|\\___/ ");
+	printf("       /____/                  ");
+
 	Logger_Info("hostname > "SERVER_HOSTNAME"");
 	Logger_Info("language > "SERVER_LANGUAGE"");
 	Logger_Info("website > "SERVER_WEBSITE"");
 	Logger_Info("discord > "SERVER_DISCORD"");
-	Logger_Info("build: Vulcan "SERVER_VERSION"\n");
+	Logger_Info("build: Hyaxe "SERVER_VERSION"\n");
 }
 
 <<<<<<< HEAD
@@ -2445,7 +2460,7 @@ public OnGameModeInit()
 	// Server
 	SetGameModeText(SERVER_VERSION);
 
-	SendRconCommand("hostname Vulcan [test]");
+	SendRconCommand("hostname Hyaxe [test]");
 	SetTimer("UpdateMoneyPrinters", 40000, true);
 
 	#if defined FINAL_BUILD

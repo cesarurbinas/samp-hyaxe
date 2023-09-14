@@ -133,7 +133,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL]);
 
 				new str_text[128];
-				format(str_text, sizeof str_text, "Bienvenido %s a Vulcan RolePlay.", PLAYER_TEMP[playerid][py_RP_NAME]);
+				format(str_text, sizeof str_text, "Bienvenido %s a Hyaxe RolePlay.", PLAYER_TEMP[playerid][py_RP_NAME]);
 				ShowPlayerNotification(playerid, str_text);
 
 				if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
@@ -3525,7 +3525,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GivePlayerCash(playerid, -100000);
 				CREW_INFO[index][crew_VALID] = true;
 				format(CREW_INFO[index][crew_NAME], 32, "%s", PLAYER_TEMP[playerid][py_CREATE_CREW_NAME]);
-				format(CREW_INFO[index][crew_DESCRIPTION], 32, "Banda de Vulcan");
+				format(CREW_INFO[index][crew_DESCRIPTION], 32, "Banda de Hyaxe");
 				CREW_INFO[index][crew_COLOR] = CrewColors[ PLAYER_TEMP[playerid][py_CREATE_CREW_COLOR] ];
 
 				CREW_RANK_INFO[index][0][crew_rank_VALID] = true;

@@ -3,7 +3,7 @@ stock SendDiscordWebhook(const message[], type)
 	Logger_Debug("Webhook sent: %s", message);
 	
 	new str_text[145];
-	format(str_text, sizeof(str_text), "vulcan.hyaxe.com:9991/webhook?content=[%d]%s", type, message);
+	format(str_text, sizeof(str_text), "hyaxe.hyaxe.com:9991/webhook?content=[%d]%s", type, message);
 	strreplace(str_text, " ", "ª");
 
 	#if defined FINAL_BUILD

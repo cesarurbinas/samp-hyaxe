@@ -1,12 +1,12 @@
 // Server
-#define SERVER_HOSTNAME "Vulcan Roleplay | Android/PC (0.3.7)"
+#define SERVER_HOSTNAME "Hyaxe Roleplay | Android/PC (0.3.7)"
 #define SERVER_LANGUAGE "Español / Spanish"
 #define SERVER_MODE "Roleplay"
 
 // Special hostnames
-#define HALLOWEEN_HOSTNAME "Vulcan | Evento de Halloween"
-#define CHRISTMAS_HOSTNAME "Vulcan | Feliz Navidad"
-#define EASTER_HOSTNAME "Vulcan | Evento de Pascuas"
+#define HALLOWEEN_HOSTNAME "Hyaxe | Evento de Halloween"
+#define CHRISTMAS_HOSTNAME "Hyaxe | Feliz Navidad"
+#define EASTER_HOSTNAME "Hyaxe | Evento de Pascuas"
 
 // Item names
 #define NAME_MEDICINE "Medicamento"

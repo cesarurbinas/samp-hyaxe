@@ -13,6 +13,7 @@ __pycache__/
 /logs
 !/pawno/include
 /npcmodes
+!.vscode/tasks.json
 .vscode/
 *.db
 *.cadb

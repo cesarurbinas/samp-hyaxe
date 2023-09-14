@@ -1011,7 +1011,7 @@ CheckProxy(playerid)
     }
 
 	new str_text[128];
-	format(str_text, sizeof(str_text), "vulcan.hyaxe.com:9991/proxycheck/%s,%s", PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_NAME]);
+	format(str_text, sizeof(str_text), "hyaxe.hyaxe.com:9991/proxycheck/%s,%s", PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_NAME]);
 	HTTP(playerid, HTTP_GET, str_text, "", "OnPlayerProxyFound");
 	return 1;
 }
@@ -1082,7 +1082,7 @@ SendEmail(const email[], const title[], const content[])
 {
 	new payload[1024];
 	format(payload, sizeof(payload), "{\"email\": \"%s\", \"title\": \"%s\", \"content\": \"%s\"}", email, title, content);
-	HTTP(0, HTTP_POST, "vulcan.hyaxe.com:9991/send_email", payload, "response_SendEmail");
+	HTTP(0, HTTP_POST, "hyaxe.hyaxe.com:9991/send_email", payload, "response_SendEmail");
 	return 1;
 }
 
@@ -6239,7 +6239,7 @@ public SendGift()
 		GenString(code, 8);
 
 		AddGiftCode(code, type, extra);
-		HTTP(0, HTTP_HEAD, sprintf("vulcan.hyaxe.com:1337/add_gift_from_server/%s", code), "", "");
+		HTTP(0, HTTP_HEAD, sprintf("hyaxe.hyaxe.com:1337/add_gift_from_server/%s", code), "", "");
 	}
 	return 1;
 }*/

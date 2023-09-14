@@ -867,9 +867,9 @@ ShowHelpMenu(playerid)
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
 
 	/* Header */
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Vulcan");
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Hyaxe");
 	/* Body */
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Vulcan surgió en 2018, pero no fue hasta mediados de 2019 que comenzó a desarrollarse, con tiempos más activos y otros no tanto, pasó por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opción porque la encontramos más rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el número de miembros del equipo."));
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgió en 2018, pero no fue hasta mediados de 2019 que comenzó a desarrollarse, con tiempos más activos y otros no tanto, pasó por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opción porque la encontramos más rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el número de miembros del equipo."));
 
 	SelectTextDrawEx(playerid, COLOR_INV_RED);
 	return 1;

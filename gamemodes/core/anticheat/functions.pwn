@@ -28,16 +28,16 @@ Anticheat_Ban(playerid, reason[], days = 0)
 		"COL_WHITE"Has sido baneado del servidor por el anticheat.\n\
 		Razón: %s\n\
 		Duración: %s\n\n\
-		¿Fue un error? Si es así, apele el baneo en nuestro foro: foro.vulcan-roleplay.com\
+		¿Fue un error? Si es así, apele el baneo en nuestro foro: foro.hyaxe-roleplay.com\
 	", reason, days_string);
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Vulcan Anticheat", dialog, "Cerrar", "");
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Hyaxe Anticheat", dialog, "Cerrar", "");
 	
 	// Add ban
 	AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 145, TYPE_BAN, reason, days);
 
 	// Send alert to admins/discord
 	new str_text[144];
-	format(str_text, sizeof(str_text), "[ADMIN] Vulcan baneó a %s (id: %d, ping: %d, pl: %.2f): %s (%s).", ACCOUNT_INFO[playerid][ac_NAME], playerid, GetPlayerPing(playerid), NetStats_PacketLossPercent(playerid), reason, days_string);
+	format(str_text, sizeof(str_text), "[ADMIN] Hyaxe baneó a %s (id: %d, ping: %d, pl: %.2f): %s (%s).", ACCOUNT_INFO[playerid][ac_NAME], playerid, GetPlayerPing(playerid), NetStats_PacketLossPercent(playerid), reason, days_string);
 	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 	SendDiscordWebhook(str_text, 1);
 
@@ -66,13 +66,13 @@ Anticheat_Kick(playerid, reason[])
 	format(dialog, sizeof dialog, "\
 		"COL_WHITE"Has sido expulsado del servidor por el anticheat.\n\
 		Razón: %s\n\n\
-		¿Fue un error? Si es así, reporte en nuestro foro: foro.vulcan-roleplay.com\
+		¿Fue un error? Si es así, reporte en nuestro foro: foro.hyaxe-roleplay.com\
 	", reason);
-	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Vulcan Anticheat", dialog, "Cerrar", "");
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_OCTA"Hyaxe Anticheat", dialog, "Cerrar", "");
 	
 	// Send alert to admins/discord
 	new str_text[144];
-	format(str_text, sizeof(str_text), "[ADMIN] Vulcan kickeó a %s (id: %d, ping: %d, pl: %.2f): %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, GetPlayerPing(playerid), NetStats_PacketLossPercent(playerid), reason);
+	format(str_text, sizeof(str_text), "[ADMIN] Hyaxe kickeó a %s (id: %d, ping: %d, pl: %.2f): %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, GetPlayerPing(playerid), NetStats_PacketLossPercent(playerid), reason);
 	SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 	SendDiscordWebhook(str_text, 1);
 
