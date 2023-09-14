@@ -91,17 +91,20 @@ Menu:DEALER_MENU(playerid, response, listitem)
 				// In-Front Position
 				new
 					Float:x = DEALER_INFO[dealer][dl_X],
-					Float:y = DEALER_INFO[dealer][dl_Y]
+					Float:y = DEALER_INFO[dealer][dl_Y],
+					Float:angle
 				;
 
 				GetXYFromAngle(x, y, DEALER_INFO[dealer][dl_ANGLE], 1.0);
-				SetPlayerPosEx(playerid, x, y, DEALER_INFO[dealer][dl_Z], -DEALER_INFO[dealer][dl_ANGLE], 0, 0);
+
+				GetPlayerFacingAngle(playerid, angle);
+				SetPlayerPosEx(playerid, x, y, DEALER_INFO[dealer][dl_Z], angle, 0, 0);
 
 				// Dealing scene
 				ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.0, 1, 1, 1, 0, 0);
 				ApplyDynamicActorAnimation(DEALER_INFO[dealer][dl_ACTOR], "DEALER", "DEALER_DEAL", 4.0, 1, 1, 1, 0, 0);
 
-				SetTimerEx("TerminateDealingScene", 4000, false, "ii", playerid, DEALER_INFO[dealer][dl_ACTOR]);
+				SetTimerEx("TerminateDealingScene", 5000, false, "ii", playerid, DEALER_INFO[dealer][dl_ACTOR]);
     		}
 
     		case 1:
@@ -110,7 +113,7 @@ Menu:DEALER_MENU(playerid, response, listitem)
     			if (CHARACTER_INFO[playerid][ch_CASH] < DEALER_INFO[dealer][dl_PRICE_FOR_ASS]) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
     			GivePlayerCash(playerid, -DEALER_INFO[dealer][dl_PRICE_FOR_ASS], false);
 
-    			DEALER_INFO[dealer][dl_PRICE] = GetPlayerMafia(playerid);
+    			DEALER_INFO[dealer][dl_MAFIA] = GetPlayerMafia(playerid);
 
     			ShowPlayerNotification(playerid, "Ahora este ~r~dealer~w~ trabaja para tu mafia.", 4);
     		}

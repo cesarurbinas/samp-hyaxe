@@ -34041,41 +34041,19 @@ PlayerPayday(playerid)
 		strcat(str_payday, str_temp);
 	}
 
-	if (PLAYER_WORKS[playerid][WORK_MAFIA])
+	if (PlayerIsInMafia(playerid))
 	{
-		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_MAFIA]);
+		new mafia = GetPlayerMafia(playerid);
+
+		new work_payment = (4000 * PLAYER_SKILLS[playerid][mafia]);
 
 		money += work_payment;
 
-		format(str_temp, sizeof(str_temp), "~n~Mafia: ~g~%s$~w~", number_format_thousand(work_payment));
-		strcat(str_payday, str_temp);
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
-	{
-		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA]);
-
-		money += work_payment;
-
-		format(str_temp, sizeof(str_temp), "~n~Mafia: ~g~%s$~w~", number_format_thousand(work_payment));
-		strcat(str_payday, str_temp);
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_OSBORN])
-	{
-		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_OSBORN]);
-
-		money += work_payment;
-
-		format(str_temp, sizeof(str_temp), "~n~Mafia: ~g~%s$~w~", number_format_thousand(work_payment));
-		strcat(str_payday, str_temp);
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_CONNOR])
-	{
-		new work_payment = (5000 * PLAYER_SKILLS[playerid][WORK_CONNOR]);
-
-		money += work_payment;
+		for (new i; i < sizeof(DEALER_INFO); i++)
+		{
+			if (DEALER_INFO[i][dl_MAFIA] == mafia)
+				money += minrand(500, 1000);
+		}
 
 		format(str_temp, sizeof(str_temp), "~n~Mafia: ~g~%s$~w~", number_format_thousand(work_payment));
 		strcat(str_payday, str_temp);
