@@ -4934,7 +4934,6 @@ SetIntroCamera(playerid)
 		    	AddPlayerBadHistory(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_ID], TYPE_KICK, "Armas del PD sin serlo");
 
 		    	new str[144];
-		    	format(str, 144, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
 		    	SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 		    	SendDiscordWebhook(str, 1);
 		    

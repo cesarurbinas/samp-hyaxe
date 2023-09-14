@@ -5947,19 +5947,12 @@ OnCheatDetected(playerid, ip_address[], type, code)
 	{
 		if (code == 47)
 		{
-			// Aeapon crasher
+			// Weapon crasher
 			Kick(playerid);
 			return 1;
 		}
 
-		new ac_message[144];
-		format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d): Cheats (#%03d).", PLAYER_TEMP[playerid][py_NAME], playerid, code);
-		SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
-		SendDiscordWebhook(ac_message, 1);
-
-		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
-		TogglePlayerControllableEx(playerid, false);
-		KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
+		Anticheat_Kick(playerid, CHEATS_NAMES[code]);
 	}
 	return 1;
 }
