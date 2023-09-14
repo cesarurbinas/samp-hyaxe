@@ -179,7 +179,15 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 							KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
 							KillTimer(PLAYER_TEMP[playerid][py_TIMERS][46]);
-							PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", 15000, false, "dd", playerid, treeid);
+
+							new time;
+							switch(Trees[treeid][tree_TYPE])
+							{
+								case TREE_TYPE_NORMAL: time = 30000;
+								case TREE_TYPE_UNCOMMON: time = 45000;
+								case TREE_TYPE_RARE: time = 65000;
+							}
+							PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", time, false, "dd", playerid, treeid);
 							PLAYER_TEMP[playerid][py_TIMERS][46] = SetTimerEx("UpdateTreeCutting", 100, true, "d", playerid);
 							ApplyAnimation(playerid, "CHAINSAW", "null", 0.0, 0, 0, 0, 0, 0, 0); // Preload
 							ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 4.1, true, true, true, true, 0, true);
@@ -227,8 +235,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					safe_db_query(sprintf("UPDATE `SERVER_PROPERTIES` SET `SAWMILL_STOCK` = %d;", g_iSawmillStock));
 					UpdateDynamic3DTextLabelText(SawmillLabel, 0xFFFFFFFF, sprintf(""COL_RED"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock));
 
-					GivePlayerCash(playerid, 100 * LogCarts[playerid][cart_AMOUNT]);
-					ShowPlayerNotification(playerid, sprintf("Procesaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 100 * LogCarts[playerid][cart_AMOUNT]), 3);
+					GivePlayerCash(playerid, 150 * LogCarts[playerid][cart_AMOUNT]);
+					ShowPlayerNotification(playerid, sprintf("Procesaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 150 * LogCarts[playerid][cart_AMOUNT]), 3);
 					LogCarts[playerid][cart_AMOUNT] = 0;
 				}
 			}
