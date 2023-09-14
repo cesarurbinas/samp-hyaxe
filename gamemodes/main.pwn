@@ -24886,6 +24886,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     	ApplyAnimation(playerid, "GYMNASIUM", "gym_tread_falloff", 1.0, 0, 0, 0, 0, 0);
     }
 
+    if ((newkeys & KEY_CROUCH) && !((newkeys & KEY_FIRE) || (newkeys & KEY_HANDBRAKE)) && GetPlayerSpecialAction(playerid) != SPECIAL_ACTION_DUCK )
+    {
+    	ApplyAnimation(playerid, "GYMNASIUM", "gym_tread_falloff", 1.0, 0, 0, 0, 0, 0);
+    }
+
 	if (newkeys & KEY_HANDBRAKE && !IsPlayerInAnyVehicle(playerid)) PLAYER_TEMP[playerid][py_AIM_DATA] = 1;
 	else if (oldkeys & KEY_HANDBRAKE) PLAYER_TEMP[playerid][py_AIM_DATA] = 0;
 	return 1;
