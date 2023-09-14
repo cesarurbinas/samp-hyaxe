@@ -434,7 +434,7 @@ GetAccountStatusName(playerid)
 {
 	new 
 		name[64],
-		status = GetAccountStatusValue(playerid)
+		value = GetAccountStatusValue(playerid)
 	;
 
 	if (value < 3)
