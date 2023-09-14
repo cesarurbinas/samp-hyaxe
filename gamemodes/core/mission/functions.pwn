@@ -50,7 +50,8 @@ CreateMissionsPlaces()
 MissionFailed(playerid)
 {
     PLAYER_TEMP[playerid][py_IN_MISSION] = false;
-    ShowPlayerAlert(playerid, "~r~MISIÓN FALLIDA", 0xd5900aFF, 4);
+    ShowPlayerAlert(playerid, "~r~FALLIDO", 0xd5900aFF, 4);
+    ShowPlayerMessage(playerid, sprintf("~r~%s", FAILED_MSGS[ random(sizeof(FAILED_MSGS))]), 4);
 
     // Exit message
     for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -151,6 +152,15 @@ CheckMissionPlace(playerid)
                                         SWEET_DEALERS[i][sd_Y],
                                         SWEET_DEALERS[i][sd_Z]
                                     );
+
+                                    FCNPC_SetPosition(
+                                        SWEET_DEALERS[i][sd_ID],
+                                        SWEET_DEALERS[i][sd_X],
+                                        SWEET_DEALERS[i][sd_Y],
+                                        SWEET_DEALERS[i][sd_Z]
+                                    );
+
+                                    FCNPC_SetAngle(SWEET_DEALERS[i][sd_ID], SWEET_DEALERS[i][sd_ANGLE]);
 
                                     FCNPC_SetWeapon(SWEET_DEALERS[i][sd_ID], DEALER_WEAPONS[ random(sizeof(DEALER_WEAPONS))]);
                                     FCNPC_SetAmmo(SWEET_DEALERS[i][sd_ID], 9999);

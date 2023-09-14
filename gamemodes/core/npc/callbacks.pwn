@@ -137,7 +137,7 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 						if (npc_lives <= 0)
 						{
 							GivePlayerReputation(i, 1, false);
-							ShowPlayerAlert(i, "MISIÓN COMPLETADA~n~~w~EXP +", 0xd5900aFF, 5);
+							ShowPlayerAlert(i, "COMPLETADA~n~~w~+EXP", 0xd5900aFF, 5);
 							GivePlayerCash(i, 1000 + (300 * PLAYER_TEMP[i][py_MISSION_POINTS]));
 							PLAYER_TEMP[i][py_IN_MISSION] = false;
 						}

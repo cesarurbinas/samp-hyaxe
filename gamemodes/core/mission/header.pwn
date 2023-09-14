@@ -1,3 +1,13 @@
+new FAILED_MSGS[][] =
+{
+	"El objetivo no era tragar balas!",
+	"Tenas que esquivar las balas, no atraparlas!",
+	"El plomo no se come!",
+	"Tus armas no son adornos!",
+	"Habia que disparar, no repartir abrazos!"
+};
+
+
 enum e_start_mission
 {
     bool:ems_ENABLED,
