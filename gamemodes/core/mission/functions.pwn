@@ -47,11 +47,15 @@ CreateMissionsPlaces()
     return 1;
 }
 
-MissionFailed(playerid)
+MissionFailed(playerid, bool:disconnected = false)
 {
     PLAYER_TEMP[playerid][py_IN_MISSION] = false;
-    ShowPlayerAlert(playerid, "~r~FALLIDO", 0xd5900aFF, 4);
-    ShowPlayerMessage(playerid, sprintf("~r~%s", FAILED_MSGS[ random(sizeof(FAILED_MSGS))]), 4);
+
+    if (!disconnected)
+    {
+        ShowPlayerAlert(playerid, "~r~FALLIDO", 0xd5900aFF, 4);
+        ShowPlayerMessage(playerid, sprintf("~r~%s", FAILED_MSGS[ random(sizeof(FAILED_MSGS))]), 4);
+    }
 
     // Exit message
     new players_in_mission;
@@ -63,7 +67,9 @@ MissionFailed(playerid)
         {
             if (PLAYER_TEMP[i][py_MISSION] == PLAYER_TEMP[playerid][py_MISSION])
             {
-                ShowPlayerNotification(i, sprintf("%s ha fracasado la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
+                if (!disconnected) ShowPlayerNotification(i, sprintf("%s ha fracasado la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
+                else ShowPlayerNotification(i, sprintf("%s se ha ido la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
+                
                 SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
                 players_in_mission ++;
             }
@@ -165,14 +171,6 @@ CheckMissionPlace(playerid)
 
                                 FCNPC_Respawn(SWEET_DEALERS[i][sd_ID]);
 
-                                /*FCNPC_Spawn(
-                                    SWEET_DEALERS[i][sd_ID],
-                                    DEALER_SKIN[ random(sizeof(DEALER_SKIN))],
-                                    SWEET_DEALERS[i][sd_X],
-                                    SWEET_DEALERS[i][sd_Y],
-                                    SWEET_DEALERS[i][sd_Z]
-                                );*/
-
                                 FCNPC_SetPosition(
                                     SWEET_DEALERS[i][sd_ID],
                                     SWEET_DEALERS[i][sd_X],
@@ -200,7 +198,7 @@ CheckMissionPlace(playerid)
                             SetPlayerColor(SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
                         }
                         
-                        ShowPlayerMessage(playerid, "Elimina a los ~r~Dealers~w~ colados en el barrio.", 10);
+                        ShowPlayerMessage(playerid, "Elimina a los ~r~Dealers~w~ colados en el barrio.", 12);
                         SetTimer("NPC_Update", 3000, false);
                     }
                 }

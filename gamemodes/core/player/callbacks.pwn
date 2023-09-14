@@ -636,6 +636,7 @@ public OnPlayerDisconnect(playerid, reason)
   		}
   	}
 
+	MissionFailed(playerid, true);
 	DestroyPlayerCheckpoints(playerid);
 	DestroyPlayerTextDraws(playerid);
 
