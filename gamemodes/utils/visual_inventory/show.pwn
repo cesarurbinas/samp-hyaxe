@@ -293,6 +293,7 @@ RefreshItemList(playerid)
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
 
+			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0;
 			inv_AccommodatePropertyItems(playerid, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]);
 
 			new 
@@ -300,7 +301,7 @@ RefreshItemList(playerid)
 				Float:size_items = 330.000000
 			;
 				
-			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
+			format(str_text, sizeof(str_text), "%d/12", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
 
 			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
@@ -331,14 +332,15 @@ RefreshItemList(playerid)
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
-				
+			
+			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0;
 			inv_AccommodateItems(playerid);
 
 			new
 				str_text[128],
 				Float:size_items = 330.000000;
 				
-			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
+			format(str_text, sizeof(str_text), "%d/12", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]);
 			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
 
 			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
