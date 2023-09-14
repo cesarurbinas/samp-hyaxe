@@ -12802,8 +12802,8 @@ ShowDialog(playerid, dialogid)
     		PLAYER_TEMP[playerid][py_VOICE_TEST] = true;
 
     		new str_text[74];
-    		format(str_text, sizeof(str_text), ""COL_WHITE"Hable pulsando "COL_RED"%s"COL_WHITE"...", ReturnKeyHex(PLAYER_MISC[playerid][MISC_VOICE_KEY]));
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Prueba de voz", str_text, "Terminar", "");
+    		format(str_text, sizeof(str_text), ""COL_WHITE"Hable pulsando "COL_RED"%s"COL_WHITE"...", ReturnKeyName(PLAYER_MISC[playerid][MISC_VOICE_KEY]));
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Prueba de voz", str_text, "Terminar", "");
     		return 1;
     	}
 		default: return 0;
@@ -29591,7 +29591,7 @@ CALLBACK: PlantingUp(playerid, seeds)
 	PLANTS[index][plant_TYPE] = PLAYER_TEMP[playerid][py_PLANTING_PLANT_SELECTED];
 	PLANTS[index][plant_PLANTED_BY_ACCOUNT_ID] = ACCOUNT_INFO[playerid][ac_ID];
 	format(PLANTS[index][plant_PLANTED_BY_NAME], 24, "%s", PLAYER_TEMP[playerid][py_RP_NAME]);
-	PLANTS[index][plant_OBJECT_ID] = CreateDynamicObject(2244, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], 0.0, 0.0, CHARACTER_INFO[playerid][ch_ANGLE], 0, 0);
+	PLANTS[index][plant_OBJECT_ID] = CreateDynamicObject(2244, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], 0.0, 0.0, CHARACTER_INFO[playerid][ch_ANGLE], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 	SetDynamicObjectMaterial(PLANTS[index][plant_OBJECT_ID], 2, 2244, "plants_tabletop", "CJ_PLANT", 0x00F7F7F7);
 
 	new info[2];
@@ -29601,7 +29601,7 @@ CALLBACK: PlantingUp(playerid, seeds)
 
 	new label_str[256];
 	format(label_str, sizeof label_str, ""COL_YELLOW"%s"COL_WHITE" de %s\n"COL_WHITE"Creciendo: %.1f%%", plant_info[ PLANTS[index][plant_TYPE] ][plant_info_NAME], PLANTS[index][plant_PLANTED_BY_NAME], PLANTS[index][plant_GROWING_PROGRESS]);
-	PLANTS[index][plant_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2] + 0.25, 10.0, .testlos = false, .interiorid = 0, .worldid = 0);
+	PLANTS[index][plant_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2] + 0.25, 10.0, .testlos = false, .interiorid = GetPlayerInterior(playerid), .worldid = GetPlayerVirtualWorld(playerid));
 
 	KillTimer(PLANTS[index][plant_TIMER]);
 	PLANTS[index][plant_TIMER] = SetTimerEx("GrowPlantUp", 15000, false, "d", index);
