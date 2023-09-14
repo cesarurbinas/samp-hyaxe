@@ -1,0 +1,4 @@
+*.inc linguist-language=Pawn
+*.pwn linguist-language=Pawn
+*.pawn linguist-language=Pawn
+*.p linguist-language=Pawn
