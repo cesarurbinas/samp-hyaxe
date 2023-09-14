@@ -8802,7 +8802,7 @@ CMD:b(playerid, params[])
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: "COL_RED"/b "COL_WHITE"[TEXTO]");
 
     new str_text[190];
-    format(str_text, sizeof(str_text), "ID: %d | %s: (( %s ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME], params);
+    format(str_text, sizeof(str_text), "[ID: %d] %s: (( %s ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME], params);
 	ProxDetector(playerid, 15.0, str_text, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5, 85);
 	return 1;
 }
@@ -8871,7 +8871,6 @@ CMD:resetsans(playerid, params[])
 		PLAYER_MISC[i][MISC_BANEOS] = 0;
 		PLAYER_MISC[i][MISC_JAILS] = 0;
 	}
-
 	return 1;
 }
 
@@ -8992,7 +8991,7 @@ CMD:armas(playerid, params[])
 	return 1;
 }
 
-CMD:pedir(playerid, params[])
+/*CMD:pedir(playerid, params[])
 {
 	if (PLAYER_TEMP[playerid][py_INTERIOR_INDEX] == -1) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
 	if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_NO_INFO) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
@@ -9018,7 +9017,7 @@ CMD:mercado(playerid, params[])
 	if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "No puedes comprar aqui siendo policia.", 3);
 	ShowDialog(playerid, DIALOG_BLACK_MARKET);
 	return 1;
-}
+}*/
 
 CMD:gps(playerid, params[])
 {
