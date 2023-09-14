@@ -428,39 +428,6 @@ GetVehicleFreeObjectSlot(vehicleid)
 	return -1;
 }
 
-/*UpdateVehicleMaterialObject(vehicleid, slot)
-{
-	switch(VEHICLE_OBJECTS[vehicleid][slot][vobject_TYPE])
-	{
-		case VOBJECT_TYPE_OBJECT:
-		{
-			for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
-			{
-				SetDynamicObjectMaterial(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][i]);
-			}
-		}
-		case VOBJECT_TYPE_TEXT:
-		{
-			SetDynamicObjectMaterialText
-			(
-				VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID],
-				0,
-				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_TEXT],
-				130,
-				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT],
-				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT_SIZE],
-				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_BOLD],
-				VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT_COLOR],
-				0,
-				OBJECT_MATERIAL_TEXT_ALIGN_CENTER
-			);
-		}
-		case VOBJECT_TYPE_COUNTRY_FLAG: TextureCountryFlag(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], 1, VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][0]);
-		case VOBJECT_TYPE_COUNTRY_PANEL: TextureCountryFlag(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], 0, VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][0]);
-	}
-	return 1;
-}*/
-
 UpdateVehicleAttachedObject(vehicleid, slot, material = false)
 {
 	if(VEHICLE_OBJECTS[vehicleid][slot][vobject_ATTACHED])
@@ -971,7 +938,6 @@ LoadPlayerVehicles(playerid)
 			VEHICLE_OBJECTS[vehicle_id][vobjects][vobject_text_BOLD] = db_get_field_assoc_int(Result_vobjects, "FONT_BOLD");
 			VEHICLE_OBJECTS[vehicle_id][vobjects][vobject_text_FONT_COLOR] = db_get_field_assoc_int(Result_vobjects, "FONT_COLOR");
 			UpdateVehicleAttachedObject(vehicle_id, vobjects);
-			UpdateVehicleMaterialObject(vehicle_id, vobjects);
 
 			vobjects ++;
 			db_next_row(Result_vobjects);
