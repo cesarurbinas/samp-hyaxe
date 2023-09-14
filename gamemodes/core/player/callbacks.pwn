@@ -706,7 +706,7 @@ public SavePlayerData(playerid)
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
-		if (GetPlayerPing(playerid) >= 400)
+		if (GetPlayerPing(playerid) >= 300)
 			Anticheat_Kick(playerid, "Ping alto");
 	}
 
@@ -1433,7 +1433,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		            if (!IsPlayerInAnyVehicle(playerid))
 		            {
-						Anticheat_Ban(playerid, "Anti-L");
+						Anticheat_Ban(playerid, "Anti-L", 3);
 						return 0;
 		            }
 		        }

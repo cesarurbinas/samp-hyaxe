@@ -138,8 +138,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(str_text, sizeof str_text, "Bienvenido %s a Hyaxe RolePlay.", PLAYER_TEMP[playerid][py_RP_NAME]);
 				ShowPlayerNotification(playerid, str_text);
 
-				if (!PLAYER_TEMP[playerid][py_ANDROID] && IsFakeClient(playerid))
-					Anticheat_Ban(playerid, "Cliente externo");
+				if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+        		{
+					if (!PLAYER_TEMP[playerid][py_ANDROID] && IsFakeClient(playerid))
+						Anticheat_Ban(playerid, "Cliente externo");
+				}
 
 				#if defined FINAL_BUILD
 					PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 120000, true, "i", playerid);

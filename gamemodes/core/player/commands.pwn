@@ -509,6 +509,12 @@ cmd:cbug(playerid, params[])
 	return 1;
 }
 
+cmd:slap(playerid, params[])
+{
+	Anticheat_Kick(playerid, "Slap [CSC]");
+	return 1;
+}
+
 cmd:aimbot(playerid, params[])
 {
 	Anticheat_Kick(playerid, "Aimbot [CSC]");
