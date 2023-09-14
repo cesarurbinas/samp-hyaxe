@@ -24,8 +24,6 @@ Listado de cosas para hacer
 
 ✅ Arreglar repairveh cuando el driver no es admin
 
-❌ Arreglar el candado del velocimetro
-
 ✅ Agregar comida como item
 
 ✅ Rehacer sistema completo de items y inventario

@@ -1315,6 +1315,7 @@ ShowPlayerSpeedoMeter(playerid)
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5]);
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
 
 	// Engine
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 1570070015);
@@ -1335,6 +1336,7 @@ ShowPlayerSpeedoMeter(playerid)
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][6]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][7]);
 	TextDrawShowForPlayer(playerid, Textdraws[textdraw_SPEEDO_METER][9]);
+	
 
 	PLAYER_TEMP[playerid][py_SPEEDOMETER] = true;
 	PLAYER_TEMP[playerid][py_FUEL_DOWN_TIME] = gettime();
