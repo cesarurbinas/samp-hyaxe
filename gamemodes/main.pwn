@@ -32430,7 +32430,7 @@ StartTerritoryAttack(crew_index, territory_index, time)
 	CREW_INFO[crew_index][crew_LAST_ATTACK] = gettime();
 	TERRITORIES[territory_index][territory_WAR] = true;
 	TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] = crew_index;
-	TERRITORIES[territory_index][territory_WAR_TIME_LEFT] = time;
+	TERRITORIES[territory_index][territory_WAR_TIME_LEFT] = gettime() + time;
 	TERRITORIES[territory_index][territory_LAST_ATTACK] = gettime();
 	UpdateGangZoneColor(territory_index);
 
@@ -32469,7 +32469,7 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 	if (!TERRITORIES[territory_index][territory_VALID]) return 1;
 	if (!TERRITORIES[territory_index][territory_WAR]) return 1;
 
-	if (TERRITORIES[territory_index][territory_WAR_TIME_LEFT] <= 0)
+	if (TERRITORIES[territory_index][territory_WAR_TIME_LEFT] - gettime() <= 0)
 	{
 		CREW_INFO[ TERRITORIES[territory_index][territory_CREW_INDEX] ][crew_FIGHTING] = false;
 		TERRITORIES[territory_index][territory_CREW_ID] = CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_ID];
@@ -32481,6 +32481,15 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 
 		new message[145];
 		format(message, sizeof message, "%s ha conquistado un nuevo territorio.", CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
+
+		new query[200];
+		format(query, sizeof(query), "\
+			UPDATE `CREW_TERRITORIES` SET \
+				`ID_CREW` = %d \
+			WHERE `ID_TERRITORY` = %d; \
+		", TERRITORIES[territory_index][territory_ID],
+		TERRITORIES[territory_index][territory_CREW_ID]);
+		db_free_result(db_query(Database, query));
 
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_LAST_ATTACK] = gettime();
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_FIGHTING] = false;
@@ -32523,9 +32532,8 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 	}
 
 
-	TERRITORIES[territory_index][territory_WAR_TIME_LEFT] --;
 	new message[145], progress[128];
-	format(progress, sizeof progress, "Tiempo restante: ~r~%s", TimeConvert(TERRITORIES[territory_index][territory_WAR_TIME_LEFT]));
+	format(progress, sizeof progress, "Tiempo restante: ~r~%s", TimeConvert(TERRITORIES[territory_index][territory_WAR_TIME_LEFT] - gettime()));
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
