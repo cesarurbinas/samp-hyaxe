@@ -5891,26 +5891,29 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
     BS_IgnoreBits(bs, 8);
     BS_ReadBulletSync(bs, bulletData);
 
-    PLAYER_TEMP[playerid][py_TOTAL_SHOT] ++;
-	if (PLAYER_TEMP[playerid][py_TOTAL_SHOT] >= 5)
+	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
-		PLAYER_TEMP[playerid][py_TOTAL_SHOT] = 0;
-
-		if (bulletData[PR_hitType] == 1)
+		PLAYER_TEMP[playerid][py_TOTAL_SHOT] ++;
+		if (PLAYER_TEMP[playerid][py_TOTAL_SHOT] >= 5)
 		{
-			new Float:ray_x, Float:ray_y, Float:ray_z;
-			new ray = CA_RayCastLine(
-				bulletData[PR_origin][0], bulletData[PR_origin][1], bulletData[PR_origin][2],
-				bulletData[PR_hitPos][0], bulletData[PR_hitPos][1], bulletData[PR_hitPos][2],
-				ray_x, ray_y, ray_z
-			);
+			PLAYER_TEMP[playerid][py_TOTAL_SHOT] = 0;
 
-			if (ray && ray != WATER_OBJECT)
+			if (bulletData[PR_hitType] == 1)
 			{
-				new string[144];
-				format(string, sizeof(string), "[ANTI-CHEAT] Aviso sobre %s (%d): WallShot (object: %d, weaponId: %d, hitId: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, ray, bulletData[PR_weaponId], bulletData[PR_hitId]);
-				SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
-				SendDiscordWebhook(string, 1);
+				new Float:ray_x, Float:ray_y, Float:ray_z;
+				new ray = CA_RayCastLine(
+					bulletData[PR_origin][0], bulletData[PR_origin][1], bulletData[PR_origin][2],
+					bulletData[PR_hitPos][0], bulletData[PR_hitPos][1], bulletData[PR_hitPos][2],
+					ray_x, ray_y, ray_z
+				);
+
+				if (ray && ray != WATER_OBJECT)
+				{
+					new string[144];
+					format(string, sizeof(string), "[ANTI-CHEAT] Aviso sobre %s (%d): WallShot (object: %d, weaponId: %d, hitId: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, ray, bulletData[PR_weaponId], bulletData[PR_hitId]);
+					SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+					SendDiscordWebhook(string, 1);
+				}
 			}
 		}
 	}
