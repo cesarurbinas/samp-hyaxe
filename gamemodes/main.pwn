@@ -1822,7 +1822,9 @@ static const INVALID_NAMES[][100] =
 	"Panadero",
 	"Whatsapp",
 	"Facebook",
-	"Instagram"
+	"Instagram",
+	"Lil_",
+	"Gamer"
 };
 
 static const BAN_KEYWORDS[][100] =
