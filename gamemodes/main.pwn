@@ -92,6 +92,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/player/misc.pwn"
 #include "core/player/crew.pwn"
 #include "core/player/visual_inventory.pwn"
+#include "core/player/vehicles.pwn"
 
 // Police
 #include "core/police/info.pwn"
@@ -334,15 +335,6 @@ new Float:HARVEST_CHECKPOINTS[][] =
 	{-287.710388, -1497.158325, 8.503927},
 	{-387.908111, -1532.118774, 23.47214}
 };
-
-enum Player_Vehicles_Info
-{
-	bool:player_vehicle_VALID,
-	player_vehicle_ID,
-	player_vehicle_OWNER_ID,
-	bool:player_vehicle_ACCESSIBLE
-};
-new PLAYER_VEHICLES[MAX_VEHICLES][Player_Vehicles_Info];
 
 #define MAX_VEHICLE_OBJECTS_INDEXS 5
 enum
@@ -8068,8 +8060,8 @@ CMD:mp3(playerid, params[])
 {
 	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
 	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
-	
-	PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
+	if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 120) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada 2 minutos.", 3, 1085);
+
 	ShowDialog(playerid, DIALOG_PLAYER_MP3);
 	return 1;
 }
@@ -29987,6 +29979,7 @@ PlayerPayday(playerid)
 			if (work_info[WORK_POLICE][work_info_EXTRA_PAY_LIMIT] != 0) if (work_payment > work_info[WORK_POLICE][work_info_EXTRA_PAY_LIMIT]) work_payment = work_info[WORK_POLICE][work_info_EXTRA_PAY_LIMIT];
 		}
 
+		if(work_payment > 10000) work_payment = 10000;
 		money += (work_payment + 8000);
 
 		format(str_temp, sizeof(str_temp), "~n~SAPD: ~g~%s$~w~", number_format_thousand(work_payment));
@@ -32483,13 +32476,24 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 		new message[145];
 		format(message, sizeof message, "%s ha conquistado un nuevo territorio.", CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_NAME]);
 
-		new query[200];
-		format(query, sizeof(query), "\
-			UPDATE `CREW_TERRITORIES` SET \
-				`ID_CREW` = %d \
-			WHERE `ID_TERRITORY` = %d; \
-		", TERRITORIES[territory_index][territory_ID],
-		TERRITORIES[territory_index][territory_CREW_ID]);
+		new DBResult:rows, query[200];
+		format(query, sizeof(query), "SELECT * FROM `CREW_TERRITORIES` WHERE `ID_TERRITORY` = %d;", TERRITORIES[territory_index][territory_ID]);
+		rows = db_query(Database, query);
+		if(!db_num_rows(rows))
+		{
+			format(query, sizeof(query), "\
+				INSERT INTO `CREW_TERRITORIES` (`ID_CREW`, `ID_TERRITORY`) VALUES (%d, %d);", TERRITORIES[territory_index][territory_CREW_ID], TERRITORIES[territory_index][territory_ID]);
+		}
+		else
+		{
+			format(query, sizeof(query), "\
+				UPDATE `CREW_TERRITORIES` SET \
+					`ID_CREW` = %d \
+				WHERE `ID_TERRITORY` = %d; \
+			", TERRITORIES[territory_index][territory_CREW_ID],
+			TERRITORIES[territory_index][territory_ID]);
+		}
+		db_free_result(rows);
 		db_free_result(db_query(Database, query));
 
 		CREW_INFO[ TERRITORIES[territory_index][territory_ATTACKER_CREW_INDEX] ][crew_LAST_ATTACK] = gettime();
