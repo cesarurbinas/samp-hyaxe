@@ -3179,6 +3179,9 @@ public OnPlayerConnect(playerid)
 
 	GetPlayerName(playerid, PLAYER_TEMP[playerid][py_NAME], 24);
 	GetPlayerIp(playerid, PLAYER_TEMP[playerid][py_IP], 16);
+	gpci(playerid, PLAYER_TEMP[playerid][py_SERIAL], 50);
+
+	printf("%s", PLAYER_TEMP[playerid][py_SERIAL]);
 
 	#if defined VOICE_CHAT
 		if (sv_get_version(playerid) == SV_VERSION)
@@ -3232,7 +3235,7 @@ public OnPlayerConnect(playerid)
 	CancelEdit(playerid);
 
 	new DB_Query[550], DBResult:ban_Result;
-	format(DB_Query, sizeof DB_Query, "SELECT DATETIME('NOW') AS `NOW`, `BANS`.*, `BAD_HISTORY`.* FROM `BANS`, `BAD_HISTORY` WHERE (`BANS`.`NAME` = '%q' OR `BANS`.`IP` = '%q') AND `BAD_HISTORY`.`ID` = `BANS`.`ID_HISTORY`;", PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[playerid][py_IP]);
+	format(DB_Query, sizeof DB_Query, "SELECT DATETIME('NOW') AS `NOW`, `BANS`.*, `BAD_HISTORY`.* FROM `BANS`, `BAD_HISTORY` WHERE (`BANS`.`NAME` = '%q' OR `BANS`.`IP` = '%q' OR `BANS`.`GPCI` = '%q') AND `BAD_HISTORY`.`ID` = `BANS`.`ID_HISTORY`;", PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_SERIAL]);
 	ban_Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(ban_Result))
@@ -3253,7 +3256,7 @@ public OnPlayerConnect(playerid)
 			format(dialog, sizeof dialog,
 
 				"\
-					"COL_WHITE"Esta IP o cuenta está suspendida permanentemente.\n\
+					"COL_WHITE"Esta IP, cuenta o serial está suspendida permanentemente.\n\
 					\n\
 					Tu nombre: %s\n\
 					\n\
@@ -3335,6 +3338,7 @@ public OnPlayerConnect(playerid)
 		ACCOUNT_INFO[playerid][ac_ID] = db_get_field_assoc_int(Result, "ID");
 		db_get_field_assoc(Result, "IP", ACCOUNT_INFO[playerid][ac_IP], 16);
 		db_get_field_assoc(Result, "NAME", ACCOUNT_INFO[playerid][ac_NAME], 24);
+		db_get_field_assoc(Result, "GPCI", ACCOUNT_INFO[playerid][ac_SERIAL], 50);
 		db_get_field_assoc(Result, "EMAIL", ACCOUNT_INFO[playerid][ac_EMAIL], 32);
 		db_get_field_assoc(Result, "PASS", ACCOUNT_INFO[playerid][ac_PASS], 64 + 1);
 		db_get_field_assoc(Result, "SALT", ACCOUNT_INFO[playerid][ac_SALT], 16);
@@ -6114,6 +6118,10 @@ public OnPlayerRequestClass(playerid, classid)
 				ShowPlayerMessage(playerid, "~r~Tu dirección IP ha cambiado desde tu última conexión.", 5);
 				format(ACCOUNT_INFO[playerid][ac_IP], 16, "%s", PLAYER_TEMP[playerid][py_IP]);
 				PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = true;
+			}
+			if(strcmp(PLAYER_TEMP[playerid][py_SERIAL], ACCOUNT_INFO[playerid][ac_SERIAL], false))
+			{
+				format(ACCOUNT_INFO[playerid][ac_SERIAL], 50, "%s", PLAYER_TEMP[playerid][py_SERIAL]);
 			}
 
 			ShowDialog(playerid, DIALOG_LOGIN);
@@ -12340,6 +12348,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (strlen(inputtext) < MIN_PASS_LENGTH || strlen(inputtext) > MAX_PASS_LENGTH) return ShowDialog(playerid, dialogid);
 				format(ACCOUNT_INFO[playerid][ac_IP], 16, "%s", PLAYER_TEMP[playerid][py_IP]);
 				format(ACCOUNT_INFO[playerid][ac_NAME], 24, "%s", PLAYER_TEMP[playerid][py_NAME]);
+				format(ACCOUNT_INFO[playerid][ac_SERIAL], 50, "%s", PLAYER_TEMP[playerid][py_SERIAL]);
 				format(PLAYER_TEMP[playerid][py_PASSWD], 24, "%s", inputtext);
 
 				new salt[16];
@@ -21018,14 +21027,14 @@ RegisterNewPlayer(playerid)
 	"\
 		INSERT INTO `CUENTA` \
 		(\
-			`IP`, `NAME`, `EMAIL`, `SALT`, `PASS`, `CONNECTED`, `PLAYERID`, `TIME_FOR_REP`\
+			`IP`, `NAME`, `EMAIL`, `GPCI`, `SALT`, `PASS`, `CONNECTED`, `PLAYERID`, `TIME_FOR_REP`\
 		) \
 		VALUES \
 		(\
-			'%q', '%q', '%q', '%q', '%q', 1, %d, %d\
+			'%q', '%q', '%q', '%q', '%q', '%q', 1, %d, %d\
 		);\
 		SELECT `ID`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` = '%q';\
-	", ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], playerid, TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_NAME]);
+	", ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SERIAL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], playerid, TIME_FOR_REP, ACCOUNT_INFO[playerid][ac_NAME]);
 	Result = db_query(Database, DB_Query);
 
 	if (db_num_rows(Result))
@@ -21129,6 +21138,7 @@ SaveUserData(playerid)
 		`IP` = '%q',\
 		`NAME` = '%q',\
 		`EMAIL` = '%q',\
+		`GPCI` = '%q',\
 		`SALT` = '%q',\
 		`PASS` = '%q',\
 		`LAST_CONNECTION` = CURRENT_TIMESTAMP,\
@@ -21182,7 +21192,7 @@ SaveUserData(playerid)
 		`BOOMBOX` = %d \
 		WHERE `ID_USER` = '%d';\
 		",
-		ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], ACCOUNT_INFO[playerid][ac_STATE], ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL], ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL], ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID],
+		ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SERIAL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], ACCOUNT_INFO[playerid][ac_STATE], ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL], ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL], ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID],
 		CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_CASH], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_STATE], CHARACTER_INFO[playerid][ch_INTERIOR], CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA], CHARACTER_INFO[playerid][ch_FIGHT_STYLE], CHARACTER_INFO[playerid][ch_HEALTH], CHARACTER_INFO[playerid][ch_ARMOUR],  CHARACTER_INFO[playerid][ch_SEX], CHARACTER_INFO[playerid][ch_HUNGRY], CHARACTER_INFO[playerid][ch_THIRST], CHARACTER_INFO[playerid][ch_BLACK_MARKET_LEVEL], CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME], CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID], CHARACTER_INFO[playerid][ch_JAIL_REASON], CHARACTER_INFO[playerid][ch_JAILED_BY], ACCOUNT_INFO[playerid][ac_ID],
 		BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
 		PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_STATE], PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER], ACCOUNT_INFO[playerid][ac_ID],
@@ -31312,9 +31322,9 @@ AddPlayerBadHistory(account_id, by_account_id, type, const text[])
 	return 1;
 }
 
-AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, const text[], days = 0, mod[] = "day")
+AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, const text[], days = 0, mod[] = "day", const account_gpci[] = "NULL")
 {
-	new DBResult:Result, DB_Query[400];
+	new DB_Query[450];
 
 	if (!days)
 	{
@@ -31322,11 +31332,11 @@ AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, cons
 
 			"\
 			INSERT INTO `BAD_HISTORY` (`ID_USER`, `TYPE`, `BY`, `TEXT`) VALUES('%d', '%d', '%d', '%q');\
-			INSERT INTO `BANS` (`NAME`, `IP`, `ID_HISTORY`, `EXPIRE_DATE`) SELECT '%q', '%q', MAX(`ID`), '0' FROM `BAD_HISTORY`;\
+			INSERT INTO `BANS` (`NAME`, `IP`, `GPCI`, `ID_HISTORY`, `EXPIRE_DATE`) SELECT '%q', '%q', '%q', MAX(`ID`), '0' FROM `BAD_HISTORY`;\
 			",
 
 				account_id, type, by_account_id, text,
-				account_name, account_ip
+				account_name, account_ip, account_gpci
 
 		);
 	}
@@ -31336,17 +31346,16 @@ AddPlayerBan(account_id, account_name[], account_ip[], by_account_id, type, cons
 
 			"\
 			INSERT INTO `BAD_HISTORY` (`ID_USER`, `TYPE`, `BY`, `TEXT`) VALUES('%d', '%d', '%d', '%q');\
-			INSERT INTO `BANS` (`NAME`, `IP`, `ID_HISTORY`, `EXPIRE_DATE`) SELECT '%q', '%q', MAX(`ID`), DATETIME('NOW', '+%d %s') FROM `BAD_HISTORY`;\
+			INSERT INTO `BANS` (`NAME`, `IP`, `GPCI`, `ID_HISTORY`, `EXPIRE_DATE`) SELECT '%q', '%q', '%q', MAX(`ID`), DATETIME('NOW', '+%d %s') FROM `BAD_HISTORY`;\
 			",
 
 				account_id, type, by_account_id, text,
-				account_name, account_ip, days, mod
+				account_name, account_ip, account_gpci, days, mod
 
 		);
 	}
 
-	Result = db_query(Database, DB_Query);
-	db_free_result(Result);
+	safe_db_query(DB_Query);
 	return 1;
 }
 

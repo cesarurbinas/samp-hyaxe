@@ -739,6 +739,109 @@ CMD:ban(playerid, params[])
 	return 1;
 }
 
+CMD:gpciban(playerid, params[])
+{
+	if (gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY] < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
+	new to_player, reason[32];
+	if (sscanf(params, "us[32]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ban <player_id> <razon>");
+	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+
+	if (PLAYER_TEMP[to_player][py_KICKED]) return SendClientMessage(playerid, COLOR_WHITE, "El jugador ya está expulsado.");
+	if (!ACCOUNT_INFO[to_player][ac_ID]) return KickEx(to_player, 100);
+
+	AddPlayerBan(ACCOUNT_INFO[to_player][ac_ID], ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_IP], ACCOUNT_INFO[playerid][ac_ID], TYPE_BAN, reason, .account_gpci = ACCOUNT_INFO[to_player][ac_SERIAL]);
+
+	new dialog[250];
+	format(dialog, sizeof dialog, ""COL_WHITE"%s te baneó, razón: %s", ACCOUNT_INFO[playerid][ac_NAME], reason);
+	ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+	KickEx(to_player, 500);
+	PLAYER_MISC[to_player][MISC_BANEOS] ++;
+	SavePlayerMisc(to_player);
+
+	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' dbid: '%d', id: '%d') baneado.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player);
+
+	new str[145];
+	format(str, 145, "[ADMIN] %s (%d) baneó a %s (%d): %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
+	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+	new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+	SendDiscordWebhook(webhook, 1);
+
+	format(str, sizeof(str), "%s (%s): %s", ACCOUNT_INFO[to_player][ac_NAME], reason, ACCOUNT_INFO[to_player][ac_SERIAL]);
+	Log("cheaters_gpci", str);
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
+
+	return 1;
+}
+flags:gpciban(CMD_MODERATOR)
+
+CMD:dgpciban(playerid, params[])
+{
+	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
+
+	new reason[32], to_account;
+	if (sscanf(params, "ds[32]", to_account, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dban <DB-ID> <razon>");
+
+	new DBResult:Result, DB_Query[160];
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `GPCI`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = %d;", to_account);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		new id, ip[16], get_name[24], serial[50], connected, player_id, admin_level;
+
+		id = db_get_field_assoc_int(Result, "ID");
+		db_get_field_assoc(Result, "IP", ip, 16);
+		db_get_field_assoc(Result, "NAME", get_name, 24);
+		db_get_field_assoc(Result, "GPCI", serial, 50);
+		connected = db_get_field_assoc_int(Result, "CONNECTED");
+		player_id = db_get_field_assoc_int(Result, "PLAYERID");
+		admin_level = db_get_field_assoc_int(Result, "ADMIN_LEVEL");
+
+		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] > admin_level)
+		{
+			if (connected) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR '%s' DB-ID '%d' conectado utilice /ban, su player_id: %d.", get_name, id, player_id);
+			else
+			{
+				new DBResult:is_banned;
+				format(DB_Query, sizeof DB_Query, "SELECT * FROM `BANS` WHERE `NAME` = '%q' OR `IP` = '%q' OR `GPCI` = '%q';", get_name, ip, serial);
+				is_banned = db_query(Database, DB_Query);
+
+				if (db_num_rows(is_banned))
+				{
+					new expire_date[24];
+					db_get_field_assoc(is_banned, "EXPIRE_DATE", expire_date, 24);
+
+					if (!strcmp(expire_date, "0", false)) SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR (Nombre: '%s' DB-ID: '%d') ya está baneado (permanentemente).", get_name, id);
+					else SendClientMessageEx(playerid, COLOR_WHITE, "JUGADOR (Nombre: '%s' DB-ID: '%d') ya está baneado (temporalmente, fecha de readmisión: %s).", get_name, id, expire_date);
+				}
+				else
+				{
+					AddPlayerBan(id, get_name, ip, ACCOUNT_INFO[playerid][ac_ID], TYPE_BAN, reason, .account_gpci = serial);
+					SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' db_id: '%d') baneado.", get_name, id);
+
+					new str[145]; format(str, 145, "[ADMIN] %s (%d) baneó a %s por serial (offline, db_id: %d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, get_name, id, reason);
+					SendMessageToAdmins(COLOR_ANTICHEAT, str);
+
+					new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+					SendDiscordWebhook(webhook, 1);
+				}
+
+				db_free_result(is_banned);
+			}
+		}
+		else SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+	}
+	else SendClientMessage(playerid, COLOR_WHITE, "No se encontro la DB-ID.");
+	db_free_result(Result);
+
+	PLAYER_TEMP[playerid][py_ADMIN_DELAY] = gettime();
+	return 1;
+}
+flags:dgpciban(CMD_MODERATOR)
+
 CMD:cls(playerid, params[])
 {
 	for(new i = 0; i != 40; i ++) SendClientMessageToAll(-1, " ");

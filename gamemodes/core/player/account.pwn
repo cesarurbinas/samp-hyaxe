@@ -5,6 +5,7 @@ enum Account_Enum
 	ac_NAME[24],
 	ac_EMAIL[32],
 	ac_PASS[64 + 1],
+	ac_SERIAL[50],
 	ac_SALT[16],
 	ac_LAST_CONNECTION[24],
 	ac_TIME_PLAYING,
