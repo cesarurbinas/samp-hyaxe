@@ -11827,7 +11827,7 @@ ShowDialog(playerid, dialogid)
 		{
 			new dialog[128];
 			format(dialog, sizeof dialog, ""COL_WHITE"Te han ofrecio unirte a la banda %s con el rango de %s.", CREW_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][1] ][crew_NAME], CREW_RANK_INFO[ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][1] ][ PLAYER_TEMP[playerid][py_CREW_INVITE_INFO][2] ][crew_rank_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_WHITE"Invitación", dialog, "Unirme", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Invitación", dialog, "Unirme", "Salir");
 			return 1;
 		}
 		case DIALOG_CREW_RANKS:
