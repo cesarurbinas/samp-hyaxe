@@ -13,7 +13,7 @@ client = commands.Bot(command_prefix = '!')
 ## EVENTS ##
 @client.event
 async def on_ready():
-	print("[*] bot started")
+	print("hyaxe samp bot started")
 
 
 ## RESTART COMMAND ##
@@ -168,6 +168,23 @@ async def network(ctx):
 
 	await ctx.send(embed = embed)
 
-	
+
+@client.command()
+async def reporte(ctx, email, *, content):
+	try:
+		role_names = [role.name for role in ctx.message.author.roles]
+		if not 'Moderator [SAMP]' in role_names:
+			await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
+			return
+
+	except Exception as e:
+		await ctx.send(f"{ctx.message.author} no tienes permisos para esto.")
+		return
+
+	requests.post('http://51.161.31.157:9991/send_email', data = '{"email": "' + email + '", "title": "Reporte atendido", "content": "' + content +' "}')
+
+	await ctx.send(f'Email enviado a `{email}`: {content}')
+
+
 ## RUN BOT ##
 client.run('NzU2MzY2NDk0ODc4OTI0ODQy.X2QzMA.xyZvNZNNjEk2ZeYBjRKW7dctbx8')

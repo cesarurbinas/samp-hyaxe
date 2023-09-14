@@ -28,7 +28,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300
 
-#define SERVER_VERSION 			"v0.8 Build 25"
+#define SERVER_VERSION 			"v0.8 Build 30"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -44,7 +44,7 @@
 #define MAX_NU_TOYS 			4
 #define MAX_NU_VOBJECTS 		5
 #define MAX_SU_VEHICLES 		6
-#define MAX_SU_PROPERTIES 		2
+#define MAX_SU_PROPERTIES 		4
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
