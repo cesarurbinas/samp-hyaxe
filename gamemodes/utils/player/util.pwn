@@ -2321,8 +2321,8 @@ GetPlayersInIP(const ip[])
 KickEx(playerid, time = 0)
 {
 	printf("[kick] playerid: %d, time: %d", playerid, time);
-
 	if (GetPlayerState(playerid) == PLAYER_STATE_SPECTATING) return 0;
+	
 	PLAYER_TEMP[playerid][py_KICKED] = true;
 	
 	if (!time) Kick(playerid);
