@@ -890,26 +890,31 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 521, 2767.0242, -1609.7168, 10.4805, 90.0000, 0, 158, 0},
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 521, 2767.0242, -1609.7168, 10.4805, 90.0000, 0, 158, 0},
 	// osborn
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, 3102.6611, -2077.6104, 2.8542, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, 3110.0610, -2077.6104, 2.8542, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 428, 3177.5117, -2091.3081, 3.3555, 90.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 511, 3206.6060, -2119.1448, 4.6798, 0.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 487, 3017.2002, -1904.9767, 6.3630, 180.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 563, 2998.5906, -1904.5751, 6.3634, 180.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 409, 3019.4124, -2012.9783, 2.9382, 0.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 482, 3106.3633, -2077.5874, 3.2532, 180.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 3019.4795, -2019.2274, 2.7198, 0.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 3019.5522, -2006.8885, 2.7198, 0.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 3026.0164, -2024.5907, 2.7091, 180.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 521, 3028.1963, -2024.5907, 2.7091, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, 3121.1975, -2077.4578, 3.1532, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, 3125.0376, -2077.4578, 3.1532, 180.0000, 205, 205, 0},
-	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, 3121.1975, -2077.4578, 3.1532, 180.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 473, 2930.0132, -1999.1056, 0.2562, 0.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 454, 2941.4685, -1995.8323, 0.5565, 0.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3177.4370, -1974.6346, 2.7849, 0.0000, 205, 205, 0},
 	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3037.0732, -1917.8037, 2.8117, 180.0000, 205, 205, 0},
-
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3087.4309, -1917.0355, 2.8034, 180.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3127.5481, -1917.9360, 2.8056, 180.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3197.1799, -1912.4203, 2.8316, 180.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3149.2908, -1971.5250, 2.8257, 90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3149.2908, -1974.8250, 2.8257, 90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 457, 3149.2908, -1977.8450, 2.8257, 90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, 3127.0017, -1966.8230, 2.8642, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 560, 3127.0017, -1973.8831, 2.8642, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 428, 3128.1396, -2011.9847, 3.3663, 0.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 482, 3127.2163, -1970.3862, 3.2450, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, 3127.6077, -1984.3718, 3.1655, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, 3127.6077, -1988.4117, 3.1655, -90.0000, 205, 205, 0},
+	{VEHICLE_TYPE_WORK, WORK_OSBORN, 0, 579, 3127.6077, -1992.2917, 3.1655, -90.0000, 205, 205, 0},
 	// medico
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1178.3592, -1307.1132, 13.9921, 269.3424, 1, 198, 0}, //Ambulance
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1177.1497, -1340.5240, 14.0583, 267.7389, 1, 198, 0}, //Ambulance
@@ -981,8 +986,8 @@ enum seed_info_enum
 new seed_info[][seed_info_enum] =
 {
 	{TYPE_LEGAL, PLANT_TYPE_MEDICINE, 0, "Aloe vera", 30},
-	{TYPE_ILLEGAL, PLANT_TYPE_CANNABIS, 100, "Marihuana", 150},
-	{TYPE_ILLEGAL, PLANT_TYPE_CRACK, 200, "Coca", 650}
+	{TYPE_ILLEGAL, PLANT_TYPE_CANNABIS, 100, "Marihuana", 50},
+	{TYPE_ILLEGAL, PLANT_TYPE_CRACK, 200, "Coca", 100}
 };
 
 enum plant_info_enum
@@ -1476,8 +1481,8 @@ new MAFIA_DOORS[][enum_MAFIA_DOORS] =
 	//tcc
 	{19912, 2801.428222, -1603.694580, 12.685187, -18.600008, 0, 0, true, INVALID_STREAMER_ID, -1},
 	//osborn
-	{980, 1048.7823, -1459.3066, 15.4735, -99.4000, 0, 0, true, INVALID_STREAMER_ID, -1},
-	{980, 958.9774, -1458.8121, 15.3400, -180.0000, 0, 0, true, INVALID_STREAMER_ID, -1},
+	{19912, 2985.96143, -2001.79089, 5.01620, 90.00000, 0, 0, true, INVALID_STREAMER_ID, -1},
+	{19912, 2985.96143, -2024.86121, 5.01620, -90.00000, 0, 0, true, INVALID_STREAMER_ID, -1},
 	{980, 959.0797, -1437.4704, 15.3599, 0.0000, 0, 0, true, INVALID_STREAMER_ID, -1}
 };
 
@@ -6389,6 +6394,69 @@ CALLBACK: InitRandomGraffiti()
 	return 1;
 }
 
+GenString(strDest[], strLen = 10)
+{
+    while(strLen --)
+        strDest[strLen] = random(2) ? (random(26) + (random(2) ? 'a' : 'A')) : (random(10) + '0');
+}
+
+AddGiftCode(code[], type, extra)
+{
+	new DB_Query[160];
+	format
+	(
+		DB_Query, sizeof DB_Query,
+		"\
+			INSERT INTO `GIFTS_CODES`\
+			(\
+				`CODE`, `TYPE`, `EXTRA`, `USED`\
+			)\
+			VALUES\
+			(\
+				'%q', '%d', '%d', '0'\
+			);\
+		",
+		code,
+		type,
+		extra
+	);
+	db_free_result(db_query(Database, DB_Query));
+	return 1;
+}
+
+CALLBACK: SendGift()
+{
+	for(new i = 0, j = 5; i <= j; i++)
+	{
+		new
+			code[10],
+			type = minrand(0, 5),
+			extra
+		;
+
+		switch(type)
+		{
+			case 0, 1, 2, 3, 5: type = 0;
+			case 4: type = 3;
+		}
+
+		if (type == 0) extra = minrand(300, 2000);
+		else extra = minrand(1, 5);
+
+		GenString(code, 8);
+
+		//AddGiftCode(code, type, extra);
+		//HTTP(0, HTTP_GET, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "GiftResponse");
+	}
+	return 1;
+}
+
+forward GiftResponse(index, response_code, data[]);
+public GiftResponse(index, response_code, data[])
+{
+	return 1;
+}
+
 CALLBACK: GiveAutoGift()
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -6471,6 +6539,7 @@ public OnGameModeInit()
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
 	SetTimer("GiveAutoGift", 300000, false);
+	SetTimer("SendGift", 10000, true);
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
@@ -6980,7 +7049,7 @@ SanAndreas()
 	{
 		CreateDynamic3DTextLabel(""COL_WHITE"Punto de carga", 0xF7F7F700, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2], 15.0, .testlos = true, .worldid = 0, .interiorid = 0);
 		CreateDynamicPickup(19607, 1, LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], LoadTrucksPoints[i][2], 0, 0);
-		AddKeyArea(LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], 1.8, "Y");
+		AddKeyArea(LoadTrucksPoints[i][0], LoadTrucksPoints[i][1], 1.8, "H");
 	}
 
 	//Mecánico
@@ -7478,6 +7547,8 @@ CMD:anuncio(playerid, params[])
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Estás silenciado en el canal de dudas y anuncios de forma permanente.");
 		return 1;
 	}*/
+
+	if (PLAYER_MISC[playerid][MISC_MUTES] >= 5) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Tienes muchos muteos, ya no eres aceptado en el canal de dudas.");
 
 	if (PLAYER_MISC[playerid][MISC_MUTE] > gettime())
 	{
@@ -13956,7 +14027,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							new vehicleid = GetPlayerVehicleID(playerid), modelid = GetVehicleModel(vehicleid);
 							if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehículo.", 3);
-							
+							if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehículo.", 3);
+
 							if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE]) return ShowPlayerMessage(playerid, "~r~El vehículo debe estar detenido.", 3);
 
 							ShowDialog(playerid, DIALOG_LOAD_GASOLINE);
@@ -13968,7 +14040,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							new vehicleid = GetPlayerVehicleID(playerid), modelid = GetVehicleModel(vehicleid);
 							if (!VEHICLE_INFO[modelid - 400][vehicle_info_VALID]) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehículo.", 3);
-							
+							if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehículo.", 3);
+
 							new Float:ammount = floatsub(GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS], GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS]);
 
 							new price = floatround( floatmul(ammount, 5.0) );
@@ -14053,6 +14126,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new vehicleid = GetPlayerCameraTargetVehicle(playerid);
 				if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No estás cerca de ningún vehículo.", 3);
+				if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] == VEHICLE_TYPE_SELL) return ShowPlayerMessage(playerid, "~r~No puedes poner gasolina a este vehículo.", 3);
 
 				if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
 				{
@@ -24296,7 +24370,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
 						if (i > 2) continue;
 
-						if (IsPlayerInRangeOfPoint(playerid, 20.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+						if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
 						{
 							KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
 							MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
@@ -24315,7 +24389,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
 						if (i < 3) continue;
 						
-						if (IsPlayerInRangeOfPoint(playerid, 20.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+						if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
 						{
 							KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
 							MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
@@ -24334,7 +24408,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
 						if (i < 4) continue;
 						
-						if (IsPlayerInRangeOfPoint(playerid, 20.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
+						if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
 						{
 							KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
 							MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
@@ -27216,6 +27290,18 @@ CALLBACK: StartVehicleEngine(playerid, vehicleid)
 CMD:motor(playerid, params[])
 {
 	SetEngineAction(playerid);
+	return 1;
+}
+
+CMD:testedit666(playerid, params[])
+{
+	new Float:pos[3];
+	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+	PLAYER_TEMP[playerid][py_EDITING_OBJ] = CreateDynamicObject(
+		19912,
+		pos[0], pos[1], pos[2], 0.0, 0.0, 0.0,0,0);
+
+	EditingMode(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
 	return 1;
 }
 
