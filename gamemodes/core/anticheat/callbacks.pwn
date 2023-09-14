@@ -12,7 +12,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		{
 			new current_gettime = gettime();
 
-			if (current_gettime - PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_LAST_DETECTION] > 3) PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS] = 0;
+			if (current_gettime - PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_LAST_DETECTION] > 2) PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS] = 0;
 			else PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_DETECTIONS] ++;
 
 			PLAYER_AC_INFO[playerid][CHEAT_RAPID_FIRE][p_ac_info_LAST_DETECTION] = current_gettime;

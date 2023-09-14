@@ -259,6 +259,11 @@ enum
 	DIALOG_FURNITURE_OPTIONS,
 	DIALOG_SELECC_ANSWER,
 	DIALOG_QUESTION_CREATE,
+<<<<<<< HEAD
 	DIALOG_QUESTION_RESPONSE
 >>>>>>> c4e0938 (Preguntas de seguridad)
+=======
+	DIALOG_QUESTION_RESPONSE,
+	DIALOG_SELECC_TYPE_AMMO
+>>>>>>> d09f9dd (Balas como antes y arreglos)
 };

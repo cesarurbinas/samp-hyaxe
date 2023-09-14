@@ -225,7 +225,7 @@
 
 // Anticheat
 #include "core/anticheat/functions.pwn"
-#include "core/anticheat/callbacks.pwn"
+//#include "core/anticheat/callbacks.pwn"
 #include "core/anticheat/main.pwn"
 
 // Soccer
@@ -2783,23 +2783,12 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		            if (!IsPlayerInAnyVehicle(playerid))
 		            {
-		            	new dialog[250];
-						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Fly");
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
-						
-						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Fly (1)");
-
+		            	new str_text[144];
+						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (1)", PLAYER_TEMP[playerid][py_NAME], playerid);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendDiscordWebhook(str_text, 1);
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (1)");
 						KickEx(playerid, 500);
-						PLAYER_MISC[playerid][MISC_BANEOS] ++;
-						SavePlayerMisc(playerid);
-
-						new str[145];
-						format(str, 145, "[ADMIN] %s (%d) fue baneado: Fly (1).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-						SendMessageToAdmins(COLOR_ANTICHEAT, str);
-
-						new webhook[145];
-						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-						SendDiscordWebhook(webhook, 1);
 						return 0;
 		            }
 		        }
@@ -2807,23 +2796,12 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		        	if (onFootData[PR_weaponId] != WEAPON_PARACHUTE)
 					{
-						new dialog[250];
-						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Fly");
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
-						
-						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Fly (2)");
-
+						new str_text[144];
+						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (2)", PLAYER_TEMP[playerid][py_NAME], playerid);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendDiscordWebhook(str_text, 1);
+					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (2)");
 						KickEx(playerid, 500);
-						PLAYER_MISC[playerid][MISC_BANEOS] ++;
-						SavePlayerMisc(playerid);
-
-						new str[145];
-						format(str, 145, "[ADMIN] %s (%d) fue baneado: Fly (2).", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-						SendMessageToAdmins(COLOR_ANTICHEAT, str);
-
-						new webhook[145];
-						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
-						SendDiscordWebhook(webhook, 1);
 						return 0;
 					}
 		        }
@@ -4158,7 +4136,7 @@ ResyncWeapon(playerid, weapon)
 		case 22: // 9MM
 		{
 			GivePlayerWeaponEx(playerid, weapon, 15, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+15"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+15"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -4166,7 +4144,7 @@ ResyncWeapon(playerid, weapon)
 		case 24: // Desert
 		{
 			GivePlayerWeaponEx(playerid, weapon, 7, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+7"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+7"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -4174,7 +4152,7 @@ ResyncWeapon(playerid, weapon)
 		case 32: // TEC9
 		{
 			GivePlayerWeaponEx(playerid, weapon, 20, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+20"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+20"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -4182,7 +4160,7 @@ ResyncWeapon(playerid, weapon)
 		case 28: // UZI
 		{
 			GivePlayerWeaponEx(playerid, weapon, 25, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+25"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+25"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -4190,7 +4168,7 @@ ResyncWeapon(playerid, weapon)
 		case 33: // Rifle
 		{
 			GivePlayerWeaponEx(playerid, weapon, 8, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+8"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+8"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -4198,7 +4176,7 @@ ResyncWeapon(playerid, weapon)
 		case 26: // Recortada
 		{
 			GivePlayerWeaponEx(playerid, weapon, 2, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+2"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+2"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -4206,7 +4184,7 @@ ResyncWeapon(playerid, weapon)
 		case 25: // Escopeta
 		{
 			GivePlayerWeaponEx(playerid, weapon, 5, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+5"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+5"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -4214,7 +4192,7 @@ ResyncWeapon(playerid, weapon)
 		case 29: // MP5
 		{
 			GivePlayerWeaponEx(playerid, weapon, 35, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+35"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+35"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -4222,7 +4200,7 @@ ResyncWeapon(playerid, weapon)
 		case 30: // AK-47
 		{
 			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -4230,7 +4208,7 @@ ResyncWeapon(playerid, weapon)
 		case 31: // M4
 		{
 			GivePlayerWeaponEx(playerid, weapon, 50, 0x00F7F7F7, true);
-			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
+			GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~n~~n~~n~~w~Munición ~r~+50"), 2000, 5);
 			PlayerPlaySound(playerid, 36401, 0.0, 0.0, 0.0);
 			ApplyAnimation(playerid, "PYTHON", "python_reload", 4.0, 0, 0, 0, 0, 1000);
 			return 1;
@@ -5115,7 +5093,7 @@ CheckBlackMarketAmmo(playerid)
 {
 	if (IsPlayerInRangeOfPoint(playerid, 1.5, 2162.462158, -1169.053222, -16.871662) || IsPlayerInRangeOfPoint(playerid, 1.5, -187.830596, -2249.291503, 24.332202))
 	{
-    	ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO_STOCK);
+    	ShowDialog(playerid, DIALOG_SELECC_TYPE_AMMO);
     }
     return 1;
 }
@@ -6611,7 +6589,6 @@ CALLBACK: InitRandomGraffiti()
 	return 1;
 }
 
-/*
 GenString(strDest[], strLen = 10)
 {
     while(strLen --)
@@ -6668,7 +6645,6 @@ CALLBACK: SendGift()
 	}
 	return 1;
 }
-*/
 
 CALLBACK: GiveAutoGift()
 {
@@ -7175,11 +7151,11 @@ SanAndreas()
 		AddKeyArea(Fuel_Stations[i][0], Fuel_Stations[i][1], 1.5, KEY_TYPE_Y);
 	}
 	//Mercado negro
-	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Armas)\n"COL_WHITE"7 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = 20, .worldid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Balas)\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 2162.462158, -1169.053222, -16.871662, 10.0, .testlos = true, .interiorid = 20, .worldid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Armas)\n"COL_WHITE"7 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = 21, .worldid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Balas)\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 2162.462158, -1169.053222, -16.871662, 10.0, .testlos = true, .interiorid = 21, .worldid = 0);
-	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Drogas)\n"COL_WHITE"2 productos disponibles", 0xF7F7F7FF, 2310.057128, -1789.786865, 1600.751953, 10.0, .testlos = true, .interiorid = 17, .worldid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Armas)\n"COL_WHITE"7 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
+	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Balas)\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 2162.462158, -1169.053222, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
+	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Armas)\n"COL_WHITE"7 productos disponibles", 0xF7F7F7FF, 2164.021484, -1164.398925, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
+	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Balas)\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 2162.462158, -1169.053222, -16.871662, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
+	CreateDynamic3DTextLabel(""COL_RED"Mercado negro (Drogas)\n"COL_WHITE"2 productos disponibles", 0xF7F7F7FF, 2310.057128, -1789.786865, 1600.751953, 10.0, .testlos = true, .interiorid = -1, .worldid = -1);
 
 	//24/7
 	CreateDynamic3DTextLabel(""COL_RED"Tienda 24/7\n"COL_WHITE"12 productos disponibles", 0xF7F7F7FF, -27.964675, -89.948631, 1003.546875, 10.0, .testlos = true, .interiorid = 18);
@@ -10064,11 +10040,11 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_BLACK_MARKET_AMMO_STOCK:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Balas", ""COL_WHITE"Producto\t"COL_WHITE"Precio\n\
-				"COL_WHITE"Balas de Pistola\t"COL_GREEN"50$\n\
-				"COL_WHITE"Balas de Subfusil\t"COL_GREEN"100$\n\
-				"COL_WHITE"Balas de Rifle\t"COL_GREEN"400$\n\
-				"COL_WHITE"Balas de Escopeta\t"COL_GREEN"250$\n", "Comprar", "Salir");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Cargadores", ""COL_WHITE"Producto\t"COL_WHITE"Precio\n\
+				"COL_WHITE"Pistola\t"COL_GREEN"50$\n\
+				"COL_WHITE"Subfusil\t"COL_GREEN"100$\n\
+				"COL_WHITE"Rifle\t"COL_GREEN"400$\n\
+				"COL_WHITE"Escopeta\t"COL_GREEN"250$\n", "Comprar", "Volver");
 			return 1;
 		}
 		case DIALOG_BLACK_MARKET_SELECT_WEA:
@@ -10099,8 +10075,8 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Balas", ""COL_WHITE"Cantidad\t"COL_WHITE"Precio\n\
 				"COL_WHITE"50 Balas\t"COL_GREEN"450$\n\
 				"COL_WHITE"100 Balas\t"COL_GREEN"650$\n\
-				"COL_WHITE"250 Balas\t"COL_GREEN"850$\n\
-				"COL_WHITE"370 Balas\t"COL_GREEN"1350$\n", "Comprar", "Salir");
+				"COL_WHITE"200 Balas\t"COL_GREEN"850$\n\
+				"COL_WHITE"300 Balas\t"COL_GREEN"1350$\n", "Comprar", "Volver");
 			return 1;
 		}
 		case DIALOG_PLAYER_WEAPONS:
@@ -12608,6 +12584,11 @@ ShowDialog(playerid, dialogid)
 
 			ShowPlayerNotification(playerid, "Escriba la respuesta a su pregunta de seguridad.", 5);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Seguridad de la cuenta", dialog, "Seguir", "Salir");
+		}
+		case DIALOG_SELECC_TYPE_AMMO:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Comprar balas", "Balas\nCargadores", "Ver", "Cerrar");
+			return 1;
 		}
 		default: return 0;
 	}
@@ -16206,6 +16187,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 			}
+			else ShowDialog(playerid, DIALOG_SELECC_TYPE_AMMO);
 			return 1;
 		}
 		case DIALOG_BLACK_MARKET_SELECT_WEA:
@@ -16297,10 +16279,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							return 1;
 						}
 
-						GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], 250);
+						GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], 200);
 
 						new str_text[128];
-						format(str_text, sizeof(str_text), "Compraste 250 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
+						format(str_text, sizeof(str_text), "Compraste 200 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
 						SavePlayerWeaponsData(playerid);
 
@@ -16325,10 +16307,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							return 1;
 						}
 
-						GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], 370);
+						GivePlayerWeaponEx(playerid, PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID], 300);
 
 						new str_text[128];
-						format(str_text, sizeof(str_text), "Compraste 370 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
+						format(str_text, sizeof(str_text), "Compraste 300 balas para tu %s.", WEAPON_INFO[ PLAYER_WEAPONS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_DIALOG_WEAPON_SLOT] ][player_weapon_ID] ][weapon_info_NAME]);
 						ShowPlayerNotification(playerid, str_text, 3);
 						SavePlayerWeaponsData(playerid);
 
@@ -17226,7 +17208,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0: ShowDialog(playerid, DIALOG_POLICE_WEAPONS);
 					case 1: ShowDialog(playerid, DIALOG_POLICE_ARMOUR);
-					case 2: ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO_STOCK);
+					case 2: ShowDialog(playerid, DIALOG_SELECC_TYPE_AMMO);
 				}
 			}
 			return 1;
@@ -20746,6 +20728,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				else Kick(playerid);
 			}
 			else Kick(playerid);
+		}
+		case DIALOG_SELECC_TYPE_AMMO:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0: ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
+					case 1: ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO_STOCK);
+				}
+			}
 		}
 	}
 	return 0;
@@ -29160,8 +29153,13 @@ ShowPlayerInventory(playerid, pid)
 	new player_weapons = CountPlayerWeapons(pid);
 	if (player_weapons > 0)
 	{
-		format(line_str, sizeof line_str, "Armas: "COL_RED"%d"COL_WHITE"\n", player_weapons);
-		strcat(dialog, line_str);
+		for(new i; i != 13; i ++)
+		{
+			if (!PLAYER_WEAPONS[playerid][i][player_weapon_VALID]) continue;
+
+			format(line_str, sizeof line_str, ""COL_WHITE"%s | Slot "COL_RED"%d\n", WEAPON_INFO[ PLAYER_WEAPONS[playerid][i][player_weapon_ID] ][weapon_info_NAME], i);
+			strcat(dialog, line_str);
+		}
 	}
 
 	if (PLAYER_MISC[pid][MISC_SEED_CANNABIS] > 0)
@@ -30069,7 +30067,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	new ac_message[145];
-	format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d). El código de motivo: #%03d.", PLAYER_TEMP[playerid][py_NAME], playerid, code);
+	format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d): Cheats (#%03d).", PLAYER_TEMP[playerid][py_NAME], playerid, code);
 	SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
 	SendDiscordWebhook(ac_message, 1);
 

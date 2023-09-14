@@ -1360,6 +1360,15 @@ CMD:fixbotiquines(playerid, params[])
 	return 1;
 }
 
+CMD:fixperazoli(playerid, params[])
+{
+	PLAYER_MISC[playerid][MISC_CARTRIDGE_1] = 0;
+	PLAYER_MISC[playerid][MISC_CARTRIDGE_2] = 0;
+	PLAYER_MISC[playerid][MISC_CARTRIDGE_3] = 0;
+	PLAYER_MISC[playerid][MISC_CARTRIDGE_4] = 0;
+	return 1;
+}
+
 CMD:randomgraffiti(playerid, params[])
 {
 	SetTimer("InitRandomGraffiti", 100, 0);
