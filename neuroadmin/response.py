@@ -1,6 +1,7 @@
 import json
-import string
 import nltk
+import utils
+import string
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -35,26 +36,20 @@ def cosine_sim(text1, text2):
 
 
 def get_response_for_question(question):
-	question = question.lower()
-
-	question = question.replace('**', '')
-	question = question.replace('?', '')
-	question = question.replace('¿', '')
-	question = question.replace('"', '')
-
-	question = question.replace('á', 'a')
-	question = question.replace('ó', 'o')
-	question = question.replace('í', 'i')
-	question = question.replace('é', 'e')
-	question = question.replace('ú', 'u')
-	question = question.replace(',', '')
-	question = question.replace('  ', ' ')
+	question = utils.clean_text(question)
+	possible_answers = []
+	text = None
 
 	for answer in question_data:
 		data = cosine_sim(answer['question'], question)
 		
 		if data > 0.65:
 			print(f'[response.debug] {question} > {answer["question"]} (probability: {data})')
-			return answer['answer']
+			possible_answers.append([answer['answer'], data])
+			text = answer['answer']
 
-	return None
+	print(possible_answers)
+
+	return text
+
+	#return None

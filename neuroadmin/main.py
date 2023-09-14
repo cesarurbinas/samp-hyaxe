@@ -1,6 +1,7 @@
 print('[main.debug] Initializing...')
 
 import json
+import utils
 import bad_use
 import response
 from flask import Flask, request, jsonify
@@ -112,34 +113,12 @@ def save_response():
 
 		final_data = json.loads(final_data)
 
-		final_data['question'] = final_data['question'].lower()
-		final_data['question'] = final_data['question'].replace('**', '')
-		final_data['question'] = final_data['question'].replace('?', '')
-		final_data['question'] = final_data['question'].replace('¿', '')
-		final_data['question'] = final_data['question'].replace('"', '')
-		final_data['question'] = final_data['question'].replace('á', 'a')
-		final_data['question'] = final_data['question'].replace('ó', 'o')
-		final_data['question'] = final_data['question'].replace('í', 'i')
-		final_data['question'] = final_data['question'].replace('é', 'e')
-		final_data['question'] = final_data['question'].replace('ú', 'u')
-		final_data['question'] = final_data['question'].replace(',', '')
-		final_data['question'] = final_data['question'].replace('  ', ' ')
-
-		final_data['answer'] = final_data['answer'].lower()
-		final_data['answer'] = final_data['answer'].replace('**', '')
-		final_data['answer'] = final_data['answer'].replace('?', '')
-		final_data['answer'] = final_data['answer'].replace('¿', '')
-		final_data['answer'] = final_data['answer'].replace('"', '')
-		final_data['answer'] = final_data['answer'].replace('á', 'a')
-		final_data['answer'] = final_data['answer'].replace('ó', 'o')
-		final_data['answer'] = final_data['answer'].replace('í', 'i')
-		final_data['answer'] = final_data['answer'].replace('é', 'e')
-		final_data['answer'] = final_data['answer'].replace('ú', 'u')
-		final_data['answer'] = final_data['answer'].replace(',', '')
-		final_data['answer'] = final_data['answer'].replace('  ', ' ')
+		final_data['question'] = utils.convert_text(final_data['question'])
+		final_data['answer'] = utils.convert_text(final_data['answer'])
 
 		f = open('dataset/learning/questions.lrn', 'a')
-		f.write(f'{final_data}\n')
+		
+		f.write( f'{final_data}\n'.replace("'", '"').replace('}', '},') )
 		f.close()
 		return 'Y'
 
@@ -162,20 +141,7 @@ def save_bad_use():
 		else:
 			final_data = request.data.decode('latin1')
 
-		final_data = final_data.lower()
-
-		final_data = final_data.replace('**', '')
-		final_data = final_data.replace('?', '')
-		final_data = final_data.replace('¿', '')
-		final_data = final_data.replace('"', '')
-
-		final_data = final_data.replace('á', 'a')
-		final_data = final_data.replace('ó', 'o')
-		final_data = final_data.replace('í', 'i')
-		final_data = final_data.replace('é', 'e')
-		final_data = final_data.replace('ú', 'u')
-		final_data = final_data.replace(',', '')
-		final_data = final_data.replace('  ', ' ')
+		final_data = utils.clean_text(final_data)
 
 		f = open('dataset/learning/positive.lrn', 'a')
 		f.write(f'{final_data}\n')
