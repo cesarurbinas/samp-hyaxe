@@ -38792,6 +38792,8 @@ SendMessageToDoubtChannel(playerid, message[])
 	//format(string, sizeof(string), "[DUDAS] %s (%d) [Nivel %d]: %s", PLAYER_TEMP[playerid][py_RP_NAME], playerid, ACCOUNT_INFO[playerid][ac_LEVEL], message);
 	//DCC_SendChannelMessage(CanalDudasId, string);
 
+	Log("doubt", str);
+
 	PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] != 0)
