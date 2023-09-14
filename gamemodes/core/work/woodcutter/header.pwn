@@ -54,6 +54,14 @@ new Trees[][E_TREE_DATA] = {
 	{-1894.72815, -2282.34839, 54.74613, TREE_TYPE_RARE, INVALID_OBJECT_ID, INVALID_OBJECT_ID, INVALID_3DTEXT_ID, false, false}
 };
 
+enum E_CART_DATA {
+	bool:cart_VALID,
+	cart_AMOUNT,
+
+	cart_OBJECT
+}
+new LogCarts[MAX_PLAYERS][E_CART_DATA];
+
 new g_WoodcutterArea;
 
 forward RegenerateTree(treeid);

@@ -3121,6 +3121,8 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
 	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] =
 	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = 
+	PLAYER_TEMP[playerid][py_CUTTING] =
+	PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] = 
 	PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
 	PLAYER_TEMP[playerid][py_GODMODE] = 
 	PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS] = false;
@@ -31485,6 +31487,20 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 			SetMedicPlayerMarkers(playerid);
 			ShowPlayerMessage(playerid, "Ve hasta los puntos marcados en el mapa.", 3);
 		}
+		case WORK_WOODCUTTER:
+		{
+			for(new i = 0; i != 10; ++i) RemovePlayerAttachedObject(playerid, i);
+			SetPlayerAttachedObject(playerid, 0, 18638, 2, 0.152999, 0.007999, -0.005000, 0.0, 0.0, -16.199993, 1.0, 1.0, 1.0);
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
+			SetPlayerAttachedObject(playerid, 1, 1458, 6, 1.840000, -0.546001, 0.419000, 62.100097, -158.799804, 78.600196, 0.474999, 1.000000, 1.000000);
+
+			LogCarts[playerid][cart_VALID] = true;
+			LogCarts[playerid][cart_AMOUNT] = 0;
+			LogCarts[playerid][cart_OBJECT] = INVALID_OBJECT_ID;
+			PLAYER_TEMP[playerid][py_HOLDING_CART] = true;
+
+			ShowPlayerNotification(playerid, "Ahora estas de servicio como leñador, ve al bosque con tu carro y tala algunos arboles. Usa ALT + Y para soltar tu carrito.", 5);
+		}
 	}
 
 	PLAYER_TEMP[playerid][py_WORKING_IN] = work;
@@ -31593,6 +31609,16 @@ EndPlayerJob(playerid, changeskin = true)
 			SetPlayerSkin(playerid, CHARACTER_INFO[playerid][ch_SKIN]);
 			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 			SetNormalPlayerMarkers(playerid);
+		}
+		case WORK_WOODCUTTER:
+		{
+			RemovePlayerAttachedObject(playerid, 0);
+			RemovePlayerAttachedObject(playerid, 1);
+			RemovePlayerAttachedObject(playerid, 2);
+
+			SetPlayerToys(playerid);
+
+			LogCarts[playerid][cart_VALID] = false;
 		}
 	}
 

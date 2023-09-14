@@ -286,7 +286,9 @@ enum Temp_Enum
 	py_PASSWORD[18],
 	bool:py_GODMODE,
 	py_CUTTING,
-	py_CUTTING_PROGRESS
+	py_CUTTING_PROGRESS,
+	py_CUTTING_CHECKPOINT,
+	bool:py_HOLDING_CART
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
