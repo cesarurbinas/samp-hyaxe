@@ -592,7 +592,7 @@ new Tuning_Shop_Objects[][e_Tuning_Shop_Objects] =
 	{19620, "police", 50000}
 };
 
-#define MAX_TERRITORIES  100
+#define MAX_TERRITORIES 100
 enum enum_TERRITORIES
 {
 	bool:territory_VALID,
