@@ -365,7 +365,6 @@ ValidSurfingVehicle(modelid)
 		case 443: return false;
 		case 444: return false;
 		case 446: return false;
-		case 403: return false;
 		case 449: return false;
 		case 452..455: return false;
 		case 464: return false;
