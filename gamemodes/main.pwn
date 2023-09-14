@@ -7845,7 +7845,7 @@ SanAndreas()
 	CreateDynamic3DTextLabel(""COL_RED"Tienda 24/7\n"COL_WHITE"12 productos disponibles", 0xF7F7F7FF, -27.964675, -89.948631, 1003.546875, 10.0, .testlos = true, .interiorid = 18);
 
 	// Electrónica
-	CreateDynamic3DTextLabel(""COL_RED"Tienda Electrónica\n"COL_WHITE"2 productos disponibles", 0xF7F7F7FF, 1722.2310, -1253.8021, 471.1665, 10.0, .testlos = true, .interiorid = 17);
+	CreateDynamic3DTextLabel(""COL_RED"Tienda Electrónica\n"COL_WHITE"4 productos disponibles", 0xF7F7F7FF, 1722.2310, -1253.8021, 471.1665, 10.0, .testlos = true, .interiorid = 17);
 	
 	// Farmacia
 	CreateDynamic3DTextLabel(""COL_RED"Farmacia\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, -198.002197, -1762.759643, 675.768737, 10.0, .testlos = true, .interiorid = 3);
@@ -15935,7 +15935,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				new str[180];
-				format(str, sizeof str, "boombox.hyaxe.com:12345/search?query=%s&max=5", inputtext);
+				format(str, sizeof str, "boombox.hyaxe.com/search?query=%s&max=5", inputtext);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
 				HTTP(playerid, HTTP_GET, str, "", "OnYouTubeQueryResponse");
@@ -15948,7 +15948,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new url[128];
 				PLAYER_TEMP[playerid][py_RESULT_INDEX] = listitem;
-				format(url, 128, "boombox.hyaxe.com:12345/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
+				format(url, 128, "boombox.hyaxe.com/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
 				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
 				ShowPlayerNotification(playerid, "Espere, estamos procesando el video...", 3);
 			} else PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
@@ -26549,30 +26549,30 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 	if (PRESSED( KEY_SPRINT ))
 	{
-		printf("KEY_SPRINT 1");
+		//printf("KEY_SPRINT 1");
 		if (PLAYER_TEMP[playerid][py_FISHING] && PLAYER_WORKS[playerid][WORK_FISHER])
 		{
-			printf("KEY_SPRINT 2");
+			//printf("KEY_SPRINT 2");
 			ManualUpdateFish(playerid);
-			printf("KEY_SPRINT 3");
+			//printf("KEY_SPRINT 3");
 		}
 
-		printf("KEY_SPRINT 4");
+		//printf("KEY_SPRINT 4");
 		if (PLAYER_TEMP[playerid][py_EDITING_MODE])
     	{
-    		printf("KEY_SPRINT 5");
+    		//printf("KEY_SPRINT 5");
     		new Float:x, Float:y, Float:z;
     		if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0)
     		{
-    			printf("KEY_SPRINT 6");
+    			//printf("KEY_SPRINT 6");
 				GetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z);
 				SetDynamicObjectPos(PLAYER_TEMP[playerid][py_EDITING_OBJ], x, y, z - 0.1);
 				SetPlayerCameraLookAt(playerid, x, y, z);
-				printf("KEY_SPRINT 7");
+				//printf("KEY_SPRINT 7");
 			}
-			printf("KEY_SPRINT 8");
+			//printf("KEY_SPRINT 8");
 		}
-		printf("KEY_SPRINT 9");
+		//printf("KEY_SPRINT 9");
 	}
 
 	if (PRESSED( KEY_SUBMISSION ))

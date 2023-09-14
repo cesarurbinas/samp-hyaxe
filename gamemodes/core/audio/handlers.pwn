@@ -90,7 +90,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 	}
 
 	new url[128];
-	format(url, sizeof(url), "http://boombox.hyaxe.com:12345/stream/%s.mp3", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_ID]);
+	format(url, sizeof(url), "http://boombox.hyaxe.com/stream/%s.mp3", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_ID]);
 
 	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY)
 	{
@@ -106,23 +106,19 @@ public OnDownloadResponse(playerid, response_code, data[])
 			}
 		}
 	}
-	else if (IsPlayerInAnyVehicle(playerid))
+	else if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	{
-		new vehid = GetPlayerVehicleID(playerid);
-		if(PLAYER_VEHICLES[vehid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+		new p_vehicleid = GetPlayerVehicleID(playerid);
+
+		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 		{
-			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+			if (IsPlayerConnected(i))
 			{
-				if (IsPlayerConnected(i))
+				new vehicleid = GetPlayerVehicleID(i);
+				if (vehicleid == p_vehicleid)
 				{
-					if (IsPlayerInAnyVehicle(i))
-					{
-						if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
-						{
-							PlayAudioStreamForPlayer(i, url);
-							ShowPlayerNotification(i, sprintf("Reproduciendo %s", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]), 5);
-						}
-					}
+					PlayAudioStreamForPlayer(i, url);
+					ShowPlayerNotification(i, sprintf("Reproduciendo %s", PLAYER_DIALOG_MP3_RESULT[playerid][ PLAYER_TEMP[playerid][py_RESULT_INDEX] ][result_NAME]), 5);
 				}
 			}
 		}
