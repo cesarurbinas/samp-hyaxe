@@ -6682,7 +6682,7 @@ public InitRandomGangEvent()
 	
 	weekday = GetWeekDay(year, month, day);
 	gettime(.hour = hour);
-	if (weekday == 7 && hour == 5)
+	if (weekday == 7 && hour == 17)
 	{
 		new market_id = minrand(0, sizeof(BLACK_MARKET_OBJ));
 		InitBlackMarket(market_id);
