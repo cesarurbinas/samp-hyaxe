@@ -27976,7 +27976,7 @@ CheckRobActor(playerid)
 								ApplyActorAnimation(ActorTarget, "ped", "handsup", 4.1, 0, 0, 0, 1, 0);
 								ShowPlayerNotification(playerid, "La policía viene en camino, es mejor que corras.", 3);
 								PLAYER_TEMP[playerid][py_ROB_PROGRESS] = 0;
-								a_TMP[ActorTarget][a_LAST_ROB] = gettime() + 5;
+								a_TMP[ActorTarget][a_LAST_ROB] = gettime() + 5; // Fix delay
 								PLAYER_TEMP[playerid][py_INITIAL_ROB] = false;
 								return 1;
 							}
