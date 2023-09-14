@@ -25237,17 +25237,18 @@ CALLBACK: CloseBarrier(i)
 
 CheckRobActor(playerid)
 {
-	new ActorTarget = GetPlayerCameraTargetActor(playerid);
-	new maxprogress = minrand(5, 20);
-	if (ActorTarget != INVALID_ACTOR_ID)
+	if (GetPlayerInterior(playerid) > 0)
 	{
-		new keys, updown, leftright;
-		new randompay = minrand(30, 300);
-
-		GetPlayerKeys(playerid, keys, updown, leftright);
-
-		if (GetPlayerInterior(playerid) > 0)
+		if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_CLUB) return 0;
+		new ActorTarget = GetPlayerCameraTargetActor(playerid);
+		new maxprogress = minrand(5, 20);
+		if (ActorTarget != INVALID_ACTOR_ID)
 		{
+			new keys, updown, leftright;
+			new randompay = minrand(30, 300);
+
+			GetPlayerKeys(playerid, keys, updown, leftright);
+
 			if (!PLAYER_WORKS[playerid][WORK_POLICE])
 			{
 				if (!a_TMP[ActorTarget][a_IN_ROB] && GetPlayerWeapon(playerid) >= 22 && GetPlayerWeapon(playerid) <= 33 && keys & KEY_HANDBRAKE)
