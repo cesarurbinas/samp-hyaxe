@@ -9583,7 +9583,7 @@ CMD:creditos(playerid, params[])
 	return 1;
 }
 
-CMD:armas(playerid, params[])
+/*CMD:armas(playerid, params[])
 {
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	new
@@ -9601,7 +9601,7 @@ CMD:armas(playerid, params[])
 	
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Armas", dialog, "Cerrar", "");
 	return 1;
-}
+}*/
 
 CMD:gps(playerid, params[])
 {
