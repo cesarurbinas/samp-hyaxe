@@ -58,8 +58,9 @@
 //#define FINAL_BUILD
 
 // Special events
-#define HALLOWEEN_MODE
-//#define CHRISTMAS_MODE
+#define HALLOWEEN_MODE // Modo de halloween
+//#define CHRISTMAS_MODE // Modo de navidad
+//#define EASTER_MODE // Modo de pascuas
 
 // Anti-Cheat
 #define NO_SUSPICION_LOGS
@@ -33288,6 +33289,7 @@ CMD:clickslot(playerid, params[])
 	if (slot < 0) return 0;
 	if (slot > 11) return 0;
 
+	PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = 0;
 	ClickInventorySlot(playerid, slot, true);
 	return 1;
 }
