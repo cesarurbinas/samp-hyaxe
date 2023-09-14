@@ -6410,25 +6410,33 @@ public OnGameModeInit()
 		printf("[VOICE] Frecuency: 24000, Rate: 60");
 	#endif
 
-    SetWeaponDamage(WEAPON_SNIPER, DAMAGE_TYPE_RANGE, 7.0, 10.0, 25.0, 40.0, 30.0); //sniper
-    SetWeaponDamage(WEAPON_VEHICLE, DAMAGE_TYPE_RANGE, 50.0, 10.0, 50.0, 40.0, 50.0); //vehiculo
-    SetWeaponDamage(WEAPON_RIFLE, DAMAGE_TYPE_RANGE, 35.0, 30.0, 25.0, 320.0, 15.0); //rifle
-    SetWeaponDamage(WEAPON_COLT45, DAMAGE_TYPE_RANGE, 6.0, 20.0, 3.0, 40.0, 2.0); //colt
-    SetWeaponDamage(WEAPON_SILENCED, DAMAGE_TYPE_RANGE, 0.1, 20.0, 0.1, 40.0, 0.1); //silenciada
-    SetWeaponDamage(WEAPON_DEAGLE, DAMAGE_TYPE_RANGE, 20.0, 15.0, 10.0, 40.0, 8.0); //dk
-    SetWeaponDamage(WEAPON_SHOTGUN, DAMAGE_TYPE_RANGE, 2.0, 5.0, 4.0, 60.0, 2.0); //escopeta
-    SetWeaponDamage(WEAPON_SHOTGSPA, DAMAGE_TYPE_RANGE, 0.0, 5.0, 0.0, 40.0, 0.0); //edc
-    SetWeaponDamage(WEAPON_M4, DAMAGE_TYPE_RANGE, 15.0, 20.0, 15.0, 80.0, 15.0); //m4
-    SetWeaponDamage(WEAPON_SAWEDOFF, DAMAGE_TYPE_RANGE, 2.5, 10.0, 1.5, 40.0, 1.0);//escopeta recortada
-    SetWeaponDamage(WEAPON_AK47, DAMAGE_TYPE_RANGE, 9.0, 20.0, 1.5, 80.0, 1.0); //ak 47
-    SetWeaponDamage(WEAPON_SPRAYCAN, DAMAGE_TYPE_RANGE, 0.2, 20.0, 0.2, 40.0, 0.2); //spray
-    SetWeaponDamage(WEAPON_FIREEXTINGUISHER, DAMAGE_TYPE_RANGE, 0.2, 20.0, 0.2, 40.0, 0.2); //extiguidor
-    SetWeaponDamage(WEAPON_CHAINSAW, DAMAGE_TYPE_RANGE, 2.0, 20.0, 2.0, 40.0, 2.0); //motosierra
-    SetWeaponDamage(WEAPON_UZI, DAMAGE_TYPE_RANGE, 9.0, 20.0, 9.0, 60.0, 7.0); //uzi
-    SetWeaponDamage(WEAPON_TEC9, DAMAGE_TYPE_RANGE, 10.0, 20.0, 10.0, 60.0, 7.0); //tec9
-    SetWeaponDamage(WEAPON_MP5, DAMAGE_TYPE_RANGE, 12.0, 20.0, 10.0, 40.0, 7.0); //mp5
-    SetWeaponDamage(WEAPON_KATANA, DAMAGE_TYPE_RANGE, 40.0, 20.0, 40.0, 20.0, 40.0); //katana
+	// Weapons damage
+    SetWeaponDamage(WEAPON_SNIPER, DAMAGE_TYPE_RANGE, 7.0, 10.0, 25.0, 40.0, 30.0); // Sniper
+    SetWeaponDamage(WEAPON_VEHICLE, DAMAGE_TYPE_RANGE, 50.0, 10.0, 50.0, 40.0, 50.0); // Vehiculo
+    SetWeaponDamage(WEAPON_RIFLE, DAMAGE_TYPE_RANGE, 35.0, 30.0, 25.0, 320.0, 15.0); // Rifle
+    SetWeaponDamage(WEAPON_COLT45, DAMAGE_TYPE_RANGE, 6.0, 20.0, 3.0, 40.0, 2.0); // Colt
+    SetWeaponDamage(WEAPON_SILENCED, DAMAGE_TYPE_RANGE, 0.1, 20.0, 0.1, 40.0, 0.1); // Silenciada
+    SetWeaponDamage(WEAPON_DEAGLE, DAMAGE_TYPE_RANGE, 20.0, 15.0, 10.0, 40.0, 8.0); // Desert Eagle
+    SetWeaponDamage(WEAPON_SHOTGUN, DAMAGE_TYPE_RANGE, 2.0, 5.0, 4.0, 60.0, 2.0); // Escopeta
+    SetWeaponDamage(WEAPON_SHOTGSPA, DAMAGE_TYPE_RANGE, 0.0, 5.0, 0.0, 40.0, 0.0); // EDC
+    SetWeaponDamage(WEAPON_M4, DAMAGE_TYPE_RANGE, 15.0, 20.0, 15.0, 80.0, 15.0); // M4
+    SetWeaponDamage(WEAPON_SAWEDOFF, DAMAGE_TYPE_RANGE, 2.5, 10.0, 1.5, 40.0, 1.0);// Recortada
+    SetWeaponDamage(WEAPON_AK47, DAMAGE_TYPE_RANGE, 9.0, 20.0, 1.5, 80.0, 1.0); // AL-47
+    SetWeaponDamage(WEAPON_SPRAYCAN, DAMAGE_TYPE_RANGE, 0.2, 20.0, 0.2, 40.0, 0.2); // Spray
+    SetWeaponDamage(WEAPON_FIREEXTINGUISHER, DAMAGE_TYPE_RANGE, 0.2, 20.0, 0.2, 40.0, 0.2); // Extinguidor
+    SetWeaponDamage(WEAPON_CHAINSAW, DAMAGE_TYPE_RANGE, 2.0, 20.0, 2.0, 40.0, 2.0); // Motosierra
+    SetWeaponDamage(WEAPON_UZI, DAMAGE_TYPE_RANGE, 9.0, 20.0, 9.0, 60.0, 7.0); // Uzi
+    SetWeaponDamage(WEAPON_TEC9, DAMAGE_TYPE_RANGE, 10.0, 20.0, 10.0, 60.0, 7.0); // Tec-9
+    SetWeaponDamage(WEAPON_MP5, DAMAGE_TYPE_RANGE, 12.0, 20.0, 10.0, 40.0, 7.0); // MP5
+    SetWeaponDamage(WEAPON_KATANA, DAMAGE_TYPE_RANGE, 40.0, 20.0, 40.0, 20.0, 40.0); // Katana
 
+    // Weapons range
+    SetWeaponMaxRange(WEAPON_RIFLE, 800.0);
+    SetWeaponMaxRange(WEAPON_M4, 500.0);
+    SetWeaponMaxRange(WEAPON_AK47, 500.0);
+    SetWeaponMaxRange(WEAPON_MP5, 400.0);
+
+    // Server
 	SetGameModeText(SERVER_MODE);
 	SendRconCommand("hostname "SERVER_HOSTNAME"");
 	SendRconCommand("language "SERVER_LANGUAGE"");
@@ -20375,6 +20383,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
+				if (IsPlayerConnected(PLAYER_TEMP[playerid][py_BOX_PLAYER]))
+				{
+					if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_BOX_PLAYER] ][py_BOXING]) return ShowPlayerMessage(playerid, "~r~Solo puedes apostar a un jugador a la vez", 5);
+				}
+				
 				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
 				new player = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
 
@@ -20417,6 +20430,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				GivePlayerCash(playerid, -inputtext[0], false);
+				PLAYER_TEMP[ PLAYER_TEMP[playerid][py_BOX_PLAYER] ][py_BOX_PAY] += inputtext[0];
+				PLAYER_TEMP[playerid][py_BOX_BET] = inputtext[0];
 
 				new str_text[128];
 				format(str_text, sizeof(str_text), "Has apostado %d$ a %s.", inputtext[0], PLAYER_TEMP[ PLAYER_TEMP[playerid][py_BOX_PLAYER] ][py_NAME]);
