@@ -48,9 +48,9 @@
 //#define VOICE_CHAT
 
 /*
-I am world champion pawno scripta, Y_less jealous of me
-A Y_less screenshot more rare than a hot gurl on discord
-Y_less on the ruski face book? I dont need to don the fur hat
+* I am world champion pawno scripta, Y_less jealous of me
+* A Y_less screenshot more rare than a hot gurl on discord
+* Y_less on the ruski face book? I dont need to don the fur hat
 */
 #define YSI_NO_HEAP_MALLOC
 #define YSI_NO_MODE_CACHE	
@@ -66,7 +66,10 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <Pawn.Regex>
 //#tryinclude <profiler>
 
+// Damage
 #include "core/damage/header.pwn"
+
+// Debes notifications
 #include "core/notification/header.pwn"
 
 // Must fix
@@ -7830,6 +7833,14 @@ CMD:accsave(playerid, params[])
 CMD:ayuda(playerid, params[])
 {
 	SendClientMessage(playerid, COLOR_WHITE, "Presiona N y haz click en Ayuda.");
+	return 1;
+}
+
+CMD:creditos(playerid, params[])
+{
+	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Colaboradores", ""COL_WHITE"Hyaxe es posible gracias a:\n\
+		Heix, Blade, Muphy, Vinter, Atom, Kitis\n\
+		Arkerooz, Yarmak, Mitt, Alper.", "Cerrar", "");
 	return 1;
 }
 
@@ -24750,8 +24761,6 @@ public OnPlayerUpdate(playerid)
 		}
 	}
 
-	CHARACTER_INFO[playerid][ch_HEALTH] = g_iPlayerHealth[playerid];
-	CHARACTER_INFO[playerid][ch_ARMOUR] = g_iPlayerArmour[playerid];
 	GetPlayerPos(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2]);
 	if (vehicleid)
 	{

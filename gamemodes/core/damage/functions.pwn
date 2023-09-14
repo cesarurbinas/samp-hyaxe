@@ -10,6 +10,7 @@ Player_SetHealth(playerid, amount)
 		return 0;
 
 	g_iPlayerHealth[playerid] = amount;
+	CHARACTER_INFO[playerid][ch_HEALTH] = amount;
 	SetPlayerHealth(playerid, amount);
 	return 1;
 }
@@ -20,6 +21,7 @@ Player_SetArmour(playerid, amount)
 		return 0;
 		
 	g_iPlayerArmour[playerid] = amount;
+	CHARACTER_INFO[playerid][ch_ARMOUR] = amount;
 	SetPlayerArmour(playerid, amount);
 	return 1;
 }
