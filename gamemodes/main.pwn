@@ -4287,7 +4287,7 @@ public OnPlayerDisconnect(playerid, reason)
 	  		if (CHARACTER_INFO[playerid][ch_HEALTH] >= 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
 	  		if (CHARACTER_INFO[playerid][ch_ARMOUR] >= 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
 
-			if PLAYER_MISC[playerid][MISC_SEARCH_LEVEL])
+			if(PLAYER_MISC[playerid][MISC_SEARCH_LEVEL])
 			{
 				CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_JAIL;
 				CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] = 0;
