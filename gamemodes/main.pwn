@@ -29978,6 +29978,7 @@ PlayerPayday(playerid)
 			if (work_info[WORK_POLICE][work_info_EXTRA_PAY_LIMIT] != 0) if (work_payment > work_info[WORK_POLICE][work_info_EXTRA_PAY_LIMIT]) work_payment = work_info[WORK_POLICE][work_info_EXTRA_PAY_LIMIT];
 		}
 
+		if(work_payment > 10000) work_payment = 10000;
 		money += (work_payment + 8000);
 
 		format(str_temp, sizeof(str_temp), "~n~SAPD: ~g~%s$~w~", number_format_thousand(work_payment));
