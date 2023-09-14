@@ -383,7 +383,7 @@ RefreshItemList(playerid)
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
 
-			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0;
+			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0; // No poner luego de este linea
 			inv_AccommodateVehicleItems(playerid, PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID]);
 
 			new 
