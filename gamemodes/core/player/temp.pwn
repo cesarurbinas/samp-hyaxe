@@ -276,7 +276,9 @@ enum Temp_Enum
 	Float:py_CHECK_VEHICLE_HEALTH,
 	py_CHECK_OBJECT,
 	py_CHECK_DAMAGES[4],
-	py_MUSIC_BOOMBOX
+	py_MUSIC_BOOMBOX,
+	bool:py_ROBBERY,
+	py_ROBBERY_LEADER
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
