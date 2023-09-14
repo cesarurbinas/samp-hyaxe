@@ -6623,7 +6623,7 @@ public OnGameModeInit()
 	SendRconCommand("messageslimit 5000");
 	SendRconCommand("conncookies 0");
 	SendRconCommand("cookielogging 0");
-	SendRconCommand("chatlogging 0");
+	SendRconCommand("chatlogging 1");
 
 	UsePlayerPedAnims();
 	DisableInteriorEnterExits();
@@ -33232,6 +33232,8 @@ EditVehicleObject(playerid, vehicleid, slot)
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
 	//printf("OnPlayerEditObject %d",playerid); // debug juju
+	if(fX > 20.0 || fX < -20.0 || fY > 20.0 || fY < -20.0 || fZ > 20.0 || fZ < -20.0) return 0;
+
 	if (playerobject)
 	{
 		if (objectid == PLAYER_TEMP[playerid][py_PIVOT_OBJECT])
