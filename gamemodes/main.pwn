@@ -8503,7 +8503,9 @@ CMD:duda(playerid, params[])
 		return 1;
 	}
 
+	PLAYER_MISC[playerid][MISC_DOUBT_SENT]++;
 	SendMessageToDoubtChannel(playerid, params);
+	SavePlayerMisc(playerid);
 	return 1;
 }
 alias:duda("n");
@@ -32661,6 +32663,7 @@ ShowPlayerStats(playerid, pid)
 	    "COL_WHITE"  Baneos: "COL_RED"%d\n\
 	    "COL_WHITE"  Advertencias: "COL_RED"%d\n\
 	    "COL_WHITE"  Jails: "COL_RED"%d\n\
+	    "COL_WHITE"  Dudas enviadas: "COL_GREEN"%d\n\
 		"COL_WHITE"  VIP: "COL_YELLOW"%s",
 
 			ACCOUNT_INFO[pid][ac_ID],
@@ -32677,6 +32680,7 @@ ShowPlayerStats(playerid, pid)
 			PLAYER_MISC[pid][MISC_BANEOS],
 			PLAYER_MISC[pid][MISC_SANS],
 			PLAYER_MISC[pid][MISC_JAILS],
+			PLAYER_MISC[pid][MISC_DOUBT_SENT],
 			getPlayerVip(pid)
 	);
 

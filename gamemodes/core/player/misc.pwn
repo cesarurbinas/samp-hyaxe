@@ -41,6 +41,7 @@ enum
 	MISC_CONFIG_FP,
 	bool:MISC_BALLOON,
 	bool:MISC_DAMAGE_INFORMER,
+	MISC_DOUBT_SENT,
 
 	MISC_SIZE //Dejar siempre este al final
 };
