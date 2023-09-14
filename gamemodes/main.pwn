@@ -27998,6 +27998,7 @@ CheckRobActor(playerid)
 							    GetPointZone(ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_X], ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_EXT_Y], city, zone);
 							    format(message, sizeof message, "~r~%s~w~ esta robando un negocio (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
 							    format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Robo");
+							    ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Robo", 5);
 							    SendPoliceNotification(message, 6);
 
 								a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime();
@@ -33283,6 +33284,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				ShowPlayerMessage(playerid, "~r~No dispares en zona segura.", 3);
 				SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 3);
 				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Disturbios");
+				ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Disturbios", 5);
 			}
 		}
 
@@ -33305,6 +33307,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			FreezePlayer(playerid, 3000);
 			SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 3);
 			format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Disturbios");
+			ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Disturbios", 5);
 		}
 	}
 
