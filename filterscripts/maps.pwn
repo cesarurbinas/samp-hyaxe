@@ -27,7 +27,7 @@ public OnFilterScriptInit()
 	new Actor_LCN[15];
     new object;
 
-    new alien_obj[28];
+    /*new alien_obj[28];
     new alien_actor[3];
     alien_obj[0] = CreateDynamicObject(18846, 1917.9483, -1428.5412, 10.0472, 23.7999, 0.0000, 0.0000); //BigCesar
     alien_obj[1] = CreateDynamicObject(747, 1915.8038, -1429.9816, 9.2558, 0.0000, 0.0000, 0.0000); //sm_scrub_rock3
@@ -61,7 +61,7 @@ public OnFilterScriptInit()
     ApplyActorAnimation(alien_actor[0], "CAMERA", "PICCRCH_TAKE", 4.0999, 1, 0, 0, 0, 0);
     alien_actor[1] = CreateActor(286, 1915.0941, -1423.9527, 10.3193, -178.0999); //Federal Agent
     alien_actor[2] = CreateActor(77, 1875.9691, -1315.0555, 29.4921, 0.0000); //Homeless
-    ApplyActorAnimation(alien_actor[2], "CRACK", "CRCKIDLE4", 4.0999, 1, 0, 0, 0, 0);
+    ApplyActorAnimation(alien_actor[2], "CRACK", "CRCKIDLE4", 4.0999, 1, 0, 0, 0, 0);*/
 
     //juan_Alts
     /*tmpobjid = CreateDynamicObjectEx(18766, 2909.603027, -764.122375, 9.526800, 90.000000, 0.000000, 0.000000, 600.00, 600.00); 
