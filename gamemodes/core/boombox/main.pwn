@@ -3,7 +3,7 @@ enum E_BOOMBOX_DATA {
 	bool:bb_VALID,
 	bool:bb_PUBLIC,
 	bb_OWNER,
-	bb_PLAYING[86],
+	bool:bb_PLAYING,
 
 	Float:bb_POS[3],
 	bb_WORLD,
@@ -45,7 +45,8 @@ CreateBoombox(playerid)
 	BOOMBOX[id][bb_WORLD] = GetPlayerVirtualWorld(playerid);
 	BOOMBOX[id][bb_OBJECT] = CreateDynamicObject(2226, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2], 0.0, 0.0, 0.0, .worldid = BOOMBOX[id][bb_WORLD], .interiorid = BOOMBOX[id][bb_INTERIOR]);
 	BOOMBOX[id][bb_LABEL] = CreateDynamic3DTextLabel(sprintf(""COL_RED"Boombox de %s\n"COL_WHITE"Pública: "COL_RED"No", ACCOUNT_INFO[playerid][ac_NAME]), 0xFFFFFFFF, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2] + 2.5, 5.0, .testlos = 1, .worldid = BOOMBOX[id][bb_WORLD], .interiorid = BOOMBOX[id][bb_INTERIOR]);
-	BOOMBOX[id][bb_PUBLIC] = false;
+	BOOMBOX[id][bb_PUBLIC] =
+	BOOMBOX[id][bb_PLAYING] = false;
 	BOOMBOX[id][bb_OWNER] = ACCOUNT_INFO[playerid][ac_ID];
 
 	return 1;
@@ -56,6 +57,7 @@ PlayAudioInBoombox(requester, id, const url[])
 	if(!BOOMBOX[id][bb_VALID]) return 0;
 	if(!BOOMBOX[id][bb_PUBLIC] && ACCOUNT_INFO[requester][ac_ID] != BOOMBOX[id][bb_OWNER]) return 0;
 
+	BOOMBOX[id][bb_PLAYING] = true;
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if(!IsPlayerConnected(i)) continue;
@@ -86,12 +88,12 @@ DestroyBoombox(id)
 	}
 
 	BOOMBOX[id][bb_VALID] =
+	BOOMBOX[id][bb_PLAYING] = 
 	BOOMBOX[id][bb_PUBLIC] = false;
 	BOOMBOX[id][bb_POS][0] = 
 	BOOMBOX[id][bb_POS][1] = 
 	BOOMBOX[id][bb_POS][2] = -1.0;
 	BOOMBOX[id][bb_OWNER] = 0;
-	BOOMBOX[id][bb_PLAYING] = EOS;
 	DestroyDynamicObject(BOOMBOX[id][bb_OBJECT]);
 	DestroyDynamic3DTextLabel(BOOMBOX[id][bb_LABEL]);
 	BOOMBOX[id][bb_OBJECT] = INVALID_OBJECT_ID;
@@ -185,6 +187,8 @@ CMD:parlante(playerid, params[])
 		new bbid = IsPlayerNearBoombox(playerid);
 		if(bbid == -1) return ShowPlayerMessage(playerid, "~r~No estás cerca de un parlante.", 4);
 		if(!BOOMBOX[bbid][bb_PUBLIC] && BOOMBOX[bbid][bb_OWNER] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~No puedes usar este parlante porque no es público.", 4);
+		if(BOOMBOX[bbid][bb_PLAYING]) return ShowPlayerMessage(playerid, "~r~Este parlante ya esta reproduciendo algo. Usa /parlante parar.", 4);
+		
 		PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = bbid;
 		ShowDialog(playerid, DIALOG_PLAYER_MP3);
 	}
@@ -202,7 +206,9 @@ CMD:parlante(playerid, params[])
 		new bbid = IsPlayerNearBoombox(playerid);
 		if(bbid == -1) return ShowPlayerMessage(playerid, "~r~No estás cerca de un parlante.", 4);
 		if(!BOOMBOX[bbid][bb_PUBLIC] && BOOMBOX[bbid][bb_OWNER] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~No puedes usar este parlante porque no es público.", 4);
-		
+		if(!BOOMBOX[bbid][bb_PLAYING]) return ShowPlayerMessage(playerid, "~r~Este parlante no esta reproduciendo nada.", 4);
+
+		BOOMBOX[bbid][bb_PLAYING] = false;
 		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 		{
 			if(!IsPlayerConnected(i)) continue;
