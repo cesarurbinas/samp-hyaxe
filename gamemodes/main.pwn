@@ -4894,7 +4894,7 @@ ShowTuningMenu(playerid)
 
 	HidePlayerMenu(playerid);
 
-	ShowPlayerMenu(playerid, MECHANICTUNING, "Tuning");
+	ShowPlayerMenu(playerid, MECHANICTUNING, "Tuning", 0xAC2323FF, 0x000000FF);
 	AddPlayerMenuItem(playerid, TextToSpanish("Reparación"), "Precio: 350$");
 	AddPlayerMenuItem(playerid, "Colores");
 	AddPlayerMenuItem(playerid, "Paintjob");
@@ -5002,7 +5002,7 @@ Menu:MECHANICTUNING(playerid, response, listitem)
 				return 1;
 			}
 
-			ShowPlayerMenu(playerid, MECHANICPAINTJOB, "Paintjobs");
+			ShowPlayerMenu(playerid, MECHANICPAINTJOB, "Paintjobs", 0xAC2323FF, 0x000000FF);
 			AddPlayerMenuItem(playerid, "Eliminar paintjob");
 
 			for(new i = 0; i != paintjobs; i ++)
@@ -5058,7 +5058,7 @@ ShowObjTuning(playerid)
 	PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = true;
 	PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] = vehicleid;
 
-	ShowPlayerMenu(playerid, OBJTUNINGMENU, "Objetos");
+	ShowPlayerMenu(playerid, OBJTUNINGMENU, "Objetos", 0xAC2323FF, 0x000000FF);
 	AddPlayerMenuItem(playerid, "Mis objetos");
 	AddPlayerMenuItem(playerid, "Comprar objetos");
 	AddPlayerMenuItem(playerid, "Texto", "Precio: 500$");
@@ -5277,7 +5277,7 @@ CheckTruckPointAndLoad(playerid)
 
 			ShowPlayerMessage(playerid, "Usa ~r~ESPACIO~w~ para seleccionar y ~r~ENTER~w~ para salir~n~y ~r~ARRIBA~w~ o ~r~ABAJO~w~ para mover.", 10);
 
-			ShowPlayerMenu(playerid, TRUCKRECOS, "Cargamentos");
+			ShowPlayerMenu(playerid, TRUCKRECOS, "Cargamentos", 0xAC2323FF, 0x000000FF);
 			for(new x = 0; x != sizeof Truck_Contents; x ++)
 			{
 				new line_str[105], paga_str[105];
@@ -5556,7 +5556,7 @@ ShowPropertyMenu(playerid)
 	new caption[40];
 	format(caption, sizeof caption, "%s", PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
 
-	ShowPlayerMenu(playerid, PROPERTY_MENU, TextToSpanish(caption));
+	ShowPlayerMenu(playerid, PROPERTY_MENU, TextToSpanish(caption), 0xAC2323FF, 0x000000FF);
 
 	AddPlayerMenuItem(playerid, "Cambiar nombre");
 	AddPlayerMenuItem(playerid, "Echar a todos");
@@ -5577,7 +5577,7 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
 
 /*ShowFurnitureMenu(playerid)
 {
-	ShowPlayerMenu(playerid, PROPERTY_FURNITURE, "Personalizar");
+	ShowPlayerMenu(playerid, PROPERTY_FURNITURE, "Personalizar", 0xAC2323FF, 0x000000FF);
 
 	AddPlayerMenuItem(playerid, "Mis muebles");
 	AddPlayerMenuItem(playerid, "Camas");
