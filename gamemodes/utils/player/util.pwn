@@ -6066,3 +6066,221 @@ GetOwnerIntProperty(id_house)
 	}
 	return -1;
 }
+
+RegisterNewPlayerToy(playerid, slot)
+{
+	new DBResult:Result, DB_Query[800];
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `PLAYER_TOYS`\
+		(\
+			`ID_USER`, `NAME`, `ATTACHED`, `MODELID`, `BONE`, `OFFSET_X`, `OFFSET_Y`, `OFFSET_Z`, `ROT_X`, `ROT_Y`, `ROT_Z`, `SCALE_X`, `SCALE_Y`, `SCALE_Z`, `COLOR_1`, `COLOR_2`\
+		)\
+		VALUES\
+		(\
+			'%d', '%q', '%d', '%d', '%d', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%f', '%d', '%d'\
+		);\
+		SELECT MAX(`ID_TOY`) FROM `PLAYER_TOYS`;\
+	",
+		ACCOUNT_INFO[playerid][ac_ID],
+		PLAYER_TOYS[playerid][slot][player_toy_NAME], PLAYER_TOYS[playerid][slot][player_toy_ATTACHED], PLAYER_TOYS[playerid][slot][player_toy_MODELID], PLAYER_TOYS[playerid][slot][player_toy_BONE],
+		PLAYER_TOYS[playerid][slot][player_toy_OFFSET_X], PLAYER_TOYS[playerid][slot][player_toy_OFFSET_Y], PLAYER_TOYS[playerid][slot][player_toy_OFFSET_Z],
+		PLAYER_TOYS[playerid][slot][player_toy_ROT_X], PLAYER_TOYS[playerid][slot][player_toy_ROT_Y], PLAYER_TOYS[playerid][slot][player_toy_ROT_Z],
+		PLAYER_TOYS[playerid][slot][player_toy_SCALE_X], PLAYER_TOYS[playerid][slot][player_toy_SCALE_Y], PLAYER_TOYS[playerid][slot][player_toy_SCALE_Z],
+		PLAYER_TOYS[playerid][slot][player_toy_COLOR_1], PLAYER_TOYS[playerid][slot][player_toy_COLOR_2]
+	);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result)) PLAYER_TOYS[playerid][slot][player_toy_ID] = db_get_field_int(Result, 0);
+	db_free_result(Result);
+	return 1;
+}
+
+ShowTuningMenu(playerid)
+{
+	new vehicleid = GetPlayerVehicleID(playerid);
+	if (vehicleid == INVALID_VEHICLE_ID) return 1;
+
+	HidePlayerMenu(playerid);
+
+	ShowPlayerMenu(playerid, MECHANICTUNING, "Tuning");
+	AddPlayerMenuItem(playerid, TextToSpanish("Reparación"), "Precio: 350$");
+	AddPlayerMenuItem(playerid, "Colores");
+	AddPlayerMenuItem(playerid, "Paintjob");
+	AddPlayerMenuItem(playerid, "Objetos");
+	AddPlayerMenuItem(playerid, "Eliminar componentes");
+
+	new DBResult:Result, DB_Query[255];
+	format(DB_Query, sizeof DB_Query, "SELECT `COMPONENTS_INFO`.`PART`, `COMPONENTS_INFO`.`PIECES` FROM `COMPONENTS_INFO`, `VEHICLE_COMPONENTS` WHERE `VEHICLE_COMPONENTS`.`MODELID` = '%d' AND `VEHICLE_COMPONENTS`.`COMPONENT_ID` = `COMPONENTS_INFO`.`ID` GROUP BY `COMPONENTS_INFO`.`PART`;", GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result) == 0)
+	{
+		printf("[ERROR] No hay componentes asignados en la base de datos");
+	}
+	else
+	{
+		new line_str[80];
+
+		for(new i; i < db_num_rows(Result); i++ )
+		{
+			if (i >= TOTAL_TUNING_PARTS)
+			{
+				printf("[debug]  Límite superado en array 'PLAYER_TUNING_MENU, dialog Parts' al intentar cargar de la base de datos.");
+				break;
+			}
+
+			db_get_field_assoc(Result, "PART", PLAYER_TUNING_MENU[playerid][i][tuning_menu_NAME], 24);
+			format(line_str, sizeof line_str, "%s", PLAYER_TUNING_MENU[playerid][i][tuning_menu_NAME]);
+			
+			AddPlayerMenuItem(playerid, TextToSpanish(line_str), "Precio: 50$");
+
+			db_next_row(Result);
+		}
+	}
+	db_free_result(Result);
+	return 1;
+}
+
+ShowObjTuning(playerid)
+{
+	new vehicleid = GetPlayerVehicleID(playerid);
+	if (vehicleid == INVALID_VEHICLE_ID) return 1;
+			
+    if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Solo puedes tunear tus vehículos personales.", 3);
+	if (!VEHICLE_INFO[GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400][vehicle_info_VALID]) return ShowPlayerMessage(playerid, "~r~Este vehículo no se puede tunear.", 3);
+
+	HidePlayerMenu(playerid);
+
+	PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = true;
+	PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] = vehicleid;
+
+	ShowPlayerMenu(playerid, OBJTUNINGMENU, "Objetos");
+	AddPlayerMenuItem(playerid, "Mis objetos");
+	AddPlayerMenuItem(playerid, "Comprar objetos");
+	AddPlayerMenuItem(playerid, "Bandera", "Precio: 2.000$");
+	return 1;
+}
+
+BuyProperty(playerid, id)
+{
+	if (BANK_ACCOUNT[playerid][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~No puedes comprar una propiedad sin cuenta bancaria.", 3);
+
+	new DBResult:Result, DB_Query[120], player_properties;
+	format(DB_Query, sizeof(DB_Query), "SELECT COUNT(`ID_USER`) AS `PROPERTIES` FROM `PROPERTY_OWNER` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+	if (db_num_rows(Result)) player_properties = db_get_field_assoc_int(Result, "PROPERTIES");
+	db_free_result(Result);
+
+	if (ACCOUNT_INFO[playerid][ac_SU])
+	{
+		if (player_properties >= MAX_SU_PROPERTIES) return ShowPlayerMessage(playerid, "~r~No puedes comprar más propiedades.", 3);
+	}
+	else if (player_properties >= MAX_NU_PROPERTIES) return ShowPlayerMessage(playerid, "~r~No puedes comprar más propiedades.", 3);
+
+	new index = GetPropertyIndexByID(id);
+	if (index == -1) return ShowPlayerMessage(playerid, "~r~Error al intentar comprar la propiedad, intenta luego.", 3);
+
+	if (PROPERTY_INFO[index][property_SOLD]) return 1;
+	if (PROPERTY_INFO[index][property_LEVEL] > ACCOUNT_INFO[playerid][ac_LEVEL]) return ShowPlayerMessage(playerid, "~r~No tienes el nivel suficiente.", 3);
+	if (PROPERTY_INFO[index][property_VIP_LEVEL] > ACCOUNT_INFO[playerid][ac_SU]) return ShowPlayerMessage(playerid, "~r~No tienes VIP.", 3);
+	if (PROPERTY_INFO[index][property_EXTRA] > ACCOUNT_INFO[playerid][ac_SD]) return ShowPlayerMessage(playerid, "~r~No tienes las hycoins suficientes.", 3);
+	if (BANK_ACCOUNT[playerid][bank_account_BALANCE] >= PROPERTY_INFO[index][property_PRICE])
+	{
+		PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX] = index;
+		ShowDialog(playerid, DIALOG_CONFIRM_BUY_PROPERTY);
+	}
+	else ShowPlayerMessage(playerid, "~r~No tienes el dinero suficiente.", 3);
+	return 1;
+}
+
+CheckAndBuyProperty(playerid)
+{
+	if (PLAYER_TEMP[playerid][py_ACTUAL_PROPERTY] > 0) BuyProperty(playerid, PLAYER_TEMP[playerid][py_ACTUAL_PROPERTY]);
+}
+
+ShowPropertyMenu(playerid)
+{
+	new caption[40];
+	format(caption, sizeof caption, "%s", PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_NAME]);
+
+	ShowPlayerMenu(playerid, PROPERTY_MENU, TextToSpanish(caption));
+
+	AddPlayerMenuItem(playerid, "Cambiar nombre");
+	AddPlayerMenuItem(playerid, "Echar a todos");
+	AddPlayerMenuItem(playerid, "Personalizar");
+	AddPlayerMenuItem(playerid, "Sacar items");
+	AddPlayerMenuItem(playerid, "Meter items");
+
+	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+	return 1;
+}
+
+ShowFurnitureMenu(playerid)
+{
+	ShowPlayerMenu(playerid, PROPERTY_FURNITURE, "Personalizar");
+
+	AddPlayerMenuItem(playerid, "Mis muebles");
+	AddPlayerMenuItem(playerid, "Camas");
+	AddPlayerMenuItem(playerid, "Cuadros");
+	AddPlayerMenuItem(playerid, TextToSpanish("Decoración"));
+	AddPlayerMenuItem(playerid, TextToSpanish("Electrodomésticos"));
+	AddPlayerMenuItem(playerid, TextToSpanish("Iluminación"));
+	AddPlayerMenuItem(playerid, "Mesas");
+	AddPlayerMenuItem(playerid, "Sillas");
+
+	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+	return 1;
+}
+
+ShowPropertyOptions(playerid)
+{
+    if (PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] == 0) return 0;
+
+    new info[3];
+    Streamer_GetArrayData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
+    if (info[0] != PICKUP_TYPE_PROPERTY) return 0;
+
+    new Float:x, Float:y, Float:z;
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_X, x);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Y, y);
+    Streamer_GetFloatData(STREAMER_TYPE_PICKUP, PLAYER_TEMP[playerid][py_LAST_PICKUP_ID], E_STREAMER_Z, z);
+
+    if (!IsPlayerInRangeOfPoint(playerid, 80.0, x, y, z)) return 0;
+
+    if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY)
+    {
+        if (info[2] == 1) // Está en el Pickup Interior
+        {
+            if (PROPERTY_INFO[info[1]][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+            {
+            	if (!PLAYER_TEMP[playerid][py_EDITING_MODE])
+            	{
+                	PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] = info[1];
+                	ShowPropertyMenu(playerid);
+                }
+            }
+            else return 0;
+        }
+        else return 0;
+    }
+    else if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY)
+    {
+        if (info[2] == 1) // Está en el Pickup Interior
+        {
+            if (PROPERTY_INFO[info[1]][property_CREW])
+            {
+                if (PROPERTY_INFO[info[1]][property_CREW_ID] != PLAYER_CREW[playerid][player_crew_ID]) return ShowPlayerMessage(playerid, "~r~Esta no es una propiedad de tu crew.", 3);
+                if (!CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_PERMISSION][CREW_RANK_DELETE_PROPERTIES]) return ShowPlayerMessage(playerid, "~r~No tienes permisos.", 2);
+                if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_FIGHTING]) return ShowPlayerMessage(playerid, "~r~No puedes liberar esta propiedad mientras tu crew está en combate.", 3);
+
+                PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] = info[1];
+                ShowDialog(playerid, DIALOG_CREW_LEAVE_PROPERTY);
+            }
+            else return 0;
+        }
+        else return 0;
+    }
+    else return 0;
+    return 1;
+}
