@@ -3,7 +3,7 @@ new
 
 ShowInventory(playerid)
 {
-	new ms = (130 + GetPlayerPing(playerid));
+	new ms = (200 + GetPlayerPing(playerid));
 
 	g_iInvLastTick[playerid] = GetTickCount() + ms;
 

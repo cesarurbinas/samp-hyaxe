@@ -7,7 +7,7 @@
  *  - 1: Saldrán mensajes de debug solamente en la consola.
  *  - 2: Saldrán mensajes de debug en la consola y en el juego.
 */
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 #if DEBUG_MODE != 0
 	#pragma option -d3
@@ -6008,7 +6008,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 		}
 		else
 		{
-			Logger_Debug("[2] OK 2");
 			CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_CRACK;
 
 			GetPlayerPos(playerid, PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2]);
@@ -6016,6 +6015,8 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 			SetSpawnInfo(playerid, DEFAULT_TEAM, PLAYER_TEMP[playerid][py_SKIN], PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2], PLAYER_TEMP[playerid][py_INJURED_POS][3], 0, 0, 0, 0, 0, 0);
 			SetPlayerPos(playerid,PLAYER_TEMP[playerid][py_INJURED_POS][0], PLAYER_TEMP[playerid][py_INJURED_POS][1], PLAYER_TEMP[playerid][py_INJURED_POS][2]+1);
+		
+			TogglePlayerSpectating(playerid, false);
 		}
 	}
 
