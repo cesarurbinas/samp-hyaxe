@@ -8,6 +8,15 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
+# Error
+@app.errorhandler(404)
+def page_not_found(e):
+	return 'INTERNAL_SERVER_ERROR', 1
+
+@app.errorhandler(500)
+def internal_error(e):
+	return 'INTERNAL_SERVER_ERROR', 1
+
 # Get output
 @app.route('/get_response', methods = ['GET', 'POST'])
 def get_response():
@@ -36,7 +45,7 @@ def get_response():
 		print(f'[api.error] Internal error (get_response): {e}')
 		return 'INTERNAL_SERVER_ERROR', 1
 
-	return 'RESPOSE_NOT_FOUND', 1
+	return 'INTERNAL_SERVER_ERROR', 1
 
 @app.route('/check_bad_use', methods = ['GET', 'POST'])
 def check_bad_use():
@@ -52,7 +61,7 @@ def check_bad_use():
 
 		final_data = json.loads(final_data)
 		
-		final_data['message'] = clean_text(final_data['message'])
+		final_data['message'] = utils.clean_text(final_data['message'])
 		
 		if final_data['message'] in bad_use.positive_msg:
 			print(f'[bad_use.debug] { final_data["message"] }')
@@ -71,7 +80,7 @@ def check_bad_use():
 		print(f'[api.error] Internal error (check_bad_use): {e}')
 		return 'INTERNAL_SERVER_ERROR', 1
 
-	return 'RESPOSE_NOT_FOUND', 1
+	return 'INTERNAL_SERVER_ERROR', 1
 
 # Learning
 @app.route('/save_response', methods = ['GET', 'POST'])
