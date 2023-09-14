@@ -323,6 +323,7 @@ PlayerIsInMafia(playerid)
 	if (PLAYER_WORKS[playerid][WORK_MAFIA]) return true;
 	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA]) return true;
 	if (PLAYER_WORKS[playerid][WORK_OSBORN]) return true;
+	if (PLAYER_WORKS[playerid][WORK_CONNOR]) return true;
 	return false;
 }
 
@@ -331,6 +332,7 @@ GetPlayerMafia(playerid)
 	if (PLAYER_WORKS[playerid][WORK_MAFIA]) return WORK_MAFIA;
 	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA]) return WORK_ENEMY_MAFIA;
 	if (PLAYER_WORKS[playerid][WORK_OSBORN]) return WORK_OSBORN;
+	if (PLAYER_WORKS[playerid][WORK_CONNOR]) return WORK_CONNOR;
 	return -1;
 }
 
@@ -342,6 +344,7 @@ GetMafiaColor(mafia)
 		case WORK_MAFIA: color = 0xa912e2FF;
 		case WORK_ENEMY_MAFIA: color = 0xf5e30aFF;
 		case WORK_OSBORN: color = 0x3a3eabFF;
+		case WORK_CONNOR: color = 0xFFFFFFFF;
 	}
 	return color;
 }

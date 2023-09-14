@@ -316,6 +316,12 @@ enum
 >>>>>>> a74d6aa (registro civil)
 =======
 	DIALOG_REGISTER_CIVIL,
+<<<<<<< HEAD
 	DIALOG_SELL_PUMPKIN
 >>>>>>> 2211389 (vender las calabazas)
+=======
+	DIALOG_SELL_PUMPKIN,
+	DIALOG_CONNOR_MAFIA_LIST,
+	DIALOG_CONNOR_MAFIA_MODIFY
+>>>>>>> 583efcd (the family connor)
 };

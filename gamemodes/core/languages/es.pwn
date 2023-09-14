@@ -1,5 +1,5 @@
 // Server
-#define SERVER_HOSTNAME "Hyaxe Role Play | Roleplay en Español"
+#define SERVER_HOSTNAME "Hyaxe Role Play | Chat de voz"
 #define SERVER_LANGUAGE "Español / Spanish"
 #define SERVER_MODE "Roleplay"
 
@@ -53,10 +53,10 @@ new const POLICE_RANKS[][] =
 	/* 13 */ "Teniente",
 	/* 14 */ "General",
 	/* 15 */ "Jefe Policíal"
-},
+};
 
 // Mafia Ranks
-MAFIA_RANKS[][] =
+new const MAFIA_RANKS[][] =
 {
 	"Civil",
 	"Nuevo Recluta",
@@ -74,10 +74,10 @@ MAFIA_RANKS[][] =
 	"Representante",
 	"Segundo Jefe",
 	"Jefe General"
-},
+};
 
 // enemy mafia
-ENEMY_MAFIA_RANKS[][] =
+new const ENEMY_MAFIA_RANKS[][] =
 {
 	"Civil",
 	"Bartender",
@@ -100,9 +100,9 @@ ENEMY_MAFIA_RANKS[][] =
 	"Gerente",
 	"Representante",
 	"Lider"
-},
+};
 
-OSBORN_RANKS[][] =
+new const OSBORN_RANKS[][] =
 {
 	"Civil",
 	"ASOCCIATO",
@@ -126,6 +126,25 @@ OSBORN_RANKS[][] =
 	"DON / DONA",
 	"THE VENDETTA",
 	"CAPO DI TUTI CAPI"
+};
+
+new const CONNOR_RANKS[][] =
+{
+	"Civil",
+	"Novice Connor",
+	"Security Connor",
+	"White Selling Connor",
+	"Assasins Connor",
+	"Black Security Connor",
+	"Red Assasins Connor",
+	"Red Selling connor",
+	"Doctor Connor",
+	"Spy Connor",
+	"Negotiating Connor",
+	"Leader Spy Connor",
+	"Leader Security Connor",
+	"Leader Assasin Connor",
+	"The Black Connor"
 };
 
 TextToSpanish(const base[])
