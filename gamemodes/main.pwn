@@ -12346,7 +12346,6 @@ ShowDialog(playerid, dialogid)
 			{
 				if (PROPERTY_OBJECT[i][pobj_VALID])
 				{
-					printf(">>> (%d) %d, %d, %d", i, PROPERTY_OBJECT[i][pobj_PROPERTY_ID], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID], PROPERTY_OBJECT[i][pobj_VALID]);
 					if (PROPERTY_OBJECT[i][pobj_PROPERTY_ID] == PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID])
 					{
 						PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_furniture] = i;
@@ -13865,7 +13864,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						RegisterPhoneMessage(6740, PLAYER_PHONE[playerid][player_phone_NUMBER], message);
 						new str_buy[164], city[45], zone[45];
 						GetPointZone(PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_X], PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_Y], city, zone);
-						format(str_buy, sizeof(str_buy), "~y~Propiedad comprada~w~~n~Compraste una propiedad en %s, puedes ver las opciones de la propiedad pulsando la tecla H cuando te encuentres en pickup del interior.", zone);
+						format(str_buy, sizeof(str_buy), "~y~Propiedad comprada~w~~n~Compraste una propiedad en %s, puedes ver las opciones de la propiedad pulsando la tecla H.", zone);
 						ShowPlayerNotification(playerid, str_buy, 5);
 					}
 
@@ -13925,11 +13924,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				info[1] = PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]; // Index
 				info[2] = 2; // Pickup Exterior
 				Streamer_SetArrayData(STREAMER_TYPE_PICKUP, PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
-
-				new str_buy[264];
-				GetPointZone(PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_X], PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_Y], city, zone);
-				format(str_buy, sizeof(str_buy), "~y~Propiedad comprada~w~~n~Compraste una propiedad en %s, puedes ver las opciones de la propiedad pulsando la tecla H cuando te encuentres en pickup del interior.", zone);
-				ShowPlayerNotification(playerid, str_buy, 5);
 			}
 			return 1;
 		}
