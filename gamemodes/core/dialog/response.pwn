@@ -3605,7 +3605,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 				}
 			}
-			else ShowDialog(playerid, DIALOG_SELECC_TYPE_AMMO);
+			else ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
 			return 1;
 		}
 		case DIALOG_BLACK_MARKET_SELECT_WEA:
@@ -4905,7 +4905,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0: ShowDialog(playerid, DIALOG_POLICE_WEAPONS);
 					case 1: ShowDialog(playerid, DIALOG_POLICE_ARMOUR);
-					case 2: ShowDialog(playerid, DIALOG_SELECC_TYPE_AMMO);
+					case 2: ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
 				}
 			}
 			return 1;
@@ -8648,7 +8648,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				switch(listitem)
 				{
 					case 0: ShowDialog(playerid, DIALOG_BLACK_MARKET_WEAPONS);
-					case 1: ShowDialog(playerid, DIALOG_SELECC_TYPE_AMMO);
+					case 1: ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT_WEA);
 				}
 			}
 		}
