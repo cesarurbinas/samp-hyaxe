@@ -322,6 +322,11 @@ enum
 =======
 	DIALOG_SELL_PUMPKIN,
 	DIALOG_CONNOR_MAFIA_LIST,
+<<<<<<< HEAD
 	DIALOG_CONNOR_MAFIA_MODIFY
 >>>>>>> 583efcd (the family connor)
+=======
+	DIALOG_CONNOR_MAFIA_MODIFY,
+	DIALOG_CLUB_SELL
+>>>>>>> 9cb7ac2 (arreglos en el /r)
 };

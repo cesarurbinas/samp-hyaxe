@@ -6118,11 +6118,7 @@ Menu:CLUB_MENU(playerid, response, listitem)
 			}
 			case 6: ShowDialog(playerid, DIALOG_CLUB_RADIO);
 			case 7: ShowDialog(playerid, DIALOG_CLUB_PRICE);
-			case 8:
-			{
-				ShowPlayerMessage(playerid, "~r~No disponible", 4);
-				CheckClubOptions(playerid);	
-			}
+			case 8: ShowDialog(playerid, DIALOG_CLUB_SELL);
     	}
     }
     return 1; 
@@ -6151,7 +6147,7 @@ CheckClubOptions(playerid)
 				AddPlayerMenuItem(playerid, "Retirar fondos", sprintf("Fondos: %d$", CLUBS_INFO[club][club_BALANCE]));
 				AddPlayerMenuItem(playerid, "Cambiar radio");
 				AddPlayerMenuItem(playerid, "Precio de entrada");
-				AddPlayerMenuItem(playerid, "Personalizar");
+				AddPlayerMenuItem(playerid, "Vender");
 
 				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 			}
@@ -11159,9 +11155,7 @@ ShowDialog(playerid, dialogid)
 				"Vender una propiedad al banco\n\
 				Vender un vehículo al banco\n\
 				Vender una propiedad a una persona\n\
-				Vender un vehículo a una persona\n\
-				Vender un club al banco\n\
-				Vender un club a una persona", "Ver", "Cerrar");
+				Vender un vehículo a una persona", "Ver", "Cerrar");
 			return 1;
 		}
 		case DIALOG_NOTARY_SELECT_PROPERTY:
@@ -14662,6 +14656,14 @@ ShowDialog(playerid, dialogid)
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender calabazas", str_text, "Vender", "Cerrar");
     		return 1;
     	}
+    	case DIALOG_CLUB_SELL:
+		{
+			if (PLAYER_TEMP[playerid][py_CLUB_INDEX] == -1) return 0;
+
+			new str_text[128];
+			format(str_text, sizeof(str_text), ""COL_WHITE"%d "SERVER_COIN"?", CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE]);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Vender local", str_text, "Si", "No");
+		}
 		default: return 0;
 	}
 	return 1;
@@ -35295,10 +35297,7 @@ CMD:r(playerid, params[])
 	if (sscanf(params, "s[128]", message)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /r "COL_WHITE"[MENSAJE]");
 
 	if (PLAYER_TEMP[playerid][py_ADMIN_PM_PID] == INVALID_PLAYER_ID || !PLAYER_TEMP[playerid][py_ADMIN_PM_AID]) 
-	{
-		SendClientMessage(playerid, COLOR_WHITE, "Usaste el comando /r pero no tienes nada que responder. ¿Quisiste usar /re(portar)?");
 		return ShowPlayerMessage(playerid, "~r~Nada que responder.", 2);
-	}
 	
 	if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_ADMIN_PM_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_ADMIN_PM_AID])
 	{
