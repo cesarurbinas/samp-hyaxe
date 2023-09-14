@@ -61,6 +61,7 @@ HideInventory(playerid)
 		{
 			GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_PARAMS_BOOT] = false;
 			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Cierra el maletero de un vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		}
 	}
 
@@ -416,6 +417,8 @@ RefreshItemList(playerid)
 			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
 
 			ShowPlayerMessage(playerid, "Seleccione un item para sacar del maletero.", 5);
+
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Abre el maletero de un vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		}
 		case 4:
 		{
@@ -458,6 +461,8 @@ RefreshItemList(playerid)
 			UpdateVehicleParams(PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE]);
 
 			ShowPlayerMessage(playerid, "Seleccione un item para meter al maletero.", 5);
+
+			SetPlayerChatBubble(playerid, "\n\n\n\n* Abre el maletero de un vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		}
 	}
 	return 1;
