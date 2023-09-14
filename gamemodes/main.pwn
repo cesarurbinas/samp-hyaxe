@@ -32437,7 +32437,7 @@ StartTerritoryAttack(crew_index, territory_index, time)
 	new message[145];
 
 	KillTimer(TERRITORIES[territory_index][territory_TIMER]);
-	TERRITORIES[territory_index][territory_TIMER] = SetTimerEx("UpdateTerritoryAttack", 1000, false, "i", territory_index);
+	TERRITORIES[territory_index][territory_TIMER] = SetTimerEx("UpdateTerritoryAttack", 1000, true, "i", territory_index);
 
 	if (TERRITORIES[territory_index][territory_OCCUPIED])
 	{
@@ -32577,9 +32577,6 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 		}
 		return 1;
 	}
-
-	KillTimer(TERRITORIES[territory_index][territory_TIMER]);
-	TERRITORIES[territory_index][territory_TIMER] = SetTimerEx("UpdateTerritoryAttack", 1000, false, "i", territory_index);
 	return 1;
 }
 
