@@ -2632,7 +2632,7 @@ public neuroadmin_BotLearning(index, response_code, data[])
 CMD:dreply(playerid, params[])
 {
 	new to_player, content[144];
-	if (sscanf(params, "us[144]", to_player, content)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dreply <player_id> <content>");
+	if (sscanf(params, "us[144]", to_player, content)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dreply <playerid> <content>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (strlen(content) > 132) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" Su duda es muy larga");
 
