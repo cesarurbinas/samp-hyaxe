@@ -1933,7 +1933,7 @@ CMD:plog(playerid, params[])
 	return 1;
 }
 
-CMD:pmaletero(playerid, params[])
+CMD:vehboot(playerid, params[])
 {
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 
@@ -1942,9 +1942,10 @@ CMD:pmaletero(playerid, params[])
 
 	PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] = vehicleid;
 	ShowDialog(playerid, DIALOG_VEHICLE_BOOT);
-	SendCmdLogToAdmins(playerid, "pmaletero", params);
+	SendCmdLogToAdmins(playerid, "vehboot", params);
 	return 1;
 }
+flags:vehboot(CMD_MODERATOR3)
 
 CMD:jailtime(playerid, params[])
 {
