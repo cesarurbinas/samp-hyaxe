@@ -6529,7 +6529,7 @@ CMD:marselobotikin(playerid, params[])
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	printf("OnPlayerDeat %d %d %d",playerid,killerid,reason); // debug juju
+	printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
@@ -6593,6 +6593,17 @@ public OnPlayerDeath(playerid, killerid, reason)
 	GetPlayerFacingAngle(playerid, CHARACTER_INFO[playerid][ch_ANGLE]);
 	CHARACTER_INFO[playerid][ch_INTERIOR] = GetPlayerInterior(playerid);
 	CHARACTER_INFO[playerid][ch_WORLD] = GetPlayerVirtualWorld(playerid);
+
+	SetPlayerPosEx(
+		playerid,
+		CHARACTER_INFO[playerid][ch_POS][0],
+		CHARACTER_INFO[playerid][ch_POS][1],
+		CHARACTER_INFO[playerid][ch_POS][2] + 0.1,
+		CHARACTER_INFO[playerid][ch_ANGLE],
+		CHARACTER_INFO[playerid][ch_INTERIOR],
+		CHARACTER_INFO[playerid][ch_WORLD]
+	);
+
 	HidePlayerHud(playerid);
 	CancelEdit(playerid);
 	if (!BOTS[playerid][b_ACTIVE]) HidePlayerDialog(playerid);
