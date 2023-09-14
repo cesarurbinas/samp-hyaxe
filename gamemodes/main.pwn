@@ -7,7 +7,7 @@
  *  - 1: Saldrán mensajes de debug solamente en la consola.
  *  - 2: Saldrán mensajes de debug en la consola y en el juego.
 */
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 #if DEBUG_MODE != 0
 	#pragma option -d3
@@ -29444,12 +29444,12 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		FreezePlayer(playerid, 3000);
 	}
 
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
+	/*if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK)
 	{
 		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar estando herido.");
 		TogglePlayerControllableEx(playerid, false);
 		KickEx(playerid, 500);
-	}
+	}*/
 
 	if (PLAYER_TEMP[playerid][py_EXPLOSION_BULLET] == true)
 	{
