@@ -6654,25 +6654,8 @@ public OnGameModeInit()
 
 RemoveObjectCollisions()
 {
-	// Leñador
-	CA_RemoveBuilding(785, -1878.7813, -2299.4531, 36.7578, 0.25);
-    CA_RemoveBuilding(785, -1851.1719, -2419.8906, 28.8672, 0.25);
-    CA_RemoveBuilding(785, -1916.5703, -2352.8203, 27.8984, 0.25);
-    CA_RemoveBuilding(785, -1921.7813, -2233.5547, 64.0625, 0.25);
-    CA_RemoveBuilding(785, -1868.4609, -2470.2734, 26.2813, 0.25);
-    CA_RemoveBuilding(785, -1934.3438, -2401.9297, 26.5000, 0.25);
-    CA_RemoveBuilding(791, -1868.4609, -2470.2734, 26.2813, 0.25);
-    CA_RemoveBuilding(790, -1979.7188, -2371.9063, 34.7578, 0.25);
-    CA_RemoveBuilding(791, -1934.3438, -2401.9297, 26.5000, 0.25);
-    CA_RemoveBuilding(791, -1916.5703, -2352.8203, 27.8984, 0.25);
-    CA_RemoveBuilding(790, -1891.0703, -2381.6875, 34.7578, 0.25);
-    CA_RemoveBuilding(791, -1878.7813, -2299.4531, 36.7578, 0.25);
-    CA_RemoveBuilding(18228, -1856.6875, -2321.2891, 38.1484, 0.25);
-    CA_RemoveBuilding(791, -1851.1719, -2419.8906, 28.8672, 0.25);
-    CA_RemoveBuilding(791, -1921.7813, -2233.5547, 64.0625, 0.25);
-
-	// idk, whatever i guess
-	CA_RemoveBuilding(5849, 1046.6797, -935.1953, 46.9922, 0.25);
+	//taller temple
+    CA_RemoveBuilding(5849, 1046.6797, -935.1953, 46.9922, 0.25);
     CA_RemoveBuilding(5854, 992.5313, -962.7344, 60.7813, 0.25);
     CA_RemoveBuilding(1266, 1029.1797, -939.5156, 52.7500, 0.25);
     CA_RemoveBuilding(1260, 1029.1797, -939.5156, 52.7500, 0.25);
@@ -6881,9 +6864,9 @@ RemoveObjectCollisions()
 	CA_RemoveBuilding(1438, -63.6719, -1125.6953, 0.0469, 0.25);
 	CA_RemoveBuilding(1438, -63.4141, -1115.4141, 0.0469, 0.25);
 	CA_RemoveBuilding(1415, -63.8125, -1106.4219, 0.2188, 0.25);
-
-    // Leñador
-    CA_RemoveBuilding(785, -1878.7813, -2299.4531, 36.7578, 0.25);
+	
+	// Leñador
+	CA_RemoveBuilding(785, -1878.7813, -2299.4531, 36.7578, 0.25);
     CA_RemoveBuilding(785, -1851.1719, -2419.8906, 28.8672, 0.25);
     CA_RemoveBuilding(785, -1916.5703, -2352.8203, 27.8984, 0.25);
     CA_RemoveBuilding(785, -1921.7813, -2233.5547, 64.0625, 0.25);
