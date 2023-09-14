@@ -1405,9 +1405,10 @@ CMD:repairveh(playerid, params[])
 	new vehicleid = GetPlayerVehicleID(playerid);
 	if (!vehicleid) return SendClientMessage(playerid, COLOR_WHITE, "No estás en un vehículo.");
 
-	RepairVehicleEx(vehicleid, playerid);
+	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] != INVALID_PLAYER_ID) RepairVehicleEx(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER]);
+	else RepairVehicleEx(vehicleid, playerid);
+	
 	SendClientMessageEx(playerid, COLOR_WHITE, "Vehículo (%d) reparado.", vehicleid);
-
 	SendCmdLogToAdmins(playerid, "repairveh", params);
 	return 1;
 }

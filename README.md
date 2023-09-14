@@ -22,13 +22,13 @@ Listado de cosas para hacer
 
 ❌ Agregar mochilas
 
-❌ Arreglar repairveh cuando el driver no es admin
+✅ Arreglar repairveh cuando el driver no es admin
 
 ❌ Arreglar el candado del velocimetro
 
 ✅ Agregar comida como item
 
-❌ Rehacer sistema completo de items y inventario
+✅ Rehacer sistema completo de items y inventario
 
 ❌ Que se pueda sacar de a cantidades en baules y almacenes de casas
 
@@ -88,7 +88,7 @@ Listado de cosas para hacer
 
 ❌ Agregar tintes para armas
 
-❌ Actualizar evento de navidad y halloween a nuevos items
+🕐 Actualizar evento de navidad y halloween a nuevos items
 
 ✅ Enumerations en inventory type
 
@@ -119,5 +119,7 @@ Listado de cosas para hacer
 ✅ Rehacer Clukin Bell
 
 ✅ Rehacer Stacked Pizza
+
+✅ Comida consumible
 
 ❌ Agregar el poder de remolcar tus propios autos con otro auto
