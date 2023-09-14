@@ -30515,7 +30515,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				}
 			}
 
-			if (PLAYER_TEMP[playerid][py_AIMBOT_COUNT] >= 3)
+			/*if (PLAYER_TEMP[playerid][py_AIMBOT_COUNT] >= 3)
 			{
 				PLAYER_TEMP[playerid][py_AIMBOT_COUNT] = 0;
 
@@ -30525,7 +30525,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				SendDiscordWebhook(str_text, 1);
 				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Sospecha de Aimbot");
 				KickEx(playerid, 500);
-			}
+			}*/
 		}
 	}
 
