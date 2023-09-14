@@ -196,7 +196,6 @@ CheckGraffitiProgress(playerid)
 				new tmp_old = (CREW_INFO[cindex][crew_GRAFFITIS_COUNT] - 1);
 				if (tmp_old < 0) tmp_old = 0;
 
-
 				CREW_INFO[cindex][crew_GRAFFITIS_COUNT] = tmp_old;
 
 				if (CREW_INFO[cindex][crew_VALID])

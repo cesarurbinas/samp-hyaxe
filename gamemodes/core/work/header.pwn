@@ -78,11 +78,15 @@ new work_info[][work_info_info] =
 >>>>>>> refs/rewritten/Fixes
 =======
 	{WORK_TYPE_NORMAL, 1, "futbolista",                      	false, 200, 50, 2000},
+<<<<<<< HEAD
 	{WORK_TYPE_NORMAL, 0, "leñador",						true, 200, 50, 200},
 <<<<<<< HEAD
 	{WORK_TYPE_FAMILY, 0, "The Family Connor",		        	false, 1000, 1, 0}
 >>>>>>> 583efcd (the family connor)
 =======
+=======
+	{WORK_TYPE_NORMAL, 1, "leñador",						true, 200, 50, 200},
+>>>>>>> 9105f1dc (mi)
 	{WORK_TYPE_FAMILY, 0, "The Family Connor",		        	false, 1000, 1, 0},
 <<<<<<< HEAD
 <<<<<<< HEAD

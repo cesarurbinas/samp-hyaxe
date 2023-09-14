@@ -189,7 +189,8 @@ new INVALID_NAMES[][100] =
 	"abuela",
 	"Abuela",
 	"abuelo",
-	"Abuelo"
+	"Abuelo",
+	"Cochito"
 };
 
 new BAN_KEYWORDS[][100] =
@@ -203,7 +204,6 @@ new BAN_KEYWORDS[][100] =
 	"zon3",
 	"z0n3",
 	"linox",
-	"ZONE",
 	"Z0NE",
 	"LINOX",
 	"z.o.n.e",

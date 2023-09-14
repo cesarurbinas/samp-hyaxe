@@ -1,5 +1,5 @@
 // Server
-#define SERVER_HOSTNAME "Hyaxe Role Play [hyaxe.com]"
+#define SERVER_HOSTNAME "Hyaxe Role Play | Reapertura [hyaxe.com]"
 #define SERVER_LANGUAGE "Español / Spanish"
 #define SERVER_MODE "Roleplay"
 
@@ -151,21 +151,22 @@ new const CONNOR_RANKS[][] =
 new const DIVISO_RANKS[][] =
 {
 	"Civil",
-	"Recluta", // $5.000
-	"Vigilante l", // $10.000
-	"Vigilante ll", // $15.000
-	"Vigilante lll", // $20.000
-	"Jefe de vigilantes", // $35.000
-	"Traficantes l", // $40.000 
-	"Traficantes ll", // $45.000
-	"Jefe de traficantes", // $50.000
-	"Sicario l", // $55.000
-	"Sicario ll", // $60.000
-	"Jefe de sicarios", // $65.000
-	"Supervisor de jefes", // $70.000
+	"Recluta en Pruebas",
+	"Recluta",
+	"Traficantes l",
+	"Traficantes ll",
+	"Jefe de traficantes",
+	"Vigilante ll",
+	"Vigilante lll",
+	"Jefe de vigilantes",
+	"Sicario l",
+	"Sicario ll",
+	"Jefe de sicarios",
+	"Supervisor de jefes",
 	"Gerente",
-	"Jefes Bajos", // $80.000
-	"Jefes Altos" // $100.000
+	"Mano Derecha",
+	"Jefe",
+	"Fundador"
 };
 
 new const SINDACCO_RANKS[][] =

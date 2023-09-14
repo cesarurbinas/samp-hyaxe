@@ -2137,7 +2137,7 @@ public KickPlayer(playerid)
 SetPlayerPosEx(playerid, Float:x, Float:y, Float:z, Float:angle, interior, world, freeze = 0, addoffset = 0)
 {
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
-	PLAYER_AC_INFO[playerid][CHEAT_HIGH_POS][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_HIGH_POS][p_ac_info_IMMUNITY] = gettime() + 5;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_UNOCCUPIED_VEHICLE_TP][p_ac_info_IMMUNITY] = gettime() + 5;
 
@@ -4522,8 +4522,8 @@ GivePlayerWeaponEx(playerid, weapon_id, ammo, bool:equip = false, bool:save = fa
 
 	PLAYER_TEMP[playerid][py_AMMO] = PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_AMMO];
 
-	PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY] = gettime() + 3;
-	PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY] = gettime() + 3;
+	PLAYER_AC_INFO[playerid][CHEAT_AMMO][p_ac_info_IMMUNITY] = gettime() + 10;
+	PLAYER_AC_INFO[playerid][CHEAT_WEAPON][p_ac_info_IMMUNITY] = gettime() + 10;
 
 	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_VALID] = true;
 	PLAYER_WEAPONS[playerid][ WEAPON_INFO[weapon_id][weapon_info_SLOT] ][player_weapon_ID] = weapon_id;
@@ -4551,15 +4551,38 @@ ShowPlayerInventory(playerid, pid)
 	new caption[48];
 	format(caption, sizeof caption, ""COL_RED"%s", PLAYER_TEMP[pid][py_RP_NAME]);
 
-	new dialog[364], line_str[128];
+	new dialog[564], line_str[128];
 
 	format(line_str, sizeof line_str, ""COL_WHITE"Dinero: "COL_GREEN"%s$"COL_WHITE"\n", number_format_thousand(CHARACTER_INFO[pid][ch_CASH]));
 	strcat(dialog, line_str);
 
-	if (PLAYER_PHONE[pid][player_phone_VALID])
+	new
+		DBResult:Result,
+		DB_Query[140],
+		type,
+		extra
+	;
+
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PLAYER_INVENTORY` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[pid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
 	{
-		format(line_str, sizeof line_str, "Teléfono: %d"COL_WHITE"\n", PLAYER_PHONE[pid][player_phone_NUMBER]);
-		strcat(dialog, line_str);
+		for(new i; i < db_num_rows(Result); i++ )
+		{
+			type = db_get_field_assoc_int(Result, "TYPE");
+			
+			if (IsWeaponType(type) || IsDrugType(type))
+			{
+				extra = db_get_field_assoc_int(Result, "EXTRA");
+
+				format(line_str, sizeof line_str, "%s: %d\n", ITEM_INFO[type][item_NAME], extra);
+				strcat(dialog, line_str);
+
+			}
+			db_next_row(Result);
+		}
+		db_free_result(Result);
 	}
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
@@ -7697,7 +7720,7 @@ CheckRobActor(playerid)
 			if (ActorTarget != INVALID_ACTOR_ID)
 			{
 				new keys, updown, leftright;
-				new randompay = minrand(30, 300);
+				new randompay = minrand(100, 400);
 
 				GetPlayerKeys(playerid, keys, updown, leftright);
 

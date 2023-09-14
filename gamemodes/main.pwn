@@ -1,11 +1,38 @@
 /*
  *      Hyaxe - San Andreas Multiplayer
- * 		Créditos: Atom
+ * 		Créditos/Autores: Atom, Heix, Wurty, Zeint, Boorz, Vinter
+ *		Ideas: Comunidad de Hyaxe, blade (sacar este ultimo por sobrepeso)
 */
 
+// Compilación
 #pragma option -(+
 #pragma option -;+
-//#pragma option -l
+#pragma option -O1
+
+// Anti-DeAMX creado por Daniel-Cortez
+@___ww___@();
+@___ww___@()
+{
+    #emit    stack    0x7FFFFFFF
+    #emit    inc.s    cellmax
+
+    static const ___[][] = {"haha", "no."};
+
+    #emit    retn
+    #emit    load.s.pri    ___
+    #emit    proc
+    #emit    proc
+    #emit    fill    cellmax
+    #emit    proc
+    #emit    stack    1
+    #emit    stor.alt    ___
+    #emit    strb.i    2
+    #emit    switch    0
+    #emit    retn
+L1:
+    #emit    jump    L1
+    #emit    zero    cellmin
+}
 
 /*
  * Modos de debug:
@@ -15,17 +42,18 @@
 */
 #define DEBUG_MODE 1
 
-#if DEBUG_MODE != 0
+/*#if DEBUG_MODE != 0
 	#pragma option -d3
 #else
 	#pragma option -d0
-#endif
+#endif*/
 
 #pragma warning disable 239
 #pragma warning disable 214
 
-#pragma dynamic 15000
+//#pragma dynamic 15000
 
+// Librerías
 #include <a_samp>
 
 #undef MAX_PLAYERS
@@ -222,6 +250,9 @@
 #include "core/police/callbacks.pwn"
 #include "core/police/functions.pwn"
 #include "core/police/commands.pwn"
+
+// Transitions
+#include "core/transitions/header.pwn"
 
 // Animation preloading
 #include "utils/animations/preload.pwn"

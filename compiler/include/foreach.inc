@@ -189,7 +189,7 @@ Iterators:
 #endif
 #if !defined _FOREACH_NO_TEST
 	#define _FOREACH_INC_TEST
-	//#tryinclude <YSI\y_iterate>
+	#tryinclude <YSI\y_iterate>
 	#undef _FOREACH_INC_TEST
 	// <foreach> exists - test which is newer.
 	#if defined _inc_y_iterate
@@ -1072,7 +1072,7 @@ Notes:
 	Checks if this item is in the iterator.
 \*----------------------------------------------------------------------------*/
 
-stock Iter_ContainsInternal(array[], value, size)
+stock Iter_ContainsInternal(const array[], value, size)
 {
 	return 0 <= value < size && array[value] <= size;
 }

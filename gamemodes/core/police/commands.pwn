@@ -146,7 +146,7 @@ CMD:entregar(playerid, params[])
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
 	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /entregar [ID o nombre] [Minutos]");
-	if (params[1] < 1 || params[1] > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: cantidad de minutos no válida.");
+	if (params[1] < 1 || params[1] > 60) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: cantidad de minutos no válida.");
 
 	if (GetPlayerState(playerid) != PLAYER_STATE_DRIVER) return ShowPlayerMessage(playerid, "~r~Para entregar tienes que estar dentro de un vehículo policial.", 3);
 

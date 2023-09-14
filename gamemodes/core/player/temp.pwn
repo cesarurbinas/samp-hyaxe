@@ -402,9 +402,13 @@ enum Temp_Enum
 =======
 	py_TOTAL_SHOT,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	bool:py_PACIFIC
 >>>>>>> 1480c93 (modo pacifico)
 =======
+=======
+	py_TOTAL_SAVE_SHOT,
+>>>>>>> 9105f1dc (mi)
 	bool:py_PACIFIC,
 	py_TEMP_CP,
 	bool:py_IN_MISSION,

@@ -146,7 +146,7 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = 0;
 	PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = 0;
 	PLAYER_TEMP[playerid][py_CLUB_INDEX] = 0;
-	PLAYER_TEMP[playerid][py_CUTTING] = 0;
+	PLAYER_TEMP[playerid][py_CUTTING] = -1;
 	PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] = 0;
 	PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = -1;
 	PLAYER_TEMP[playerid][py_GODMODE] = false;
@@ -1260,7 +1260,6 @@ public UnjailPlayer(playerid)
 	CHARACTER_INFO[playerid][ch_JAILED_BY] = 0;
 	CHARACTER_INFO[playerid][ch_JAIL_REASON][0] = EOS;
 	
-	//SetWeaponsForPlayer(playerid);
 	SetPlayerArmedWeapon(playerid, 0);
 	TogglePlayerControllableEx(playerid, true);
 
@@ -1283,6 +1282,10 @@ public UnjailPlayer(playerid)
 			break;
 		}
 	}
+
+	PLAYER_TEMP[playerid][py_CUFFED] = false;
+	PLAYER_TEMP[playerid][py_CUFFING] = false;
+	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 
 	ShowPlayerMessage(playerid, "~g~Cumpliste tu condena.", 3);
 	SetPlayerPoliceSearchLevel(playerid, 0);
@@ -3669,7 +3672,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if (PRESSED(KEY_CTRL_BACK))
 	{
 		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+		{
+			SaveActualWeapon(playerid);
 			DropItemSlot(playerid);
+		}
 	}
 
 	if (PRESSED( KEY_HANDBRAKE | KEY_YES ))
@@ -4269,7 +4275,7 @@ public OnPlayerUpdate(playerid)
 	{
 		if (current_gettime > PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY])
 		{
-			if (floatabs(dis) > 43.0 && CHARACTER_INFO[playerid][ch_POS][2] > -97.0)
+			if (floatabs(dis) > 50.0 && CHARACTER_INFO[playerid][ch_POS][2] > -97.0)
 			{
 				if (player_state != PLAYER_STATE_PASSENGER)
 				{
@@ -4529,7 +4535,6 @@ public OnPlayerUpdate(playerid)
     }
 
     CheckRobActor(playerid);
-	//SendClientMessageEx(playerid, -1, "%d", GetPlayerAnimationIndex(playerid));
 	return 1;
 }
 
@@ -5433,6 +5438,14 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 {
 	//SendClientMessage(playerid, -1, "OnPlayerWeaponShot");
 	PLAYER_TEMP[playerid][py_AMMO] --;
+
+	PLAYER_TEMP[playerid][py_TOTAL_SAVE_SHOT] ++;
+	if (PLAYER_TEMP[playerid][py_TOTAL_SAVE_SHOT] >= 20)
+	{
+		PLAYER_TEMP[playerid][py_TOTAL_SAVE_SHOT] = 0;
+		SaveActualWeapon(playerid);
+	}
+	
 	if (PLAYER_TEMP[playerid][py_AMMO] <= 0) PLAYER_TEMP[playerid][py_AMMO] = 0;
 	
 	if (WEAPON_INFO[weaponid][weapon_info_AMMO]) PLAYER_WEAPONS[playerid][ WEAPON_INFO[weaponid][weapon_info_SLOT] ][player_weapon_AMMO] --;

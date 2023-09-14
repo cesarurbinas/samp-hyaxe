@@ -86,21 +86,22 @@ public CancelGraffiti()
 		{
 			if (PLAYER_CREW[x][player_crew_VALID])
 			{
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][0]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][1]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][2]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][3]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][4]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][5]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][6]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][7]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][8]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][9]);
-				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][10]);
-				RemovePlayerMapIcon(x, 0);
 				CREW_INFO[ PLAYER_CREW[x][player_crew_INDEX] ][crew_GRAFFITI_PROGRESS] = 0;
 				CREW_INFO[ PLAYER_CREW[x][player_crew_INDEX] ][crew_IN_GRAFFITI] = false;
 			}
+
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][0]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][1]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][2]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][3]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][4]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][5]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][6]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][7]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][8]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][9]);
+			TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][10]);
+			RemovePlayerMapIcon(x, 0);
 		}
 	}
 	return 1;

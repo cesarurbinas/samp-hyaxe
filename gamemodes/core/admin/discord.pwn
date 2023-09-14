@@ -197,7 +197,7 @@ DC_CMD:unjail(DCC_User:userid, params[], DCC_Message:message)
 	if(!DCC_IsUserModerator(userid)) return SendDiscordMessage(channelid, ":x: No tienes permisos suficientes");
 	
 	new to_player;
-	if (sscanf(params, "u", to_player)) return SendDiscordMessage(channelid, ":warning: `!unjail <player_id>~");
+	if (sscanf(params, "u", to_player)) return SendDiscordMessage(channelid, ":warning: `!unjail <player_id>`");
 	if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
 
 	if (CHARACTER_INFO[to_player][ch_STATE] != ROLEPLAY_STATE_JAIL) return SendDiscordMessage(channelid, ":x: El jugador no está en jail.");
@@ -233,7 +233,7 @@ DC_CMD:sampban(DCC_User:userid, params[], DCC_Message:message)
 	return 1;
 }
 
-DC_CMD:unban(DCC_User:userid, params[], DCC_Message:message)
+DC_CMD:sampunban(DCC_User:userid, params[], DCC_Message:message)
 {
 	new DCC_Channel:channelid;
 	DCC_GetMessageChannel(message, channelid);

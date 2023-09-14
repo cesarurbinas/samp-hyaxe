@@ -85,13 +85,13 @@ OnCheatDetected(playerid, ip_address[], type, code)
 			case 25: Anticheat_Kick(playerid, "Quick turn");
 			case 26: Anticheat_Kick(playerid, "Rapid fire");
 			case 27: Anticheat_Kick(playerid, "FakeSpawn");
-			case 28: Anticheat_Ban(playerid, "FakeKill");
+			case 28: Anticheat_Kick(playerid, "FakeKill");
 			case 29: Anticheat_Kick(playerid, "Pro Aim");
 			case 30: Anticheat_Kick(playerid, "CJ run");
 			case 31: Anticheat_Kick(playerid, "CarShot");
 			case 32: Anticheat_Kick(playerid, "CarJack");
 			case 33: Anticheat_Kick(playerid, "UnFreeze");
-			case 34: Anticheat_Ban(playerid, "AFK Ghost #1");
+			//case 34: Anticheat_Kick(playerid, "AFK Ghost #1");
 			case 35: Anticheat_Kick(playerid, "Full Aiming");
 			case 36: Anticheat_Kick(playerid, "Fake NPC");
 			case 37: Anticheat_Kick(playerid, "Reconnect");
@@ -107,7 +107,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 			case 47: Anticheat_Kick(playerid, "Weapon Crasher");
 			case 48: Anticheat_Kick(playerid, "One Slot");
 			case 49: Anticheat_Kick(playerid, "Flood");
-			case 50: Anticheat_Ban(playerid, "Seat");
+			case 50: Anticheat_Kick(playerid, "Seat");
 			case 51: Anticheat_Kick(playerid, "DoS");
 			case 52: Anticheat_Kick(playerid, "NOPs");
 			default: Anticheat_Kick(playerid, "Cheats");

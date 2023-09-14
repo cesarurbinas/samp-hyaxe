@@ -98,6 +98,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (!strcmp(password, ACCOUNT_INFO[playerid][ac_PASS], false))
 			{
+				SetPlayerScreenColour(playerid, 0x000000FF);
+				FadePlayerScreenColour(playerid, 0x00000000, 3000, 30);
+
 				LoadPlayerMisc(playerid);
 
 				LoadPlayerPhoneData(playerid);

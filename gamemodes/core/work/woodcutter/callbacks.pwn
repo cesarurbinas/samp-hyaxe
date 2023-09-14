@@ -8,7 +8,7 @@ public OnGameModeInit()
 
 	// Información
 	CreateDynamicPickup(1275, 1, -1932.7006, -2454.7651, 30.7005);
-	CreateDynamic3DTextLabel(""COL_RED"Armario del aserradero\n"COL_WHITE"Usa "COL_RED"Y"COL_WHITE" para ponerte en servicio.", 0xFFFFFF00, -1932.7006, -2454.7651, 30.7005, 10.0, .testlos = true);
+	CreateDynamic3DTextLabel(""COL_RED"Armario del aserradero\n"COL_WHITE"Usa "COL_RED"Y"COL_WHITE" para ponerte en servicio.", 0xFFFFFFFF, -1932.7006, -2454.7651, 30.7005, 10.0, .testlos = true);
 
 	// Cinta transportadora
 	CreateDynamicPickup(1318, 1, -1989.2733, -2383.7856, 30.6250);
