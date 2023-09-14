@@ -14,7 +14,7 @@ CMD:comandosadmin(playerid, params[])
 
     new CmdArray:command_arr = PC_GetCommandArray();
     new len = PC_GetArraySize(command_arr);
-    new dialog[1024], line[50];
+    new dialog[700], line[50];
     for(new i = 0; i != len; i++)
     {
         new cmdname[31], flags;
@@ -89,7 +89,7 @@ CMD:jailoff(playerid, params[])
     format(str, 145, "[ADMIN] %s (%d) jaileó offline a %s (%d): %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, name, dbid, reason);
     SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-    new webhook[264];
+    new webhook[145];
 	format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 	SendDiscordWebhook(webhook, 1);
 
@@ -147,7 +147,7 @@ CMD:unjailoff(playerid, params[])
     format(str, 145, "[ADMIN] %s (%d) unjaileó offline a %s (%d).", ACCOUNT_INFO[playerid][ac_NAME], playerid, name, dbid);
     SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-    new webhook[264];
+    new webhook[145];
 	format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 	SendDiscordWebhook(webhook, 1);
 
@@ -270,8 +270,8 @@ alias:aka("cuentas")
 
 CMD:adv(playerid, params[])
 {
-	new to_player, reason[128];
-	if (sscanf(params, "us[128]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /adv <player_id> <razon>");
+	new to_player, reason[64];
+	if (sscanf(params, "us[64]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /adv <player_id> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
 
@@ -296,8 +296,8 @@ CMD:kick(playerid, params[])
 {
 	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
-	new to_player, reason[128];
-	if (sscanf(params, "us[128]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /kick <player_id> <razon>");
+	new to_player, reason[64];
+	if (sscanf(params, "us[64]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /kick <player_id> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
 
@@ -334,7 +334,7 @@ CMD:spec(playerid, params[])
 		new Float:p[4];
 		GetPlayerPos(playerid, p[0], p[1], p[2]);
 		GetPlayerFacingAngle(playerid, p[3]);
-		SetSpawnInfo(playerid, NO_TEAM, GetPlayerSkin(playerid), p[0], p[1], p[2], p[3], 0, 0, 0, 0, 0, 0);
+		SetSpawnInfo(playerid, DEFAULT_TEAM, GetPlayerSkin(playerid), p[0], p[1], p[2], p[3], 0, 0, 0, 0, 0, 0);
 		PLAYER_TEMP[playerid][py_SKIN] = GetPlayerSkin(playerid);
 		CHARACTER_INFO[playerid][ch_INTERIOR] = GetPlayerInterior(playerid);
 		PLAYER_TEMP[playerid][py_VIRTUAL_WORLD] = GetPlayerVirtualWorld(playerid);
@@ -641,7 +641,7 @@ CMD:unban(playerid, params[])
 		new str[145]; format(str, 145, "[ADMIN] %s (%d) ha desbaneado a '%s'.", ACCOUNT_INFO[playerid][ac_NAME], playerid, name);
 		SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-		new webhook[264]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+		new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 	}
 	else SendClientMessageEx(playerid, COLOR_WHITE, "El nombre '%s' no está en la lista de baneados.", name);
@@ -652,8 +652,8 @@ CMD:unban(playerid, params[])
 
 CMD:jail(playerid, params[])
 {
-    new to_player, reason[128], time;
-    if (sscanf(params, "uds[128]", to_player, time, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /jail <player_id> <minutos> <razón>");
+    new to_player, reason[64], time;
+    if (sscanf(params, "uds[64]", to_player, time, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /jail <player_id> <minutos> <razón>");
 	if (time < 0 || time > 1440) return SendClientMessage(playerid, COLOR_WHITE, "Intervalo de minutos incorrecto.");
     if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
     if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
@@ -689,7 +689,7 @@ CMD:jail(playerid, params[])
     format(str, 145, "[ADMIN] %s (%d) jaileó a %s (%d) por %s minutos: %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, TimeConvert(time * 60), reason);
     SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-    new webhook[264]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+    new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 	SendDiscordWebhook(webhook, 1);
 
     new dialog[250];
@@ -702,8 +702,8 @@ CMD:ban(playerid, params[])
 {
 	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
-	new to_player, reason[128];
-	if (sscanf(params, "us[128]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ban <player_id> <razon>");
+	new to_player, reason[32];
+	if (sscanf(params, "us[32]", to_player, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ban <player_id> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
 
@@ -725,7 +725,7 @@ CMD:ban(playerid, params[])
 	format(str, 145, "[ADMIN] %s (%d) baneó a %s (%d): %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
 	SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-	new webhook[264]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+	new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 	SendDiscordWebhook(webhook, 1);
 
 	new serial[41];
@@ -750,8 +750,8 @@ CMD:tban(playerid, params[])
 {
 	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
-	new to_player, days, reason[128];
-	if (sscanf(params, "uds[128]", to_player, days, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tban <player_id> <dias> <razon>");
+	new to_player, days, reason[32];
+	if (sscanf(params, "uds[32]", to_player, days, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /tban <player_id> <dias> <razon>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL]) return SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
 	if (days <= 0 || days > 9999) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /ban <player_id> <dias> <razon>");
@@ -773,7 +773,7 @@ CMD:tban(playerid, params[])
 	new str[145]; format(str, 145, "[ADMIN] %s (%d) baneó %d días a %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, days, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
 	SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-	new webhook[264]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+	new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 	SendDiscordWebhook(webhook, 1);
 
 	new serial[41];
@@ -789,8 +789,8 @@ CMD:dban(playerid, params[])
 {
 	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
-	new reason[128], to_account;
-	if (sscanf(params, "ds[128]", to_account, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dban <DB-ID> <razon>");
+	new reason[32], to_account;
+	if (sscanf(params, "ds[32]", to_account, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dban <DB-ID> <razon>");
 
 	new DBResult:Result, DB_Query[160];
 	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `IP`, `NAME`, `CONNECTED`, `PLAYERID`, `ADMIN_LEVEL` FROM `CUENTA` WHERE `ID` = '%d';", to_account);
@@ -832,7 +832,7 @@ CMD:dban(playerid, params[])
 					new str[145]; format(str, 145, "[ADMIN] %s (%d) baneó a %s (offline, db_id: %d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, get_name, id, reason);
 					SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-					new webhook[264]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+					new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 					SendDiscordWebhook(webhook, 1);
 				}
 
@@ -852,8 +852,8 @@ CMD:dtban(playerid, params[])
 {
 	if ((gettime() - PLAYER_TEMP[playerid][py_ADMIN_DELAY]) < 30) return SendClientMessage(playerid, COLOR_WHITE, "Tienes que esperar 30 segundos para usar un comando de este tipo.");
 
-	new reason[128], to_account, days;
-	if (sscanf(params, "dds[128]", to_account, days, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dtban <DB-ID> <dias> <razon>");
+	new reason[32], to_account, days;
+	if (sscanf(params, "dds[32]", to_account, days, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dtban <DB-ID> <dias> <razon>");
 	if (days <= 0 || days > 9999) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /dtban <DB-ID> <dias> <razon>");
 
 	new DBResult:Result, DB_Query[160];
@@ -896,7 +896,7 @@ CMD:dtban(playerid, params[])
 					new str[145]; format(str, 145, "[ADMIN] %s (%d) baneó %d días a %s (offline, db_id: %d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, days, get_name, id, reason);
 					SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-					new webhook[264]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+					new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 					SendDiscordWebhook(webhook, 1);
 				}
 
@@ -966,43 +966,6 @@ CMD:atenderre(playerid, params[])
 	SendClientMessageEx(to_player, COLOR_WHITE, "{5CCE3D}>"COL_WHITE" Un moderador esta atendiendo tu reporte.");
 
 	SendCmdLogToAdmins(playerid, "atenderre", params);
-	return 1;
-}
-
-CMD:deletead(playerid, params[])
-{
-	new ad_id;
-	if (sscanf(params, "d", ad_id)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /deletead <ID>");
-
-	new DBResult:Result, DB_Query[160];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `SHOP` WHERE `ID` = '%d';", ad_id);
-	Result = db_query(Database, DB_Query);
-
-	if (db_num_rows(Result))
-	{
-		format(DB_Query, sizeof DB_Query, "DELETE FROM `SHOP` WHERE `ID` = '%d';", ad_id);
-		db_free_result(db_query(Database, DB_Query));
-
-		SendClientMessageEx(playerid, COLOR_WHITE, "Anuncio '%d' eliminado.", ad_id);
-		SendCmdLogToAdmins(playerid, "deletead", params);
-	}
-	else SendClientMessage(playerid, COLOR_WHITE, "No se encontro la ID de ese anuncio.");
-	db_free_result(Result);
-
-	return 1;
-}
-alias:deletead("borrarad")
-
-CMD:settime(playerid, params[])
-{
-	new hour, minute;
-	if (sscanf(params, "dd", hour, minute)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /settime <hora> <minuto>");
-	SERVER_TIME[0] = hour;
-	SERVER_TIME[1] = minute;
-
-	SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
-
-	SendCmdLogToAdmins(playerid, "settime", params);
 	return 1;
 }
 
@@ -2585,6 +2548,7 @@ CMD:rev(playerid, params[])
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /rev <playerid>");
 
+	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (CHARACTER_INFO[to_player][ch_STATE] != ROLEPLAY_STATE_CRACK) return SendClientMessage(playerid, COLOR_WHITE, "Esta persona no está herida.");
 
 	CHARACTER_INFO[to_player][ch_STATE] = ROLEPLAY_STATE_NORMAL;
@@ -2608,8 +2572,8 @@ CMD:ufo(playerid, params[])
 
 CMD:muteard(playerid, params[])
 {
-	new to_player, reason[128], time;
-	if (sscanf(params, "uds[128]", to_player, time, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /muteard <player_id> <minutos> <razón>");
+	new to_player, reason[32], time;
+	if (sscanf(params, "uds[32]", to_player, time, reason)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /muteard <player_id> <minutos> <razón>");
 	if (time > 65535 || -1 >= time) return SendClientMessage(playerid, COLOR_WHITE, "Intervalo de minutos incorrecto. (0 - 65535)");
 	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
 	if (PLAYER_MISC[to_player][MISC_MUTE] > gettime()) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) ya esta muteado", to_player);
@@ -2812,7 +2776,7 @@ CMD:destroypveh(playerid, params[])
     format(str, 145, "[ADMIN] %s (%d) eliminó la %s (NP %s) de %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], GLOBAL_VEHICLES[vehicleid][gb_vehicle_NUMBER_PLATE], ACCOUNT_INFO[ownerid][ac_NAME]);
     SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-    new webhook[264];
+    new webhook[145];
 	format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 	SendDiscordWebhook(webhook, 1);
 
@@ -2852,7 +2816,11 @@ CMD:godmode(playerid, params[])
 		TextDrawShowForPlayer(playerid, Textdraws[textdraw_GODMODE][0]);
 		TextDrawShowForPlayer(playerid, Textdraws[textdraw_GODMODE][1]);
 		PLAYER_TEMP[playerid][py_GODMODE] = true;
-		SetPlayerHealthEx(playerid, Float:0x7F800000);
+
+		PLAYER_AC_INFO[playerid][CHEAT_PLAYER_HEALTH][p_ac_info_IMMUNITY] = gettime() + 3;
+
+		CHARACTER_INFO[playerid][ch_HEALTH] = cellmax;
+		Player_SetHealth(playerid, cellmax);
 	}
 	else
 	{

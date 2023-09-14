@@ -8,6 +8,13 @@ new NAME_WHITELIST[][24] =
 	"Oleksandr_Volkov"
 };
 
+new g_iPlayerLastUpdate[MAX_PLAYERS];
+
+IsPlayerPaused(playerid)
+{
+	return (GetTickCount() - g_iPlayerLastUpdate[playerid] > 2000);
+}
+
 IsPlayerInWater(playerid)
 {
 	new lib[16], anims[32];
@@ -29,13 +36,13 @@ RandomFishName()
 
 	switch(index)
 	{
-		case 0: name = "un ~y~SalmÃ³n";
+		case 0: name = "un ~y~Salmón";
 		case 1: name = "un ~y~Bacalao"; 
 		case 2: name = "una ~y~Merluza"; 
 		case 3: name = "un ~y~Rape";
 		case 4: name = "una ~y~Anchoa"; 
 		case 5: name = "una ~y~Sardina"; 
-		case 6: name = "un ~y~AtÃºn";
+		case 6: name = "un ~y~Atún";
 		case 7: name = "una ~y~Trucha"; 
 		case 8: name = "un ~y~Besugo";
 		case 9: name = "una ~y~Dorada"; 
@@ -127,7 +134,7 @@ public StartFishing(playerid)
 	new colors[] = {0xe73939FF, 0x6ed854FF, 0xe3e145FF, 0x20aee7FF};
 	new color = minrand(0, sizeof(colors));
 
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2], TextToSpanish("Pulsa ESPACIO rÃ¡pidamente"));
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2], TextToSpanish("Pulsa ESPACIO rápidamente"));
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2]);
 
 	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][3], AdjustDarkness(colors[color], 1.75));
@@ -236,7 +243,7 @@ CheckProxy(playerid)
         if (!strcmp(PLAYER_TEMP[playerid][py_NAME], NAME_WHITELIST[i], true)) return 0;
     }
 
-	new str_text[128];
+	new str_text[50];
 	format(str_text, sizeof(str_text), "51.161.31.157:9991/proxycheck/%s", PLAYER_TEMP[playerid][py_IP]);
 	HTTP(playerid, HTTP_GET, str_text, "", "OnPlayerProxyFound");
 	return 1;

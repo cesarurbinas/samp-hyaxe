@@ -13,7 +13,6 @@ forward OnDownloadResponse(playerid, response_code, data[]);
 
 public OnYouTubeQueryResponse(playerid, response_code, data[])
 {
-	printf("OnYouTubeQueryResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
 	if (!PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return 1;
 
 <<<<<<< HEAD
@@ -79,7 +78,7 @@ public OnDownloadResponse(playerid, response_code, data[])
 		{
 			case 403: return ShowPlayerMessage(playerid, "~r~No pudimos reproducir esta canción", 4);
 			case 429, 500: return ShowPlayerNotification(playerid, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.", 6);
-			default: return 0;
+			default: return ShowPlayerMessage(playerid, "~r~Hubo un error intentando buscar el contenido, intenta nuevamente en un minuto.", 4);
 		}
 	}
 

@@ -4,12 +4,12 @@ GetItemNameByType(type)
 
 	switch(type)
 	{
-		case 0: name = "BotiquÃ­n";
+		case 0: name = "Botiquí­n";
 		case 1: name = "Medicamento";
 		case 2: name = "Venda";
 		case 3: name = "Marihuana";
 		case 4: name = "Crack";
-		case 5: name = "BidÃ³n de gasolina";
+		case 5: name = "Bidón de gasolina";
 		case 6: name = "Semillas de aloe vera";
 		case 7: name = "Semillas de marihuana";
 		case 8: name = "Semillas de coca";
@@ -36,12 +36,12 @@ GetItemNameByType(type)
 		case 32: name = "Tec-9";
 		case 33: name = "Rifle";
 		case 41: name = "Bote de spray";
-		case 43: name = "CÃ¡mara";
-		case 46: name = "ParacaÃ­das";
+		case 43: name = "Cámara";
+		case 46: name = "Paracaí­das";
 		case 50: name = "Celular";
-		case 51: name = "CaÃ±a de pescar";
+		case 51: name = "Caña de pescar";
 		case 52: name = "Mazo";
-		case 53: name = "Kit de reparaciÃ³n";
+		case 53: name = "Kit de reparación";
 		case 54: name = "Porro";
 	}
 	return name;

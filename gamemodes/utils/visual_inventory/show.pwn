@@ -1,5 +1,12 @@
+new
+	g_iInvLastTick[MAX_PLAYERS];
+
 ShowInventory(playerid)
 {
+	new ms = (130 + GetPlayerPing(playerid));
+
+	g_iInvLastTick[playerid] = GetTickCount() + ms;
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 	HidePhone(playerid);
@@ -350,7 +357,7 @@ ShowSecondaryInventory(playerid)
 	inv_AccommodateItems(playerid);
 
 	new 
-		str_text[128],
+		str_text[64],
 		Float:size_items = 310.000000;
 		
 	format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
@@ -442,7 +449,7 @@ ShowHelpMenu(playerid)
 	/* Header */
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Hyaxe");
 	/* Body */
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgi√≥ en 2018, pero no fue hasta mediados de 2019 que comenz√≥ a desarrollarse, con tiempos m√°s activos y otros no tanto, pas√≥ por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opci√≥n porque la encontramos m√°s rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el n√∫mero de miembros del equipo."));
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgiÛ en 2018, pero no fue hasta mediados de 2019 que comenzÛ a desarrollarse, con tiempos m·s activos y otros no tanto, pasÛ por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opciÛn porque la encontramos m·s rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el n˙mero de miembros del equipo."));
 
 	SelectTextDrawEx(playerid, COLOR_RED);
 	return 1;
@@ -500,7 +507,7 @@ ShowCrew(playerid)
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48]);
 
 
-	new str_text[664], rank_str[664];
+	new str_text[500], rank_str[664];
 
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][18], TextToSpanish(CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]));
 	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV_CREW][18], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);

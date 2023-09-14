@@ -16,7 +16,7 @@ EditingMode(playerid, objectid)
 	SetPlayerCameraLookAt(playerid, pos[0], pos[1], pos[2]);
 
 	Streamer_Update(playerid);
-	ShowPlayerMessage(playerid, "Modo de edici贸n: ~r~Posici贸n", 3600);
+	ShowPlayerMessage(playerid, "Modo de edici髇: ~r~Posici髇", 3600);
 	return 1;
 }
 
@@ -24,8 +24,8 @@ SetEditModeType(playerid, type = 0)
 {
 	PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] = type;
 	
-	if (type == 0) ShowPlayerMessage(playerid, "Modo de edici贸n: ~r~Posici贸n", 3600);
-	else ShowPlayerMessage(playerid, "Modo de edici贸n: ~r~Rotaci贸n", 3600);
+	if (type == 0) ShowPlayerMessage(playerid, "Modo de edici髇: ~r~Posici髇", 3600);
+	else ShowPlayerMessage(playerid, "Modo de edici髇: ~r~Rotaci髇", 3600);
 
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 	return 1;
@@ -39,7 +39,7 @@ CancelEditingMode(playerid)
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP]) SetFirstPerson(playerid, true);
 	else SetCameraBehindPlayer(playerid);
 
-	ShowPlayerNotification(playerid, "Has salido del modo de edici贸n.", 3);
+	ShowPlayerNotification(playerid, "Has salido del modo de edici髇.", 3);
 	ShowPlayerMessage(playerid, "_", 1);
 
 	UpdatePropertyObject(PLAYER_TEMP[playerid][py_FURNITURE_SELECTED], PLAYER_TEMP[playerid][py_EDITING_OBJ]);

@@ -152,7 +152,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	if (PLAYER_PHONE[playerid][player_phone_VALID])
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 50;
@@ -165,7 +165,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		if (!PLAYER_WEAPONS[playerid][i][player_weapon_VALID]) continue;
 
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = WeaponToType(PLAYER_WEAPONS[playerid][i][player_weapon_ID]);
@@ -180,7 +180,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		for(new i; i != PLAYER_MISC[playerid][MISC_BOTIKIN]; i ++)
 		{
 			free_slot = inv_GetFreeSlot(playerid);
-			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 0;
@@ -194,7 +194,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		for(new i; i != PLAYER_MISC[playerid][MISC_FIXKIT]; i ++)
 		{
 			free_slot = inv_GetFreeSlot(playerid);
-			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 53;
@@ -206,7 +206,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	if (PLAYER_MISC[playerid][MISC_MEDICINE] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 1;
@@ -217,7 +217,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	if (PLAYER_MISC[playerid][MISC_VENDAS] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 2;
@@ -228,7 +228,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	if (PLAYER_MISC[playerid][MISC_CANNABIS] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 3;
@@ -239,7 +239,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	if (PLAYER_MISC[playerid][MISC_CRACK] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 4;
@@ -252,7 +252,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		for(new i; i != PLAYER_MISC[playerid][MISC_JOINT]; i ++)
 		{
 			free_slot = inv_GetFreeSlot(playerid);
-			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 54;
@@ -264,7 +264,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	if (PLAYER_MISC[playerid][MISC_FUEL_DRUM] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 5;
@@ -277,7 +277,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		for(new i; i != PLAYER_MISC[playerid][MISC_ROD]; i ++)
 		{
 			free_slot = inv_GetFreeSlot(playerid);
-			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 51;
@@ -291,7 +291,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 		for(new i; i != PLAYER_MISC[playerid][MISC_MALLET]; i ++)
 		{
 			free_slot = inv_GetFreeSlot(playerid);
-			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 			PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 			PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 52;
@@ -303,7 +303,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	if (PLAYER_MISC[playerid][MISC_SEED_MEDICINE] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 6;
@@ -314,7 +314,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	if (PLAYER_MISC[playerid][MISC_SEED_CANNABIS] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 7;
@@ -325,7 +325,7 @@ inv_AccommodateItems(playerid, bool:is_visual = true)
 	if (PLAYER_MISC[playerid][MISC_SEED_CRACK] > 0)
 	{
 		free_slot = inv_GetFreeSlot(playerid);
-		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrÃ¡s usar algunos items.", 3);
+		if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
 
 		PLAYER_VISUAL_INV[playerid][slot_VALID][free_slot] = true;
 		PLAYER_VISUAL_INV[playerid][slot_TYPE][free_slot] = 8;

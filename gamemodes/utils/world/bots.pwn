@@ -519,10 +519,10 @@ new fake_doubt[][] =
     "En el foro abro como nuevo mensaje, encuesta o notificar ?",
     "Si una persona viene y me mata de la nasa solo por ser de otra banda es dm?",
     "Como veo la informacion de un objeto?",
-    "Alguien sabe porque me aparece que Ã©l usuario no existe cuando intentÃ³ entrar en Ã©l foro?",
+    "Alguien sabe porque me aparece que él usuario no existe cuando intentó entrar en él foro?",
     "Si compre una casa y no juego hace un buen tiempo sigo teniendo la casa?",
-    "Como cambio mi contraseÃ±a?",
-    "Hay algÃºn mÃ©todo para cambiar mi procedencia IC?",
+    "Como cambio mi contraseña?",
+    "Hay algún método para cambiar mi procedencia IC?",
     "Los sapd pueden dejar armas al morir?",
     "hola?",
     "un admin",
@@ -757,7 +757,7 @@ SetBotInit(playerid)
 	SetPlayerArmourEx(playerid, 0.0);
 
 	SetPlayerVirtualWorld(playerid, 0);
-	SetSpawnInfo(playerid, NO_TEAM, minrand(1, 73), 76.632553, -301.156829, 1.578125, 0.0, 0, 0, 0, 0, 0, 0);
+	SetSpawnInfo(playerid, DEFAULT_TEAM, minrand(1, 73), 76.632553, -301.156829, 1.578125, 0.0, 0, 0, 0, 0, 0, 0);
 	SetPlayerInterior(playerid, 0);
 
 	TogglePlayerSpectatingEx(playerid, false);

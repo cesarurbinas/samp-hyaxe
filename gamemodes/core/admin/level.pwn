@@ -19,6 +19,7 @@ enum
 	CMD_ADMIN,
 	CMD_OWNER
 };
+
 new ADMIN_LEVELS[][] =
 {
 	"Jugador",

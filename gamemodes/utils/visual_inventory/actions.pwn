@@ -110,7 +110,7 @@ UseItemSlot(playerid)
 				PLAYER_TEMP[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][py_TIMERS][16] = SetTimerEx("StandUpBotikin", 5000, false, "ii", playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
 
 				ApplyAnimation(playerid, "MEDIC", "CPR", 4.1, false, 0, 0, 0, 0, 1);
-				SetPlayerChatBubble(playerid, "\n\n\n\n* Usa un botiquÃ­n.", 0xffcb90FF, 20.0, 2000);
+				SetPlayerChatBubble(playerid, "\n\n\n\n* Usa un botiquí­n.", 0xffcb90FF, 20.0, 2000);
 			}
 			return 1;
 		}
@@ -184,14 +184,14 @@ UseItemSlot(playerid)
 
 		case 5:
 		{
-			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del vehÃ­culo para vertir el bidÃ³n.", 3);
+			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerNotification(playerid, "Tienes que estar fuera del vehí­culo para vertir el bidón.", 3);
 
 			new vehicleid = GetPlayerCameraTargetVehicle(playerid);
-			if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No estÃ¡s cerca de ningÃºn vehÃ­culo.", 3);
+			if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerNotification(playerid, "No estás cerca de ningún vehí­culo.", 3);
 
 			if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE])
 			{
-				ShowPlayerNotification(playerid, "Por favor, para primero el motor del vehÃ­culo.", 3);
+				ShowPlayerNotification(playerid, "Por favor, para primero el motor del vehí­culo.", 3);
 				return 1;
 			}
 
@@ -254,7 +254,7 @@ UseItemSlot(playerid)
 
 		case 53:
 		{
-			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estÃ¡s depie.", 3);
+			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 			{
 				if (PLAYER_TEMP[playerid][py_FIX_VALUE] > 0) return ShowPlayerNotification(playerid, "Espere hasta terminar.", 4);
 
@@ -267,7 +267,7 @@ UseItemSlot(playerid)
 					GetVehiclePos(vehicleid, pos[0], pos[1], pos[2]);
 					if (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) < 10.0)
 					{
-						if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_OCCUPIED]) return ShowPlayerNotification(playerid, "~r~El vehÃ­culo estÃ¡ ocupado.", 4);
+						if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_OCCUPIED]) return ShowPlayerNotification(playerid, "~r~El vehí­culo está ocupado.", 4);
 
 						if (PLAYER_MISC[playerid][MISC_FIXKIT])
 						{

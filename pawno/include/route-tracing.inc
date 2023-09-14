@@ -24,13 +24,15 @@ enum player_gps
 	gps_timer
 }
 new GPS_PLAYER[MAX_PLAYERS][player_gps];
-new PLAYER_GANGZONES[MAX_PLAYERS][50];
+new PLAYER_GANGZONES[MAX_PLAYERS + 1][50];
 
 /* Tracing */
 stock StartTracing(playerid, Float:x, Float:y, Float:z)
 {
 	CancelTracing(playerid);
+
 	GPS_PLAYER[playerid][gps_activated] = true;
+
 	GPS_PLAYER[playerid][gps_timer] = SetTimerEx("UpdatePlayerTracing", 2000, true, "ifff", playerid, x, y, z);
 	return 1;
 }
@@ -185,7 +187,12 @@ public OnRouteCalculated(Path:pathid, playerid)
 public OnGameModeInit()
 {
 	printf("[-] route-tracing v"ROUTE_TRACING_VERSION" by Atom initialized successfully [-]");
-	
+
+	for (new i = (sizeof(PLAYER_GANGZONES[]) - 1); i != -1; --i)
+	{
+		PLAYER_GANGZONES[MAX_PLAYERS][i] = -1;
+	}
+
 	#if defined OT_OnGameModeInit
 		return OT_OnGameModeInit();
 	#else
@@ -206,6 +213,7 @@ public OnGameModeInit()
 public OnPlayerConnect(playerid)
 {
 	GPS_PLAYER[playerid][gps_color] = 0x9C0DE6FF;
+	PLAYER_GANGZONES[playerid] = PLAYER_GANGZONES[MAX_PLAYERS];
 
 	#if defined RT_OnPlayerConnect
 		return RT_OnPlayerConnect(playerid);
