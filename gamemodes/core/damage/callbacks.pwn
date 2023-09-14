@@ -210,24 +210,24 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 				{
 					new current_gettime = gettime();
 
-					if (current_gettime - PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] > 30) PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] = 0;
-					else PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] ++;
+					if (current_gettime - PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] > 30) PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] = 0;
+					else PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] ++;
 
-					PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] = current_gettime;
-					if (PLAYER_AC_INFO[playerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] >= 5)
+					PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] = current_gettime;
+					if (PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] >= 5)
 					{
 						new dialog[250];
 						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Aimbot");
-						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+						ShowPlayerDialog(issuerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
 						
-						AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Aimbot");
+						AddPlayerBan(ACCOUNT_INFO[issuerid][ac_ID], ACCOUNT_INFO[issuerid][ac_NAME], ACCOUNT_INFO[issuerid][ac_IP], 11, TYPE_BAN, "Aimbot");
 
-						KickEx(playerid, 500);
-						PLAYER_MISC[playerid][MISC_BANS] ++;
-						SavePlayerMisc(playerid);
+						KickEx(issuerid, 500);
+						PLAYER_MISC[issuerid][MISC_BANS] ++;
+						SavePlayerMisc(issuerid);
 
 						new str[144];
-						format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Aimbot.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+						format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Aimbot.", ACCOUNT_INFO[issuerid][ac_NAME], issuerid);
 						SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 						new webhook[144];

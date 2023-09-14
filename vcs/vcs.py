@@ -45,7 +45,14 @@ def update_credit(key, identificator, credit):
 def give_credit(key, identificator, credit):
 	if key == auth_key:
 		try:
-			f = open(f'data/{identificator}', 'r')
+			try:
+				f = open(f'data/{identificator}', 'r')
+
+			except Exception as e:
+				update_credit(auth_key, identificator, '0')
+				f = open(f'data/{identificator}', 'r')
+				pass
+			
 			actual_credit = int(f.read())
 			positive_credit = int(credit)
 

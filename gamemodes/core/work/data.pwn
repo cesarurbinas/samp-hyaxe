@@ -30,8 +30,13 @@ enum
 =======
 	WORK_SOCCER,
 	WORK_WOODCUTTER,
+<<<<<<< HEAD
 	WORK_CONNOR
 >>>>>>> 583efcd (the family connor)
+=======
+	WORK_CONNOR,
+	WORK_DIVISO
+>>>>>>> b35a666 (arreglos en el anti aimbot)
 };
 enum work_info_info
 {
@@ -69,8 +74,13 @@ new work_info[][work_info_info] =
 =======
 	{WORK_TYPE_NORMAL, 1, "futbolista",                      	false, 200, 50, 2000},
 	{WORK_TYPE_NORMAL, 0, "leñador",						true, 200, 50, 200},
+<<<<<<< HEAD
 	{WORK_TYPE_FAMILY, 0, "The Family Connor",		        	false, 1000, 1, 0}
 >>>>>>> 583efcd (the family connor)
+=======
+	{WORK_TYPE_FAMILY, 0, "The Family Connor",		        	false, 1000, 1, 0},
+	{WORK_TYPE_FAMILY, 0, "Diviso Per Tutti",		        	false, 1000, 1, 0}
+>>>>>>> b35a666 (arreglos en el anti aimbot)
 };
 
 new PLAYER_WORKS[MAX_PLAYERS][sizeof(work_info)];
@@ -114,6 +124,11 @@ new Float:obtain_work_coords[][obtain_work_coords_info] =
 =======
 	{2677.120361, -1736.224243, 424.386718, 0, false, 0, 2781.461181, -1813.566162, 11.843750}, //futbolista
 	{-1931.8711, -2448.0129, 30.6250, 0, true, 61, -1931.8711, -2448.0129, 30.6250}, // leñador
+<<<<<<< HEAD
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755} //connor
 >>>>>>> 583efcd (the family connor)
+=======
+	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //connor
+	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755} //diviso
+>>>>>>> b35a666 (arreglos en el anti aimbot)
 };

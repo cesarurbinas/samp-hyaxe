@@ -148,6 +148,26 @@ new const CONNOR_RANKS[][] =
 	"The Real Connor"
 };
 
+new const DIVISO_RANKS[][] =
+{
+	"Civil",
+	"Recluta", // $5.000
+	"Vigilante l", // $10.000
+	"Vigilante ll", // $15.000
+	"Vigilante lll", // $20.000
+	"Jefe de vigilantes", // $35.000
+	"Traficantes l", // $40.000 
+	"Traficantes ll", // $45.000
+	"Jefe de traficantes", // $50.000
+	"Sicario l", // $55.000
+	"Sicario ll", // $60.000
+	"Jefe de sicarios", // $65.000
+	"Supervisor de jefes", // $70.000
+	"Gerente",
+	"Jefes Bajos", // $80.000
+	"Jefes Altos" // $100.000
+};
+
 TextToSpanish(const base[])
 {
 	new result[1024];

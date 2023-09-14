@@ -328,9 +328,14 @@ enum
 =======
 	DIALOG_CONNOR_MAFIA_MODIFY,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	DIALOG_CLUB_SELL
 >>>>>>> 9cb7ac2 (arreglos en el /r)
 =======
+=======
+	DIALOG_DIVISO_MAFIA_LIST,
+	DIALOG_DIVISO_MAFIA_MODIFY,
+>>>>>>> b35a666 (arreglos en el anti aimbot)
 	DIALOG_CLUB_SELL,
 	DIALOG_STORE
 >>>>>>> 6a4c3ab (store module)

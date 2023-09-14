@@ -104,7 +104,7 @@ Menu:DEALER_MENU(playerid, response, listitem)
 				ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.0, 1, 1, 1, 0, 0);
 				ApplyDynamicActorAnimation(DEALER_INFO[dealer][dl_ACTOR], "DEALER", "DEALER_DEAL", 4.0, 1, 1, 1, 0, 0);
 
-				SetTimerEx("TerminateDealingScene", 5000, false, "ii", playerid, DEALER_INFO[dealer][dl_ACTOR]);
+				SetTimerEx("TerminateDealingScene", 4000, false, "ii", playerid, DEALER_INFO[dealer][dl_ACTOR]);
 
 				SetPlayerRangePoliceSearchLevel(playerid, 1, 100.0, "Compra de drogas");
     		}

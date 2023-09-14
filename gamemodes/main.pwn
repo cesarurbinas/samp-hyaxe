@@ -1054,6 +1054,23 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_CONNOR, 0, 560, 408.0043, -984.2449, 92.0664, 183.6360, 0, 1, 0}, 
 	{VEHICLE_TYPE_WORK, WORK_CONNOR, 0, 487, 447.9253, -960.5263, 88.7503, 166.9194, 0, 1, 0}, 
 	{VEHICLE_TYPE_WORK, WORK_CONNOR, 0, 487, 423.1604, -954.4913, 88.7512, 165.3443, 0, 1, 0},
+	//diviso
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 487, 1186.8962, -2012.3369, 77.6798, 178.0000, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 487, 1186.6643, -2058.3447, 77.6798, 0.0000, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1250.0845, -2011.8575, 59.3228, 178.4079, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1245.4482, -2011.6694, 59.3228, 178.4079, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1255.7230, -2012.4436, 59.3228, 178.4079, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1259.9800, -2012.1954, 59.3228, 178.4079, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1265.3773, -2012.0748, 59.3228, 178.4079, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.1433, -2038.8334, 59.3228, 85.7791, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1270.4635, -2012.0087, 59.3228, 178.4079, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.7798, -2018.3516, 59.3228, 85.7791, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.4720, -2023.0597, 59.3228, 85.7791, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.3765, -2027.1842, 59.3228, 85.7791, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 470, 1275.4176, -2033.6124, 59.3228, 85.7791, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 458, 1253.3151, -2041.1340, 59.3983, 0.0000, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 458, 1249.9777, -2041.2307, 59.8012, 0.0000, 0, 145, 145},
+	{VEHICLE_TYPE_WORK, WORK_DIVISO, 0, 458, 1245.8676, -2041.3871, 59.6971, 0.0000, 0, 145, 145},
 	// medico
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1178.3592, -1307.1132, 13.9921, 269.3424, 1, 198, 0}, //Ambulance
 	{VEHICLE_TYPE_WORK, WORK_MEDIC, 0, 416, 1177.1497, -1340.5240, 14.0583, 267.7389, 1, 198, 0}, //Ambulance
@@ -1646,7 +1663,9 @@ new MAFIA_DOORS[][enum_MAFIA_DOORS] =
 	{19861, 424.916656, -1002.162231, 94.364418, 57.199977, 0, 0, true, DOOR_TYPE_MAFIA, WORK_CONNOR, INVALID_STREAMER_ID, -1},
 	{974, 431.325744, -1005.314697, 90.215568, 2.699999, 0, 0, true, DOOR_TYPE_MAFIA, WORK_CONNOR, INVALID_STREAMER_ID, -1},
 	{19912, 398.769317, -1005.721862, 94.109245, 181.399993, 0, 0, true, DOOR_TYPE_MAFIA, WORK_CONNOR, INVALID_STREAMER_ID, -1},
-	{1495, 427.982513, -998.614196, 91.848510, 1.399999, 0, 0, true, DOOR_TYPE_MAFIA, WORK_CONNOR, INVALID_STREAMER_ID, -1}
+	{1495, 427.982513, -998.614196, 91.848510, 1.399999, 0, 0, true, DOOR_TYPE_MAFIA, WORK_CONNOR, INVALID_STREAMER_ID, -1},
+	// Diviso Per Tutti
+	{19313, 1308.06482, -2056.67798, 59.24806, 89.79598, 0, 0, true, DOOR_TYPE_MAFIA, WORK_DIVISO, INVALID_STREAMER_ID, -1}
 };
 
 // Barredor
@@ -6282,6 +6301,14 @@ CheckMafiaEquipeSite(playerid)
 			ShowDialog(playerid, DIALOG_POLICE_SHOP);
 		}
 	}
+
+	if (PLAYER_WORKS[playerid][WORK_DIVISO])
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 1.3, 419.4871, -1001.7376, 92.8918))
+		{
+			ShowDialog(playerid, DIALOG_POLICE_SHOP);
+		}
+	}
 	return 1;
 }
 
@@ -7793,14 +7820,13 @@ public OnGameModeInit()
     // Server
 	SetGameModeText(SERVER_MODE);
 	
+	SendRconCommand("hostname Hyaxe Roleplay | Developer mode");
+	
 	#if defined FINAL_BUILD
 		SetTimer("GiveAutoGift", 300000, false);
 		SendRconCommand("hostname "SERVER_HOSTNAME"");
     	//SetTimer("SendGift", 120000, true);
-    	
 	#endif
-
-    SendRconCommand("hostname Hyaxe Roleplay | Developer mode");
 
 	#if defined HALLOWEEN_MODE
 		SendRconCommand("hostname "HALLOWEEN_HOSTNAME"");
@@ -8610,6 +8636,7 @@ SanAndreas()
 	CreateDynamic3DTextLabel("{f5e30a}Triade di San Andreas\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 882.789611, 1896.002319, -93.898712, 20.0, .testlos = true, .worldid = 0, .interiorid = 29);
 	CreateDynamic3DTextLabel("{FFFFFF}The Family Connor\n"COL_WHITE"Equipamiento", 0xF7F7F700, 419.4871, -1001.7376, 92.8918, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel("{a9ee70}Diviso Per Tutti\n"COL_WHITE"Equipamiento", 0xF7F7F700, 419.4871, -1001.7376, 92.8918, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF7F7F700, -187.830596, -2249.291503, 24.332202, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 
@@ -9014,6 +9041,15 @@ public OnPlayerText(playerid, text[])
 			else format(str_text, sizeof str_text, "[TFC] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], CONNOR_RANKS[ PLAYER_SKILLS[playerid][WORK_CONNOR] ], text[1]);
 
 			SendConnorMafiaMessage(0xc33d3dFF, str_text);
+			return 0;
+		}
+
+		if (PLAYER_WORKS[playerid][WORK_DIVISO])
+		{
+			if (text[1] == '!') format(str_text, sizeof str_text, "[DPT] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
+			else format(str_text, sizeof str_text, "[DPT] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], text[1]);
+
+			SendDivisoMafiaMessage(0xa9ee70FF, str_text);
 			return 0;
 		}
 
@@ -12507,6 +12543,99 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
 			return 1;
 		}
+		case DIALOG_DIVISO_MAFIA_LIST:
+		{
+			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
+
+			new dialog[128 * 15],
+				listitem,
+				start_pos = PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] + 1;
+
+			format(dialog, sizeof dialog, ""COL_WHITE"Nombre\t"COL_WHITE"Rango\t"COL_WHITE"Últ. conexión\n");
+
+			new DBResult:Result, DB_Query[600];
+			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`ID`, `CUENTA`.`NAME`, `CUENTA`.`LAST_CONNECTION`, `CUENTA`.`CONNECTED`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS`, `PLAYER_WORKS` WHERE `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_WORKS`.`ID_WORK` = '%d' AND `PLAYER_WORKS`.`SET` = '1' ORDER BY `CUENTA`.`CONNECTED` DESC, `PLAYER_SKILLS`.`TOTAL` DESC LIMIT %d, %d;", WORK_DIVISO, WORK_DIVISO, PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
+			Result = db_query(Database, DB_Query);
+
+			for(new i; i < db_num_rows(Result); i++ )
+			{
+				new name[24],
+					last_connection[24],
+					connected,
+					rank;
+
+				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = db_get_field_assoc_int(Result, "ID");	
+				db_get_field_assoc(Result, "NAME", name, 24);
+				db_get_field_assoc(Result, "LAST_CONNECTION", last_connection, 24);
+				connected = db_get_field_assoc_int(Result, "CONNECTED");
+				rank = db_get_field_assoc_int(Result, "TOTAL");
+
+				new line_str[128];
+				if (connected) format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t{82F11A}•\n", start_pos + listitem, name, DIVISO_RANKS[rank]);
+				else format(line_str, sizeof line_str, ""COL_WHITE"%d %s\t"COL_WHITE"%s\t"COL_WHITE"%s\n", start_pos + listitem, name, DIVISO_RANKS[rank], last_connection);
+
+				strcat(dialog, line_str);
+				listitem ++;
+				db_next_row(Result);
+			}
+			
+			db_free_result(Result);
+			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -2;
+
+			strcat(dialog, "{c9c9c9}- Siguiente\n"); listitem ++;
+			PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = -3;
+
+			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{a9ee70}Diviso Per Tutti", dialog, "Selecc.", "Cerrar");
+			return 1;
+		}
+		case DIALOG_DIVISO_MAFIA_MODIFY:
+		{
+			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
+			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
+			Result = db_query(Database, DB_Query);
+
+			if (db_num_rows(Result))
+			{
+				db_get_field_assoc(Result, "NAME", name, 24);
+				current_rank = db_get_field_assoc_int(Result, "TOTAL");
+				found = true;
+			}
+			else found = false;
+			db_free_result(Result);
+
+			if (!found) return 1;
+			if (current_rank > PLAYER_SKILLS[playerid][WORK_DIVISO])
+			{
+				ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
+				return 1;
+			}
+
+			new caption[45];
+			format(caption, sizeof caption, ""COL_RED"%s", name);
+
+			new dialog[45 * sizeof(DIVISO_RANKS)], line_str[45];
+			format(dialog, sizeof dialog, ""COL_WHITE"Civil (eliminar)\n");
+
+			for(new i = 1; i != sizeof DIVISO_RANKS; i ++)
+			{
+				if (i > PLAYER_SKILLS[playerid][WORK_DIVISO])
+				{
+					if (current_rank == i) format(line_str, sizeof line_str, "{666666}%s (actual)\n", DIVISO_RANKS[i]);
+					else format(line_str, sizeof line_str, "{666666}%s\n", DIVISO_RANKS[i]);
+				}
+				else
+				{
+					if (current_rank == i) format(line_str, sizeof line_str, ""COL_WHITE"%s (actual)\n", DIVISO_RANKS[i]);
+					else format(line_str, sizeof line_str, ""COL_WHITE"%s\n", DIVISO_RANKS[i]);
+				}
+				strcat(dialog, line_str);
+			}
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Selecc.", "Atrás");
+			return 1;
+		}
 		case DIALOG_POLICE_MODIFY:
 		{
 			new DBResult:Result, DB_Query[256], name[24], current_rank, bool:found;
@@ -13291,6 +13420,16 @@ ShowDialog(playerid, dialogid)
 				{
 					strcat(dialog, "Invitar a TFC\n");
 					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 10;
+					listitem ++;
+				}
+			}
+
+			if (PLAYER_WORKS[playerid][WORK_DIVISO])
+			{
+				if (PLAYER_SKILLS[playerid][WORK_DIVISO] >= 11)
+				{
+					strcat(dialog, "Invitar a DPT\n");
+					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 11;
 					listitem ++;
 				}
 			}
@@ -19484,6 +19623,99 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else ShowDialog(playerid, DIALOG_CONNOR_MAFIA_LIST);
 			return 1;
 		}
+		case DIALOG_DIVISO_MAFIA_LIST:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
+				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -2) // Siguiente
+				{
+					new the_query[128];
+					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_DIVISO);
+
+					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
+					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
+					ShowDialog(playerid, dialogid);
+				}
+				else if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -3) //Anterior
+				{
+					new the_query[128];
+					format(the_query, sizeof the_query, "SELECT COUNT() FROM `PLAYER_WORKS` WHERE `ID_WORK` = '%d' AND `SET` = '1';", WORK_DIVISO);
+
+					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
+					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
+					ShowDialog(playerid, dialogid);
+				}
+				else
+				{
+					if (PLAYER_SKILLS[playerid][WORK_DIVISO] >= 11)
+					{
+						PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID] = PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem];
+						ShowDialog(playerid, DIALOG_DIVISO_MAFIA_MODIFY);
+					}
+				}
+			}
+			return 1;
+		}
+		case DIALOG_DIVISO_MAFIA_MODIFY:
+		{
+			if (response)
+			{
+				if (listitem > PLAYER_SKILLS[playerid][WORK_DIVISO])
+				{
+				    ShowPlayerMessage(playerid, "~r~El rango que has seleccionado es superior al tuyo.", 3);
+
+					return 1;
+				}
+
+				new DBResult:Result, DB_Query[256], name[24], connected, player_id, current_rank, bool:found;
+				format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`NAME`, `CUENTA`.`CONNECTED`, `CUENTA`.`PLAYERID`, `PLAYER_SKILLS`.`TOTAL` FROM `CUENTA`, `PLAYER_SKILLS` WHERE `CUENTA`.`ID` = '%d' AND `PLAYER_SKILLS`.`ID_USER` = `CUENTA`.`ID` AND `PLAYER_SKILLS`.`ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
+				Result = db_query(Database, DB_Query);
+
+				if (db_num_rows(Result))
+				{
+					db_get_field_assoc(Result, "NAME", name, 24);
+					connected = db_get_field_assoc_int(Result, "CONNECTED");
+					player_id = db_get_field_assoc_int(Result, "PLAYERID");
+					current_rank = db_get_field_assoc_int(Result, "TOTAL");
+					found = true;
+				}
+				else found = false;
+				db_free_result(Result);
+
+				if (!found) return 1;
+				if (current_rank > PLAYER_SKILLS[playerid][WORK_DIVISO])
+				{
+				    ShowPlayerMessage(playerid, "~r~No puedes modificar el rango de este jugador porque es un rango superior al tuyo.", 3);
+					return 1;
+				}
+
+				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
+				db_free_result(db_query(Database, DB_Query));
+				SendClientMessageEx(playerid, 0xa9ee70FF, "[DPT] "COL_WHITE" El nuevo rango de %s es: %s.", name, DIVISO_RANKS[listitem]);
+
+				if (listitem == 0)
+				{
+					format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_DIVISO);
+					db_free_result(db_query(Database, DB_Query));
+				}
+
+				if (connected)
+				{
+					PLAYER_SKILLS[player_id][WORK_DIVISO] = listitem;
+
+					if (listitem == 0)
+					{
+						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_DIVISO) EndPlayerJob(player_id);
+						PLAYER_WORKS[player_id][WORK_DIVISO] = false;
+						SendClientMessageEx(player_id, 0xa9ee70FF, "[DPT] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+					}
+					else SendClientMessageEx(player_id, 0xa9ee70FF, "[DPT] "COL_WHITE" El %s %s ha modificado tu rango a %s.", DIVISO_RANKS[ PLAYER_SKILLS[playerid][WORK_DIVISO] ], PLAYER_TEMP[playerid][py_RP_NAME], DIVISO_RANKS[listitem]);
+				}
+			}
+			else ShowDialog(playerid, DIALOG_DIVISO_MAFIA_LIST);
+			return 1;
+		}
 		case DIALOG_POLICE_SHOP:
 		{
 			if (response)
@@ -20205,6 +20437,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 10:
 					{
 						InviteToFC(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
+						return 1;
+					}
+					case 11:
+					{
+						InviteToDS(playerid, PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER]);
 						return 1;
 					}
 				}
@@ -26251,7 +26488,11 @@ public AddPlayerReputation(playerid)
 		ACCOUNT_INFO[playerid][ac_PAYDAY_REP] ++;
 		if (ACCOUNT_INFO[playerid][ac_PAYDAY_REP] >= REP_FOR_PAYDAY)
 		{
-			PlayerPayday(playerid);
+			if (SvGetVersion(playerid))
+			{
+				PlayerPayday(playerid);
+			}
+			else ShowPlayerNotification(playerid, "Instale el cliente de Hyaxe en www.hyaxe.com/client");
 			ACCOUNT_INFO[playerid][ac_PAYDAY_REP] = 0;
 		}
 
@@ -35192,6 +35433,14 @@ CMD:mafia(playerid, params[])
 		ShowDialog(playerid, DIALOG_CONNOR_MAFIA_LIST);
 		return 1;
 	}
+
+	if (PLAYER_WORKS[playerid][WORK_DIVISO])
+	{
+		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
+		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
+		ShowDialog(playerid, DIALOG_DIVISO_MAFIA_LIST);
+		return 1;
+	}
 	
 	ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
 	return 1;
@@ -35321,6 +35570,21 @@ SendConnorMafiaMessage(color, const message[])
 		if (IsPlayerConnected(i))
 		{
 			if (PLAYER_WORKS[i][WORK_CONNOR])
+			{
+				SendResponsiveMessage(i, color, message, 135);
+			}
+		}
+	}
+	return 1;
+}
+
+SendDivisoMafiaMessage(color, const message[])
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_WORKS[i][WORK_DIVISO])
 			{
 				SendResponsiveMessage(i, color, message, 135);
 			}
@@ -36370,7 +36634,7 @@ InviteToLCN(playerid, to_player)
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PLAYER_WORKS[to_player][WORK_MAFIA]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
 
 	new player_jobs = CountPlayerJobs(to_player);
@@ -36411,7 +36675,7 @@ InviteToTCC(playerid, to_player)
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PLAYER_WORKS[to_player][WORK_ENEMY_MAFIA]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
 
 	new player_jobs = CountPlayerJobs(to_player);
@@ -36452,7 +36716,7 @@ InviteToFO(playerid, to_player)
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PLAYER_WORKS[to_player][WORK_ENEMY_MAFIA]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
 
 	new player_jobs = CountPlayerJobs(to_player);
@@ -36493,7 +36757,7 @@ InviteToFC(playerid, to_player)
 	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
 	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
 	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
-	if (PLAYER_WORKS[to_player][WORK_ENEMY_MAFIA]) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
 	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
 
 	new player_jobs = CountPlayerJobs(to_player);
@@ -36522,6 +36786,47 @@ InviteToFC(playerid, to_player)
 	SavePlayerSkills(to_player);
 
 	SendClientMessageEx(playerid, 0xc33d3dFF, "[TFC] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
+	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
+	return 1;
+}
+
+InviteToDS(playerid, to_player)
+{
+	if (!IsPlayerConnected(to_player)) return ShowPlayerMessage(playerid, "~r~Jugador desconectado.", 3);
+	if (to_player == playerid) return 1;
+
+	new Float:x, Float:y, Float:z; GetPlayerPos(to_player, x, y, z);
+	if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~Esta persona no está cerca tuya.", 3);
+	if (PLAYER_CREW[to_player][player_crew_VALID]) return ShowPlayerMessage(playerid, "~r~Esta persona tiene banda.", 3);
+	if (PlayerIsInMafia(playerid)) return ShowPlayerMessage(playerid, "~r~Este usuario ya es mafioso.", 3);
+	if (PLAYER_TEMP[to_player][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes reclutar a esta persona por ahora.", 3);
+
+	new player_jobs = CountPlayerJobs(to_player);
+	if (ACCOUNT_INFO[to_player][ac_SU])
+	{
+		if (player_jobs >= MAX_SU_WORKS)
+		{
+		    ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+	else
+	{
+		if (player_jobs >= MAX_NU_WORKS)
+		{
+			ShowPlayerMessage(playerid, "~r~Esta persona ya no puede tener más trabajos.", 3);
+			return 1;
+		}
+	}
+
+	if (PLAYER_TEMP[to_player][py_WORKING_IN]) return ShowPlayerMessage(playerid, "~r~Esta persona no puede unirse porque esta de servicio en su trabajo.", 3);
+
+	PLAYER_WORKS[to_player][WORK_DIVISO] = true;
+	PLAYER_SKILLS[to_player][WORK_DIVISO] = 1;
+	SavePlayerWorks(to_player);
+	SavePlayerSkills(to_player);
+
+	SendClientMessageEx(playerid, 0xa9ee70FF, "[DPT] "COL_WHITE" %s ahora es de la mafia.", PLAYER_TEMP[to_player][py_RP_NAME]);
 	ShowPlayerMessage(to_player, "~y~Ahora eres mafioso.", 3);
 	return 1;
 }
