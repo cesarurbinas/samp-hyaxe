@@ -29,7 +29,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"v0.8 Build 30"
+#define SERVER_VERSION 			"v0.8 Build 31"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -37321,6 +37321,7 @@ public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 
 				new str_text[145];
 			    format(str_text, 145, "[Dudas] "COL_WHITE"NeuroAdmin silenció a %s (%d) del canal de dudas/anuncios: Mal uso", ACCOUNT_INFO[index][ac_NAME], index);
+			    SendDiscordWebhook(str_text, 1);
 
 			    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{
@@ -37332,6 +37333,9 @@ public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 						}
 					}
 				}
+
+				format(str_text, 145, "NeuroAdmin silencio a %s (%d) del canal de dudas/anuncios: Mal uso", ACCOUNT_INFO[index][ac_NAME], index);
+			    SendDiscordWebhook(str_text, 1);
 			}
 	    }
 	}
