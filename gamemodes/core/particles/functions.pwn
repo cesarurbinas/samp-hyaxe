@@ -158,3 +158,52 @@ ActorBloodParticle(actorid)
 	}
 	return 1;
 }
+
+MoneyDrop(count, Float:x, Float:y, Float:z)
+{
+	for(new i = 0, j = count; i <= j; i++)
+	{
+		new
+			money_pickup,
+			Float:money_x = x,
+			Float:money_y = y,
+			rand = random(9)
+		;
+
+		switch(rand)
+		{
+			case 0: money_x += -0.3;
+			case 1: money_x += -0.2;
+			case 2: money_x += -0.1;
+			case 3: money_x += 0.3;
+			case 4: money_x += 0.2;
+			case 5: money_x += 0.1;
+			case 6: money_x += 0.4;
+			case 7: money_x += 0.5;
+			case 8: money_x += -0.4;
+			case 9: money_x += -0.5;
+			default: money_x = 0.0;
+		}
+
+		rand = random(9);
+
+		switch(rand)
+		{
+			case 0: money_y += -0.3;
+			case 1: money_y += -0.2;
+			case 2: money_y += -0.1;
+			case 3: money_y += 0.3;
+			case 4: money_y += 0.2;
+			case 5: money_y += 0.1;
+			case 6: money_y += 0.4;
+			case 7: money_y += 0.5;
+			case 8: money_y += -0.4;
+			case 9: money_y += -0.5;
+			default: money_y = 0.0;
+		}
+
+		money_pickup = CreateDynamicObject(19836, money_x, money_y, z, 0.0, 0.0, 0.0, GetDynamicActorVirtualWorld(actorid));
+		SetTimerEx("DestroyMoneyObject", minrand(5000, 12000), false, "i", money_pickup);
+		CreateDynamicPickup(modelid, type, Float:x, Float:y, Float:z, worldid = -1, interiorid = -1, playerid = -1, Float:streamdistance = STREAMER_PICKUP_SD, STREAMER_TAG_AREA:areaid = STREAMER_TAG_AREA:-1, priority = 0);
+	}
+}
