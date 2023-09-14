@@ -283,7 +283,8 @@ enum Temp_Enum
 	py_DL_TIMER,
 	py_ADMIN_DELAY,
 	py_FURNITURE_SELECTED,
-	py_PASSWORD[18]
+	py_PASSWORD[18],
+	bool:py_GODMODE
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
