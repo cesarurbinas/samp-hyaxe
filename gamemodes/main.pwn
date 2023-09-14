@@ -3133,43 +3133,42 @@ CALLBACK: IsValidVehicleAbuse(playerid, vehicleid)
  		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
  		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
 
-	    StopAudioStreamForPlayer(to_player);
-	    CancelEdit(to_player);
-	    EndPlayerJob(to_player);
+ 		new time = 60;
+	    StopAudioStreamForPlayer(playerid);
+	    CancelEdit(playerid);
+	    EndPlayerJob(playerid);
 
-	    PLAYER_MISC[to_player][MISC_JAILS] ++;
-	    SavePlayerMisc(to_player);
+	    PLAYER_MISC[playerid][MISC_JAILS] ++;
+	    SavePlayerMisc(playerid);
 
-	    PLAYER_TEMP[to_player][py_HUNGRY_MESSAGE] = false;
-	    PLAYER_TEMP[to_player][py_THIRST_MESSAGE] = false;
-	    PLAYER_TEMP[to_player][py_PLAYER_IN_ATM] = false;
+	    PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE] = false;
+	    PLAYER_TEMP[playerid][py_THIRST_MESSAGE] = false;
+	    PLAYER_TEMP[playerid][py_PLAYER_IN_ATM] = false;
 	    PLAYER_TEMP[playerid][py_PLAYER_IN_INV] = false;
-	    PLAYER_TEMP[to_player][py_CUFFED] = false;
-	    PLAYER_TEMP[to_player][py_CUFFING] = false;
-	    PLAYER_TEMP[to_player][py_PLAYER_WAITING_MP3_HTTP] = false;
+	    PLAYER_TEMP[playerid][py_CUFFED] = false;
+	    PLAYER_TEMP[playerid][py_CUFFING] = false;
+	    PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = false;
 
-	    if (PLAYER_TEMP[to_player][py_WANT_MECHANIC])
+	    if (PLAYER_TEMP[playerid][py_WANT_MECHANIC])
 	    {
-		   PLAYER_TEMP[to_player][py_WANT_MECHANIC] = false;
-		   DisablePlayerMechanicMark(to_player);
+		   PLAYER_TEMP[playerid][py_WANT_MECHANIC] = false;
+		   DisablePlayerMechanicMark(playerid);
 	    }
-	    if (PLAYER_TEMP[to_player][py_PLAYER_IN_CALL]) EndPhoneCall(to_player);
-	    if (PLAYER_TEMP[to_player][py_GPS_MAP]) HidePlayerGpsMap(to_player);
+	    if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
+	    if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
 
-	    JailPlayer(to_player, time * 60);
-	    SendClientMessageEx(to_player, 0xF7F7F7CC, "Te quedan %s minutos de sanción, razón: %s.", TimeConvert(time * 60), reason);
-	    SetPlayerSpecialAction(to_player, SPECIAL_ACTION_NONE);
+	    JailPlayer(playerid, time * 60);
+	    SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 
 	    new str[145];
-	    format(str, 145, "[ADMIN] %s (%d) jaileó a %s (%d) por %s minutos: %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, TimeConvert(time * 60), reason);
+	    format(str, 145, "[ADMIN] NeuroAdmin jaileó a %s (%d) por %s minutos: PG.", ACCOUNT_INFO[playerid][ac_NAME], playerid, TimeConvert(time * 60));
 	    SendMessageToAdmins(COLOR_ANTICHEAT, str);
 
-	    new webhook[145]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+	    new webhook[145];
+	    format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);
 
-	    new dialog[250];
-		format(dialog, sizeof dialog, ""COL_WHITE"%s te jaileó, razón: %s.\nRecuerde que a los 10 jails sera baneado permanentemente.", ACCOUNT_INFO[playerid][ac_NAME], reason);
-		ShowPlayerDialog(to_player, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"NueroAdmin te jaileó, razón: PG.\nRecuerde que a los 10 jails sera baneado permanentemente.", "Entiendo", "");
  	}
  	return 1;
 }

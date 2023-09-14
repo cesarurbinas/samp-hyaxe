@@ -810,7 +810,7 @@ CMD:jail(playerid, params[])
     PLAYER_TEMP[to_player][py_HUNGRY_MESSAGE] = false;
     PLAYER_TEMP[to_player][py_THIRST_MESSAGE] = false;
     PLAYER_TEMP[to_player][py_PLAYER_IN_ATM] = false;
-    PLAYER_TEMP[playerid][py_PLAYER_IN_INV] = false;
+    PLAYER_TEMP[to_player][py_PLAYER_IN_INV] = false;
     PLAYER_TEMP[to_player][py_CUFFED] = false;
     PLAYER_TEMP[to_player][py_CUFFING] = false;
     PLAYER_TEMP[to_player][py_PLAYER_WAITING_MP3_HTTP] = false;
@@ -824,7 +824,6 @@ CMD:jail(playerid, params[])
     if (PLAYER_TEMP[to_player][py_GPS_MAP]) HidePlayerGpsMap(to_player);
 
     JailPlayer(to_player, time * 60);
-    SendClientMessageEx(to_player, 0xF7F7F7CC, "Te quedan %s minutos de sanción, razón: %s.", TimeConvert(time * 60), reason);
     SetPlayerSpecialAction(to_player, SPECIAL_ACTION_NONE);
 
     new str[145];
