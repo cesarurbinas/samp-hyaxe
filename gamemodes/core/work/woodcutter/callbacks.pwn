@@ -94,7 +94,19 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			{
 				if(PLAYER_TEMP[playerid][py_HOLDING_CART])
 				{
-					new Float:x, Float:y, Float:z;
+					new object = GetPlayerCameraTargetObject(playerid), Float:x, Float:y, Float:z;
+
+					if(object != INVALID_OBJECT_ID)
+					{
+						new model = Streamer_GetIntData(STREAMER_TYPE_OBJECT, object, E_STREAMER_MODEL_ID);
+						if(model == 696 || model == 655 || model == 886)
+						{
+							GetDynamicObjectPos(object, x, y, z);
+							if(IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) // Turns out looking range is way higher
+								return 1; // Fuckers tryin to bug my shit
+						}
+					}
+
 					GetXYInFrontOfPlayer(playerid, x, y, 3.5);
 					CA_FindZ_For2DCoord(x, y, z);
 

@@ -6590,6 +6590,8 @@ CALLBACK: GiveAutoGift()
 public OnGameModeInit()
 {
 	CA_RemoveBarriers();
+	RemoveObjectCollisions();
+
 	CA_Init();
 
 	//print("OnGamemodeInit()"); // debug juju
@@ -6650,6 +6652,27 @@ public OnGameModeInit()
     SendDiscordWebhook(":fire: Servidor iniciado.", 1);
     ServerInitTime = gettime();
     return 1;
+}
+
+RemoveObjectCollisions()
+{
+	CA_RemoveBuilding(785, -1878.7813, -2299.4531, 36.7578, 0.25);
+    CA_RemoveBuilding(785, -1851.1719, -2419.8906, 28.8672, 0.25);
+    CA_RemoveBuilding(785, -1916.5703, -2352.8203, 27.8984, 0.25);
+    CA_RemoveBuilding(785, -1921.7813, -2233.5547, 64.0625, 0.25);
+    CA_RemoveBuilding(785, -1868.4609, -2470.2734, 26.2813, 0.25);
+    CA_RemoveBuilding(785, -1934.3438, -2401.9297, 26.5000, 0.25);
+    CA_RemoveBuilding(791, -1868.4609, -2470.2734, 26.2813, 0.25);
+    CA_RemoveBuilding(790, -1979.7188, -2371.9063, 34.7578, 0.25);
+    CA_RemoveBuilding(791, -1934.3438, -2401.9297, 26.5000, 0.25);
+    CA_RemoveBuilding(791, -1916.5703, -2352.8203, 27.8984, 0.25);
+    CA_RemoveBuilding(790, -1891.0703, -2381.6875, 34.7578, 0.25);
+    CA_RemoveBuilding(791, -1878.7813, -2299.4531, 36.7578, 0.25);
+    CA_RemoveBuilding(18228, -1856.6875, -2321.2891, 38.1484, 0.25);
+    CA_RemoveBuilding(791, -1851.1719, -2419.8906, 28.8672, 0.25);
+    CA_RemoveBuilding(791, -1921.7813, -2233.5547, 64.0625, 0.25);
+
+	return 1;
 }
 
 FormatDialogStrings()
