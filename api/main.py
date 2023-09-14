@@ -169,7 +169,7 @@ def add_whitelist(name):
 def proxy_check(ip, name = False):
 	address_info = requests.get(f"http://ip-api.com/json/{ip}?fields=proxy,hosting,countryCode").json()
 
-	blacklist = [
+	"""blacklist = [
 		'VE',
 		'MX'
 	]
@@ -182,9 +182,11 @@ def proxy_check(ip, name = False):
 			if name in names:
 				return 'N'
 
-		return 'B'
+		return 'B'"""
 
 	whitelist = [
+		'VE',
+		'MX',
 		'AD',
 		'AR',
 		'BO',

@@ -1782,7 +1782,7 @@ CMD:giftrep(playerid, params[])
 		{
 			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
 			{
-				GivePlayerReputation(playerid);
+				GivePlayerReputation(i);
 				ShowPlayerMessage(i, "~r~[REGALO]~w~ Te han dado 1 EXP", 4);
 			}
 		}

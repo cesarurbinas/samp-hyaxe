@@ -29,7 +29,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"v0.9 Build 8"
+#define SERVER_VERSION 			"v0.9 Build 10"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -2151,13 +2151,13 @@ new ENTER_EXIT[][Enter_Exits] = // EE = EnterExits
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 1, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 1145.013916,-1131.447998, 23.828125, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Prostíbulo", INTERIOR_CLUB, -1, false, 2, 3, 1212.160522, -26.097007, 1000.953125, 180.0, 21, false, 0, 0, 2421.501953,-1219.768432, 25.527839, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Maik Santander", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, -245.578720, -2193.103271, 29.839702, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "Maik Santander", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, 1456.5785, 2773.6423, 10.8203, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "Maik Santander", INTERIOR_CLUB, -1, false, 174, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, 1456.5785, 2773.6423, 10.8203, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Club de la pelea", INTERIOR_NO_INFO, -1, false, 0, 16, -14.497008, 100.967079, 1101.521118, 180.0, -1, false, 0, 0, 950.341247, -987.135864, 38.743835, 322.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Osborn", INTERIOR_NO_INFO, -1, true, 0, 29, 887.343566, 1918.198364, -88.974365, 93.182411, -1, false, 0, 0, -2517.1223, -664.4894, 139.3531, 358.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Estadio", INTERIOR_NO_INFO, -1, true, 1336, 0, 2684.587890, -1733.565185, 424.386718, 180.0, -1, false, 0, 0, 2781.461181, -1813.566162, 11.843750, 211.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	//{-1, "Moriarty Luxury Bar", INTERIOR_NO_INFO, -1, true, 0, 64, 2627.9360, 490.5309, 2621.2078, 173.315292, -1, false, 0, 0, 2851.3330, -1532.3297, 11.0991, 271.490142, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "TFC", INTERIOR_NO_INFO, -1, true, 0, 55, 436.9655, -996.6303, 931.0529, -90.0, -1, false, 0, 0, 437.3256, -999.9439, 93.1982, 92.18, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
-	{-1, "DPT", INTERIOR_CLUB, -1, false, 6, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, 1132.5565, -2034.1417, 69.1477, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
+	{-1, "DPT", INTERIOR_CLUB, -1, false, 264, 5, 1267.663208, -781.323242, 1091.906250, 180.0, -1, false, 0, 0, 1132.5565, -2034.1417, 69.1477, 180.0, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1},
 	{-1, "Hospital", INTERIOR_HOSPITAL, -1, true, 2, 3, -204.522659, -1735.630004, 675.768737, 181.129348, 22, false, 0, 0, 1172.832763, -1323.269531, 15.400051, 270.0	, 0, 0, -1, -1, Text3D:INVALID_3DTEXT_ID, Text3D:INVALID_3DTEXT_ID, -1, -1}
 };
 
@@ -3872,12 +3872,12 @@ public OnPlayerConnect(playerid)
 	#endif
 
 	//printf("[%d] OnPlayerConnect 5", playerid);
-	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "95.156.227.96"))
+	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "127.0.0.1"))
 	{
 		Bot(playerid);
 		return 0;
 	}
-	else if (!strcmp(PLAYER_TEMP[playerid][py_IP], "134.255.216.233")) // backup rdp
+	else if (!strcmp(PLAYER_TEMP[playerid][py_IP], "51.161.31.157")) // backup rdp
 	{
 		Bot(playerid);
 		return 0;
@@ -9957,6 +9957,8 @@ CMD:guia(playerid, params[])
 
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /guia "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~Jugador Desconectado.", 2);
+
+	if (ACCOUNT_INFO[params[0]][ac_ID] == 0) return ShowPlayerMessage(playerid, "~r~Este jugador ha decidido no mostrar su número en la guía.", 3);
 
 	if (!PLAYER_PHONE[params[0]][player_phone_VALID]) return ShowPlayerMessage(playerid, "~r~Este jugador no tiene teléfono.", 2);
 	if (!PLAYER_PHONE[params[0]][player_phone_VISIBLE_NUMBER]) return ShowPlayerMessage(playerid, "~r~Este jugador ha decidido no mostrar su número en la guía.", 3);
@@ -36127,16 +36129,17 @@ CMD:id(playerid, params[])
 
 	new
 		player_version[32],
-		acid
+		acid,
+		ping
 	;
 
 	GetPlayerVersion(to_player, player_version, sizeof player_version);
 
-	if (ACCOUNT_INFO[to_player][ac_ID] == 0)
-	{
-		acid = minrand(10000, 25000);
-	}
+	if (ACCOUNT_INFO[to_player][ac_ID] == 0) acid = minrand(10000, 25000);
 	else acid = ACCOUNT_INFO[to_player][ac_ID];
+
+	if (GetPlayerPing(to_player) < 80) ping = minrand(100, 300);
+	else ping = GetPlayerPing(to_player);
 
 	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Nombre: %s (%d) [Nivel %d] "COL_RED"|"COL_WHITE" ID de cuenta: %d",
 		PLAYER_TEMP[to_player][py_NAME],
@@ -36148,7 +36151,7 @@ CMD:id(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Versión: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f "COL_RED"|"COL_WHITE" Ping: %d",
 		player_version,
 		NetStats_PacketLossPercent(to_player),
-		GetPlayerPing(to_player)
+		ping
 	);
 	return 1;
 }
@@ -39111,8 +39114,8 @@ SendMessageToDoubtChannel(playerid, const message[])
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
 	{
-		strreplace(str, "<", "{A8A8A8}");
-		strreplace(str, ">", "{FFFFFF}");
+		//strreplace(str, "<", "{A8A8A8}");
+		//strreplace(str, ">", "{FFFFFF}");
 
 		strreplace(str, "@", "{4db6ac}@");
 		strreplace(str, ":", "{F7F7F7}");

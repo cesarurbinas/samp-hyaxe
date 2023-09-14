@@ -84,7 +84,7 @@ DC_CMD:runtime(DCC_User:userid, params[], DCC_Message:message)
 }
 
 // Moderation commands
-DC_CMD:mute(DCC_User:userid, params[], DCC_Message:message)
+DC_CMD:sampmute(DCC_User:userid, params[], DCC_Message:message)
 {
 	new DCC_Channel:channelid;
 	DCC_GetMessageChannel(message, channelid);
@@ -125,7 +125,7 @@ DC_CMD:mute(DCC_User:userid, params[], DCC_Message:message)
 	return 1;
 }
 
-DC_CMD:unmute(DCC_User:userid, params[], DCC_Message:message)
+DC_CMD:sampunmute(DCC_User:userid, params[], DCC_Message:message)
 {
 	new DCC_Channel:channelid;
 	DCC_GetMessageChannel(message, channelid);
@@ -462,7 +462,7 @@ DC_CMD:getid(DCC_User:userid, params[], DCC_Message:message)
 	if (sscanf(params, "s[24]", name)) return SendDiscordMessage(channelid, ":warning: Uso: `!getid <nombre o parte del nombre>`");
 
 	new DBResult:Result, DB_Query[128];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` LIKE '%%%q%%' LIMIT 20;", name);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` LIKE '%%%q%%' LIMIT 5;", name);
 	Result = db_query(Database, DB_Query);
 
 	new count;
@@ -481,7 +481,7 @@ DC_CMD:getid(DCC_User:userid, params[], DCC_Message:message)
 	}
 	db_free_result(Result);
 
-	SendDiscordMessage(channelid, "Se encontraron `%d` coincidencias, el límite es 20.", count);
+	SendDiscordMessage(channelid, "Se encontraron `%d` coincidencias, el límite es 5.", count);
 	return 1;
 }
 
@@ -698,6 +698,67 @@ DC_CMD:asay(DCC_User:userid, params[], DCC_Message:message)
 	return 1;
 }
 
+DC_CMD:gift(DCC_User:userid, params[], DCC_Message:message)
+{
+	new DCC_Channel:channelid;
+	DCC_GetMessageChannel(message, channelid);
+	if(!DCC_IsUserAdministrator(userid)) return SendDiscordMessage(channelid, ":x: No tienes permisos suficientes");
+	
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				GivePlayerCash(i, 10000, false);
+				ShowPlayerMessage(i, "~r~[REGALO]~w~ Te han dado 10.000$", 4);
+			}
+		}
+	}
+
+	SendDiscordMessage(channelid, "Regalo enviado");
+	return 1;
+}
+
+DC_CMD:giftrep(DCC_User:userid, params[], DCC_Message:message)
+{
+	new DCC_Channel:channelid;
+	DCC_GetMessageChannel(message, channelid);
+	if(!DCC_IsUserAdministrator(userid)) return SendDiscordMessage(channelid, ":x: No tienes permisos suficientes");
+	
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_TEMP[i][py_GAME_STATE] == GAME_STATE_NORMAL)
+			{
+				GivePlayerReputation(i);
+				ShowPlayerMessage(i, "~r~[REGALO]~w~ Te han dado 1 EXP", 4);
+			}
+		}
+	}
+
+	SendDiscordMessage(channelid, "Regalo enviado");
+	return 1;
+}
+
+DC_CMD:explode(DCC_User:userid, params[], DCC_Message:message)
+{
+	new DCC_Channel:channelid;
+	DCC_GetMessageChannel(message, channelid);
+	if(!DCC_IsUserAdministrator(userid)) return SendDiscordMessage(channelid, ":x: No tienes permisos suficientes");
+	
+	new to_player;
+    if (sscanf(params, "u", to_player)) return SendDiscordMessage(channelid, ":warning: `!explode <player_id>`");
+    if (!IsPlayerConnected(to_player)) return SendDiscordMessage(channelid, ":x: Jugador desconectado");
+
+	new Float:X, Float:Y, Float:Z;
+	GetPlayerPos(to_player, X, Y, Z);
+	CreateExplosion( X, Y, Z, 7, 10.0);
+	SendDiscordMessage(channelid, "Jugador `%s (%d)` fue explotado.", ACCOUNT_INFO[to_player][ac_NAME], to_player);
+	return 1;
+}
+
 DC_CMD:dudas(DCC_User:userid, params[], DCC_Message:message)
 {
 	new DCC_Channel:channelid;
@@ -707,7 +768,7 @@ DC_CMD:dudas(DCC_User:userid, params[], DCC_Message:message)
 	if (isnull(params)) return SendDiscordMessage(channelid, ":warning: Uso: `!dudas <message>`");
 	
 	new str[364];
-	format(str, sizeof(str), "[Dudas] "COL_WHITE"Discord: (( %s ))", message);
+	format(str, sizeof(str), "[Dudas] "COL_WHITE"Discord: (( %s ))", params);
 
 	strreplace(str, "<", "{A8A8A8}");
 	strreplace(str, ">", "{FFFFFF}");
