@@ -5959,7 +5959,13 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 					CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
 					CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
 				}
-				case  CHEAT_AMMO, CHEAT_JETPACK, CHEAT_TEXT_SPAMMER, CHEAT_COMMAND_SPAMMER, CHEAT_STATE_SPAMMER, CHEAT_DEATH_SPAMMER: Anticheat_Ban(playerid, ac_Info[cheat][ac_Name]);
+				case CHEAT_VEHICLE_NOFUEL:
+				{
+					PLAYER_TEMP[playerid][py_NOFUEL_ALERTS] ++;
+					if (PLAYER_TEMP[playerid][py_NOFUEL_ALERTS] >= 3)
+						Anticheat_Ban(playerid, "Vehicle Fuel");
+				}
+				case CHEAT_AMMO, CHEAT_JETPACK, CHEAT_TEXT_SPAMMER, CHEAT_COMMAND_SPAMMER, CHEAT_STATE_SPAMMER, CHEAT_DEATH_SPAMMER: Anticheat_Ban(playerid, ac_Info[cheat][ac_Name]);
 				default: Anticheat_Kick(playerid, ac_Info[cheat][ac_Name]);
 			}
 		}
@@ -5975,10 +5981,8 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 		PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] ++;
 
-		if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 3)
-		{
+		if ( PLAYER_AC_INFO[playerid][CHEAT_JETPACK][p_ac_info_DETECTIONS] > 4)
 			Anticheat_Kick(playerid, "Sobrepasar avisos");
-		}
 	}
 
 	return 1;
