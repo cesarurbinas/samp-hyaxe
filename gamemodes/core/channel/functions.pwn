@@ -6,7 +6,7 @@ SendMessageToDoubtChannel(playerid, const message[])
 	else
 	{
 		format(str, sizeof(str), "[Dudas] "COL_WHITE"Jugador %s (%d): (( %s ))", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
-		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Recordatorio", ""COL_WHITE"Recuerde que si dice cosas sarc√°sticas, insultos, anuncios o\n\
+		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Recordatorio", ""COL_WHITE"Recuerde que si dice cosas sarc·sticas, insultos, anuncios o\n\
 			cualquier cosa que no sea relacionada al tema del canal\n\
 			puede ser muteado y a los 4 muteos no va a poder enviar\n\
 			dudas ni anuncios.", "Cerrar", "");
@@ -48,7 +48,7 @@ ScanDoubt(playerid, const doubt[])
 {
 	new payload[264];
 	format(payload, sizeof(payload), "{\"author\": \"%s\", \"playerid\": %d, \"question\": \"%s\"}", PLAYER_TEMP[playerid][py_NAME], playerid, doubt);
-	HTTP(playerid, HTTP_POST, "51.161.31.157:6666/get_response", payload, "neuroadmin_BotGetResponse");
+	HTTP(playerid, HTTP_POST, "51.222.21.190:6666/get_response", payload, "neuroadmin_BotGetResponse");
 	return 1;
 }
 
@@ -73,7 +73,7 @@ SendMessageToGlobalChannel(playerid, const message[])
 	{
 		if (IsPlayerConnected(i))
 		{
-			if (PLAYER_MISC[playerid][MISC_GLOBAL_CHAT])
+			if (PLAYER_MISC[i][MISC_GLOBAL_CHAT])
 			{
 				SendResponsiveMessage(i, COLOR_WHITE, str, 135);
 			}

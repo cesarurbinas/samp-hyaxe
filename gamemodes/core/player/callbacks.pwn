@@ -111,7 +111,7 @@ public OnPlayerConnect(playerid)
 		printf("OnPlayerConnect %d",playerid); // debug juju
 		if (IsPlayerNPC(playerid))
 		{
-			printf("NPC Joined: %d", playerid);
+			printf("[npc] NPC Joined: %d", playerid);
 		}
 	#endif
 
@@ -176,7 +176,7 @@ public OnPlayerConnect(playerid)
 			return 0;
 		#endif
 	}
-	else if (!strcmp(PLAYER_TEMP[playerid][py_IP], "51.161.31.157")) // backup rdp
+	else if (!strcmp(PLAYER_TEMP[playerid][py_IP], "51.222.21.190")) // backup rdp
 	{
 		Bot(playerid);
 		return 0;

@@ -1831,7 +1831,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 	PLAYER_TEMP[playerid][py_ANTIFLOOD_COMMANDS] = GetTickCount();
 
 	#if DEBUG_MODE != 0
-		printf("[CMD] %s (%d): /%s %s", ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_ID], cmd, params);
+		printf("[cmd] %s (%d): /%s %s", ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_ID], cmd, params);
 	#endif
 	return 1;
 }

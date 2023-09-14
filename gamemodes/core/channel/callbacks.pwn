@@ -37,7 +37,7 @@ public neuroadmin_BotGetResponse(index, response_code, const data[])
 	    else
 	    {
 			format(str_text, sizeof(str_text), "{\"author\": \"%s\", \"playerid\": %d, \"message\": \"%s\"}", PLAYER_TEMP[index][py_NAME], index, PLAYER_TEMP[index][py_LAST_DOUBT]);
-			HTTP(index, HTTP_POST, "51.161.31.157:6666/check_bad_use", str_text, "neuroadmin_BotCheckBadUse");
+			HTTP(index, HTTP_POST, "51.222.21.190:6666/check_bad_use", str_text, "neuroadmin_BotCheckBadUse");
 	    }
 	}
 	return 1;
@@ -58,13 +58,13 @@ public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 			{
 				new seconds = 60 * 60;
 
-				SendClientMessageEx(index, COLOR_ORANGE, "[Alerta]"COL_WHITE" NeuroAdmin te silenciÃ³ del canal de dudas y anuncios por Mal uso - Tiempo: 60");
+				SendClientMessageEx(index, COLOR_ORANGE, "[Alerta]"COL_WHITE" NeuroAdmin te silenció del canal de dudas y anuncios por Mal uso - Tiempo: 60");
 				PLAYER_MISC[index][MISC_MUTES] ++;
 				PLAYER_MISC[index][MISC_MUTE] = gettime() + seconds;
 				SavePlayerMisc(index);
 
 				new str_text[145];
-			    format(str_text, 145, "[Dudas] "COL_WHITE"NeuroAdmin silenciÃ³ a %s (%d) del canal de dudas/anuncios: Mal uso", ACCOUNT_INFO[index][ac_NAME], index);
+			    format(str_text, 145, "[Dudas] "COL_WHITE"NeuroAdmin silenció a %s (%d) del canal de dudas/anuncios: Mal uso", ACCOUNT_INFO[index][ac_NAME], index);
 
 			    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 				{

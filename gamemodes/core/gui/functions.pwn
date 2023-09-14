@@ -15,7 +15,10 @@ ShowMainMenu(playerid)
 	}
 	#endif
 
-	HideGamemodesMenu(playerid);
+	PLAYER_MISC[playerid][MISC_GAMEMODE] = 5000;
+	PlayerJoinGamemode(playerid);
+
+	/*HideGamemodesMenu(playerid);
 
 	TextDrawHideForPlayer(playerid, Textdraws[textdraw_LOGO]);
 
@@ -33,7 +36,7 @@ ShowMainMenu(playerid)
 	SvAddKey(playerid, 0x41); // A
 	SvAddKey(playerid, 0x53); // S
 	SvAddKey(playerid, 0x44); // D
-	#endif
+	#endif*/
 	return 1;
 }
 

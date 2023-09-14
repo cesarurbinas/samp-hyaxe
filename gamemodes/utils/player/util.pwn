@@ -1206,7 +1206,7 @@ CheckProxy(playerid)
     }
 
 	new str_text[128];
-	format(str_text, sizeof(str_text), "51.161.31.157:9991/proxycheck/%s,%s", PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_NAME]);
+	format(str_text, sizeof(str_text), "51.222.21.190:9991/proxycheck/%s,%s", PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_NAME]);
 	HTTP(playerid, HTTP_GET, str_text, "", "OnPlayerProxyFound");
 	return 1;
 }
@@ -1277,7 +1277,7 @@ SendEmail(const email[], const title[], const content[])
 {
 	new payload[1024];
 	format(payload, sizeof(payload), "{\"email\": \"%s\", \"title\": \"%s\", \"content\": \"%s\"}", email, title, content);
-	HTTP(0, HTTP_POST, "51.161.31.157:9991/send_email", payload, "response_SendEmail");
+	HTTP(0, HTTP_POST, "51.222.21.190:9991/send_email", payload, "response_SendEmail");
 	return 1;
 }
 
@@ -2965,7 +2965,7 @@ public UpdateBotName(playerid)
 	return 1;
 }
 
-Bot(playerid)
+/*Bot(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][37]);
 
@@ -2983,7 +2983,7 @@ Bot(playerid)
 	PLAYER_TEMP[playerid][py_TIMERS][37] = SetTimerEx("UpdateBotPing", 30000, true, "i", playerid);
 	PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("UpdateBotName", 900000 + minrand(60000, 420000), true, "i", playerid);
 	return 1;
-}
+}*/
 
 CheckAndExecuteGasoline(playerid)
 {
@@ -5401,7 +5401,7 @@ IsValidRPName(const string[])
 
 StringContainsIP(const string[])
 {
-	if (strfind(string, "51.161.31.157", true) != -1) return false;
+	if (strfind(string, "51.222.21.190", true) != -1) return false;
 
     new Regex:reg_exp = Regex_New("([0-9]{1,3}[\\.]){3}[0-9]{1,3}"), RegexMatch:results, pos;
     new result = Regex_Search(string, reg_exp, results, pos);
@@ -6485,7 +6485,7 @@ public SendGift()
 		GenString(code, 8);
 
 		AddGiftCode(code, type, extra);
-		HTTP(0, HTTP_HEAD, sprintf("51.161.31.157:1337/add_gift_from_server/%s", code), "", "");
+		HTTP(0, HTTP_HEAD, sprintf("51.222.21.190:1337/add_gift_from_server/%s", code), "", "");
 	}
 	return 1;
 }*/

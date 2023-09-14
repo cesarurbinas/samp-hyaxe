@@ -9285,7 +9285,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] = listitem;
 
 				new payload[264];
-				format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/product_buy/%d/%d",
+				format(payload, sizeof(payload), "51.222.21.190:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/product_buy/%d/%d",
 					ACCOUNT_INFO[playerid][ac_ID],
 					STORE_PRODUCTS[listitem][store_PRICE]
 				);

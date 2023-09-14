@@ -2807,7 +2807,7 @@ CMD:givecredits(playerid, params[])
 	}
 
 	new payload[264];
-	format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/give_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
+	format(payload, sizeof(payload), "51.222.21.190:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/give_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
 	HTTP(to_player, HTTP_GET, payload, "", "StoreCreditsUpdate");
 
 	SendCmdLogToAdmins(playerid, "givecredits", params);
@@ -2828,7 +2828,7 @@ CMD:setcredits(playerid, params[])
 	}
 
 	new payload[264];
-	format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/update_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
+	format(payload, sizeof(payload), "51.222.21.190:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/update_credit/%d/%d", ACCOUNT_INFO[to_player][ac_ID], value);
 	HTTP(to_player, HTTP_GET, payload, "", "StoreCreditsUpdate");
 
 	SendCmdLogToAdmins(playerid, "setcredits", params);
@@ -3256,7 +3256,7 @@ CMD:dreply(playerid, params[])
 	{
 		new payload[264];
 		format(payload, sizeof(payload), "{\"question\": \"%s\", \"answer\": \"%s\"}", PLAYER_TEMP[to_player][py_LAST_DOUBT], content);
-		HTTP(0, HTTP_POST, "51.161.31.157:6666/save_response", payload, "neuroadmin_BotLearning");
+		HTTP(0, HTTP_POST, "51.222.21.190:6666/save_response", payload, "neuroadmin_BotLearning");
 	}
 	return 1;
 }
@@ -3307,7 +3307,7 @@ CMD:muteard(playerid, params[])
 	{
 		new payload[264];
 		format(payload, sizeof(payload), "%s", PLAYER_TEMP[to_player][py_LAST_DOUBT]);
-		HTTP(0, HTTP_POST, "51.161.31.157:6666/save_bad_use", payload, "neuroadmin_BotLearning");
+		HTTP(0, HTTP_POST, "51.222.21.190:6666/save_bad_use", payload, "neuroadmin_BotLearning");
 	}
 	return 1;
 }
