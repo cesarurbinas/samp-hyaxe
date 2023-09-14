@@ -12557,7 +12557,8 @@ ShowDialog(playerid, dialogid)
 					Primera persona\t%s\n\
 					Sexo\t%s\n\
 					Tecla para hablar\t%s\n\
-					Recargar mapeos\t\
+					Recargar mapeos\t\n\
+					Prueba de voz\t\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
@@ -12790,6 +12791,13 @@ ShowDialog(playerid, dialogid)
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Canjear HyCoins", ""COL_WHITE"Ingrese la cantiad de HyCoins a vender, cada una\n\
     			vale en el mercado: "COL_GREEN"$150.000"COL_WHITE".", "Canjear", "Atrás");
+    		return 1;
+    	}
+    	case DIALOG_VOICE_TEST:
+    	{
+    		new str_text[74];
+    		format(str_text, sizeof(str_text), ""COL_WHITE"Hable pulsando "COL_RED"%s"COL_WHITE"...", ReturnKeyHex(PLAYER_MISC[playerid][MISC_VOICE_KEY]));
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Prueba de voz", str_text, "Terminar", "");
     		return 1;
     	}
 		default: return 0;
@@ -20403,6 +20411,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 8:
 					{
 						Streamer_Update(playerid);
+					}
+					case 9:
+					{
+						ShowDialog(playerid, DIALOG_VOICE_TEST);
 					}
 				}
 			}
@@ -34365,10 +34377,10 @@ RequisarilegalInv(playerid)
 	    ResetPlayerWeaponsEx(playerid);
 	}
 
-	PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
-	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
-	PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
-	PLAYER_MISC[playerid][MISC_CRACK] = 0;
+	//PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
+	//PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
+	//PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
+	//PLAYER_MISC[playerid][MISC_CRACK] = 0;
 	SavePlayerMisc(playerid);
 	return 1;
 }
