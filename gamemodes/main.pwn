@@ -4343,7 +4343,11 @@ public SV_BOOL:OnPlayerVoice(SV_UINT:playerid, SV_PACKET:packet, SV_UINT:volume)
 
 		for(new i = 0; i < MAX_PLAYERS; i++)
 		{
-			if (playerid == i) continue;
+			if (PLAYER_TEMP[playerid][py_VOICE_TEST] == false)
+			{
+				if (playerid == i) continue;
+			}
+			
 			if (!IsPlayerConnected(i)) continue; 
 			if (GetPlayerState(i) == PLAYER_STATE_SPECTATING) continue;
 			if (VALID_CLIENT[i] == false) continue;
@@ -12795,6 +12799,8 @@ ShowDialog(playerid, dialogid)
     	}
     	case DIALOG_VOICE_TEST:
     	{
+    		PLAYER_TEMP[playerid][py_VOICE_TEST] = true;
+
     		new str_text[74];
     		format(str_text, sizeof(str_text), ""COL_WHITE"Hable pulsando "COL_RED"%s"COL_WHITE"...", ReturnKeyHex(PLAYER_MISC[playerid][MISC_VOICE_KEY]));
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Prueba de voz", str_text, "Terminar", "");
@@ -20950,6 +20956,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				GameTextForPlayer(playerid, str_text, 5000, 1);
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
+		}
+		case DIALOG_VOICE_TEST:
+		{
+			PLAYER_TEMP[playerid][py_VOICE_TEST] = false;
+			ShowPlayerMessage(playerid, "Prueba terminada", 3);
 		}
 	}
 	return 0;
