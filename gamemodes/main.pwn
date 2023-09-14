@@ -93,6 +93,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/player/crew.pwn"
 #include "core/player/visual_inventory.pwn"
 #include "core/player/vehicles.pwn"
+#include "core/player/objects.pwn"
 
 // Police
 #include "core/police/info.pwn"
@@ -176,6 +177,10 @@ Y_less on the ruski face book? I dont need to don the fur hat
 // Shops
 #include "core/shops/electronic.pwn"
 
+// Anticheat
+#include "core/anticheat/functions.pwn"
+#include "core/anticheat/main.pwn"
+
 new Float:NewUserPos[][] =
 {
 	{1090.567138, -1805.910156, 16.593750, 1.044739},
@@ -207,80 +212,6 @@ main()
 	printf("[info: discord] "SERVER_DISCORD"");
 	printf("\n[build] Hyaxe SA-MP "SERVER_VERSION"\n");
 }
-
-enum
-{
-	CHEAT_WEAPON,
-	CHEAT_AMMO,
-	CHEAT_CAR_MOD,
-	CHEAT_VEHICLE_SPEED_HACK,
-	CHEAT_POS,
-	CHEAT_TEXT_SPAMMER,
-	CHEAT_COMMAND_SPAMMER,
-	CHEAT_DEATH_SPAMMER,
-	CHEAT_STATE_SPAMMER,
-	CHEAT_VEHICLE_ENTER_SPAMMER,
-	CHEAT_JETPACK,
-	CHEAT_PLAYER_SPEED,
-	CHEAT_PLAYER_HEALTH,
-	CHEAT_PLAYER_ARMOUR,
-	CHEAT_VEHICLE_HEALTH,
-	CHEAT_PLAYER_VEHICLE_WORK, // Entra a un vehiculo que no es de su trabajo
-	CHEAT_PLAYER_VEHICLE_DOORS,
-	CHEAT_VEHICLE_NOFUEL,
-	CHEAT_SPECTATE,
-	CHEAT_UNDETECTED_WEAPON,
-	CHEAT_DRIVE_BY,
-	CHEAT_UNOCCUPIED_VEHICLE_TP,
-	CHEAT_HIGH_POS,
-	CHEAT_CAR_JACKING
-};
-
-enum e_ac_Info
-{
-	ac_Name[24],
-	bool:ac_Enabled,
-	bool:ac_Kick, // 1 = kickea, 0 = avisa a admins
-	ac_Detections, // enviar aviso cuando llege a este num en los seg de abajo
-	ac_Interval
-};
-
-// Defaults valors on AC.TXT
-new ac_Info[][e_ac_Info] =
-{
-	{"armas",                     true, true,         1, 0},
-	{"municion",                  true, true,         1, 0},
-	{"mod car",                   true, true,         1, 0},
-	{"vehicle speed",             true, true,         1, 0},
-	{"pos",                       true, false,        3, 10},
-	{"text spammer",              true, true,         10, 5},
-	{"command spammer",           true, true,         5, 5},
-	{"death spammer",             true, false,        1, 0},
-	{"state change spammer",      true, false,        1, 0},
-	{"vehicle enter spammer",     true, false,        1, 0},
-	{"jetpack",                   true, true,         1, 0},
-	{"player speed",              true, true,         1, 0},
-	{"player health",             true, true,         1, 0},
-	{"player armour",             true, true,         1, 0},
-	{"vehicle health",            true, true,         1, 0},
-	{"pwork != vwork",            true, true,         1, 0},
-	{"enter closed vehicle",      true, false,        1, 0},
-	{"vehicle nofuel cheat",      true, false,        50, 10},
-	{"player spectate",           true, false,        1, 0},
-	{"pweapon != sweapon",        true, false,        1, 0},
-	{"drive by",                  true, false,        1, 0},
-	{"unoccupied veh tp",         true, true,         1, 0},
-	{"high pos",                  true, true,         1, 0},
-	{"car jacking",               true, true,         1, 0}
-};
-
-enum e_PLAYER_AC_INFO
-{
-	p_ac_info_DETECTIONS,
-	p_ac_info_LAST_DETECTION,
-	p_ac_info_IMMUNITY
-};
-new PLAYER_AC_INFO[MAX_PLAYERS][sizeof(ac_Info)][e_PLAYER_AC_INFO];
 
 enum b1g_enum
 {
@@ -1102,16 +1033,6 @@ enum Player_GPS_Enum
 	player_gps_INTERIOR
 };
 new PLAYER_GPS[MAX_PLAYERS][MAX_PLAYER_GPS_SAVES][Player_GPS_Enum];
-
-/* SYSTEM - PLAYER OBJECTS */
-enum Player_Objects_Enum
-{
-	po_GPS,
-	po_MP3,
-	po_PHONE_RESOLVER,
-	po_BOOMBOX
-};
-new PLAYER_OBJECT[MAX_PLAYERS][Player_Objects_Enum];
 
 enum e_ZONEINFO
 {
@@ -8093,6 +8014,7 @@ CMD:stop(playerid, params[])
 
 CMD:mp3(playerid, params[])
 {
+	if(!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes un reproductor MP3. Ve a una tienda electrónica.", 4);
 	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
 	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
 	if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar este comando cada un minuto.", 3, 1085);
@@ -20303,7 +20225,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				else if (listitem == 1)
 				{
-					PC_EmulateCommand(playerid, "/mp3");
+					if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
+					if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes usar YouTube cada un minuto.", 3, 1085);
+
+					ShowDialog(playerid, DIALOG_PLAYER_MP3);
 					PLAYER_MISC[playerid][MISC_RADIO_STATION] = 666;
 				}
 				else
