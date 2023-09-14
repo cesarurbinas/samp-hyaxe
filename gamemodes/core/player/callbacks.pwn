@@ -1440,12 +1440,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        {
 		            if (GetPlayerInterior(playerid) == 0)
 		            {
-		            	new str_text[144];
-						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): SleepAnim", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
-					    SendDiscordWebhook(str_text, 1);
-					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: SleepAnim");
-						KickEx(playerid, 500);
+						Anticheat_Kick(playerid, "SleepAnim");
 						return 0;
 		            }
 		        }
