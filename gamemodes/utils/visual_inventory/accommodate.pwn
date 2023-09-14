@@ -57,12 +57,26 @@ inv_AccommodateAccessories(playerid)
 	}
 }
 
-inv_GetFreeSlot(playerid)
+inv_GetFreeSlot(playerid, type = 0)
 {
     new i = 12;
-    while (--i != 0)
+
+    switch(type)
     {
-        if (!PLAYER_VISUAL_INV[playerid][slot_VALID][i]) return i;
+    	case 0:
+    	{
+    		while (--i != 0)
+		    {
+		        if (!PLAYER_VISUAL_INV[playerid][slot_VALID][i]) return i;
+		    }
+    	}
+    	case 1:
+    	{
+    		while (--i != 0)
+		    {
+		        if (!PROPERTY_VISUAL_INV[playerid][slot_VALID][i]) return i;
+		    }
+    	}
     }
     return false;
 }
@@ -135,6 +149,64 @@ inv_ItemToTextdraw(playerid, slot, type)
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);
 	PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]++;
+	return 1;
+}
+
+inv_AccommodatePropertyItems(playerid, property_id)
+{
+	for(new x = 0; x != 12; x++)
+	{
+		PLAYER_VISUAL_INV[playerid][slot_VALID][x] = false;
+		PLAYER_VISUAL_INV[playerid][slot_TYPE][x] = 0;
+		PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][x] = 0;
+		PLAYER_VISUAL_INV[playerid][slot_WEAPON][x] = false;
+		PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][x] = 0;
+	}
+
+	new free_slot;
+
+	new
+		DBResult:Result,
+		DB_Query[140]
+	;
+
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PROPERTY_STORAGE` WHERE `ID_PROPERTY` = '%d';", property_id);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		for(new i; i < db_num_rows(Result); i++ )
+		{
+			free_slot = inv_GetFreeSlot(playerid);
+			if (!free_slot) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno, no podrás usar algunos items.", 3);
+
+			new 
+				str_text[32]
+				td_init = (i + 10),
+				td_ammount = td_init + 12,
+				type = db_get_field_assoc_int(Result, "TYPE"),
+				extra = db_get_field_assoc_int(Result, "EXTRA")
+			;
+
+			format(str_text, sizeof(str_text), "%d", extra);
+
+			switch(type)
+			{
+				case 0, 53, 51, 54, 41: format(str_text, sizeof(str_text), " ");
+				case 9, 10, 11, 55: format(str_text, sizeof(str_text), "Balas");
+				case 56: format(str_text, sizeof(str_text), "Geo");
+			}
+
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
+
+			GetTypePreviewRot(type, rot[0], rot[1], rot[2], rot[3]);
+			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], GetItemObjectByType(type));
+			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], rot[0], rot[1], rot[2], rot[3]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);
+			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] ++;
+		}
+	}
 	return 1;
 }
 

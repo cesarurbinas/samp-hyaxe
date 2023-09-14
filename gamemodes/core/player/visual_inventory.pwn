@@ -1,4 +1,4 @@
-enum Visualinv_Enum
+enum Visual_Inventory
 {
 	bool:slot_VALID[12],
 	slot_TYPE[12],
@@ -8,4 +8,7 @@ enum Visualinv_Enum
 	slot_WEAPON_SLOT[12],
 	slot_COLOR
 }
-new PLAYER_VISUAL_INV[MAX_PLAYERS][Visualinv_Enum];
+new 
+	PLAYER_VISUAL_INV[MAX_PLAYERS][Visual_Inventory],
+	PROPERTY_VISUAL_INV[MAX_PLAYERS][Visual_Inventory]
+;

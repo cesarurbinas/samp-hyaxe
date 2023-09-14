@@ -5404,6 +5404,10 @@ Menu:PROPERTY_MENU(playerid, response, listitem)
 			{
 				ShowInventory(playerid, 1);
 			}
+			case 3:
+			{
+				ShowInventory(playerid, 2);
+			}
     	}
     }
     return 1; 
@@ -5420,7 +5424,8 @@ ShowPropertyMenu(playerid)
 	AddPlayerMenuItem(playerid, "Cambiar nombre");
 	AddPlayerMenuItem(playerid, "Echar a todos");
 	AddPlayerMenuItem(playerid, "Personalizar");
-	AddPlayerMenuItem(playerid, "Almacenamiento");
+	AddPlayerMenuItem(playerid, "Sacar items");
+	AddPlayerMenuItem(playerid, "Meter items");
 
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 	return 1;

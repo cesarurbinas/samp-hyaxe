@@ -4,69 +4,75 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 	if (simple == false) slot = (td_init - 10);
 	else slot = td_init;
 	
-	if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
+	switch(PLAYER_TEMP[playerid][py_INVENTORY_TYPE])
 	{
-		if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
-		new item_str[64];
-		format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]));
-		GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
-
-		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-		ResetItemBody(playerid);
-
-		if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV])
+		case 0:
 		{
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21], COLOR_GREY_TWO);
-			PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], COLOR_RED);
-			HideInventory(playerid);
-		}
-		
-		SetItemToBody(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
-
-		if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
-		{
-			if (!PLAYER_WORKS[playerid][WORK_POLICE])
+			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{
-				if (IsPlayerInSafeZone(playerid)) return ShowPlayerMessage(playerid, "~r~No puedes sacar armas en zona segura.", 3);
-				if (IsPlayerInRangeOfPoint(playerid, 30.0, -17.344648, 99.261329, 1100.822021)) return ShowPlayerMessage(playerid, "~r~No puedes sacar armas en el club.", 3);
-			}
+				if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
+				new item_str[64];
+				format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]));
+				GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
 
-			ResetPlayerWeapons(playerid);
-			CheckBlockedWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID]);
-			
-			if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK)
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+				ResetItemBody(playerid);
+
+				if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV])
+				{
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][10], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][11], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][12], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][13], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][14], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][15], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][16], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][17], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][18], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][19], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][20], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][21], COLOR_GREY_TWO);
+					PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], COLOR_RED);
+					HideInventory(playerid);
+				}
+				
+				SetItemToBody(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
+
+				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+				{
+					if (!PLAYER_WORKS[playerid][WORK_POLICE])
+					{
+						if (IsPlayerInSafeZone(playerid)) return ShowPlayerMessage(playerid, "~r~No puedes sacar armas en zona segura.", 3);
+						if (IsPlayerInRangeOfPoint(playerid, 30.0, -17.344648, 99.261329, 1100.822021)) return ShowPlayerMessage(playerid, "~r~No puedes sacar armas en el club.", 3);
+					}
+
+					ResetPlayerWeapons(playerid);
+					CheckBlockedWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID]);
+					
+					if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK)
+					{
+						if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+						{
+							GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
+						}
+						else if (PLAYER_WORKS[playerid][WORK_POLICE] || PLAYER_WORKS[playerid][WORK_MAFIA] || PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA] || PLAYER_WORKS[playerid][WORK_OSBORN])
+						{
+							GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
+						}
+					}
+				}
+
+				PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = slot;
+			}
+			else
 			{
-				if (GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
-				{
-					GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
-				}
-				else if (PLAYER_WORKS[playerid][WORK_POLICE] || PLAYER_WORKS[playerid][WORK_MAFIA] || PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA] || PLAYER_WORKS[playerid][WORK_OSBORN])
-				{
-					GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
-				}
+				ResetItemBody(playerid);
+				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Vacio", 2000, 5);
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+				HideInventory(playerid);
+				return 1;
 			}
 		}
-
-		PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = slot;
-	}
-	else
-	{
-		ResetItemBody(playerid);
-		GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Vacio", 2000, 5);
-		PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-		HideInventory(playerid);
-		return 1;
 	}
 	return 1;
 }

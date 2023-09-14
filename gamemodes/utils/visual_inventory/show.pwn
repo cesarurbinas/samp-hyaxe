@@ -4,7 +4,7 @@ new
 ShowInventory(playerid, type = 0)
 {
 	PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = type;
-	
+
 	new ms = (200 + GetPlayerPing(playerid));
 
 	g_iInvLastTick[playerid] = GetTickCount() + ms;
@@ -133,10 +133,77 @@ ShowInventory(playerid, type = 0)
 		}
 		case 1:
 		{
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Almacenamiento de propiedad");
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Propiedad");
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
 			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+
+			inv_AccommodatePropertyItems(playerid, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]);
+
+			new 
+				Float:pos[4],
+				str_text[128],
+				Float:size_items = 330.000000;
+				
+			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
+
+			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
+			{
+				size_items += 8.0;
+			}
+
+			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
+			}
+			else
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
+			}
+
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			ShowPlayerMessage(playerid, "Seleccione un item para sacar del almacenamiento.", 5);
+		}
+		case 2:
+		{
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], "Propiedad");
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+				
+			inv_AccommodateItems(playerid);
+
+			new 
+				Float:pos[4],
+				str_text[128],
+				Float:size_items = 330.000000;
+				
+			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
+
+			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
+			{
+				size_items += 8.0;
+			}
+
+			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
+			}
+			else
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
+			}
+
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			ShowPlayerMessage(playerid, "Seleccione un item para meter al almacenamiento.", 5);
 		}
 	}
 
@@ -318,7 +385,7 @@ ShowHelpMenu(playerid)
 	/* Header */
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][47], "Bienvenido a Hyaxe");
 	/* Body */
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgiÛ en 2018, pero no fue hasta mediados de 2019 que comenzÛ a desarrollarse, con tiempos m·s activos y otros no tanto, pasÛ por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opciÛn porque la encontramos m·s rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el n˙mero de miembros del equipo."));
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][48], TextToSpanish("~w~La idea de Hyaxe surgi√≥ en 2018, pero no fue hasta mediados de 2019 que comenz√≥ a desarrollarse, con tiempos m√°s activos y otros no tanto, pas√≥ por varios cambios, primero fue un juego de roles y luego de supervivencia, nos quedamos con la primera opci√≥n porque la encontramos m√°s rentable en SA:MP. Con el tiempo ampliamos nuestras fronteras a nuevos juegos como GTA:V, Rust, entre otros, las personas que trabajan en Hyaxe son pocas, pero esperamos que en el futuro aumente el n√∫mero de miembros del equipo."));
 
 	SelectTextDrawEx(playerid, COLOR_RED);
 	return 1;
