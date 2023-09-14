@@ -742,14 +742,40 @@ CMD:reportmute(playerid, params[])
 		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
 		return 1;
 	}
-	SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (nick: '%s' dbid: '%d', pid: '%d') advertido.", ACCOUNT_INFO[to_player][ac_NAME], ACCOUNT_INFO[to_player][ac_ID], to_player);
+
+	PLAYER_MISC[to_player][MISC_REPORT_MUTE] = true;
+	SavePlayerMisc(to_player);
 
 	new str[145];
 	format(str, 145, "[ADMIN] %s (%d) le bloqueó los reportes a %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
 	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+	SendDiscordWebhook(str, 1);
 	return 1;
 }
 flags:reportmute(CMD_MODERATOR2)
+
+CMD:reportunmute(playerid, params[])
+{
+	new to_player;
+	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /reportunmute <player_id>");
+	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "reportmute");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
+
+	PLAYER_MISC[to_player][MISC_REPORT_MUTE] = false;
+	SavePlayerMisc(to_player);
+
+	new str[145];
+	format(str, 145, "[ADMIN] %s (%d) le desbloqueó los reportes a %s (%d): %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, ACCOUNT_INFO[to_player][ac_NAME], to_player, reason);
+	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+	SendDiscordWebhook(str, 1); 
+	return 1;
+}
+flags:reportunmute(CMD_MODERATOR2)
 
 CMD:get(playerid, params[])
 {
