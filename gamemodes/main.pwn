@@ -24348,12 +24348,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= CMD_OWNER)
+				printf("[account.pre.change] %s > %s", PLAYER_TEMP[playerid][py_NAME], inputtext);
+
+				if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] <= CMD_OWNER)
 				{
 					/* NAME CHECk */
 					PLAYER_TEMP[playerid][py_USER_VALID_NAME] = true;
 
+					if (!inputtext < 5) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
 					if (strlen(inputtext) > 24) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
+					if (strlen(inputtext) < 5) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
 					if (CheckNameFilterViolation(inputtext)) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
 					if (!IsValidRPName(inputtext)) PLAYER_TEMP[playerid][py_USER_VALID_NAME] = false;
 
@@ -24369,6 +24373,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						return 0;
 					}
 				}
+
+				printf("[account.post.change] %s > %s", PLAYER_TEMP[playerid][py_NAME], inputtext);
 
 				HideMainMenu(playerid);
 				HideGamemodesMenu(playerid);
