@@ -11,11 +11,11 @@ ConnectDatabase()
 	else
 	{
 		printf("[debug] Base de datos conectada");
-		db_query(Database,
+		db_free_result(db_query(Database,
 		"\
 			PRAGMA FOREIGN_KEYS = ON;\
 			UPDATE `CUENTA` SET `CONNECTED` = '0', PLAYERID = '-1';\
-		");
+		"));
 	}
 	return 1;
 }

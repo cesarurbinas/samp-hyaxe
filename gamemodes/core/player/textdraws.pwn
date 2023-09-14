@@ -6,7 +6,6 @@ enum Player_Textdraws_Enum
 	PlayerText:ptextdraw_SPEEDO_METER[12],
 	PlayerText:ptextdraw_PLANT_PLANT[4],
 	PlayerText:ptextdraw_PLAYER_GPS_MAP[20],
-	PlayerText:ptextdraw_SHOP_BUTTONS[5],
 	PlayerText:ptextdraw_SHOP_ARTICLES_PAGE,
 	PlayerText:ptextdraw_SHOP_ARTICLES_MODEL[6],
 	PlayerText:ptextdraw_SHOP_ARTICLES_PRICE[6],

@@ -15,7 +15,7 @@ enum
 	WORK_MINER,
 	WORK_POLICE,
 	WORK_FISHER,
-	WORK_CLEANER,
+	//WORK_CLEANER,
 	WORK_MAFIA,
 	WORK_ENEMY_MAFIA,
 	WORK_OSBORN,
@@ -42,7 +42,7 @@ new work_info[][work_info_info] =
 	{WORK_TYPE_NORMAL, 1, "minero",		   					false, 0, 0, 0},
 	{WORK_TYPE_FAMILY, 0, "policía",                       	true, 1000, 1, 0},
 	{WORK_TYPE_NORMAL, 1, "pescador",                     	false, 500, 50, 1300},
-	{WORK_TYPE_FAMILY, 1, "barredor",						false, 500, 50, 1300},
+	//{WORK_TYPE_FAMILY, 1, "barredor",						false, 500, 50, 1300},
 	{WORK_TYPE_FAMILY, 0, "mafioso",		                false, 1000, 1, 0},
 	{WORK_TYPE_FAMILY, 0, "mafioso enemigo",		        false, 1000, 1, 0},
 	{WORK_TYPE_FAMILY, 0, "familia osborn",		        	false, 1000, 1, 0},
@@ -75,7 +75,7 @@ new Float:obtain_work_coords[][obtain_work_coords_info] =
 	{572.808532, -703.072082, 13.075838, 0, true, 61, 572.808532, -703.072082, 13.075838}, //minero
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //policia
 	{2158.550048, -97.376449, 2.844641, 0, true, 61, 2158.550048, -97.376449, 2.844641}, //pescador
-	{1623.531616, -1894.376831, 13.550236, 0, true, 61, 1623.531616, -1894.376831, 13.550236}, //barredor
+	//{1623.531616, -1894.376831, 13.550236, 0, true, 61, 1623.531616, -1894.376831, 13.550236}, barredor
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //mafia
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //mafia enemiga
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //osborn
