@@ -78,19 +78,6 @@
 #include <Pawn.Regex>
 //#tryinclude <profiler>
 
-// Special maps
-#if defined HALLOWEEN_MODE
-	#include "core/maps/halloween.pwn"
-#endif
-
-#if defined CHRISTMAS_MODE
-	#include "core/maps/christmas.pwn"
-#endif
-
-#if defined EASTER_MODE
-	#include "core/maps/easter.pwn"
-#endif
-
 // Damage
 #include "core/damage/header.pwn"
 
@@ -267,6 +254,19 @@
 #include "core/soccer/header.pwn"
 #include "core/soccer/functions.pwn"
 #include "core/soccer/callbacks.pwn"
+
+// Special maps
+#if defined HALLOWEEN_MODE
+	#include "core/maps/halloween.pwn"
+#endif
+
+#if defined CHRISTMAS_MODE
+	#include "core/maps/christmas.pwn"
+#endif
+
+#if defined EASTER_MODE
+	#include "core/maps/easter.pwn"
+#endif
 
 new const Float:NewUserPos[][] =
 {
@@ -7480,6 +7480,9 @@ public OnGameModeInit()
 	#if defined HALLOWEEN_MODE
 		SendRconCommand("hostname "HALLOWEEN_HOSTNAME"");
 		HalloweenMap();
+
+		SetTimer("SpawnPumpkin", 600000, true);
+		SpawnPumpkin();
 	#endif
 
 	#if defined CHRISTMAS_MODE

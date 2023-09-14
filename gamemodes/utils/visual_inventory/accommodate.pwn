@@ -111,6 +111,10 @@ GetTypePreviewRot(type, &Float:rx, &Float:ry, &Float:rz, &Float:zoom)
 			rz = 0.000000;
 			zoom = 0.800000;	
 		}
+		case 57:
+		{
+			zoom = 1.700000;
+		}
 	}
 	return 1;
 }
