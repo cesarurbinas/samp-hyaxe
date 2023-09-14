@@ -45,7 +45,8 @@ Damage_Send(to, from, Float:amount, weaponid)
 		}
 		else
 		{
-			Player_SetArmour(to, g_iPlayerArmour[to] - damage);
+			if (!PLAYER_TEMP[to][py_PACIFIC])
+				Player_SetArmour(to, g_iPlayerArmour[to] - damage);
 		}
 	}
 	else
@@ -59,7 +60,8 @@ Damage_Send(to, from, Float:amount, weaponid)
 		}
 		else
 		{
-			Player_SetHealth(to, g_iPlayerHealth[to] - damage);
+			if (!PLAYER_TEMP[to][py_PACIFIC])
+				Player_SetHealth(to, g_iPlayerHealth[to] - damage);
 		}
 	}
 

@@ -167,7 +167,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 	if (issuerid != INVALID_PLAYER_ID && PLAYER_TEMP[issuerid][py_PACIFIC])
 	{
-		PLAYER_TEMP[issuerid][py_PACIFIC] != PLAYER_TEMP[issuerid][py_PACIFIC];
+		PLAYER_TEMP[issuerid][py_PACIFIC] = !PLAYER_TEMP[issuerid][py_PACIFIC];
 		ShowPlayerMessage(issuerid, "~r~Se ha desactivado el modo pacífico.", 3);
 	}
 

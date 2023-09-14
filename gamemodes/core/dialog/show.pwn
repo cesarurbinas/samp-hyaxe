@@ -4726,7 +4726,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_BUY_NAME_COLOR:
 		{
-			new dialog[264];
+			new dialog[274];
 
     		for(new i = 0; i != sizeof COLOR_INFO; i ++)
     		{
@@ -4739,7 +4739,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_BUY_CHAT_COLOR:
 		{
-			new dialog[264];
+			new dialog[274];
 
     		for(new i = 0; i != sizeof COLOR_INFO; i ++)
     		{

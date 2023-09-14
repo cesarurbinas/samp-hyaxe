@@ -7694,7 +7694,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (ACCOUNT_INFO[playerid][ac_LEVEL] < 3) return ShowPlayerMessage(playerid, "~r~Necesitas ser nivel 3 para usar este modo.", 5);
 						if (PLAYER_TEMP[playerid][py_COMBAT_MODE]) return ShowPlayerMessage(playerid, "~r~No puedes usar el modo pacífico estando en combate.", 5);
 
-						PLAYER_TEMP[playerid][py_PACIFIC] != PLAYER_TEMP[playerid][py_PACIFIC];
+						PLAYER_TEMP[playerid][py_PACIFIC] = !PLAYER_TEMP[playerid][py_PACIFIC];
 						ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 					}
 				}
@@ -9415,7 +9415,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 				db_free_result(db_query(Database, DB_Query_update));
 
-				PLAYER_MISC[playerid][MISC_GLOBAL_CHAT] = listitem;
+				PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] = listitem;
 				SavePlayerMisc(playerid);
 
 				ShowPlayerMessage(playerid, "Color comprado!", 4);

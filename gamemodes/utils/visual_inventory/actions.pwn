@@ -46,7 +46,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 						if (IsPlayerInRangeOfPoint(playerid, 30.0, -17.344648, 99.261329, 1100.822021)) return ShowPlayerMessage(playerid, "~r~No puedes sacar armas en el club.", 3);
 						if (PLAYER_TEMP[playerid][py_PACIFIC])
 						{
-							PLAYER_TEMP[playerid][py_PACIFIC] != PLAYER_TEMP[playerid][py_PACIFIC];
+							PLAYER_TEMP[playerid][py_PACIFIC] = !PLAYER_TEMP[playerid][py_PACIFIC];
 							ShowPlayerMessage(playerid, "~r~Se ha desactivado el modo pacífico.", 3);
 						}
 					}
