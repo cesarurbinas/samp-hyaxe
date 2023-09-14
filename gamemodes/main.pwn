@@ -6972,6 +6972,8 @@ PayPlayerMiner(playerid)
 		case 11: pay = 860;	
 	}
 
+	if (ACCOUNT_INFO[playerid][ac_SU]) pay += minrand(200, 500);
+
 	GivePlayerCash(playerid, pay);
 	format(str_text, sizeof(str_text), "~g~+%d$", pay);
 	
