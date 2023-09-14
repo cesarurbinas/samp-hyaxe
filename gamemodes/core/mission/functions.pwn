@@ -54,6 +54,7 @@ MissionFailed(playerid)
     ShowPlayerMessage(playerid, sprintf("~r~%s", FAILED_MSGS[ random(sizeof(FAILED_MSGS))]), 4);
 
     // Exit message
+    new players_in_mission;
     for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
     {
         if (!IsPlayerConnected(i)) continue;
@@ -64,6 +65,7 @@ MissionFailed(playerid)
             {
                 ShowPlayerNotification(i, sprintf("%s ha fracasado la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
                 SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
+                players_in_mission ++;
             }
         }
     }
@@ -77,6 +79,15 @@ MissionFailed(playerid)
             for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
             {
                 SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], PLAYER_COLOR);
+            }
+
+            // Respawn
+            if (players_in_mission <= 1)
+            {
+                for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
+                {
+                    FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 1);
+                }
             }
         }
     }
