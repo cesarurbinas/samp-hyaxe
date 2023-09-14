@@ -5245,7 +5245,19 @@ Menu:OBJTUNINGMENU(playerid, response, listitem)
 
 CheckHeliPort(playerid)
 {
-	if (IsPlayerInRangeOfPoint(playerid, 5.2, 1876.87915, -2286.58911, 1.16550 + 10))
+	if (IsPlayerInRangeOfPoint(playerid, 5.0, 1876.87915, -2286.58911, 1.16550 + 10))
+	{
+		ShowDialog(playerid, DIALOG_HELI_OPTIONS);
+		return 1;
+	}
+
+	if (IsPlayerInRangeOfPoint(playerid, 5.0, 1037.1727, -911.3947, 49.1911))
+	{
+		ShowDialog(playerid, DIALOG_HELI_OPTIONS);
+		return 1;
+	}
+
+	if (IsPlayerInRangeOfPoint(playerid, 5.0, 1055.9615, -910.1790, 49.1911))
 	{
 		ShowDialog(playerid, DIALOG_HELI_OPTIONS);
 		return 1;
@@ -8564,7 +8576,10 @@ SanAndreas()
 	
 	//heliport
 	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 1\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1876.87915, -2286.58911, 1.16550 + 15, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 2\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1055.9615, -910.1790, 49.1911 + 1, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
+	CreateDynamic3DTextLabel(""COL_RED"Helipuerto nº 3\n"COL_WHITE"Acércate para usar", 0xF7F7F700, 1037.1727, -911.3947, 49.1911 + 1, 30.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	
+
 	//Ruta 0
 	CreateTrashCheckpoint(0, 1440, 1576.18823, -1881.10181, 13.07472, 0.00000, 0.00000, 34.68000);
 	CreateTrashCheckpoint(0, 1440, 1917.53015, -1759.69678, 13.03518, 0.00000, 0.00000, 55.38003);
