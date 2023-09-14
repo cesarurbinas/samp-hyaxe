@@ -6199,3 +6199,13 @@ public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
 	}
 	return 1;
 }
+
+forward OnClientCheckResponse(playerid, type, arg, response);
+public OnClientCheckResponse(playerid, type, arg, response)
+{
+    switch(type)
+    {       
+        case 0x48: PLAYER_TEMP[playerid][py_ANDROID] = true;
+    }
+    return 1;
+}
