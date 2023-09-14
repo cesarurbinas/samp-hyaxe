@@ -6591,7 +6591,11 @@ public OnGameModeInit()
 =======
 >>>>>>> refs/rewritten/Retoques
 =======
+<<<<<<< HEAD
 >>>>>>> 96c70ef (Optimizaciones)
+=======
+>>>>>>> 5643c50 (Arreglar cagada de atom)
+>>>>>>> refs/rewritten/master-45
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
 
