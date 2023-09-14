@@ -2343,6 +2343,8 @@ GetPlayersInIP(const ip[])
 
 KickEx(playerid, time = 0)
 {
+	printf("[kick] playerid: %d, time: %d", playerid, time);
+
 	if (GetPlayerState(playerid) == PLAYER_STATE_SPECTATING) return 0;
 	PLAYER_TEMP[playerid][py_KICKED] = true;
 	
@@ -4974,7 +4976,7 @@ SetIntroCamera(playerid)
 		    	SendDiscordWebhook(str, 1);
 		    
 		    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
-		    	KickEx(playerid, 500);
+		    	KickEx (playerid, 500);
 		  	}
 		}
 	}

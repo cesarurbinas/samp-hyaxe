@@ -56,7 +56,7 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 					case VOBJECT_TYPE_COUNTRY_PANEL: TextureCountryFlag(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OBJECT_ID], 0, VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_COLORS][0]);
 					}
 
-					ShowPlayerMessage(playerid, "Has cancelado la ediciÃ³n.", 3);
+					ShowPlayerMessage(playerid, "Has cancelado la edición.", 3);
 					ShowDialog(playerid, DIALOG_VOBJECT_OBJECT);
 				}
 
@@ -77,7 +77,7 @@ public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, 
 							(VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][2] >= v_size[2] || -v_size[2] >= VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][2])
 						)
 					{
-						ShowPlayerNotification(playerid, "~r~La posiciÃ³n del objeto estÃ¡ demasiado lejos del vehÃ­culo.", 4);
+						ShowPlayerNotification(playerid, "~r~La posición del objeto está demasiado lejos del vehículo.", 4);
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][0] = PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][0];
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][1] = PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][1];
 						VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_OFFSET][2] = PLAYER_TEMP[playerid][py_OLD_EDIT_VOBJECT_POS][2];
@@ -247,7 +247,7 @@ IPacket:VEHICLE_SYNC(playerid, BitStream:bs)
 
     if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
-   	if (IsPlayerInAnyVehicle(playerid) && PLAYER_TEMP[playerid][py_VEHICLEID] != inCarData[PR_vehicleId])
+   	if (!IsPlayerNPC(playerid) && IsPlayerInAnyVehicle(playerid) && PLAYER_TEMP[playerid][py_VEHICLEID] != inCarData[PR_vehicleId])
 	{
 		if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= 2) return 1;
 		
@@ -256,8 +256,8 @@ IPacket:VEHICLE_SYNC(playerid, BitStream:bs)
 		SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
 		SendDiscordWebhook(string, 1);
 
-		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - RazÃ³n: Vehicle Grabber (1)");
-		KickEx(playerid, 500);
+		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Vehicle Grabber (1)");
+		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		return 0;
 	}
     return 1;
@@ -376,7 +376,7 @@ public OnVehicleDeath(vehicleid, killerid)
 			{
 				if (PLAYER_PHONE[playerid][player_phone_VALID])
 				{
-					new message[64]; format(message, sizeof message, "VehÃ­culo de sustituciÃ³n entregado en Ãºlt. estacionamiento.");
+					new message[64]; format(message, sizeof message, "Vehículo de sustitución entregado en últ. estacionamiento.");
 					RegisterPhoneMessage(38350, PLAYER_PHONE[playerid][player_phone_NUMBER], message);
 					if (PLAYER_PHONE[playerid][player_phone_STATE] == PHONE_STATE_ON)
 					{
@@ -467,8 +467,8 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 
     if (enterexit) // Entra
     {
-		ShowPlayerMessage(playerid, "~r~Solo puedes tunear vehÃ­culos en el mecÃ¡nico, bÃºscalo con el /GPS.", 2);
-		//SendClientMessage(playerid, COLOR_WHITE, "{ffff35}[ATENCION] "COL_WHITE"Si reaflizas alguna modificaciÃ³n al vehÃ­culo en este garaje serÃ¡s expulsado.");
+		ShowPlayerMessage(playerid, "~r~Solo puedes tunear vehículos en el mecánico, búscalo con el /GPS.", 2);
+		//SendClientMessage(playerid, COLOR_WHITE, "{ffff35}[ATENCION] "COL_WHITE"Si reaflizas alguna modificación al vehículo en este garaje serás expulsado.");
     }
 	else
 	{

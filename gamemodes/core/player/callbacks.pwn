@@ -109,6 +109,10 @@ public OnPlayerConnect(playerid)
 {
 	#if DEBUG_MODE == 1
 		printf("OnPlayerConnect %d",playerid); // debug juju
+		if (IsPlayerNPC(playerid))
+		{
+			printf("NPC Joined: %d", playerid);
+		}
 	#endif
 
 	//printf("[%d] OnPlayerConnect 1", playerid);
@@ -165,7 +169,7 @@ public OnPlayerConnect(playerid)
 	#endif
 
 	//printf("[%d] OnPlayerConnect 5", playerid);
-	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "127.0.0.1"))
+	/*if (!strcmp(PLAYER_TEMP[playerid][py_IP], "127.0.0.1"))
 	{
 		#if defined FINAL_BUILD
 			Bot(playerid);
@@ -177,7 +181,8 @@ public OnPlayerConnect(playerid)
 		Bot(playerid);
 		return 0;
 	}
-	else
+	else*/
+	if (!IsPlayerNPC(playerid))
 	{
 		CheckProxy(playerid);
 
@@ -191,7 +196,7 @@ public OnPlayerConnect(playerid)
 		    SendDiscordWebhook(str_text, 1);*/
 		    
 		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el máximo de conexiones");
-		    KickEx(playerid, 500);
+		    KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			return 0;
 		}
 
@@ -203,7 +208,7 @@ public OnPlayerConnect(playerid)
 		    SendDiscordWebhook(str_text, 1);*/
 		    
 		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inválido");
-		    KickEx(playerid, 500);
+		    KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			return 0;	
 		}
 	}
@@ -222,7 +227,7 @@ public OnPlayerConnect(playerid)
 	format(DB_Query, sizeof DB_Query, "SELECT DATETIME('NOW') AS `NOW`, `BANS`.*, `BAD_HISTORY`.* FROM `BANS`, `BAD_HISTORY` WHERE (`BANS`.`NAME` = '%q' OR `BANS`.`IP` = '%q' OR `BANS`.`GPCI` = '%q') AND `BAD_HISTORY`.`ID` = `BANS`.`ID_HISTORY`;", PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[playerid][py_IP], PLAYER_TEMP[playerid][py_SERIAL]);
 	ban_Result = db_query(Database, DB_Query);
 	//printf("[%d] OnPlayerConnect 8", playerid);
-	if (db_num_rows(ban_Result))
+	if (!IsPlayerNPC(playerid) && db_num_rows(ban_Result))
 	{
 		new now[24], name[24], expire_date[24], type, by, text[128], date[24];
 
@@ -256,7 +261,7 @@ public OnPlayerConnect(playerid)
 			);
 
 			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-			KickEx(playerid, 500);
+			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		}
 		else if (type == TYPE_TEMP_BAN)
 		{
@@ -295,7 +300,7 @@ public OnPlayerConnect(playerid)
 				);
 
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
-				KickEx(playerid, 500);
+				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			}
 			db_free_result(still_banned_Result);
 		}
@@ -317,93 +322,122 @@ public OnPlayerConnect(playerid)
 	", PLAYER_TEMP[playerid][py_NAME], playerid, PLAYER_TEMP[playerid][py_NAME]);
 	Result = db_query(Database, DB_Query);
 	//printf("[%d] OnPlayerConnect 12", playerid);
-	if (db_num_rows(Result))
+
+	if (!IsPlayerNPC(playerid))
 	{
-		ACCOUNT_INFO[playerid][ac_ID] = db_get_field_assoc_int(Result, "ID");
-		db_get_field_assoc(Result, "IP", ACCOUNT_INFO[playerid][ac_IP], 16);
-		db_get_field_assoc(Result, "NAME", ACCOUNT_INFO[playerid][ac_NAME], 24);
-		db_get_field_assoc(Result, "GPCI", ACCOUNT_INFO[playerid][ac_SERIAL], 50);
-		db_get_field_assoc(Result, "EMAIL", ACCOUNT_INFO[playerid][ac_EMAIL], 32);
-		db_get_field_assoc(Result, "PASS", ACCOUNT_INFO[playerid][ac_PASS], 64 + 1);
-		db_get_field_assoc(Result, "SALT", ACCOUNT_INFO[playerid][ac_SALT], 16);
-
-		db_get_field_assoc(Result, "LAST_CONNECTION", ACCOUNT_INFO[playerid][ac_LAST_CONNECTION], 24);
-		ACCOUNT_INFO[playerid][ac_TIME_PLAYING] = db_get_field_assoc_int(Result, "TIME-PLAYING");
-		ACCOUNT_INFO[playerid][ac_LEVEL] = db_get_field_assoc_int(Result, "LEVEL");
-		ACCOUNT_INFO[playerid][ac_REP] = db_get_field_assoc_int(Result, "REP");
-		ACCOUNT_INFO[playerid][ac_STATE] = db_get_field_assoc_int(Result, "STATE");
-		db_get_field_assoc(Result, "DATE", ACCOUNT_INFO[playerid][reg_DATE], 24);
-		ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL] = db_get_field_assoc_int(Result, "DOUBT_CHANNEL");
-		ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = db_get_field_assoc_int(Result, "TIME_FOR_REP");
-		ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] = db_get_field_assoc_int(Result, "ADMIN_LEVEL");
-		ACCOUNT_INFO[playerid][ac_PAYDAY_REP] = db_get_field_assoc_int(Result, "PAYDAY_REP");
-		ACCOUNT_INFO[playerid][ac_SU] = db_get_field_assoc_int(Result, "SU");
-		db_get_field_assoc(Result, "SU_EXPIRE_DATE", ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE], 24);
-		ACCOUNT_INFO[playerid][ac_SD] = db_get_field_assoc_int(Result, "SD");
-
-
-		CHARACTER_INFO[playerid][ch_INTERIOR] = db_get_field_assoc_int(Result, "INTERIOR");
-		CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = db_get_field_assoc_int(Result, "LOCAL_INTERIOR");
-		CHARACTER_INFO[playerid][ch_WORLD] = db_get_field_assoc_int(Result, "WORLD");
-		CHARACTER_INFO[playerid][ch_POS][0] = db_get_field_assoc_float(Result, "POS_X");
-		CHARACTER_INFO[playerid][ch_POS][1] = db_get_field_assoc_float(Result, "POS_Y");
-		CHARACTER_INFO[playerid][ch_POS][2] = db_get_field_assoc_float(Result, "POS_Z");
-		CHARACTER_INFO[playerid][ch_ANGLE] = db_get_field_assoc_float(Result, "ANGLE");
-		CHARACTER_INFO[playerid][ch_STATE] = db_get_field_assoc_int(Result, "PSTATE");
-
-		switch(CHARACTER_INFO[playerid][ch_STATE])
+		if (db_num_rows(Result))
 		{
-			case ROLEPLAY_STATE_INTERIOR:
+			ACCOUNT_INFO[playerid][ac_ID] = db_get_field_assoc_int(Result, "ID");
+			db_get_field_assoc(Result, "IP", ACCOUNT_INFO[playerid][ac_IP], 16);
+			db_get_field_assoc(Result, "NAME", ACCOUNT_INFO[playerid][ac_NAME], 24);
+			db_get_field_assoc(Result, "GPCI", ACCOUNT_INFO[playerid][ac_SERIAL], 50);
+			db_get_field_assoc(Result, "EMAIL", ACCOUNT_INFO[playerid][ac_EMAIL], 32);
+			db_get_field_assoc(Result, "PASS", ACCOUNT_INFO[playerid][ac_PASS], 64 + 1);
+			db_get_field_assoc(Result, "SALT", ACCOUNT_INFO[playerid][ac_SALT], 16);
+
+			db_get_field_assoc(Result, "LAST_CONNECTION", ACCOUNT_INFO[playerid][ac_LAST_CONNECTION], 24);
+			ACCOUNT_INFO[playerid][ac_TIME_PLAYING] = db_get_field_assoc_int(Result, "TIME-PLAYING");
+			ACCOUNT_INFO[playerid][ac_LEVEL] = db_get_field_assoc_int(Result, "LEVEL");
+			ACCOUNT_INFO[playerid][ac_REP] = db_get_field_assoc_int(Result, "REP");
+			ACCOUNT_INFO[playerid][ac_STATE] = db_get_field_assoc_int(Result, "STATE");
+			db_get_field_assoc(Result, "DATE", ACCOUNT_INFO[playerid][reg_DATE], 24);
+			ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL] = db_get_field_assoc_int(Result, "DOUBT_CHANNEL");
+			ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = db_get_field_assoc_int(Result, "TIME_FOR_REP");
+			ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] = db_get_field_assoc_int(Result, "ADMIN_LEVEL");
+			ACCOUNT_INFO[playerid][ac_PAYDAY_REP] = db_get_field_assoc_int(Result, "PAYDAY_REP");
+			ACCOUNT_INFO[playerid][ac_SU] = db_get_field_assoc_int(Result, "SU");
+			db_get_field_assoc(Result, "SU_EXPIRE_DATE", ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE], 24);
+			ACCOUNT_INFO[playerid][ac_SD] = db_get_field_assoc_int(Result, "SD");
+
+
+			CHARACTER_INFO[playerid][ch_INTERIOR] = db_get_field_assoc_int(Result, "INTERIOR");
+			CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = db_get_field_assoc_int(Result, "LOCAL_INTERIOR");
+			CHARACTER_INFO[playerid][ch_WORLD] = db_get_field_assoc_int(Result, "WORLD");
+			CHARACTER_INFO[playerid][ch_POS][0] = db_get_field_assoc_float(Result, "POS_X");
+			CHARACTER_INFO[playerid][ch_POS][1] = db_get_field_assoc_float(Result, "POS_Y");
+			CHARACTER_INFO[playerid][ch_POS][2] = db_get_field_assoc_float(Result, "POS_Z");
+			CHARACTER_INFO[playerid][ch_ANGLE] = db_get_field_assoc_float(Result, "ANGLE");
+			CHARACTER_INFO[playerid][ch_STATE] = db_get_field_assoc_int(Result, "PSTATE");
+
+			switch(CHARACTER_INFO[playerid][ch_STATE])
 			{
-				new index = GetEnterExitIndexById(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
-				if (index == -1)
+				case ROLEPLAY_STATE_INTERIOR:
 				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					new index_pos = minrand(0, sizeof(NewUserPos));
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
-					CHARACTER_INFO[playerid][ch_WORLD] = 0;
-				}
-				else
-				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					CHARACTER_INFO[playerid][ch_POS][0] = ENTER_EXIT[index][ee_EXT_X];
-					CHARACTER_INFO[playerid][ch_POS][1] = ENTER_EXIT[index][ee_EXT_Y];
-					CHARACTER_INFO[playerid][ch_POS][2] = ENTER_EXIT[index][ee_EXT_Z];
-					CHARACTER_INFO[playerid][ch_ANGLE] = ENTER_EXIT[index][ee_EXT_ANGLE];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = ENTER_EXIT[index][ee_EXT_INTERIOR];
-					CHARACTER_INFO[playerid][ch_WORLD] = ENTER_EXIT[index][ee_EXT_WORLD];
-				}
-			}
-			case ROLEPLAY_STATE_OWN_PROPERTY:
-			{
-				new index = GetPropertyIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
-				if (index == -1)
-				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					new index_pos = minrand(0, sizeof(NewUserPos));
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
-					CHARACTER_INFO[playerid][ch_WORLD] = 0;
-				}
-				else
-				{
-					if (PROPERTY_INFO[index][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+					new index = GetEnterExitIndexById(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
+					if (index == -1)
 					{
-						CHARACTER_INFO[playerid][ch_POS][0] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_X];
-						CHARACTER_INFO[playerid][ch_POS][1] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_Y];
-						CHARACTER_INFO[playerid][ch_POS][2] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_Z];
-						CHARACTER_INFO[playerid][ch_ANGLE] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_ANGLE];
-						CHARACTER_INFO[playerid][ch_INTERIOR] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_INTERIOR];
+						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+						CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+						new index_pos = minrand(0, sizeof(NewUserPos));
+						CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+						CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+						CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+						CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
+						CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+						CHARACTER_INFO[playerid][ch_WORLD] = 0;
+					}
+					else
+					{
+						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+						CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+						CHARACTER_INFO[playerid][ch_POS][0] = ENTER_EXIT[index][ee_EXT_X];
+						CHARACTER_INFO[playerid][ch_POS][1] = ENTER_EXIT[index][ee_EXT_Y];
+						CHARACTER_INFO[playerid][ch_POS][2] = ENTER_EXIT[index][ee_EXT_Z];
+						CHARACTER_INFO[playerid][ch_ANGLE] = ENTER_EXIT[index][ee_EXT_ANGLE];
+						CHARACTER_INFO[playerid][ch_INTERIOR] = ENTER_EXIT[index][ee_EXT_INTERIOR];
+						CHARACTER_INFO[playerid][ch_WORLD] = ENTER_EXIT[index][ee_EXT_WORLD];
+					}
+				}
+				case ROLEPLAY_STATE_OWN_PROPERTY:
+				{
+					new index = GetPropertyIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
+					if (index == -1)
+					{
+						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+						CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+						new index_pos = minrand(0, sizeof(NewUserPos));
+						CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+						CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+						CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+						CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
+						CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+						CHARACTER_INFO[playerid][ch_WORLD] = 0;
+					}
+					else
+					{
+						if (PROPERTY_INFO[index][property_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+						{
+							CHARACTER_INFO[playerid][ch_POS][0] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_X];
+							CHARACTER_INFO[playerid][ch_POS][1] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_Y];
+							CHARACTER_INFO[playerid][ch_POS][2] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_Z];
+							CHARACTER_INFO[playerid][ch_ANGLE] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_ANGLE];
+							CHARACTER_INFO[playerid][ch_INTERIOR] = PROPERTY_INTERIORS[ PROPERTY_INFO[index][property_ID_INTERIOR] ][property_INT_INTERIOR];
+						}
+						else
+						{
+							CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+							CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+							CHARACTER_INFO[playerid][ch_POS][0] = PROPERTY_INFO[index][property_EXT_X];
+							CHARACTER_INFO[playerid][ch_POS][1] = PROPERTY_INFO[index][property_EXT_Y];
+							CHARACTER_INFO[playerid][ch_POS][2] = PROPERTY_INFO[index][property_EXT_Z];
+							CHARACTER_INFO[playerid][ch_ANGLE] = PROPERTY_INFO[index][property_EXT_ANGLE];
+							CHARACTER_INFO[playerid][ch_INTERIOR] = PROPERTY_INFO[index][property_EXT_INTERIOR];
+						}
+					}
+				}
+				case ROLEPLAY_STATE_GUEST_PROPERTY:
+				{
+					new index = GetPropertyIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
+					if (index == -1)
+					{
+						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+						CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+						new index_pos = minrand(0, sizeof(NewUserPos));
+						CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+						CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+						CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+						CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
+						CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
 					}
 					else
 					{
@@ -416,68 +450,43 @@ public OnPlayerConnect(playerid)
 						CHARACTER_INFO[playerid][ch_INTERIOR] = PROPERTY_INFO[index][property_EXT_INTERIOR];
 					}
 				}
-			}
-			case ROLEPLAY_STATE_GUEST_PROPERTY:
-			{
-				new index = GetPropertyIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
-				if (index == -1)
+				case ROLEPLAY_STATE_OWN_CLUB:
 				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					new index_pos = minrand(0, sizeof(NewUserPos));
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
-				}
-				else
-				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					CHARACTER_INFO[playerid][ch_POS][0] = PROPERTY_INFO[index][property_EXT_X];
-					CHARACTER_INFO[playerid][ch_POS][1] = PROPERTY_INFO[index][property_EXT_Y];
-					CHARACTER_INFO[playerid][ch_POS][2] = PROPERTY_INFO[index][property_EXT_Z];
-					CHARACTER_INFO[playerid][ch_ANGLE] = PROPERTY_INFO[index][property_EXT_ANGLE];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = PROPERTY_INFO[index][property_EXT_INTERIOR];
-				}
-			}
-			case ROLEPLAY_STATE_OWN_CLUB:
-			{
-				new index = GetClubIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
-				if (index == -1)
-				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					new index_pos = minrand(0, sizeof(NewUserPos));
-					CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
-					CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
-					CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
-					CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
-					CHARACTER_INFO[playerid][ch_WORLD] = 0;
-				}
-				else
-				{
-					CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
-					CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
-					CHARACTER_INFO[playerid][ch_POS][0] = CLUBS_INFO[index][club_X];
-					CHARACTER_INFO[playerid][ch_POS][1] = CLUBS_INFO[index][club_Y];
-					CHARACTER_INFO[playerid][ch_POS][2] = CLUBS_INFO[index][club_Z];
-					CHARACTER_INFO[playerid][ch_ANGLE] = CLUBS_INFO[index][club_ANGLE];
-					CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+					new index = GetClubIndexByID(CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA]);
+					if (index == -1)
+					{
+						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+						CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+						new index_pos = minrand(0, sizeof(NewUserPos));
+						CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+						CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+						CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+						CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
+						CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+						CHARACTER_INFO[playerid][ch_WORLD] = 0;
+					}
+					else
+					{
+						CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+						CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+						CHARACTER_INFO[playerid][ch_POS][0] = CLUBS_INFO[index][club_X];
+						CHARACTER_INFO[playerid][ch_POS][1] = CLUBS_INFO[index][club_Y];
+						CHARACTER_INFO[playerid][ch_POS][2] = CLUBS_INFO[index][club_Z];
+						CHARACTER_INFO[playerid][ch_ANGLE] = CLUBS_INFO[index][club_ANGLE];
+						CHARACTER_INFO[playerid][ch_INTERIOR] = 0;
+					}
 				}
 			}
-		}
 
-		PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]); // Música
-		PLAYER_TEMP[playerid][py_USER_EXIT] = true;
-		ClearPlayerChatBox(playerid);
-	}
-	else
-	{
-		PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]); // Música
-		ClearPlayerChatBox(playerid);
+			PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]); // Música
+			PLAYER_TEMP[playerid][py_USER_EXIT] = true;
+			ClearPlayerChatBox(playerid);
+		}
+		else
+		{
+			PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]); // Música
+			ClearPlayerChatBox(playerid);
+		}
 	}
 	
 	db_free_result(Result);
@@ -1402,7 +1411,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (1)");
-						KickEx(playerid, 500);
+						KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 						return 0;
 		            }
 		        }
@@ -1415,7 +1424,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (2)");
-						KickEx(playerid, 500);
+						KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 						return 0;
 					}
 		        }
@@ -1428,7 +1437,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Anti-L");
-						KickEx(playerid, 500);
+						KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 						return 0;
 		            }
 		        }
@@ -1441,7 +1450,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: SleepAnim");
-						KickEx(playerid, 500);
+						KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 						return 0;
 		            }
 		        }
@@ -1457,7 +1466,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 						    SendDiscordWebhook(str_text, 1);
 						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (3)");
-							KickEx(playerid, 500);
+							KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 							return 0;
 						}
 					}
@@ -1508,7 +1517,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 				
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Jetpack");
 
-				KickEx(playerid, 500);
+				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 				PLAYER_MISC[playerid][MISC_BANS] ++;
 				SavePlayerMisc(playerid);
 
@@ -2490,7 +2499,7 @@ public OnPlayerRequestClass(playerid, classid)
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
 					Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
 					no están permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
-				KickEx(playerid, 500);
+				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 				return 0;
 			}
 			
@@ -2526,7 +2535,7 @@ public OnPlayerText(playerid, text[])
 	#endif
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
-	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);
+	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 
 	// general
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
@@ -2573,7 +2582,7 @@ public OnPlayerText(playerid, text[])
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Superar 50 jails");
 
 		ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", ""COL_WHITE"Fuiste baneado automáticamente, razón: Superar los 50 jails", "Cerrar", "");
-		KickEx(playerid, 500);
+		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
@@ -2596,7 +2605,7 @@ public OnPlayerText(playerid, text[])
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (IC)");
 
-			KickEx(playerid, 500);
+			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
@@ -5696,7 +5705,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				
 				AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Usar tazer sin ser policia");
 
-				KickEx(playerid, 500);
+				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 				PLAYER_MISC[playerid][MISC_BANS] ++;
 				SavePlayerMisc(playerid);
 
@@ -5759,7 +5768,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 				SendDiscordWebhook(str_text, 1);
 				SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Sospecha de Aimbot");
-				KickEx(playerid, 500);
+				KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			}*/
 		}
 	}
@@ -5820,7 +5829,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		{
 			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar siendo nivel 1.");
 			TogglePlayerControllableEx(playerid, false);
-			KickEx(playerid, 500);
+			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		}
 
 		if (PLAYER_WORKS[playerid][WORK_MEDIC] && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_MEDIC)
@@ -5843,7 +5852,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	{
 		SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por disparar estando herido.");
 		TogglePlayerControllableEx(playerid, false);
-		KickEx(playerid, 500);
+		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	}*/
 
 	if (PLAYER_TEMP[playerid][py_EXPLOSION_BULLET] == true)
@@ -6087,6 +6096,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 {
 	#pragma unused ip_address, type
 
+	if (IsPlayerNPC(playerid)) return 1;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
@@ -6105,13 +6115,14 @@ OnCheatDetected(playerid, ip_address[], type, code)
 
 		SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
 		TogglePlayerControllableEx(playerid, false);
-		KickEx(playerid, 500);
+		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	}
 	return 1;
 }
 
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 {
+	if (IsPlayerNPC(playerid)) return 1;
 	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "95.156.227.96")) return 0;
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
@@ -6132,7 +6143,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 			SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (%s)", ac_Info[cheat][ac_Name]);
 			TogglePlayerControllableEx(playerid, false);
-			KickEx(playerid, 500);
+			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 
 			if (cheat == CHEAT_PLAYER_HEALTH) CHARACTER_INFO[playerid][ch_HEALTH] = 20.0;
 			if (cheat == CHEAT_PLAYER_ARMOUR) CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
@@ -6155,7 +6166,7 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 			SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
 			
 			SendClientMessage(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por sobrepasar cantidad máxima de advertencias del anti-cheat.");
-			KickEx(playerid, 500);
+			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		}
 	}
 

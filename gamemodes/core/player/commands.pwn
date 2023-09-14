@@ -213,7 +213,7 @@ CMD:b(playerid, params[])
 			
 			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Spam (OOC)");
 
-			KickEx(playerid, 500);
+			KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 			PLAYER_MISC[playerid][MISC_BANS] ++;
 			SavePlayerMisc(playerid);
 
@@ -395,7 +395,7 @@ cmd:tr(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -407,7 +407,7 @@ cmd:tp(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -419,7 +419,7 @@ cmd:teleport(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -431,7 +431,7 @@ cmd:salo(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -443,7 +443,7 @@ cmd:fantasma(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -455,7 +455,7 @@ cmd:domar(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -467,7 +467,7 @@ cmd:sapito(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -479,7 +479,7 @@ cmd:pinwino(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -491,7 +491,7 @@ cmd:verdesin(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -503,7 +503,7 @@ cmd:piso(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -515,7 +515,7 @@ cmd:storm(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -527,7 +527,7 @@ cmd:gg(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -539,7 +539,7 @@ cmd:baciga(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -551,7 +551,7 @@ cmd:spread(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -563,7 +563,7 @@ cmd:cfind(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -575,7 +575,7 @@ cmd:master(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -587,7 +587,7 @@ cmd:tmp(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -599,7 +599,7 @@ cmd:fr(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -611,7 +611,7 @@ cmd:hmo(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -623,7 +623,7 @@ cmd:skr(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -635,7 +635,7 @@ cmd:xex(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -647,7 +647,7 @@ cmd:up(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -659,7 +659,7 @@ cmd:slide(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -671,7 +671,7 @@ cmd:cbug(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -683,7 +683,7 @@ cmd:aimbot(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -695,7 +695,7 @@ cmd:aim(playerid, params[])
 	SendDiscordWebhook(string, 1);
 
 	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats");
-	KickEx(playerid, 500);
+	KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 	return 1;
 }
 
@@ -1775,7 +1775,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 	#endif
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
-	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);
+	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < 8)
 	{

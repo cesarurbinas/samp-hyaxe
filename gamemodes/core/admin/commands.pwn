@@ -1,5 +1,43 @@
 new ADMIN_LEVEL_AC_IMMUNITY = 2;
 
+new pepe;
+
+CMD:spawn(playerid, params[])
+{
+	pepe = FCNPC_Create("pepe_el_malo");
+
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(playerid, x, y, z);
+	FCNPC_Spawn(pepe, 230, x, y, z + 0.1);
+	return 1;
+}
+
+CMD:follow(playerid, params[])
+{
+	FCNPC_GoToPlayer(pepe, playerid);
+	return 1;
+}
+
+CMD:fire(playerid, params[])
+{
+	FCNPC_AimAtPlayer(pepe, playerid, true, 500);
+	return 1;
+}
+
+CMD:stopfire(playerid, params[])
+{
+	FCNPC_StopAim(pepe);
+	return 1;
+}
+
+public FCNPC_OnSpawn(npcid)
+{
+	FCNPC_SetWeapon(npcid, 31);
+	FCNPC_SetAmmo(npcid, 500);
+	printf("spanwed");
+	return 1;
+}
+
 SendCommandAlert(playerid, to_player, const command[])
 {
 	new string[144];
@@ -555,7 +593,7 @@ CMD:ip(playerid, params[])
 				
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Subnormal");
 
-		KickEx(playerid, 500);
+		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
@@ -579,7 +617,7 @@ CMD:ip(playerid, params[])
 				
 		AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Subnormal");
 
-		KickEx(playerid, 500);
+		KickEx(playerid, 500); printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
 		PLAYER_MISC[playerid][MISC_BANS] ++;
 		SavePlayerMisc(playerid);
 
