@@ -3237,7 +3237,7 @@ ShowDialog(playerid, dialogid)
 					"\
 						"COL_WHITE"Nombre de la banda: %s\n\
 						"COL_WHITE"Color de la banda: {%06x}%s\n\
-						"COL_WHITE"Precio: 100.000$",
+						"COL_WHITE"Precio: 5.000$",
 						PLAYER_TEMP[playerid][py_CREATE_CREW_NAME],
 						CrewColors[ PLAYER_TEMP[playerid][py_CREATE_CREW_COLOR] ] >>> 8, CrewNameColors[ PLAYER_TEMP[playerid][py_CREATE_CREW_COLOR] ]
 			);

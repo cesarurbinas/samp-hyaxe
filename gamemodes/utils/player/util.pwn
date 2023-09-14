@@ -2753,8 +2753,9 @@ CheckBlackMarket(playerid)
     if (IsPlayerInRangeOfPoint(playerid, 1.5, 2164.021484, -1164.398925, -16.871662) || IsPlayerInRangeOfPoint(playerid, 1.5, -190.378494, -2254.421386, 25.593534))
     {
 	    if (PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "No puedes comprar aquí siendo policía.", 3);
-	    if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Tienes que ser nivel 2.", 3);
-	    ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
+	    //if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Tienes que ser nivel 2.", 3);
+	    if (ACCOUNT_INFO[playerid][ac_LEVEL] < 1) return ShowPlayerMessage(playerid, "~r~Tienes que ser nivel 1.", 3);
+		ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
 	}
     return 1;
 }

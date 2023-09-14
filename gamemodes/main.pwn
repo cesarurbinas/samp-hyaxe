@@ -321,6 +321,9 @@
 // World configuration
 #include "core/world/config.pwn"
 
+// Menus
+#include "core/gui/menu.pwn"
+
 // Player commands
 #include "core/player/commands.pwn"
 

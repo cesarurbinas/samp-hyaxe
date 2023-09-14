@@ -5690,13 +5690,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					return 1;
 				}
 
-				if (100000 > CHARACTER_INFO[playerid][ch_CASH])
+				if (5000 > CHARACTER_INFO[playerid][ch_CASH])
 				{
 				    ShowPlayerMessage(playerid, "~r~Necesitas 100.000$ para crear la banda.", 3);
 					return 1;
 				}
 
-				GivePlayerCash(playerid, -100000);
+				GivePlayerCash(playerid, -5000);
 				CREW_INFO[index][crew_VALID] = true;
 				format(CREW_INFO[index][crew_NAME], 32, "%s", PLAYER_TEMP[playerid][py_CREATE_CREW_NAME]);
 				format(CREW_INFO[index][crew_DESCRIPTION], 32, "Banda de Hyaxe");

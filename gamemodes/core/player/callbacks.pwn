@@ -6172,7 +6172,7 @@ public ContinuePlayerIntro(playerid, step)
 		{
 			ClearPlayerChatBox(playerid);
 
-            CHARACTER_INFO[playerid][ch_CASH] = 10000;
+            CHARACTER_INFO[playerid][ch_CASH] = 30000;
 			new index_pos = minrand(0, sizeof(NewUserPos));
 			CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
 			CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];

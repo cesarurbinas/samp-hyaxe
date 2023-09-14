@@ -6,7 +6,7 @@ stock SendDiscordWebhook(const message[], type)
 	strreplace(str_text, " ", "ª");
 
 	#if defined FINAL_BUILD
-		HTTP(0, HTTP_HEAD, str_text, "", "");
+	HTTP(0, HTTP_HEAD, str_text, "", "");
 	#endif
 	return 1;
 }

@@ -715,7 +715,7 @@ CMD:vincular(playerid, params[])
 	new str_text[200];
 	format(str_text, sizeof(str_text), "51.222.21.190:10500/B987Tbt97BTb9SAF9B8Ttasbfdf6/register/%s:%d:%d",
 		PLAYER_TEMP[playerid][py_NAME],
-		ACCOUNT_INFO[playerid][ac_ID],
+		code,
 		ACCOUNT_INFO[playerid][ac_SU]
 	);
 	HTTP(playerid, HTTP_GET, str_text, "", "");
