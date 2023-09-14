@@ -95,3 +95,22 @@ stock Color_SetAlpha(color, alpha = 0xFF)
 #define COLOR_FADE5 0xE6E6E6E6
 
 #define PLAYER_COLOR 0xF7F7F700
+
+enum color_info
+{
+	color_NAME[64],
+    color_HEX[9],
+    color_RGBA
+};
+new COLOR_INFO[][color_info] =
+{
+	{"Blanco", "{F7F7F7}", 0xF7F7F7FF},
+    {"Azul", "{3563e9}", 0x3563e9FF},
+    {"Rojo", "{e93535}", 0xe93535FF},
+    {"Amarillo", "{e7e53c}", 0xe7e53cFF},
+    {"Morado", "{a43ce7}", 0xa43ce7FF},
+    {"Verde", "{6ad64c}", 0x6ad64cFF},
+    {"Naranja", "{FF8A00}", 0xFF8A00FF},
+    {"Celeste", "{6bc3fc}", 0x6bc3fcFF},
+    {"Lima", "{7CD895}", 0x7CD895FF}
+};
