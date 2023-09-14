@@ -22931,7 +22931,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				if (PLAYER_TEMP[playerid][py_ANSWER_INDEX] == 1337) return ShowDialog(playerid, DIALOG_SELECC_ANSWER);;
+				if (PLAYER_TEMP[playerid][py_ANSWER_INDEX] == 1337) return ShowDialog(playerid, DIALOG_SELECC_ANSWER);
 
 				if (!strcmp(inputtext, PLAYER_TEMP[playerid][py_ANSWER_RESPONSE], false))
 				{
