@@ -1,3 +1,4 @@
+#define MAX_CLUBS 2000
 #define MAX_CLUB_PRODUCTS 10
 
 enum club_obj_enum
@@ -21,7 +22,7 @@ enum club_obj_enum
 	club_PRICE,
 	club_RADIO
 };
-new CLUBS_INFO[][club_obj_enum];
+new CLUBS_INFO[MAX_CLUBS][club_obj_enum];
 
 enum club_interior_enum
 {
