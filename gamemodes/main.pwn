@@ -17069,6 +17069,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (CHARACTER_INFO[playerid][ch_CASH] >= Toys_Shop[listitem][shop_toy_price])
 				{
 					new slot = GetEmptyPlayerToySlot(playerid);
+					printf("%d", slot);
+
 					if (!ACCOUNT_INFO[playerid][ac_SU] && slot >= MAX_NU_TOYS)
 					{
 						PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
@@ -21665,7 +21667,7 @@ SavePlayerToysData(playerid)
 
 GetEmptyPlayerToySlot(playerid)
 {
-	for(new i = (MAX_PLAYER_ATTACHED_OBJECTS - 1); i != -1; --i)
+	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; ++i)
 	{
 		if (!PLAYER_TOYS[playerid][i][player_toy_VALID]) return i;
 	}
