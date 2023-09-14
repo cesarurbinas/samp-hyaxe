@@ -8067,13 +8067,13 @@ CMD:stop(playerid, params[])
 CMD:mp3(playerid, params[])
 {
 	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
-	if(!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes ningún GPS, ve a un 24/7.", 3, 1085);
 	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
 	
 	PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
 	ShowDialog(playerid, DIALOG_PLAYER_MP3);
 	return 1;
 }
+alias:mp3("youtube")
 
 CMD:pass(playerid, params[])
 {
@@ -9227,7 +9227,7 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la propiedad", ""COL_WHITE"Ingresa el nuevo nombre de la propiedad.", ">>", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"MP3", ""COL_WHITE"Introduce el nombre de un video de YouTube que quieras reproducir.", "Buscar", "Salir");
+		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Buscar en YouTube", ""COL_WHITE"Introduce el nombre de un video de YouTube que quieras reproducir.", "Buscar", "Salir");
 		case DIALOG_BUY_VEHICLE:
 		{
 			if (!GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_VALID]) return 0;
@@ -12220,7 +12220,7 @@ ShowDialog(playerid, dialogid)
     	case DIALOG_RADIO_STATIONS:
     	{
     		new dialog[564];
-    		format(dialog, sizeof(dialog), "Apagar\t\n");
+    		format(dialog, sizeof(dialog), "Apagar\t\nBuscar en YouTube\t\n");
 
     		for(new i = 0; i != sizeof RADIO_STATIONS; i ++)
     		{
@@ -12248,6 +12248,7 @@ ShowDialog(playerid, dialogid)
     		GetVehicleParamsCarWindows(vehicleid, windows[0], windows[1], windows[2], windows[3]);
 
     		if (PLAYER_MISC[playerid][MISC_RADIO_STATION] == 100) radio_station = ""COL_RED"Apagada";
+    		else if (PLAYER_MISC[playerid][MISC_RADIO_STATION] == 666) radio_station = ""COL_YELLOW"YouTube";
     		else format(radio_station, sizeof(radio_station), ""COL_YELLOW"%s", RADIO_STATIONS[ PLAYER_MISC[playerid][MISC_RADIO_STATION] ][r_NAME]);
 
     		format(caption, sizeof(caption), ""COL_RED"%s", VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]);
@@ -20236,7 +20237,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
-				new index = (listitem - 1);
+				new index = (listitem - 2);
 				if (listitem == 0)
 				{
 					PLAYER_MISC[playerid][MISC_RADIO_STATION] = 100;
@@ -20254,6 +20255,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							}
 						}
 					}
+				}
+				else if (listitem == 1)
+				{
+					ShowDialog(playerid, DIALOG_PLAYER_MP3);
+					PLAYER_MISC[playerid][MISC_RADIO_STATION] = 666;
 				}
 				else
 				{
