@@ -156,6 +156,20 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 
 	if (!PLAYER_TEMP[playerid][py_COMBAT_MODE] && IsPlayerPaused(playerid)) return 0;
 	if (PLAYER_TEMP[playerid][py_GODMODE] && issuerid != INVALID_PLAYER_ID) return 0;
+	if (PLAYER_TEMP[playerid][py_PACIFIC])
+	{
+		if (issuerid != INVALID_PLAYER_ID)
+		{
+			ShowPlayerMessage(issuerid, "~r~Este jugador está en modo pacífico.", 3);
+		}
+		return 0;
+	}
+
+	if (issuerid != INVALID_PLAYER_ID && PLAYER_TEMP[issuerid][py_PACIFIC])
+	{
+		PLAYER_TEMP[issuerid][py_PACIFIC] != PLAYER_TEMP[issuerid][py_PACIFIC];
+		ShowPlayerMessage(issuerid, "~r~Se ha desactivado el modo pacífico.", 3);
+	}
 
 	new Float:x, Float:y, Float:z;
 	

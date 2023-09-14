@@ -6,8 +6,8 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 		{
 			if (TRUCK_VEHICLE[vehicleid][truck_vehicle_LOADED])
 			{
-				if (TRUCK_VEHICLE[vehicleid][truck_vehicle_DELIVERED]) ShowPlayerMessage(playerid, "Vuelve a la ~y~estaciÃ³n", 7);
-				else ShowPlayerMessage(playerid, "Ve a entregar la mercancÃ­a", 7);
+				if (TRUCK_VEHICLE[vehicleid][truck_vehicle_DELIVERED]) ShowPlayerMessage(playerid, "Vuelve a la ~y~estación", 7);
+				else ShowPlayerMessage(playerid, "Ve a entregar la mercancía", 7);
 
 				new Float:val = 70.0;
 				if (val + GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] > GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS]) val = GLOBAL_VEHICLES[vehicleid][gb_vehicle_MAX_GAS];
@@ -49,7 +49,7 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 		case WORK_POLICE:
 		{
 			new label_str[128];
-			format(label_str, sizeof label_str, "%s | NÂº%d | %c. %s", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_MISC[playerid][MISC_PLACA_PD], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME]);
+			format(label_str, sizeof label_str, "%s | Nº%d | %c. %s", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_MISC[playerid][MISC_PLACA_PD], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME]);
 
 			if (IsValidDynamic3DTextLabel(PLAYER_TEMP[playerid][py_POLICE_LABEL]))
 			{
@@ -81,7 +81,7 @@ StartPlayerJob(playerid, work, vehicleid = INVALID_VEHICLE_ID)
 			LogCarts[playerid][cart_OBJECT] = INVALID_OBJECT_ID;
 			PLAYER_TEMP[playerid][py_HOLDING_CART] = true;
 
-			ShowPlayerNotification(playerid, "Ahora estas de servicio como leÃ±ador, ve al bosque y tala algunos arboles. Usa ~r~ALT ~w~+ ~r~CLICK ~w~para soltar tu carro.", 5);
+			ShowPlayerNotification(playerid, "Ahora estas de servicio como leñador, ve al bosque y tala algunos arboles. Usa ~r~ALT ~w~+ ~r~CLICK ~w~para soltar tu carro.", 5);
 		}
 	}
 
@@ -146,12 +146,12 @@ EndPlayerJob(playerid, changeskin = true)
 				{
 					if (PLAYER_TEMP[playerid][py_TRASH_DRIVER])
 					{
-						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], "~r~El trabajo se ha cancelado porque tu compaÃ±ero ha dejado de trabajar.", 3);
+						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], "~r~El trabajo se ha cancelado porque tu compañero ha dejado de trabajar.", 3);
 						CancelTrashWork(playerid, TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID]);
 					}
 					if (PLAYER_TEMP[playerid][py_TRASH_PASSENGER])
 					{
-						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID], "~r~El trabajo se ha cancelado porque tu compaÃ±ero ha dejado de trabajar.", 3);
+						ShowPlayerMessage(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID], "~r~El trabajo se ha cancelado porque tu compañero ha dejado de trabajar.", 3);
 						CancelTrashWork(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_DRIVER_ID], playerid, PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID]);
 					}
 				}

@@ -7687,8 +7687,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", dialog, "Cerrar", "");
 					}
-					case 8: ShowDialog(playerid, DIALOG_BUY_NAME_COLOR);
-					case 9: ShowDialog(playerid, DIALOG_BUY_CHAT_COLOR);
+					case 11: ShowDialog(playerid, DIALOG_BUY_NAME_COLOR);
+					case 12: ShowDialog(playerid, DIALOG_BUY_CHAT_COLOR);
+					case 13:
+					{
+						if (ACCOUNT_INFO[playerid][ac_LEVEL] < 3) return ShowPlayerMessage(playerid, "~r~Necesitas ser nivel 3 para usar este modo.", 5);
+						if (PLAYER_TEMP[playerid][py_COMBAT_MODE]) return ShowPlayerMessage(playerid, "~r~No puedes usar el modo pacífico estando en combate.", 5);
+
+						PLAYER_TEMP[playerid][py_PACIFIC] != PLAYER_TEMP[playerid][py_PACIFIC];
+						ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
+					}
 				}
 			}
 			else

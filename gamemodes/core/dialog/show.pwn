@@ -3984,6 +3984,7 @@ ShowDialog(playerid, dialogid)
 					Ver registros de IP\t\n\
 					Color del nombre\t%s%s\n\
 					Color del texto\t%s%s\n\
+					Modo pacífico\t%s\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
@@ -3996,7 +3997,8 @@ ShowDialog(playerid, dialogid)
 					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] ][color_HEX],
 					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] ][color_NAME],
 					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_HEX],
-					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_NAME]
+					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_NAME],
+					(PLAYER_TEMP[playerid][py_PACIFIC] ? ""COL_GREEN"Sí" : ""COL_RED"No")
 			);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Panel de configuración", dialog, "Cambiar", "Salir");

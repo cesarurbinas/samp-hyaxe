@@ -5313,6 +5313,8 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 	if (!PLAYER_TEMP[playerid][py_TUTORIAL]) StopAudioStreamForPlayer(playerid);
 
+	DisableRemoteVehicleCollisions(playerid, 1);
+
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] != INVALID_PLAYER_ID)
 	{
 		if (IsPlayerConnected(GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER]))
@@ -5558,7 +5560,7 @@ public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 		}
 	}
 
-	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] != VEHICLE_TYPE_WORK)
+	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_TYPE] != VEHICLE_TYPE_WORK || PLAYER_TEMP[playerid][py_PACIFIC])
 	{
 		DisableRemoteVehicleCollisions(playerid, 0);
 	}

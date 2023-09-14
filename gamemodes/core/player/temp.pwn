@@ -397,8 +397,13 @@ enum Temp_Enum
 >>>>>>> 86b7f68 (global chat)
 =======
 	py_GLOBAL_CHANNEL_TIME,
+<<<<<<< HEAD
 	py_TOTAL_SHOT
 >>>>>>> 8fe8170 (anti wallshot)
+=======
+	py_TOTAL_SHOT,
+	bool:py_PACIFIC
+>>>>>>> 1480c93 (modo pacifico)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
