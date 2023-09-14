@@ -2482,7 +2482,6 @@ public OnPlayerText(playerid, text[])
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);// printf("[kick] line: %d", __line); printf("[kick] filename: %s", __file);
-	if (IsPlayerPaused(playerid)) return Anticheat_Ban(playerid, "AFK Ghost #1");
 	
 	// general
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
