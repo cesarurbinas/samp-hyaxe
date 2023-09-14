@@ -27963,23 +27963,59 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 	{
 		new
 			Float:actual_health,
-			Float:new_health
+			Float:new_health,
+			type
 		;
+
+		type = Streamer_GetIntData(STREAMER_TYPE_ACTOR, actorid, E_STREAMER_EXTRA_ID);
 		GetDynamicActorHealth(actorid, actual_health);
 
 		new_health = (amount - actual_health);
 		if (new_health <= 0.0)
 		{
+			// Death
 			new_health = 0.0;
 
 			ActorBloodParticle(actorid);
-			SetActorRespawnTime(ActorTarget, 60000);
+			ApplyDynamicActorAnimation(actorid, "CRACK", "CRCKIDLE1", 4.0, 1, 1, 1, 0, 0);
+
+			SetActorRespawnTime(actorid, 60000);
+
+			// Player
+			if (GetPlayerInterior(playerid) != 0)
+			{
+				SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 2);
+				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Homicidio");
+				ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Homicidio", 5);	
+			}
+
+			SetTimerEx("RespawnDynamicActor", 30000, false, "id", actorid, type);
+			SetDynamicActorInvulnerable(actorid, true);
 		}
 		
-		SetDynamicActorHealth(actorid, health);
+		SetDynamicActorHealth(actorid, new_health);
 	}
 	
 	SendClientMessageEx(playerid, -1, "playerid: %d, actorid: %d, amount: %f, weaponid: %d, bodypart: %d, health: %f", playerid, actorid, amount, weaponid, bodypart, health);
+	return 1;
+}
+
+forward RespawnDynamicActor(actorid, type);
+public RespawnDynamicActor(actorid, type)
+{
+	ClearDynamicActorAnimations(actorid);
+
+	switch(type)
+	{
+		case ACTOR_TYPE_DEALER:
+		{
+			ApplyDynamicActorAnimation(DEALER_INFO[i][dl_ACTOR], "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
+			return 1;
+		}
+	}
+
+	SetDynamicActorInvulnerable(acortid, true);
+	SetDynamicActorHealth(actorid, 100.0);
 	return 1;
 }
 

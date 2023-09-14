@@ -12,7 +12,6 @@ enum dealer_enum
 	dl_SKIN,
 	dl_CASH,
 	dl_STOCK,
-	bool:dl_DEATH,
 	dl_MAFIA,
 	dl_ACTOR
 };
@@ -34,3 +33,9 @@ new DEALER_INFO[][dealer_enum] =
 	{2208.7979, -1110.4104, 25.7840, 190.8241},
 	{2314.6399, -1163.6310, 26.9707, 49.8228}
 };
+
+enum {
+	ACOTR_TYPE_NORMAL,
+	ACTOR_TYPE_DEALER,
+	ACTOR_TYPE_SHOP
+}

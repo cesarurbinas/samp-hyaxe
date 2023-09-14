@@ -16,6 +16,7 @@ CreateDealers()
 		);
 
 		ApplyDynamicActorAnimation(DEALER_INFO[i][dl_ACTOR], "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
+		Streamer_SetIntData(STREAMER_TYPE_ACTOR, DEALER_INFO[i][dl_ACTOR], E_STREAMER_EXTRA_ID, ACTOR_TYPE_DEALER);
 
 		// Key area
 		AddKeyArea(DEALER_INFO[i][dl_X], DEALER_INFO[i][dl_Y], 1.5, KEY_TYPE_Y);
