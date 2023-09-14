@@ -2685,6 +2685,7 @@ flags:testsound(CMD_MODERATOR)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*CMD:fakeping(playerid, params[])
 {
 	new fakeping, to_player;
@@ -2709,6 +2710,38 @@ CMD:botmaster(playerid, params[])
 =======
 >>>>>>> refs/rewritten/hmm
 =======
+=======
+CMD:givecredits(playerid, params[])
+{
+	new to_player, value;
+	if (sscanf(params, "ud", to_player, value)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /givecredits <player_id> <ammount>");
+	if (!IsPlayerConnected(to_player)) return SendClientMessageEx(playerid, COLOR_WHITE, "Jugador (%d) desconectado", to_player);
+	if (ACCOUNT_INFO[to_player][ac_ADMIN_LEVEL] > ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL])
+	{
+		SendCommandAlert(playerid, to_player, "givecredits");
+		SendClientMessage(playerid, COLOR_WHITE, "El rango administrativo de este jugador es superior al tuyo.");
+		return 1;
+	}
+
+	new payload[264];
+	format(payload, sizeof(payload), "51.161.31.157:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/give_credit/%d", ACCOUNT_INFO[to_player][ac_ID]);
+	HTTP(to_player, HTTP_GET, payload, "", "StoreCreditsUpdate");
+
+	SendCmdLogToAdmins(playerid, "givecredits", params);
+	return 1;
+}
+flags:givecredits(CMD_OWNER)
+
+forward StoreCreditsUpdate(index, response_code, const data[]);
+public StoreCreditsUpdate(index, response_code, const data[])
+{
+	#if DEBUG_MODE == 1
+		printf("StoreCreditsUpdate %d %d %s", index, response_code, data);
+	#endif
+	return 1;
+}
+
+>>>>>>> b6e2fb9 (/givecredits)
 CMD:showdialog(playerid, params[])
 {
 	new dialog;
