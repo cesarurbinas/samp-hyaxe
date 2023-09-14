@@ -2153,7 +2153,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 			HidePlayerHud(playerid);
 			CancelEdit(playerid);
-			SetNormalPlayerMarkers(playerid);
+			//SetNormalPlayerMarkers(playerid);
 			if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) EndPlayerJob(playerid, false);
 			PLAYER_TEMP[playerid][py_HUNGRY_MESSAGE] = false;
 			PLAYER_TEMP[playerid][py_THIRST_MESSAGE] = false;

@@ -133,6 +133,8 @@ public FCNPC_OnDeath(npcid, killerid, reason)
 					// Give mission participation points
 					PLAYER_TEMP[killerid][py_MISSION_POINTS] ++;
 
+					SetMissionPlayerMarkers(playerid);
+
 					// Check lives npc's
 					new npc_lives;
 					for(new i = 0; i < sizeof(SWEET_DEALERS); i++)

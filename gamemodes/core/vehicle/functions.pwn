@@ -1320,7 +1320,7 @@ ShowPlayerSpeedoMeter(playerid)
 
 	PLAYER_TEMP[playerid][py_SPEEDOMETER] = true;
 	PLAYER_TEMP[playerid][py_FUEL_DOWN_TIME] = gettime();
-	PLAYER_TEMP[playerid][py_TIMERS][8] = SetTimerEx("UpdatePlayerSpeedo", 50, true, "iif", playerid, vehicleid, VEHICLE_INFO[modelid - 400][vehicle_info_MAX_VEL]);
+	PLAYER_TEMP[playerid][py_TIMERS][8] = SetTimerEx("UpdatePlayerSpeedo", 500, true, "iif", playerid, vehicleid, VEHICLE_INFO[modelid - 400][vehicle_info_MAX_VEL]);
 	return 1;
 }
 

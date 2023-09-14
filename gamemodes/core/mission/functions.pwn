@@ -47,6 +47,24 @@ CreateMissionsPlaces()
     return 1;
 }
 
+SetMissionPlayerMarkers(playerid)
+{
+	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+            if (PLAYER_TEMP[i][py_IN_MISSION])
+            {
+                if (PLAYER_TEMP[i][py_MISSION] == PLAYER_TEMP[playerid][py_MISSION])
+                {
+			        SetPlayerMarkerForPlayer(playerid, i, 0x46ABE5FF);
+                }
+			}
+		}
+	}
+	return 1;
+}
+
 MissionFailed(playerid, bool:disconnected = false)
 {
     PLAYER_TEMP[playerid][py_IN_MISSION] = false;
@@ -137,11 +155,12 @@ CheckMissionPlace(playerid)
                 if (PLAYER_TEMP[i][py_MISSION] == index)
                 {
                     ShowPlayerNotification(i, sprintf("%s se ha unido a la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
-                    SetPlayerMarkerForPlayer(i, playerid, 0x46ABE5FF);
                     players_in_mission ++;
                 }
             }
         }
+
+        SetMissionPlayerMarkers(playerid);
 
         if (players_in_mission <= 1) START_MISSION[index][ems_TYPE] = random(START_MISSION[index][ems_MAX_MISSIONS]);
 
