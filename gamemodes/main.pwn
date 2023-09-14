@@ -5656,6 +5656,7 @@ Menu:CLUB_MENU(playerid, response, listitem)
 
 				GivePlayerCash(playerid, CLUBS_INFO[club][club_BALANCE], false);
 
+				new DB_Query[128];
 				CLUBS_INFO[club][club_BALANCE] = 0;
 				format(DB_Query, sizeof(DB_Query), "\
 					UPDATE `CLUB_INFO` SET\
