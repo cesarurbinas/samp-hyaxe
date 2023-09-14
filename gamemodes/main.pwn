@@ -9697,7 +9697,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[90 * (MAX_PLAYER_GPS_SAVES + 2)];
-			format(dialog, sizeof dialog, ""COL_WHITE"Lugar\t{FF846A}Distancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Lugar\t"COL_WHITE"Distancia\n");
 
 			new line_str[90], sites, listitem;
 			for(new i = 0; i != MAX_PLAYER_GPS_SAVES; i++ )
@@ -9713,27 +9713,27 @@ ShowDialog(playerid, dialogid)
 			if (sites < MAX_PLAYER_GPS_SAVES)
 			{
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = MAX_PLAYER_GPS_SAVES + 10;
-				strcat(dialog, ""COL_WHITE"+ Añadir lugar actual\n"); listitem ++;
+				strcat(dialog, ""COL_GREEN"+"COL_WHITE"" Añadir lugar actual\n"); listitem ++;
 			}
 			if (sites > 0)
 			{
 				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = MAX_PLAYER_GPS_SAVES + 20;
-				strcat(dialog, ""COL_RED"Eliminar todo\n"); listitem ++;
+				strcat(dialog, ""COL_RED"-"COL_WHITE" Eliminar todo\n"); listitem ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Mis lugares", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis lugares", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_PLAYER_ADD:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "GPS - Añadir lugar", "Tu posición actual será guardada en este lugar para ir más tarde.\nIndica el nombre de este lugar para guardarlo.", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Añadir lugar", ""COL_WHITE"Tu posición actual será guardada en este lugar para ir más tarde.\nIndica el nombre de este lugar para guardarlo.", ">>", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_GPS_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Mis lugares - Eliminar todo", "¿Está seguro de que quiere eliminar todos sus lugares?\nEsta opción no se puede deshacer y perderás todos los lugares guardados.", "Eliminar", "Atrás");
+		case DIALOG_PLAYER_GPS_DELETE_ALL: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar todo", ""COL_WHITE"¿Está seguro de que quiere eliminar todos sus lugares?\nEsta opción no se puede deshacer y perderás todos los lugares guardados.", "Eliminar", "Atrás");
 		case DIALOG_PLAYER_GPS_PLAYER_OPTION:
 		{
 			new caption[40];
-			format(caption, sizeof caption, "GPS - %s", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
+			format(caption, sizeof caption, ""COL_RED"%s", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, ""COL_WHITE"1. Marcar coordenadas en el GPS\n"COL_WHITE"2. Cambiar nombre de este lugar\n"COL_WHITE"3. Eliminar este lugar del GPS", ">>", "Atrás");
 			return 1;
@@ -9742,19 +9742,19 @@ ShowDialog(playerid, dialogid)
 		{
 			new dialog[90];
 			format(dialog, sizeof dialog, "Nombre del lugar: %s\nIndica el nuevo nombre para este lugar.", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "GPS - Cambiar nombre de un lugar", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de un lugar", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_CONFIRM_DELET:
 		{
 			new dialog[95];
 			format(dialog, sizeof dialog, "Nombre del lugar: %s\n¿Está seguro de que quiere borrarlo del GPS?", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME]);
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "GPS - Eliminar un lugar", dialog, "Eliminar", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Eliminar un lugar", dialog, "Eliminar", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITES:
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "GPS - Otros", "Hospitales\nTiendas de Ropa\nNegocios\nRestaurantes\nBancos\nCajeros\nGasolineras\nConcesionarios\nBanco Central\nPolicías\nTaller mecánico\nHelipuerto", ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Otros", "Hospitales\nTiendas de Ropa\nNegocios\nRestaurantes\nBancos\nCajeros\nGasolineras\nConcesionarios\nBanco Central\nPolicías\nTaller mecánico\nHelipuerto", ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_WORKS:
@@ -9762,7 +9762,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[85 * (sizeof(work_info) + 1)], listitem;
-			format(dialog, sizeof dialog, "Trabajo\tNivel\tDistancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Trabajo\t"COL_WHITE"Nivel\t"COL_WHITE"Distancia\n");
 
 			for(new i = 1; i != sizeof work_info; i ++)
 			{
@@ -9776,7 +9776,7 @@ ShowDialog(playerid, dialogid)
 				listitem ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Trabajos", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Trabajos", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_TRABAJOS_TELEPORTS:
@@ -9784,7 +9784,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_LISTITEMS; i++ ) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
 
 			new dialog[85 * (sizeof(work_info) + 1)], listitem;
-			format(dialog, sizeof dialog, "Trabajo\tNivel\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Trabajo\t"COL_WHITE"Nivel\n");
 
 			for(new i = 1; i != sizeof work_info; i ++)
 			{
@@ -9800,7 +9800,7 @@ ShowDialog(playerid, dialogid)
 		}
 		case DIALOG_PLAYER_GPS_SITE_0: //Hospitales
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Hospitales", DIALOG_PLAYER_GPS_SITE_0_String, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Hospitales", DIALOG_PLAYER_GPS_SITE_0_String, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_1: //Tiendas de ropa
@@ -9823,7 +9823,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Tiendas de ropa", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Tiendas de ropa", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_2: //Tiendas 24 horas
@@ -9846,7 +9846,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Negocios", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Negocios", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_3: //Comida rapida
@@ -9869,7 +9869,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Restaurantes", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Restaurantes", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_4: //Bancos
@@ -9892,7 +9892,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Bancos", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Bancos", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_5: //Cajeros
@@ -9909,7 +9909,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Cajeros", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Cajeros", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_6: //Gasolineras
@@ -9926,12 +9926,12 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Gasolineras", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Gasolineras", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_7: //Concesionarios
 		{
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Concesionarios", DIALOG_PLAYER_GPS_SITE_7_String, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Concesionarios", DIALOG_PLAYER_GPS_SITE_7_String, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_SITE_8: //Policias
@@ -9954,7 +9954,7 @@ ShowDialog(playerid, dialogid)
 				sites ++;
 			}
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Policías", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Policías", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_PROPERTIES:
@@ -9962,7 +9962,7 @@ ShowDialog(playerid, dialogid)
 			for(new i = 0; i != MAX_SU_PROPERTIES; i ++) PLAYER_TEMP[playerid][py_PLAYER_GPS_SELECTED_PROPERTY][i] = -1;
 
 			new dialog[90 * (MAX_SU_PROPERTIES + 2)];
-			format(dialog, sizeof dialog, "Propiedad\tDistancia\n");
+			format(dialog, sizeof dialog, ""COL_WHITE"Propiedad\t"COL_WHITE"Distancia\n");
 
 			new DBResult:Result, DB_Query[250];
 			format(DB_Query, sizeof DB_Query, "SELECT `PROPERTY_OWNER`.*, `PROPERTY`.`EXT_X`, `PROPERTY`.`EXT_Y`, `PROPERTY`.`EXT_Z` FROM `PROPERTY_OWNER`, `PROPERTY` WHERE `PROPERTY_OWNER`.`ID_USER` = '%d' AND `PROPERTY`.`ID` = `PROPERTY_OWNER`.`ID_PROPERTY`;", ACCOUNT_INFO[playerid][ac_ID]);
@@ -9992,7 +9992,7 @@ ShowDialog(playerid, dialogid)
 			}
 			db_free_result(Result);
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "GPS - Mis propiedades", dialog, ">>", "Atrás");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Mis propiedades", dialog, ">>", "Atrás");
 			return 1;
 		}
 		case DIALOG_PLAYER_GPS_VEHICLES:
@@ -10015,7 +10015,7 @@ ShowDialog(playerid, dialogid)
 					GetVehiclePos(i, pos[0], pos[1], pos[2]);
 
 					new line_str[115];
-					if (PLAYER_VEHICLES[i][player_vehicle_ACCESSIBLE]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s (%d)\t"COL_RED"%s\t"COL_WHITE"%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
+					if (PLAYER_VEHICLES[i][player_vehicle_ACCESSIBLE]) format(line_str, sizeof line_str, ""COL_WHITE"%d. %s (%d)\t"COL_WHITE"%s\t"COL_WHITE"%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
 					else format(line_str, sizeof line_str, "{666666}%d. %s (%d)\t{666666}%s\t{666666}%.2f Km\n", total_vehicles + 1, VEHICLE_INFO[ GLOBAL_VEHICLES[i][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME], i, GLOBAL_VEHICLES[i][gb_vehicle_NUMBER_PLATE], (GetPlayerDistanceFromPoint(playerid, pos[0], pos[1], pos[2]) * 0.01));
 
 					strcat(dialog, line_str);
