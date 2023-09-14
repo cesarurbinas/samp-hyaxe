@@ -46,7 +46,8 @@ new work_info[][work_info_info] =
 	{WORK_TYPE_FAMILY, 0, "mafioso",		                false, 1000, 1, 0},
 	{WORK_TYPE_FAMILY, 0, "mafioso enemigo",		        false, 1000, 1, 0},
 	{WORK_TYPE_FAMILY, 0, "familia osborn",		        	false, 1000, 1, 0},
-	{WORK_TYPE_NORMAL, 1, "médico",                      	true, 200, 50, 2000}
+	{WORK_TYPE_NORMAL, 1, "médico",                      	true, 200, 50, 2000},
+	{WORK_TYPE_NORMAL, 1, "boxeador",                      	false, 200, 50, 2000}
 };
 
 new PLAYER_WORKS[MAX_PLAYERS][sizeof(work_info)];
@@ -79,5 +80,6 @@ new Float:obtain_work_coords[][obtain_work_coords_info] =
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //mafia
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //mafia enemiga
 	{-510.972015, 324.242736, 2004.585937, 20, false, 0, 1480.966918, -1772.065673, 18.795755}, //osborn
-	{-201.724212, -1742.832641, 675.768737, 3, false, 0, 1172.832763, -1323.269531, 15.400051} //medico
+	{-201.724212, -1742.832641, 675.768737, 3, false, 0, 1172.832763, -1323.269531, 15.400051}, //medico
+	{-20.062799, 99.009475, 1098.068603, 16, false, 0, 950.341247, -987.135864, 38.743835} //boxeador
 };
