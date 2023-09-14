@@ -81,6 +81,9 @@
 #include "core/notification/header.pwn"
 
 // Libs
+#define BUSTAIM_MAX_PING 600
+#define BUSTAIM_MAX_PL_PERCENT_ALLOWED 5
+#include <aimbot>
 #include <hyaxe-anticheat>
 #include <hyaxe-preview>
 #include <route-tracing>
@@ -266,11 +269,6 @@
 #include "core/anticheat/functions.pwn"
 #include "core/anticheat/callbacks.pwn"
 #include "core/anticheat/main.pwn"
-
-// Aimbot
-#define BUSTAIM_MAX_PING 600
-#define BUSTAIM_MAX_PL_PERCENT_ALLOWED 5
-#include <aimbot>
 
 // Soccer
 #include "core/soccer/header.pwn"
