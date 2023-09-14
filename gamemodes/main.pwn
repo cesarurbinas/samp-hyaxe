@@ -2409,21 +2409,6 @@ new INVALID_NAMES[][100] =
 	"Pingote"
 };
 
-#define MAX_ADS_PER_PLAYER 4
-enum
-{
-	PLAYER_SHOP_STATE_ALL,
-	PLAYER_SHOP_STATE_AD,
-	PLAYER_SHOP_STATE_MY_ADS
-};
-
-enum
-{
-	SHOP_ARTICLE_TYPE_PROPERTY,
-	SHOP_ARTICLE_TYPE_VEHICLE,
-	SHOP_ARTICLE_TYPE_OTHER
-};
-
 enum
 {
 	MECHANIC_OPTION_REPAIR,
@@ -6619,7 +6604,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 	if (PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW])
 	{
-		if (PLAYER_TEMP[playerid][py_SHOP]) HidePlayerShop(playerid);
 		if (PLAYER_TEMP[playerid][py_PLAYER_IN_ATM]) HideBankMenu(playerid);
 		if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV]) HideInventory(playerid);
 		if (PLAYER_TEMP[playerid][py_PLAYER_IN_PHONE]) HidePhone(playerid);
@@ -15445,21 +15429,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0: ShowDialog(playerid, DIALOG_PROPERTY_BANK_SELL);
 					case 1: ShowDialog(playerid, DIALOG_PROPERTY_SELL_PRICE);
-					case 2:
-					{
-						PLAYER_TEMP[playerid][py_SHOP_ADD_TYPE] = SHOP_ARTICLE_TYPE_PROPERTY;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_MODELID] = 1273;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL1] = 0;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL2] = 0;
-						ShowDialog(playerid, DIALOG_SHOP_ADD_TEXT);
-					}
 				}
 			}
-			else
-			{
-				if (PLAYER_TEMP[playerid][py_NOTARY_OPTION] == 2) ShowDialog(playerid, DIALOG_SHOP_ADD);
-				else ShowDialog(playerid, DIALOG_NOTARY);
-			}
+			else ShowDialog(playerid, DIALOG_NOTARY);
+
 			return 1;
 		}
 		case DIALOG_PROPERTY_BANK_SELL:
@@ -15678,21 +15651,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0: ShowDialog(playerid, DIALOG_VEHICLE_BANK_SELL);
 					case 1: ShowDialog(playerid, DIALOG_VEHICLE_SELL_PRICE);
-					case 2:
-					{
-						PLAYER_TEMP[playerid][py_SHOP_ADD_TYPE] = SHOP_ARTICLE_TYPE_VEHICLE;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_MODELID] = GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_MODELID];
-						PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL1] = GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_COLOR_1];
-						PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL2] = GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][gb_vehicle_COLOR_2];
-						ShowDialog(playerid, DIALOG_SHOP_ADD_TEXT);
-					}
 				}
 			}
-			else
-			{
-				if (PLAYER_TEMP[playerid][py_NOTARY_OPTION] == 2) ShowDialog(playerid, DIALOG_SHOP_ADD);
-				else ShowDialog(playerid, DIALOG_NOTARY);
-			}
+			else ShowDialog(playerid, DIALOG_NOTARY);
+
 			return 1;
 		}
 		case DIALOG_VEHICLE_BANK_SELL:
@@ -18428,133 +18390,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowDialog(playerid, DIALOG_ANTI_CHEAT_MODIFY);
 			}
 			else ShowDialog(playerid, DIALOG_ANTI_CHEAT_MODIFY);
-			return 1;
-		}
-		case DIALOG_SHOP_ARTICLE_MODIFY:
-		{
-			if (response)
-			{
-				if (sscanf(inputtext, "d", inputtext[0]))
-				{
-					ShowPlayerMessage(playerid, "Introduce un valor númerico.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-				if (inputtext[0] < 0)
-				{
-					ShowPlayerMessage(playerid, "Introduce un valor positivo.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-				if (inputtext[0] > 1000000000)
-				{
-					ShowPlayerMessage(playerid, "~r~El precio es muy alto.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-
-				new DB_Query[80];
-				format(DB_Query, sizeof DB_Query, "UPDATE `SHOP` SET `PRICE` = '%d' WHERE `ID` = '%d';", inputtext[0], PLAYER_TEMP[playerid][py_SHOP_SELECTED_ARTICLE_ID]);
-				db_query(Database, DB_Query);
-
-				UpdatePlayerShop(playerid);
-			    ShowPlayerMessage(playerid, "El precio de tu artículo ha sido actualizado.", 3);
-			}
-			return 1;
-		}
-		case DIALOG_SHOP_ARTICLE_REMOVE:
-		{
-			if (response)
-			{
-				new DB_Query[80];
-				format(DB_Query, sizeof DB_Query, "DELETE FROM `SHOP` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_SHOP_SELECTED_ARTICLE_ID]);
-				db_query(Database, DB_Query);
-
-				if (PLAYER_TEMP[playerid][py_SHOP_COME_FROM_MY_ADS])
-				{
-					PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_MY_ADS;
-					UpdatePlayerShop(playerid);
-				}
-				else
-				{
-					PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_ALL;
-					UpdatePlayerShop(playerid);
-				}
-			    ShowPlayerMessage(playerid, "Tu producto se ha eliminado.", 2);
-			}
-			return 1;
-		}
-		case DIALOG_SHOP_ADD:
-		{
-			if (response)
-			{
-				switch(listitem)
-				{
-					case 0:
-					{
-						PLAYER_TEMP[playerid][py_NOTARY_OPTION] = 2;
-						ShowDialog(playerid, DIALOG_NOTARY_SELECT_PROPERTY);
-					}
-					case 1:
-					{
-						PLAYER_TEMP[playerid][py_NOTARY_OPTION] = 2;
-						ShowDialog(playerid, DIALOG_NOTARY_SELECT_VEHICLE);
-					}
-					case 2:
-					{
-						PLAYER_TEMP[playerid][py_SHOP_ADD_TYPE] = SHOP_ARTICLE_TYPE_OTHER;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_MODELID] = 1314;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL1] = 0;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL2] = 0;
-						ShowDialog(playerid, DIALOG_SHOP_ADD_TEXT);
-					}
-				}
-			}
-			return 1;
-		}
-		case DIALOG_SHOP_ADD_TEXT:
-		{
-			if (response)
-			{
-				if (strlen(inputtext) > 24) return ShowDialog(playerid, dialogid);
-				new text[24];
-				if (sscanf(inputtext, "s[24]", text)) return ShowDialog(playerid, dialogid);
-				if (!td_str_legal(text)) return ShowDialog(playerid, dialogid);
-
-				format(PLAYER_TEMP[playerid][py_SHOP_ADD_TEXT], 24, "%s", inputtext);
-				ShowDialog(playerid, DIALOG_SHOP_ADD_PRICE);
-			}
-			return 1;
-		}
-		case DIALOG_SHOP_ADD_PRICE:
-		{
-			if (response)
-			{
-				if (sscanf(inputtext, "d", inputtext[0]))
-				{
-					ShowPlayerMessage(playerid, "Introduce un valor númerico.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-				if (inputtext[0] < 0)
-				{
-					ShowPlayerMessage(playerid, "Introduce un valor positivo.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-				if (inputtext[0] > 1000000000)
-				{
-					ShowPlayerMessage(playerid, "~r~El precio es muy alto.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-
-				if (500 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Necesitas 500$ para colocar un anuncio", 3);
-
-				AddNewAd(playerid, PLAYER_TEMP[playerid][py_SHOP_ADD_TYPE], inputtext[0], PLAYER_TEMP[playerid][py_SHOP_ADD_TEXT], PLAYER_TEMP[playerid][py_SHOP_ADD_MODELID], PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL1], PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL2]);
-				GivePlayerCash(playerid, -500);
-				ShowPlayerMessage(playerid, "~g~Tu anuncio se ha publicado correctamente.", 3);
-			}
 			return 1;
 		}
 		case DIALOG_SHOP_TOYS:
@@ -21609,28 +21444,6 @@ GetDatabasePages(const query_[], limit)
 	return floatround(tpages, floatround_ceil);
 }
 
-AddNewAd(playerid, type, price, const text[], modelid, vcol1 = 0, vcol2 = 0)
-{
-	new Float:rots[4];
-	switch(type)
-	{
-		case SHOP_ARTICLE_TYPE_PROPERTY: rots = Float:{345.0, 0.0, 30.0, 1.20};
-		case SHOP_ARTICLE_TYPE_VEHICLE: rots = Float:{345.0, 0.0, 330.0, 1.0};
-		case SHOP_ARTICLE_TYPE_OTHER: rots = Float:{0.0, 0.0, 330.0, 1.20};
-	}
-
-	new DB_Query[450];
-	format(DB_Query, sizeof DB_Query,
-		"\
-			INSERT INTO `SHOP` (`ID_USER`, `TYPE`, `PRICE`, `TEXT`, `MODELID`, `RX`, `RY`, `RZ`, `ZOOM`, `VCOL1`, `VCOL2`) VALUES ('%d', '%d', '%d', '%q', '%d', '%f', '%f', '%f', '%f', '%d', '%d');\
-			DELETE FROM `SHOP` WHERE `ID` NOT IN (SELECT `ID` FROM `SHOP` ORDER BY `DATE` DESC LIMIT 300);\
-		",
-			ACCOUNT_INFO[playerid][ac_ID], type, price, text, modelid, rots[0], rots[1], rots[2], rots[3], vcol1, vcol2
-	);
-	db_query(Database, DB_Query);
-	return 1;
-}
-
 CALLBACK: OnPlayerSongFound(index, response_code, data[])
 {
 	if (!PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP]) return 1;
@@ -23243,38 +23056,10 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 			if (GetPlayerState(playerid) == PLAYER_STATE_DRIVER) ShowPlayerSpeedoMeter(playerid);
 		}
 
-		if (PLAYER_TEMP[playerid][py_SHOP]) HidePlayerShop(playerid);
-
 		if (PLAYER_TEMP[playerid][py_TUNING_GARAGE_SHOP])
 		{
 			CancelPlayerTuningShop(playerid);
 			ShowObjTuning(playerid);
-		}
-		return 1;
-	}
-
-	if (PLAYER_TEMP[playerid][py_SHOP] && (PLAYER_TEMP[playerid][py_SHOP_STATE] == PLAYER_SHOP_STATE_ALL || PLAYER_TEMP[playerid][py_SHOP_STATE] == PLAYER_SHOP_STATE_MY_ADS))
-	{
-		for(new i = 0; i != 6; i ++)
-		{
-			if (clickedid == Textdraws[textdraw_SHOP_ARTICLES_BOX][i])
-			{
-				if (!PLAYER_TEMP[playerid][py_SHOP_ARTICLE_ID][i]) return ShowPlayerMessage(playerid, "~r~El anuncio no está disponible.", 3);
-
-				new DBResult:Result, DB_Query[64], bool:found;
-				format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `SHOP` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_SHOP_ARTICLE_ID][i]);
-				Result = db_query(Database, DB_Query);
-
-				if (db_num_rows(Result)) found = true;
-				db_free_result(Result);
-
-				if (!found) return ShowPlayerMessage(playerid, "~r~El anunció no está disponible.", 3);
-				PLAYER_TEMP[playerid][py_SHOP_SELECTED_ARTICLE_ID] = PLAYER_TEMP[playerid][py_SHOP_ARTICLE_ID][i];
-				PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_AD;
-
-				UpdatePlayerShop(playerid);
-				break;
-			}
 		}
 		return 1;
 	}
@@ -23659,7 +23444,6 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 			return 1;
 		}
-
 		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_INV][46])
 		{
 			/* Header */
@@ -23692,174 +23476,30 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		return 1;
 	}
 
-    if (PLAYER_TEMP[playerid][py_PLAYER_IN_ATM])
+    if(PLAYER_TEMP[playerid][py_PLAYER_IN_ATM])
     {
-        if (playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][3]) //depositar
-        {
-            HideBankMenu(playerid);
+		if(PlayerTextdraws[playerid][ptextdraw_BANK_MENU][3])
+		{
+			HideBankMenu(playerid);
+			ShowDialog(playerid, DIALOG_BANK_DEPOSIT);
+		}
+		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][4])
+		{
+			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_DEPOSIT);
-        }
-
-        if (playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][4]) //retirar
-        {
-            HideBankMenu(playerid);
-            ShowDialog(playerid, DIALOG_BANK_WITHDRAW);
-        }
-
-        if (playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][5]) //transferir
-        {
-            HideBankMenu(playerid);
+		}
+		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][5])
+		{
+			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_TRANSFER);
-        }
-
-        if (playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][6]) //transacciones
-        {
-            HideBankMenu(playerid);
+		}
+		else if(playertextid == PlayerTextdraws[playerid][ptextdraw_BANK_MENU][6])
+		{
+			HideBankMenu(playerid);
             ShowDialog(playerid, DIALOG_BANK_TRANSACTIONS);
-        }
-        return 1;
-    }
-
-	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return 0;
-
-	if (PLAYER_TEMP[playerid][py_SHOP])
-	{
-		HidePlayerDialog(playerid);
-		if (playertextid == PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][0])
-		{
-			switch(PLAYER_TEMP[playerid][py_SHOP_STATE])
-			{
-				case PLAYER_SHOP_STATE_ALL:
-				{
-					if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2", 3);
-
-					new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP]);
-					if (interval < 500) return SendClientMessage(playerid, COLOR_RED, "Aviso:"COL_WHITE" Estás enviando mensajes demasiado rápido.");
-					PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP] = GetTickCount();
-
-					new DBResult:Result, DB_Query[80], total_ads;
-					format(DB_Query, sizeof DB_Query, "SELECT COUNT() FROM `SHOP` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-					Result = db_query(Database, DB_Query);
-
-					if (db_num_rows(Result)) total_ads = db_get_field_int(Result, 0);
-					db_free_result(Result);
-
-					if (total_ads >= MAX_ADS_PER_PLAYER) return ShowPlayerMessage(playerid, "~r~No puedes publicar más de 4 anuncios, borra alguno.", 3);
-
-					HidePlayerShop(playerid);
-					ShowDialog(playerid, DIALOG_SHOP_ADD);
-				}
-			}
-		}
-		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][1])
-		{
-			switch(PLAYER_TEMP[playerid][py_SHOP_STATE])
-			{
-				case PLAYER_SHOP_STATE_ALL:
-				{
-					PLAYER_TEMP[playerid][py_SHOP_COME_FROM_MY_ADS] = true;
-					PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_MY_ADS;
-					UpdatePlayerShop(playerid);
-				}
-			}
-		}
-		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][2])
-		{
-			switch(PLAYER_TEMP[playerid][py_SHOP_STATE])
-			{
-				case PLAYER_SHOP_STATE_ALL: HidePlayerShop(playerid);
-				case PLAYER_SHOP_STATE_MY_ADS: // Atras
-				{
-					new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP]);
-					if (interval < 500) return SendClientMessage(playerid, COLOR_WHITE, "¡Tranquilo, quemarás el teclado!");
-					PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP] = GetTickCount();
-
-					PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					PLAYER_TEMP[playerid][py_SHOP_COME_FROM_MY_ADS] = false;
-					PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_ALL;
-					UpdatePlayerShop(playerid);
-				}
-				case PLAYER_SHOP_STATE_AD: ShowDialog(playerid, DIALOG_SHOP_ARTICLE_MODIFY);
-			}
-		}
-		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][3])
-		{
-			switch(PLAYER_TEMP[playerid][py_SHOP_STATE])
-			{
-				case PLAYER_SHOP_STATE_ALL: // Siguiente
-				{
-					new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP]);
-					if (interval < 500) return SendClientMessage(playerid, COLOR_WHITE, "¡Tranquilo, quemarás el teclado!");
-					PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP] = GetTickCount();
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages("SELECT COUNT() FROM `SHOP`;", PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
-
-					UpdatePlayerShop(playerid);
-				}
-				case PLAYER_SHOP_STATE_MY_ADS: // Siguiente
-				{
-					new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP]);
-					if (interval < 500) return SendClientMessage(playerid, COLOR_WHITE, "¡Tranquilo, quemarás el teclado!");
-					PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP] = GetTickCount();
-
-					new the_query[80];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `SHOP` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] >= GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] ++;
-
-					UpdatePlayerShop(playerid);
-				}
-				case PLAYER_SHOP_STATE_AD: ShowDialog(playerid, DIALOG_SHOP_ARTICLE_REMOVE);
-			}
-		}
-		else if (playertextid == PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][4])
-		{
-			switch(PLAYER_TEMP[playerid][py_SHOP_STATE])
-			{
-				case PLAYER_SHOP_STATE_ALL: // Anterior
-				{
-					new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP]);
-					if (interval < 500) return SendClientMessage(playerid, COLOR_WHITE, "¡Tranquilo, quemarás el teclado!");
-					PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP] = GetTickCount();
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages("SELECT COUNT() FROM `SHOP`;", PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
-
-					UpdatePlayerShop(playerid);
-				}
-				case PLAYER_SHOP_STATE_MY_ADS: // Anterior
-				{
-					new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP]);
-					if (interval < 500) return SendClientMessage(playerid, COLOR_WHITE, "¡Tranquilo, quemarás el teclado!");
-					PLAYER_TEMP[playerid][py_ANTIFLOOD_SHOP] = GetTickCount();
-
-					new the_query[80];
-					format(the_query, sizeof the_query, "SELECT COUNT() FROM `SHOP` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-
-					if (PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] <= 0) PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]) - 1;
-					else PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] --;
-
-					UpdatePlayerShop(playerid);
-				}
-				case PLAYER_SHOP_STATE_AD: // Atrás
-				{
-					if (PLAYER_TEMP[playerid][py_SHOP_COME_FROM_MY_ADS])
-					{
-						PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_MY_ADS;
-						UpdatePlayerShop(playerid);
-					}
-					else
-					{
-						PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_ALL;
-						UpdatePlayerShop(playerid);
-					}
-				}
-			}
 		}
 	}
+
     return 1;
 }
 
@@ -34734,395 +34374,6 @@ GetPlayerSpeed(vehicleid)
 	new Float:xPos[3];
 	GetPlayerVelocity(vehicleid, xPos[0], xPos[1], xPos[2]);
 	return floatround(floatsqroot(xPos[0] * xPos[0] + xPos[1] * xPos[1] + xPos[2] * xPos[2]) * 170.00);
-}
-
-UpdatePlayerShop(playerid)
-{
-	switch(PLAYER_TEMP[playerid][py_SHOP_STATE])
-	{
-		case PLAYER_SHOP_STATE_ALL:
-		{
-			if (PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID] != PlayerText:INVALID_TEXT_DRAW)
-			{
-				PlayerTextDrawDestroy(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID]);
-				PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID] = PlayerText:INVALID_TEXT_DRAW;
-			}
-			TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLE_BOX]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_NUMBER]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_INFO]);
-
-			for(new i = 0; i != 6; i ++)
-			{
-				PLAYER_TEMP[playerid][py_SHOP_ARTICLE_ID][i] = 0;
-				TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLES_BOX][i]);
-				if (i <= 4) PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][i]);
-			}
-
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][0], "+_Publicar_anuncio");
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][1], "-_Mis_anuncios");
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][2], "Cerrar");
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][3], "Siguiente");
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][4], "Anterior");
-
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][0]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][1]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][2]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][3]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][4]);
-
-
-			DestroyArticleShopTextDraws(playerid);
-
-			new DBResult:Result, DB_Query[256], articles, td_str[32];
-			format(DB_Query, sizeof DB_Query, "SELECT `CUENTA`.`CONNECTED`, `SHOP`.* FROM `SHOP`, `CUENTA` WHERE `SHOP`.`ID_USER` = `CUENTA`.`ID` ORDER BY `CUENTA`.`CONNECTED` DESC, `SHOP`.`DATE` DESC LIMIT %d, %d;", PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
-			Result = db_query(Database, DB_Query);
-
-			for(new i; i < db_num_rows(Result); i++ )
-			{
-				new connected, Price, Modelid, Float:rX, Float:rY, Float:rZ, Float:Zoom, vColor1, vColor2;
-
-				connected = db_get_field_assoc_int(Result, "CONNECTED");
-				PLAYER_TEMP[playerid][py_SHOP_ARTICLE_ID][articles] = db_get_field_assoc_int(Result, "ID");
-				Price = db_get_field_assoc_int(Result, "PRICE");
-				Modelid = db_get_field_assoc_int(Result, "MODELID");
-				rX = db_get_field_assoc_float(Result, "RX");
-				rY = db_get_field_assoc_float(Result, "RY");
-				rZ = db_get_field_assoc_float(Result, "RZ");
-				Zoom = db_get_field_assoc_float(Result, "ZOOM");
-				vColor1 = db_get_field_assoc_int(Result, "VCOL1");
-				vColor2 = db_get_field_assoc_int(Result, "VCOL2");
-
-				new Float:Td_Pos[2];
-
-				switch(articles)
-				{
-					case 0: Td_Pos = Float:{212.000000, 152.000000};
-					case 1: Td_Pos = Float:{289.000000, 152.000000};
-					case 2: Td_Pos = Float:{366.000000, 152.000000};
-					case 3: Td_Pos = Float:{212.000000, 229.000000};
-					case 4: Td_Pos = Float:{289.000000, 229.000000};
-					case 5: Td_Pos = Float:{366.000000, 229.000000};
-				}
-
-				PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles] = CreatePlayerTextDraw(playerid, Td_Pos[0], Td_Pos[1], "");
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], 62.000000, 55.000000);
-				PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], 1);
-				PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], -1);
-				if (connected) PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], COLOR_WHITE);
-				else PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], 0x666666FF);
-				PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], 5);
-				PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], Modelid);
-				PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], rX, rY, rZ, Zoom);
-				PlayerTextDrawSetPreviewVehCol(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], vColor1, vColor2);
-				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles]);
-
-				format(td_str, sizeof td_str, "%s$", number_format_thousand(Price));
-				PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles] = CreatePlayerTextDraw(playerid, Td_Pos[0] + 31.0, Td_Pos[1] + 55.0, td_str);
-				PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 0.229333, 0.957037);
-				PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 2);
-				PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], -1);
-				PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 0);
-				PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 0);
-				PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 255);
-				PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 1);
-				PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 1);
-				PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 0);
-				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles]);
-
-				TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLES_BOX][articles]);
-
-				articles ++;
-				db_next_row(Result);
-			}
-			db_free_result(Result);
-
-			new total_pages = GetDatabasePages("SELECT COUNT() FROM `SHOP`;", PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
-			format(td_str, sizeof td_str, "-_%d/%d_-", PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] + 1, total_pages);
-
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PAGE], td_str);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PAGE]);
-			return 1;
-		}
-		case PLAYER_SHOP_STATE_MY_ADS:
-		{
-			if (PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID] != PlayerText:INVALID_TEXT_DRAW)
-			{
-				PlayerTextDrawDestroy(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID]);
-				PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID] = PlayerText:INVALID_TEXT_DRAW;
-			}
-			TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLE_BOX]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_NUMBER]);
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_INFO]);
-
-			for(new i = 0; i != 6; i ++)
-			{
-				PLAYER_TEMP[playerid][py_SHOP_ARTICLE_ID][i] = 0;
-				TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLES_BOX][i]);
-				if (i <= 4) PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][i]);
-			}
-
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][0], "_");
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][1], "_");
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][2], "Atr˜s");
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][3], "Siguiente");
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][4], "Anterior");
-
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][2]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][3]);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][4]);
-
-
-			DestroyArticleShopTextDraws(playerid);
-
-			new DBResult:Result, DB_Query[160], articles, td_str[32];
-			format(DB_Query, sizeof DB_Query, "SELECT * FROM `SHOP` WHERE `ID_USER` = '%d' ORDER BY `DATE` DESC LIMIT %d, %d;", ACCOUNT_INFO[playerid][ac_ID], PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] * PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT], PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
-			Result = db_query(Database, DB_Query);
-
-			for(new i; i < db_num_rows(Result); i++ )
-			{
-				new Price, Modelid, Float:rX, Float:rY, Float:rZ, Float:Zoom, vColor1, vColor2;
-
-				PLAYER_TEMP[playerid][py_SHOP_ARTICLE_ID][articles] = db_get_field_assoc_int(Result, "ID");
-				Price = db_get_field_assoc_int(Result, "PRICE");
-				Modelid = db_get_field_assoc_int(Result, "MODELID");
-				rX = db_get_field_assoc_float(Result, "RX");
-				rY = db_get_field_assoc_float(Result, "RY");
-				rZ = db_get_field_assoc_float(Result, "RZ");
-				Zoom = db_get_field_assoc_float(Result, "ZOOM");
-				vColor1 = db_get_field_assoc_int(Result, "VCOL1");
-				vColor2 = db_get_field_assoc_int(Result, "VCOL2");
-
-				new Float:Td_Pos[2];
-
-				switch(articles)
-				{
-					case 0: Td_Pos = Float:{212.000000, 152.000000};
-					case 1: Td_Pos = Float:{289.000000, 152.000000};
-					case 2: Td_Pos = Float:{366.000000, 152.000000};
-					case 3: Td_Pos = Float:{212.000000, 229.000000};
-					case 4: Td_Pos = Float:{289.000000, 229.000000};
-					case 5: Td_Pos = Float:{366.000000, 229.000000};
-				}
-
-				PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles] = CreatePlayerTextDraw(playerid, Td_Pos[0], Td_Pos[1], "");
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], 62.000000, 55.000000);
-				PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], 1);
-				PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], -1);
-				PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], COLOR_WHITE);
-				PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], 5);
-				PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], Modelid);
-				PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], rX, rY, rZ, Zoom);
-				PlayerTextDrawSetPreviewVehCol(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles], vColor1, vColor2);
-				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][articles]);
-
-				format(td_str, sizeof td_str, "%s$", number_format_thousand(Price));
-				PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles] = CreatePlayerTextDraw(playerid, Td_Pos[0] + 31.0, Td_Pos[1] + 55.0, td_str);
-				PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 0.229333, 0.957037);
-				PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 2);
-				PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], -1);
-				PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 0);
-				PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 0);
-				PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 255);
-				PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 1);
-				PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 1);
-				PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles], 0);
-				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][articles]);
-
-				TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLES_BOX][articles]);
-
-				articles ++;
-				db_next_row(Result);
-			}
-			db_free_result(Result);
-
-			new the_query[80];
-			format(the_query, sizeof the_query, "SELECT COUNT() FROM `SHOP` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-
-			new total_pages = GetDatabasePages(the_query, PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT]);
-			format(td_str, sizeof td_str, "-_%d/%d_-", PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] + 1, total_pages);
-
-			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PAGE], td_str);
-			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PAGE]);
-			return 1;
-		}
-		case PLAYER_SHOP_STATE_AD:
-		{
-			new DBResult:Result, DB_Query[280], bool:found;
-			format(DB_Query, sizeof DB_Query, "SELECT `SHOP`.*, `CUENTA`.`CONNECTED`, `CUENTA`.`NAME`, `PHONE`.`PHONE_NUMBER` FROM `SHOP`, `CUENTA`, `PHONE` WHERE `SHOP`.`ID` = '%d' AND `CUENTA`.`ID` = `SHOP`.`ID_USER` AND `PHONE`.`ID_USER` = `SHOP`.`ID_USER`;", PLAYER_TEMP[playerid][py_SHOP_SELECTED_ARTICLE_ID]);
-			Result = db_query(Database, DB_Query);
-
-			if (db_num_rows(Result))
-			{
-				new td_str[190], connected, ad_id, ad_by_aid, ad_type, ad_price, ad_text[24], ad_modelid, Float:ad_rX, Float:ad_rY, Float:ad_rZ, Float:ad_Zoom, ad_vCol1, ad_vCol2, ad_add_date[24], ad_by[24], ad_by_phone_number;
-
-				connected = db_get_field_assoc_int(Result, "CONNECTED");
-				ad_id = db_get_field_assoc_int(Result, "ID");
-				ad_by_aid = db_get_field_assoc_int(Result, "ID_USER");
-				ad_type = db_get_field_assoc_int(Result, "TYPE");
-				ad_price = db_get_field_assoc_int(Result, "PRICE");
-				db_get_field_assoc(Result, "TEXT", ad_text, 24);
-				ad_modelid = db_get_field_assoc_int(Result, "MODELID");
-				ad_rX = db_get_field_assoc_float(Result, "RX");
-				ad_rY = db_get_field_assoc_float(Result, "RY");
-				ad_rZ = db_get_field_assoc_float(Result, "RZ");
-				ad_Zoom = db_get_field_assoc_float(Result, "ZOOM");
-				ad_vCol1 = db_get_field_assoc_int(Result, "VCOL1");
-				ad_vCol2 = db_get_field_assoc_int(Result, "VCOL2");
-				db_get_field_assoc(Result, "DATE", ad_add_date, 24);
-				db_get_field_assoc(Result, "NAME", ad_by, 24);
-				ad_by_phone_number = db_get_field_assoc_int(Result, "PHONE_NUMBER");
-
-				if (PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID] != PlayerText:INVALID_TEXT_DRAW)
-				{
-					PlayerTextDrawDestroy(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID]);
-					PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID] = PlayerText:INVALID_TEXT_DRAW;
-				}
-				PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID] = CreatePlayerTextDraw(playerid, 212.000000, 179.000000, "");
-				PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], 0.000000, 0.000000);
-				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], 92.000000, 91.000000);
-				PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], 1);
-				PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], -1);
-				PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], 0);
-				PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], 0);
-				PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], 44284927);
-				PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], 5);
-				PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], 0);
-				PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], 0);
-				PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], ad_modelid);
-				PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], ad_rX, ad_rY,ad_rZ, ad_Zoom);
-				PlayerTextDrawSetPreviewVehCol(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID], ad_vCol1, ad_vCol2);
-				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID]);
-				TextDrawShowForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLE_BOX]);
-
-				format(td_str, sizeof td_str, "Art¢culo_n|_%d (%s)", ad_id, ad_add_date);
-				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_NUMBER], td_str);
-				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_NUMBER]);
-
-				switch(ad_type)
-				{
-					case SHOP_ARTICLE_TYPE_PROPERTY: format(td_str, sizeof td_str, "Producto:_Propiedad~n~Precio:_%s$~n~~n~Descripci¦n:~n~%s~n~~n~Tlf:_%d_(%s)~n~%s", number_format_thousand(ad_price), ad_text, ad_by_phone_number, connected ? "conectado" : "desconectado", ad_by);
-					case SHOP_ARTICLE_TYPE_VEHICLE: format(td_str, sizeof td_str, "Producto:_Veh¢culo~n~Precio:_%s$~n~~n~Descripci¦n:~n~%s~n~~n~Tlf:_%d_(%s)~n~%s", number_format_thousand(ad_price), ad_text, ad_by_phone_number, connected ? "conectado" : "desconectado", ad_by);
-					case SHOP_ARTICLE_TYPE_OTHER: format(td_str, sizeof td_str, "Producto:_Otros~n~Precio:_%s$~n~~n~Descripci¦n:~n~%s~n~~n~Tlf:_%d_(%s)~n~%s", number_format_thousand(ad_price), ad_text, ad_by_phone_number, connected ? "conectado" : "desconectado", ad_by);
-				}
-				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_INFO], td_str);
-				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_INFO]);
-
-				for(new i = 0; i != 4; i ++) PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][i]);
-				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][0], "_");
-				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][1], "_");
-				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][2], "_");
-				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][3], "_");
-				PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][4], "Atr˜s");
-				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][4]);
-
-				if (ACCOUNT_INFO[playerid][ac_ID] == ad_by_aid)
-				{
-					PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][2], "Modificar");
-					PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][3], "Eliminar");
-					PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][2]);
-					PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][3]);
-				}
-
-				found = true;
-			}
-			else
-			{
-				found = false;
-			}
-			db_free_result(Result);
-
-			if (!found)
-			{
-			    ShowPlayerMessage(playerid, "~r~Este anuncio ya no está disponible.", 3);
-				PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_ALL;
-				return 1;
-			}
-
-			for(new i = 0; i != 6; i ++)
-			{
-				PLAYER_TEMP[playerid][py_SHOP_ARTICLE_ID][i] = 0;
-				TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLES_BOX][i]);
-			}
-
-			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PAGE]);
-			DestroyArticleShopTextDraws(playerid);
-		}
-	}
-	return 1;
-}
-
-HidePlayerShop(playerid)
-{
-	if (!BOTS[playerid][b_ACTIVE]) HidePlayerDialog(playerid);
-	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP][0]);
-	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP][1]);
-	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP][2]);
-	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP][3]);
-	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP][4]);
-
-	PLAYER_TEMP[playerid][py_SHOP_COME_FROM_MY_ADS] = false;
-	PLAYER_TEMP[playerid][py_SHOP] = false;
-	PLAYER_TEMP[playerid][py_SHOP_STATE] = 0;
-
-	PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 0;
-	PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-
-	if (PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID] != PlayerText:INVALID_TEXT_DRAW)
-	{
-		PlayerTextDrawDestroy(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID]);
-		PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_MODELID] = PlayerText:INVALID_TEXT_DRAW;
-	}
-	TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLE_BOX]);
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_NUMBER]);
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLE_INFO]);
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PAGE]);
-
-	for(new i = 0; i != 6; i ++)
-	{
-		PLAYER_TEMP[playerid][py_SHOP_ARTICLE_ID][i] = 0;
-		TextDrawHideForPlayer(playerid, Textdraws[textdraw_SHOP_ARTICLES_BOX][i]);
-		if (i <= 4) PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_BUTTONS][i]);
-	}
-	DestroyArticleShopTextDraws(playerid);
-
-	CancelSelectTextDrawEx(playerid);
-	return 1;
-}
-
-DestroyArticleShopTextDraws(playerid)
-{
-	for(new i; i < 6; i++)
-	{
-		if (PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][i] != PlayerText:INVALID_TEXT_DRAW)
-		{
-			PlayerTextDrawDestroy(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][i]);
-			PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_MODEL][i] = PlayerText:INVALID_TEXT_DRAW;
-		}
-		if (PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][i] != PlayerText:INVALID_TEXT_DRAW)
-		{
-			PlayerTextDrawDestroy(playerid, PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][i]);
-			PlayerTextdraws[playerid][ptextdraw_SHOP_ARTICLES_PRICE][i] = PlayerText:INVALID_TEXT_DRAW;
-		}
-	}
-	return 1;
-}
-
-CMD:depurationinfo(playerid, params[])
-{
-    SendClientMessage(playerid, COLOR_WHITE, "Depuration: 0.01");
-    return 1;
-}
-
-td_str_legal(const text[])
-{
-	for(new i = 0; i != strlen(text); i ++)
-	{
-		if ((text[i] >= 91 && text[i] <= 96) || (text[i] >= 58 && text[i] <= 64) || (text[i] < 48 && text[i] != 32) || text[i] > 122)
-		{
-			return false;
-		}
-	}
-	return true;
 }
 
 public OnPlayerStreamIn(playerid, forplayerid)
