@@ -542,6 +542,29 @@ SetVehicleLightsAction(playerid)
 			GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] = 1;
 			UpdateVehicleParams(vehicleid);
 
+			if (PLAYER_TEMP[playerid][py_SPEEDOMETER])
+			{
+				if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS])
+				{
+					PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 1385420031);
+					PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 1385420031);
+					PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 1385420031);
+					PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 1385420031);
+				}
+				else
+				{
+					PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2], 0x474747FF);
+					PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3], 0x474747FF);
+					PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4], 0x474747FF);
+					PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5], 0x474747FF);
+				}
+
+				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][2]);
+				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][3]);
+				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][4]);
+				PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][5]);
+			}
+
 			ShowPlayerMessage(playerid, "Luces ~g~encendidas", 2);
 
 			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido las luces de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
