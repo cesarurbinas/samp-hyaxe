@@ -8659,6 +8659,7 @@ public OnPlayerText(playerid, text[])
 	#endif
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
+	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
 	if (text[0] == '#' && ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] != 0 && PLAYER_TEMP[playerid][py_ADMIN_SERVICE])
@@ -34530,7 +34531,7 @@ ShowPlayerStats(playerid, pid)
 			getPlayerVip(pid),
 			dni,
 			drive,
-			GetAccountStatuName(playerid)
+			GetAccountStatusName(playerid)
 	);
 
 	ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, caption, dialog, "Cerrar", "");
@@ -37326,7 +37327,8 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 	#endif
 
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
-
+	if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) return KickEx(playerid, 500);
+	
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < 8)
 	{
 		if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_HOSPITAL || PLAYER_TEMP[playerid][py_NEW_USER])
