@@ -32448,7 +32448,7 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 
 
 	new message[145], progress[128];
-	format(progress, sizeof progress, "Tiempo restante: ~r~%s", TimeConvert(TERRITORIES[territory_index][territory_WAR_TIME_LEFT] - gettime()));
+	format(progress, sizeof progress, "~r~%s", TimeConvert(TERRITORIES[territory_index][territory_WAR_TIME_LEFT] - gettime()));
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -32458,8 +32458,7 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 			{
 				if (IsPlayerInDynamicArea(i, TERRITORIES[territory_index][territory_AREA]))
 				{
-					//hy_DestroyNotification(i, PLAYER_TEMP[i][py_ATTACK_NOT]);
-					PLAYER_TEMP[i][py_ATTACK_NOT] = ShowPlayerNotification(i, progress, 1);
+					GameTextForPlayer(i, progress, 1000, 1);
 				}
 			}
 		}

@@ -253,7 +253,6 @@ enum Temp_Enum
 	py_TOTAL_REPORTS,
 	py_FP_OBJ,
 	py_AIMBOT_COUNT,
-	py_ATTACK_NOT,
 	bool:py_DEBUG,
 	bool:py_EDITING_MODE,
 	py_EDITING_MODE_TYPE,
