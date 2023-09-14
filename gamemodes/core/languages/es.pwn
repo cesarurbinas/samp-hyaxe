@@ -1,6 +1,6 @@
 // Server
 #define SERVER_HOSTNAME "Hyaxe | Roleplay en español"
-#define SERVER_LANGUAGE "Español - Spanish"
+#define SERVER_LANGUAGE "Español / Spanish"
 #define SERVER_MODE "Roleplay"
 
 // Item names

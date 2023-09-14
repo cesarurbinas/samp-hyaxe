@@ -35,7 +35,8 @@ new CrewColors[] =
 	0x6ad64cFF,
 	0xFF8A00FF,
 	0x6bc3fcFF,
-	0xFFFFFFFF
+	0xFFFFFFFF,
+	0x7CD895FF
 };
 
 new CrewNameColors[][] =
@@ -47,5 +48,6 @@ new CrewNameColors[][] =
 	"Verde",
 	"Naranja",
 	"Celeste",
-	"Blanco"
+	"Blanco",
+	"Lima"
 };

@@ -187,20 +187,19 @@ CMD:getid(playerid, params[])
 	if (sscanf(params, "s[24]", name)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /getid <nombre o parte del nombre>");
 
 	new DBResult:Result, DB_Query[128];
-	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `CONNECTED`, `PLAYERID` FROM `CUENTA` WHERE `NAME` LIKE '%%%q%%' LIMIT 20;", name);
+	format(DB_Query, sizeof DB_Query, "SELECT `ID`, `NAME`, `LAST_CONNECTION` FROM `CUENTA` WHERE `NAME` LIKE '%%%q%%' LIMIT 20;", name);
 	Result = db_query(Database, DB_Query);
 
 	new count;
 	for(new i = 0; i < db_num_rows(Result); i ++)
 	{
-		new id, get_name[24], connected, player_id;
+		new id, get_name[24], last_connection[32];
 
 		id = db_get_field_assoc_int(Result, "ID");
 		db_get_field_assoc(Result, "NAME", get_name, 24);
-		connected = db_get_field_assoc_int(Result, "CONNECTED");
-		player_id = db_get_field_assoc_int(Result, "PLAYERID");
+		db_get_field_assoc(Result, "LAST_CONNECTION", last_connection, 32);
 
-		SendClientMessageEx(playerid, COLOR_WHITE, "Nombre: '%s' DB-ID: '%d' Conectado: '%d' Playerid: '%d'", get_name, id, connected, player_id);
+		SendClientMessageEx(playerid, COLOR_WHITE, "Nombre: %s,  DB-ID: %d, Ult. Con: %s", get_name, id, last_connection);
 
 		count ++;
 		db_next_row(Result);
@@ -238,11 +237,18 @@ CMD:getname(playerid, params[])
 
 CMD:aka(playerid, params[])
 {
+	SendCmdLogToAdmins(playerid, "aka", params);
+
 	new to_player;
 	if (sscanf(params, "u", to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /aka <player_id>");
 	if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
+	if (ACCOUNT_INFO[to_player][ac_ID] == 0)
+	{
+		SendClientMessageEx(playerid, COLOR_WHITE, "Nombre: {f4f442}'%s' "COL_WHITE"DB-ID: '%d'", PLAYER_TEMP[to_player][py_NAME], minrand(80000, 90000));
+		SendClientMessage(playerid, COLOR_WHITE, "Se encontraron 1 coincidencias, el límite es 20.");
+		return 0;
+	}
 	if (isnull(ACCOUNT_INFO[to_player][ac_IP])) return SendClientMessage(playerid, COLOR_WHITE, "IP no válida.");
-	SendCmdLogToAdmins(playerid, "aka", params);
 	if (!strcmp(ACCOUNT_INFO[to_player][ac_NAME], "Yahir_Kozel")) return SendClientMessage(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No puedes hacer eso con este usuario.");
 
 	SendClientMessageEx(playerid, COLOR_WHITE, "AKA de %s (%d):", ACCOUNT_INFO[to_player][ac_NAME], to_player);
@@ -2871,3 +2877,25 @@ CMD:godmode(playerid, params[])
 }
 alias:godmode("god")
 flags:godmode(CMD_MODERATOR2)
+
+CMD:createclub(playerid, params[])
+{
+	new
+		interior,
+		price,
+		name[32],
+		Float:x, Float:y, Float:z, Float:angle
+	;
+	if (sscanf(params, "dds[32]", interior, price, name)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /createclub <interior> <price> <nombre>");
+	if(interior <= -1 || interior >= sizeof(CLUBS_INTERIORS)) return SendClientMessage(playerid, COLOR_WHITE, sprintf("Syntax: /createclub <interior (0-%d)> <price> <nombre>", sizeof(CLUBS_INTERIORS)));
+	
+	new welcome[64];
+	format(welcome, 64, "Bienvenido a %s", name);
+
+	GetPlayerPos(playerid, x, y, z);
+	GetPlayerFacingAngle(playerid, angle);
+	CreateClub(name, welcome, x, y, z, angle, interior, price);
+	SendClientMessage(playerid, COLOR_WHITE, "Club creado.");
+	return 1;
+}
+flags:createclub(CMD_OWNER)

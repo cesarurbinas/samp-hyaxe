@@ -48,6 +48,7 @@
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
+//#define FINAL_BUILD
 
 #define NO_SUSPICION_LOGS
 
@@ -211,6 +212,11 @@
 #include "utils/edit_mode/edit.pwn"
 #include "utils/furniture/object.pwn"
 
+// Club's
+#include "core/club/header.pwn"
+#include "core/club/functions.pwn"
+#include "core/club/callbacks.pwn"
+
 // Admin
 #include "core/admin/macros.pwn"
 #include "core/admin/level.pwn"
@@ -232,11 +238,6 @@
 #include "core/soccer/header.pwn"
 #include "core/soccer/functions.pwn"
 #include "core/soccer/callbacks.pwn"
-
-// Club's
-/*#include "core/club/header.pwn"
-#include "core/club/functions.pwn"
-#include "core/club/callbacks.pwn"*/
 
 new const Float:NewUserPos[][] =
 {
@@ -2758,7 +2759,7 @@ new
 	DIALOG_247_LIST_String[34 + 55 * sizeof Supermarket_Product_List],
 	DIALOG_PLAYER_GPS_SITE_0_String[90 * (sizeof(Hospital_Spawn_Positions) + 1)],
 	DIALOG_PLAYER_GPS_SITE_7_String[90 * (sizeof(SELL_VEHICLES_SHOPS_SPAWN) + 1)],
-	DIALOG_CREATE_CREW_COLOR_String[128];
+	DIALOG_CREATE_CREW_COLOR_String[164];
 
 
 //armas mercado negro
@@ -2815,7 +2816,10 @@ IRPC:VehicleDestroyed(playerid, BitStream:bs)
 forward OnVehicleRequestDeath(vehicleid, killerid);
 public OnVehicleRequestDeath(vehicleid, killerid)
 {
-	//printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnVehicleRequestDeath %d %d",vehicleid, killerid); // debug juju
+	#endif
+
     new Float:health;
 
     GetVehicleHealth(vehicleid, health);
@@ -2945,7 +2949,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		            {
 		            	new str_text[144];
 						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (1)", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (1)");
 						KickEx(playerid, 500);
@@ -2958,7 +2962,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					{
 						new str_text[144];
 						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (2)", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (2)");
 						KickEx(playerid, 500);
@@ -2971,7 +2975,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		            {
 						new str_text[144];
 						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Anti-L", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Anti-L");
 						KickEx(playerid, 500);
@@ -2984,7 +2988,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		            {
 		            	new str_text[144];
 						format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): SleepAnim", PLAYER_TEMP[playerid][py_NAME], playerid);
-					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+					    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 					    SendDiscordWebhook(str_text, 1);
 					    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: SleepAnim");
 						KickEx(playerid, 500);
@@ -3000,7 +3004,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 						{
 							new str_text[144];
 							format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Fly (%f, %f)", PLAYER_TEMP[playerid][py_NAME], playerid, depth, playerdepth);
-						    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+						    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 						    SendDiscordWebhook(str_text, 1);
 						    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Fly (3)");
 							KickEx(playerid, 500);
@@ -3060,7 +3064,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
 				new str[144];
 				format(str, 145, "[ADMIN] %s (%d) fue baneado: Jetpack.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-				SendMessageToAdmins(COLOR_ANTICHEAT, str);
+				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
 				format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -3416,7 +3420,10 @@ Bot(playerid)
 
 public OnPlayerConnect(playerid)
 {
-	//printf("OnPlayerConnect %d",playerid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerConnect %d",playerid); // debug juju
+	#endif
+
 	SetPlayerColor(playerid, PLAYER_COLOR);
 
 	PLAYER_TEMP[playerid][py_GAME_STATE] = GAME_STATE_CONNECTED;
@@ -3488,7 +3495,7 @@ public OnPlayerConnect(playerid)
 
 			/*new str_text[144];
 			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): exceder el máximo de conexiones", PLAYER_TEMP[playerid][py_NAME], playerid);
-		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 		    SendDiscordWebhook(str_text, 1);*/
 		    
 		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por exceder el máximo de conexiones");
@@ -3500,7 +3507,7 @@ public OnPlayerConnect(playerid)
 		{
 			/*new str_text[144];
 			format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Cliente inválido", PLAYER_TEMP[playerid][py_NAME], playerid);
-		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+		    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 		    SendDiscordWebhook(str_text, 1);*/
 		    
 		    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado por ingresar con un cliente inválido");
@@ -3762,7 +3769,10 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-	//printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerDisconnect %d %d",playerid, reason); // debug juju
+	#endif
+
 	if (ACCOUNT_INFO[playerid][ac_ID] != 0)
 	{
 		new DB_Query[128];
@@ -3856,14 +3866,17 @@ public OnPlayerDisconnect(playerid, reason)
 	  		if (CHARACTER_INFO[playerid][ch_HEALTH] >= 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
 	  		if (CHARACTER_INFO[playerid][ch_ARMOUR] >= 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
 
-	  		new disconnect_message[128];
-	  		switch(reason)
+	  		if (!PLAYER_TEMP[playerid][py_PLAYER_SPECTATE])
 	  		{
-	  			case 0: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razón: crash ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
-	  			case 1: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razón: salida voluntaria ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
-	  			case 2: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razón: expulsado por el servidor ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
-	  		}
-	  		NearbyMessage(CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_INTERIOR], GetPlayerVirtualWorld(playerid), 15.0, COLOR_FADE1, disconnect_message);
+		  		new disconnect_message[128];
+		  		switch(reason)
+		  		{
+		  			case 0: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razón: crash ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
+		  			case 1: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razón: salida voluntaria ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
+		  			case 2: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razón: expulsado por el servidor ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
+		  		}
+		  		NearbyMessage(CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_INTERIOR], GetPlayerVirtualWorld(playerid), 15.0, COLOR_FADE1, disconnect_message);
+		  	}
 
 	  		if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
 
@@ -4031,7 +4044,10 @@ GetEnterExitIndexById(id)
 
 public OnRconLoginAttempt(ip[], password[], success)
 {
-	//printf("rcon %s %s",ip,password); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnRconLoginAttempt %s %s",ip,password); // debug juju
+    #endif
+
     new temp_ip[16];
 
     for(new i = 0; i < MAX_PLAYERS; i++)
@@ -4108,6 +4124,32 @@ ExitSite(playerid)
                 CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
                 PLAYER_TEMP[playerid][py_PROPERTY_INDEX] = -1;
                 SetPlayerPosEx(playerid, PROPERTY_INFO[info[1]][property_EXT_X], PROPERTY_INFO[info[1]][property_EXT_Y], PROPERTY_INFO[info[1]][property_EXT_Z], PROPERTY_INFO[info[1]][property_EXT_ANGLE], PROPERTY_INFO[info[1]][property_EXT_INTERIOR], 0, false /*PROPERTY_INFO[info[1]][property_EXT_FREEZE]*/, false);
+                SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+                StopAudioStreamForPlayer(playerid);
+                FreezePlayer(playerid);
+            }
+            else ShowPlayerMessage(playerid, "~r~No estás en sitio correcto.", 2);
+        }
+        case PICKUP_TYPE_CLUB:
+        {
+            if (info[2] == 1) // Está en el Pickup Interior y quiere ir al exterior
+            {
+            	PLAYER_TEMP[playerid][py_CLUB_INDEX] = -1;
+                CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+                CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = 0;
+
+                SetPlayerPosEx(
+                	playerid,
+                	CLUBS_INFO[ info[1] ][club_X],
+                	CLUBS_INFO[ info[1] ][club_Y],
+                	CLUBS_INFO[ info[1] ][club_Z],
+                	CLUBS_INFO[ info[1] ][club_ANGLE],
+                	0,
+                	0,
+                	false,
+                	false
+                );
+
                 SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
                 StopAudioStreamForPlayer(playerid);
                 FreezePlayer(playerid);
@@ -4272,6 +4314,60 @@ EnterSite(playerid)
                         ShowPlayerMessage(playerid, "Has tocado en la puerta, espera a que te abran.", 7);
                     }
                 }
+            }
+            else ExitSite(playerid);
+        }
+        case PICKUP_TYPE_CLUB:
+        {
+            PLAYER_TEMP[playerid][py_HOSPITAL] = GetNearestHospitalForPlayer(playerid);
+            if (PLAYER_TEMP[playerid][py_HOSPITAL] == -1) PLAYER_TEMP[playerid][py_HOSPITAL] = 1;
+    
+            if (info[2] == 2) // Está en el Pickup Exterior y quiere ir al interior
+            {
+                if (CLUBS_INFO[ info[1] ][club_STATE] == 1) // Abierto
+                {
+                	if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
+
+                	if (CLUBS_INFO[ info[1] ][club_ENTER_PRICE] > 0)
+                	{
+                		if (CHARACTER_INFO[playerid][ch_CASH] <= CLUBS_INFO[ info[1] ][club_ENTER_PRICE])
+                		{
+                			new str_text[64];
+                			format(str_text, 64, "~r~La entrada al negocio vale %d$", CLUBS_INFO[ info[1] ][club_ENTER_PRICE]);
+                			ShowPlayerMessage(playerid, str_text, 4);
+                			return 0;
+                		}
+						GivePlayerCash(playerid, -CLUBS_INFO[ info[1] ][club_ENTER_PRICE], false);
+                	}
+
+                	new interior = CLUBS_INFO[ info[1] ][club_INTERIOR];
+                    CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_INTERIOR;
+                    CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA] = CLUBS_INTERIORS[interior][interior_ID];
+                    PLAYER_TEMP[playerid][py_INTERIOR_INDEX] = info[1];
+                    PLAYER_TEMP[playerid][py_CLUB_INDEX] = info[1];
+
+                    SetPlayerPosEx(playerid,
+                    	CLUBS_INTERIORS[interior][interior_X],
+                    	CLUBS_INTERIORS[interior][interior_Y],
+                    	CLUBS_INTERIORS[interior][interior_Z],
+                    	CLUBS_INTERIORS[interior][interior_ANGLE],
+                    	CLUBS_INTERIORS[interior][interior_ID],
+                    	CLUBS_INFO[ info[1] ][club_ID],
+                    	false,
+                    	true
+                    );
+                    FreezePlayer(playerid);
+
+                    StopAudioStreamForPlayer(playerid);
+
+                    if (CLUBS_INFO[ info[1] ][club_RADIO] < 100)
+					{
+						PlayAudioStreamForPlayer(playerid, RADIO_STATIONS[ CLUBS_INFO[ info[1] ][club_RADIO] ][r_URL]);
+					}
+
+					ShowPlayerNotification(playerid, CLUBS_INFO[ info[1] ][club_WELCOME], 4);
+                }
+                else ShowPlayerMessage(playerid, "~r~Este negocio se encuentra cerrado.", 4);
             }
             else ExitSite(playerid);
         }
@@ -5473,23 +5569,18 @@ CALLBACK: StopDrugEffect(playerid)
     return 1;
 }
 
-CheckClubBar(playerid)
+CheckClubMenu(playerid)
 {
-	if (PLAYER_TEMP[playerid][py_INTERIOR_INDEX] != -1)
+	if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
 	{
-		if (ENTER_EXIT[ PLAYER_TEMP[playerid][py_INTERIOR_INDEX] ][ee_INTERIOR_TYPE] == INTERIOR_CLUB)
-		{
-			if (IsPlayerInRangeOfPoint(playerid, 1.5, 1207.234375, -29.231435, 1000.953125) || IsPlayerInRangeOfPoint(playerid, 1.5, 496.589172, -76.033905, 998.757812) || IsPlayerInRangeOfPoint(playerid, 1.5, 2620.2986, 479.9061, 2621.2000))
-			{
-				if (GetPlayerSpecialAction(playerid) != SPECIAL_ACTION_DRINK_WINE)
-				{
-					if (CHARACTER_INFO[playerid][ch_CASH] <= 50) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente, necesitas 50$.", 2);
+		new 
+			club = PLAYER_TEMP[playerid][py_CLUB_INDEX],
+			interior = CLUBS_INFO[club][club_INTERIOR]
+		;
 
-					SetPlayerSpecialAction(playerid, SPECIAL_ACTION_DRINK_BEER);
-					GivePlayerCash(playerid, -50, false);
-				}
-				return 1;
-			}
+		if (IsPlayerInRangeOfPoint(playerid, 1.0, CLUBS_INTERIORS[interior][interior_BUY_X], CLUBS_INTERIORS[interior][interior_BUY_Y], CLUBS_INTERIORS[interior][interior_BUY_Z]))
+		{
+			ShowDialog(playerid, DIALOG_CLUB);
 		}
 	}
 	return 1;
@@ -5665,7 +5756,10 @@ SetEngineAction(playerid)
 
 public OnPlayerSpawn(playerid)
 {
-	//printf("OnPlayerSpawn",playerid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerSpawn",playerid); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_OCCUPIED) // Primer spawn
 	{
 		PLAYER_TEMP[playerid][py_TIME_PLAYING] = gettime();
@@ -6001,6 +6095,17 @@ public OnPlayerSpawn(playerid)
 	SetTracingColor(playerid, COLOR_RED);
 	PreloadAnims(playerid);
 
+	if (PLAYER_CREW[playerid][player_crew_VALID])
+	{
+		for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
+		{
+			if (GRAFFITIS_OBJ[i][g_ACTIVATED] == true)
+			{
+				SetPlayerMapIcon(playerid, 0, GRAFFITIS_OBJ[i][g_X], GRAFFITIS_OBJ[i][g_Y], GRAFFITIS_OBJ[i][g_Z], 63, 0, MAPICON_GLOBAL);
+			}
+		}
+	}
+
 	if (CHARACTER_INFO[playerid][ch_HEALTH] <= 0.0) CHARACTER_INFO[playerid][ch_HEALTH] = 1.0;
 	if (CHARACTER_INFO[playerid][ch_HEALTH] >= 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
 	if (CHARACTER_INFO[playerid][ch_ARMOUR] >= 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
@@ -6061,7 +6166,10 @@ Log(const nombre[], const texto[])
 
 public OnPlayerDeath(playerid, killerid, reason)
 {
-	//printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerDeath %d %d %d",playerid,killerid,reason); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 	if (!PLAYER_TEMP[playerid][py_USER_LOGGED]) return 0;
 
@@ -6204,7 +6312,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		SavePlayerNotification(playerid, str_victim);
 
 		format(str_victim, sizeof(str_victim), "[KILL] %s (%d) hirió a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
-		SendMessageToAdmins(COLOR_ANTICHEAT, str_victim);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str_victim, 2);
 
 		GetPlayerPos(playerid, x, y, z);
 		SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
@@ -6323,7 +6431,9 @@ public OnPlayerDeath(playerid, killerid, reason)
 
 public OnPlayerRequestClass(playerid, classid)
 {
-	//printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerRequestClass %d %d",playerid, classid); // debug juju
+	#endif
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) // Recién conectado
 	{
@@ -6366,7 +6476,6 @@ public OnPlayerRequestClass(playerid, classid)
 				db_free_result(db_query(Database, DB_Query));
 
 				ShowPlayerMessage(playerid, "~r~Tu dirección IP ha cambiado desde tu última conexión.", 5);
-				format(ACCOUNT_INFO[playerid][ac_IP], 16, "%s", PLAYER_TEMP[playerid][py_IP]);
 				PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = true;
 			}
 			
@@ -6413,7 +6522,10 @@ public OnPlayerRequestClass(playerid, classid)
 
 public OnPlayerRequestSpawn(playerid)
 {
-	//printf("OnPlayerrequestSpawn %d",playerid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerRequestSpawn %d",playerid); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_CONNECTED) CallLocalFunction("OnPlayerRequestClass", "dd", playerid, 0);
     return 0;
 }
@@ -6674,7 +6786,7 @@ CALLBACK: CancelGraffiti()
 			SendDiscordWebhook(str_text, 2);
 
 			format(str_text, sizeof(str_text), "[GRAFFITI] Nadie ha ganado el graffiti en %s.", GRAFFITIS_OBJ[i][g_ZONE_NAME]);
-			SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+			SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 		}
 	}
 
@@ -6684,6 +6796,18 @@ CALLBACK: CancelGraffiti()
 		{
 			if (PLAYER_CREW[x][player_crew_VALID])
 			{
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][0]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][1]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][2]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][3]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][4]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][5]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][6]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][7]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][8]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][9]);
+				TextDrawHideForPlayer(x, Textdraws[textdraw_GRAFFITI_PLUS][10]);
+				RemovePlayerMapIcon(x, 0);
 				CREW_INFO[ PLAYER_CREW[x][player_crew_INDEX] ][crew_GRAFFITI_PROGRESS] = 0;
 				CREW_INFO[ PLAYER_CREW[x][player_crew_INDEX] ][crew_IN_GRAFFITI] = false;
 			}
@@ -6716,7 +6840,7 @@ InitBlackMarket(market_id)
 	TextDrawSetString(Textdraws[textdraw_GRAFFITI_PLUS][2], "hud:radar_locosyndicate");
 
 	format(str_text, sizeof(str_text), "[MERCADO] Mercado en %s.", BLACK_MARKET_OBJ[market_id][bm_ZONE_NAME]);
-    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+    SendMessageToAdmins(COLOR_ANTICHEAT, str_text, 2);
 
     format(str_text, 145, "Mercado en %s.", BLACK_MARKET_OBJ[market_id][bm_ZONE_NAME]);
     SendDiscordWebhook(str_text, 3);
@@ -6762,7 +6886,7 @@ InitGraffiti(graff_id)
 
 	new str[144];
 	format(str, 145, "[GRAFFITI] Graffiti en %s.", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
-    SendMessageToAdmins(COLOR_ANTICHEAT, str);
+    SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
     format(str, 145, "Graffiti en %s.", GRAFFITIS_OBJ[graff_id][g_ZONE_NAME]);
     SendDiscordWebhook(str, 2);
@@ -6790,7 +6914,7 @@ InitGraffiti(graff_id)
 
 CALLBACK: InitRandomGangEvent()
 {	
-	new event = minrand(0, 6);
+	/*new event = minrand(0, 6);
 	switch(event)
 	{
 		case 3:
@@ -6803,7 +6927,9 @@ CALLBACK: InitRandomGangEvent()
 			new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
 			InitGraffiti(graff_id);
 		}
-	}
+	}*/
+	new graff_id = minrand(0, sizeof(GRAFFITIS_OBJ));
+	InitGraffiti(graff_id);
 	return 1;
 }
 
@@ -6920,6 +7046,7 @@ public OnGameModeInit()
 	CreateMinerRocks();
 
 	SetTimer("UpdateWantedLevelMark", 30000, true);
+<<<<<<< HEAD
 	SetTimer("GiveAutoGift", 300000, false);
 <<<<<<< HEAD
 	//SetTimer("SendGift", 60000, true);
@@ -6937,12 +7064,21 @@ public OnGameModeInit()
 >>>>>>> 882d7df (Horas del /est estaban bugeadas)
 	SetTimer("FirstGraffitiAnnounce", 1500000, false);
 	
+=======
+
+	#if defined FINAL_BUILD
+		SetTimer("GiveAutoGift", 300000, false);
+    	SetTimer("SendGift", 120000, true);
+	#endif
+
+	SetTimer("FirstGraffitiAnnounce", 1500000, false);	
+>>>>>>> 119039e (oooo chad on da house)
 
 	GraffitiGetTime = gettime();
 	MarketGetTime = gettime();
 	
-    Log("status", "Servidor iniciado.");
-    SendDiscordWebhook(":fire: Servidor iniciado.", 1);
+    Log("status", "Servidor iniciado ("SERVER_VERSION").");
+    SendDiscordWebhook(":fire: Servidor iniciado ("SERVER_VERSION").", 1);
     ServerInitTime = gettime();
     return 1;
 }
@@ -7280,7 +7416,7 @@ SanAndreas()
 	LoadCrews();
 	LoadGangZones();
 	LoadBlackMarkets();
-	//LoadClubs();
+	LoadClubs();
 
 	gettime(SERVER_TIME[0], SERVER_TIME[1]);
 	SetTimer("UpdateWorldTime", 60000, true);
@@ -7871,7 +8007,10 @@ public OnGameModeExit()
 		GameTextForPlayer(i, "~w~Reiniciando...", 8000, 1);
 	}
 
-	//printf("OnGameModeExit()"); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnGameModeExit"); // debug juju
+	#endif
+
 	printf("Deteniendo servidor...");
 	db_close(Database);
 	Log("status", "Servidor detenido.");
@@ -7902,7 +8041,10 @@ CheckAndExecuteGasoline(playerid)
 #define MIN_SECONDS_BETWEEN_TALKS 150 // Deben pasar al menos 1 segundos para volver a hablar.
 public OnPlayerText(playerid, text[])
 {
-	//printf("OnPlayerText %d %s",playerid,text); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerText %d %s",playerid,text); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL || PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] || PLAYER_TEMP[playerid][py_NEW_USER]) { ShowPlayerMessage(playerid, "~r~Ahora no puedes hablar.", 2); return 0; }
@@ -7983,7 +8125,7 @@ public OnPlayerText(playerid, text[])
 
 		new str[144];
 		format(str, 145, "[ADMIN] %s (%d) fue baneado permanentemente: Superar los 10 jails", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-		SendMessageToAdmins(COLOR_ANTICHEAT, str);
+		SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 		new webhook[144]; format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 		SendDiscordWebhook(webhook, 1);	
@@ -8102,7 +8244,7 @@ CMD:duda(playerid, params[])
 			
 		new str[144];
 		format(str, 145, "[ANTI-CHEAT] Aviso sobre %s (%d): Spam (%s)", ACCOUNT_INFO[playerid][ac_NAME], playerid, params);
-    	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+    	SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
     	new webhook[144];
 		format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -8378,6 +8520,183 @@ CMD:ayuda(playerid, params[])
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+	return 1;
+}
+
+/* COMMAND FINDING */
+cmd:tr(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): tr", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:salo(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): salo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:spread(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): spread", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:cfind(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): cfind", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:master(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): master", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:tmp(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): tmp", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:fr(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): fr", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:hmo(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): hmo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:skr(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): skr", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:xex(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): xex", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:kill(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): kill", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:up(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): up", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:slide(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): slide", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:cbug(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): cbug", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:aimbot(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): aimbot", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
+	return 1;
+}
+
+cmd:aim(playerid, params[])
+{
+	new string[128];
+	format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): aim", ACCOUNT_INFO[playerid][ac_NAME], playerid);
+	SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+	SendDiscordWebhook(string, 1);
+
+	Kick(playerid);
 	return 1;
 }
 
@@ -12854,6 +13173,75 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Mercado negro", "Armas\nMunición", "Ver", "Cerrar");
 			return 1;
 		}
+		case DIALOG_CLUB:
+		{
+			if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+			{
+				new
+					dialog[164],
+					caption[40],
+					club = PLAYER_TEMP[playerid][py_CLUB_INDEX]
+				;
+
+				format(dialog, 164, "Comidas\nPedir trago\n");
+
+				if (CLUBS_INFO[club][club_USER_ID] == 0)
+				{
+					new price[128];
+					format(price, 128, "Comprar local ("COL_YELLOW"%d "SERVER_COIN""COL_WHITE")", CLUBS_INFO[club][club_PRICE]);
+					strcat(dialog, price);
+				}
+
+				format(caption, 40, ""COL_RED"%s", CLUBS_INFO[club][club_NAME]);
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, caption, dialog, "Ver", "Cerrar");
+			}
+			return 1;
+		}
+		case DIALOG_CLUB_BUY_FOOD:
+		{
+			if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+			{
+				for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
+
+				new
+					dialog[11 * 64],
+					DBResult:Result,
+					DB_Query[128],
+					club = PLAYER_TEMP[playerid][py_CLUB_INDEX],
+					total_products
+				;
+
+				format(dialog, sizeof(dialog), ""COL_WHITE"Nombre\t"COL_WHITE"Precio\n");
+
+				format(DB_Query, 128, "SELECT * FROM `CLUB_PRODUCTS` LIMIT 10;", CLUBS_INFO[club][club_ID]);
+				Result = db_query(Database, DB_Query);
+
+				if (db_num_rows(Result))
+				{
+					for(new i; i < db_num_rows(Result); i++ )
+					{
+						new 
+							name[32],
+							line[64],
+							price,
+							id
+						;
+
+						id = db_get_field_assoc_int(Result, "ID");
+						price = db_get_field_assoc_int(Result, "PRICE");
+						db_get_field_assoc(Result, "NAME", name, 32);
+
+						PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][total_products] = id;
+
+						format(line, sizeof(line), "%s\t"COL_GREEN"%d$\n", name, price);
+						strcat(dialog, line);
+						total_products ++;
+					}
+				}
+				if (total_products == 0) return ShowPlayerMessage(playerid, "~r~No hay productos disponibles", 4);
+				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Comidas", dialog, "Comprar", "Atrás");
+			}
+		}
 		default: return 0;
 	}
 	return 1;
@@ -12861,7 +13249,10 @@ ShowDialog(playerid, dialogid)
 
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-	//printf("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnDialogResponse %d %d %d %d %s",playerid,dialogid,response,listitem, inputtext); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_DIALOG_RESPONDED]) return 1;
 	PLAYER_TEMP[playerid][py_DIALOG_RESPONDED] = true;
 
@@ -12996,8 +13387,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) ShowDialog(playerid, DIALOG_QUESTION_RESPONSE);
 
-				// ONLY HOST
-				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 700000, true, "i", playerid);				
+				#if defined FINAL_BUILD
+    				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 700000, true, "i", playerid);
+				#endif
 
 				new pass_str[364];
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
@@ -14376,7 +14768,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
 					db_free_result(db_query(Database, DB_Query_update));
 
-					SendClientMessageEx(playerid, COLOR_WHITE, "Has gastado %d "SERVER_COIN" en la compra de esta propiedad.", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA]);
+					ShowPlayerNotification(playerid, sprintf("Has gastado %d "SERVER_COIN" en la compra de esta propiedad.", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA]));
 				}
 
 				PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_SOLD] = true;
@@ -21037,6 +21429,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 
 					ShowPlayerNotification(playerid, "Respuesta correcta, ya puedes jugar nuevamente.", 4);
+					format(ACCOUNT_INFO[playerid][ac_IP], 16, "%s", PLAYER_TEMP[playerid][py_IP]);
 					PLAYER_TEMP[playerid][py_STEAL_SUSPICION] = false;
 				}
 				else Kick(playerid);
@@ -21063,6 +21456,27 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0: ShowDialog(playerid, DIALOG_BLACK_MARKET_WEAPONS);
 					case 1: ShowDialog(playerid, DIALOG_SELECC_TYPE_AMMO);
+				}
+			}
+		}
+		case DIALOG_CLUB:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0: ShowDialog(playerid, DIALOG_CLUB_BUY_FOOD);
+					case 1: ShowDialog(playerid, DIALOG_CLUB_BUY_DRINK);
+					case 2:
+					{
+						if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+						{
+							if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+							{
+								BuyClub(playerid, PLAYER_TEMP[playerid][py_CLUB_INDEX]);
+							}
+						}
+					}
 				}
 			}
 		}
@@ -21110,7 +21524,10 @@ SetPlayer_GPS_Checkpoint(playerid, Float:x, Float:y, Float:z, world, interior)//
 
 public OnPlayerEnterDynamicArea(playerid, areaid)
 {
-	//printf("onaplayer enter dynamic area %d %d",playerid, areaid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerEnterDynamicArea %d %d",playerid, areaid); // debug juju
+	#endif
+
 	new
 		info[2],
 		type
@@ -21160,7 +21577,10 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
-	//printf("OnPlayerLeaverDynamicArea %d %d",playerid, areaid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerLeaveDynamicArea %d %d",playerid, areaid); // debug juju
+	#endif
+
 	new
 		info[2],
 		type
@@ -21219,7 +21639,10 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 
 public OnPlayerEnterDynamicCP(playerid, checkpointid)
 {
-	//printf("OnPlayerEnterDynamicCp %d %d",playerid, checkpointid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerEnterDynamicCP %d %d",playerid, checkpointid); // debug juju
+	#endif
+
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -21508,7 +21931,10 @@ EditPlayerToy(playerid)
 
 public OnPlayerEditAttachedObject(playerid, response, index, modelid, boneid, Float:fOffsetX, Float:fOffsetY, Float:fOffsetZ, Float:fRotX, Float:fRotY, Float:fRotZ, Float:fScaleX, Float:fScaleY, Float:fScaleZ)
 {	
-	//printf("OnPlayerEditAttaObject %d %d", playerid, response); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerEditAttachedObject %d %d", playerid, response); // debug juju
+	#endif
+
 	if (index != PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]) return 0;
 
 	if (response)
@@ -22660,7 +23086,7 @@ CheckBlockedWeapon(playerid, weapon_ip)
 
 		    	new str[144];
 		    	format(str, 145, "[ANTI-CHEAT] Kick sobre %s (%d): Armas del PD sin serlo", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-		    	SendMessageToAdmins(COLOR_ANTICHEAT, str);
+		    	SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 		    	SendDiscordWebhook(str, 1);
 		    
 		    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
@@ -23885,7 +24311,10 @@ LoadBlackMarkets()
 
 public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 {
-	//printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerPickUpDynamicPickup %d %d",playerid, pickupid); // debug juju
+    #endif
+
     PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] = pickupid;
     return 1;
 }
@@ -23951,13 +24380,13 @@ CheckMarketProgress(playerid)
 			{
 				BLACK_MARKET_OBJ[i][bm_ACTIVATED] = false;
 				//TextDrawColor(Textdraws[textdraw_GRAFFITI][0], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR]);
-				SetTimer("FirstGraffitiAnnounce", 1500000, false);
+				//SetTimer("FirstGraffitiAnnounce", 1500000, false);
 				format(str_text, sizeof(str_text), "%s ahora domina el mercado de %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], BLACK_MARKET_OBJ[i][bm_ZONE_NAME]);
 				SendGraffitiNotification(str_text);
 				SendDiscordWebhook(str_text, 3);
 
 				new str[144]; format(str, 145, "[MERCADO] %s ha ganado el mercado en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], BLACK_MARKET_OBJ[i][bm_ZONE_NAME]);
-    			SendMessageToAdmins(COLOR_ANTICHEAT, str);
+    			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
     			format(str_text, sizeof(str_text), "\n"COL_WHITE"Dominado por: {%06x}%s",  CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME]);
     			UpdateDynamic3DTextLabelText(BLACK_MARKET_OBJ[i][bm_LABEL], 0xF7F7F700, str_text);
@@ -24061,7 +24490,7 @@ CheckGraffitiProgress(playerid)
 				SendDiscordWebhook(str_text, 2);
 
 				new str[144]; format(str, 145, "[GRAFFITI] %s ha ganado el graffiti en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], GRAFFITIS_OBJ[i][g_ZONE_NAME]);
-    			SendMessageToAdmins(COLOR_ANTICHEAT, str);
+    			SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				SetDynamicObjectMaterialText(GRAFFITIS_OBJ[i][g_ID], 0, CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], OBJECT_MATERIAL_SIZE_512x64, GRAFFITIS_OBJ[i][g_FONT], 60, 0, CrewColorGraffiti_ARGB, 0x00000000, OBJECT_MATERIAL_TEXT_ALIGN_CENTER);
 
@@ -24569,7 +24998,10 @@ SendBoxMessage(const message[], time)
 
 public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 {
-	//printf("OnPlayerKeyState %d %d %d",playerid, newkeys, oldkeys); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerKeyStateChange %d %d %d",playerid, newkeys, oldkeys); // debug juju
+    #endif
+
     if (PRESSED(  KEY_SECONDARY_ATTACK  ))
     {
     	if (PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] == true) PLAYER_TEMP[playerid][py_IN_TUNING_GARAGE] = false;
@@ -24717,6 +25149,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckBallonAction(playerid);
         CheckAmbulance(playerid);
         CheckBoxClub(playerid);
+        CheckClubMenu(playerid);
 
         for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
 		{
@@ -24891,7 +25324,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 	if (PRESSED( KEY_CTRL_BACK ))
     {
-    	CheckClubBar(playerid);
 		ShowPropertyOptions(playerid);
 		CheckCraneSiteRequest(playerid);
 		ShellingThings(playerid);
@@ -26205,7 +26637,10 @@ GetPlayerIdByBankAccountId(account_id)
 
 public OnPlayerStateChange(playerid, newstate, oldstate)
 {
-	//printf("OnPlayerStaeChnagge %d %d %d",playerid, newstate, oldstate); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerStateChange %d %d %d",playerid, newstate, oldstate); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
 
 	switch(oldstate)
@@ -26762,7 +27197,10 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 
 public OnPlayerExitVehicle(playerid, vehicleid)
 {
-	//printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerExitVehicle %d %d",playerid,vehicleid); // debug juju
+	#endif
+
 	StopAudioStreamForPlayer(playerid);
 
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] != INVALID_PLAYER_ID)
@@ -26783,7 +27221,10 @@ public OnPlayerExitVehicle(playerid, vehicleid)
 
 public OnPlayerEnterVehicle(playerid, vehicleid, ispassenger)
 {
-	//printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerEnterVehicle %d %d %d",playerid,vehicleid,ispassenger); // debug juju
+	#endif
+
 	PLAYER_AC_INFO[playerid][CHEAT_POS][p_ac_info_IMMUNITY] = gettime() + 3;
 	PLAYER_AC_INFO[playerid][CHEAT_STATE_SPAMMER][p_ac_info_IMMUNITY] = gettime() + 3;
 
@@ -27434,7 +27875,10 @@ SavePlayerVehicles(playerid, destroy = false)
 
 public OnVehicleSpawn(vehicleid)
 {
-	//printf("OnVehicleId %d",vehicleid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnVehicleSpawn %d",vehicleid); // debug juju
+	#endif
+
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_TP_IMMUNITY] = gettime() + 5;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = true;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_ATTACHED_TO] = INVALID_VEHICLE_ID;
@@ -27561,7 +28005,10 @@ SetVehicleToRespawnEx(vehicleid)
 
 public OnVehicleDeath(vehicleid, killerid)
 {
-	//printf("OnVehicleDeat",vehicleid,killerid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnVehicleDeath",vehicleid,killerid); // debug juju
+	#endif
+
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_SPAWNED] = false;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_DRIVER] = INVALID_PLAYER_ID;
 	GLOBAL_VEHICLES[vehicleid][gb_vehicle_LAST_DRIVER] = INVALID_PLAYER_ID;
@@ -27989,7 +28436,10 @@ AddVehicleComponents(vehicleid)
 
 public OnEnterExitModShop(playerid, enterexit, interiorid)
 {
-	//printf("OnEnterExitMoDsHOP",playerid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnEnterExitModShop",playerid); // debug juju
+    #endif
+
     if (enterexit) // Entra
     {
 		ShowPlayerMessage(playerid, "~r~Solo puedes tunear vehículos en el mecánico, búscalo con el /GPS.", 2);
@@ -28010,7 +28460,10 @@ public OnEnterExitModShop(playerid, enterexit, interiorid)
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
-	//printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnVehicleMod %d %d %d",playerid,vehicleid,componentid); // debug juju
+	#endif
+
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -28031,7 +28484,10 @@ public OnVehicleMod(playerid, vehicleid, componentid)
 
 public OnVehiclePaintjob(playerid, vehicleid, paintjobid)
 {
-	//printf("OnVehiclePaintJob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnVehiclePaintjob %d %d %d",playerid,vehicleid,paintjobid); // debug juju
+	#endif
+
 	if (ac_Info[CHEAT_CAR_MOD][ac_Enabled])
 	{
 		if (gettime() > PLAYER_AC_INFO[playerid][CHEAT_CAR_MOD][p_ac_info_IMMUNITY])
@@ -29255,7 +29711,10 @@ Set_HARVEST_Checkpoint(playerid)
 
 public OnPlayerEnterDynamicRaceCP(playerid, checkpointid)
 {
-	//printf("OnPlayerEnterDynamicRaceCp %d %d",playerid,checkpointid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerEnterDynamicRaceCP %d %d",playerid,checkpointid); // debug juju
+	#endif
+
 	new info[1];
 	Streamer_GetArrayData(STREAMER_TYPE_RACE_CP, checkpointid, E_STREAMER_EXTRA_ID, info);
 
@@ -29543,9 +30002,9 @@ ShowPlayerInventory(playerid, pid)
 	{
 		for(new i; i != 13; i ++)
 		{
-			if (!PLAYER_WEAPONS[playerid][i][player_weapon_VALID]) continue;
+			if (!PLAYER_WEAPONS[pid][i][player_weapon_VALID]) continue;
 
-			format(line_str, sizeof line_str, ""COL_WHITE"%s | Slot "COL_RED"%d"COL_WHITE"\n", WEAPON_INFO[ PLAYER_WEAPONS[playerid][i][player_weapon_ID] ][weapon_info_NAME], i);
+			format(line_str, sizeof line_str, ""COL_WHITE"%s | Slot "COL_RED"%d"COL_WHITE"\n", WEAPON_INFO[ PLAYER_WEAPONS[pid][i][player_weapon_ID] ][weapon_info_NAME], i);
 			strcat(dialog, line_str);
 		}
 	}
@@ -30257,7 +30716,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 
 				new str[144];
 				format(str, 145, "[ADMIN] %s (%d) fue baneado: Usar tazer sin ser policia.", ACCOUNT_INFO[playerid][ac_NAME], playerid);
-				SendMessageToAdmins(COLOR_ANTICHEAT, str);
+				SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
 
 				new webhook[144];
 				format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
@@ -31421,7 +31880,10 @@ CMD:econtrol(playerid, params[])
 
 public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y, Float:z)
 {
-	//printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerSelectDynamicObject %d",playerid); // debug juju
+	#endif
+
 	new info[2];
 	Streamer_GetArrayData(STREAMER_TYPE_OBJECT, objectid, E_STREAMER_EXTRA_ID, info);
 	if (info[0] == WORK_POLICE)
@@ -31455,7 +31917,10 @@ public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y
 
 public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
-	//printf("OnPlayerEditDynamicObject",playerid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerEditDynamicObject",playerid); // debug juju
+	#endif
+
 	if (response == EDIT_RESPONSE_CANCEL)
 	{
 		new info[2];
@@ -32205,8 +32670,7 @@ CMD:id(playerid, params[])
 
 	new
 		player_version[32],
-		acid,
-		ping = GetPlayerPing(to_player)
+		acid
 	;
 
 	GetPlayerVersion(to_player, player_version, sizeof player_version);
@@ -32214,7 +32678,6 @@ CMD:id(playerid, params[])
 	if (ACCOUNT_INFO[to_player][ac_ID] == 0)
 	{
 		acid = minrand(80000, 90000);
-		ping = minrand(170, 370);
 	}
 	else acid = ACCOUNT_INFO[to_player][ac_ID];
 
@@ -32228,7 +32691,7 @@ CMD:id(playerid, params[])
 	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Versión: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f "COL_RED"|"COL_WHITE" Ping: %d",
 		player_version,
 		NetStats_PacketLossPercent(to_player),
-		ping
+		GetPlayerPing(to_player)
 	);
 	return 1;
 }
@@ -34041,7 +34504,9 @@ EditVehicleObject(playerid, vehicleid, slot)
 
 public OnPlayerEditObject(playerid, playerobject, objectid, response, Float:fX, Float:fY, Float:fZ, Float:fRotX, Float:fRotY, Float:fRotZ)
 {
-	//printf("OnPlayerEditObject %d",playerid); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerEditObject %d",playerid); // debug juju
+	#endif
 
 	if (playerobject)
 	{
@@ -34786,7 +35251,10 @@ SetPlayerNormalColor(playerid)
 #define MIN_SECONDS_BETWEEN_COMMANDS 1 // Deben pasar al menos 1 segundos entre comando y comando.
 public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 {
-	//printf("OnPlayerCommandRecv %d %s %s",playerid,cmd,params); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerCommandReceived %d %s %s",playerid,cmd,params); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < 8)
@@ -34851,7 +35319,10 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 
 public OnPlayerCommandPerformed(playerid, cmd[], params[], result, flags) 
 {
-	//printf("OnPlayerCOmmandPerfo %d %s %s",playerid,params,result); // debug juju
+	#if DEBUG_MODE == 1
+		printf("OnPlayerCommandPerformed %d %s %s",playerid,params,result); // debug juju
+	#endif
+
 	printf("%s (%d): /%s %s", PLAYER_TEMP[playerid][py_NAME], playerid, cmd, params);
     if (result == -1) 
     { 

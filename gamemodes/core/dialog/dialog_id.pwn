@@ -270,6 +270,13 @@ enum
 >>>>>>> d09f9dd (Balas como antes y arreglos)
 =======
 	DIALOG_SELECC_TYPE_AMMO,
+<<<<<<< HEAD
 	DIALOG_BLACK_MARKET_SELECT
 >>>>>>> d80a8b7 (Las armas y balas se comprar en el mismo lugar)
+=======
+	DIALOG_BLACK_MARKET_SELECT,
+	DIALOG_CLUB,
+	DIALOG_CLUB_BUY_FOOD,
+	DIALOG_CLUB_BUY_DRINK
+>>>>>>> 119039e (oooo chad on da house)
 };
