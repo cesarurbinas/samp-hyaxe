@@ -4324,7 +4324,8 @@ EnterSite(playerid)
     
             if (info[2] == 2) // Está en el Pickup Exterior y quiere ir al interior
             {
-                if (CLUBS_INFO[ info[1] ][club_STATE] == 1) // Abierto
+            	if (CLUBS_INFO[ info[1] ][club_STATE] == 0 && CLUBS_INFO[ info[1] ][club_USER_ID] != ACCOUNT_INFO[playerid][ac_ID]) ShowPlayerMessage(playerid, "~r~Este negocio se encuentra cerrado.", 4);
+                else
                 {
                 	if (PLAYER_TEMP[playerid][py_ROCK]) return ShowPlayerMessage(playerid, "~r~Primero debes entregar la roca.", 3);
 
@@ -4367,7 +4368,6 @@ EnterSite(playerid)
 
 					ShowPlayerNotification(playerid, CLUBS_INFO[ info[1] ][club_WELCOME], 4);
                 }
-                else ShowPlayerMessage(playerid, "~r~Este negocio se encuentra cerrado.", 4);
             }
             else ExitSite(playerid);
         }
@@ -5186,7 +5186,7 @@ Menu:PROPERTY_MENU(playerid, response, listitem)
 							PLAYER_TEMP[i][py_PROPERTY_INDEX] = -1;
 							SetPlayerPosEx(i, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_X], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Y], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Z], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_ANGLE], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_INTERIOR], 0, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_FREEZE], false);
 							StopAudioStreamForPlayer(i);
-							ShowPlayerMessage(i, "~r~Te hecharon de la propiedad.", 4);
+							ShowPlayerMessage(i, "~r~Te echaron de la propiedad.", 4);
 							total ++;
 						}
 					}
@@ -5581,6 +5581,96 @@ CheckClubMenu(playerid)
 		if (IsPlayerInRangeOfPoint(playerid, 1.0, CLUBS_INTERIORS[interior][interior_BUY_X], CLUBS_INTERIORS[interior][interior_BUY_Y], CLUBS_INTERIORS[interior][interior_BUY_Z]))
 		{
 			ShowDialog(playerid, DIALOG_CLUB);
+		}
+	}
+	return 1;
+}
+
+Menu:CLUB_MENU(playerid, response, listitem)
+{
+    if (response == MENU_RESPONSE_SELECT)
+    {
+    	new club = PLAYER_TEMP[playerid][py_CLUB_INDEX];
+
+    	switch(listitem)
+    	{
+    		case 0: ShowDialog(playerid, DIALOG_CLUB_NAME);
+    		case 1: ShowDialog(playerid, DIALOG_CLUB_WELCOME);
+    		case 2: ShowDialog(playerid, DIALOG_CLUB_PRODUCTS);
+    		case 3:
+    		{
+    			CLUBS_INFO[club][club_STATE] = !CLUBS_INFO[club][club_STATE];
+
+    			new DB_Query[128];
+    			format(DB_Query, sizeof(DB_Query), "\
+					UPDATE `CLUB_INFO` SET\
+						`STATE` = '%d' \
+					WHERE `ID` = '%d';\
+				", CLUBS_INFO[club][club_STATE], club);
+				db_free_result(db_query(Database, DB_Query));
+
+				CheckClubOptions(playerid);
+    		}
+			case 4:
+			{
+				new total;
+				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+				{
+					if (IsPlayerConnected(i))
+					{
+						if ( CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY && CHARACTER_INFO[i][ch_INTERIOR_EXTRA] == PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID])
+						{
+							CHARACTER_INFO[i][ch_STATE] = ROLEPLAY_STATE_NORMAL;
+							CHARACTER_INFO[i][ch_INTERIOR_EXTRA] = 0;
+							PLAYER_TEMP[i][py_PROPERTY_INDEX] = -1;
+							SetPlayerPosEx(i, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_X], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Y], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_Z], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_ANGLE], PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_INTERIOR], 0, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_EXT_FREEZE], false);
+							StopAudioStreamForPlayer(i);
+							ShowPlayerMessage(i, "~r~Te echaron de la propiedad.", 4);
+							total ++;
+						}
+					}
+				}
+
+				if (total == 0) ShowPlayerMessage(playerid, "~r~No hay nadie en tu propiedad", 2);
+				else
+				{
+					new str_text[128];
+					format(str_text, sizeof(str_text), "Has echado ~y~%d~w~ personas de tu propiedad.", total);
+					ShowPlayerMessage(playerid, str_text, 5);
+				}
+
+				CheckClubOptions(playerid);
+			}
+    	}
+    }
+    return 1; 
+}
+
+CheckClubOptions(playerid)
+{
+	if (PLAYER_TEMP[playerid][py_CLUB_INDEX] != -1)
+	{
+		new club = PLAYER_TEMP[playerid][py_CLUB_INDEX];
+
+		if (GetPlayerInterior(playerid) != 0)
+		{
+			if (CLUBS_INFO[club][club_USER_ID] == ACCOUNT_INFO[playerid][ac_ID])
+			{
+				new caption[40];
+				format(caption, sizeof caption, "%s", CLUBS_INFO[club][club_NAME]);
+
+				ShowPlayerMenu(playerid, CLUB_MENU, TextToSpanish(caption));
+
+				AddPlayerMenuItem(playerid, "Cambiar nombre");
+				AddPlayerMenuItem(playerid, "Cambiar bienvenida");
+				AddPlayerMenuItem(playerid, "Modificar productos");
+				AddPlayerMenuItem(playerid, sprintf("Puerta (%s)", (CLUBS_INFO[club][club_STATE] ? "Abierta" : "Cerrada")));
+				AddPlayerMenuItem(playerid, "Echar a todos");
+				AddPlayerMenuItem(playerid, "Retirar fondos");
+				AddPlayerMenuItem(playerid, "Personalizar");
+
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+			}
 		}
 	}
 	return 1;
@@ -25488,6 +25578,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	if (PRESSED( KEY_CTRL_BACK ))
     {
 		ShowPropertyOptions(playerid);
+		CheckClubOptions(playerid);
 		CheckCraneSiteRequest(playerid);
 		ShellingThings(playerid);
 		CheckTrashJobSite(playerid);

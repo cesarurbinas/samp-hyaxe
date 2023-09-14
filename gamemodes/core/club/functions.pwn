@@ -26,7 +26,7 @@ LoadClubs()
 			CLUBS_INFO[i][club_RADIO] = db_get_field_assoc_int(Result, "RADIO");
 
 			new label_str[164];
-			if (CLUBS_INFO[i][club_USER_ID] == 0) format(label_str, 164, ""COL_WHITE"%s\n"COL_GREEN"En venta", CLUBS_INFO[i][club_NAME]);
+			if (CLUBS_INFO[i][club_USER_ID] == 0) format(label_str, 164, ""COL_WHITE"%s (%s)\n"COL_GREEN"En venta", CLUBS_INFO[i][club_NAME], (CLUBS_INFO[i][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""));
 			else
 			{
 				new 
@@ -41,7 +41,7 @@ LoadClubs()
 				if (db_num_rows(Result_info_owner))
 				{
 					db_get_field_assoc(Result_info_owner, "NAME", owner, 24);
-					format(label_str, 164, ""COL_WHITE"%s\nPropietario:{35A7FF} %s", CLUBS_INFO[i][club_NAME], owner);
+					format(label_str, 164, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[i][club_NAME], (CLUBS_INFO[i][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE"") owner);
 				}
 			}
 
@@ -146,7 +146,7 @@ CreateClub(const name[], const welcome[], Float:x, Float:y, Float:z, Float:angle
 	db_free_result(Result);
 
 	new label_str[164];
-	format(label_str, 164, ""COL_WHITE"%s\n"COL_GREEN"En venta", CLUBS_INFO[index][club_NAME]);
+	format(label_str, 164, ""COL_WHITE"%s (%s)\n"COL_GREEN"En venta", CLUBS_INFO[index][club_NAME], (CLUBS_INFO[index][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""));
 	CLUBS_INFO[index][club_EXT_LABEL_ID] = CreateDynamic3DTextLabel(label_str, 0xF7F7F700, CLUBS_INFO[index][club_X], CLUBS_INFO[index][club_Y], CLUBS_INFO[index][club_Z] + 0.25, 5.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CLUBS_INFO[index][club_EXT_PICKUP_ID] = CreateDynamicPickup(19902, 1, CLUBS_INFO[index][club_X], CLUBS_INFO[index][club_Y], CLUBS_INFO[index][club_Z] - 0.7, 0, 0);
 	CLUBS_INFO[index][club_INT_PICKUP_ID] = CreateDynamicPickup(
@@ -229,7 +229,7 @@ BuyClub(playerid, index)
 	}
 
 	new str_text[164];
-	format(str_text, 164, ""COL_WHITE"%s\nPropietario:{35A7FF} %s", CLUBS_INFO[index][club_NAME], PLAYER_TEMP[playerid][py_NAME]);
+	format(str_text, 164, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[index][club_NAME], (CLUBS_INFO[index][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), PLAYER_TEMP[playerid][py_NAME]);
 	UpdateDynamic3DTextLabelText(CLUBS_INFO[index][club_EXT_LABEL_ID], 0xF7F7F700, str_text);
 	return 1;
 }
