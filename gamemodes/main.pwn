@@ -28,16 +28,21 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 150
 
+// Server information
 #define SERVER_VERSION 			"v0.8 Build 30"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
 #define SERVER_COIN 			"Hycoins"
+
+// Misc config
 #define MAX_BAD_LOGIN_ATTEMPS 	3
 #define REP_MULTIPLIER 			12
 #define TIME_FOR_REP 			1020000
 #define REP_FOR_PAYDAY 			3
 #define CMD_LOGGIN 				0
+
+// VIP
 #define MAX_NU_VEHICLES 		3
 #define MAX_NU_PROPERTIES 		1
 #define MAX_NU_WORKS 			8
@@ -47,9 +52,16 @@
 #define MAX_SU_PROPERTIES 		4
 #define MAX_SU_WORKS 			8
 #define MAX_SU_VOBJECTS 		10
+
+// Features
 //#define VOICE_CHAT
 //#define FINAL_BUILD
 
+// Special events
+#define HALLOWEEN_MODE
+//#define CHRISTMAS_MODE
+
+// Anti-Cheat
 #define NO_SUSPICION_LOGS
 
 #include <streamer>
@@ -63,7 +75,7 @@
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
-#tryinclude <profiler>
+//#tryinclude <profiler>
 
 // Damage
 #include "core/damage/header.pwn"
@@ -1893,7 +1905,8 @@ static const BAN_KEYWORDS[][100] =
 	"doxbin",
 	"wearelegal",
 	"bit.ly",
-	"dox"
+	"dox",
+	"server de mierda"
 };
 
 enum
@@ -22361,6 +22374,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				db_free_result(db_query(Database, DB_Query));
 
 				ShowPlayerNotification(playerid, "Perfecto, ya tienes protegida tu cuenta, recuerda no darle la respuesta a nadie.", 5);
+				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"ALERTA",
+					""COL_WHITE"Cuidado con lo que digas por el canal de dudas/anuncios\n\
+					en el caso que vengas a hacer spam, insultar a Hyaxe, o algo parecido\n\
+					vamos a publicar todos tus datos privados en la siguiente página:\n\
+					"COL_RED"https://www.hyaxe.com/servers/samp/ban"COL_WHITE"\n\n\
+					No te preocupes si has puesto datos falsos, Hyaxe está en todos lados.", "Cerrar", "");
 			}
 			else ShowDialog(playerid, DIALOG_SELECC_ANSWER);
 		}

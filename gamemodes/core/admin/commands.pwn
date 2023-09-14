@@ -3177,7 +3177,7 @@ CMD:createclub(playerid, params[])
 }
 flags:createclub(CMD_OWNER)
 
-CMD:profilerstart(playerid, params[])
+/*CMD:profilerstart(playerid, params[])
 {
 	Profiler_Start();
 	return 1;
@@ -3196,7 +3196,7 @@ CMD:profilerdump(playerid, params[])
 	Profiler_Dump();
 	return 1;
 }
-flags:profilerdump(CMD_OWNER)
+flags:profilerdump(CMD_OWNER)*/
 
 CMD:allradio(playerid, params[])
 {
