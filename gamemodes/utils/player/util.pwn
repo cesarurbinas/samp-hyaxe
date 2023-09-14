@@ -3877,7 +3877,7 @@ PlayerPayday(playerid)
 
 	if (PLAYER_WORKS[playerid][WORK_POLICE])
 	{
-		new work_payment = (8000 * PLAYER_SKILLS[playerid][WORK_POLICE]);
+		new work_payment = (5500 * PLAYER_SKILLS[playerid][WORK_POLICE]);
 		money += work_payment;
 
 		format(str_temp, sizeof(str_temp), "~n~SAPD: ~g~%s$~w~", number_format_thousand(work_payment));
@@ -3898,7 +3898,7 @@ PlayerPayday(playerid)
 
 	if (PLAYER_CREW[playerid][player_crew_VALID] && CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT] > 0)
 	{
-		new graffiti_payment = 300 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT];
+		new graffiti_payment = 600 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_GRAFFITIS_COUNT];
 
 		money += graffiti_payment;
 
@@ -3908,7 +3908,7 @@ PlayerPayday(playerid)
 
 	if (CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT] > 0)
 	{
-		new market_payment = 1000 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT];
+		new market_payment = 5000 * CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MARKET_COUNT];
 
 		money += market_payment;
 

@@ -6271,7 +6271,7 @@ CMD:alerttest(playerid, params[])
 	return 1;
 }
 
-Action:ActionInfernus(playerid, response)
+Action:ActionTest(playerid, response)
 {
 	if (response == ACTION_RESPONSE_YES)
 	{
