@@ -1,12 +1,14 @@
 public FCNPC_OnFinishPlayback(npcid)
 {
-	for(new traindriver = 0; traindriver < MAX_STANDARD_NPC_TRAINDRIVERS; traindriver++) {
+	for(new traindriver = 0; traindriver < MAX_STANDARD_NPC_TRAINDRIVERS; traindriver++)
+    {
 		if (npcid == TrainDriverNPCs[traindriver])
         {
 			TrainDriverNextPlayback(traindriver);
 			break;
 		}
 	}
+    
 	for(new pilot = 0; pilot < MAX_STANDARD_NPC_PILOTS; pilot++)
     {
 		if (npcid == PilotNPCs[pilot])
