@@ -210,6 +210,83 @@ ShowInventory(playerid, type = 0)
 
 			ShowPlayerMessage(playerid, "Seleccione un item para meter al almacenamiento.", 5);
 		}
+		case 3:
+		{
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_NAME]);
+			
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+
+			inv_AccommodateVehicleItems(playerid, PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID]);
+
+			new 
+				str_text[128],
+				Float:size_items = 330.000000
+			;
+				
+			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
+
+			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
+			{
+				size_items += 8.0;
+			}
+
+			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
+			}
+			else
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
+			}
+
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			ShowPlayerMessage(playerid, "Seleccione un item para sacar del maletero.", 5);
+		}
+		case 4:
+		{
+			PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], 800.00000, 18.0000);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][1], VEHICLE_INFO[GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][gb_vehicle_MODELID] - 400][vehicle_info_NAME]);
+
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][2]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][3]);
+			PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_INV][40]);
+				
+			inv_AccommodateItems(playerid);
+
+			new
+				str_text[128],
+				Float:size_items = 330.000000;
+				
+			format(str_text, sizeof(str_text), "%d/16", PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] + 1);
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35], str_text);
+
+			for (new i = 0; i < PLAYER_TEMP[playerid][py_INV_OCC_SLOTS]; i++)
+			{
+				size_items += 8.0;
+			}
+
+			if(PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] >= 15)
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], 458.000000, 0.000000);
+			}
+			else
+			{
+				PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36], size_items + 20.0, 0.000000);
+			}
+
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][34]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][35]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][36]);
+
+			ShowPlayerMessage(playerid, "Seleccione un item para meter al maletero.", 5);
+		}
 	}
 
 	SelectTextDrawEx(playerid, COLOR_RED);

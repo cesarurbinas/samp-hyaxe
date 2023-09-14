@@ -222,6 +222,72 @@ inv_AccommodatePropertyItems(playerid, property_id)
 	return 1;
 }
 
+inv_AccommodateVehicleItems(playerid, vehicle_id)
+{
+	PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] = 0;
+
+	for(new x = 0; x != 12; x++)
+	{
+		PROPERTY_VISUAL_INV[playerid][slot_VALID][x] = false;
+		PROPERTY_VISUAL_INV[playerid][slot_TYPE][x] = 0;
+		PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][x] = 0;
+		PROPERTY_VISUAL_INV[playerid][slot_WEAPON][x] = false;
+		PROPERTY_VISUAL_INV[playerid][slot_WEAPON_SLOT][x] = 0;
+	}
+
+	new
+		DBResult:Result,
+		DB_Query[140]
+	;
+
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_STORAGE` WHERE `ID_PROPERTY` = '%d';", vehicle_id);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		for(new i; i < db_num_rows(Result); i++ )
+		{
+			new 
+				str_text[32],
+				td_init = (i + 10),
+				td_ammount = td_init + 12,
+				type = db_get_field_assoc_int(Result, "TYPE"),
+				extra = db_get_field_assoc_int(Result, "EXTRA"),
+				id = db_get_field_assoc_int(Result, "ID"),
+				Float:rot[4]
+			;
+
+			//printf("slot: %d, type: %d, extra: %d, modelid: %d", i, type, extra, GetItemObjectByType(type));
+
+			format(str_text, sizeof(str_text), "%d", extra);
+
+			switch(type)
+			{
+				case 9, 10, 11, 55: format(str_text, sizeof(str_text), "Balas");
+				case 56: format(str_text, sizeof(str_text), "Geo");
+			}
+
+			PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount], str_text);
+
+			GetTypePreviewRot(type, rot[0], rot[1], rot[2], rot[3]);
+			PlayerTextDrawSetPreviewModel(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], GetItemObjectByType(type));
+			PlayerTextDrawSetPreviewRot(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init], rot[0], rot[1], rot[2], rot[3]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_init]);
+			PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_INV][td_ammount]);
+			
+			PROPERTY_VISUAL_INV[playerid][slot_VALID][i] = true;
+			PROPERTY_VISUAL_INV[playerid][slot_TYPE][i] = type;
+			PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][i] = extra;
+			PROPERTY_VISUAL_INV[playerid][slot_DB_ID][i] = id;
+
+			PLAYER_TEMP[playerid][py_INV_OCC_SLOTS] ++;
+			db_next_row(Result);
+		}
+		db_free_result(Result);
+	}
+	return 1;
+}
+
 inv_AccommodateItems(playerid, bool:is_visual = true)
 {
 	for(new x = 0; x != 12; x++)

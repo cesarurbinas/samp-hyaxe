@@ -191,6 +191,124 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 				return 1;
 			}
 		}
+		case 3:
+		{
+			if (PROPERTY_VISUAL_INV[playerid][slot_VALID][slot])
+			{
+				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+
+				new 
+					is_weapon = IsWeaponType(PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]),
+					grab_status
+				;
+
+				if (is_weapon)
+				{
+					grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
+				}
+				else
+				{
+					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] -= 1;
+					grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
+				}
+
+				if (grab_status)
+				{
+					new item_str[64];
+					format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", GetItemNameByType(PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]));
+					GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
+
+					PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+					ResetItemBody(playerid);
+
+					new DB_Query[132];
+
+					if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] <= 0)
+					{
+						format(DB_Query, sizeof DB_Query,
+							"DELETE FROM `VEHICLE_STORAGE` WHERE `ID` = '%d';", 
+							PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
+						);
+					}
+					else
+					{
+						format(DB_Query, sizeof DB_Query,
+							"UPDATE `VEHICLE_STORAGE` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
+							PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot],
+							PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]
+						);
+					}
+
+					db_free_result(db_query(Database, DB_Query));
+
+					HideInventory(playerid);
+					ShowInventory(playerid, 1);
+				}
+			}
+			else
+			{
+				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Vacio", 2000, 5);
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+				return 1;
+			}
+		}
+		case 4:
+		{
+			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
+			{
+				new count = GetVehicleItemsCount(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID]);
+				if (count >= 11) return ShowPlayerMessage(playerid, "~r~El maletero se encuentra lleno.", 4);
+
+				if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50) return 0;
+
+				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Item guardado", 2000, 5);
+				ResetItemBody(playerid);
+
+				SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot);
+
+				if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
+				{
+					AddItemToProperty(
+						PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],
+						PLAYER_VISUAL_INV[playerid][slot_TYPE][slot],
+						PLAYER_VISUAL_INV[playerid][slot_AMMOUNT][slot]
+					);
+				}
+				else
+				{
+					new already_exists = ItemAlreadyInProperty(PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]);
+
+					if (already_exists)
+					{
+						new DB_Query[164];
+						format(DB_Query, sizeof DB_Query,
+							"UPDATE `VEHICLE_STORAGE` SET `EXTRA` = EXTRA + '1' WHERE `ID` = '%d';",
+							already_exists
+						);
+						db_free_result(db_query(Database, DB_Query));
+					}
+					else
+					{
+						AddItemToProperty(
+							PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID],
+							PLAYER_VISUAL_INV[playerid][slot_TYPE][slot],
+							1
+						);		
+					}
+				}
+
+				HideInventory(playerid);
+				ShowInventory(playerid, 2);
+			}
+			else
+			{
+				ResetItemBody(playerid);
+				GameTextForPlayer(playerid, "~n~~n~~n~~n~~n~~n~~w~Vacio", 2000, 5);
+				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+				return 1;
+			}
+		}
 	}
 	return 1;
 }

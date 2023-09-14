@@ -136,3 +136,79 @@ GetPropertyItemsCount(property_id)
 
 	return count;
 }
+
+AddItemToVehicle(vehicle_id, type, extra)
+{
+	new
+		id,
+		DB_Query[164],
+		DBResult:Result
+	;
+
+	format(DB_Query, sizeof DB_Query,
+	"\
+		INSERT INTO `VEHICLE_STORAGE`\
+		(\
+			`ID_PROPERTY`, `TYPE`, `EXTRA`\
+		)\
+		VALUES\
+		(\
+			'%d', '%d', '%d'\
+		);\
+		SELECT MAX(`ID`) FROM `VEHICLE_STORAGE`;\
+	",
+		vehicle_id,
+		type,
+		extra
+	);
+
+	Result = db_query(Database, DB_Query);
+	if (db_num_rows(Result)) id = db_get_field_int(Result, 0);
+	db_free_result(Result);
+
+	return id;
+}
+
+ItemAlreadyInVehicle(vehicle_id, type)
+{
+	new
+		DBResult:Result,
+		DB_Query[140],
+		id
+	;
+
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_STORAGE` WHERE `TYPE` = '%d' AND `ID_PROPERTY` = '%d';", type, vehicle_id);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		for(new i; i < db_num_rows(Result); i++ )
+		{
+			id = db_get_field_assoc_int(Result, "ID");
+			break;
+		}
+		db_free_result(Result);
+
+		return id;
+	}
+
+	if (db_num_rows(Result)) return true;
+	return false;
+}
+
+GetVehicleItemsCount(vehicle_id)
+{
+	new
+		DBResult:Result,
+		DB_Query[140],
+		count
+	;
+
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `VEHICLE_STORAGE` WHERE `ID_PROPERTY` = '%d';", vehicle_id);
+	Result = db_query(Database, DB_Query);
+
+	count = db_num_rows(Result);
+	db_free_result(Result);
+
+	return count;
+}

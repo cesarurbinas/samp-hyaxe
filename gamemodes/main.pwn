@@ -29,7 +29,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"v0.8 Build 32"
+#define SERVER_VERSION 			"v0.8 Build 33"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -951,7 +951,7 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 487, 752.9639, -1200.7141, 25.0576, 317.7830, 0, 3, 0}, //Maverick
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 409, 679.6872, -1227.8555, 15.4913, 117.8353, 0, 3, 0}, //Stretch
 	{VEHICLE_TYPE_WORK, WORK_MAFIA, 0, 521, 669.6936, -1256.8299, 13.0307, 177.2782, 0, 3, 0}, //FCR-900
-	// Moriarty Family Business
+	// Triade di San Andreas
 	/*{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 560, 2770.7566, -1625.6304, 10.6675, 90.0000, 0, 158, 0},
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 560, 2770.7566, -1622.4185, 10.6675, 90.0000, 0, 158, 0},
 	{VEHICLE_TYPE_WORK, WORK_ENEMY_MAFIA, 0, 560, 2770.7566, -1619.4664, 10.6675, 90.0000, 0, 158, 0},
@@ -8317,7 +8317,7 @@ SanAndreas()
 	//base mafia
 	CreateDynamic3DTextLabel("{a912e2}Family SaintBlood'S\n"COL_WHITE"Equipamiento", 0xF7F7F700, 726.2478, -1276.3830, 13.5662, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel("{a912e2}Family SaintBlood'S\n"COL_WHITE"Equipamiento", 0xF7F7F700, -1387.1334, 492.8735, 2.1851, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
-	CreateDynamic3DTextLabel("{33D1FF}Moriarty Family Business\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
+	CreateDynamic3DTextLabel("{f5e30a}Triade di San Andreas\n"COL_WHITE"Equipamiento", 0xF7F7F700, 3855.066162, -1290.975585, 7547.983398, 20.0, .testlos = true, .worldid = 0, .interiorid = 28);
 	CreateDynamic3DTextLabel("{3a3eab}Familia Osborn\n"COL_WHITE"Equipamiento", 0xF7F7F700, 882.789611, 1896.002319, -93.898712, 20.0, .testlos = true, .worldid = 0, .interiorid = 29);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar armas", 0xF7F7F700, -190.378494, -2254.421386, 25.593534, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
 	CreateDynamic3DTextLabel(""COL_WHITE"Comprar balas", 0xF7F7F700, -187.830596, -2249.291503, 24.332202, 20.0, .testlos = true, .worldid = 0, .interiorid = 0);
@@ -8677,10 +8677,10 @@ public OnPlayerText(playerid, text[])
 
 		if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
 		{
-			if (text[1] == '!') format(str_text, sizeof str_text, "[MFB] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
-			else format(str_text, sizeof str_text, "[MFB] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], text[1]);
+			if (text[1] == '!') format(str_text, sizeof str_text, "[TSA] "COL_WHITE"(( %s: %s ))", PLAYER_TEMP[playerid][py_RP_NAME], text[2]);
+			else format(str_text, sizeof str_text, "[TSA] "COL_WHITE"%s %s: %s", PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], text[1]);
 
-			SendEnemyMafiaMessage(0x33D1FFFF, str_text);
+			SendEnemyMafiaMessage(0xf5e30aFF, str_text);
 			return 0;
 		}
 
@@ -11868,7 +11868,7 @@ ShowDialog(playerid, dialogid)
 
 			strcat(dialog, "{c9c9c9}- Anterior\n"); listitem ++;
 
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{33D1FF}Moriarty Family Business", dialog, "Selecc.", "Cerrar");
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, "{f5e30a}Triade di San Andreas", dialog, "Selecc.", "Cerrar");
 			return 1;
 		}
 		case DIALOG_ENEMY_MAFIA_MODIFY:
@@ -18757,7 +18757,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_ENEMY_MAFIA);
 				db_free_result(db_query(Database, DB_Query));
-				SendClientMessageEx(playerid, 0x33D1FFFF, "[MFB] "COL_WHITE" El nuevo rango de %s es: %s.", name, ENEMY_MAFIA_RANKS[listitem]);
+				SendClientMessageEx(playerid, 0xf5e30aFF, "[TSA] "COL_WHITE" El nuevo rango de %s es: %s.", name, ENEMY_MAFIA_RANKS[listitem]);
 
 				if (listitem == 0)
 				{
@@ -18773,9 +18773,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_ENEMY_MAFIA) EndPlayerJob(player_id);
 						PLAYER_WORKS[player_id][WORK_ENEMY_MAFIA] = false;
-						SendClientMessageEx(player_id, 0x33D1FFFF, "[MFB] "COL_WHITE" El %s %s te ha expulsado de Moriarty Family Business.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+						SendClientMessageEx(player_id, 0xf5e30aFF, "[TSA] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME]);
 					}
-					else SendClientMessageEx(player_id, 0x33D1FFFF, "[MFB] "COL_WHITE" El %s %s ha modificado tu rango a %s.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[listitem]);
+					else SendClientMessageEx(player_id, 0xf5e30aFF, "[TSA] "COL_WHITE" El %s %s ha modificado tu rango a %s.", ENEMY_MAFIA_RANKS[ PLAYER_SKILLS[playerid][WORK_ENEMY_MAFIA] ], PLAYER_TEMP[playerid][py_RP_NAME], ENEMY_MAFIA_RANKS[listitem]);
 				}
 			}
 			else ShowDialog(playerid, DIALOG_ENEMY_MAFIA_LIST);
@@ -18866,7 +18866,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (PLAYER_TEMP[player_id][py_WORKING_IN] == WORK_OSBORN) EndPlayerJob(player_id);
 						PLAYER_WORKS[player_id][WORK_OSBORN] = false;
-						SendClientMessageEx(player_id, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" El %s %s te ha expulsado de Moriarty Family Business.", OSBORN_RANKS[ PLAYER_SKILLS[playerid][WORK_OSBORN] ], PLAYER_TEMP[playerid][py_RP_NAME]);
+						SendClientMessageEx(player_id, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" El %s %s te ha expulsado de Triade di San Andreas.", OSBORN_RANKS[ PLAYER_SKILLS[playerid][WORK_OSBORN] ], PLAYER_TEMP[playerid][py_RP_NAME]);
 					}
 					else SendClientMessageEx(player_id, 0x3a3eabFF, "[Familia Osborn] "COL_WHITE" El %s %s ha modificado tu rango a %s.", OSBORN_RANKS[ PLAYER_SKILLS[playerid][WORK_OSBORN] ], PLAYER_TEMP[playerid][py_RP_NAME], OSBORN_RANKS[listitem]);
 				}

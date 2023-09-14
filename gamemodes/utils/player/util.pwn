@@ -338,7 +338,7 @@ GetMafiaColor(mafia)
 	switch(mafia)
 	{
 		case WORK_MAFIA: color = 0xa912e2FF;
-		case WORK_ENEMY_MAFIA: color = 0x33D1FFFF;
+		case WORK_ENEMY_MAFIA: color = 0xf5e30aFF;
 		case WORK_OSBORN: color = 0x3a3eabFF;
 	}
 	return color;
