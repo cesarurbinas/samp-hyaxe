@@ -14402,7 +14402,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				new url[128];
-				format(url, 128, "127.0.0.1:12345/download/%d", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
+				format(url, 128, "127.0.0.1:12345/download/%s", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
 				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
 			}
 			return 1;
