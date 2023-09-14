@@ -3240,7 +3240,11 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		if (clickedid == Textdraws[textdraw_MAIN_MENU][1])
 		{
 			HideMainMenu(playerid);
-			ShowGamemodesMenu(playerid);
+			//ShowGamemodesMenu(playerid);
+
+			HideGamemodesMenu(playerid);
+			PlayerJoinGamemode(playerid);
+			
 			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 		}
 
