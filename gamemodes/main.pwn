@@ -162,7 +162,7 @@
 // Police
 #include "core/police/info.pwn"
 
-// Properties
+// Properties 
 #include "core/furniture/properties.pwn"
 #include "core/furniture/list.pwn"
 
