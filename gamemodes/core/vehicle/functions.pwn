@@ -303,7 +303,7 @@ TextureCountryFlag(objectid, index, country)
 		font,
 		font_size,
 		0,
-		COLOR_WHITE,
+		0xFFFFFFFF,
 		0,
 		text_alignment
 	);
@@ -461,7 +461,7 @@ UpdateVehicleMaterialObject(vehicleid, slot)
 	return 1;
 }
 
-UpdateVehicleAttachedObject(vehicleid, slot)
+/*UpdateVehicleAttachedObject(vehicleid, slot)
 {
 	if (VEHICLE_OBJECTS[vehicleid][slot][vobject_ATTACHED])
 	{
@@ -507,6 +507,70 @@ UpdateVehicleAttachedObject(vehicleid, slot)
 	else
 	{
 		if (VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] != INVALID_STREAMER_ID)
+		{
+			DestroyDynamicObject(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID]);
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = INVALID_STREAMER_ID;
+		}
+	}
+	return 1;
+}*/
+
+UpdateVehicleAttachedObject(vehicleid, slot, material = false)
+{
+	if(VEHICLE_OBJECTS[vehicleid][slot][vobject_ATTACHED])
+	{
+		if(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] == INVALID_STREAMER_ID)
+		{
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = 	CreateDynamicObject(VEHICLE_OBJECTS[vehicleid][slot][vobject_MODELID], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
+		}
+		
+		if(material)
+		{
+			switch(VEHICLE_OBJECTS[vehicleid][slot][vobject_TYPE])
+			{
+				case VOBJECT_TYPE_OBJECT:
+				{
+					for(new i = 0; i != MAX_VEHICLE_OBJECTS_INDEXS; i ++)
+					{
+						SetDynamicObjectMaterial(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], i, -1, "none", "none", VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][i]);
+					}
+				}
+				case VOBJECT_TYPE_TEXT:
+				{
+					SetDynamicObjectMaterialText
+					(
+						VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID],
+						0,
+						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_TEXT],
+						130,
+						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT],
+						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT_SIZE],
+						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_BOLD],
+						VEHICLE_OBJECTS[vehicleid][slot][vobject_text_FONT_COLOR],
+						0,
+						OBJECT_MATERIAL_TEXT_ALIGN_CENTER
+					);
+				}
+				case VOBJECT_TYPE_COUNTRY_FLAG: TextureCountryFlag(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], 1, VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][0]);
+				case VOBJECT_TYPE_COUNTRY_PANEL: TextureCountryFlag(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID], 0, VEHICLE_OBJECTS[vehicleid][slot][vobject_COLORS][0]);
+			}
+		}
+		
+		AttachDynamicObjectToVehicle
+		(
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID],
+			vehicleid,
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_OFFSET][0],
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_OFFSET][1],
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_OFFSET][2],
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][0],
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][1],
+			VEHICLE_OBJECTS[vehicleid][slot][vobject_ROT][2]
+		);
+	}
+	else
+	{
+		if(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] != INVALID_STREAMER_ID)
 		{
 			DestroyDynamicObject(VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID]);
 			VEHICLE_OBJECTS[vehicleid][slot][vobject_OBJECT_ID] = INVALID_STREAMER_ID;
