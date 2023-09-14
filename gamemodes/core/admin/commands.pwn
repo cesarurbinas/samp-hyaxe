@@ -26,6 +26,8 @@ CMD:comandosadmin(playerid, params[])
         strcat(dialog, line);
     }
 
+	PC_FreeArray(command_arr);
+
     ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Comandos administrativos", dialog, "Aceptar", "");
     SendCmdLogToAdmins(playerid, "comandosadmin", params);
     return 1;
