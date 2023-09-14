@@ -4333,11 +4333,6 @@ public OnPlayerDisconnect(playerid, reason)
 
 			for(new i = 0; i < MAX_PLAYERS; i++)
 			{
-				if (PLAYER_TEMP[playerid][py_VOICE_TEST] == false)
-				{
-					if (playerid == i) continue;
-				}
-
 				if (!IsPlayerConnected(i)) continue; 
 				if (GetPlayerState(i) == PLAYER_STATE_SPECTATING) continue;
 				if (VALID_CLIENT[i] == false) continue;
@@ -12967,11 +12962,6 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "BYC", "¿Borrar esto del historial?", "Borrar", "Salir");
 			return 1;
 		}
-    	case DIALOG_EMISORAS:
-    	{
-	   		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, "{ec3c3c}Emisoras- http://rex-net.rf.gd/"COL_WHITE"", "Hip-Hop\nEdm\nRock\nPop\nCountry\nJazz\nDrum And Bass\nTrap rap\nHeavy Metal\nTechno/Party\n{ec3c3c}Detener sonido"COL_WHITE"", "Selecc", "Cerrar");
-	   		return 1;
-    	}
     	case DIALOG_GIFT:
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Canjear regalo", ""COL_WHITE"Ingrese el código a canjear, recuerde que cada\ncódigo solo se puede usar una sola vez.", "Canjear", "Cerrar");
@@ -20834,111 +20824,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			return 1;
 		}
-		case DIALOG_EMISORAS:
-		{
-			if (response)
-			{
-				switch(listitem)
-				{
-					case 0:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}Hip-Hop");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}http://rex-net.rf.gd/hiphop.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~Hip-Hop ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://192.96.205.59:7660/listen.pls");
-					}
-					case 1:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}EDM");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}http://rex-net.rf.gd/edm.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~EDM ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://uk4.internet-radio.com:8049/listen.pls");
-					}
-					case 2:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}Rock and Roll");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}http://rex-net.rf.gd/rock.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~Rock and Roll ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://uk2.internet-radio.com:8054/listen.pls");
-					}
-					case 3:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}Pop");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}http://rex-net.rf.gd/pop.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~Pop ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://uk7.internet-radio.com:8040/listen.pls");
-					}
-					case 4:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}Country");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}http://rex-net.rf.gd/country.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~Country ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://us3.internet-radio.com:8297/listen.pls");
-					}
-					case 5:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}Jazz");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}rex-net.rf.gd/jazz.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~Jazz ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://uk3.internet-radio.com:8021/listen.pls");
-					}
-					case 6:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}Drum And Bass");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}http://rex-net.rf.gd/dab.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~Drum And Bass ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://radio.drumandbass.fm/listen128.pls");
-					}
-					case 7:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}Trap rap");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}http://rex-net.rf.gd/trap.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~Trap Rap ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://162.252.57.90:9336/listen.pls");
-					}
-					case 8:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}Heavy Metal");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}http://rex-net.rf.gd/metal.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~Heavy Metal ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://5.135.154.69:11590/listen.pls");
-					}
-					case 9:
-					{
-						SendClientMessageEx(playerid, COLOR_WHITE, " ");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Emisora de: {ec3c3c}Techno");
-						SendClientMessageEx(playerid, COLOR_WHITE, "Url: {ec3c3c}http://rex-net.rf.gd/techno.html");
-						ShowPlayerMessage(playerid, "~w~Emisora de ~g~Techno ~w~sintonizada", 2);
-						StopAudioStreamForPlayer(playerid);
-						PlayAudioStreamForPlayer(playerid, "http://uk5.internet-radio.com:8306/listen.pls");
-					}
-					case 10:
-					{
-						StopAudioStreamForPlayer(playerid);
-						ShowPlayerMessage(playerid, "Emisora detenida", 2);
-					}
-				}
-			}
-			return 1;
-		}
 		case DIALOG_GIFT:
 		{
 			if (response)
@@ -20982,7 +20867,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							}
 							case 2:
 							{
-								SetPlayerVip(playerid, extra, 0, 30);
+								SetPlayerVip(playerid, 1, 0, extra);
 							}
 							case 3:
 							{
@@ -20993,6 +20878,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 								format(str_text, sizeof(str_text), "~g~[HYCOINS]~w~ Has canjeado %d Hycoins", extra);
 								ShowPlayerMessage(playerid, str_text, 4);
+							}
+							case 4:
+							{
+								SetPlayerVip(playerid, 2, 0, extra);
 							}
 						}//0: dinero, 1: skin, 2: vip, 3: hycoins
 
@@ -24882,6 +24771,21 @@ CheckMarketAttack(playerid)
 						if (BLACK_MARKET_OBJ[i][bm_ACTIVATED] == true)
 						{
 							if (PLAYER_TEMP[playerid][py_IN_MARKET] == true) return 0;
+
+							for(new z = 0, j = GetPlayerPoolSize(); z <= j; z++)
+							{
+								if (IsPlayerConnected(z))
+								{
+									if (PLAYER_TEMP[z][py_IN_MARKET])
+									{
+										ApplyAnimation(z, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
+										ClearAnimations(z);
+
+										PLAYER_TEMP[z][py_IN_MARKET] = false;
+										KillTimer(PLAYER_TEMP[z][py_TIMERS][41]);
+									}
+								}
+							}
 
 							PLAYER_TEMP[playerid][py_IN_MARKET] = true;
 							ShowPlayerMessage(playerid, "Conquistando...~n~~r~0 %", 3);
@@ -29733,7 +29637,7 @@ CALLBACK: FixVehicleUpdate(playerid, vehicleid)
 
 	if (PLAYER_TEMP[playerid][py_FIX_VALUE] < 100)
 	{
-		PLAYER_TEMP[playerid][py_FIX_VALUE] += (15 + minrand(1, 8));
+		PLAYER_TEMP[playerid][py_FIX_VALUE] += (5 + minrand(1, 8));
 		if (PLAYER_TEMP[playerid][py_FIX_VALUE] > 100) PLAYER_TEMP[playerid][py_FIX_VALUE] = 100;
 
 		ApplyAnimation(playerid, "COP_AMBIENT", "COPBROWSE_NOD", 4.1, true, false, false, false, 0, false);

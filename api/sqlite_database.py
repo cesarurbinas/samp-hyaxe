@@ -1,7 +1,7 @@
 import sqlite3
 from sqlite3 import Error
 
-db_path = './scriptfiles/DATABASE/server.db'
+db_path = '../scriptfiles/DATABASE/server.db'
 
 def sql_connection():
 	try:
