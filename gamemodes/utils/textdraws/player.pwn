@@ -1752,7 +1752,7 @@ DestroyPlayerTextDraws(playerid)
 	{
 		if (PlayerTextdraws[playerid][Player_Textdraws_Enum:i] == INVALID_TEXT_DRAW) continue;
 		PlayerTextDrawDestroy(playerid, PlayerText:PlayerTextdraws[playerid][Player_Textdraws_Enum:i]);
-		PlayerTextdraws[playerid][Player_Textdraws_Enum:i] = INVALID_TEXT_DRAW;
+		PlayerTextdraws[playerid][Player_Textdraws_Enum:i] = _:INVALID_TEXT_DRAW;
 	}
 	return 1;
 }

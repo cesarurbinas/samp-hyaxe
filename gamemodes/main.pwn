@@ -33,7 +33,7 @@
 #include <Pawn.RakNet> 
 #include <Pawn.CMD>
 #include <Pawn.Regex>
-#tryinclude <profiler>
+//#tryinclude <profiler>
 
 // Must fix
 #include <hy_anticheat>
@@ -49,92 +49,92 @@
 #endif
 
 // Lang
-#include <../../gamemodes/core/languages/es.pwn>
+#include "core/languages/es.pwn"
 
 // Database
-#include <../../gamemodes/utils/database/db.pwn>
+#include "utils/database/db.pwn"
 
 // Colors
-#include <../../gamemodes/core/color/pallete.pwn>
+#include "core/color/pallete.pwn"
 
 // Weapons
-#include <../../gamemodes/core/weapons/info.pwn>
+#include "core/weapons/info.pwn"
 
 // Work
-#include <../../gamemodes/core/work/data.pwn>
-#include <../../gamemodes/core/work/miner.pwn>
+#include "core/work/data.pwn"
+#include "core/work/miner.pwn"
 
 // Player
-#include <../../gamemodes/core/player/temp.pwn>
-#include <../../gamemodes/core/player/weapons.pwn>
-#include <../../gamemodes/core/player/phone.pwn>
-#include <../../gamemodes/core/player/character.pwn>
-#include <../../gamemodes/core/player/toys.pwn>
-#include <../../gamemodes/core/player/account.pwn>
-#include <../../gamemodes/core/player/textdraws.pwn>
-#include <../../gamemodes/core/player/misc.pwn>
-#include <../../gamemodes/core/player/crew.pwn>
-#include <../../gamemodes/core/player/visual_inventory.pwn>
+#include "core/player/temp.pwn"
+#include "core/player/weapons.pwn"
+#include "core/player/phone.pwn"
+#include "core/player/character.pwn"
+#include "core/player/toys.pwn"
+#include "core/player/account.pwn"
+#include "core/player/textdraws.pwn"
+#include "core/player/misc.pwn"
+#include "core/player/crew.pwn"
+#include "core/player/visual_inventory.pwn"
 
 // Global
-#include <../../gamemodes/core/global/textdraws.pwn>
+#include "core/global/textdraws.pwn"
 
 // Items
-#include <../../gamemodes/core/item/data.pwn>
-#include <../../gamemodes/utils/item/create.pwn>
-#include <../../gamemodes/utils/item/info.pwn>
-#include <../../gamemodes/utils/item/grab.pwn>
+#include "core/item/data.pwn"
+#include "utils/item/create.pwn"
+#include "utils/item/info.pwn"
+#include "utils/item/grab.pwn"
 
 // Dialogs
-#include <../../gamemodes/core/dialog/dialog_id.pwn>
+#include "core/dialog/dialog_id.pwn"
 
 // Vehicles
-#include <../../gamemodes/core/vehicle/global_vehicles.pwn>
-#include <../../gamemodes/core/vehicle/tuning.pwn>
-#include <../../gamemodes/core/vehicle/colors.pwn>
+#include "core/vehicle/global_vehicles.pwn"
+#include "core/vehicle/tuning.pwn"
+#include "core/vehicle/colors.pwn"
 
 // Animation preloading
-#include <../../gamemodes/utils/animations/preload.pwn>
+#include "utils/animations/preload.pwn"
 
 // Textdraws
-#include <../../gamemodes/utils/textdraws/global.pwn>
-#include <../../gamemodes/utils/textdraws/player.pwn>
+#include "utils/textdraws/global.pwn"
+#include "utils/textdraws/player.pwn"
 
 // Textdraw easing
-#include <../../gamemodes/utils/easing/equations.pwn>
+#include "utils/easing/equations.pwn"
 
 // Crews
-#include <../../gamemodes/core/crew/data.pwn>
-#include <../../gamemodes/core/crew/rank.pwn>
+#include "core/crew/data.pwn"
+#include "core/crew/rank.pwn"
 
 // Graffitis
-#include <../../gamemodes/core/graffiti/data.pwn>
+#include "core/graffiti/data.pwn"
 
 // World
-#include <../../gamemodes/core/world/tele.pwn>
-#include <../../gamemodes/utils/world/tele.pwn>
-#include <../../gamemodes/core/world/balloon.pwn>
-#include <../../gamemodes/utils/world/balloon.pwn>
+#include "core/world/tele.pwn"
+#include "utils/world/tele.pwn"
+#include "core/world/balloon.pwn"
+#include "utils/world/balloon.pwn"
 
 // Black market
-#include <../../gamemodes/core/black_market/data.pwn>
+#include "core/black_market/data.pwn"
 
 // Visual inventory
-#include <../../gamemodes/utils/visual_inventory/show.pwn>
-#include <../../gamemodes/utils/visual_inventory/accommodate.pwn>
-#include <../../gamemodes/utils/visual_inventory/actions.pwn>
+#include "utils/visual_inventory/show.pwn"
+#include "utils/visual_inventory/accommodate.pwn"
+#include "utils/visual_inventory/actions.pwn"
 
 // Notifications
-#include <../../gamemodes/utils/notification/show.pwn>
+#include "utils/notification/show.pwn"
 
 // Player util
-#include <../../gamemodes/utils/player/util.pwn>
+#include "utils/player/util.pwn"
 
 // Edit mode
-#include <../../gamemodes/utils/edit_mode/edit.pwn>
+#include "utils/edit_mode/edit.pwn"
 
 // Bots
-#include <../../gamemodes/utils/world/bots.pwn>
+#include "utils/world/bots.pwn"
 
 // Macros
 #define CALLBACK:%0(%1) forward%0(%1);public%0(%1)
@@ -3697,7 +3697,7 @@ public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
 						PR_UINT32, ping
 					);
 
-		    		BS_RPC(bs_two, playerid, rpcid);
+		    		PR_SendRPC(bs_two, playerid, rpcid);
 		    	}
 		    }
 
