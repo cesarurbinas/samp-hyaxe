@@ -41,7 +41,7 @@ LoadClubs()
 				if (db_num_rows(Result_info_owner))
 				{
 					db_get_field_assoc(Result_info_owner, "NAME", owner, 24);
-					format(label_str, 164, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[i][club_NAME], (CLUBS_INFO[i][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE"") owner);
+					format(label_str, 164, ""COL_WHITE"%s (%s)\nPropietario:{35A7FF} %s", CLUBS_INFO[i][club_NAME], (CLUBS_INFO[i][club_STATE] ? ""COL_GREEN"Abierto"COL_WHITE"" : ""COL_RED"Cerrado"COL_WHITE""), owner);
 				}
 			}
 
