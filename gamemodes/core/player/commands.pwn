@@ -1093,11 +1093,11 @@ CMD:comprar(playerid, params[])
 	return 1;
 }
 
-CMD:tienda(playerid, params[])
+/*CMD:tienda(playerid, params[])
 {
 	ShowStore(playerid);
 	return 1;
-}
+}*/
 
 CMD:notificaciones(playerid, params[])
 {
