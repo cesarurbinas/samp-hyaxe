@@ -71,6 +71,17 @@ DropItemSlot(playerid, anim = true)
 	if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 50) return 0;
 
 	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
+
+	if (GetPlayerInterior(playerid) == 0)
+	{
+		new Float:fPX, Float:fPY, Float:fPZ, Float:fVX, Float:fVY, Float:fVZ;
+		GetPlayerCameraPos(playerid, fPX, fPY, fPZ);
+	    GetPlayerCameraFrontVector(playerid, fVX, fVY, fVZ);
+
+	    pos[0] = fPX + floatmul(fVX, 5.0);
+	    pos[1] = fPY + floatmul(fVY, 5.0);
+	}
+
 	if (anim) ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000, true);
 	
 	if (PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot] == true)

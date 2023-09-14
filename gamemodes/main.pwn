@@ -24,8 +24,9 @@
 #define MAX_PLAYERS 300
 
 #include <ColAndreas>
+#include <YSF>
 
-#define SERVER_VERSION 			"v0.6 Build 5"
+#define SERVER_VERSION 			"v0.6 Build 10"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -66,6 +67,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 //#tryinclude <profiler>
 
 #include "core/damage/header.pwn"
+#include "core/notification/header.pwn"
 
 // Must fix
 #include <nex-ac>
@@ -114,6 +116,11 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/damage/callbacks.pwn"
 #include "core/damage/functions.pwn"
 #include "core/damage/timers.pwn"
+
+// Notification
+#include "core/notification/callbacks.pwn"
+#include "core/notification/functions.pwn"
+#include "core/notification/timers.pwn"
 
 // Work
 #include "core/work/data.pwn"
@@ -3090,10 +3097,9 @@ CALLBACK: UpdatePrisionTime(playerid)
 		str_text[128];
 
 	format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
-
-	hy_DestroyNotification(playerid, PLAYER_TEMP[playerid][py_JAIL_NOT]);
-	PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
 	
+	ShowPlayerMessage(playerid, str_text, 1);
+
 	if (time <= 0)
 	{
 		UnjailPlayer(playerid);
@@ -5421,7 +5427,7 @@ public OnPlayerSpawn(playerid)
 
 				new str_text[128];
 				format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
-				PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
+				ShowPlayerMessage(playerid, str_text, 1);
 
 				new DBResult:NameR, query[65];
 				format(query, sizeof(query), "SELECT `NAME` FROM `CUENTA` WHERE `ID` = %d LIMIT 1;", CHARACTER_INFO[playerid][ch_JAILED_BY]);
@@ -5468,7 +5474,7 @@ public OnPlayerSpawn(playerid)
 
 				new str_text[128];
 				format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
-				PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
+				ShowPlayerMessage(playerid, str_text, 1);
 
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
@@ -12387,7 +12393,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new str_text[128];
 				format(str_text, sizeof str_text, "Bienvenido %s a Hyaxe Roleplay.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				ShowPlayerNotification(playerid, str_text, 4);
+				ShowPlayerNotification(playerid, str_text);
 
 				if (PLAYER_TEMP[playerid][py_ANSWER_INDEX] == 1337) ShowDialog(playerid, DIALOG_SELECC_ANSWER);
 
@@ -25003,7 +25009,7 @@ CALLBACK: HealthUp(playerid)
 			
 			new str_text[128];
 			format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
-			PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
+			ShowPlayerMessage(playerid, str_text, 1);
 
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 			PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 120000, true, "i", playerid);
@@ -27218,6 +27224,12 @@ CMD:testedit666(playerid, params[])
 		x, y, z, 0.0, 0.0, 0.0,0,0);
 
 	EditingMode(playerid, PLAYER_TEMP[playerid][py_EDITING_OBJ]);
+	return 1;
+}
+
+CMD:testnott(playerid, params[])
+{
+	Notification_Show(playerid, "~g~~h~(!)_~h~Trabajo: ~w~Minero~n~~n~~w~No puedes llevar mas minerales.", false);
 	return 1;
 }
 
@@ -29969,7 +29981,7 @@ PlayerPayday(playerid)
 
 	strcat(str_payday, str_temp);
 
-	ShowPlayerNotification(playerid, str_payday, 6);
+	ShowPlayerNotification(playerid, str_payday, 6, false);
 	GivePlayerCash(playerid, money);
 	return 1;
 }
@@ -31111,7 +31123,7 @@ JailPlayer(playerid, seconds = 300)
     
     new str_text[128];
 	format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
-	PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
+	ShowPlayerMessage(playerid, str_text, 1);
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 	PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
@@ -31164,7 +31176,6 @@ CALLBACK: UnjailPlayer(playerid)
 
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
-	hy_DestroyNotification(playerid, PLAYER_TEMP[playerid][py_JAIL_NOT]);
 	return 1;
 }
 
@@ -32465,7 +32476,7 @@ CALLBACK: UpdateTerritoryAttack(territory_index)
 			{
 				if (IsPlayerInDynamicArea(i, TERRITORIES[territory_index][territory_AREA]))
 				{
-					hy_DestroyNotification(i, PLAYER_TEMP[i][py_ATTACK_NOT]);
+					//hy_DestroyNotification(i, PLAYER_TEMP[i][py_ATTACK_NOT]);
 					PLAYER_TEMP[i][py_ATTACK_NOT] = ShowPlayerNotification(i, progress, 1);
 				}
 			}
@@ -33599,11 +33610,14 @@ ShowPlayerKeyMessage(playerid, const key[])
 	return 1;
 }
 
-ShowPlayerNotification(playerid, const message[], time)
+ShowPlayerNotification(playerid, const message[], time = 1, bool:auto_jump = true)
 {
+	#pragma unused time
+
 	new str_text[264];
 	format(str_text, sizeof(str_text), "~w~%s", TextToSpanish(message));
-	return hy_ShowNotification(playerid, str_text, time);
+	Notification_Show(playerid, str_text, auto_jump);
+	return 1;
 }
 
 CALLBACK: HidePlayerNotification(playerid)
@@ -34136,21 +34150,3 @@ flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_OWNER)
 flags:depositveh(CMD_MODERATOR)
-
-CMD:aaaaaaaa(playerid, params[])
-{
-	SetPlayerHealthEx(playerid, 0.0);
-	return 1;
-}
-
-CMD:findz(playerid, params[])
-{
-	extract params -> new Float:x, Float:y; else
-		return SendClientMessage(playerid, -1, "no");
-	
-	new Float:z;
-
-	CA_FindZ_For2DCoord(x, y, z);
-	SetPlayerPos(playerid, x, y, z);
-	return 1;
-}

@@ -10,10 +10,10 @@ new NAME_WHITELIST[][24] =
 
 new g_iPlayerLastUpdate[MAX_PLAYERS];
 
-IsPlayerPaused(playerid)
+/*IsPlayerPaused(playerid)
 {
 	return (GetTickCount() - g_iPlayerLastUpdate[playerid] > 2000);
-}
+}*/
 
 IsPlayerInWater(playerid)
 {

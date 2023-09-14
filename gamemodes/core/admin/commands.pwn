@@ -1852,7 +1852,7 @@ CMD:spos(playerid, params[])
 		Float:y,
 		Float:z,
 		Float:angle,
-		str[256];
+		str[144];
 
 	GetPlayerPos(playerid,x,y,z);
 	GetPlayerFacingAngle(playerid,angle);

@@ -1,6 +1,6 @@
 #include <a_samp>
 
-#define MAX_NOTIFICATIONS 10
+#define MAX_NOTIS 10
 
 enum HY_NOTIFICATIONS_ENUM
 {
@@ -13,7 +13,7 @@ enum HY_NOTIFICATIONS_ENUM
 }
 
 static
-	NOTIFICATIONS_DATA[MAX_PLAYERS][MAX_NOTIFICATIONS][HY_NOTIFICATIONS_ENUM],
+	NOTIFICATIONS_DATA[MAX_PLAYERS][MAX_NOTIS][HY_NOTIFICATIONS_ENUM],
 	hy_LAST_ID = 0
 ;
 
@@ -88,9 +88,9 @@ public hy_DestroyNotification(playerid, notification_id)
 	PlayerTextDrawDestroy(playerid, NOTIFICATIONS_DATA[playerid][pos][HYN_TD]);
 	NOTIFICATIONS_DATA[playerid][pos][HYN_ID] = 0;
 
-	if (pos + 1 >= MAX_NOTIFICATIONS) return 1;
+	if (pos + 1 >= MAX_NOTIS) return 1;
 
-	for(new j = pos + 1, time; j < MAX_NOTIFICATIONS; j++)
+	for(new j = pos + 1, time; j < MAX_NOTIS; j++)
 	{
 		if (NOTIFICATIONS_DATA[playerid][j][HYN_ID] == 0) continue;
 
@@ -115,7 +115,7 @@ public hy_DestroyNotification(playerid, notification_id)
 
 static hy_FindNotificationPosById(playerid, notification_id)
 {
-	for(new i = 0; i < MAX_NOTIFICATIONS; i++)
+	for(new i = 0; i < MAX_NOTIS; i++)
 	{
 		if (NOTIFICATIONS_DATA[playerid][i][HYN_ID] == notification_id) return i;
 	}
@@ -124,7 +124,7 @@ static hy_FindNotificationPosById(playerid, notification_id)
 
 static hy_GetFreeNotificationSlot(playerid)
 {
-	for(new i = 0; i < MAX_NOTIFICATIONS; i++)
+	for(new i = 0; i < MAX_NOTIS; i++)
 	{
 		if (NOTIFICATIONS_DATA[playerid][i][HYN_ID] == 0)
 		{

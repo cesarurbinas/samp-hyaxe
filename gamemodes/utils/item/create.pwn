@@ -24,10 +24,16 @@ CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz,
 
 	//SetDynamicObjectMaterial(DROP_ITEMS[index][itm_ID], 0, -1, "none", "none", color);
 
+	if (interiorid == 0)
+	{
+		CA_FindZ_For2DCoord(x, y, z);
+		MoveDynamicObject(DROP_ITEMS[index][itm_ID], x, y, z, 12.0, rx, ry, rz);
+	}
+
 	new str_text[72];
 	format(str_text, sizeof(str_text), "{FFFFFF}%s", name);
 	DROP_ITEMS[index][itm_LABEL] = CreateDynamic3DTextLabel(str_text, 0xFFFFFF00, x, y, z + 0.4, 3.0, .testlos = true, .worldid = worldid, .interiorid = interiorid);
-	
+
 	SetTimerEx("DeleteDropItem", DELETE_ITEM_TIME, false, "i", index);
 	return 1;
 }

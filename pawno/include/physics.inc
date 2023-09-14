@@ -1079,7 +1079,7 @@ stock PHY_UpdateBounds(objectid, Float:x, Float:y, Float:z)
 	if(bound != 0.0 && bound == bound)
 		PHY_Object[objectid][PHY_LowZBound] = bound + PHY_Object[objectid][PHY_Size];
 	bound = 0.0;
-	CA_RayCastLine(x, y, z, x, y, z + 1000.0, unused, unused, bound, unused, unused, unused);
+	CA_RayCastLine(x, y, z, x, y, z + 1000.0, unused, unused, bound);
 	if(bound > PHY_Object[objectid][PHY_LowZBound] && bound == bound)
 		PHY_Object[objectid][PHY_HighZBound] = bound - PHY_Object[objectid][PHY_Size];
 	else

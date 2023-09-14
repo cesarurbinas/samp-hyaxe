@@ -45,6 +45,11 @@ stock hy_ARGBToRGBA(col)
     return ((((col) << 8) & 0xF7F7F700) | (((col) >>> 24) & 0xFF));
 }
 
+stock Color_SetAlpha(color, alpha = 0xFF)
+{
+    return ((color & ~0xFF) | (clamp(alpha, 0x00, 0xFF)));
+}
+
 // Color pallete
 #define COLOR_WHITE 0xF7F7F7FF
 #define COL_WHITE "{F7F7F7}"

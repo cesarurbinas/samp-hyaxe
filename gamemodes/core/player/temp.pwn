@@ -236,7 +236,6 @@ enum Temp_Enum
 	py_INV_OCC_SLOTS,
 	bool:py_INV_ITEM_USED[12],
 	bool:py_EXPLOSION_BULLET,
-	py_JAIL_NOT,
 	bool:py_SELFIE,
 	bool:py_IN_MARKET,
 	py_INV_SELECTED_SLOT,
