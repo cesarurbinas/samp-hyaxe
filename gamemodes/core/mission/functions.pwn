@@ -104,6 +104,7 @@ CheckMissionPlace(playerid)
                     if (PLAYER_TEMP[i][py_MISSION] == index)
                     {
                         ShowPlayerNotification(i, sprintf("%s se ha unido a la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
+                        SetPlayerMarkerForPlayer(i, playerid, 0x46ABE5FF);
                         players_in_mission ++;
                     }
                 }
