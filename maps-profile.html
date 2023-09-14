@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile of 'gamemodes/grandlarc.amx'</title>
+  <meta charset="UTF-8">
+
+  <script type="text/javascript">
+    var intComparator = function(a, b) { 
+      return parseInt(a) - parseInt(b); 
+    };
+    var floatComparator = function(a, b) { 
+      return parseFloat(a) - parseFloat(b); 
+    };
+    var stringComparator = function(a, b) {
+      return String(a).localeCompare(b);
+    };
+
+    function sort(table, colIndex, reverseOrder) {
+      var tbody = table.tBodies[0];
+      var rows = Array.prototype.slice.call(tbody.getElementsByTagName('tr'));
+
+      for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var value = row.cells[colIndex].innerHTML;
+        var comparator;
+        if (/^[0-9]+/.test(value)) {
+          comparator = intComparator;
+        } else if (/^[0-9.]+/.test(value)) {
+          comparator = floatComparator;
+        } else {
+          comparator = stringComparator;
+        }
+        var sign = reverseOrder ? -1 : 1;
+        for (var j = 0; j < i; j++) {
+          var otherRow = rows[j];
+          var otherValue = otherRow.cells[colIndex].innerHTML;
+          if (sign * comparator(value, otherValue) < 0) {
+            tbody.removeChild(row);
+            rows.splice(i, 1);
+            tbody.insertBefore(row, otherRow);
+            rows.splice(j, 0, row);
+            break;
+          }
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var asc = {};
+      var table = document.getElementById('data');
+      var headRows = table.tHead.getElementsByTagName('tr');
+
+      for (var i = 0; i < headRows.length; i++) {
+        var row = headRows[i];
+        for (var j = 0; j < row.cells.length; j++) {
+          var cell = row.cells[j];
+          var arrow = document.createElement('span');
+          arrow.className = 'sort-direction';
+          cell.appendChild(arrow);
+          cell.style.cursor = 'pointer';
+          (function(cell, arrow) {
+            var colIndex = cell.dataset.sortIndex;
+            cell.addEventListener('click', function() {
+              sort(table, colIndex, !!asc[colIndex]);
+              for (var i = 0; i < headRows.length; i++) {
+                var row = headRows[i];
+                for (var j = 0; j < row.cells.length; j++) {
+                  var arrows = 
+                    row.cells[j].getElementsByClassName('sort-direction');
+                  for (var k = 0; k < arrows.length; k++) {
+                    arrows[k].style.display = 'none';
+                  }
+                }
+              }
+              arrow.innerHTML = asc[colIndex] ? '&#9660;' : '&#9650;';
+              arrow.style.display = 'inline';
+              asc[colIndex] = !asc[colIndex];
+            });
+          })(cell, arrow);
+        }
+      }
+    });
+  </script>
+  <style type="text/css">
+    * {
+      font-family: sans-serif;
+    }
+    table {
+      margin: 30px auto;
+    }
+    table, th, td {
+      border: 1px solid #505050;
+      border-collapse: collapse;
+      padding: 7px 10px;
+    }
+    th {
+      color: white;
+      background-color: #505050;
+      border: 1px solid #707070;
+    }
+    td {
+      border: 1px solid #d8d8d8;
+      font-family: 'Source Code Pro', Consolas, "DejaVu Sans Mono", "Courier New", Monospace;
+    }
+    td.numeric {
+      text-align: right;
+    }
+    tbody tr:nth-child(odd) {
+      background-color: #f0f0f0;
+    }
+    tbody tr:hover {
+      background-color: #c0e3eb;
+    }
+  </style>
+</head>
+
+<body>
+  <table id="meta">
+    <thead>
+      <tr>
+        <th colspan="2">Meta</th>
+      </tr>
+    </thead>
+    <tbody>      <tr>
+        <td>Date</td>
+        <td>Sat Jul 18 05:06:56 2020</td>
+      </tr>
+      <tr>
+        <td>Duration</td>
+        <td>02:35:57</td>
+      </tr>
+</tbody>
+  </table>
+  <table id="data" class="tablesorter">
+    <thead>
+      <tr>
+        <th rowspan="2" data-sort-index="0">Type</th>
+        <th rowspan="2" data-sort-index="1">Name</th>
+        <th rowspan="2" data-sort-index="2">Calls</th>
+        <th colspan="4" data-sort-index="3" class="group">Self Time</th>
+        <th colspan="4" data-sort-index="7" class="group">Total Time</th>
+      </tr>
+      <tr>
+        <th data-sort-index="3">%</th>
+        <th data-sort-index="4">Overall</th>
+        <th data-sort-index="5">Average</th>
+        <th data-sort-index="6">Worst</th>
+        <th data-sort-index="7">%</th>
+        <th data-sort-index="8">Overall</th>
+        <th data-sort-index="9">Average</th>
+        <th data-sort-index="10">Worst</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerConnect</td>
+      <td class="numeric">395</td>
+      <td class="numeric">0.17%</td>
+      <td class="numeric">6.1</td>
+      <td class="numeric">15.4</td>
+      <td class="numeric">45.0</td>
+      <td class="numeric">0.16%</td>
+      <td class="numeric">6.3</td>
+      <td class="numeric">15.9</td>
+      <td class="numeric">45.4</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerDisconnect</td>
+      <td class="numeric">410</td>
+      <td class="numeric">4.05%</td>
+      <td class="numeric">141.7</td>
+      <td class="numeric">345.6</td>
+      <td class="numeric">1029.6</td>
+      <td class="numeric">3.51%</td>
+      <td class="numeric">141.8</td>
+      <td class="numeric">345.9</td>
+      <td class="numeric">1029.9</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>MyHttpResponse</td>
+      <td class="numeric">199</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerSpawn</td>
+      <td class="numeric">550</td>
+      <td class="numeric">0.51%</td>
+      <td class="numeric">17.7</td>
+      <td class="numeric">32.2</td>
+      <td class="numeric">254.0</td>
+      <td class="numeric">0.44%</td>
+      <td class="numeric">17.9</td>
+      <td class="numeric">32.6</td>
+      <td class="numeric">254.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerDeath</td>
+      <td class="numeric">223</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">2.2</td>
+      <td class="numeric">64.6</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">2.2</td>
+      <td class="numeric">64.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerTakeDamage</td>
+      <td class="numeric">2679</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">44.3</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">44.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerGiveDamage</td>
+      <td class="numeric">2987</td>
+      <td class="numeric">0.21%</td>
+      <td class="numeric">7.4</td>
+      <td class="numeric">2.5</td>
+      <td class="numeric">88.8</td>
+      <td class="numeric">0.18%</td>
+      <td class="numeric">7.4</td>
+      <td class="numeric">2.5</td>
+      <td class="numeric">89.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnDialogResponse</td>
+      <td class="numeric">5726</td>
+      <td class="numeric">5.02%</td>
+      <td class="numeric">175.5</td>
+      <td class="numeric">30.7</td>
+      <td class="numeric">417.3</td>
+      <td class="numeric">4.35%</td>
+      <td class="numeric">175.8</td>
+      <td class="numeric">30.7</td>
+      <td class="numeric">417.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerInteriorChange</td>
+      <td class="numeric">1227</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerUpdate</td>
+      <td class="numeric">5244036</td>
+      <td class="numeric">6.24%</td>
+      <td class="numeric">218.3</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">255.0</td>
+      <td class="numeric">5.63%</td>
+      <td class="numeric">227.4</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">563.7</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerKeyStateChange</td>
+      <td class="numeric">331366</td>
+      <td class="numeric">4.56%</td>
+      <td class="numeric">159.4</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">488.8</td>
+      <td class="numeric">4.02%</td>
+      <td class="numeric">162.2</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">488.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerClickMap</td>
+      <td class="numeric">69</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerClickPlayer</td>
+      <td class="numeric">5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerClickTextDraw</td>
+      <td class="numeric">10320</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.8</td>
+      <td class="numeric">0.06%</td>
+      <td class="numeric">2.4</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">75.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerCommandText</td>
+      <td class="numeric">2969</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerEnterVehicle</td>
+      <td class="numeric">2881</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.4</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">298.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerExitVehicle</td>
+      <td class="numeric">1436</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerPickUpDynamicPickup</td>
+      <td class="numeric">3479</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerPickUpPickup</td>
+      <td class="numeric">3486</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerRequestClass</td>
+      <td class="numeric">377</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">1.6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.4</td>
+      <td class="numeric">1.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerStateChange</td>
+      <td class="numeric">5069</td>
+      <td class="numeric">0.20%</td>
+      <td class="numeric">7.0</td>
+      <td class="numeric">1.4</td>
+      <td class="numeric">86.0</td>
+      <td class="numeric">0.39%</td>
+      <td class="numeric">15.6</td>
+      <td class="numeric">3.1</td>
+      <td class="numeric">579.7</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerWeaponShot</td>
+      <td class="numeric">8963</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.1</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnVehicleSpawn</td>
+      <td class="numeric">770</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnVehicleDeath</td>
+      <td class="numeric">18</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.7</td>
+      <td class="numeric">3.8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.8</td>
+      <td class="numeric">3.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerText</td>
+      <td class="numeric">5101</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.4</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.4</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerEnterCheckpoint</td>
+      <td class="numeric">272</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.17%</td>
+      <td class="numeric">6.7</td>
+      <td class="numeric">24.5</td>
+      <td class="numeric">135.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerRequestSpawn</td>
+      <td class="numeric">16</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerClickPlayerTextDraw</td>
+      <td class="numeric">4869</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">8.5</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.9</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">8.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnVehicleDamageStatusUpdate</td>
+      <td class="numeric">2092</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnVehicleSirenStateChange</td>
+      <td class="numeric">43</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnUnoccupiedVehicleUpdate</td>
+      <td class="numeric">74366</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">3.5</td>
+      <td class="numeric">0.04%</td>
+      <td class="numeric">1.5</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">531.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerEditAttachedObject</td>
+      <td class="numeric">42</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnIncomingPacket</td>
+      <td class="numeric">6512753</td>
+      <td class="numeric">0.43%</td>
+      <td class="numeric">15.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">0.38%</td>
+      <td class="numeric">15.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnIncomingRPC</td>
+      <td class="numeric">332580</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>ac_Timer</td>
+      <td class="numeric">728277</td>
+      <td class="numeric">0.16%</td>
+      <td class="numeric">5.6</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">2.6</td>
+      <td class="numeric">0.14%</td>
+      <td class="numeric">5.6</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">2.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>ac_KickTimer</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.04%</td>
+      <td class="numeric">1.6</td>
+      <td class="numeric">395.2</td>
+      <td class="numeric">510.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdatePlayerTracing</td>
+      <td class="numeric">100838</td>
+      <td class="numeric">18.88%</td>
+      <td class="numeric">659.9</td>
+      <td class="numeric">6.5</td>
+      <td class="numeric">30.6</td>
+      <td class="numeric">16.34%</td>
+      <td class="numeric">659.9</td>
+      <td class="numeric">6.5</td>
+      <td class="numeric">30.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnRouteCalculated</td>
+      <td class="numeric">100835</td>
+      <td class="numeric">24.33%</td>
+      <td class="numeric">850.4</td>
+      <td class="numeric">8.4</td>
+      <td class="numeric">35.7</td>
+      <td class="numeric">33.25%</td>
+      <td class="numeric">1342.8</td>
+      <td class="numeric">13.3</td>
+      <td class="numeric">41.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerStreamIn</td>
+      <td class="numeric">36715</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>WC_DamageFeedUpdate</td>
+      <td class="numeric">3753</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>WC_PlayerDeathRespawn</td>
+      <td class="numeric">6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>RestoreActor</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>RespawnActor</td>
+      <td class="numeric">27</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>DestroyChatBubble</td>
+      <td class="numeric">331</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerGiveDamageActor</td>
+      <td class="numeric">98</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>DeleteDropItem</td>
+      <td class="numeric">217</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>hy_DestroyNotification</td>
+      <td class="numeric">13333</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>HidePlayerMessage</td>
+      <td class="numeric">7766</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>CheckFish</td>
+      <td class="numeric">9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdateFishing</td>
+      <td class="numeric">821</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>StartFishing</td>
+      <td class="numeric">8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>DisablePlayerPoliceSearchLevel</td>
+      <td class="numeric">44</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">17.0</td>
+      <td class="numeric">461.2</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">17.0</td>
+      <td class="numeric">461.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pr_ir_VehicleDestroyed</td>
+      <td class="numeric">40</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pr_ip_UNOCCUPIED_SYNC</td>
+      <td class="numeric">78650</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.4</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.4</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pr_ip_VEHICLE_SYNC</td>
+      <td class="numeric">2508130</td>
+      <td class="numeric">0.20%</td>
+      <td class="numeric">7.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.18%</td>
+      <td class="numeric">7.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pr_ip_AIM_SYNC</td>
+      <td class="numeric">411409</td>
+      <td class="numeric">0.03%</td>
+      <td class="numeric">0.9</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.9</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnOutcomingRPC</td>
+      <td class="numeric">518120218</td>
+      <td class="numeric">16.09%</td>
+      <td class="numeric">562.5</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">3.3</td>
+      <td class="numeric">13.93%</td>
+      <td class="numeric">562.5</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">3.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdateWantedLevelMark</td>
+      <td class="numeric">217</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdatePrisionTime</td>
+      <td class="numeric">8407</td>
+      <td class="numeric">0.06%</td>
+      <td class="numeric">2.1</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">152.6</td>
+      <td class="numeric">0.08%</td>
+      <td class="numeric">3.1</td>
+      <td class="numeric">0.4</td>
+      <td class="numeric">153.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UploadFacha</td>
+      <td class="numeric">419</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.4</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerVoice</td>
+      <td class="numeric">27425</td>
+      <td class="numeric">0.06%</td>
+      <td class="numeric">2.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">0.05%</td>
+      <td class="numeric">2.2</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.7</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UnfreezeBastard</td>
+      <td class="numeric">27</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>RestorePlayerPos</td>
+      <td class="numeric">55</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>menu_MECHANICPAINTJOB</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>menu_MECHANICTUNING</td>
+      <td class="numeric">490</td>
+      <td class="numeric">0.07%</td>
+      <td class="numeric">2.4</td>
+      <td class="numeric">4.8</td>
+      <td class="numeric">72.6</td>
+      <td class="numeric">0.06%</td>
+      <td class="numeric">2.4</td>
+      <td class="numeric">4.9</td>
+      <td class="numeric">72.9</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>menu_OBJTUNINGMENU</td>
+      <td class="numeric">147</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">44.8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">44.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>menu_TRUCKRECOS</td>
+      <td class="numeric">352</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>menu_PROPERTY_MENU</td>
+      <td class="numeric">13</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>RespawnMinerRock</td>
+      <td class="numeric">495</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>PutPlayerRock</td>
+      <td class="numeric">494</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdateMining</td>
+      <td class="numeric">19667</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.2</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>StopDrugEffect</td>
+      <td class="numeric">226</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>DeleteDroppedRock</td>
+      <td class="numeric">193</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>FirstGraffitiAnnounce</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">4.0</td>
+      <td class="numeric">4.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">4.0</td>
+      <td class="numeric">4.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>TwoGraffitiAnnounce</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">3.2</td>
+      <td class="numeric">3.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">3.2</td>
+      <td class="numeric">3.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>FinalGraffitiAnnounce</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">3.5</td>
+      <td class="numeric">4.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">3.5</td>
+      <td class="numeric">4.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>InitRandomGraffiti</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">3.1</td>
+      <td class="numeric">3.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">5.3</td>
+      <td class="numeric">5.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_profilerstop</td>
+      <td class="numeric">3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>InjuredAnimationCut</td>
+      <td class="numeric">2344</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.4</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdateThePutis</td>
+      <td class="numeric">2205</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_a</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_duda</td>
+      <td class="numeric">208</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">1.9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">1.9</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_dudas</td>
+      <td class="numeric">11</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_anuncio</td>
+      <td class="numeric">84</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">1.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">1.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_g</td>
+      <td class="numeric">76</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_s</td>
+      <td class="numeric">9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_desbug</td>
+      <td class="numeric">125</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_b</td>
+      <td class="numeric">511</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_do</td>
+      <td class="numeric">25</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_me</td>
+      <td class="numeric">120</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_habilidades</td>
+      <td class="numeric">27</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.7</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_cuenta</td>
+      <td class="numeric">105</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>SavePlayerData</td>
+      <td class="numeric">1320</td>
+      <td class="numeric">15.57%</td>
+      <td class="numeric">544.3</td>
+      <td class="numeric">412.3</td>
+      <td class="numeric">830.3</td>
+      <td class="numeric">13.48%</td>
+      <td class="numeric">544.3</td>
+      <td class="numeric">412.3</td>
+      <td class="numeric">830.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_accsave</td>
+      <td class="numeric">31</td>
+      <td class="numeric">0.38%</td>
+      <td class="numeric">13.4</td>
+      <td class="numeric">431.9</td>
+      <td class="numeric">571.3</td>
+      <td class="numeric">0.33%</td>
+      <td class="numeric">13.4</td>
+      <td class="numeric">431.9</td>
+      <td class="numeric">571.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_ayuda</td>
+      <td class="numeric">21</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_armas</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_gps</td>
+      <td class="numeric">115</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_stop</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_guia</td>
+      <td class="numeric">54</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_responder</td>
+      <td class="numeric">51</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_colgar</td>
+      <td class="numeric">41</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_configuracion</td>
+      <td class="numeric">26</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_vender</td>
+      <td class="numeric">10</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerEnterDynamicArea</td>
+      <td class="numeric">3059</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerLeaveDynamicArea</td>
+      <td class="numeric">3001</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerEnterDynamicCP</td>
+      <td class="numeric">272</td>
+      <td class="numeric">0.19%</td>
+      <td class="numeric">6.6</td>
+      <td class="numeric">24.3</td>
+      <td class="numeric">134.8</td>
+      <td class="numeric">0.16%</td>
+      <td class="numeric">6.7</td>
+      <td class="numeric">24.5</td>
+      <td class="numeric">135.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>KickPlayer</td>
+      <td class="numeric">29</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.4</td>
+      <td class="numeric">0.05%</td>
+      <td class="numeric">2.1</td>
+      <td class="numeric">74.0</td>
+      <td class="numeric">465.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>NoCallResponse</td>
+      <td class="numeric">20</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdateWorldTime</td>
+      <td class="numeric">111</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">0.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>AddPlayerReputation</td>
+      <td class="numeric">455</td>
+      <td class="numeric">0.23%</td>
+      <td class="numeric">8.2</td>
+      <td class="numeric">18.0</td>
+      <td class="numeric">119.1</td>
+      <td class="numeric">0.20%</td>
+      <td class="numeric">8.2</td>
+      <td class="numeric">18.0</td>
+      <td class="numeric">119.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_comprar</td>
+      <td class="numeric">6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdateGraffitiProgress</td>
+      <td class="numeric">198</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">17.6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">18.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_dropitem</td>
+      <td class="numeric">15</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_notificaciones</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">12.5</td>
+      <td class="numeric">12.5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">12.5</td>
+      <td class="numeric">12.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>ClosePoliceDoor</td>
+      <td class="numeric">15</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>CloseJailDoor</td>
+      <td class="numeric">72</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>CloseMafiaDoor</td>
+      <td class="numeric">20</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>ClosePoliceGarageDoor</td>
+      <td class="numeric">17</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>TogglePlayerControl</td>
+      <td class="numeric">1535</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>HealthUp</td>
+      <td class="numeric">1195</td>
+      <td class="numeric">0.10%</td>
+      <td class="numeric">3.4</td>
+      <td class="numeric">2.9</td>
+      <td class="numeric">82.2</td>
+      <td class="numeric">0.08%</td>
+      <td class="numeric">3.4</td>
+      <td class="numeric">2.9</td>
+      <td class="numeric">82.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>HungryThirstDown</td>
+      <td class="numeric">187166</td>
+      <td class="numeric">0.06%</td>
+      <td class="numeric">2.3</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">94.3</td>
+      <td class="numeric">0.07%</td>
+      <td class="numeric">2.7</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">94.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_dimitir</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>StartVehicleEngine</td>
+      <td class="numeric">682</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.9</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_motor</td>
+      <td class="numeric">101</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdatePlayerSpeedo</td>
+      <td class="numeric">1901493</td>
+      <td class="numeric">1.39%</td>
+      <td class="numeric">48.7</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">3.0</td>
+      <td class="numeric">1.53%</td>
+      <td class="numeric">61.9</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">307.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>TruckLoadUp</td>
+      <td class="numeric">919</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">5.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">10.4</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>TruckUnLoadUp</td>
+      <td class="numeric">829</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_policia</td>
+      <td class="numeric">13</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">9.8</td>
+      <td class="numeric">42.9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">9.9</td>
+      <td class="numeric">43.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_porton</td>
+      <td class="numeric">7</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>PlantingUp</td>
+      <td class="numeric">9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">4.7</td>
+      <td class="numeric">42.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">4.7</td>
+      <td class="numeric">42.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>GrowPlantUp</td>
+      <td class="numeric">13</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdatePlayer_GPS_Map</td>
+      <td class="numeric">3574</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">1.7</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">1.7</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>DestroyShitObject</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>StopShitting</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_cagar</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_animaciones</td>
+      <td class="numeric">28</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_parar</td>
+      <td class="numeric">133</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_rendirse</td>
+      <td class="numeric">10</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_blowjob</td>
+      <td class="numeric">3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_borracho</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_bomba</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_apuntar</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_reir</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_paja</td>
+      <td class="numeric">19</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_herido</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_cruzarbrazos</td>
+      <td class="numeric">3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_recostarse</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_vomitar</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_nalgada</td>
+      <td class="numeric">11</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_agonizar</td>
+      <td class="numeric">5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_besar</td>
+      <td class="numeric">5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_crack</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_mear</td>
+      <td class="numeric">32</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_sentarse</td>
+      <td class="numeric">22</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_asiento</td>
+      <td class="numeric">37</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_fucku</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_taichi</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_saludar</td>
+      <td class="numeric">6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_llorar</td>
+      <td class="numeric">7</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_astrip</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_bailar</td>
+      <td class="numeric">22</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_hablar</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_guardar</td>
+      <td class="numeric">58</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">1.8</td>
+      <td class="numeric">14.4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">1.8</td>
+      <td class="numeric">14.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_pmaletero</td>
+      <td class="numeric">3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_esposar</td>
+      <td class="numeric">12</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_placa</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_revisar</td>
+      <td class="numeric">6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_requisar</td>
+      <td class="numeric">3</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">157.1</td>
+      <td class="numeric">176.8</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">157.1</td>
+      <td class="numeric">176.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_ref</td>
+      <td class="numeric">5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>DisableRefMark</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">0.8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.1</td>
+      <td class="numeric">1.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_arrestar</td>
+      <td class="numeric">12</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_m</td>
+      <td class="numeric">3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_entregar</td>
+      <td class="numeric">10</td>
+      <td class="numeric">0.04%</td>
+      <td class="numeric">1.4</td>
+      <td class="numeric">142.8</td>
+      <td class="numeric">282.5</td>
+      <td class="numeric">0.04%</td>
+      <td class="numeric">1.4</td>
+      <td class="numeric">143.4</td>
+      <td class="numeric">283.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_policias</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">239.3</td>
+      <td class="numeric">239.3</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">239.3</td>
+      <td class="numeric">239.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_mafia</td>
+      <td class="numeric">18</td>
+      <td class="numeric">0.12%</td>
+      <td class="numeric">4.3</td>
+      <td class="numeric">241.5</td>
+      <td class="numeric">252.7</td>
+      <td class="numeric">0.11%</td>
+      <td class="numeric">4.3</td>
+      <td class="numeric">241.5</td>
+      <td class="numeric">252.7</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>CuffPlayer</td>
+      <td class="numeric">8</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">40.7</td>
+      <td class="numeric">41.7</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">40.7</td>
+      <td class="numeric">41.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_reportar</td>
+      <td class="numeric">34</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.9</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_r</td>
+      <td class="numeric">7</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_id</td>
+      <td class="numeric">80</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_localizar</td>
+      <td class="numeric">15</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_hora</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_admins</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_staff</td>
+      <td class="numeric">5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_trabajos</td>
+      <td class="numeric">5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_getid</td>
+      <td class="numeric">6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">7.0</td>
+      <td class="numeric">8.9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">7.0</td>
+      <td class="numeric">8.9</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_aka</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">5.5</td>
+      <td class="numeric">5.6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">5.5</td>
+      <td class="numeric">5.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_adv</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">157.6</td>
+      <td class="numeric">191.5</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">157.6</td>
+      <td class="numeric">191.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_kick</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">146.1</td>
+      <td class="numeric">146.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">146.1</td>
+      <td class="numeric">146.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_spec</td>
+      <td class="numeric">47</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.4</td>
+      <td class="numeric">1.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_specoff</td>
+      <td class="numeric">19</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_freeze</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_pest</td>
+      <td class="numeric">5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_pexp</td>
+      <td class="numeric">9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_unjail</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">142.3</td>
+      <td class="numeric">142.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">143.0</td>
+      <td class="numeric">143.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_ip</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_traerveh</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_vehinfo</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_duty</td>
+      <td class="numeric">3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_goto</td>
+      <td class="numeric">6</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_get</td>
+      <td class="numeric">8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.6</td>
+      <td class="numeric">1.5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.8</td>
+      <td class="numeric">2.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_jail</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">329.8</td>
+      <td class="numeric">330.3</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">330.5</td>
+      <td class="numeric">331.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_ban</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">150.3</td>
+      <td class="numeric">154.2</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">150.3</td>
+      <td class="numeric">154.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_cls</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">5.3</td>
+      <td class="numeric">5.8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">9.9</td>
+      <td class="numeric">10.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_dban</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_dtban</td>
+      <td class="numeric">9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.3</td>
+      <td class="numeric">8.8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.3</td>
+      <td class="numeric">8.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_pm</td>
+      <td class="numeric">8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_repairveh</td>
+      <td class="numeric">11</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">1.9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">1.9</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_sethealth</td>
+      <td class="numeric">4</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_setarmour</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_setwork</td>
+      <td class="numeric">6</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">56.5</td>
+      <td class="numeric">146.7</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">56.5</td>
+      <td class="numeric">146.8</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_setworkexp</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">65.0</td>
+      <td class="numeric">65.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">65.0</td>
+      <td class="numeric">65.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>HealthDown</td>
+      <td class="numeric">987</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">44.8</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">45.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>StandUpBotikin</td>
+      <td class="numeric">38</td>
+      <td class="numeric">0.17%</td>
+      <td class="numeric">5.8</td>
+      <td class="numeric">151.9</td>
+      <td class="numeric">236.6</td>
+      <td class="numeric">0.14%</td>
+      <td class="numeric">5.8</td>
+      <td class="numeric">151.9</td>
+      <td class="numeric">236.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_c</td>
+      <td class="numeric">22</td>
+      <td class="numeric">0.05%</td>
+      <td class="numeric">1.9</td>
+      <td class="numeric">84.3</td>
+      <td class="numeric">224.6</td>
+      <td class="numeric">0.05%</td>
+      <td class="numeric">1.9</td>
+      <td class="numeric">84.3</td>
+      <td class="numeric">224.7</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_cargos</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>UpdateTerritoryAttack</td>
+      <td class="numeric">1909</td>
+      <td class="numeric">0.04%</td>
+      <td class="numeric">1.3</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">343.0</td>
+      <td class="numeric">0.03%</td>
+      <td class="numeric">1.4</td>
+      <td class="numeric">0.7</td>
+      <td class="numeric">344.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_vip</td>
+      <td class="numeric">3</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_setearsu</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.9</td>
+      <td class="numeric">1.9</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.9</td>
+      <td class="numeric">1.9</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_darskin</td>
+      <td class="numeric">1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_minero</td>
+      <td class="numeric">17</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.1</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_ls</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.2</td>
+      <td class="numeric">1.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.6</td>
+      <td class="numeric">1.6</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_rev</td>
+      <td class="numeric">8</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.2</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerEditObject</td>
+      <td class="numeric">2862</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">2.5</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.2</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">2.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>ResetPlayerKeyColor</td>
+      <td class="numeric">13097</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.1</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">1.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>ContinuePlayerIntro</td>
+      <td class="numeric">142</td>
+      <td class="numeric">0.02%</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">3.9</td>
+      <td class="numeric">27.4</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.5</td>
+      <td class="numeric">3.9</td>
+      <td class="numeric">27.5</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>CarJackingFinish</td>
+      <td class="numeric">95</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerCommandReceived</td>
+      <td class="numeric">2969</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>OnPlayerCommandPerformed</td>
+      <td class="numeric">2904</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.00%</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+      <td class="numeric">0.0</td>
+    </tr>
+    <tr>
+      <td>public</td>
+      <td>pc_cmd_muteard</td>
+      <td class="numeric">2</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">140.3</td>
+      <td class="numeric">140.8</td>
+      <td class="numeric">0.01%</td>
+      <td class="numeric">0.3</td>
+      <td class="numeric">140.4</td>
+      <td class="numeric">140.9</td>
+    </tr>
+    </tbody>
+  </table>
+</body>
+</html>

@@ -218,7 +218,6 @@ enum Temp_Enum
 	bool:py_EXPLOSION_BULLET,
 	py_JAIL_NOT,
 	bool:py_SELFIE,
-	bool:py_KEY,
 	bool:py_IN_MARKET,
 	py_INV_SELECTED_SLOT,
 	bool:py_FISHING,

@@ -664,9 +664,6 @@ enum enum_TERRITORIES
 };
 new TERRITORIES[MAX_TERRITORIES][enum_TERRITORIES];
 
-//new DCC_Channel:DiscordLogChannel;
-//new DCC_Channel:CanalDudasId;
-
 new RandomColors[] =
 {
 	COLOR_WHITE,
@@ -814,6 +811,9 @@ new San_Andreas_Vehicles[][San_Andreas_Vehicles_Info] =
 	{VEHICLE_TYPE_WORK, WORK_TRASH, 0, 408, 1649.863159, -2169.069335, 14.078960, 89.003150, 26, 26, 0},
 	{VEHICLE_TYPE_WORK, WORK_TRASH, 0, 408, 1649.602050, -2161.239746, 14.095094, 86.084152, 26, 26, 0},
 	//policia ls
+	{VEHICLE_TYPE_WORK, WORK_POLICE, 4, 497, 1562.0895, -1659.0418, 28.6187, 91.0590, 1, 16, 0},
+	{VEHICLE_TYPE_WORK, WORK_POLICE, 4, 497, 1562.7053, -1691.9003, 28.5956, 90.7715, 1, 16, 0},
+
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 4, 596, 1601.9473, -1696.1240, 5.6107, 89.0810, 16, 1, 0},
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 4, 596, 1602.1748, -1691.9042, 5.6110, 88.4362, 16, 1, 0},
 	{VEHICLE_TYPE_WORK, WORK_POLICE, 4, 596, 1602.0411, -1700.2920, 5.6110, 88.6648, 16, 1, 0},
@@ -3570,38 +3570,41 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 
 public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
 {
-	if (rpcid == 155)
+	switch(rpcid)
 	{
-		new 
-			ping,
-			BitStream:bs_two = BS_New()
-		;
+		case 155:
+		{
+			new 
+				ping,
+				BitStream:bs_two = BS_New()
+			;
 
-		if (!IsPlayerConnected(playerid)) return 0;
-		
-		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-    	{
-	    	if (IsPlayerConnected(i))
+			if (!IsPlayerConnected(playerid)) return 0;
+			
+			for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	    	{
-	    		if (B1G_PLAYER[i][FAKE_PING] == true) ping = B1G_PLAYER[i][PING];
-				else
-				{
-					ping = GetPlayerPing(i);
-				}
+		    	if (IsPlayerConnected(i))
+		    	{
+		    		if (B1G_PLAYER[i][FAKE_PING] == true) ping = B1G_PLAYER[i][PING];
+					else
+					{
+						ping = GetPlayerPing(i);
+					}
 
-				BS_WriteValue(
-					bs_two,
-					PR_UINT16, i,
-					PR_INT32, GetPlayerScore(i),
-					PR_UINT32, ping
-				);
+					BS_WriteValue(
+						bs_two,
+						PR_UINT16, i,
+						PR_INT32, GetPlayerScore(i),
+						PR_UINT32, ping
+					);
 
-	    		BS_RPC(bs_two, playerid, rpcid);
-	    	}
-	    }
+		    		BS_RPC(bs_two, playerid, rpcid);
+		    	}
+		    }
 
-		BS_Delete(bs_two);
-		return 0;
+			BS_Delete(bs_two);
+			return 0;
+		}
 	}
 	return 1;
 }
@@ -3950,10 +3953,6 @@ public OnPlayerConnect(playerid)
 
 	SetIntroCamera(playerid);
 
-	//new str_text[128];
-	//format(str_text, sizeof(str_text), ":inbox_tray: %s (%d) ingreso al servidor.", PLAYER_TEMP[playerid][py_NAME], playerid);
-	//DCC_SendChannelMessage(DiscordLogChannel, str_text);
-
 	new DB_Query[550], DBResult:ban_Result;
 	format(DB_Query, sizeof DB_Query, "SELECT DATETIME('NOW') AS `NOW`, `BANS`.*, `BAD_HISTORY`.* FROM `BANS`, `BAD_HISTORY` WHERE (`BANS`.`NAME` = '%q' OR `BANS`.`IP` = '%q') AND `BAD_HISTORY`.`ID` = `BANS`.`ID_HISTORY`;", PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[playerid][py_IP]);
 	ban_Result = db_query(Database, DB_Query);
@@ -4199,17 +4198,18 @@ public OnPlayerDisconnect(playerid, reason)
 		new DB_Query[128];
 		format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `CONNECTED` = '0', PLAYERID = '-1' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 		db_query(Database, DB_Query);
-    	CancelTracing(playerid);
 	}
 
 	if (VALID_CLIENT[playerid]) sv_stream_delete(PLAYER_STREAM[playerid]);
-    VALID_CLIENT[playerid] = false;
 
   	if (PLAYER_TEMP[playerid][py_USER_LOGGED]) // ha pasado la pantalla de registro/login y ha estado jugando
   	{
   		ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
   		if (PLAYER_TEMP[playerid][py_USER_EXIT])
   		{
+  			SavePlayerVehicles(playerid, true);
+	  		SaveUserData(playerid);
+
   			if (PLAYER_CREW[playerid][player_crew_VALID]) CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ONLINE_MEMBERS] --;
 
 	  		if (PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] != INVALID_VEHICLE_ID)
@@ -4246,12 +4246,6 @@ public OnPlayerDisconnect(playerid, reason)
 	  		if (CHARACTER_INFO[playerid][ch_HEALTH] > 100.0) CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
 	  		if (CHARACTER_INFO[playerid][ch_ARMOUR] > 100.0) CHARACTER_INFO[playerid][ch_ARMOUR] = 100.0;
 
-	  		SavePlayerVehicles(playerid, true);
-	  		SaveUserData(playerid);
-			SavePlayerSkills(playerid);
-			SavePlayerWorks(playerid);
-			SavePlayerMisc(playerid);
-
 			if (PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] != 0)
 			{
 				for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -4278,43 +4272,26 @@ public OnPlayerDisconnect(playerid, reason)
 				}
 			}
 
-	  		/*new disconnect_message[128];
+	  		new disconnect_message[128];
 	  		switch(reason)
 	  		{
-	  			case 0: format(disconnect_message, sizeof disconnect_message, "%s se ha desconectado por error (crash).", PLAYER_TEMP[playerid][py_RP_NAME]);
-	  			case 1: format(disconnect_message, sizeof disconnect_message, "%s se ha desconectado.", PLAYER_TEMP[playerid][py_RP_NAME]);
-	  			case 2: format(disconnect_message, sizeof disconnect_message, "%s se ha desconectado porque fue expulsado del servidor.", PLAYER_TEMP[playerid][py_RP_NAME]);
+	  			case 0: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razón: crash ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
+	  			case 1: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razón: salida voluntaria ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
+	  			case 2: format(disconnect_message, sizeof disconnect_message, "[ID: %d] (( %s se ha desconectado, razón: expulsado por el servidor ))", playerid, PLAYER_TEMP[playerid][py_RP_NAME]);
 	  		}
-	  		NearbyMessage(CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_INTERIOR], GetPlayerVirtualWorld(playerid), 15.0, 0x909D95FF, disconnect_message);*/
+	  		NearbyMessage(CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_INTERIOR], GetPlayerVirtualWorld(playerid), 15.0, COLOR_FADE1, disconnect_message);
 
 	  		if (PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) EndPhoneCall(playerid);
   		}
   	}
 
-	new pip[16];
-	format(pip, sizeof pip, "%s", ACCOUNT_INFO[playerid][ac_IP]);
-
 	DestroyPlayerCheckpoints(playerid);
 	DestroyPlayerTextDraws(playerid);
 
-	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
-	{
-		DestroyObject(PLAYER_TEMP[playerid][py_FP_OBJ]);
-	}
-
-	new str_text[128];
-	switch(reason)
-	{
-	  	case 0: format(str_text, sizeof(str_text), ":outbox_tray: %s (%d) salio del servidor (crash).", PLAYER_TEMP[playerid][py_NAME], playerid);
-	  	case 1: format(str_text, sizeof(str_text), ":outbox_tray: %s (%d) salio del servidor (leave).", PLAYER_TEMP[playerid][py_NAME], playerid);
-	  	case 2: format(str_text, sizeof(str_text), ":outbox_tray: %s (%d) salio del servidor (kick/ban).", PLAYER_TEMP[playerid][py_NAME], playerid);
-	}
-	//DCC_SendChannelMessage(DiscordLogChannel, str_text);
-
+	if (PLAYER_MISC[playerid][MISC_CONFIG_FP]) DestroyObject(PLAYER_TEMP[playerid][py_FP_OBJ]);
  	for(new i = 0; i != MAX_TIMERS_PER_PLAYER; i++) KillTimer(PLAYER_TEMP[playerid][py_TIMERS][i]);
   	
   	ResetPlayerVariables(playerid);
-  	//BlockIpAddress(pip, 6000);
   	return 1;
 }
 
@@ -4353,6 +4330,9 @@ ResetPlayerVariables(playerid)
 	new temp_ACCOUNT_INFO[Account_Enum]; ACCOUNT_INFO[playerid] = temp_ACCOUNT_INFO;
 	new temp_CHARACTER_INFO[Character_Enum]; CHARACTER_INFO[playerid] = temp_CHARACTER_INFO;
 	new temp_BANK_ACCOUNT[Bank_Account_Enum]; BANK_ACCOUNT[playerid] = temp_BANK_ACCOUNT;
+
+	VALID_CLIENT[playerid] = false;
+	CancelTracing(playerid);
 
 	new temp_PLAYER_TOYS[Player_Toys_Info];
 	for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++) PLAYER_TOYS[playerid][i] = temp_PLAYER_TOYS;
@@ -8626,12 +8606,10 @@ CMD:accsaveall(playerid, params[])
 CALLBACK: SavePlayerData(playerid)
 {
 	SaveUserData(playerid);
-	SavePlayerToysData(playerid);
 	SavePlayerVehicles(playerid, false);
 	SavePlayerSkills(playerid);
-	SavePlayerWorks(playerid);
-	SavePlayerMisc(playerid);
 	SavePlayerWeaponsData(playerid);
+	SavePlayerToysData(playerid);
 	return 1;
 }
 
@@ -8640,7 +8618,7 @@ CMD:accsave(playerid, params[])
 	if (gettime() < PLAYER_TEMP[playerid][py_SAVE_ACCOUNT_TIME] + 30)
 	{
 		new time = (30-(gettime()-PLAYER_TEMP[playerid][py_SAVE_ACCOUNT_TIME]));
-		SendClientMessageEx(playerid, COLOR_WHITE, "Tienes que esperar {62d743}%s "COL_WHITE"minutos para volver a guardar tus datos.", TimeConvert(time));
+		SendClientMessageEx(playerid, COLOR_WHITE, "Tienes que esperar %s minutos para volver a guardar tus datos.", TimeConvert(time));
 		return 1;
 	}
 
@@ -21925,7 +21903,7 @@ SendResponsiveMessage(playerid, color, const string[], div = 0)
 	return 1;
 }
 
-/*NearbyMessage(Float:pos_x, Float:pos_y, Float:pos_z, current_int, current_vw, Float:radi, col, const string[])
+NearbyMessage(Float:pos_x, Float:pos_y, Float:pos_z, current_int, current_vw, Float:radi, col, const string[])
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -21937,7 +21915,7 @@ SendResponsiveMessage(playerid, color, const string[], div = 0)
 		if (IsPlayerInRangeOfPoint(i, radi, pos_x, pos_y, pos_z)) SendClientMessage(i, col, string);
 	}
 	return 1;
-}*/
+}
 
 IsValidRPName(const string[])
 {
@@ -23521,8 +23499,6 @@ GivePlayerCash(playerid, ammount, bool:update = true)
 		format(DB_Query, sizeof DB_Query, "UPDATE `PERSONAJE` SET `CASH` = '%d' WHERE `ID_USER` = '%d';", CHARACTER_INFO[playerid][ch_CASH], ACCOUNT_INFO[playerid][ac_ID]);
 		db_query(Database, DB_Query);
 	}
-
-	SavePlayerSkills(playerid);
 	return 1;
 }
 
@@ -24857,8 +24833,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		    	SetPlayerPosEx(playerid, 1568.651977, -1690.080688, 6.218750, 180.0, 0, 0, false);
 		    }
 		}
-
-		UpdateKeyPressed(playerid);
         return 1;
     }
 
@@ -24900,8 +24874,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 				}
 			}
 		}
-
-        UpdateKeyPressed(playerid);
 	}
 
 	if (PRESSED( KEY_WALK ))
@@ -25060,8 +25032,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     		if (PLAYER_TEMP[playerid][py_EDITING_MODE_TYPE] == 0) SetEditModeType(playerid, 1);
     		else SetEditModeType(playerid, 0);
     	}
-
-		UpdateKeyPressed(playerid);
 	}
 
 	if (PRESSED(KEY_FIRE))
@@ -25214,8 +25184,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		CheckMarketAttack(playerid);
 		GrabPlant(playerid);
 		ExitCrack(playerid);
-
-		UpdateKeyPressed(playerid);
 		return 1;
 	}
 
@@ -31000,8 +30968,8 @@ CMD:placa(playerid, params[])
 	if (PLAYER_TEMP[params[0]][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~No puedes enseñarle tu placa a este jugador ahora.", 3);
 
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Le enseña su placa a alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-
 	SendClientMessageEx(params[0], COLOR_WHITE, "%s %c. %s "COL_YELLOW"[Placa: %d]", POLICE_RANKS[ PLAYER_SKILLS[playerid][WORK_POLICE] ], PLAYER_TEMP[playerid][py_FIRST_NAME][0], PLAYER_TEMP[playerid][py_SUB_NAME], PLAYER_MISC[playerid][MISC_PLACA_PD]);
+	ShowPlayerMessage(playeris, "Has mostrado tu placa", 3);
 	return 1;
 }
 
@@ -32385,7 +32353,6 @@ CMD:vehinfo(playerid, params[])
 CMD:duty(playerid)
 {
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < 1) return SendClientMessageEx(playerid, COLOR_ORANGE, "[Alerta]"COL_WHITE" No tienes permisos suficientes.");
-	new str_text[174];
 
 	if (PLAYER_TEMP[playerid][py_ADMIN_SERVICE])
 	{
@@ -32400,9 +32367,6 @@ CMD:duty(playerid)
 		}
 
 		SendClientMessageEx(playerid, 0xF7F7F7CC, "Ahora no estás de servicio como {E73838}%s", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-		
-		format(str_text, sizeof(str_text), ":scales: %s (%d) dejo de estar en servicio como %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-		//DCC_SendChannelMessage(DiscordLogChannel, str_text);
 	}
 	else
 	{
@@ -32420,7 +32384,6 @@ CMD:duty(playerid)
 		}
 
 		SendClientMessageEx(playerid, 0xF7F7F7CC, "Ahora estás de servicio como {4BD53D}%s", ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
-		format(str_text, sizeof(str_text), ":scales: %s (%d) se puso en servicio como %s.", ACCOUNT_INFO[playerid][ac_NAME], playerid, ADMIN_LEVELS[ ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] ]);
 	}
 	return 1;
 }
@@ -33684,7 +33647,6 @@ SendCmdLogToAdmins(playerid, const cmdtext[], const params[])
 	else format(message, sizeof message, "%s (%d) uso el comando /%s %s", ACCOUNT_INFO[playerid][ac_NAME], playerid, cmdtext, params);
 
 	format(str_text, sizeof(str_text), ":page_with_curl: %s", message);
-	//DCC_SendChannelMessage(DiscordLogChannel, str_text);
 	SendDiscordWebhook(str_text, 1);
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
@@ -36508,47 +36470,12 @@ UpdateVehicleObject(vehicleid, slot)
 ShowPlayerKeyMessage(playerid, const key[])
 {
 	new str_text[64];
-	//KillTimer(PLAYER_TEMP[playerid][py_TIMERS][42]);
-
 	format(str_text, sizeof(str_text), "Pulsa %s", key);
 
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], str_text);
 	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
 	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
 	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
-	//PLAYER_TEMP[playerid][py_TIMERS][42] = SetTimerEx("HidePlayerKeyMessage", 1000, false, "i", playerid);
-	PLAYER_TEMP[playerid][py_KEY] = true;
-	return 1;
-}
-
-UpdateKeyPressed(playerid)
-{
-	if (PLAYER_TEMP[playerid][py_KEY] == true)
-	{
-		PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], COLOR_RED);
-		PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], COLOR_RED);
-		PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
-		PLAYER_TEMP[playerid][py_TIMERS][46] = SetTimerEx("ResetPlayerKeyColor", 500, false, "i", playerid);
-	}
-	return 1;
-}
-
-CALLBACK: ResetPlayerKeyColor(playerid)
-{
-	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][46]);
-	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
-	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
-
-	if (PLAYER_TEMP[playerid][py_KEY] == true) PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
-	return 1;
-}
-
-CALLBACK: HidePlayerKeyMessage(playerid)
-{
-	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][42]);
-	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
-	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
-	PLAYER_TEMP[playerid][py_KEY] = false;
 	return 1;
 }
 
@@ -36990,7 +36917,6 @@ CMD:dbyc(playerid, params[])
 	ShowPlayerMessage(playerid, "~y~Historial borrado.", 3);
 	return 1;
 }
-
 
 CMD:byc(playerid, params[])
 {

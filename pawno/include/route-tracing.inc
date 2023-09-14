@@ -31,7 +31,7 @@ stock StartTracing(playerid, Float:x, Float:y, Float:z)
 {
 	CancelTracing(playerid);
 	GPS_PLAYER[playerid][gps_activated] = true;
-	GPS_PLAYER[playerid][gps_timer] = SetTimerEx("UpdatePlayerTracing", 500, true, "ifff", playerid, x, y, z);
+	GPS_PLAYER[playerid][gps_timer] = SetTimerEx("UpdatePlayerTracing", 1000, true, "ifff", playerid, x, y, z);
 	return 1;
 }
 
