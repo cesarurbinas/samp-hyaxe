@@ -190,7 +190,7 @@ CMD:parlante(playerid, params[])
 		if(bbid == -1) return ShowPlayerMessage(playerid, "~r~No estás cerca de un parlante.", 4);
 		if(!BOOMBOX[bbid][bb_PUBLIC] && BOOMBOX[bbid][bb_OWNER] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~No puedes usar este parlante porque no es público.", 4);
 		if(BOOMBOX[bbid][bb_PLAYING]) return ShowPlayerMessage(playerid, "~r~Este parlante ya está reproduciendo algo. Usa /parlante parar.", 4);
-		if(gettime() > PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes buscar cada 60 segundos.", 4);
+		if(gettime() < PLAYER_TEMP[playerid][py_LAST_SEARCH] + 60) return ShowPlayerMessage(playerid, "~r~Solo puedes buscar cada 60 segundos.", 4);
 		
 		PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] = bbid;
 		ShowDialog(playerid, DIALOG_PLAYER_MP3);
