@@ -69,3 +69,4 @@ forward RegenerateTree(treeid);
 forward StartCutting(playerid, treeid);
 forward UpdateTreeCutting(playerid, treeid);
 forward FinishTreeCutting(playerid, treeid);
+forward GenerateLogs(amount);

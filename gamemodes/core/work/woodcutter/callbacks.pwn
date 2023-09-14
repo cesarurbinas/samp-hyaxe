@@ -210,6 +210,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					if(LogCarts[playerid][cart_AMOUNT] <= 0) return ShowPlayerNotification(playerid, "Tu carro no tiene troncos que soltar.", 3);
 					new object = CreateDynamicObject(19793, -1989.995337, -2384.471191, 29.726585, 0.0, 0.0, -44.100006);
 					MoveDynamicObject(object, -1993.934570, -2388.530761, 31.026594, 1.0, 0.0, 0.0, -44.100006);
+					SetTimerEx("GenerateLogs", 1000, false, "d", LogCarts[playerid][cart_AMOUNT] - 1);
+					SetTimerEx("DestroyLogs", 5000, false, "d", object);
 
 					GivePlayerCash(playerid, 150 * LogCarts[playerid][cart_AMOUNT]);
 					ShowPlayerNotification(playerid, sprintf("Soltaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 150 * LogCarts[playerid][cart_AMOUNT]), 3);
@@ -224,6 +226,26 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	#else
 		return 1;
 	#endif
+}
+
+public GenerateLogs(amount)
+{
+	if(amount <= 0) return 1;
+
+	new object = CreateDynamicObject(19793, -1989.995337, -2384.471191, 29.726585, 0.0, 0.0, -44.100006);
+	MoveDynamicObject(object, -1993.934570, -2388.530761, 31.026594, 1.0, 0.0, 0.0, -44.100006);
+
+	SetTimerEx("GenerateLogs", 1000, false, "d", amount - 1);
+	SetTimerEx("DestroyLogs", 5000, false, "d", object);
+	return 1;
+}
+
+public DestroyLogs(object)
+{
+	if(IsValidDynamicObject(object))
+		DestroyDynamicObject(object);
+
+	return 1;
 }
 
 public UpdateTreeCutting(playerid)

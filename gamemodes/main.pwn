@@ -24144,7 +24144,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		SetVehicleLightsAction(playerid);
 		return 1;
 	}
-	else if (PRESSED( KEY_NO ))
+	else if (PRESSED( KEY_NO ) && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
     {
     	ShowInventory(playerid);
 	}
@@ -24197,32 +24197,35 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     	}
 	}
 
-	if (PRESSED( KEY_ANALOG_UP  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	inv_AccommodateItems(playerid, false);
-		ClickInventorySlot(playerid, 6, true);
-	}
+	if(PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_WOODCUTTER)
+	{
+		if (PRESSED( KEY_ANALOG_UP  ))
+		{
+			if (IsPlayerInAnyVehicle(playerid)) return 0;
+			inv_AccommodateItems(playerid, false);
+			ClickInventorySlot(playerid, 6, true);
+		}
 
-	if (PRESSED( KEY_ANALOG_DOWN  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	inv_AccommodateItems(playerid, false);
-		ClickInventorySlot(playerid, 5, true);
-	}
+		if (PRESSED( KEY_ANALOG_DOWN  ))
+		{
+			if (IsPlayerInAnyVehicle(playerid)) return 0;
+			inv_AccommodateItems(playerid, false);
+			ClickInventorySlot(playerid, 5, true);
+		}
 
-	if (PRESSED( KEY_ANALOG_LEFT  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	inv_AccommodateItems(playerid, false);
-		ClickInventorySlot(playerid, 10, true);
-	}
+		if (PRESSED( KEY_ANALOG_LEFT  ))
+		{
+			if (IsPlayerInAnyVehicle(playerid)) return 0;
+			inv_AccommodateItems(playerid, false);
+			ClickInventorySlot(playerid, 10, true);
+		}
 
-	if (PRESSED( KEY_ANALOG_RIGHT  ))
-    {
-    	if (IsPlayerInAnyVehicle(playerid)) return 0;
-    	inv_AccommodateItems(playerid, false);
-		ClickInventorySlot(playerid, 2, true);
+		if (PRESSED( KEY_ANALOG_RIGHT  ))
+		{
+			if (IsPlayerInAnyVehicle(playerid)) return 0;
+			inv_AccommodateItems(playerid, false);
+			ClickInventorySlot(playerid, 2, true);
+		}
 	}
 
 	if (PRESSED(KEY_FIRE))
