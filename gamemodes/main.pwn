@@ -12891,9 +12891,12 @@ ShowDialog(playerid, dialogid)
     			vale en el mercado: "COL_GREEN"$150.000"COL_WHITE".", "Canjear", "Atrás");
     		return 1;
     	}
-    	case DIALOG_VOICE_TEST:
+    	case DIALOG_DEATH:
     	{
-    		PLAYER_TEMP[playerid][py_VOICE_TEST] = true;
+    		"COL_WHITE"Producto\t"COL_WHITE"Precio\n\
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Herido", ""COL_WHITE"Opción\t"COL_WHITE"Efecto\n\
+    			"COL_WHITE"Ir al hospital\t"COL_RED"Pierdes armas\n\
+    			"COL_WHITE"Pedir un medico\t"COL_YELLOW"Tarda en llegar\n", "Selecc.", "Cerrar");
     		return 1;
     	}
 		default: return 0;
@@ -21165,10 +21168,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 		}
-		case DIALOG_VOICE_TEST:
+		case DIALOG_DEATH:
 		{
-			PLAYER_TEMP[playerid][py_VOICE_TEST] = false;
-			ShowPlayerMessage(playerid, "Prueba terminada", 3);
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0: ExitCrack(playerid);
+					case 1:
+				}
+			}
 		}
 	}
 	return 0;
@@ -28783,7 +28792,8 @@ SendAlertToMedics(playerid)
 {
 	new
 		Float:pos[3],
-		str_text[128]
+		str_text[128],
+		total_medics = 0
 	;
 
 	GetPlayerPos(playerid, pos[0], pos[1], pos[2]);
@@ -28799,8 +28809,13 @@ SendAlertToMedics(playerid)
 			SetPlayerMarkerForPlayer(i, playerid, COLOR_GREEN);
 			format(str_text, sizeof(str_text), "~g~%s~w~ esta solicitando ayuda (%.2f Km).", PLAYER_TEMP[playerid][py_NAME], (GetPlayerDistanceFromPoint(i, pos[0], pos[1], pos[2]) * 0.01));
 			ShowPlayerNotification(i, str_text, 4);
+
+			total_medics ++;
 		}
 	}
+
+	format(str_text, sizeof(str_text), "Has solicitado a una ambulancia~n~Médicos activos: ~y~%d", total_medics);
+	ShowPlayerMessage()
 	return 1;
 }
 
