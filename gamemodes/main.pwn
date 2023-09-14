@@ -4348,7 +4348,7 @@ public SV_BOOL:OnPlayerVoice(SV_UINT:playerid, SV_PACKET:packet, SV_UINT:volume)
 
 		for(new i = 0; i < MAX_PLAYERS; i++)
 		{
-			//if (playerid == i) continue;
+			if (playerid == i) continue;
 			if (!IsPlayerConnected(i)) continue; 
 			if (GetPlayerState(i) == PLAYER_STATE_SPECTATING) continue;
 			if (VALID_CLIENT[i] == false) continue;
@@ -7363,7 +7363,7 @@ CALLBACK: GiveAutoGift()
 public OnGameModeInit()
 {
 	printf("ongamemodeini"); // debug juju
-	sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 5.0, 5.0);
+	sv_init(6000, SV_FREQUENCY_HIGH, SV_VOICE_RATE_60MS, 40.0, 2.0, 2.0);
 
     SetWeaponDamage(WEAPON_SNIPER, DAMAGE_TYPE_RANGE, 7.0, 10.0, 25.0, 40.0, 30.0); //sniper
     SetWeaponDamage(WEAPON_VEHICLE, DAMAGE_TYPE_RANGE, 50.0, 10.0, 50.0, 40.0, 50.0); //vehiculo
@@ -31772,7 +31772,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			if (PLAYER_TEMP[playerid][py_AIMBOT_COUNT] >= 3)
 			{
 				PLAYER_TEMP[playerid][py_AIMBOT_COUNT] = 0;
-				
+
 				new str_text[145];
 		    	format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Aimbot (proaim count: %d, silentaim count: %d)", ACCOUNT_INFO[playerid][ac_NAME], playerid, PLAYER_TEMP[playerid][py_PRO_AIM_COUNT], PLAYER_TEMP[playerid][py_SILENT_AIM_COUNT]);
 		    	SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
