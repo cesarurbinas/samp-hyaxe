@@ -56,7 +56,14 @@ SendMessageToGlobalChannel(playerid, const message[])
 {
 	new str[364];
 
-	format(str, sizeof(str), "%s (%d) (GLOBAL): %s", PLAYER_TEMP[playerid][py_RP_NAME], playerid, message);
+	format(str, sizeof(str),
+		"%s%s (%d) (GLOBAL):%s %s",
+		COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] ][color_HEX],
+		PLAYER_TEMP[playerid][py_RP_NAME],
+		playerid,
+		COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_HEX],
+		message
+	);
 
 	Log("global", str);
 
