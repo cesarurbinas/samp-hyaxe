@@ -2700,6 +2700,7 @@ flags:testsound(CMD_MODERATOR)
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /*CMD:fakeping(playerid, params[])
 {
 	new fakeping, to_player;
@@ -2725,6 +2726,36 @@ CMD:botmaster(playerid, params[])
 >>>>>>> refs/rewritten/hmm
 =======
 =======
+=======
+CMD:settime(playerid, params[])
+{
+	new hour, minutes;
+	if (sscanf(params, "dd", hour, minutes)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /settime <hour> <minutes>");
+	if (hour < 0 || minutes < 0) return SendClientMessage(playerid, COLOR_WHITE, "No puede ser inferior a 0");
+
+	SERVER_TIME[0] = hour;
+	SERVER_TIME[1] = minutes;
+
+	UpdateWorldTime();
+	return 1;
+}
+flags:settime(CMD_OPERATOR)
+
+CMD:setinterval(playerid, params[])
+{
+	new interval;
+	if (sscanf(params, "d", interval)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /setinterval <ms>");
+	if (interval < 1) return SendClientMessage(playerid, COLOR_WHITE, "No puede ser inferior a 1");
+
+	KillTimer(WorldCycleTimer);
+	WorldCycleTimer = SetTimer("UpdateWorldTime", interval, true);
+
+	UpdateWorldTime();
+	return 1;
+}
+flags:setinterval(CMD_OPERATOR)
+
+>>>>>>> 0b712a5 (/settime y /setinterval)
 CMD:givecredits(playerid, params[])
 {
 	new to_player, value;
