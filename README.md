@@ -1,0 +1,2 @@
+# hyaxe-samp
+samp gamemode
