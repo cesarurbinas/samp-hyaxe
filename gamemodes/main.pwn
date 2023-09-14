@@ -6242,7 +6242,7 @@ CALLBACK: FirstGraffitiAnnounce()
 	{
 		print("Skipping graffiti event activation until 6 AM.");
 		new remaining = ((6 * 3600) - ((hour * 3600) + (minute * 60) + second) * 1000);
-		if(remaining < 0) remaining *= -1;
+		if(remaining < 0) remaining = -remaining;
 
 		SetTimer("FirstGraffitiAnnounce", remaining, false);
 		return 1;
