@@ -3756,7 +3756,11 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 	
 	if (PRESSED( KEY_YES ))
     {
-    	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999) UseItemSlot(playerid);
+    	if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+		{
+			UseItemSlot(playerid);
+			return 1;
+		}
 
     	CheckRodShop(playerid);
     	CheckFixKitShop(playerid);

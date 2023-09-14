@@ -1597,7 +1597,6 @@ UseItemSlot(playerid)
 		{
 			if (PLAYER_MISC[playerid][MISC_MEDICINE] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes medicamentos.", 3);
 			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_REMEDY]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir medicamentos.", 3);
-			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
 
 			PLAYER_MISC[playerid][MISC_MEDICINE] --;
 			SavePlayerMisc(playerid);
@@ -1615,7 +1614,6 @@ UseItemSlot(playerid)
 		{
 			if (PLAYER_MISC[playerid][MISC_VENDAS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes vendas.", 3);
 			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_BAND]) < 10) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 10 segundos para volver a usar vendas.", 3);
-			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
 
 			PLAYER_MISC[playerid][MISC_VENDAS] --;
 			SavePlayerMisc(playerid);
@@ -1645,8 +1643,7 @@ UseItemSlot(playerid)
 		{
 			if (PLAYER_MISC[playerid][MISC_CRACK] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes crack.", 3);
 			if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_CRACK]) < 60 * 1) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 1 minuto para volver a consumir crack.", 3);
-			//if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) return ShowPlayerMessage(playerid, "~r~No puedes hacer eso estando herido.", 3);
-			
+
 			PLAYER_MISC[playerid][MISC_CRACK] --;
 			SavePlayerMisc(playerid);
 			GivePlayerHealthEx(playerid, 25.0);
@@ -1678,13 +1675,13 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
-		case 50:
+		case 34:
 		{
 			ShowPhone(playerid);
 			return 1;
 		}
 
-		case 51:
+		case 35:
 		{
 			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return 0;
 
@@ -1732,7 +1729,7 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
-		case 53:
+		case 37:
 		{
 			if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
 			{
@@ -1761,13 +1758,13 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
-		case 56:
+		case 40:
 		{
 			ActiveGeolocation(playerid);
 			return 1;
 		}
 
-		case 58:
+		case 42:
 		{
 			if (PLAYER_MISC[playerid][MISC_ROCKET] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			PLAYER_MISC[playerid][MISC_ROCKET] --;
@@ -1777,7 +1774,7 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
-		case 59:
+		case 43:
 		{
 			if (PLAYER_MISC[playerid][MISC_MORTERO] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			PLAYER_MISC[playerid][MISC_MORTERO] --;
@@ -1787,7 +1784,7 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
-		case 60:
+		case 44:
 		{
 			if (PLAYER_MISC[playerid][MISC_PETARDO] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			PLAYER_MISC[playerid][MISC_PETARDO] --;
@@ -1797,7 +1794,7 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
-		case 61:
+		case 45:
 		{
 			if (PLAYER_MISC[playerid][MISC_VOLCAN] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			PLAYER_MISC[playerid][MISC_VOLCAN] --;
@@ -1807,7 +1804,7 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
-		case 62:
+		case 46:
 		{
 			if (PLAYER_MISC[playerid][MISC_LAVAKO] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			PLAYER_MISC[playerid][MISC_LAVAKO] --;
@@ -1817,7 +1814,7 @@ UseItemSlot(playerid)
 			return 1;
 		}
 
-		case 63:
+		case 47:
 		{
 			if (PLAYER_MISC[playerid][MISC_12TIROS] <= 0) return ShowPlayerMessage(playerid, "~r~No tienes este tipo de fuego artificial.", 3);
 			PLAYER_MISC[playerid][MISC_12TIROS] --;
