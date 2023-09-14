@@ -1,5 +1,4 @@
-enum
-{
+enum E_MISC_DATA {
 	MISC_MUTES,
 	MISC_KIKEOS,
 	MISC_BANEOS,
@@ -42,7 +41,5 @@ enum
 	bool:MISC_BALLOON,
 	bool:MISC_DAMAGE_INFORMER,
 	MISC_DOUBT_SENT,
-
-	MISC_SIZE //Dejar siempre este al final
 };
-new PLAYER_MISC[MAX_PLAYERS][MISC_SIZE];
+new PLAYER_MISC[MAX_PLAYERS][E_MISC_DATA];

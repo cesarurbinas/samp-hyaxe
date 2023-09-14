@@ -5,8 +5,6 @@
 
 CreateTextDraws()
 {
-	for(new i; i < sizeof(Textdraws); i++) Textdraws[Textdraws_Enum:i] = INVALID_TEXT_DRAW;
-
 	Textdraws[textdraw_GPS_MAP][0] = TextDrawCreate(-5.000000, 132.000000, "box");
 	TextDrawLetterSize(Textdraws[textdraw_GPS_MAP][0], 0.000000, 22.498472);
 	TextDrawTextSize(Textdraws[textdraw_GPS_MAP][0], 180.130477, 0.000000);
@@ -829,16 +827,6 @@ CreateTextDraws()
 	TextDrawFont(Textdraws[textdraw_HUD][1], 4);
 	TextDrawSetProportional(Textdraws[textdraw_HUD][1], 0);
 	TextDrawSetShadow(Textdraws[textdraw_HUD][1], 0);
+	
 	return 1;
 }
-
-/*DestroyTextDraws()
-{
-	for(new i; i < sizeof(Textdraws); i++)
-	{
-		if(Textdraws[Textdraws_Enum:i] == INVALID_TEXT_DRAW) continue;
-		TextDrawDestroy(Text:Textdraws[Textdraws_Enum:i]);
-		Textdraws[Textdraws_Enum:i] = INVALID_TEXT_DRAW;
-	}
-	return 1;
-}*/

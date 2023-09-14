@@ -1,6 +1,6 @@
 CreatePlayerTextDraws(playerid)
 {
-	for(new i; i < sizeof(PlayerTextdraws[]); i++) PlayerTextdraws[playerid][Player_Textdraws_Enum:i] = INVALID_TEXT_DRAW;
+	for(new i; i < sizeof(PlayerTextdraws[]); i++) PlayerTextdraws[playerid][Player_Textdraws_Enum:i] = _:INVALID_TEXT_DRAW;
 
 	PlayerTextdraws[playerid][ptextdraw_PROPERTY_CONSTRUCTOR][0] = CreatePlayerTextDraw(playerid, 553.000000, 176.000000, "box");
 	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_PROPERTY_CONSTRUCTOR][0], 0.000000, 8.766664);
