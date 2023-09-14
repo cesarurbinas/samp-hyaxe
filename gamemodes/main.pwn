@@ -6240,13 +6240,7 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-				if(!PLAYER_WORKS[playerid][WORK_POLICE])
-				{
-					new DB_Query[90];
-					format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-					db_free_result(db_query(Database, DB_Query));
-					ResetPlayerWeaponsEx(playerid); // LMFAOO HAHAHA!
-				}
+				DeleteIlegalInv(playerid);
 
 				new random_pos = minrand(0, 12); 
 				PLAYER_TEMP[playerid][py_HP_POS_DATA][0] = Hp_Spawn_Interior_Pos[random_pos][0];
@@ -6335,13 +6329,7 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][4]);
 				PLAYER_TEMP[playerid][py_TIMERS][4] = SetTimerEx("HealthUp", 3000, false, "i", playerid);
 
-				if(!PLAYER_WORKS[playerid][WORK_POLICE])
-				{
-					new DB_Query[90];
-					format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-					db_free_result(db_query(Database, DB_Query));
-					ResetPlayerWeaponsEx(playerid); // LMFAOO HAHAHA!
-				}
+				DeleteIlegalInv(playerid);
 
 				ClearPlayerChatBox(playerid);
 				if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED)
@@ -31518,11 +31506,6 @@ CMD:requisar(playerid, params[])
 
 	RequisarilegalInv(params[0]);
 
-	PLAYER_MISC[params[0]][MISC_SEED_CANNABIS] = 0;
-	PLAYER_MISC[params[0]][MISC_SEED_CRACK] = 0;
-	PLAYER_MISC[params[0]][MISC_CANNABIS] = 0;
-	PLAYER_MISC[params[0]][MISC_CRACK] = 0;
-
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Requisa las pertenecias ilegales de alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	ShowPlayerMessage(playerid, "Has requisado a este jugador", 3);
 	return 1;
@@ -34576,9 +34559,9 @@ RequisarilegalInv(playerid)
 	    ResetPlayerWeaponsEx(playerid);
 	}
 
-	PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
-	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
-	PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
+	PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 
+	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 
+	PLAYER_MISC[playerid][MISC_CANNABIS] = 
 	PLAYER_MISC[playerid][MISC_CRACK] = 0;
 	SavePlayerMisc(playerid);
 	return 1;
@@ -34594,10 +34577,10 @@ DeleteIlegalInv(playerid)
 		ResetPlayerWeaponsEx(playerid); // LMFAOO HAHAHA!
 	}
 
-	PLAYER_MISC[playerid][MISC_SEED_CANNABIS] = 0;
-	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 0;
-	PLAYER_MISC[playerid][MISC_CANNABIS] = 0;
-	PLAYER_MISC[playerid][MISC_CRACK] = 0;
+	/*PLAYER_MISC[playerid][MISC_SEED_CANNABIS] =
+	PLAYER_MISC[playerid][MISC_SEED_CRACK] = 
+	PLAYER_MISC[playerid][MISC_CANNABIS] = 
+	PLAYER_MISC[playerid][MISC_CRACK] = 0; */
 	SavePlayerMisc(playerid);
 	return 1;
 }
