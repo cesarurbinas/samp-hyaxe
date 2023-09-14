@@ -770,15 +770,8 @@ CMD:pass(playerid, params[])
 
 CMD:borrarcp(playerid, params[])
 {
-	if (IsValidDynamicCP(PLAYER_TEMP[playerid][py_GPS_CHECKPOINT]))
-	{
-		DestroyDynamicCP(PLAYER_TEMP[playerid][py_GPS_CHECKPOINT]);
-    	CancelTracing(playerid);
-		PLAYER_TEMP[playerid][py_GPS_CHECKPOINT] = INVALID_STREAMER_ID;
-
-		ShowPlayerMessage(playerid, "Has cancelado la ruta antigua de tu GPS.", 3);
-	}
-	else ShowPlayerMessage(playerid, "~r~No tienes ningún punto marcado en tu GPS.", 3);
+	Cancel_GPS(playerid);
+	ShowPlayerMessage(playerid, "Has cancelado la ruta antigua de tu GPS.", 3);
 	return 1;
 }
 

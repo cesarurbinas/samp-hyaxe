@@ -3907,12 +3907,6 @@ PlayerPayday(playerid)
 
 		money += work_payment;
 
-		for (new i; i < sizeof(DEALER_INFO); i++)
-		{
-			if (DEALER_INFO[i][dl_MAFIA] == mafia)
-				money += minrand(500, 1000);
-		}
-
 		format(str_temp, sizeof(str_temp), "~n~Mafia: ~g~%s$~w~", number_format_thousand(work_payment));
 		strcat(str_payday, str_temp);
 	}
@@ -7422,13 +7416,6 @@ public RespawnDynamicActor(actorid, type)
 
 	switch(type)
 	{
-		case ACTOR_TYPE_DEALER:
-		{
-			SetDynamicActorInvulnerable(actorid, false);
-			SetDynamicActorHealth(actorid, 50.0);
-			ApplyDynamicActorAnimation(actorid, "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
-			return 1;
-		}
 		case ACTOR_TYPE_SHOP:
 		{
 			SetDynamicActorInvulnerable(actorid, false);

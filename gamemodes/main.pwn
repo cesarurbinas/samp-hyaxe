@@ -5,7 +5,6 @@
 
 #pragma option -(+
 #pragma option -;+
-//#pragma option -a
 
 /*
  * Modos de debug:
@@ -13,7 +12,7 @@
  *  - 1: Saldrán mensajes de debug solamente en la consola.
  *  - 2: Saldrán mensajes de debug en la consola y en el juego.
 */
-#define DEBUG_MODE 1
+#define DEBUG_MODE 0
 
 #if DEBUG_MODE != 0
 	#pragma option -d3
@@ -39,7 +38,7 @@
 
 // Features
 //#define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -51,22 +50,6 @@
 
 #include <streamer>
 #include <ColAndreas>
-
-#if !defined _FCNPC_included
-	#tryinclude <FCNPC>
-#endif
-
-#if !defined _FCNPC_included
-	#tryinclude "FCNPC"
-#endif
-
-#if !defined _FCNPC_included
-	#tryinclude "../FCNPC"
-#endif
-
-#if !defined _FCNPC_included
-	#error Add FCNPC.inc to your scripts directory
-#endif
 
 // Other Library
 #include <physics>
@@ -89,9 +72,6 @@
 
 // Dialogs
 #include "core/dialog/dialog_id.pwn"
-
-// LGBT infection
-//#include "core/lgbt_infection/header.pwn"
 
 // Damage
 #include "core/damage/header.pwn"
@@ -159,17 +139,6 @@
 #include "core/player/character.pwn"
 #include "core/player/textdraws.pwn"
 #include "core/work/header.pwn"
-
-// Dealer
-#include "core/dealer/header.pwn"
-
-// Missions
-#include "core/mission/header.pwn"
-#include "core/mission/functions.pwn"
-
-// Npcs
-#include "core/npc/header.pwn"
-#include "core/npc/functions.pwn"
 
 // World
 #include "core/world/header.pwn"
@@ -243,9 +212,6 @@
 #include "utils/textdraws/global.pwn"
 #include "utils/textdraws/player.pwn"
 
-// Textdraw easing
-//#include "utils/easing/equations.pwn"
-
 // Crews
 #include "core/crew/header.pwn"
 #include "core/crew/callbacks.pwn"
@@ -274,9 +240,6 @@
 
 // Notifications
 #include "utils/notification/show.pwn"
-
-// World
-//#include "core/world/enter_exit.pwn"
 
 // Club's
 #include "core/club/header.pwn"
@@ -315,26 +278,14 @@
 #include "core/stall/header.pwn"
 #include "core/stall/functions.pwn"
 
-// Dealers
-#include "core/dealer/functions.pwn"
-
 // Particles
 #include "core/particles/functions.pwn"
-
-// Store
-#include "core/store/header.pwn"
-#include "core/store/functions.pwn"
-#include "core/store/callbacks.pwn"
 
 // Fireworks
 #include "core/fireworks/functions.pwn"
 
 // Discord integration
 #include "core/admin/discord.pwn"
-
-// GUI
-#include "core/gui/header.pwn"
-#include "core/gui/functions.pwn"
 
 // Channels
 #include "core/channel/callbacks.pwn"
@@ -362,9 +313,6 @@
 #include "core/work/medic/callbacks.pwn"
 #include "core/work/medic/functions.pwn"
 
-// Select menu
-#include "core/gui/select.pwn"
-
 // Dialogs
 #include "core/dialog/show.pwn"
 #include "core/dialog/response.pwn"
@@ -374,13 +322,6 @@
 
 // World configuration
 #include "core/world/config.pwn"
-
-// Npcs
-#include "core/npc/callbacks.pwn"
-
-// Gamemodes
-//#include "core/lgbt_infection/functions.pwn"
-//#include "core/lgbt_infection/callbacks.pwn"
 
 // Player commands
 #include "core/player/commands.pwn"
@@ -2467,17 +2408,14 @@ public OnGameModeInit()
 
 	CA_Init();
 
-	//SvDebug(SV_TRUE);
-
 	// Server
 	SetGameModeText(SERVER_MODE);
 
-	SendRconCommand("hostname Hyaxe | Servidor de pruebas");
+	SendRconCommand("hostname Hyaxe Role Play [dev]");
 	
 	#if defined FINAL_BUILD
 		SetTimer("GiveAutoGift", 300000, false);
 		SendRconCommand("hostname "SERVER_HOSTNAME"");
-		//SetTimer("SendGift", 120000, true);
 	#endif
 
 	#if defined HALLOWEEN_MODE
@@ -2500,8 +2438,8 @@ public OnGameModeInit()
 	SendRconCommand("minconnectiontime 50");
 	SendRconCommand("ackslimit 10000");
 	SendRconCommand("messageslimit 5000");
-	//SendRconCommand("conncookies 0");
-	//SendRconCommand("cookielogging 0");
+	SendRconCommand("conncookies 0");
+	SendRconCommand("cookielogging 0");
 	SendRconCommand("chatlogging 1");
 
 	UsePlayerPedAnims();
@@ -2528,12 +2466,6 @@ public OnGameModeInit()
 
 	GraffitiGetTime = gettime();
 	MarketGetTime = gettime();
-	
-	/*lgbt_timers[0] = SetTimer("ChangeLgbtMap", 600000, false);
-	lgbt_map_index = random(sizeof(LGBT_MAPS));*/
-
-	// Npcs
-	InitPilotsNpc();
 
 	Log("status", "Servidor iniciado ("SERVER_VERSION").");
 	SendDiscordWebhook(":fire: Servidor iniciado ("SERVER_VERSION").", 1);
@@ -2544,8 +2476,6 @@ public OnGameModeInit()
 public OnGameModeExit()
 {
 	SendDiscordWebhook(":grey_exclamation: Servidor detenido.", 1);
-
-	ExitPilotsNpc();
 
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
@@ -2572,6 +2502,7 @@ public OnGameModeExit()
 	db_close(Database);
 	Log("status", "Servidor detenido.");
 	return 1;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 }
@@ -6167,3 +6098,6 @@ Vagonetas en la seccion d
 
 */
 >>>>>>> 7d7eefd (reparacion de procesadoras)
+=======
+}
+>>>>>>> d1d2c27 (cosas removidas)

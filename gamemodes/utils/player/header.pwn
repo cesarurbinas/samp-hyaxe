@@ -295,6 +295,12 @@ new const Float:NewUserPos[][] =
 	{1084.961181, -1795.690673, 13.670027, 359.768463}
 };
 
+enum
+{
+	ACTOR_TYPE_NONE,
+	ACTOR_TYPE_SHOP
+}
+
 enum radio_enum
 {
 	r_NAME[64],

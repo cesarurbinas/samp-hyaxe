@@ -338,6 +338,7 @@ enum
 >>>>>>> b35a666 (arreglos en el anti aimbot)
 	DIALOG_CLUB_SELL,
 <<<<<<< HEAD
+<<<<<<< HEAD
 	DIALOG_STORE
 >>>>>>> 6a4c3ab (store module)
 =======
@@ -346,6 +347,8 @@ enum
 	DIALOG_BUY_ROCKET
 >>>>>>> e78b0f6 (tienda de cuetes)
 =======
+=======
+>>>>>>> d1d2c27 (cosas removidas)
 	DIALOG_BUY_ROCKET,
 <<<<<<< HEAD
 	DIALOG_CHANGE_ACCOUNT

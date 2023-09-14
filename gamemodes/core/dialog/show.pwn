@@ -3984,8 +3984,6 @@ ShowDialog(playerid, dialogid)
 					Ver registros de IP\t\n\
 					Color del nombre\t%s%s\n\
 					Color del texto\t%s%s\n\
-					Modo pacífico\t%s\n\
-					Cancelar misión\t\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
@@ -3998,8 +3996,7 @@ ShowDialog(playerid, dialogid)
 					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] ][color_HEX],
 					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_NAME_COLOR] ][color_NAME],
 					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_HEX],
-					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_NAME],
-					(PLAYER_TEMP[playerid][py_PACIFIC] ? ""COL_GREEN"Sí" : ""COL_RED"No")
+					COLOR_INFO[ PLAYER_MISC[playerid][MISC_GLOBAL_CHAT_COLOR] ][color_NAME]
 			);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Panel de configuración", dialog, "Cambiar", "Salir");
@@ -4693,25 +4690,6 @@ ShowDialog(playerid, dialogid)
 			format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender el local por %d "SERVER_COIN"?", CLUBS_INFO[ PLAYER_TEMP[playerid][py_CLUB_INDEX] ][club_PRICE]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender local", str_text, "Si", "No");
 		}
-		case DIALOG_STORE:
-		{
-			new
-				dialog[1024],
-				caption[128]
-			;
-
-			format(caption, sizeof(caption), ""COL_RED"Tienda | Crédito: %s$", PLAYER_TEMP[playerid][py_CREDIT]);
-
-    		for(new i = 0; i != sizeof STORE_PRODUCTS; i ++)
-    		{
-    			new line[264];
-    			format(line, sizeof(line), ""COL_WHITE"%s\t"COL_GREEN"%d$\n", STORE_PRODUCTS[i][store_NAME], STORE_PRODUCTS[i][store_PRICE]);
-    			strcat(dialog, line);
-    		}
-
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Comprar", "Cerrar");
-		}
-
 		case DIALOG_BUY_ROCKET:
 		{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Fuegos artificiales", ""COL_WHITE"Pepaso Volador x10\t"COL_GREEN"1000$\n\

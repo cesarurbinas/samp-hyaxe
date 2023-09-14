@@ -517,8 +517,6 @@ public OnPlayerDisconnect(playerid, reason)
 		}
 	#endif
 
-	PlayerExitGamemode(playerid);
-
   	if (PLAYER_TEMP[playerid][py_USER_LOGGED]) // ha pasado la pantalla de registro/login y ha estado jugando
   	{
   		ACCOUNT_INFO[playerid][ac_TIME_PLAYING] += gettime() - PLAYER_TEMP[playerid][py_TIME_PLAYING];
@@ -636,7 +634,6 @@ public OnPlayerDisconnect(playerid, reason)
   		}
   	}
 
-	if (PLAYER_TEMP[playerid][py_IN_MISSION]) MissionFailed(playerid, true);
 	DestroyPlayerCheckpoints(playerid);
 	DestroyPlayerTextDraws(playerid);
 
@@ -2353,8 +2350,6 @@ public OnPlayerDeath(playerid, killerid, reason)
 				}
 			}
 
-			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK) if (PLAYER_TEMP[playerid][py_IN_MISSION]) MissionFailed(playerid);
-
 			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL)
 			{
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
@@ -2796,39 +2791,6 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 	PLAYER_TEMP[playerid][py_LAST_AREA] = areaid;
 
-	if (areaid == START_MISSION[SWEET_MISSION][ems_COME_BACK_AREA] && START_MISSION[SWEET_MISSION][ems_COME_BACK])
-	{
-		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-		{
-			if (!IsPlayerConnected(i)) continue;
-
-			if (PLAYER_TEMP[i][py_IN_MISSION])
-			{
-				if (PLAYER_TEMP[i][py_MISSION] == SWEET_MISSION)
-				{
-					// Mission win
-					GivePlayerReputation(i, 1, false);
-					ShowPlayerAlert(i, "COMPLETADA~n~~w~+EXP", 0xd5900aFF, 5);
-					
-					SetPlayerMarkerForPlayer(i, playerid, PLAYER_COLOR);
-					SetPlayerMarkerForPlayer(playerid, i, PLAYER_COLOR);
-
-					new prize = 500 * PLAYER_TEMP[i][py_MISSION_POINTS];
-					GivePlayerCash(i, 1000 + prize);
-					
-					Cancel_GPS(i);
-					PLAYER_TEMP[i][py_IN_MISSION] = false;
-				}
-			}
-		}
-
-		for(new i = 0; i < sizeof(SWEET_DEALERS); i++)
-		{
-			FCNPC_SetVirtualWorld(SWEET_DEALERS[i][sd_ID], 1);
-		}
-		return 1;
-	}
-
 	new
 		info[2],
 		type
@@ -2878,19 +2840,6 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 					ShowPlayerNotification(playerid, str_text, 6);	
 				}
 			}
-		}
-		case KEY_TYPE_MISSION:
-		{
-			new index = info[1];
-
-			PLAYER_TEMP[playerid][py_TEMP_CP] = CreateDynamicCP(
-				START_MISSION[index][ems_X],
-                START_MISSION[index][ems_Y],
-                START_MISSION[index][ems_Z] - 0.2,
-				2.0, 0, 0, playerid
-			);
-
-			ShowPlayerNotification(playerid, sprintf("Pulsa ~y~Y~w~ para iniciar la misión de ~y~%s~w~.", START_MISSION[index][ems_NAME]), 4);
 		}
 	}
 	return 1;
@@ -3277,16 +3226,6 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
     if (clickedid == Text:INVALID_TEXT_DRAW)
     {
-    	if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
-    	if (in_main_menu[playerid]) return ShowMainMenu(playerid);
-
-    	if (PLAYER_TEMP[playerid][py_MENU])
-    	{
-    		StopAudioStreamForPlayer(playerid);
-    		HideMainMenu(playerid);
-    		return 0;
-    	}
-
 		if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV] && GetTickCount() > g_iInvLastTick[playerid]) HideInventory(playerid);
 
 		PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] = false;
@@ -3313,49 +3252,6 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		}
 		
 		return 1;
-	}
-
-	if (in_main_menu[playerid])
-	{
-		// Modo
-		if (clickedid == Textdraws[textdraw_MAIN_MENU][1])
-		{
-			HideMainMenu(playerid);
-			//ShowGamemodesMenu(playerid);
-
-			HideGamemodesMenu(playerid);
-			PlayerJoinGamemode(playerid);
-			
-			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-		}
-
-		// Cuenta
-		if (clickedid == Textdraws[textdraw_MAIN_MENU][2])
-		{
-			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-			ShowDialog(playerid, DIALOG_CHANGE_ACCOUNT);
-		}
-
-		// Config
-		if (clickedid == Textdraws[textdraw_MAIN_MENU][3])
-		{
-			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-			ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
-		}
-
-		// Salir
-		if (clickedid == Textdraws[textdraw_MAIN_MENU][4])
-		{
-			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-			return Kick(playerid);
-		}
-
-		// Gamemode
-		if (clickedid == Textdraws[textdraw_MAIN_MENU][5])
-		{
-			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-			PlayerJoinGamemode(playerid);
-		}
 	}
 
 	if (PLAYER_TEMP[playerid][py_TUNING_GARAGE_SHOP])
@@ -3815,47 +3711,6 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 			DestroyDynamicPickup(pickupid);
 			return 0;
 		}
-
-		case PICKUP_TYPE_DRUG:
-		{
-			if (PLAYER_TEMP[playerid][py_IN_MISSION])
-			{
-				if (PLAYER_TEMP[playerid][py_MISSION] == SWEET_MISSION)
-				{
-					// Give mission participation points
-					PLAYER_TEMP[playerid][py_MISSION_POINTS] += 5;
-					DestroyDynamicPickup(pickupid);
-
-					// Come back
-					START_MISSION[SWEET_MISSION][ems_COME_BACK] = true;
-					SetPlayerRangePoliceSearchLevel(playerid, 2, 200.0, "Narcotrafico");
-
-					for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-					{
-						if (!IsPlayerConnected(i)) continue;
-
-						if (PLAYER_TEMP[i][py_IN_MISSION])
-						{
-							if (PLAYER_TEMP[i][py_MISSION] == SWEET_MISSION)
-							{
-								ShowPlayerNotification(i, sprintf("%s ha capturado las drogas.", PLAYER_TEMP[playerid][py_NAME]),  5);
-								SetPlayerMarkerForPlayer(i, playerid, 0x46ABE5FF);
-
-								SetPlayer_GPS_Checkpoint(
-									i,
-									2530.2314, -1713.6471, 13.4735,
-									0, 0
-								);
-
-								ShowPlayerMessage(i, "Vuelve a ~g~Ganton~w~ para entregar la mercancía.", 20);
-							}
-						}
-					}
-
-					return 0;
-				}
-			}
-		}
 	}
 
     PLAYER_TEMP[playerid][py_LAST_PICKUP_ID] = pickupid;
@@ -4028,8 +3883,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckBoxClub(playerid);
         CheckClubMenu(playerid);
         CheckRegister(playerid);
-        CheckDealerSite(playerid);
-		CheckMissionPlace(playerid);
 
         #if defined HALLOWEEN_MODE
        		CheckPumpkinWitch(playerid);
@@ -4521,23 +4374,6 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 					SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL] + 2);
 					format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Homicidio");
 					ShowPlayerMessage(playerid, "~b~Has cometido un crimen: Homicidio", 5);	
-				}
-				case ACTOR_TYPE_DEALER:
-				{
-					new Float:angle, Float:x, Float:y, Float:z;
-					GetDynamicActorFacingAngle(actorid, angle);
-					GetDynamicActorPos(actorid, x, y, z);
-
-					// In-Front special drop
-					if (random(2) == 1)
-					{
-						GetXYFromAngle(x, y, angle, 1.1);
-						CreateDropItem(GetItemObjectByType(22), x, y, z, 0.0, 0.0, 0.0, 0, 0, GetItemNameByType(22), PLAYER_TEMP[playerid][py_NAME], 22, minrand(10, 50));
-					}
-
-					// Money drop
-					MoneyDrop(minrand(8, 15), x, y, z - 0.9, 0, 0);
-					if (random(10) == 3) GivePlayerReputation(playerid);
 				}
 			}
 
@@ -6279,10 +6115,6 @@ OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
 
 ResetPlayerVariables(playerid)
 {
-	minigames_page[playerid] = 0;
-	in_main_menu[playerid] = false;
-	in_gamemode_menu[playerid] = false;
-
 	new temp_PLAYER_TEMP[Temp_Enum]; PLAYER_TEMP[playerid] = temp_PLAYER_TEMP;
 	new temp_ACCOUNT_INFO[Account_Enum]; ACCOUNT_INFO[playerid] = temp_ACCOUNT_INFO;
 	new temp_CHARACTER_INFO[Character_Enum]; CHARACTER_INFO[playerid] = temp_CHARACTER_INFO;

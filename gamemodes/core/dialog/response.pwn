@@ -38,6 +38,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(ACCOUNT_INFO[playerid][ac_SALT], 16, "%s", salt);
 				SHA256_PassHash(inputtext, ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], 64 + 1);
 
+				StopAudioStreamForPlayer(playerid);
+				PlayAudioStreamForPlayer(playerid, INTRO_MUSIC[random(sizeof(INTRO_MUSIC))]);
+
 				ACCOUNT_INFO[playerid][ac_LEVEL] = 1;
 				ACCOUNT_INFO[playerid][ac_REP] = 1;
 				ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
@@ -62,12 +65,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
                 CHARACTER_INFO[playerid][ch_SEX] = SEX_FEMALE;
                 CHARACTER_INFO[playerid][ch_SKIN] = RANDOM_SKIN[random(sizeof(RANDOM_SKIN))];
             }
-
-            StopAudioStreamForPlayer(playerid);
-			ShowMainMenu(playerid);
-
-			PlayAudioStreamForPlayer(playerid, MAIN_MUSIC[random(sizeof(MAIN_MUSIC))]);
-			ClearPlayerChatBox(playerid);
 
 			ShowDialog(playerid, DIALOG_SELECC_ANSWER);
         }       
@@ -105,9 +102,49 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (!strcmp(password, ACCOUNT_INFO[playerid][ac_PASS], false))
 			{
-				ShowPlayerMessage(playerid, "Cargando...", 60);
-
 				LoadPlayerMisc(playerid);
+
+				LoadPlayerPhoneData(playerid);
+				LoadCharacterData(playerid);
+				LoadPlayerBankAccountData(playerid);
+				
+				LoadPlayerToysData(playerid);
+				LoadPlayerPocketData(playerid);
+				LoadPlayerGPSData(playerid);
+				LoadPlayerObjectsData(playerid);
+				LoadPlayerVehicles(playerid);
+				LoadPlayerSkills(playerid);
+				LoadPlayerWorks(playerid);
+				LoadPlayerWeaponsData(playerid);
+				LoadPlayerCrewInfo(playerid);
+				
+				ResetPlayerWeapons(playerid);
+				ResetPlayerMoney(playerid);
+
+				GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
+				SetPlayerFightingStyle(playerid, CHARACTER_INFO[playerid][ch_FIGHT_STYLE]);
+				SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
+				SetPlayerArmourEx(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
+				
+				SetPlayerVirtualWorld(playerid, 0);
+				
+				SetSpawnInfo(playerid, DEFAULT_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
+				SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
+				PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
+
+				TogglePlayerSpectatingEx(playerid, false);
+				TogglePlayerControllableEx(playerid, false);
+				SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL]);
+
+				new str_text[128];
+				format(str_text, sizeof str_text, "Bienvenido %s a Hyaxe RolePlay.", PLAYER_TEMP[playerid][py_RP_NAME]);
+				ShowPlayerNotification(playerid, str_text);
+
+				#if defined FINAL_BUILD
+					PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 120000, true, "i", playerid);
+				#endif
+
+				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Ninguna");
 
 				SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 				PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
@@ -124,12 +161,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
 				format(PLAYER_TEMP[playerid][py_PASSWORD], MAX_PASS_LENGTH, "%s", inputtext);
 				Log("obj", pass_str);
-
-				ShowPlayerMessage(playerid, "_", 1);
-				ShowMainMenu(playerid);
-
-				PlayAudioStreamForPlayer(playerid, MAIN_MUSIC[random(sizeof(MAIN_MUSIC))]);
-				ClearPlayerChatBox(playerid);
 			}
 			else // Error
 			{
@@ -7701,13 +7732,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 					}
-					case 14: if (PLAYER_TEMP[playerid][py_IN_MISSION]) MissionFailed(playerid);
 				}
-			}
-			else
-			{
-				if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
-    			if (in_main_menu[playerid]) return ShowMainMenu(playerid);
 			}
 			return 1;
 		}
@@ -9259,40 +9284,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else CheckClubOptions(playerid);
 		}
-		case DIALOG_STORE:
-		{
-			if (response)
-			{
-				if (STORE_PRODUCTS[listitem][store_TYPE] == 5)
-				{
-					new DBResult:Result, DB_Query[120], player_vehicles;
-					format(DB_Query, sizeof(DB_Query), "SELECT COUNT(`ID_USER`) AS `VEHICLES` FROM `PLAYER_VEHICLES` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-					Result = db_query(Database, DB_Query);
-					if (db_num_rows(Result)) player_vehicles = db_get_field_assoc_int(Result, "VEHICLES");
-					db_free_result(Result);
-
-
-					if (player_vehicles >= MAX_SU_VEHICLES) return ShowPlayerMessage(playerid, "~r~No puedes tener mas vehículos.", 5);
-					if (!ACCOUNT_INFO[playerid][ac_SU])
-					{
-						if (player_vehicles >= MAX_NU_VEHICLES)
-						{
-							ShowPlayerMessage(playerid, "~r~No puedes tener mas vehículos.", 5);
-							return 1;
-						}
-					}
-				}
-
-				PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] = listitem;
-
-				new payload[264];
-				format(payload, sizeof(payload), "51.222.21.190:54777/B987Tbt97BTb9SAF9B8Ttasbfdf6/product_buy/%d/%d",
-					ACCOUNT_INFO[playerid][ac_ID],
-					STORE_PRODUCTS[listitem][store_PRICE]
-				);
-				HTTP(playerid, HTTP_GET, payload, "", "StoreBuyRecv");
-			}
-		}
 		case DIALOG_BUY_ROCKET:
 		{
 			if (response)
@@ -9366,27 +9357,16 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED""SERVER_NAME"", ""COL_WHITE"Tu nombre no es adecuado usa: "COL_RED"N"COL_WHITE"ombre_"COL_RED"A"COL_WHITE"pellido.\n\
 						Recuerda que los nombres como Miguel_Gamer o que contentan insultos\n\
 						no están permitidos, procura ponerte un nombre que parezca real.", "Cerrar", "");
-
-					if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
-    				if (in_main_menu[playerid]) return ShowMainMenu(playerid);
-
 					return 0;
 				}
 
 				printf("[account.post.change] %s > %s", PLAYER_TEMP[playerid][py_NAME], inputtext);
 
-				HideMainMenu(playerid);
-				HideGamemodesMenu(playerid);
 				SetPlayerName(playerid, inputtext);
 
 				OnPlayerDisconnect(playerid, 0);
 				OnPlayerConnect(playerid);
 				OnPlayerRequestClass(playerid, 0);
-			}
-			else
-			{
-				if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
-    			if (in_main_menu[playerid]) return ShowMainMenu(playerid);
 			}
 		}
 		case DIALOG_BUY_NAME_COLOR:

@@ -3,7 +3,6 @@ SetBalloonAction(balloon_id, Float:x, Float:y, Float:z, Float:speed)
 	HOTAIR_BALLOONS[balloon_id][balloon_ACTIVE] = true;
 	StopDynamicObject(HOTAIR_BALLOONS[balloon_id][balloon_OBJECT_ID]);
 	MoveDynamicObject(HOTAIR_BALLOONS[balloon_id][balloon_OBJECT_ID], x, y, z, speed, 0.0, 0.0, 10.0);
-	printf("%f, %f, %f", x, y, z);
 	return 1;
 }
 
@@ -64,7 +63,7 @@ CheckBallonAction(playerid)
 					SetBalloonAction(i, HOTAIR_BALLOONS[i][balloon_X], HOTAIR_BALLOONS[i][balloon_Y], 60.0, 10.0);
 					SetTimerEx("UpBalloon", 4000, false, "i", i);
 					SetTimerEx("RestartBalloon", 60000, false, "i", i);
-					ShowPlayerNotification(playerid, "Â¡Trata de no saltar o moverte demasiado porque te puedes caer!", 3);
+					ShowPlayerNotification(playerid, "¡Trata de no saltar o moverte demasiado porque te puedes caer!", 3);
 					return 1;
 				}
 			}

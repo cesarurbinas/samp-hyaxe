@@ -740,44 +740,6 @@ AddTestVehicle(bool:static_veh, modelid, Float:X, Float:Y, Float:Z, Float:Angle,
 	return vehicle_id;
 }
 
-AddWorldVehicle(bool:static_veh, modelid, Float:X, Float:Y, Float:Z, Float:Angle, Color1, Color2, respawn_delay = 0, bool:siren = false)
-{
-	new vehicle_id = INVALID_VEHICLE_ID;
-	if (static_veh) vehicle_id = AddStaticVehicleEx(modelid, X, Y, Z, Angle, Color1, Color2, respawn_delay, siren);
-	else vehicle_id = CreateVehicle(modelid, X, Y, Z, Angle, Color1, Color2, COLOR_WHITE, false);
-
-	if (vehicle_id == INVALID_VEHICLE_ID) return false;
-
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_VALID] = true;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_TYPE] = VEHICLE_TYPE_NONE;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_MODELID] = modelid;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_SPAWN_X] = X;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_SPAWN_Y] = Y;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_SPAWN_Z] = Z;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_SPAWN_ANGLE] = Angle;
-
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_POS][0] = GLOBAL_VEHICLES[vehicle_id][gb_vehicle_SPAWN_X];
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_POS][1] = GLOBAL_VEHICLES[vehicle_id][gb_vehicle_SPAWN_Y];
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_POS][2] = GLOBAL_VEHICLES[vehicle_id][gb_vehicle_SPAWN_Z];
-
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_HEALTH] = 1000.0;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_DAMAGE_PANELS] = 0;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_DAMAGE_DOORS] = 0;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_DAMAGE_LIGHTS] = 0;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_DAMAGE_TIRES] = 0;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_COLOR_1] = Color1;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_COLOR_2] = Color2;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_PAINTJOB] = 3; // No paintjob
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_MAX_GAS] = VEHICLE_INFO[modelid - 400][vehicle_info_MAX_GAS];
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_GAS] = GLOBAL_VEHICLES[vehicle_id][gb_vehicle_MAX_GAS];
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_STATE] = VEHICLE_STATE_NORMAL;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_INTERIOR] = 0;
-	GLOBAL_VEHICLES[vehicle_id][gb_vehicle_WORLD] = 0;
-
-	SetVehicleToRespawnEx(vehicle_id);
-	return vehicle_id;
-}
-
 AddPersonalVehicle(playerid, modelid, Float:X, Float:Y, Float:Z, Float:Angle, Color1, Color2, Float:max_gas)
 {
 	new vehicle_id = INVALID_VEHICLE_ID;
