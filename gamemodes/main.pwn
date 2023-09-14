@@ -12,7 +12,7 @@
  *  - 1: Saldrán mensajes de debug solamente en la consola.
  *  - 2: Saldrán mensajes de debug en la consola y en el juego.
 */
-#define DEBUG_MODE 0
+#define DEBUG_MODE 1
 
 #if DEBUG_MODE != 0
 	#pragma option -d3
@@ -29,7 +29,7 @@
 #define MAX_PLAYERS 150
 
 // Server information
-#define SERVER_VERSION 			"v0.9 Build 1"
+#define SERVER_VERSION 			"v0.9 Build 3"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -3020,6 +3020,10 @@ new BLACK_MARKT_WEAPONS[][enum_BLACK_MARKT_WEAPONS] =
 forward DisablePlayerPoliceSearchLevel(playerid);
 public DisablePlayerPoliceSearchLevel(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("DisablePlayerPoliceSearchLevel"); // debug juju
+	#endif
+
 	SetPlayerPoliceSearchLevel(playerid, 0);
 	SetPlayerWantedLevel(playerid, 0);
 	SendPoliceMark(playerid, PLAYER_COLOR);
@@ -3187,6 +3191,10 @@ NeuroJail(playerid, time, const reason[])
 forward IsValidVehicleAbuse(playerid, vehicleid);
 public IsValidVehicleAbuse(playerid, vehicleid)
 {
+	#if DEBUG_MODE == 1
+		printf("IsValidVehicleAbuse"); // debug juju
+	#endif
+
 	new Float:speed = GetPlayerSpeed(playerid);
 	if (speed > 15.0)
 	{
@@ -3601,6 +3609,10 @@ SendPoliceMark(playerid, color)
 forward UpdateWantedLevelMark();
 public UpdateWantedLevelMark()
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateWantedLevelMark"); // debug juju
+	#endif
+
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
     {
 	    if (IsPlayerConnected(i))
@@ -3651,6 +3663,10 @@ SetPlayerPoliceSearchLevel(playerid, level)
 forward UpdatePrisionTime(playerid);
 public UpdatePrisionTime(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("UpdatePrisionTime"); // debug juju
+	#endif
+
 	new 
 		time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]),
 		str_text[128];
@@ -3671,6 +3687,10 @@ public UpdatePrisionTime(playerid)
 forward SavePrisionTime(playerid);
 public SavePrisionTime(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("SavePrisionTime"); // debug juju
+	#endif
+
 	SaveUserData(playerid);
 	return 1;
 }
@@ -3696,6 +3716,10 @@ GetPlayersInIP(const ip[])
 forward UpdateBotPing(playerid);
 public UpdateBotPing(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateBotPing"); // debug juju
+	#endif
+
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	SetPlayerFakePing(playerid, minrand(170, 345));
 
@@ -3706,6 +3730,10 @@ public UpdateBotPing(playerid)
 forward UpdateBotName(playerid);
 public UpdateBotName(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateBotName"); // debug juju
+	#endif
+
 	new name[MAX_PLAYER_NAME];
 	format(name, sizeof(name), "%s_%s", names[random(sizeof(names))], surnames[random(sizeof(surnames))]);
 	SetPlayerName(playerid, name);
@@ -4491,6 +4519,10 @@ ExitSite(playerid)
 forward RestorePlayerPos(playerid, Float:x, Float: y, Float: z);
 public RestorePlayerPos(playerid, Float:x, Float: y, Float: z)
 {
+	#if DEBUG_MODE == 1
+		printf("RestorePlayerPos"); // debug juju
+	#endif
+
 	if (GetPlayerInterior(playerid) == 0) return 0;
 	SetPlayerPosEx(playerid, x, y, z, 90.0, 0, 0);
 	return 1;
@@ -5403,6 +5435,10 @@ CheckPlayerHouseDoor(playerid)
 forward RestartBalloon(balloon_id);
 public RestartBalloon(balloon_id)
 {
+	#if DEBUG_MODE == 1
+		printf("RestartBalloon"); // debug juju
+	#endif
+
 	BackBalloonToStart(balloon_id, 10.0);
 	return 1;
 }
@@ -5410,6 +5446,10 @@ public RestartBalloon(balloon_id)
 forward UpBalloon(balloon_id);
 public UpBalloon(balloon_id)
 {
+	#if DEBUG_MODE == 1
+		printf("UpBalloon"); // debug juju
+	#endif
+
 	SetBalloonAction(balloon_id, float(minrand(200, 300)), -float(minrand(1700, 1950)), 90.0, 10.0);
 	return 1;
 }
@@ -5767,6 +5807,10 @@ ShowRangeUser(playerid)
 forward RespawnMinerRock(rock_id);
 public RespawnMinerRock(rock_id)
 {
+	#if DEBUG_MODE == 1
+		printf("RespawnMinerRock"); // debug juju
+	#endif
+
 	new color_type = GetRockColorType(ROCKS_OBJ[rock_id][r_TYPE]);
 	ROCKS_OBJ[rock_id][r_OBJECT_ID] = CreateDynamicObject(ROCKS_OBJ[rock_id][r_MODELID], ROCKS_OBJ[rock_id][r_X], ROCKS_OBJ[rock_id][r_Y], ROCKS_OBJ[rock_id][r_Z], ROCKS_OBJ[rock_id][r_RX], ROCKS_OBJ[rock_id][r_RY], ROCKS_OBJ[rock_id][r_RZ], ROCKS_OBJ[rock_id][r_WORLD], ROCKS_OBJ[rock_id][r_INTERIOR]);
 	SetDynamicObjectMaterial(ROCKS_OBJ[rock_id][r_OBJECT_ID], 0, -1, "none", "none", color_type);
@@ -5777,6 +5821,10 @@ public RespawnMinerRock(rock_id)
 forward PutPlayerRock(playerid, rock_type);
 public PutPlayerRock(playerid, rock_type)
 {
+	#if DEBUG_MODE == 1
+		printf("PutPlayerRock"); // debug juju
+	#endif
+
 	ResetItemBody(playerid);
 
 	PLAYER_TEMP[playerid][py_ROCK] = true;
@@ -5790,6 +5838,10 @@ public PutPlayerRock(playerid, rock_type)
 forward UpdateMining(playerid, rock_id);
 public UpdateMining(playerid, rock_id)
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateMining"); // debug juju
+	#endif
+
 	if (GetPlayerInterior(playerid) == 0)
 	{
 		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][35]);
@@ -5924,6 +5976,10 @@ CheckShopAndExecute(playerid)
 forward StopDrugEffect(playerid);
 public StopDrugEffect(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("StopDrugEffect"); // debug juju
+	#endif
+
     SetPlayerDrunkLevel(playerid, 0);
     new p_int = GetPlayerInterior(playerid);
 	if (p_int != 25 || p_int != 26 || p_int != 27)
@@ -7262,6 +7318,10 @@ DropPlayerRock(playerid, place_id)
 forward DeleteDroppedRock(obj_id);
 public DeleteDroppedRock(obj_id)
 {
+	#if DEBUG_MODE == 1
+		printf("DeleteDroppedRock"); // debug juju
+	#endif
+
 	DestroyDynamicObject(obj_id);
 	return 1;
 }
@@ -7330,6 +7390,10 @@ CreateMinerRocks()
 forward InitLastGraffiti();
 public InitLastGraffiti()
 {
+	#if DEBUG_MODE == 1
+		printf("InitLastGraffiti"); // debug juju
+	#endif
+
 	new DBResult:Result, graff_id;
 	Result = db_query(Database, "SELECT * FROM `SERVER_PROPERTIES`;");
 	if (db_num_rows(Result)) graff_id = db_get_field_assoc_int(Result, "LAST_GRAFFITI");
@@ -7344,6 +7408,10 @@ public InitLastGraffiti()
 forward FirstGraffitiAnnounce();
 public FirstGraffitiAnnounce()
 {
+	#if DEBUG_MODE == 1
+		printf("FirstGraffitiAnnounce"); // debug juju
+	#endif
+
 	new hour, minute, second;
 	gettime(hour, minute, second);
 	if(hour >= 2 && hour <= 6) 
@@ -7362,6 +7430,10 @@ public FirstGraffitiAnnounce()
 forward TwoGraffitiAnnounce();
 public TwoGraffitiAnnounce()
 {
+	#if DEBUG_MODE == 1
+		printf("TwoGraffitiAnnounce"); // debug juju
+	#endif
+
 	SendGraffitiNotification("En 5 minutos se iniciara una disputa.");
 	SendDiscordWebhook("En 5 minutos se iniciara una disputa.", 2);
 	SetTimer("InitRandomGangEvent", 300000, false);
@@ -7372,6 +7444,10 @@ public TwoGraffitiAnnounce()
 forward FinalGraffitiAnnounce();
 public FinalGraffitiAnnounce()
 {
+	#if DEBUG_MODE == 1
+		printf("FinalGraffitiAnnounce"); // debug juju
+	#endif
+
 	SendGraffitiNotification("En 60 segundos se iniciara una disputa.");
 	SendDiscordWebhook("En 60 segundos se iniciara una disputa.", 2);
 	return 1;
@@ -7380,6 +7456,10 @@ public FinalGraffitiAnnounce()
 forward CancelGraffiti();
 public CancelGraffiti()
 {
+	#if DEBUG_MODE == 1
+		printf("CancelGraffiti"); // debug juju
+	#endif
+
 	KillTimer(GraffitiCancelTimer);
 
 	for(new i = 0; i < sizeof GRAFFITIS_OBJ; i ++)
@@ -7528,7 +7608,11 @@ InitGraffiti(graff_id)
 
 forward InitRandomGangEvent();
 public InitRandomGangEvent()
-{	
+{
+	#if DEBUG_MODE == 1
+		printf("InitRandomGangEvent"); // debug juju
+	#endif
+
 	/*new event = minrand(0, 6);
 	switch(event)
 	{
@@ -7581,6 +7665,10 @@ AddGiftCode(code[], type, extra)
 forward SendGift();
 public SendGift()
 {
+	#if DEBUG_MODE == 1
+		printf("SendGift"); // debug juju
+	#endif
+
 	for(new i = 0, j = 10; i <= j; i++)
 	{
 		new
@@ -7609,6 +7697,10 @@ public SendGift()
 forward GiveAutoGift();
 public GiveAutoGift()
 {
+	#if DEBUG_MODE == 1
+		printf("GiveAutoGift"); // debug juju
+	#endif
+
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
 	{
 		if (IsPlayerConnected(i))
@@ -8572,6 +8664,10 @@ SanAndreas()
 forward InjuredAnimationCut(playerid);
 public InjuredAnimationCut(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("InjuredAnimationCut"); // debug juju
+	#endif
+
 	ApplyAnimation(playerid, "SWEET", "SWEET_INJUREDLOOP", 4.1, true, false, false, 1, 0, 1);
 	PLAYER_TEMP[playerid][py_IN_INJURED_ANIMATION] = false;
 	return 1;
@@ -8580,6 +8676,10 @@ public InjuredAnimationCut(playerid)
 forward UpdateThePutis();
 public UpdateThePutis()
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateThePutis"); // debug juju
+	#endif
+
 	ApplyDynamicActorAnimation(Club_Bar_Actor[0], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
     ApplyDynamicActorAnimation(Club_Bar_Actor[1], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
     ApplyDynamicActorAnimation(Club_Bar_Actor[2], "BAR", "BARman_idle", 4.1, 1, 0, 0, 0, 0);
@@ -9273,6 +9373,10 @@ CMD:runtime(playerid, params[])
 forward SavePlayerData(playerid);
 public SavePlayerData(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("SavePlayerData"); // debug juju
+	#endif
+
 	SaveUserData(playerid);
 	SavePlayerVehicles(playerid, false);
 	SavePlayerMisc(playerid);
@@ -13020,7 +13124,7 @@ ShowDialog(playerid, dialogid)
 				if (PLAYER_SKILLS[playerid][WORK_CONNOR] >= 11)
 				{
 					strcat(dialog, "Invitar a TFC\n");
-					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 9;
+					PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = 10;
 					listitem ++;
 				}
 			}
@@ -24256,18 +24360,17 @@ SaveUserData(playerid)
 		BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
 		PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_STATE], PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER], ACCOUNT_INFO[playerid][ac_ID],
 		PLAYER_OBJECT[playerid][po_GPS], PLAYER_OBJECT[playerid][po_MP3], PLAYER_OBJECT[playerid][po_PHONE_RESOLVER], PLAYER_OBJECT[playerid][po_BOOMBOX], ACCOUNT_INFO[playerid][ac_ID]
-		);
+	);
 	db_free_result(db_query(Database, DB_Query));
 
 	if (BANK_ACCOUNT[playerid][bank_account_ID] != 0)
 	{
 		new DBResult:Result;
-		format(DB_Query, sizeof DB_Query,
-
+		format(DB_Query, sizeof(DB_Query),
 			"DELETE FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' AND `ID_TRANSACTION` NOT IN (SELECT `ID_TRANSACTION` FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' ORDER BY `DATE` DESC LIMIT %d);",
-
 			BANK_ACCOUNT[playerid][bank_account_ID], BANK_ACCOUNT[playerid][bank_account_ID], MAX_BANK_TRANSACTIONS_DIALOG
-			);
+		);
+
 		Result = db_query(Database, DB_Query);
 		db_free_result(Result);
 	}
@@ -24275,15 +24378,14 @@ SaveUserData(playerid)
 	if (PLAYER_PHONE[playerid][player_phone_VALID])
 	{
 		new DBResult:Result;
-		format(DB_Query, sizeof DB_Query,
-
+		format(DB_Query, sizeof(DB_Query),
 			"DELETE FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' ORDER BY `DATE` DESC LIMIT 10);\
 			DELETE FROM `PHONE_MESSAGES` WHERE `TO` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `TO` = '%d' ORDER BY `DATE` DESC LIMIT 10);",
-
 			PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER],
 			PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER]
-			);
-		Result = db_query(Database, DB_Query);
+		);
+
+		Result = db_query(Database, DB_Query); // crash aca
 		db_free_result(Result);
 	}
 	return 1;
@@ -24454,6 +24556,10 @@ KickEx(playerid, time = 0)
 forward KickPlayer(playerid);
 public KickPlayer(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("KickPlayer"); // debug juju
+	#endif
+
 	return Kick(playerid);
 }
 
@@ -24669,6 +24775,10 @@ RegisterPhoneMessage(from, to, const message[], offline = 0)
 forward NoCallResponse(playerid);
 public NoCallResponse(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("NoCallResponse"); // debug juju
+	#endif
+
 	if (!PLAYER_TEMP[playerid][py_PLAYER_IN_CALL]) return 0;
 	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_PLAYERID] == INVALID_PLAYER_ID) return 0;
 	if (PLAYER_TEMP[playerid][py_PLAYER_PHONE_CALL_STATE] != CALL_STATE_WAITING_RESPONSE) return 0;
@@ -25119,6 +25229,10 @@ CheckBlockedWeapon(playerid, weapon_ip)
 forward UpdateWorldTime();
 public UpdateWorldTime()
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateWorldTime"); // debug juju
+	#endif
+
 	gettime(SERVER_TIME[0], SERVER_TIME[1]);
 
 	SetWorldTime(SERVER_TIME[0]);
@@ -25703,6 +25817,10 @@ GivePlayerReputation(playerid)
 forward AddPlayerReputation(playerid);
 public AddPlayerReputation(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("AddPlayerReputation"); // debug juju
+	#endif
+
 	new neccessary_rep = ACCOUNT_INFO[playerid][ac_LEVEL] * REP_MULTIPLIER;
 	if (ACCOUNT_INFO[playerid][ac_REP] < neccessary_rep)
 	{
@@ -26592,6 +26710,10 @@ CheckGraffitiProgress(playerid)
 forward UpdateGraffitiProgress(playerid);
 public UpdateGraffitiProgress(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateGraffitiProgress"); // debug juju
+	#endif
+
 	if (IsPlayerPaused(playerid)) return 0;
 
 	if (GetPlayerWeapon(playerid) != 41) return KillTimer(PLAYER_TEMP[playerid][py_TIMERS][41]);
@@ -26744,6 +26866,10 @@ UpdateSizeBarMarket(crew_index, init)
 forward UpdateMarketProgress(playerid);
 public UpdateMarketProgress(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateMarketProgress"); // debug juju
+	#endif
+
 	if (IsPlayerPaused(playerid)) return 0;
 	if (GetPlayerInterior(playerid) != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return 0;
@@ -26878,6 +27004,10 @@ public UpdateMarketProgress(playerid)
 forward UpdateEasing(playerid);
 public UpdateEasing(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateEasing"); // debug juju
+	#endif
+
 	initial_ease_pos = initial_ease_pos * 1.7;
 
 	printf("%f", initial_ease_pos);
@@ -26967,6 +27097,10 @@ CheckMarketAttack(playerid)
 forward CheckCrunchAnimation(playerid);
 public CheckCrunchAnimation(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("CheckCrunchAnimation"); // debug juju
+	#endif
+
 	if (!IsPlayerConnected(playerid)) return 0;
 	if (PLAYER_MISC[playerid][MISC_CONFIG_FP])
 	{
@@ -26991,6 +27125,10 @@ public CheckCrunchAnimation(playerid)
 forward GetAmbulanceItem(playerid, vehicleid);
 public GetAmbulanceItem(playerid, vehicleid)
 {
+	#if DEBUG_MODE == 1
+		printf("GetAmbulanceItem"); // debug juju
+	#endif
+
 	ClearAnimations(playerid);
 	PLAYER_MISC[playerid][MISC_BOTIKIN] += 1;
 	GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Botiquín"), 2000, 5);
@@ -27637,6 +27775,10 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 forward ClosePoliceDoor(i);
 public ClosePoliceDoor(i)
 {
+	#if DEBUG_MODE == 1
+		printf("ClosePoliceDoor"); // debug juju
+	#endif
+
 	POLICE_DOORS[i][police_door_CLOSED] = true;
 	MoveDynamicObject(POLICE_DOORS[i][police_door_OBJECT_ID], POLICE_DOORS[i][police_door_X], POLICE_DOORS[i][police_door_Y], POLICE_DOORS[i][police_door_Z], 2.0, 0.0, 0.0, POLICE_DOORS[i][police_door_RZ]);
 	return 1;
@@ -27645,6 +27787,10 @@ public ClosePoliceDoor(i)
 forward CloseJailDoor(i);
 public CloseJailDoor(i)
 {
+	#if DEBUG_MODE == 1
+		printf("CloseJailDoor"); // debug juju
+	#endif
+
 	JAIL_DOORS[i][jail_door_CLOSED] = true;
 	MoveDynamicObject(JAIL_DOORS[i][jail_door_OBJECT_ID], JAIL_DOORS[i][jail_door_X], JAIL_DOORS[i][jail_door_Y], JAIL_DOORS[i][jail_door_Z], 1.0, 0.0, 0.0, JAIL_DOORS[i][jail_door_RZ]);
 	return 1;
@@ -27653,6 +27799,10 @@ public CloseJailDoor(i)
 forward CloseMafiaDoor(i);
 public CloseMafiaDoor(i)
 {
+	#if DEBUG_MODE == 1
+		printf("CloseMafiaDoor"); // debug juju
+	#endif
+
 	MAFIA_DOORS[i][mafia_door_CLOSED] = true;
 	MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z], 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
 	return 1;
@@ -27661,6 +27811,10 @@ public CloseMafiaDoor(i)
 forward ClosePoliceGarageDoor(index);
 public ClosePoliceGarageDoor(index)
 {
+	#if DEBUG_MODE == 1
+		printf("ClosePoliceGarageDoor"); // debug juju
+	#endif
+
 	POLICE_GARAGE_DOORS[index][police_gdoor_CLOSING] = true;
 	MoveDynamicObject(POLICE_GARAGE_DOORS[index][police_gdoor_OBJECT_ID], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_X], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_Y], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_Z], POLICE_GARAGE_DOORS[index][police_gdoor_MOVE_SPEED], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_RX], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_RY], POLICE_GARAGE_DOORS[index][police_gdoor_CLOSED_RZ]);
 	return 1;
@@ -27669,6 +27823,10 @@ public ClosePoliceGarageDoor(index)
 forward CloseBarrier(i);
 public CloseBarrier(i)
 {
+	#if DEBUG_MODE == 1
+		printf("CloseBarrier"); // debug juju
+	#endif
+
 	San_Andreas_Barriers[i][barrier_CLOSING] = true;
 	MoveDynamicObject(San_Andreas_Barriers[i][barrier_OBJECT_ID], San_Andreas_Barriers[i][barrier_X], San_Andreas_Barriers[i][barrier_Y], San_Andreas_Barriers[i][barrier_Z] + 0.72967, 0.0065, 0.0, -90.0, San_Andreas_Barriers[i][barrier_ROTATION]);
 	return 1;
@@ -28122,6 +28280,10 @@ SetPlayerPosEx(playerid, Float:x, Float:y, Float:z, Float:angle, interior, world
 forward TogglePlayerControl(playerid, bool:controlable);
 public TogglePlayerControl(playerid, bool:controlable)
 {
+	#if DEBUG_MODE == 1
+		printf("TogglePlayerControl"); // debug juju
+	#endif
+
 	return TogglePlayerControllableEx(playerid, controlable);
 }
 
@@ -28166,6 +28328,10 @@ UpdateHospitalSizeTextdrawLife(playerid)
 forward HealthUp(playerid);
 public HealthUp(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("HealthUp"); // debug juju
+	#endif
+
 	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_HOSPITAL) return 1;
 
 	if (PLAYER_TEMP[playerid][py_HOSPITAL_LIFE] < 100)
@@ -28532,6 +28698,10 @@ UpdatePlayerHud(playerid)
 forward HungryThirstDown(playerid);
 public HungryThirstDown(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("HungryThirstDown"); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] != GAME_STATE_NORMAL) return HidePlayerHud(playerid);
 	if (!PLAYER_TEMP[playerid][py_HUD_TEXTDRAWS]) return HidePlayerHud(playerid);
 
@@ -30451,6 +30621,10 @@ SetPlayerVehiclePark(playerid)
 forward StartVehicleEngine(playerid, vehicleid);
 public StartVehicleEngine(playerid, vehicleid)
 {
+	#if DEBUG_MODE == 1
+		printf("StartVehicleEngine"); // debug juju
+	#endif
+
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_STATE] == VEHICLE_STATE_DAMAGED) return ShowPlayerMessage(playerid, "~r~Motor dañado.", 1);
 	if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] <= 0.1) return ShowPlayerMessage(playerid, "~r~Sin gasolina.", 1);
 
@@ -30654,6 +30828,10 @@ HidePlayerSpeedoMeter(playerid)
 forward UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel);
 public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 {
+	/*#if DEBUG_MODE == 1
+		printf("UpdatePlayerSpeedo"); // debug juju
+	#endif*/
+
 	if (vehicleid != GetPlayerVehicleID(playerid))
 	{
 		HidePlayerSpeedoMeter(playerid);
@@ -31366,6 +31544,10 @@ ResetTrashInfo(vehicleid)
 forward TruckLoadUp(playerid, vehicleid);
 public TruckLoadUp(playerid, vehicleid)
 {
+	#if DEBUG_MODE == 1
+		printf("TruckLoadUp"); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_TRUCK_LOADING_VALUE] < 100)
 	{
 		PLAYER_TEMP[playerid][py_TRUCK_LOADING_VALUE] += 10;
@@ -31392,6 +31574,10 @@ public TruckLoadUp(playerid, vehicleid)
 forward TruckUnLoadUp(playerid, vehicleid);
 public TruckUnLoadUp(playerid, vehicleid)
 {
+	#if DEBUG_MODE == 1
+		printf("TruckUnLoadUp"); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_TRUCK_LOADING_VALUE] < 100)
 	{
 		PLAYER_TEMP[playerid][py_TRUCK_LOADING_VALUE] += 10;
@@ -31509,7 +31695,6 @@ OpenMafiaDoor(playerid)
 
 				MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
 				MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-				break;
 			}
 		}
 	}
@@ -31971,6 +32156,10 @@ UpdatePlayerTrashRecycleSize(playerid)
 forward FixVehicleUpdate(playerid, vehicleid);
 public FixVehicleUpdate(playerid, vehicleid)
 {
+	#if DEBUG_MODE == 1
+		printf("FixVehicleUpdate"); // debug juju
+	#endif
+
 	if (vehicleid == INVALID_VEHICLE_ID)
 	{
 		PLAYER_TEMP[playerid][py_FIX_VALUE] = 0;
@@ -32021,6 +32210,10 @@ public FixVehicleUpdate(playerid, vehicleid)
 forward RecycleUp(playerid);
 public RecycleUp(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("RecycleUp"); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_RECYCLE_BIN_VALUE] < 100)
 	{
 		PLAYER_TEMP[playerid][py_RECYCLE_BIN_VALUE] += 15;
@@ -32088,6 +32281,10 @@ CreateFlashObject(Float:x, Float:y, Float:z)
 forward DestroyFlashObject(objectid);
 public DestroyFlashObject(objectid)
 {
+	#if DEBUG_MODE == 1
+		printf("DestroyFlashObject"); // debug juju
+	#endif
+
 	return DestroyObject(objectid);
 }
 
@@ -32261,6 +32458,10 @@ CreatePlayerFlashObject(playerid, Float:x, Float:y, Float:z)
 forward DestroyPlayerFlashObject(playerid, objectid);
 public DestroyPlayerFlashObject(playerid, objectid)
 {
+	#if DEBUG_MODE == 1
+		printf("DestroyPlayerFlashObject"); // debug juju
+	#endif
+
 	return DestroyPlayerObject(playerid, objectid);
 }
 
@@ -32286,6 +32487,10 @@ CancelPlayerPlanting(playerid)
 forward PlantingUp(playerid, seeds);
 public PlantingUp(playerid, seeds)
 {
+	#if DEBUG_MODE == 1
+		printf("PlantingUp"); // debug juju
+	#endif
+
 	if (PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] < 100)
 	{
 		PLAYER_TEMP[playerid][py_PLANTING_PROGRESS] += minrand(5, 20);
@@ -32374,6 +32579,10 @@ GetAvaiblePlantIndex()
 forward GrowPlantUp(plant);
 public GrowPlantUp(plant)
 {
+	#if DEBUG_MODE == 1
+		printf("GrowPlantUp"); // debug juju
+	#endif
+
 	if (!PLANTS[plant][plant_VALID] || !PLANTS[plant][plant_GROWING]) return 0;
 
 	if (PLANTS[plant][plant_GROWING_PROGRESS] < 100.0)
@@ -32413,6 +32622,10 @@ public GrowPlantUp(plant)
 forward ExpirePlantTime(plant);
 public ExpirePlantTime(plant)
 {
+	#if DEBUG_MODE == 1
+		printf("ExpirePlantTime"); // debug juju
+	#endif
+
 	if (!PLANTS[plant][plant_VALID]) return 0;
 
 	if (PLANTS[plant][plant_EXPIRE_TIME] > 0)
@@ -32475,6 +32688,10 @@ HidePlayerGpsMap(playerid)
 forward UpdatePlayer_GPS_Map(playerid);
 public UpdatePlayer_GPS_Map(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("UpdatePlayer_GPS_Map"); // debug juju
+	#endif
+
 	/*
 		0 - playerpos
 		1 - cp gps
@@ -33383,12 +33600,20 @@ PlayerPayday(playerid)
 forward DestroyShitObject(objectid);
 public DestroyShitObject(objectid)
 {
+	#if DEBUG_MODE == 1
+		printf("DestroyShitObject"); // debug juju
+	#endif
+
 	return DestroyDynamicObject(objectid);
 }
 
 forward StopShitting(playerid);
 public StopShitting(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("StopShitting"); // debug juju
+	#endif
+
 	ApplyAnimation(playerid, "CARRY", "crry_prtial", 4.1, 0, 0, 0, 0, 0, true);
 	ClearAnimations(playerid);	
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Termina de cagar y se sube los pantalones.\n\n\n", 0xffcb90FF, 20.0, 5000);
@@ -33996,6 +34221,10 @@ alias:ref("refuerzos")
 forward DisableRefMark(playerid);
 public DisableRefMark(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("DisableRefMark"); // debug juju
+	#endif
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
@@ -34029,6 +34258,10 @@ public DisableRefMark(playerid)
 forward DisableGangRefMark(playerid);
 public DisableGangRefMark(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("DisableGangRefMark"); // debug juju
+	#endif
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
     new city[45], zone[45];
@@ -34058,6 +34291,10 @@ public DisableGangRefMark(playerid)
 forward DisableMafiaRefMark(playerid);
 public DisableMafiaRefMark(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("DisableMafiaRefMark"); // debug juju
+	#endif
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
     new 
@@ -34092,6 +34329,10 @@ public DisableMafiaRefMark(playerid)
 forward DisableCombatMode(playerid);
 public DisableCombatMode(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("DisableCombatMode"); // debug juju
+	#endif
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][44]);
 	ShowPlayerNotification(playerid, "Has salido del modo de combate.");
 	PLAYER_TEMP[playerid][py_COMBAT_MODE] = false;
@@ -34450,6 +34691,10 @@ CMD:mafia(playerid, params[])
 forward CuffPlayer(playerid);
 public CuffPlayer(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("CuffPlayer"); // debug juju
+	#endif
+
 	SetPlayerDrunkLevel(playerid, 0);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	CancelEdit(playerid);
@@ -34730,6 +34975,10 @@ JailPlayer(playerid, seconds = 300)
 forward UnjailPlayer(playerid);
 public UnjailPlayer(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("UnjailPlayer"); // debug juju
+	#endif
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][15]);
 	CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = 0;
 	CHARACTER_INFO[playerid][ch_STATE] = ROLEPLAY_STATE_INTERIOR;
@@ -35499,6 +35748,10 @@ DeleteIlegalInv(playerid, bool:drugs = false)
 forward HealthDown(playerid);
 public HealthDown(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("HealthDown"); // debug juju
+	#endif
+
 	if (CHARACTER_INFO[playerid][ch_STATE] != ROLEPLAY_STATE_CRACK) return 1;
 
 	GivePlayerHealthEx(playerid, -1.0);
@@ -35514,6 +35767,10 @@ public HealthDown(playerid)
 forward StandUpBotikin(medic, playerid);
 public StandUpBotikin(medic, playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("StandUpBotikin"); // debug juju
+	#endif
+
 	PLAYER_MISC[medic][MISC_BOTIKIN] --;
 	ResetItemBody(medic);
 	SavePlayerMisc(medic);
@@ -36127,6 +36384,10 @@ StartTerritoryAttack(crew_index, territory_index, time)
 forward UpdateTerritoryAttack(territory_index);
 public UpdateTerritoryAttack(territory_index)
 {
+	#if DEBUG_MODE == 1
+		printf("UpdateTerritoryAttack"); // debug juju
+	#endif
+
 	if (!TERRITORIES[territory_index][territory_VALID]) return 1;
 	if (!TERRITORIES[territory_index][territory_WAR]) return 1;
 
@@ -37489,6 +37750,10 @@ ShowPlayerNotification(playerid, const message[], time = 1, bool:auto_jump = tru
 forward HidePlayerNotification(playerid);
 public HidePlayerNotification(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("HidePlayerNotification"); // debug juju
+	#endif
+
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], "_");
 	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE]);
@@ -37510,6 +37775,10 @@ TogglePlayerControllableEx(playerid, bool:controllable)
 forward ContinuePlayerIntro(playerid, step);
 public ContinuePlayerIntro(playerid, step)
 {
+	#if DEBUG_MODE == 1
+		printf("ContinuePlayerIntro"); // debug juju
+	#endif
+
 	switch(step)
 	{
 		case 0:
@@ -37670,6 +37939,10 @@ FreezePlayer(playerid, ms = 2000)
 forward CarJackingFinish(playerid);
 public CarJackingFinish(playerid)
 {
+	#if DEBUG_MODE == 1
+		printf("CarJackingFinish"); // debug juju
+	#endif
+
 	TogglePlayerControllableEx(playerid, true);
 	return 1;
 }
@@ -37820,6 +38093,10 @@ ScanDoubt(playerid, const doubt[])
 forward neuroadmin_BotGetResponse(index, response_code, const data[]);
 public neuroadmin_BotGetResponse(index, response_code, const data[])
 {
+	#if DEBUG_MODE == 1
+		printf("neuroadmin_BotGetResponse"); // debug juju
+	#endif
+
 	if (IsPlayerConnected(index))
 	{
 		new str_text[264];
@@ -37860,6 +38137,10 @@ public neuroadmin_BotGetResponse(index, response_code, const data[])
 forward neuroadmin_BotCheckBadUse(index, response_code, const data[]);
 public neuroadmin_BotCheckBadUse(index, response_code, const data[])
 {
+	#if DEBUG_MODE == 1
+		printf("neuroadmin_BotCheckBadUse"); // debug juju
+	#endif
+
 	if (IsPlayerConnected(index))
 	{
 	    if (response_code == 200)

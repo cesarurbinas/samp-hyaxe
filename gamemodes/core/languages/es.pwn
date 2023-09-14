@@ -144,7 +144,8 @@ new const CONNOR_RANKS[][] =
 	"Leader Spy Connor",
 	"Leader Security Connor",
 	"Leader Assasin Connor",
-	"The Black Connor"
+	"The Black Connor",
+	"The Real Connor"
 };
 
 TextToSpanish(const base[])
