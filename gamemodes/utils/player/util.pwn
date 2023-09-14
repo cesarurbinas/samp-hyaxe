@@ -1562,16 +1562,6 @@ ShowPlayerKeyMessage(playerid, const key[])
 	return 1;
 }
 
-ShowPlayerNotification(playerid, const message[], time = 1, bool:auto_jump = true)
-{
-	#pragma unused time
-
-	new str_text[264];
-	format(str_text, sizeof(str_text), "~w~%s", TextToSpanish(message));
-	Notification_Show(playerid, str_text, auto_jump);
-	return 1;
-}
-
 GetMentalState(playerid)
 {
 

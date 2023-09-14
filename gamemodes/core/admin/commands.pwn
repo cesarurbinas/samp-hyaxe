@@ -3480,6 +3480,12 @@ CMD:setbankcash(playerid, params[])
 }
 flags:setbankcash(CMD_ADMIN)
 
+CMD:testnotification(playerid, params)
+{
+	ShowPlayerNotification(playerid, sprintf("Esto no se va a romper el que me crea que me crea y el que no me crea que no me creda, random: ~y~%d~w~.", random(50)), 5);
+	return 1;
+}
+
 CMD:godmode(playerid, params[])
 {
 	if(!PLAYER_TEMP[playerid][py_GODMODE])
