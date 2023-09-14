@@ -3402,10 +3402,11 @@ public OnPlayerClickPlayerTextDraw(playerid, PlayerText:playertextid)
 		{
 			new 
 				dialog[664],
-				time = (gettime() - GraffitiGetTime);
+				minute
+			;
 
-			format(dialog, sizeof dialog, "\
-				"COL_WHITE"Las disputas son cada 50 minutos, la última fue hace %s.", TimeConvert(time));
+			gettime(.minute = minute);
+			format(dialog, sizeof dialog, ""COL_WHITE"Faltan %d minutos para la próxima disputa.", 45 - minute);
 
 			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Disputas", dialog, "Cerrar", "");
 			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
