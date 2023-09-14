@@ -109,7 +109,7 @@
 #include <../../gamemodes/utils/edit_mode/edit.pwn>
 
 // Server Config
-#define SERVER_VERSION 			"v0.5 Pre-Release"
+#define SERVER_VERSION 			"v0.5 Pre-Release Build 46"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -33494,7 +33494,7 @@ CMD:mafia(playerid, params[])
 	{
 		PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
 		PLAYER_TEMP[playerid][py_DIALOG_DB_PAGE] = 0;
-		ShowDialog(playerid, DIALOG_MAFIA_LIST);
+		ShowDialog(playerid, DIALOG_ENEMY_MAFIA_LIST);
 	}
 	else return ShowPlayerMessage(playerid, "~r~No eres mafioso.", 3);
 	return 1;
@@ -33597,7 +33597,7 @@ SendEnemyMafiaMessage(color, const message[])
 	{
 		if (IsPlayerConnected(i))
 		{
-			if (PLAYER_WORKS[i][ENEMY_WORK_MAFIA])
+			if (PLAYER_WORKS[i][WORK_ENEMY_MAFIA])
 			{
 				SendResponsiveMessage(i, color, message, 154);
 			}
