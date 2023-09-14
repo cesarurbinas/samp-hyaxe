@@ -68,7 +68,6 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include "core/damage/header.pwn"
 
 // Must fix
-#include <nex-ac>
 #include <PreviewModelDialog>
 #include <route-tracing>
 #include <strlib>
@@ -89,6 +88,8 @@ Y_less on the ruski face book? I dont need to don the fur hat
 
 #include "core/logger/header.pwn"
 #include "core/player/flags.pwn"
+
+#include "utils/discord/webhook.pwn"
 
 // Lang
 #include "core/languages/es.pwn"
@@ -3208,7 +3209,7 @@ public OnPlayerConnect(playerid)
 	ResetPlayerMoney(playerid);
 	CancelSelectTextDrawEx(playerid);
 	SetPlayerScore(playerid, 0);
-	ac_ResetPlayerWeapons(playerid);
+	ResetPlayerWeapons(playerid);
 	SetPlayerColorEx(playerid, PLAYER_COLOR);
 	CancelEdit(playerid);
 
@@ -5446,7 +5447,7 @@ public OnPlayerSpawn(playerid)
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][39]);
 				PLAYER_TEMP[playerid][py_TIMERS][39] = SetTimerEx("UpdatePrisionTime", 1000, true, "i", playerid);
 
-    			ac_ResetPlayerWeapons(playerid);
+    			ResetPlayerWeapons(playerid);
     			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
     			DeleteIlegalInv(playerid);
     			SetPlayerColorEx(playerid, PLAYER_COLOR);
@@ -12395,7 +12396,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 				PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
-				ac_ResetPlayerWeapons(playerid);
+				ResetPlayerWeapons(playerid);
 				ResetPlayerMoney(playerid);
 				GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
 				SetPlayerFightingStyle(playerid, CHARACTER_INFO[playerid][ch_FIGHT_STYLE]);
@@ -20563,6 +20564,7 @@ public OnPlayerLeaveDynamicArea(playerid, areaid)
 			}
 		}
 	}
+	
 	return 1;
 }
 
@@ -29472,7 +29474,7 @@ ResetPlayerWeaponsEx(playerid)
 	new tmp_PLAYER_WEAPONS[enum_PLAYER_WEAPONS];
 	for(new i = 0; i != 13; i ++) PLAYER_WEAPONS[playerid][i] = tmp_PLAYER_WEAPONS;
 
-	ac_ResetPlayerWeapons(playerid);
+	ResetPlayerWeapons(playerid);
 	return 1;
 }
 
@@ -29689,24 +29691,6 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	}
 
     return 1;
-}
-
-OnCheatDetected(playerid, ip_address[], type, code)
-{
-	#pragma unused ip_address, type
-
-	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] >= ADMIN_LEVEL_AC_IMMUNITY) return 1;
-	if (PLAYER_TEMP[playerid][py_KICKED]) return 1;
-
-	new ac_message[145];
-	format(ac_message, sizeof(ac_message), "[ANTI-CHEAT] Kick sobre %s (%d). El código de mótivo: #%03d.", PLAYER_TEMP[playerid][py_NAME], playerid, code);
-	SendMessageToAdminsAC(COLOR_ANTICHEAT, ac_message);
-	SendDiscordWebhook(ac_message, 1);
-
-	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Cheats (#%03d)", code);
-	TogglePlayerControllableEx(playerid, false);
-	KickEx(playerid, 500);
-	return 1;
 }
 
 OnPlayerCheatDetected(playerid, cheat, Float:extra = 0.0)
@@ -30621,7 +30605,7 @@ CMD:econtrol(playerid, params[])
 	return 1;
 }
 
-public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, modelid, Float:x, Float:y, Float:z)
+public OnPlayerSelectDynamicObject(playerid, objectid, modelid, Float:x, Float:y, Float:z)
 {
 	//printf("OnPlayerSelectedDYnamicObj %d",playerid); // debug juju
 	new info[2];
@@ -30655,7 +30639,7 @@ public OnPlayerSelectDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, model
 	return 1;
 }
 
-public OnPlayerEditDynamicObject(playerid, STREAMER_TAG_OBJECT objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
+public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz)
 {
 	//printf("OnPlayerEditDynamicObject",playerid); // debug juju
 	if (response == EDIT_RESPONSE_CANCEL)
@@ -31811,7 +31795,9 @@ EndPlayerJob(playerid, changeskin = true)
 			RemovePlayerAttachedObject(playerid, 0);
 			RemovePlayerAttachedObject(playerid, 1);
 			RemovePlayerAttachedObject(playerid, 2);
-
+			SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
+			ClearAnims(playerid);
+			
 			SetPlayerToys(playerid);
 
 			if(IsValidDynamicObject(LogCarts[playerid][cart_OBJECT]))
@@ -33716,7 +33702,7 @@ CALLBACK: ContinuePlayerIntro(playerid, step)
 
 			SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 			PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
-			ac_ResetPlayerWeapons(playerid);
+			ResetPlayerWeapons(playerid);
 			ResetPlayerMoney(playerid);
 			GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
 			SetPlayerFightingStyle(playerid, CHARACTER_INFO[playerid][ch_FIGHT_STYLE]);

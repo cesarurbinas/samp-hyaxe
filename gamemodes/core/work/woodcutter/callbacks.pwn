@@ -1,7 +1,7 @@
 public OnGameModeInit()
 {
-	g_WoodcutterArea = CreateDynamicRectangle(-2065.0, -2446.1595458984375, -1707.5294494628906, -2092.0);
-
+	g_WoodcutterArea = CreateDynamicRectangle(-2081.361572, -2550.739990, -1625.361572, -2046.739990);
+	
 	new DBResult:Result;
 	Result = db_query(Database, "SELECT `SAWMILL_STOCK` FROM `SERVER_PROPERTIES`;");
 	if(db_num_rows(Result)) g_iSawmillStock = db_get_field_assoc_int(Result, "SAWMILL_STOCK");
@@ -148,41 +148,46 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					if(object != INVALID_OBJECT_ID)
 					{
 						new index = Streamer_GetItemStreamerID(playerid, STREAMER_TYPE_OBJECT, object);
-						new treeid = Streamer_GetIntData(STREAMER_TYPE_OBJECT, index, E_STREAMER_EXTRA_ID);
-						if(Trees[treeid][tree_CHOPPED] || Trees[treeid][tree_CHOPPING] || Trees[treeid][tree_TYPE] == NOT_A_TREE) return 1;
+						new model = Streamer_GetIntData(STREAMER_TYPE_OBJECT, index, E_STREAMER_MODEL_ID);
+						if(model == 696 || model == 655 || model == 886)
+						{
+							new treeid = Streamer_GetIntData(STREAMER_TYPE_OBJECT, index, E_STREAMER_EXTRA_ID);
 
-						new Float:x, Float:y, Float:z;
-						GetDynamicObjectPos(index, x, y, z);
-						CA_FindZ_For2DCoord(x, y, z);
+							if(Trees[treeid][tree_CHOPPED] || Trees[treeid][tree_CHOPPING] || Trees[treeid][tree_TYPE] == NOT_A_TREE) return 1;
 
-						if(!IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z)) return 1;
+							new Float:x, Float:y, Float:z;
+							GetDynamicObjectPos(index, x, y, z);
+							CA_FindZ_For2DCoord(x, y, z);
 
-						new colors[5] = {0xe73939FF, 0x6ed854FF, 0xe3e145FF, 0x20aee7FF};
-						new color = minrand(0, sizeof(colors));
+							if(!IsPlayerInRangeOfPoint(playerid, 3.0, x, y, z)) return 1;
 
-						TextDrawShowForPlayer(playerid, Textdraws[textdraw_PROGRESS_BG]);
-						PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0], "hud:radar_gangY");
-						PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1], "Talando...");
-						PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2], TextToSpanish("Pulsa ESPACIO rápidamente"));
-						PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][3], AdjustDarkness(colors[color], 1.75));
-						PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4], colors[color]);
-						PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4], 382.000000, 0.000000);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][3]);
-						PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
+							new colors[5] = {0xe73939FF, 0x6ed854FF, 0xe3e145FF, 0x20aee7FF};
+							new color = minrand(0, sizeof(colors));
 
-						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
-						KillTimer(PLAYER_TEMP[playerid][py_TIMERS][46]);
-						PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", 10000, false, "dd", playerid, treeid);
-						PLAYER_TEMP[playerid][py_TIMERS][46] = SetTimerEx("UpdateTreeCutting", 100, true, "d", playerid);
-						ApplyAnimation(playerid, "CHAINSAW", "null", 0.0, 0, 0, 0, 0, 0, 0); // Preload
-						ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 4.1, true, true, true, true, 0, true);
+							TextDrawShowForPlayer(playerid, Textdraws[textdraw_PROGRESS_BG]);
+							PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0], "hud:radar_gangY");
+							PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1], "Talando...");
+							PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2], TextToSpanish("Pulsa ESPACIO rápidamente"));
+							PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][3], AdjustDarkness(colors[color], 1.75));
+							PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4], colors[color]);
+							PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4], 382.000000, 0.000000);
+							PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][0]);
+							PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][1]);
+							PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][2]);
+							PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][3]);
+							PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4]);
 
-						PLAYER_TEMP[playerid][py_CUTTING] = treeid;
+							KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
+							KillTimer(PLAYER_TEMP[playerid][py_TIMERS][46]);
+							PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", 10000, false, "dd", playerid, treeid);
+							PLAYER_TEMP[playerid][py_TIMERS][46] = SetTimerEx("UpdateTreeCutting", 100, true, "d", playerid);
+							ApplyAnimation(playerid, "CHAINSAW", "null", 0.0, 0, 0, 0, 0, 0, 0); // Preload
+							ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 4.1, true, true, true, true, 0, true);
 
-						Trees[treeid][tree_CHOPPING] = true;
+							PLAYER_TEMP[playerid][py_CUTTING] = treeid;
+
+							Trees[treeid][tree_CHOPPING] = true;
+						}
 					}
 				}
 			}
@@ -384,10 +389,14 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
 {
+	printf("called haha...");
+	
 	if(areaid == g_WoodcutterArea && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_WOODCUTTER)
 	{
 		ShowPlayerNotification(playerid, TextToSpanish("Fuiste removido del servicio como leñador por salir del bosque y el aserradero."), 5);
 		EndPlayerJob(playerid);
+
+		return 1;
 	}
 
 	#if defined WOOD_OnPlayerLeaveDynamicArea

@@ -122,7 +122,7 @@ SetItemToBody(playerid, type)
 ResetItemBody(playerid)
 {
 	RemovePlayerAttachedObject(playerid, 9);
-	ac_ResetPlayerWeapons(playerid);
+	ResetPlayerWeapons(playerid);
 	PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = 9999;
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 	return 1;
