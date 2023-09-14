@@ -22953,10 +22953,19 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case 0:
 					{
+						if (PLAYER_MISC[playerid][MISC_DNI] != 0) return ShowPlayerMessage(playerid, "~r~Ya tienes un documento.", 3);
 						if (500 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
+						
+						PLAYER_MISC[playerid][MISC_DNI] = minrand(10000000, 99999999);
+
+						ShowPlayerNotification(playerid, "Felicidades, ahora tienes documento, lo puedes ver en /est.", 6);
+
+						GivePlayerCash(playerid, -500);
+						SavePlayerMisc(playerid);
 					}
 					case 1:
 					{
+						if (PLAYER_MISC[playerid][MISC_DRIVE] != 0) return ShowPlayerMessage(playerid, "~r~Ya tienes una licencia de conducir.", 3);
 						if (1000 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
 					}
 				}
