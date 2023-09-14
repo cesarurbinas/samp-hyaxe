@@ -117,3 +117,20 @@ ItemAlreadyInProperty(property_id, type)
 	if (db_num_rows(Result)) return true;
 	return false;
 }
+
+GetPropertyItemsCount(property_id)
+{
+	new
+		DBResult:Result,
+		DB_Query[140],
+		count
+	;
+
+	format(DB_Query, sizeof DB_Query, "SELECT * FROM `PROPERTY_STORAGE` WHERE `ID_PROPERTY` = '%d';" property_id);
+	Result = db_query(Database, DB_Query);
+
+	count = db_num_rows(Result)
+	db_free_result(Result);
+
+	return count;
+}
