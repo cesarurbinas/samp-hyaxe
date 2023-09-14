@@ -294,14 +294,14 @@ GetTickCountDifference(newtick, oldtick)
 	return newtick - oldtick;
 }
 
-IsValidGPCI(playerid)
+IsFakeClient(playerid)
 {  
-	if(IsPlayerNPC(playerid)) return true;
+	if(IsPlayerNPC(playerid)) return 0;
 	new TempId[80], TempNumb;  
 	gpci(playerid, TempId, sizeof(TempId));  
 	for(new i = 0; i < strlen(TempId); i++)  
 	{  
 		if(TempId[i] >= '0' && TempId[i] <= '9')  TempNumb++;  
 	}  
-	return (TempNumb >= AFC_NUMBER || strlen(TempId) <= AFC_NUMBER) ? true : false;
+	return (TempNumb >= 30 || strlen(TempId) <= 30) ? true : false;
 }

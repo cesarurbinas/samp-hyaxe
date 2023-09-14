@@ -2875,7 +2875,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 		        }
 		    }
 
-		    if (onFootData[PR_weaponId])
+		    if (onFootData[PR_weaponId] && onFootData[PR_weaponId] != 46)
 		    {
 		    	new 
 		    		weapon_slot = GetWeaponSlot(onFootData[PR_weaponId]),
@@ -3316,7 +3316,7 @@ public OnPlayerConnect(playerid)
 		return 0;
 	}
 
-	if (!IsValidGPCI(playerid))
+	if (IsFakeClient(playerid))
 	{
 		new str_text[144];
 		format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): Cliente inválido", PLAYER_TEMP[playerid][py_NAME], playerid);
