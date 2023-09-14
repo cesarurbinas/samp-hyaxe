@@ -155,6 +155,7 @@ CheckMissionPlace(playerid)
                 if (PLAYER_TEMP[i][py_MISSION] == index)
                 {
                     ShowPlayerNotification(i, sprintf("%s se ha unido a la misión.", PLAYER_TEMP[playerid][py_NAME]),  3);
+                    SetPlayerMarkerForPlayer(i, playerid, 0x46ABE5FF);
                     players_in_mission ++;
                 }
             }
@@ -213,7 +214,9 @@ CheckMissionPlace(playerid)
                                 FCNPC_GiveHealth(SWEET_DEALERS[i][sd_ID], 100.0);
                             }
 
-                            SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
+                            if (FCNPC_IsSpawned(SWEET_DEALERS[i][sd_ID]) && !FCNPC_IsDead(SWEET_DEALERS[i][sd_ID]))
+                                SetPlayerMarkerForPlayer(playerid, SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
+                            
                             SetPlayerColor(SWEET_DEALERS[i][sd_ID], 0xCB2828FF);
                         }
                         

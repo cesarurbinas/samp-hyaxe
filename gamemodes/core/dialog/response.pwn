@@ -7701,6 +7701,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 					}
+					case 14: MissionFailed(playerid);
 				}
 			}
 			else

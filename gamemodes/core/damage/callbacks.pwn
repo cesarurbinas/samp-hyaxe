@@ -123,7 +123,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 
 public OnPlayerTakeDamage(playerid, issuerid, Float:amount, weaponid, bodypart)
 {
-	if (IsPlayerConnected(issuerid)) return 0;
+	//if (IsPlayerConnected(issuerid)) return 0;
 
 	if (issuerid != INVALID_PLAYER_ID && weaponid < 50 && weaponid != WEAPON_FLAMETHROWER)
 	{
@@ -154,7 +154,7 @@ IPacket:207(playerid, BitStream:bs)
 
 public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 {
-	if (IsPlayerConnected(issuerid)) return 0;
+	//if (IsPlayerConnected(issuerid)) return 0;
 	if (IsPlayerPaused(issuerid)) return 0;
 
 	if (!PLAYER_TEMP[playerid][py_COMBAT_MODE] && IsPlayerPaused(playerid)) return 0;
@@ -307,7 +307,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 					GetPlayerPos(playerid, x, y, z);
 					if (GetPlayerDistanceFromPoint(issuerid, x, y, z) >= 30.0)
 					{
-						new current_gettime = gettime();
+						/*new current_gettime = gettime();
 
 						if (current_gettime - PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_LAST_DETECTION] > 30) PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] = 0;
 						else PLAYER_AC_INFO[issuerid][CHEAT_HEAD_AIM][p_ac_info_DETECTIONS] ++;
@@ -332,7 +332,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 							new webhook[144];
 							format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
 							SendDiscordWebhook(webhook, 1);
-						}
+						}*/
 					}
 				}
 			}

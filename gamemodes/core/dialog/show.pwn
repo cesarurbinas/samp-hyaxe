@@ -3985,6 +3985,7 @@ ShowDialog(playerid, dialogid)
 					Color del nombre\t%s%s\n\
 					Color del texto\t%s%s\n\
 					Modo pacífico\t%s\n\
+					Cancelar misión\t\n\
 				",
 					(ACCOUNT_INFO[playerid][ac_EMAIL]),
 					(PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER] ? ""COL_GREEN"Sí" : ""COL_RED"No"),
