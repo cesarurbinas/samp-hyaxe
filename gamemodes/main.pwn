@@ -7145,7 +7145,7 @@ CreateMinerRocks()
 CALLBACK: InitLastGraffiti()
 {
 	new DBResult:Result, graff_id;
-	Result = db_query(Database, "SELECT `LAST_GRAFFITI` FROM `SERVER_PROPERTIES`;");
+	Result = db_query(Database, "SELECT * FROM `SERVER_PROPERTIES`;");
 	if (db_num_rows(Result)) graff_id = db_get_field_assoc_int(Result, "LAST_GRAFFITI");
  
 	if (graff_id != 0) InitGraffiti(graff_id);
@@ -7159,14 +7159,11 @@ CALLBACK: FirstGraffitiAnnounce()
 {
 	new hour, minute, second;
 	gettime(hour, minute, second);
-	if(hour >= 2 && hour <= 5) 
+	if(hour >= 2 && hour <= 6) 
 	{
 		print("Skipping graffiti event activation until 6 AM.");
-		new remaining = ((6 * 3600) - ((hour * 3600) + (minute * 60) + second) * 1000);
-		if(remaining < 0) remaining = -remaining;
-
-		SetTimer("FirstGraffitiAnnounce", remaining, false);
-		return 1;
+		SetTimer("FirstGraffitiAnnounce", 1500000, false);
+		return 0;
 	}
 
 	SendGraffitiNotification("En 15 minutos se iniciara una disputa.");
