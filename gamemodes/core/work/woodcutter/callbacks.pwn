@@ -179,7 +179,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 							KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
 							KillTimer(PLAYER_TEMP[playerid][py_TIMERS][46]);
-							PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", 10000, false, "dd", playerid, treeid);
+							PLAYER_TEMP[playerid][py_TIMERS][45] = SetTimerEx("FinishTreeCutting", 15000, false, "dd", playerid, treeid);
 							PLAYER_TEMP[playerid][py_TIMERS][46] = SetTimerEx("UpdateTreeCutting", 100, true, "d", playerid);
 							ApplyAnimation(playerid, "CHAINSAW", "null", 0.0, 0, 0, 0, 0, 0, 0); // Preload
 							ApplyAnimation(playerid, "CHAINSAW", "WEAPON_CSAW", 4.1, true, true, true, true, 0, true);
@@ -227,8 +227,8 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					safe_db_query(sprintf("UPDATE `SERVER_PROPERTIES` SET `SAWMILL_STOCK` = %d;", g_iSawmillStock));
 					UpdateDynamic3DTextLabelText(SawmillLabel, 0xFFFFFFFF, sprintf(""COL_RED"Existencias del aserradero\n"COL_WHITE"%d troncos", g_iSawmillStock));
 
-					GivePlayerCash(playerid, 150 * LogCarts[playerid][cart_AMOUNT]);
-					ShowPlayerNotification(playerid, sprintf("Procesaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 150 * LogCarts[playerid][cart_AMOUNT]), 3);
+					GivePlayerCash(playerid, 100 * LogCarts[playerid][cart_AMOUNT]);
+					ShowPlayerNotification(playerid, sprintf("Procesaste ~r~%d ~w~troncos y recibiste ~g~%d$ ~w~como paga.", LogCarts[playerid][cart_AMOUNT], 100 * LogCarts[playerid][cart_AMOUNT]), 3);
 					LogCarts[playerid][cart_AMOUNT] = 0;
 				}
 			}
@@ -388,9 +388,7 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 }
 
 public OnPlayerLeaveDynamicArea(playerid, areaid)
-{
-	printf("called haha...");
-	
+{	
 	if(areaid == g_WoodcutterArea && PLAYER_TEMP[playerid][py_WORKING_IN] == WORK_WOODCUTTER)
 	{
 		ShowPlayerNotification(playerid, TextToSpanish("Fuiste removido del servicio como leñador por salir del bosque y el aserradero."), 5);
