@@ -20552,9 +20552,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else ShowDialog(playerid, DIALOG_BOX_FIGHTERS);
 		}
+		
 	}
-
-	printf("dialogid %d", dialogid);
 	return 0;
 }
 
@@ -34231,6 +34230,9 @@ flags:rev(CMD_MODERATOR2)
 flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_MODERATOR4)
+flags:depositveh(CMD_MODERATOR)
+
+// comandos by jeiks dije
 flags:jailoff(CMD_MODERATOR)
 flags:unjailloff(CMD_MODERATOR)
-flags:depositveh(CMD_MODERATOR)
+flags:comandosadmin(CMD_HELPER)

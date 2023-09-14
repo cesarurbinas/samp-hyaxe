@@ -12,7 +12,7 @@ forward OnDownloadResponse(playerid, response_code, data[]);
 
 public OnYouTubeQueryResponse(playerid, response_code, data[])
 {
-	printf("OnYouTubeQueryResponse - playerid %d - response_code %d - data [JSON]", playerid, response_code);
+	printf("OnYouTubeQueryResponse - playerid %d - response_code %d - data %s", playerid, response_code, data);
 	if (!PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return 1;
 
 	if (response_code == 200)
