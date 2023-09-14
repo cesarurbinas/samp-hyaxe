@@ -58,6 +58,7 @@ Y_less on the ruski face book? I dont need to don the fur hat
 #include <strlib>
 #include <ExtendedActorFunctions>
 #include <gmenu>
+#include <json>
 
 // Ojito con esto q se revienta el cpeu
 #if defined VOICE_CHAT
@@ -109,6 +110,9 @@ Y_less on the ruski face book? I dont need to don the fur hat
 
 // Dialogs
 #include "core/dialog/dialog_id.pwn"
+
+// Audio
+#include "core/audio/handlers.pwn"
 
 // Vehicles
 #include "core/vehicle/global_vehicles.pwn"
@@ -1013,17 +1017,6 @@ new San_Andreas_Barriers[][San_Andreas_Barriers_Info] = // usar VEHICLE_TYPE_NON
 	{VEHICLE_TYPE_NONE, WORK_NONE, -1526.39063, 481.38281, 6.17970, 0.0, 0, 0, INVALID_STREAMER_ID, COLOR_WHITE, false}, // ejercito??
 	{VEHICLE_TYPE_NONE, WORK_NONE, -82.1645, -1123.0260, 0.0373, 67.1102, 0, 0, INVALID_STREAMER_ID, COLOR_WHITE, false} // grua
 };
-
-/* RESULT_YOUTUBE */
-#define MAX_RESULTS 10
-enum yt_result
-{
-	videoID[11 + 1],
-	yt_title[100 + 1]
-};
-
-/*new RESULT_YOUTUBE[MAX_RESULTS][yt_result],
-	PLAYER_DIALOG_MP3_RESULT[MAX_PLAYERS][MAX_RESULTS][yt_result];*/
 
 // AGRICULTOR
 enum
@@ -8070,6 +8063,17 @@ CMD:stop(playerid, params[])
 	return 1;
 }
 
+CMD:mp3(playerid, params[])
+{
+	if(CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
+	if(!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes ningún GPS, ve a un 24/7.", 3, 1085);
+	if(PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
+	
+	PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
+	ShowDialog(playerid, DIALOG_PLAYER_MP3);
+	return 1;
+}
+
 CMD:pass(playerid, params[])
 {
 	ShowDialog(playerid, DIALOG_CHANGE_PASSWORD);
@@ -9222,7 +9226,7 @@ ShowDialog(playerid, dialogid)
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Cambiar nombre de la propiedad", ""COL_WHITE"Ingresa el nuevo nombre de la propiedad.", ">>", "Atrás");
 			return 1;
 		}
-		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "MP3 - Buscar una canción", "Indica el nombre y cantante de la canción que quieres reproducir.\nSe recomienda añadir la palabra 'audio' para canción directa.\n\nPor ejemplo: Lynyrd Skynyrd - Free Bird (Audio)", "Buscar", "Salir");
+		case DIALOG_PLAYER_MP3: return ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, "MP3", "Introduce el nombre de un video de YouTube que quieras reproducir.\n\nPor ejemplo: Bruh Sound Effect #2", "Buscar", "Salir");
 		case DIALOG_BUY_VEHICLE:
 		{
 			if (!GLOBAL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][gb_vehicle_VALID]) return 0;
@@ -14406,23 +14410,28 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, "Cargando ...", "Espera mientras buscamos resultados para su búsqueda ...", "X", "");
 
-				/*new title[100 + 1];
-				title = SpaceFix(inputtext);
-				new str[180]; format(str, sizeof str, "http://127.0.0.1:12345/search?query=%s", title);
+				for(new i = 0; i < strlen(inputtext); i++)
+				{
+					if(inputtext[i] == ' ') inputtext[i] = '+';
+				}
+
+				new str[180];
+				format(str, sizeof str, "127.0.0.1:12345/search?query=%s", inputtext);
 
 				PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP] = true;
-				HTTP(playerid, HTTP_GET, str, "", "OnPlayerSongFound");*/
+				HTTP(playerid, HTTP_GET, str, "", "OnYouTubeQueryResponse");
 			}
 			return 1;
 		}
 		case DIALOG_PLAYER_MP3_RESULTS:
 		{
-			/*if (response)
+			if(response)
 			{
 				new url[128];
-				format(url, 128, "http://127.0.0.1:12345/download/%d", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][videoID]);
-				HTTP(playerid, 128, url, "", "OnSongDownloadResponse");
-			}*/
+				format(url, 128, "127.0.0.1:12345/download/%s/pipe_addr_returning", PLAYER_DIALOG_MP3_RESULT[playerid][listitem][result_ID]);
+				printf("%s", url);
+				HTTP(playerid, HTTP_GET, url, "", "OnDownloadResponse");
+			}
 			return 1;
 		}
 		case DIALOG_BUY_VEHICLE:
@@ -20536,6 +20545,8 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else ShowDialog(playerid, DIALOG_BOX_FIGHTERS);
 		}
 	}
+
+	printf("dialogid %d", dialogid);
 	return 0;
 }
 
@@ -20547,92 +20558,6 @@ GetDatabasePages(const query_[], limit)
 	new Float:tpages = floatdiv(floatround(db_get_field_int(pages, 0)), limit);
 	db_free_result(pages);
 	return floatround(tpages, floatround_ceil);
-}
-
-CALLBACK: OnPlayerSongFound(index, response_code, data[])
-{
-	if (!PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP]) return 1;
-
-	/*if (response_code == 200)
-	{
-		new videodata[11][4][86], dialog_counter;
-		if(sscanf(data, "p<,>a<dds[86]>[11]", videodata));
-
-		new dialog[150 * sizeof(videodata)];
-		format(dialog, sizeof(dialog), "Nombre\tDuración\n");
-		for(new i = 0; i != sizeof(videodata); i++)
-		{
-			format(PLAYER_DIALOG_MP3_RESULT[index][i][videoID], sizeof(dialog), "%d\n", videodata[i][1]);
-			dialog_counter ++;
-		}
-
-		ShowPlayerDialog(index, DIALOG_PLAYER_MP3_RESULTS, DIALOG_STYLE_LIST, "Resultados", dialog, "Reproducir", "Salir");
-		PLAYER_TEMP[index][py_DIALOG_RESPONDED] = false;
-	}
-	else ShowPlayerMessage(index, "~r~La búsqueda falló, inténtelo de nuevo más tarde.", 3);*/
-
-	PLAYER_TEMP[index][py_PLAYER_WAITING_MP3_HTTP] = false;
-	return 1;
-}
-
-CALLBACK: OnSongDownloadResponse(playerid, response_code, data[])
-{
-	if(response_code != 200)
-	{
-		switch(response_code)
-		{
-			case 403: return SendClientMessage(playerid, COLOR_WHITE, "No pudimos reproducir esta canción...");
-			case 429: return SendClientMessage(playerid, COLOR_WHITE, "Se han estado solicitando muchas canciones ultimamente, intenta más tarde.");
-			default: return 0;
-		}
-	}
-
-	new url[128];
-	format(url, sizeof(url), "http://127.0.0.1:12345%s", data); // /pipe/%d
-
-	if (PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY])
-	{
-		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-		{
-			if (IsPlayerConnected(i))
-			{
-				if ( (CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_OWN_PROPERTY || CHARACTER_INFO[i][ch_STATE] == ROLEPLAY_STATE_GUEST_PROPERTY) && CHARACTER_INFO[i][ch_INTERIOR_EXTRA] == CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA])
-				{
-					PlayAudioStreamForPlayer(i, url);
-					SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
-				}
-			}
-		}
-		PLAYER_TEMP[playerid][py_MUSIC_FOR_PROPERTY] = false;
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Poné música en su propiedad.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	}
-	else if (PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE])
-	{
-		for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
-		{
-			if (IsPlayerConnected(i))
-			{
-				if (IsPlayerInAnyVehicle(i))
-				{
-					if (GetPlayerVehicleID(playerid) == GetPlayerVehicleID(i))
-					{
-						PlayAudioStreamForPlayer(i, url);
-						SendClientMessage(i, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
-					}
-				}
-			}
-		}
-		PLAYER_TEMP[playerid][py_MUSIC_FOR_VEHICLE] = false;
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Pone música en su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	}
-	else
-	{
-		PlayAudioStreamForPlayer(playerid, url);
-		SendClientMessage(playerid, COLOR_WHITE, "Reproduciendo música. Usa {CCFF00}/stop para parar la música.");
-		SetPlayerChatBubble(playerid, "\n\n\n\n* Escucha música en sus auriculares.\n\n\n", 0xffcb90FF, 20.0, 5000);
-	}
-
-	return 1;
 }
 
 GetEmptyPlayer_GPS_Slot(playerid)
