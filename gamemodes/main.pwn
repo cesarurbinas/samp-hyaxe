@@ -2795,6 +2795,19 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
 					return 0;
 	            }
 	        }
+	        case 695:
+	        {
+	            if (GetPlayerInterior(playerid) != 0)
+	            {
+	            	new str_text[144];
+					format(str_text, sizeof(str_text), "[ANTI-CHEAT] Kick sobre %s (%d): SleepAnim", PLAYER_TEMP[playerid][py_NAME], playerid);
+				    SendMessageToAdmins(COLOR_ANTICHEAT, str_text);
+				    SendDiscordWebhook(str_text, 1);
+				    SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: SleepAnim");
+					KickEx(playerid, 500);
+					return 0;
+	            }
+	        }
 	        /*case 1538, 1539, 1543:
 	        {
 	        	if (onFootData[PR_position][2] > 1.0)
@@ -12221,7 +12234,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_QUESTION_CREATE:
 		{
 			new dialog[128];
-			format(dialog, sizeof(dialog), ""COL_WHITE"Escriba la respuesta a la pregunta:\n"COL_RED"%s", SECURITY_QUESTIONS[ PLAYER_TEMP[playerid][py_ANSWER_INDEX] ]);
+			format(dialog, sizeof(dialog), ""COL_WHITE"Escriba la respuesta a la pregunta:\n"COL_RED"%s"COL_WHITE"\n\nAVISO: Si se olvida la respuesta no hay\nforma alguna de recuperar la cuenta.", SECURITY_QUESTIONS[ PLAYER_TEMP[playerid][py_ANSWER_INDEX] ]);
 
 			ShowPlayerNotification(playerid, "Escriba la respuesta a su pregunta de seguridad.", 5);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Seguridad de la cuenta", dialog, "Terminar", "Atrás");
