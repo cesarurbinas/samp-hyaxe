@@ -22923,10 +22923,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 1:
 					{
-						new
-							str_text[32],
-							pay = minrand(200, 400)
-						;
+						new pay = minrand(200, 400);
 
 						GivePlayerCash(playerid, pay, false);
 
@@ -23628,9 +23625,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				new 
-					str_text[32],
 					payment = (PLAYER_MISC[playerid][MISC_PUMPKIN] * 1000),
-					vip_payment = 0;
+					vip_payment = 0
+				;
 
 	    		if (ACCOUNT_INFO[playerid][ac_SU])
 				{
@@ -23983,7 +23980,6 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			GivePlayerReputation(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID]);
 
 			GivePlayerCash(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], money + passenger_work_extra_payment);
-			GameTextForPlayer(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID], str_text, 5000, 1);
 			PLAYER_SKILLS[ TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID] ][WORK_TRASH] ++;
 			SavePlayerSkills(TRASH_VEHICLES[ PLAYER_TEMP[playerid][py_TRASH_VEHICLE_ID] ][trash_vehicle_PASSENGER_ID]);
 
