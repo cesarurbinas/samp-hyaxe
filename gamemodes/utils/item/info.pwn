@@ -46,6 +46,9 @@ GetItemNameByType(type)
 		case 55: name = "Balas (Subfusil)";
 		case 56: name = "Geolocalizador";
 		case 57: name = "Calabaza";
+		case 58: name = "Vengalas";
+		case 59: name = "Mortero";
+		case 60: name = "Petardo";
 	}
 	return name;
 }
