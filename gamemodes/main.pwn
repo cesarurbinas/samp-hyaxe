@@ -23112,7 +23112,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			    if (is_hycoin_best == 5)
 			    {
 			    	new 
-			    		random_hycoin = minrand(1, 2),
+			    		random_hycoin = minrand(5, 15),
 			    		coin_text[64];
 
 			    	ACCOUNT_INFO[playerid][ac_SD] += random_hycoin;
