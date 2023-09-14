@@ -23950,8 +23950,8 @@ public StoreBuyRecv(index, response_code, const data[])
 							modelid,
 							x, y, z,
 							angle,
-							1,
-							1,
+							minrand(1, 10),
+							minrand(1, 10),
 							VEHICLE_INFO[ STORE_PRODUCTS[ PLAYER_TEMP[index][py_CREDIT_PRODUCT] ][store_EXTRA] - 400 ][vehicle_info_MAX_GAS]
 						);
 						if (!vid) ShowPlayerNotification(index, "Tu vehículo se ha comprado correctamente pero no pudo spawnear debido a que ya hay muchos vehículos creados.", 4);
