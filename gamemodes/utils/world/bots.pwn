@@ -590,7 +590,7 @@ new fake_damage[][] =
 forward UpdateBot(playerid);
 public UpdateBot(playerid)
 {
-	SetPlayerFakePing(playerid, minrand(170, 345));
+	//SetPlayerFakePing(playerid, minrand(170, 345));
 
 	/*if (BOTS[playerid][b_OCCUPIED])
 	{
@@ -687,7 +687,7 @@ SetBot(playerid)
 	BOTS[playerid][b_OCCUPIED] = false;
 
 	SetPlayerName(playerid, name);
-	SetPlayerFakePing(playerid, minrand(170, 345));
+	//SetPlayerFakePing(playerid, minrand(170, 345));
 	SetPlayerScore(playerid, minrand(1, 7));
 
 	BOTS[playerid][b_TIMER][0] = SetTimerEx("UpdateBot", 5000, true, "i", playerid);

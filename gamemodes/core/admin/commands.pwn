@@ -2329,7 +2329,7 @@ CMD:testsound(playerid, params[])
 	return 1;
 }
 
-CMD:fakeping(playerid, params[])
+/*CMD:fakeping(playerid, params[])
 {
 	new fakeping, to_player;
 	if (sscanf(params, "id", to_player, fakeping)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /fakeping <playerid> <value>");
@@ -2338,7 +2338,7 @@ CMD:fakeping(playerid, params[])
 	SetPlayerFakePing(to_player, fakeping);
 	SendClientMessageEx(playerid, COLOR_WHITE, "FakePing = "COL_GREEN"%d", fakeping);
 	return 1;
-}
+}*/
 
 CMD:botmaster(playerid, params[])
 {

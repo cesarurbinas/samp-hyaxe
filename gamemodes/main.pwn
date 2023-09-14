@@ -9,7 +9,7 @@
 #undef MAX_PLAYERS
 #define MAX_PLAYERS 300 
 
-#define SERVER_VERSION 			"v0.5 Build 200"
+#define SERVER_VERSION 			"v0.6 Build 0"
 #define SERVER_NAME 			"Hyaxe"
 #define SERVER_WEBSITE 			"www.hyaxe.com"
 #define SERVER_DISCORD 			"www.hyaxe.com/discord"
@@ -215,12 +215,12 @@ main()
 	printf("\n[build] Hyaxe SA-MP "SERVER_VERSION"\n");
 }
 
-enum b1g_enum
+/*enum b1g_enum
 {
 	PING,
 	bool:FAKE_PING
 }
-new B1G_PLAYER[MAX_PLAYERS][b1g_enum];
+new B1G_PLAYER[MAX_PLAYERS][b1g_enum];*/
 
 enum
 {
@@ -2819,7 +2819,7 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
     return 1;
 }
 
-public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
+/*public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
 {
 	switch(rpcid)
 	{
@@ -2858,9 +2858,9 @@ public OnOutcomingRPC(playerid, rpcid, BitStream:bs)
 		}
 	}
 	return 1;
-}
+}*/
 
-SetPlayerFakePing(playerid, ping)
+/*SetPlayerFakePing(playerid, ping)
 {
 	if (!IsPlayerConnected(playerid)) return 0;
 
@@ -2869,7 +2869,7 @@ SetPlayerFakePing(playerid, ping)
 	B1G_PLAYER[playerid][FAKE_PING] = true;
 	B1G_PLAYER[playerid][PING] = ping;
 	return 1;
-}
+}*/
 
 ClearPlayerChatBox(playerid, ammount = 20)
 {
@@ -3586,7 +3586,7 @@ ResetPlayerVariables(playerid)
 	new temp_PLAYER_POCKET[Player_Pocket_Enum];
 	for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++) PLAYER_POCKET[playerid][i] = temp_PLAYER_POCKET;
 
-	B1G_PLAYER[playerid][FAKE_PING] = false;
+	//B1G_PLAYER[playerid][FAKE_PING] = false;
 
 	new temp_PLAYER_PHONE[Phone_Info_Enum]; PLAYER_PHONE[playerid] = temp_PLAYER_PHONE;
 
@@ -34391,7 +34391,7 @@ flags:atenderre(CMD_MODERATOR)
 flags:deletead(CMD_MODERATOR2)
 flags:settime(CMD_MODERATOR3)
 flags:darstaff(CMD_OWNER)
-flags:fakeping(CMD_OWNER)
+//flags:fakeping(CMD_OWNER)
 flags:botmaster(CMD_OWNER)
 flags:hy(CMD_OWNER)
 flags:ac(CMD_OWNER)
