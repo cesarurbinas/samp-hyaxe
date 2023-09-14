@@ -339,7 +339,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[130];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_TOYS` WHERE `ID_USER` = '%d' AND `ID_TOY` = '%d';", ACCOUNT_INFO[playerid][ac_ID], PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				if(PLAYER_TOYS[playerid][ PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT] ][player_toy_ATTACHED]) RemovePlayerAttachedObject(playerid, PLAYER_TEMP[playerid][py_SELECTED_TOY_SLOT]);
 
@@ -418,7 +418,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[90];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_TOYS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new temp_PLAYER_TOYS[Player_Toys_Info];
 				for(new i = 0; i != MAX_PLAYER_ATTACHED_OBJECTS; i ++)
@@ -677,7 +677,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID]
 				);
 
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_TRANSFER_SENT, inputtext[0], PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT]);
 				RegisterBankAccountTransaction(PLAYER_TEMP[playerid][py_SELECT_BANK_TRANSFER_ACCOUNT], BANK_TRANSACTION_TRANSFER_RECE, inputtext[0], BANK_ACCOUNT[playerid][bank_account_ID]);
@@ -1012,7 +1012,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[90];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_POCKET` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new temp_PLAYER_POCKET[Player_Pocket_Enum];
 				for(new i = 0; i != MAX_PLAYER_POCKET_OBJECTS; i ++) PLAYER_POCKET[playerid][i] = temp_PLAYER_POCKET;
@@ -1254,7 +1254,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[120];
 				format(DB_Query, sizeof DB_Query, "UPDATE `PHONE_BOOK` SET `NAME` = '%q' WHERE `CONTACT_ID` = '%d';", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME], PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 			    ShowPlayerMessage(playerid, "Contacto modificado.", 2);
 				ShowDialog(playerid, DIALOG_PHONE_BOOK);
@@ -1268,7 +1268,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[120];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PHONE_BOOK` WHERE `PHONE_ID` = '%d' AND `CONTACT_ID` = '%d';", PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				SendClientMessageEx(playerid, COLOR_WHITE, "Contacto "COL_RED"\"%s\" "COL_WHITE"eliminado de tu agenda.", PLAYER_PHONE_BOOK[playerid][ PLAYER_TEMP[playerid][py_PLAYER_PHONE_BOOK_SELECTED] ][phone_book_contact_NAME]);
 			    ShowPlayerMessage(playerid, "Contacto eliminado.", 2);
@@ -1289,7 +1289,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[90];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PHONE_BOOK` WHERE `PHONE_ID` = '%d';", PLAYER_PHONE[playerid][player_phone_NUMBER]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new temp_PLAYER_PHONE_BOOK[Phone_Book_Enum];
 				for(new i = 0; i != MAX_PHONE_CONTACTS; i ++) PLAYER_PHONE_BOOK[playerid][i] = temp_PLAYER_PHONE_BOOK;
@@ -1548,7 +1548,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						"UPDATE `BANK_ACCOUNTS` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';",
 						BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID]
 					);
-					db_query(Database, DB_Query_update);
+					db_free_result(db_query(Database, DB_Query_update));
 
 					RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_BUY_PROPERTY, PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_PRICE]);
 				}
@@ -1557,7 +1557,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ACCOUNT_INFO[playerid][ac_SD] -= PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA];
 
 					format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
-					db_query(Database, DB_Query_update);
+					db_free_result(db_query(Database, DB_Query_update));
 
 					SendClientMessageEx(playerid, COLOR_WHITE, "Has gastado %d "SERVER_COIN" en la compra de esta propiedad.", PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXTRA]);
 				}
@@ -1573,7 +1573,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					"INSERT INTO `PROPERTY_OWNER` (`ID_PROPERTY`, `ID_USER`, `PROPERTY_NAME`) VALUES ('%d', '%d', '%q');",
 					PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_ID], ACCOUNT_INFO[playerid][ac_ID], PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_NAME]
 				);
-				db_query(Database, DB_Query_update);
+				db_free_result(db_query(Database, DB_Query_update));
 
 				new label_str[256], info[3], city[45], zone[45];
 				GetPointZone(PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_X], PROPERTY_INFO[PLAYER_TEMP[playerid][py_BUY_HOUSE_INDEX]][property_EXT_Y], city, zone);
@@ -1703,7 +1703,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[160];
 				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_GPS` SET `NAME` = '%q' WHERE `ID` = '%d' AND `ID_USER` = '%d';", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_NAME], PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_ID], ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 				ShowPlayerMessage(playerid, "Has modificado el nombre de este lugar correctamente.", 3);
@@ -1718,7 +1718,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[110];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_GPS` WHERE `ID` = '%d' AND `ID_USER` = '%d';", PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_ID], ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_VALID] = false;
 				PLAYER_GPS[playerid][ PLAYER_TEMP[playerid][py_GPS_PLAYER_SELECTED] ][player_gps_ID] = 0;
@@ -1742,7 +1742,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[90];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_GPS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new temp_PLAYER_GPS[Player_GPS_Enum];
 				for(new i = 0; i != MAX_PLAYER_GPS_SAVES; i ++) PLAYER_GPS[playerid][i] = temp_PLAYER_GPS;
@@ -2020,7 +2020,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[200];
 				format(DB_Query, sizeof DB_Query, "UPDATE `PROPERTY_OWNER` SET `PROPERTY_NAME` = '%q' WHERE `ID_PROPERTY` = '%d' AND `ID_USER` = '%d';", inputtext, PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID], ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 				ShowDialog(playerid, DIALOG_PROPERTY_OPTIONS);
 			}
 			else ShowDialog(playerid, DIALOG_PROPERTY_OPTIONS);
@@ -2131,7 +2131,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 					new DB_Query_update[160];
 					format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `CUENTA` SET `SD` = '%d' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID]);
-					db_query(Database, DB_Query_update);
+					db_free_result(db_query(Database, DB_Query_update));
 
 					SendClientMessageEx(playerid, COLOR_WHITE, "Has gastado %d "SERVER_COIN" en la compra de este vehículo.", SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_EXTRA]);
 				}
@@ -2149,7 +2149,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					BANK_ACCOUNT[playerid][bank_account_BALANCE] -= SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_PRICE];
 					new DB_Query_update[160];
 					format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `BANK_ACCOUNTS` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';", BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID]);
-					db_query(Database, DB_Query_update);
+					db_free_result(db_query(Database, DB_Query_update));
 					RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_BUY_VEHICLE, SELL_VEHICLES[ PLAYER_TEMP[playerid][py_SELECTED_BUY_VEHICLE_ID] ][sell_vehicle_PRICE]);
 				}
 
@@ -2280,7 +2280,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
 					PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID], ACCOUNT_INFO[playerid][ac_ID]
 				);
-				db_query(Database, DB_Query_update);
+				db_free_result(db_query(Database, DB_Query_update));
 
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_SOLD_PROPERTY, payment);
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has vendido esta propiedad, has recibido %s$ en tu cuenta bancaria.", number_format_thousand(payment));
@@ -2391,7 +2391,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ACCOUNT_INFO[playerid][ac_ID],
 					PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]
 				);
-				db_query(Database, DB_Query_update);
+				db_free_result(db_query(Database, DB_Query_update));
 
 
 				// Banco
@@ -2426,7 +2426,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
 						BANK_ACCOUNT[seller][bank_account_BALANCE], BANK_ACCOUNT[seller][bank_account_ID]
 				);
-				db_query(Database, DB_Query_update);
+				db_free_result(db_query(Database, DB_Query_update));
 
 				new str_buy[164];
 				GetPointZone(PROPERTY_INFO[PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED]][property_EXT_X], PROPERTY_INFO[PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED]][property_EXT_Y], city, zone);
@@ -2486,7 +2486,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				//Destruir veh
 				new DB_Query_update[350];
 				format(DB_Query_update, sizeof(DB_Query_update), "DELETE FROM `PLAYER_VEHICLES` WHERE `ID` = '%d';", PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][player_vehicle_ID]);
-				db_query(Database, DB_Query_update);
+				db_free_result(db_query(Database, DB_Query_update));
 
 				DestroyVehicleEx(PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED]);
 
@@ -2500,7 +2500,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 				BANK_ACCOUNT[playerid][bank_account_BALANCE] += payment;
 				format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `BANK_ACCOUNTS` SET `BALANCE` = '%d' WHERE `ID_ACCOUNT` = '%d';", BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID]);
-				db_query(Database, DB_Query_update);
+				db_free_result(db_query(Database, DB_Query_update));
 				RegisterBankAccountTransaction(BANK_ACCOUNT[playerid][bank_account_ID], BANK_TRANSACTION_SOLD_VEHICLE, payment);
 
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has vendido este vehículo, has recibido %s$ en tu cuenta bancaria.", number_format_thousand(payment));
@@ -2599,7 +2599,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					ACCOUNT_INFO[playerid][ac_ID],
 					PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][player_vehicle_ID]
 				);
-				db_query(Database, DB_Query_update);
+				db_free_result(db_query(Database, DB_Query_update));
 
 
 				// Banco
@@ -2635,7 +2635,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
 						BANK_ACCOUNT[seller][bank_account_BALANCE], BANK_ACCOUNT[seller][bank_account_ID]
 				);
-				db_query(Database, DB_Query_update);
+				db_free_result(db_query(Database, DB_Query_update));
 
 
 				ShowPlayerMessage(playerid, "¡Vehículo omprado! Utiliza /GPS para localizarlo.", 3);
@@ -3860,7 +3860,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[90];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_WEAPONS` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				ResetPlayerWeaponsEx(playerid);
 
@@ -4221,7 +4221,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_ID],
 							ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_SD], ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID]
 				);
-				db_query(Database, DB_Query_update);
+				db_free_result(db_query(Database, DB_Query_update));
 
 
 
@@ -4309,7 +4309,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[90];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_BOOT` WHERE `ID_VEHICLE` = '%d';", PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][player_vehicle_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new temp_VEHICLE_BOOT[enum_VEHICLE_BOOT];
 				for(new i = 0; i != MAX_BOOT_SLOTS; i ++) VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][i] = temp_VEHICLE_BOOT;
@@ -4339,7 +4339,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						new DB_Query[64];
 						format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_BOOT` WHERE `ID_OBJECT` = '%d';", VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_OBJECT_ID]);
-						db_query(Database, DB_Query);
+						db_free_result(db_query(Database, DB_Query));
 
 						GivePlayerWeaponEx(playerid, VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT], VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT_EXTRA]);
 						//GivePlayerWeaponEx(playerid, VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_INT], 9999);
@@ -4364,7 +4364,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[64];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_BOOT` WHERE `ID_OBJECT` = '%d';", VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ][vehicle_boot_OBJECT_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new temp_VEHICLE_BOOT[enum_VEHICLE_BOOT]; VEHICLE_BOOT[ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE] ][ PLAYER_TEMP[playerid][py_DIALOG_BOT_VEHICLE_BOOT_SLOT] ] = temp_VEHICLE_BOOT;
 			}
@@ -4461,13 +4461,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_SKILLS` SET `TOTAL` = '%d' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_POLICE);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"El nuevo rango de %s es: '%s'.", name, POLICE_RANKS[listitem]);
 
 				if(listitem == 0)
 				{
 					format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_WORKS` SET `SET` = '0' WHERE `ID_USER` = '%d' AND `ID_WORK` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID], WORK_POLICE);
-					db_query(Database, DB_Query);
+					db_free_result(db_query(Database, DB_Query));
 				}
 
 				if(connected)
@@ -4842,7 +4842,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `ADMIN_LEVEL` = '%d' WHERE `ID` = '%d';", listitem, PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 				SendClientMessageEx(playerid, COLOR_WHITE, "El nuevo rango de %s es: '%s'.", name, ADMIN_LEVELS[listitem]);
 
 				if(connected)
@@ -4891,7 +4891,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[160];
 				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SALT` = '%q' `PASS` = '%q' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				ShowPlayerNotification(playerid, "~r~Importante~w~~n~¡Nunca compartas o muestres la contraseña de tu cuenta! Los administradores de "SERVER_NAME" nunca solicitan esta información.", 4);
 				ShowPlayerMessage(playerid, "~g~Tu contraseña ha sido cambiada correctamente.", 3);
@@ -4968,133 +4968,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowDialog(playerid, DIALOG_ANTI_CHEAT_MODIFY);
 			}
 			else ShowDialog(playerid, DIALOG_ANTI_CHEAT_MODIFY);
-			return 1;
-		}
-		case DIALOG_SHOP_ARTICLE_MODIFY:
-		{
-			if(response)
-			{
-				if(sscanf(inputtext, "d", inputtext[0]))
-				{
-					ShowPlayerMessage(playerid, "Introduce un valor númerico.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-				if(inputtext[0] < 0)
-				{
-					ShowPlayerMessage(playerid, "Introduce un valor positivo.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-				if(inputtext[0] > 1000000000)
-				{
-					ShowPlayerMessage(playerid, "~r~El precio es muy alto.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-
-				new DB_Query[80];
-				format(DB_Query, sizeof DB_Query, "UPDATE `SHOP` SET `PRICE` = '%d' WHERE `ID` = '%d';", inputtext[0], PLAYER_TEMP[playerid][py_SHOP_SELECTED_ARTICLE_ID]);
-				db_query(Database, DB_Query);
-
-				UpdatePlayerShop(playerid);
-			    ShowPlayerMessage(playerid, "El precio de tu artículo ha sido actualizado.", 3);
-			}
-			return 1;
-		}
-		case DIALOG_SHOP_ARTICLE_REMOVE:
-		{
-			if(response)
-			{
-				new DB_Query[80];
-				format(DB_Query, sizeof DB_Query, "DELETE FROM `SHOP` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_SHOP_SELECTED_ARTICLE_ID]);
-				db_query(Database, DB_Query);
-
-				if(PLAYER_TEMP[playerid][py_SHOP_COME_FROM_MY_ADS])
-				{
-					PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_MY_ADS;
-					UpdatePlayerShop(playerid);
-				}
-				else
-				{
-					PLAYER_TEMP[playerid][py_SHOP_STATE] = PLAYER_SHOP_STATE_ALL;
-					UpdatePlayerShop(playerid);
-				}
-			    ShowPlayerMessage(playerid, "Tu producto se ha eliminado.", 2);
-			}
-			return 1;
-		}
-		case DIALOG_SHOP_ADD:
-		{
-			if(response)
-			{
-				switch(listitem)
-				{
-					case 0:
-					{
-						PLAYER_TEMP[playerid][py_NOTARY_OPTION] = 2;
-						ShowDialog(playerid, DIALOG_NOTARY_SELECT_PROPERTY);
-					}
-					case 1:
-					{
-						PLAYER_TEMP[playerid][py_NOTARY_OPTION] = 2;
-						ShowDialog(playerid, DIALOG_NOTARY_SELECT_VEHICLE);
-					}
-					case 2:
-					{
-						PLAYER_TEMP[playerid][py_SHOP_ADD_TYPE] = SHOP_ARTICLE_TYPE_OTHER;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_MODELID] = 1314;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL1] = 0;
-						PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL2] = 0;
-						ShowDialog(playerid, DIALOG_SHOP_ADD_TEXT);
-					}
-				}
-			}
-			return 1;
-		}
-		case DIALOG_SHOP_ADD_TEXT:
-		{
-			if(response)
-			{
-				if(strlen(inputtext) > 24) return ShowDialog(playerid, dialogid);
-				new text[24];
-				if(sscanf(inputtext, "s[24]", text)) return ShowDialog(playerid, dialogid);
-				if(!td_str_legal(text)) return ShowDialog(playerid, dialogid);
-
-				format(PLAYER_TEMP[playerid][py_SHOP_ADD_TEXT], 24, "%s", inputtext);
-				ShowDialog(playerid, DIALOG_SHOP_ADD_PRICE);
-			}
-			return 1;
-		}
-		case DIALOG_SHOP_ADD_PRICE:
-		{
-			if(response)
-			{
-				if(sscanf(inputtext, "d", inputtext[0]))
-				{
-					ShowPlayerMessage(playerid, "Introduce un valor númerico.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-				if(inputtext[0] < 0)
-				{
-					ShowPlayerMessage(playerid, "Introduce un valor positivo.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-				if(inputtext[0] > 1000000000)
-				{
-					ShowPlayerMessage(playerid, "~r~El precio es muy alto.", 3);
-					ShowDialog(playerid, dialogid);
-					return 1;
-				}
-
-				if(500 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Necesitas 500$ para colocar un anuncio", 3);
-
-				AddNewAd(playerid, PLAYER_TEMP[playerid][py_SHOP_ADD_TYPE], inputtext[0], PLAYER_TEMP[playerid][py_SHOP_ADD_TEXT], PLAYER_TEMP[playerid][py_SHOP_ADD_MODELID], PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL1], PLAYER_TEMP[playerid][py_SHOP_ADD_VCOL2]);
-				GivePlayerCash(playerid, -500);
-				ShowPlayerMessage(playerid, "~g~Tu anuncio se ha publicado correctamente.", 3);
-			}
 			return 1;
 		}
 		case DIALOG_SHOP_TOYS:
@@ -5494,10 +5367,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							PLAYER_CREW[playerid][player_crew_ID],
 							PLAYER_CREW[playerid][player_crew_RANK]
 				);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
-				ShowPlayerMessage(playerid, "Usa ~g~/banda ~w~para administrar tu banda.", 4);
-				SendClientMessageEx(playerid, COLOR_WHITE, "La crew {%06x}'%s' "COL_WHITE"se ha creado correctamente.", CREW_INFO[index][crew_COLOR] >>> 8, CREW_INFO[index][crew_NAME]);
+				ShowPlayerMessage(playerid, "Usa ~g~el apartado de bandas en el inventario ~w~para administrar tu banda.", 4);
+				SendClientMessageEx(playerid, COLOR_WHITE, "La banda {%06x}'%s' "COL_WHITE"se ha creado correctamente.", CREW_INFO[index][crew_COLOR] >>> 8, CREW_INFO[index][crew_NAME]);
 			}
 			return 1;
 		}
@@ -5674,7 +5547,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[128];
 				format(DB_Query, sizeof DB_Query, "UPDATE `CREW` SET `NAME` = '%q' WHERE `ID` = '%d';", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_NAME], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 				//actualizar nombre casas pickups
 
 
@@ -5831,7 +5704,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SendMessageToCrewMembers(PLAYER_CREW[playerid][player_crew_ID], COLOR_WHITE, message);
 
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_CREW` WHERE `ID_USER` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MEMBERS] --;
 				if(connected)
@@ -5918,7 +5791,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							PLAYER_CREW[playerid][player_crew_ID],
 							PLAYER_CREW[playerid][player_crew_RANK]
 				);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new message[145];
 				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s se ha unido a la banda con el rango %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME]);
@@ -6013,7 +5886,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[145];
 				format(DB_Query, sizeof DB_Query, "UPDATE `CREW_RANKS` SET `RANK_NAME` = '%q' WHERE `ID` = '%d';", CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 			}
 			else ShowDialog(playerid, DIALOG_CREW_RANK_MODIFY);
 			return 1;
@@ -6090,7 +5963,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[120];
 				format(DB_Query, sizeof DB_Query, "UPDATE `RANK_PERMISSIONS` SET `SET` = '%d' WHERE `ID_RANK` = '%d' AND `PERMISSION` = '%d';", CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_PERMISSION][listitem], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_ID], listitem);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				ShowDialog(playerid, dialogid);
 			}
@@ -6138,7 +6011,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						PLAYER_CREW[playerid][player_crew_ID],
 						PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK]
 				);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Has eliminado el rango '%s'.", CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_TEMP[playerid][py_CREW_SELECTED_RANK] ][crew_rank_NAME]);
 
@@ -6201,7 +6074,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[90];
 				format(DB_Query, sizeof DB_Query, "UPDATE `CREW` SET `COLOR` = '%d' WHERE `ID` = '%d';", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR], CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new saved_noti[264];
 				format(saved_noti, sizeof saved_noti, "%s cambió el color de la banda.", PLAYER_TEMP[playerid][py_RP_NAME]);
@@ -6232,7 +6105,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[350];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `CREW` WHERE `ID` = '%d';", PLAYER_CREW[playerid][player_crew_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new tmp_CREW_INFO[enum_CREW_INFO], old_crew_id = PLAYER_CREW[playerid][player_crew_ID];
 				CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ] = tmp_CREW_INFO;
@@ -6304,7 +6177,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					Streamer_SetArrayData(STREAMER_TYPE_PICKUP, PROPERTY_INFO[ i ][property_EXT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
 
 					format(DB_Query, sizeof(DB_Query), "DELETE FROM `PROPERTY_TERRITORY` WHERE `ID_PROPERTY` = '%d';", PROPERTY_INFO[i][property_ID]);
-					db_query(Database, DB_Query);
+					db_free_result(db_query(Database, DB_Query));
 				}
 
 			}
@@ -6344,7 +6217,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SaveNotificationToCrewMemeber(PLAYER_CREW[playerid][player_crew_ID], saved_noti);
 
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PLAYER_CREW` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				SetPlayerNormalColor(playerid);
 				CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_MEMBERS] --;
@@ -6443,7 +6316,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 
 				format(DB_Query, sizeof DB_Query, "UPDATE `PLAYER_CREW` SET `RANK` = '%d' WHERE `ID_USER` = '%d';", PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem], PLAYER_TEMP[playerid][py_SELECTED_DB_AC_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new message[145];
 				if(connected)
@@ -6496,10 +6369,10 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				new DB_Query[350];
 
 				format(DB_Query, sizeof(DB_Query), "INSERT INTO `PROPERTY_TERRITORY` (`ID_PROPERTY`, `ID_TERRITORY`) VALUES ('%d', '%d');", PROPERTY_INFO[ index ][property_ID], TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				format(DB_Query, sizeof(DB_Query), "DELETE FROM `PROPERTY_OWNER` WHERE `ID_PROPERTY` = '%d';", PROPERTY_INFO[ index ][property_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new message[145];
 				format(message, sizeof message, "{%06x}[BANDA] "COL_WHITE"%s (%s) ha añadido una nueva propiedad en %s.", CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_COLOR] >>> 8, PLAYER_TEMP[playerid][py_RP_NAME], CREW_RANK_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][ PLAYER_CREW[playerid][player_crew_RANK] ][crew_rank_NAME], TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_NAME]);
@@ -6528,7 +6401,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[350];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `CREW_TERRITORIES` WHERE `ID_TERRITORY` = '%d';", TERRITORIES[ PLAYER_TEMP[playerid][py_PLAYER_TERRITORY_PRO] ][territory_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				for(new i = 0; i != MAX_PROPERTIES; i ++)
 				{
@@ -6559,7 +6432,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						Streamer_SetArrayData(STREAMER_TYPE_PICKUP, PROPERTY_INFO[ i ][property_EXT_PICKUP_ID], E_STREAMER_EXTRA_ID, info);
 
 						format(DB_Query, sizeof(DB_Query), "DELETE FROM `PROPERTY_TERRITORY` WHERE `ID_PROPERTY` = '%d';", PROPERTY_INFO[ i ][property_ID]);
-						db_query(Database, DB_Query);
+						db_free_result(db_query(Database, DB_Query));
 					}
 				}
 
@@ -6612,7 +6485,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[128];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `PROPERTY_TERRITORY` WHERE `ID_PROPERTY` = '%d';", PROPERTY_INFO[ PLAYER_TEMP[playerid][py_PLAYER_PROPERTY_SELECTED] ][property_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				ShowPlayerMessage(playerid, "La propiedad ha sido liberada.", 3);
 			}
@@ -6723,7 +6596,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[128], DBResult:Result;
 				format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SD` = '%d', `SU` = '%d', `SU_EXPIRE_DATE` = DATETIME(`SU_EXPIRE_DATE`, '+30 day') WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_SD], ACCOUNT_INFO[playerid][ac_SU], ACCOUNT_INFO[playerid][ac_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				format(DB_Query, sizeof DB_Query, "SELECT `SU_EXPIRE_DATE` FROM `CUENTA` WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
 				Result = db_query(Database, DB_Query);
@@ -7144,7 +7017,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				new DB_Query[128];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_OBJECTS` WHERE `ID` = '%d';", VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ][vobject_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new temp_VEHICLE_OBJECTS[e_VEHICLE_OBJECTS];
 				VEHICLE_OBJECTS[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][ PLAYER_TEMP[playerid][py_TUNING_EDIT_SLOT] ] = temp_VEHICLE_OBJECTS;
@@ -7161,7 +7034,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[128];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_OBJECTS` WHERE `ID_VEHICLE` = '%d';", PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_TUNING_GARAGE_VEHICLEID] ][player_vehicle_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				new temp_VEHICLE_OBJECTS[e_VEHICLE_OBJECTS];
 				for(new i = 0; i != MAX_SU_VOBJECTS; i ++)
@@ -7473,7 +7346,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			{
 				new DB_Query[128];
 				format(DB_Query, sizeof DB_Query, "DELETE FROM `POLICE_HISTORY` WHERE `ID` = '%d';", PLAYER_TEMP[playerid][py_SELECTED_BYC_ID]);
-				db_query(Database, DB_Query);
+				db_free_result(db_query(Database, DB_Query));
 
 				ShowPlayerMessage(playerid, "~r~Registro borrado del historial policial.", 3);
 			}
