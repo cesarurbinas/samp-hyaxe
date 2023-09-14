@@ -116,6 +116,10 @@ def webhook():
 
 @app.route('/proxycheck/<ip>')
 def proxy_check(ip):
+    whitelist = ['138.204.13.179']
+    if ip in whitelist:
+        return 'N'
+        
     address_info = requests.get(f"http://ip-api.com/json/{ip}?fields=proxy,hosting,countryCode").json()
     whitelist = [
         'AD',

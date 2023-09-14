@@ -274,7 +274,7 @@ Float:CameraLookToAngle(playerid)
 
 IsFakeClient(playerid)
 {  
-	if(IsPlayerNPC(playerid)) return 0;
+	if (IsPlayerNPC(playerid)) return 0;
 	new TempId[80], TempNumb;  
 	gpci(playerid, TempId, sizeof(TempId));  
 	for(new i = 0; i < strlen(TempId); i++)  
@@ -282,4 +282,21 @@ IsFakeClient(playerid)
 		if(TempId[i] >= '0' && TempId[i] <= '9')  TempNumb++;  
 	}  
 	return (TempNumb >= 30 || strlen(TempId) <= 30) ? true : false;
+}
+
+GetDatabaseUserName(db_id)
+{
+	new
+		DBResult:Result,
+		DB_Query[128],
+		name[25]
+	;
+
+	format(DB_Query, sizeof(DB_Query), "SELECT `NAME` FROM `CUENTA` WHERE `ID` = %d LIMIT 1;", db_id);
+	Result = db_query(Database, DB_Query);
+	if (db_num_rows(Result))
+		db_get_field_assoc(Result, "NAME", name);
+
+	db_free_result(Result);
+	return name;
 }

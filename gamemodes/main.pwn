@@ -3566,7 +3566,7 @@ public OnPlayerConnect(playerid)
 				",
 
 				PLAYER_TEMP[playerid][py_NAME],
-				name, by, date, text
+				name, GetDatabaseUserName(by), date, text
 			);
 
 			ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
@@ -3605,7 +3605,7 @@ public OnPlayerConnect(playerid)
 					",
 
 					PLAYER_TEMP[playerid][py_NAME], PLAYER_TEMP[playerid][py_IP],
-					name, by, date, text, now, expire_date
+					name, GetDatabaseUserName(by), date, text, now, expire_date
 				);
 
 				ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Entiendo", "");
@@ -13628,6 +13628,51 @@ ShowDialog(playerid, dialogid)
 				ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Seleccione para borrar", dialog, "Borrar", "Atrás");
 			}
 		}
+		case DIALOG_VEHICLE_KEYS:
+		{
+			new vehicleid = INVALID_VEHICLE_ID;
+			vehicleid = GetPlayerVehicleID(playerid);
+			if (vehicleid == INVALID_VEHICLE_ID) return 0;
+
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, sprintf(""COL_RED"Llaves [%d/5]", GetUsedKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID])), "Agregar\nEliminar\n", "Seguir", "Atrás");
+		}
+		case DIALOG_VEHICLE_KEYS_ADD:
+		{
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Dar llave", ""COL_WHITE"Ingrese el nombre del usuario a agregar.", "Seguir", "Atrás");
+		}
+		case DIALOG_VEHICLE_KEYS_DEL:
+		{
+			for(new i = 0; i != MAX_LISTITEMS; i ++) PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][i] = -1;
+
+			new
+				dialog[25 * 5],
+				listitem,
+				vehicleid = INVALID_VEHICLE_ID
+			;
+
+			vehicleid = GetPlayerVehicleID(playerid);
+			if (vehicleid == INVALID_VEHICLE_ID) return 0;
+
+			new DBResult:Result, DB_Query[164];
+			format(DB_Query, 164, "SELECT * FROM `VEHICLE_KEYS` WHERE `VEHICLE_ID` = '%d';", PLAYER_VEHICLES[vehicleid][player_vehicle_ID]);
+			Result = db_query(Database, DB_Query);
+
+			for(new i; i < db_num_rows(Result); i++ )
+			{
+				PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] = db_get_field_assoc_int(Result, "USER_ID");
+
+				new line_str[64];
+				format(line_str, sizeof(line_str), "%s\n", GetDatabaseUserName(PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]));
+
+				strcat(dialog, line_str);
+				listitem ++;
+				db_next_row(Result);
+			}
+			db_free_result(Result);
+
+			if (listitem == 0) return ShowPlayerMessage(playerid, "~r~No hay llaves para eliminar", 4);
+			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_LIST, ""COL_RED"Seleccione el usuario", dialog, "Eliminar", "Atrás");
+		}
 		default: return 0;
 	}
 	return 1;
@@ -16050,6 +16095,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				else payment = floatround( floatmul(price, 0.70) );
 
 				//Destruir veh
+				ClearVehicleKeys(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][player_vehicle_ID]);
 				new DB_Query_update[350];
 				format(DB_Query_update, sizeof(DB_Query_update), "DELETE FROM `PLAYER_VEHICLES` WHERE `ID` = '%d';", PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][player_vehicle_ID]);
 				db_free_result(db_query(Database, DB_Query_update));
@@ -16156,8 +16202,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (BANK_ACCOUNT[ PLAYER_TEMP[playerid][py_NOTARY_TO_PLAYER] ][bank_account_ID] == 0) return ShowPlayerMessage(playerid, "~r~El vendedor no tiene cuenta vancaria.", 3);
 
 				// Traspasar
-
 				PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][player_vehicle_OWNER_ID] = ACCOUNT_INFO[playerid][ac_ID];
+				ClearVehicleKeys(PLAYER_VEHICLES[ PLAYER_TEMP[playerid][py_PLAYER_VEHICLE_SELECTED] ][player_vehicle_ID]);
+
 				new DB_Query_update[350];
 				format(DB_Query_update, sizeof(DB_Query_update), "UPDATE `PLAYER_VEHICLES` SET `ID_USER` = '%d' WHERE `ID` = '%d';",
 					ACCOUNT_INFO[playerid][ac_ID],
@@ -21431,7 +21478,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (vehicleid == INVALID_VEHICLE_ID) return ShowPlayerMessage(playerid, "~r~No estás en tu vehículo para aparcarlo.", 2);
 						if (!PLAYER_VEHICLES[vehicleid][player_vehicle_VALID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 2);
 						if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] != ACCOUNT_INFO[playerid][ac_ID]) return ShowPlayerMessage(playerid, "~r~Este no es tú vehículo.", 2);
-						ShowDialog(playerid, DIALOG_VEHICLE_KEYS)
+						ShowDialog(playerid, DIALOG_VEHICLE_KEYS);
 					}
 				}
 			}
@@ -22306,6 +22353,91 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				ShowDialog(playerid, DIALOG_CLUB_PRODUCTS);
 			}
 			else ShowDialog(playerid, DIALOG_CLUB_PRODUCTS);
+		}
+		case DIALOG_VEHICLE_KEYS:
+		{
+			if (response)
+			{
+				switch(listitem)
+				{
+					case 0:
+					{
+						new vehicleid = INVALID_VEHICLE_ID;
+						vehicleid = GetPlayerVehicleID(playerid);
+						if (vehicleid == INVALID_VEHICLE_ID) return 0;
+
+						if (GetUsedKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID]) >= 5)
+						{
+							ShowPlayerMessage(playerid, "~r~No puedes dar mas de 5 llaves", 4);
+							ShowDialog(playerid, DIALOG_VEHICLE_KEYS);
+							return 1;
+						}
+						
+						ShowDialog(playerid, DIALOG_VEHICLE_KEYS_ADD);
+					}
+					case 1: ShowDialog(playerid, DIALOG_VEHICLE_KEYS_DEL);
+				}
+			}
+			else ShowDialog(playerid, DIALOG_VEHICLE_OPTIONS);
+		}
+		case DIALOG_VEHICLE_KEYS_ADD:
+		{
+			if (response)
+			{
+				new to_player;
+			    if (sscanf(params, "u", to_player))
+			    {
+			    	ShowPlayerMessage(playerid, "~r~Ingrese un nombre", 4);
+			    	ShowDialog(playerid, dialogid);
+			    	return 1;
+			    }
+
+			    if (!IsPlayerConnected(to_player))
+			    {
+			    	ShowPlayerMessage(playerid, "~r~Jugador desconectado", 4);
+			    	ShowDialog(playerid, dialogid);
+			    	return 1;
+			    }
+
+			    if (playerid == to_player)
+			    {
+			    	ShowPlayerMessage(playerid, "~r~Selecciona a otro usaurio", 4);
+			    	ShowDialog(playerid, dialogid);
+			    	return 1;
+			    }
+
+			    if (IsPlayerInKeys(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], ACCOUNT_INFO[to_player][ac_ID]))
+			    {
+			    	ShowPlayerMessage(playerid, "~r~Ese jugador ya tiene las llaves", 4);
+			    	ShowDialog(playerid, dialogid);
+			    	return 1;	
+			    }
+
+				new vehicleid = INVALID_VEHICLE_ID;
+				vehicleid = GetPlayerVehicleID(playerid);
+				if (vehicleid == INVALID_VEHICLE_ID) return 0;
+
+				AddPlayerKey(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], ACCOUNT_INFO[to_player][ac_ID]);
+				ShowPlayerMessage(playerid, "Llave ~g~agregada", 4);
+
+				ShowPlayerNotification(to_player, sprintf("%s te ha dado una copia de las llaves de su ~r~%s", PLAYER_TEMP[playerid][py_NAME], VEHICLE_INFO[ GLOBAL_VEHICLES[vehicleid][gb_vehicle_MODELID] - 400 ][vehicle_info_NAME]), 5);
+			}
+			else ShowDialog(playerid, DIALOG_VEHICLE_KEYS)
+		}
+		case DIALOG_VEHICLE_KEYS_DEL:
+		{
+			if (response)
+			{
+				if (PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem] == -1) return 1;
+
+				new vehicleid = INVALID_VEHICLE_ID;
+				vehicleid = GetPlayerVehicleID(playerid);
+				if (vehicleid == INVALID_VEHICLE_ID) return 0;
+
+				RemovePlayerKey(PLAYER_VEHICLES[vehicleid][player_vehicle_ID], PLAYER_TEMP[playerid][py_PLAYER_LISTITEM][listitem]);
+				ShowPlayerMessage(playerid, "Llave ~r~eliminada", 4);
+			}
+			else ShowDialog(playerid, DIALOG_VEHICLE_KEYS)
 		}
 	}
 	return 0;

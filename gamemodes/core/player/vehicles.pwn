@@ -53,7 +53,7 @@ GetUsedKeys(vehicle_id)
 	return total;
 }
 
-ClearVehicleKeys(vehicle_id, user_id)
+ClearVehicleKeys(vehicle_id)
 {
 	new DB_Query[164];
 	format(DB_Query, sizeof DB_Query, "DELETE FROM `VEHICLE_KEYS` WHERE `VEHICLE_ID` = '%d';", vehicle_id);
