@@ -1,7 +1,12 @@
 // Server
-#define SERVER_HOSTNAME "Hyaxe Role Play | Dulce o truco"
+#define SERVER_HOSTNAME "Hyaxe Role Play | Roleplay en Español"
 #define SERVER_LANGUAGE "Español / Spanish"
 #define SERVER_MODE "Roleplay"
+
+// Special hostnames
+#define HALLOWEEN_HOSTNAME "Hyaxe Role Play | Evento de Halloween"
+#define CHRISTMAS_HOSTNAME "Hyaxe Role Play | Evento de Navidad"
+#define EASTER_HOSTNAME "Hyaxe Role Play | Evento de Pascuas"
 
 // Item names
 #define NAME_MEDICINE "Medicamento"

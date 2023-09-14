@@ -28,7 +28,7 @@ public OnFilterScriptInit()
     new object;
 
     //juan_Alts
-    tmpobjid = CreateDynamicObjectEx(18766, 2909.603027, -764.122375, 9.526800, 90.000000, 0.000000, 0.000000, 600.00, 600.00); 
+    /*tmpobjid = CreateDynamicObjectEx(18766, 2909.603027, -764.122375, 9.526800, 90.000000, 0.000000, 0.000000, 600.00, 600.00); 
     SetDynamicObjectMaterial(tmpobjid, 0, 4835, "airoads_las", "easykerb", 0x00000000);
     tmpobjid = CreateDynamicObjectEx(18766, 2909.638183, -759.500793, 9.526800, 90.000000, 0.000000, 0.000000, 600.00, 600.00); 
     SetDynamicObjectMaterial(tmpobjid, 0, 4835, "airoads_las", "easykerb", 0x00000000);
@@ -405,7 +405,7 @@ public OnFilterScriptInit()
     tmpobjid = CreateDynamicObjectEx(676, 2930.020996, -729.852233, 9.874870, 0.000000, 0.000000, 0.000000, 600.00, 600.00); 
     tmpobjid = CreateDynamicObjectEx(676, 2955.805419, -764.425109, 9.874870, 0.000000, 0.000000, 0.000000, 600.00, 600.00); 
     tmpobjid = CreateDynamicObjectEx(676, 2968.656494, -764.657653, 9.874870, 0.000000, 0.000000, 0.000000, 600.00, 600.00); 
-    tmpobjid = CreateDynamicObjectEx(676, 2968.772216, -753.113525, 9.874870, 0.000000, 0.000000, 0.000000, 600.00, 600.00);
+    tmpobjid = CreateDynamicObjectEx(676, 2968.772216, -753.113525, 9.874870, 0.000000, 0.000000, 0.000000, 600.00, 600.00);*/
 
     new AOsborn [9];
     AOsborn [0] = CreateActor(111, -2358.63306, -670.17969, 118.73700, -110.00000);

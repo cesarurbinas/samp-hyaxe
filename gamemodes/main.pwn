@@ -55,7 +55,7 @@
 
 // Features
 //#define VOICE_CHAT
-//#define FINAL_BUILD
+#define FINAL_BUILD
 
 // Special events
 #define HALLOWEEN_MODE // Modo de halloween
@@ -7459,6 +7459,19 @@ public OnGameModeInit()
     // Server
 	SetGameModeText(SERVER_MODE);
 	SendRconCommand("hostname "SERVER_HOSTNAME"");
+
+	#if defined HALLOWEEN_MODE
+		SendRconCommand("hostname "HALLOWEEN_HOSTNAME"");
+	#endif
+
+	#if defined CHRISTMAS_MODE
+		SendRconCommand("hostname "CHRISTMAS_HOSTNAME"");
+	#endif
+
+	#if defined EASTER_MODE
+		SendRconCommand("hostname "EASTER_HOSTNAME"");
+	#endif
+
 	SendRconCommand("language "SERVER_LANGUAGE"");
 	SendRconCommand("weburl "SERVER_WEBSITE"");
 	SendRconCommand("minconnectiontime 50");
