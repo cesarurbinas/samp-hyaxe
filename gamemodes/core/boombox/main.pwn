@@ -13,27 +13,6 @@ enum E_BOOMBOX_DATA {
 };
 new BOOMBOX[MAX_BOOMBOXS][E_BOOMBOX_DATA];
 
-/*
-	====================================================================================================
-                              AAA               PPPPPPPPPPPPPPPPP   IIIIIIIIII
-                             A:::A              P::::::::::::::::P  I::::::::I
-                            A:::::A             P::::::PPPPPP:::::P I::::::::I
-                           A:::::::A            PP:::::P     P:::::PII::::::II
-                          A:::::::::A             P::::P     P:::::P  I::::I  
-                         A:::::A:::::A            P::::P     P:::::P  I::::I  
-                        A:::::A A:::::A           P::::PPPPPP:::::P   I::::I  
-                       A:::::A   A:::::A          P:::::::::::::PP    I::::I  
-                      A:::::A     A:::::A         P::::PPPPPPPPP      I::::I  
-                     A:::::AAAAAAAAA:::::A        P::::P              I::::I  
-                    A:::::::::::::::::::::A       P::::P              I::::I  
-                   A:::::AAAAAAAAAAAAA:::::A      P::::P              I::::I  
-                  A:::::A             A:::::A   PP::::::PP          II::::::II
-                 A:::::A               A:::::A  P::::::::P          I::::::::I
-                A:::::A                 A:::::A P::::::::P          I::::::::I
-               AAAAAAA                   AAAAAAAPPPPPPPPPP          IIIIIIIIII
-	====================================================================================================                                                                
-*/
-
 CreateBoombox(playerid)
 {
 	new id = GetBoomboxFreeIndex();
@@ -147,29 +126,6 @@ bool:PlayerHasBoombox(playerid)
 
 	return false;
 }
-
-/*
-	====================================================================================================
-	                                                                                                                                                 
-               MMMMMMMM               MMMMMMMM                    iiii                   
-               M:::::::M             M:::::::M                   i::::i                  
-               M::::::::M           M::::::::M                    iiii                   
-               M:::::::::M         M:::::::::M                                           
-               M::::::::::M       M::::::::::M  aaaaaaaaaaaaa   iiiiiiinnnn  nnnnnnnn    
-               M:::::::::::M     M:::::::::::M  a::::::::::::a  i:::::in:::nn::::::::nn  
-               M:::::::M::::M   M::::M:::::::M  aaaaaaaaa:::::a  i::::in::::::::::::::nn 
-               M::::::M M::::M M::::M M::::::M           a::::a  i::::inn:::::::::::::::n
-               M::::::M  M::::M::::M  M::::::M    aaaaaaa:::::a  i::::i  n:::::nnnn:::::n
-               M::::::M   M:::::::M   M::::::M  aa::::::::::::a  i::::i  n::::n    n::::n
-               M::::::M    M:::::M    M::::::M a::::aaaa::::::a  i::::i  n::::n    n::::n
-               M::::::M     MMMMM     M::::::Ma::::a    a:::::a  i::::i  n::::n    n::::n
-               M::::::M               M::::::Ma::::a    a:::::a i::::::i n::::n    n::::n
-               M::::::M               M::::::Ma:::::aaaa::::::a i::::::i n::::n    n::::n
-               M::::::M               M::::::M a::::::::::aa:::ai::::::i n::::n    n::::n
-               MMMMMMMM               MMMMMMMM  aaaaaaaaaa  aaaaiiiiiiii nnnnnn    nnnnnn
-
-	====================================================================================================
-*/
 
 CMD:parlante(playerid, params[])
 {	
