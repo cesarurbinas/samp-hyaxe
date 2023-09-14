@@ -5370,7 +5370,7 @@ SetVehicleLightsAction(playerid)
 			ShowPlayerMessage(playerid, "Luces ~g~encendidas", 2);
 
 			if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido las luces de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			else SetPlayerChatBubble(playerid, "\n\n\n\n* Ha ecendido las luces de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
+			else SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido las luces de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 		}
 	}
 	return 1;
@@ -5940,6 +5940,8 @@ SetEngineAction(playerid)
             
             if (PLAYER_VEHICLES[vehicleid][player_vehicle_OWNER_ID] == ACCOUNT_INFO[playerid][ac_ID]) ShowPlayerMessage(playerid, "Vehículo ~r~detenido", 2);
             else ShowPlayerMessage(playerid, "Vehículo ~r~detenido", 2);
+
+            SetPlayerChatBubble(playerid, "\n\n\n\n* Ha apagado su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
         }
         else
         {
@@ -28261,6 +28263,7 @@ CALLBACK: StartVehicleEngine(playerid, vehicleid)
 	}
 
 	ShowPlayerMessage(playerid, "~g~Encendiendo...", 2);
+	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido de su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	return 1;
 }
 
