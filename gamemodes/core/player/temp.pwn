@@ -466,8 +466,12 @@ enum Temp_Enum
 >>>>>>> a68591c (aimbot ban)
 =======
 	py_SING_AIM,
+<<<<<<< HEAD
 	py_FISH
 >>>>>>> d1b24ed (comandos viejos eliminados)
+=======
+	py_FISHS
+>>>>>>> 905e9a5 (items migrados)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 

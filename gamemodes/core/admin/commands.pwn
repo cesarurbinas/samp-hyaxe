@@ -1578,22 +1578,6 @@ CMD:jalaoduioewf7sdfwfwf(playerid, params[])
 	return 1;
 }
 
-// Al chupame la pija nenazo de mierda
-CMD:fixbotiquines(playerid, params[])
-{
-	PLAYER_MISC[playerid][MISC_BOTIKIN] = 0;
-	return 1;
-}
-
-CMD:fixperazoli(playerid, params[])
-{
-	PLAYER_MISC[playerid][MISC_CARTRIDGE_1] = 0;
-	PLAYER_MISC[playerid][MISC_CARTRIDGE_2] = 0;
-	PLAYER_MISC[playerid][MISC_CARTRIDGE_3] = 0;
-	PLAYER_MISC[playerid][MISC_CARTRIDGE_4] = 0;
-	return 1;
-}
-
 CMD:initmarket(playerid, params[])
 {
 	new id;
@@ -2665,20 +2649,6 @@ CMD:darskin(playerid, params[])
     return 1;
 }
 
-CMD:globalskin(playerid, params[])
-{
-    new to_player, skin;
-    if (sscanf(params, "ud", to_player, skin)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /globalskin <player_id> <skin>");
-    if (!IsPlayerConnected(to_player)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado");
-
-	PLAYER_MISC[to_player][MISC_SKIN] = skin;
-    if (PLAYER_MISC[to_player][MISC_GAMEMODE] != 0) SetPlayerSkin(to_player, PLAYER_MISC[to_player][MISC_SKIN]);
-    SavePlayerMisc(to_player);
-
-	SendClientMessageEx(playerid, COLOR_WHITE, "Skin global de '%s (%d)' cambiado a '%d'.", ACCOUNT_INFO[to_player][ac_NAME], to_player, PLAYER_MISC[to_player][MISC_SKIN]);
-    return 1;
-}
-
 CMD:testsound(playerid, params[])
 {
 	new sound;
@@ -3670,7 +3640,6 @@ flags:unjailoff(CMD_MODERATOR)
 flags:setearsu(CMD_ADMIN)
 flags:darvip(CMD_OPERATOR)
 flags:darskin(CMD_MODERATOR4)
-flags:globalskin(CMD_MODERATOR4)
 flags:setfstyle(CMD_MODERATOR4)
 flags:ejercito(CMD_MODERATOR2)
 flags:ls(CMD_MODERATOR)

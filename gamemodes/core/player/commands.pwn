@@ -706,30 +706,6 @@ CMD:configuracion(playerid, params[])
 }
 alias:configuracion("config", "ajustes", "panel")
 
-/* MACROS */
-/*CMD:macro(playerid, params[])
-{
-	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
-
-	new option_0[32], option_1[32], option_2[32], option_3[32];
-	if (sscanf(params, "s[32]s[32]s[32]s[32]", option_0, option_1, option_2, option_3)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender hycoins <id> <cantidad> <precio>");
-
-	if (!strcmp(option, "hycoins", true))
-	{
-		if (PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] <= 0 || PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] > 10000000) return ShowPlayerMessage(playerid, "~r~Cantidad incorrecta", 3);
-		if (PLAYER_TEMP[to_playerid][py_TRICK_SELLER_EXTRA] > ACCOUNT_INFO[playerid][ac_SD]) return ShowPlayerMessage(playerid, "~r~No tienes esa cantidad", 3);
-
-		new str_text[128];
-		format(str_text, sizeof(str_text), "Le has ofrecido una venta a %s, espera para ver si la acepta.", PLAYER_TEMP[to_playerid][py_RP_NAME]);
-		ShowPlayerNotification(playerid, str_text, 4);
-		ShowDialog(to_playerid, DIALOG_TRICKS_SU);
-		return 1;
-	}
-	else SendClientMessage(playerid, COLOR_WHITE, "Syntax: /vender hycoins <id> <cantidad> <precio>");
-	return 1;
-}*/
-/* MACROS */
-
 CMD:vender(playerid, params[])
 {
 	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;

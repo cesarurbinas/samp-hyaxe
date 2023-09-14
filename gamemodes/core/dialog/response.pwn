@@ -919,8 +919,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					{
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 170) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
 						{
+							if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 							GivePlayerCash(playerid, -170);
-							PLAYER_MISC[playerid][MISC_MEDICINE] += 10;
+							AddPlayerItem(playerid, 1, 10);
 							ShowPlayerNotification(playerid, "Compraste 10 medicamentos por 170$", 3);
 							SavePlayerMisc(playerid);
 							return 1;
@@ -933,7 +934,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 							if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
 							GivePlayerCash(playerid, -720);
-							PLAYER_MISC[playerid][MISC_BOTIKIN] += 1;
+							AddPlayerItem(playerid, 0);
 							ShowPlayerNotification(playerid, "Compraste un botiquín por 720$", 3);
 							SavePlayerMisc(playerid);
 							return 1;
@@ -1934,7 +1935,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			return 1;
 		}
-		case DIALOG_FUEL_DRUM:
+		/*case DIALOG_FUEL_DRUM:
 		{
 			if (response)
 			{
@@ -1967,7 +1968,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				SetPlayerChatBubble(playerid, "\n\n\n\n* Ha puesto gasolina el vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 			}
 			return 1;
-		}
+		}*/
 		case DIALOG_PROPERTY_OPTIONS:
 		{
 			if (response)
@@ -2704,9 +2705,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				switch(seed_info[ PLAYER_TEMP[playerid][py_SELECTED_BUY_SEED_ID] ][seed_info_PLANT_TYPE])
 				{
-					case PLANT_TYPE_MEDICINE: PLAYER_MISC[playerid][MISC_SEED_MEDICINE] += inputtext[0];
-					case PLANT_TYPE_CANNABIS: PLAYER_MISC[playerid][MISC_SEED_CANNABIS] += inputtext[0];
-					case PLANT_TYPE_CRACK: PLAYER_MISC[playerid][MISC_SEED_CRACK] += inputtext[0];
+					case PLANT_TYPE_MEDICINE: AddPlayerItem(playerid, 6, inputtext[0]);
+					case PLANT_TYPE_CANNABIS: AddPlayerItem(playerid, 7, inputtext[0]);
+					case PLANT_TYPE_CRACK: AddPlayerItem(playerid, 8, inputtext[0]);
 				}
 
 				GivePlayerCash(playerid, -price);
@@ -2724,30 +2725,30 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				{
 					case PLANT_TYPE_MEDICINE:
 					{
-						if (plant_info[listitem][plant_info_SEEDS] > PLAYER_MISC[playerid][MISC_SEED_MEDICINE])
+						if (PlayerAlreadyHasItem(playerid, 6))
 						{
 							ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
 							return 1;
 						}
-						PLAYER_MISC[playerid][MISC_SEED_MEDICINE] -= plant_info[listitem][plant_info_SEEDS];
+						SubtractItem(playerid, 6);
 					}
 					case PLANT_TYPE_CANNABIS:
 					{
-						if (plant_info[listitem][plant_info_SEEDS] > PLAYER_MISC[playerid][MISC_SEED_CANNABIS])
+						if (PlayerAlreadyHasItem(playerid, 7))
 						{
 							ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
 							return 1;
 						}
-						PLAYER_MISC[playerid][MISC_SEED_CANNABIS] -= plant_info[listitem][plant_info_SEEDS];
+						SubtractItem(playerid, 7);
 					}
 					case PLANT_TYPE_CRACK:
 					{
-						if (plant_info[listitem][plant_info_SEEDS] > PLAYER_MISC[playerid][MISC_SEED_CRACK])
+						if (PlayerAlreadyHasItem(playerid, 8))
 						{
 							ShowPlayerMessage(playerid, "~r~No tienes las semillas necesarias para plantar esta planta.", 3);
 							return 1;
 						}
-						PLAYER_MISC[playerid][MISC_SEED_CRACK] -= plant_info[listitem][plant_info_SEEDS];
+						SubtractItem(playerid, 8);
 					}
 				}
 
@@ -2830,7 +2831,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			else ShowDialog(playerid, DIALOG_BLACK_MARKET_SELECT);
 			return 1;
 		}
-		case DIALOG_BLACK_MARKET_AMMO_STOCK:
+		/*case DIALOG_BLACK_MARKET_AMMO_STOCK:
 		{
 			if (response)
 			{
@@ -2892,7 +2893,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else ShowDialog(playerid, DIALOG_BLACK_MARKET_AMMO);
 			return 1;
-		}
+		}*/
 		case DIALOG_BLACK_MARKET_SELECT_WEA:
 		{
 			if (response)
@@ -3017,251 +3018,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						return 1;
 					}
 				}
-			}
-			return 1;
-		}
-		case DIALOG_TRICKS_FOOD:
-		{
-			if (response)
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor está desconectado.", 3);
-
-				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
-
-
-				new to_player_slot = GetEmptyPlayerPocketSlot(playerid);
-				if (to_player_slot == -1)
-				{
-					PlayerPlaySoundEx(playerid, 1085, 0.0, 0.0, 0.0);
-					ShowPlayerMessage(playerid, "~r~No tienes espacio en tus /alimentos para comprar esto.", 3);
-					return 1;
-				}
-
-				TransferPlayerPocketObject(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA], playerid, to_player_slot);
-
-				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			}
-			else
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return 1;
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return 1;
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return 1;
-
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
-			}
-			return 1;
-		}
-		case DIALOG_TRICKS_MEDICINE:
-		{
-			if (response)
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-
-				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
-
-
-				PLAYER_MISC[playerid][MISC_MEDICINE] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				PLAYER_MISC[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][MISC_MEDICINE] -= PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-
-
-				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-
-				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			}
-			else
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return 1;
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return 1;
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return 1;
-
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
-			}
-			return 1;
-		}
-
-		case DIALOG_TRICKS_VENDAS:
-		{
-			if (response)
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-
-				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
-
-
-				PLAYER_MISC[playerid][MISC_VENDAS] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				PLAYER_MISC[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][MISC_VENDAS] -= PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				SavePlayerMisc(playerid);
-
-				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-
-				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			}
-			else
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return 1;
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return 1;
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return 1;
-
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
-			}
-			return 1;
-		}
-		case DIALOG_TRICKS_BOTIKIN:
-		{
-			if (response)
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-
-				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
-
-
-				PLAYER_MISC[playerid][MISC_BOTIKIN] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				PLAYER_MISC[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][MISC_BOTIKIN] -= PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-			    SavePlayerMisc(playerid);
-
-
-				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-
-				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			}
-			else
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return 1;
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return 1;
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return 1;
-
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
-			}
-			return 1;
-		}
-		case DIALOG_TRICKS_CUETE:
-		{
-			if (response)
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-
-				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
-
-
-				PLAYER_MISC[playerid][MISC_CUETE] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				PLAYER_MISC[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][MISC_CUETE] -= PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-			    SavePlayerMisc(playerid);
-
-				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-
-				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			}
-			else
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return 1;
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return 1;
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return 1;
-
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
-			}
-			return 1;
-		}
-		case DIALOG_TRICKS_CANNABIS:
-		{
-			if (response)
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-
-				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
-
-
-				PLAYER_MISC[playerid][MISC_CANNABIS] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				PLAYER_MISC[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][MISC_CANNABIS] -= PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				SavePlayerMisc(playerid);
-
-				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-
-				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			}
-			else
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return 1;
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return 1;
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return 1;
-
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
-			}
-			return 1;
-		}
-		case DIALOG_TRICKS_CRACK:
-		{
-			if (response)
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return ShowPlayerMessage(playerid, "~r~Tardaste mucho en aceptar.", 3);
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return ShowPlayerMessage(playerid, "~r~El vendedor no está conectado.", 3);
-
-				new Float:x, Float:y, Float:z; GetPlayerPos(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], x, y, z);
-				if (!IsPlayerInRangeOfPoint(playerid, 2.0, x, y, z)) return ShowPlayerMessage(playerid, "~r~El vendedor no está cerca tuya.", 3);
-				if (PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_GAME_STATE] != GAME_STATE_NORMAL) return ShowPlayerMessage(playerid, "~r~El vendedor no está disponible.", 3);
-
-
-				PLAYER_MISC[playerid][MISC_CRACK] += PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				PLAYER_MISC[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][MISC_CRACK] -= PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA];
-				SavePlayerMisc(playerid);
-
-				GivePlayerCash(playerid, -PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				GivePlayerCash(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], PLAYER_TEMP[playerid][py_TRICK_PRICE]);
-				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te has gastado %s$ con esta compra.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-				SendClientMessageEx(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], COLOR_WHITE, ""COL_WHITE"Has ganado %s$ con esta venta.", number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE]));
-
-				SetPlayerChatBubble(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "* Llega a un acuerdo con alguien.\n\n\n", 0xffcb90FF, 20.0, 5000);
-			}
-			else
-			{
-				if (gettime() > PLAYER_TEMP[playerid][py_TRICK_TIME] + 20) return 1;
-				if (!IsPlayerConnected(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID])) return 1;
-				if (ACCOUNT_INFO[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ac_ID] != PLAYER_TEMP[playerid][py_TRICK_SELLER_AID]) return 1;
-
-			    ShowPlayerMessage(PLAYER_TEMP[playerid][py_TRICK_SELLER_PID], "~r~El comprador no ha aceptado tu trato.", 3);
 			}
 			return 1;
 		}
@@ -7006,34 +6762,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			return 1;
 		}
-		case DIALOG_DRUG_MARKET:
-		{
-			if (response)
-			{
-				switch(listitem)
-				{
-					case 0:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 250) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
-
-						PLAYER_MISC[playerid][MISC_CANNABIS] += 5;
-						ShowPlayerNotification(playerid, "Has comprado 5 gramos de Marihuana.", 3);
-						SavePlayerMisc(playerid);
-						GivePlayerCash(playerid, -250, false);
-					}
-					case 1:
-					{
-						if (CHARACTER_INFO[playerid][ch_CASH] <= 400) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente", 2, 1150);
-
-						PLAYER_MISC[playerid][MISC_CRACK] += 5;
-						ShowPlayerNotification(playerid, "Has comprado 5 gramos de Crack.", 3);
-						SavePlayerMisc(playerid);
-						GivePlayerCash(playerid, -400, false);
-					}
-				}
-			}
-			return 1;
-		}
 		case DIALOG_BUY_ROD:
 		{
 			if (response)
@@ -7042,7 +6770,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-				PLAYER_MISC[playerid][MISC_ROD] ++;
+				AddPlayerItem(playerid, 35);
             	GivePlayerCash(playerid, -455, false);
 			}
 			return 1;
@@ -7054,8 +6782,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				if (CHARACTER_INFO[playerid][ch_CASH] <= 799) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
-
-				PLAYER_MISC[playerid][MISC_FIXKIT] ++;
+				AddPlayerItem(playerid, 37);
             	GivePlayerCash(playerid, -800, false);
      			SavePlayerMisc(playerid);
 			}
@@ -7066,24 +6793,24 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			if (response)
 			{
 				new 
-					payment = (PLAYER_MISC[playerid][MISC_FISH] * 200),
+					payment = (PLAYER_TEMP[playerid][py_FISHS] * 200),
 					vip_payment = 0
 				;
 
 	    		if (ACCOUNT_INFO[playerid][ac_SU])
 				{
-					vip_payment = (PLAYER_MISC[playerid][MISC_FISH] * 100);				
+					vip_payment = (PLAYER_TEMP[playerid][py_FISHS] * 100);				
 				}
 
 				payment = (payment + vip_payment);
 
-				PLAYER_MISC[playerid][MISC_FISH] = 0;
+				PLAYER_TEMP[playerid][py_FISHS] = 0;
             	GivePlayerCash(playerid, payment, true);
      			GivePlayerReputation(playerid);
 			}
 			return 1;
 		}
-		case DIALOG_CONFIG_VOICE:
+		/*case DIALOG_CONFIG_VOICE:
 		{
 			if (response)
 			{
@@ -7093,21 +6820,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 			else ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
 			return 1;
-		}
-		case DIALOG_CHANGE_MHZ:
-		{
-			if (response)
-			{
-				new mhz;
-				if (sscanf(inputtext, "d", mhz)) return ShowPlayerMessage(playerid, "~r~Ingrese un número del 1 al 1000.", 3);
-				if (mhz > 1000) return ShowPlayerMessage(playerid, "~r~Ingrese un número del 1 al 1000.", 3);
-				if (!PLAYER_WORKS[playerid][WORK_POLICE] && mhz >= 990) return ShowPlayerMessage(playerid, "~r~Las frecuencias superiores a 990~n~solo son para policías.", 4);
-				ShowPlayerMessage(playerid, "~g~Frecuencia cambiada", 3);
-				ShowPlayerNotification(playerid, "Si quiere apagar la radio use la frecuencia 0", 4);
-				PLAYER_MISC[playerid][MISC_MHZ] = mhz;
-			}
-			return 1;
-		}
+		}*/
 		case DIALOG_BUY_VOBJECT:
 		{
 			if (response)
@@ -7282,8 +6995,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						if (CHARACTER_INFO[playerid][ch_CASH] <= 150) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3, 1150);
 
 						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
-
-						PLAYER_MISC[playerid][MISC_MALLET] ++;
+						AddPlayerItem(playerid, 36);
 		            	GivePlayerCash(playerid, -150, false);
 					}
 					case 1..8:
@@ -8292,7 +8004,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
-		case DIALOG_SELL_PUMPKIN:
+		/*case DIALOG_SELL_PUMPKIN:
 		{
 			if (response)
 			{
@@ -8329,7 +8041,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					db_free_result(db_query(Database, DB_Query));
 			    }
 			}
-		}
+		}*/
 		case DIALOG_CLUB_SELL:
 		{
 			if (response)
@@ -8363,42 +8075,48 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 0:
 					{
 						if (1000 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						PLAYER_MISC[playerid][MISC_ROCKET] += 10;
+						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+						AddPlayerItem(playerid, 42, 10);
 						GivePlayerCash(playerid, -1000);
 						SavePlayerMisc(playerid);
 					}
 					case 1:
 					{
 						if (2000 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						PLAYER_MISC[playerid][MISC_MORTERO] += 5;
+						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+						AddPlayerItem(playerid, 43, 5);
 						GivePlayerCash(playerid, -2000);
 						SavePlayerMisc(playerid);
 					}
 					case 2:
 					{
 						if (1000 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						PLAYER_MISC[playerid][MISC_PETARDO] += 5;
+						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+						AddPlayerItem(playerid, 44, 5);
 						GivePlayerCash(playerid, -1000);
 						SavePlayerMisc(playerid);
 					}
 					case 3:
 					{
 						if (500 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						PLAYER_MISC[playerid][MISC_VOLCAN] += 10;
+						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+						AddPlayerItem(playerid, 45, 10);
 						GivePlayerCash(playerid, -500);
 						SavePlayerMisc(playerid);
 					}
 					case 4:
 					{
 						if (800 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						PLAYER_MISC[playerid][MISC_LAVAKO] += 10;
+						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+						AddPlayerItem(playerid, 46, 10);
 						GivePlayerCash(playerid, -800);
 						SavePlayerMisc(playerid);
 					}
 					case 5:
 					{
 						if (1500 > CHARACTER_INFO[playerid][ch_CASH]) return ShowPlayerMessage(playerid, "~r~Dinero insuficiente.", 2);
-						PLAYER_MISC[playerid][MISC_12TIROS] += 10;
+						if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
+						AddPlayerItem(playerid, 47, 10);
 						GivePlayerCash(playerid, -1500);
 						SavePlayerMisc(playerid);
 					}

@@ -883,9 +883,9 @@ public CheckFish(playerid)
 		{
 			new str_text[128];
 
-			PLAYER_TEMP[playerid][py_FISH] ++;
+			PLAYER_TEMP[playerid][py_FISHS] ++;
 
-			format(str_text, sizeof(str_text), "Bien hecho, has tomado %s~w~. Ahora~n~tienes ~r~%d~w~ peces.", RandomFishName(), PLAYER_TEMP[playerid][py_FISH]);
+			format(str_text, sizeof(str_text), "Bien hecho, has tomado %s~w~. Ahora~n~tienes ~r~%d~w~ peces.", RandomFishName(), PLAYER_TEMP[playerid][py_FISHS]);
 
 			ApplyAnimation(playerid, "OTB", "WTCHRACE_WIN", 4.1, false, false, false, false, 0, true);
 			ShowPlayerMessage(playerid, str_text, 4);
@@ -2624,20 +2624,13 @@ CheckFishSell(playerid)
 {
 	if (IsPlayerInRangeOfPoint(playerid, 1.5, 2157.049560, -92.550987, 2.798943))
 	{
-		if (PLAYER_TEMP[playerid][py_FISH])
+		if (PLAYER_TEMP[playerid][py_FISHS])
 		{
 			ShowDialog(playerid, DIALOG_SELL_FISH);
 		}
 		else ShowPlayerMessage(playerid, "~r~No tienes peces que vender.", 3);
 	}
 	return 1;
-}
-
-CheckDrugBlackMarket(playerid)
-{
-    if (!IsPlayerInRangeOfPoint(playerid, 1.5, 2310.057128, -1789.786865, 1600.751953)) return 1;
-    ShowDialog(playerid, DIALOG_DRUG_MARKET);
-    return 1;
 }
 
 ShowRangeUser(playerid)

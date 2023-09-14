@@ -1386,90 +1386,6 @@ ShowDialog(playerid, dialogid)
 				"COL_WHITE"300 Balas\t"COL_GREEN"1350$\n", "Comprar", "Volver");
 			return 1;
 		}
-		case DIALOG_TRICKS_FOOD:
-		{
-			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Alimento\nNombre: %s\nPrecio: %s$\n\n¿Quieres comprárselo?",
-									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
-									PLAYER_POCKET[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][ PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA] ][player_pocket_object_NAME],
-									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
-								);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Ventas", dialog, "Aceptar", "Cancelar");
-			return 1;
-		}
-		case DIALOG_TRICKS_MEDICINE:
-		{
-			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Medicamento\nCantidad: %dg\nPrecio: %s$\n\n¿Quieres comprárselo?",
-									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
-									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
-									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
-								);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Ventas", dialog, "Aceptar", "Cancelar");
-			return 1;
-		}
-		case DIALOG_TRICKS_VENDAS:
-		{
-			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Vendas\nCantidad: %d\nPrecio: %s$\n\n¿Quieres comprárselo?",
-									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
-									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
-									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
-								);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Ventas", dialog, "Aceptar", "Cancelar");
-			return 1;
-		}
-		case DIALOG_TRICKS_BOTIKIN:
-		{
-			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Botiquín\nCantidad: %d\nPrecio: %s$\n\n¿Quieres comprárselo?",
-									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
-									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
-									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
-								);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Ventas", dialog, "Aceptar", "Cancelar");
-			return 1;
-		}
-		case DIALOG_TRICKS_CUETE:
-		{
-			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Botiquín\nCantidad: %d\nPrecio: %s$\n\n¿Quieres comprárselo?",
-									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
-									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
-									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
-								);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Ventas", dialog, "Aceptar", "Cancelar");
-			return 1;
-		}
-		case DIALOG_TRICKS_CANNABIS:
-		{
-			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Marihuana\nCantidad: %dg\nPrecio: %s$\n\n¿Quieres comprárselo?",
-									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
-									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
-									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
-								);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Ventas", dialog, "Aceptar", "Cancelar");
-			return 1;
-		}
-		case DIALOG_TRICKS_CRACK:
-		{
-			new dialog[150];
-			format(dialog, sizeof dialog, "%s te quiere vender algo.\n\nTipo: Crack\nCantidad: %dg\nPrecio: %s$\n\n¿Quieres comprárselo?",
-									PLAYER_TEMP[ PLAYER_TEMP[playerid][py_TRICK_SELLER_PID] ][py_RP_NAME],
-									PLAYER_TEMP[playerid][py_TRICK_SELLER_EXTRA],
-									number_format_thousand(PLAYER_TEMP[playerid][py_TRICK_PRICE])
-								);
-
-			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, "Ventas", dialog, "Aceptar", "Cancelar");
-			return 1;
-		}
 		case DIALOG_TRICKS_SU:
 		{
 			new dialog[150];
@@ -2841,7 +2757,7 @@ ShowDialog(playerid, dialogid)
 				}
 			}
 
-			if (PLAYER_MISC[playerid][MISC_BOTIKIN])
+			if (PlayerAlreadyHasItem(playerid, 0))
 			{
 				if (CHARACTER_INFO[ PLAYER_TEMP[playerid][py_LAST_TARGET_PLAYER] ][ch_STATE] == ROLEPLAY_STATE_CRACK)
 				{
@@ -3824,13 +3740,6 @@ ShowDialog(playerid, dialogid)
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_INPUT, ""COL_RED"Canjear regalo", ""COL_WHITE"Ingrese el código a canjear, recuerde que cada\ncódigo solo se puede usar una sola vez.", "Canjear", "Cerrar");
     		return 1;
     	}
-    	case DIALOG_DRUG_MARKET:
-    	{
-    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Drogas", ""COL_WHITE"Producto\t"COL_WHITE"Precio\n\
-				"COL_WHITE"Marihuana (5 gramos)\t"COL_GREEN"250$\n\
-				"COL_WHITE"Crack (5 gramos)\t"COL_GREEN"400$\n", "Comprar", "Salir");
-			return 1;
-    	}
     	case DIALOG_BUY_ROD:
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Caña de pescar", ""COL_WHITE"¿Comprar una caña de pescar?\n\n\
@@ -3847,17 +3756,17 @@ ShowDialog(playerid, dialogid)
     	{
     		new 
     			str_text[164],
-    			payment = (PLAYER_TEMP[playerid][py_FISH] * 200),
+    			payment = (PLAYER_TEMP[playerid][py_FISHS] * 200),
     			vip_payment = 0;
 
     		if (ACCOUNT_INFO[playerid][ac_SU])
 			{
-				vip_payment = (PLAYER_TEMP[playerid][py_FISH] * 100);				
+				vip_payment = (PLAYER_TEMP[playerid][py_FISHS] * 100);				
 			}
 
     		format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender sus %d peces?\n\n\
     			Paga:"COL_GREEN" $%d"COL_WHITE"\n\
-    			Extra: "COL_GREEN" $%d", PLAYER_TEMP[playerid][py_FISH], payment, vip_payment);
+    			Extra: "COL_GREEN" $%d", PLAYER_TEMP[playerid][py_FISHS], payment, vip_payment);
 
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender peces", str_text, "Vender", "Cerrar");
 			return 1;
@@ -4379,7 +4288,7 @@ ShowDialog(playerid, dialogid)
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", ""COL_WHITE"Documento\t"COL_GREEN"$500\n"COL_WHITE"Licencia de conducir\t"COL_GREEN"$1000", "Comprar", "Cerrar");
     		return 1;
     	}
-    	case DIALOG_SELL_PUMPKIN:
+    	/*case DIALOG_SELL_PUMPKIN:
     	{
     		new 
     			str_text[164],
@@ -4397,7 +4306,7 @@ ShowDialog(playerid, dialogid)
 
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender calabazas", str_text, "Vender", "Cerrar");
     		return 1;
-    	}
+    	}*/
     	case DIALOG_CLUB_SELL:
 		{
 			if (PLAYER_TEMP[playerid][py_CLUB_INDEX] == -1) return 0;

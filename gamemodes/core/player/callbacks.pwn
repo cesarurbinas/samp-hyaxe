@@ -1153,7 +1153,7 @@ public FixVehicleUpdate(playerid, vehicleid)
 			ShowPlayerMessage(playerid, "Reparando ~r~100%", 2);
 			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);
 			ClearAnimations(playerid);
-			PLAYER_MISC[playerid][MISC_FIXKIT] -= 1;
+			SubtractItem(playerid, 37);
 
 			new Float:health;
 			health = GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH] + 150.0;
@@ -3766,7 +3766,6 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
     	CheckMinerShop(playerid);
     	CheckFishSell(playerid);
     	CheckBlackMarket(playerid);
-    	CheckDrugBlackMarket(playerid);
 		CheckWorkSite(playerid);
 		CheckClothShop(playerid);
         CheckAtmPlayerAndExecute(playerid);
@@ -4112,7 +4111,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					if (PLAYER_TEMP[playerid][py_JOINT_USES] > 10)
 					{
 						PLAYER_TEMP[playerid][py_JOINT_USES] = 0;
-						PLAYER_MISC[playerid][MISC_JOINT] --;
+						SubtractItem(playerid, 38);
 						ResetItemBody(playerid);
 						ShowPlayerMessage(playerid, "~r~Porro acabado", 3);
 					}

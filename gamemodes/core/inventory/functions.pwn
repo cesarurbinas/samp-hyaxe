@@ -1747,7 +1747,7 @@ UseItemSlot(playerid)
 					{
 						if (GLOBAL_VEHICLES[vehicleid][gb_vehicle_OCCUPIED]) return ShowPlayerNotification(playerid, "~r~El vehí­culo está ocupado.", 4);
 
-						if (PLAYER_MISC[playerid][MISC_FIXKIT])
+						if (PlayerAlreadyHasItem(playerid, 37))
 						{
 							PLAYER_TEMP[playerid][py_FIX_VALUE] = 0;
 							KillTimer(PLAYER_TEMP[playerid][py_TIMERS][32]);

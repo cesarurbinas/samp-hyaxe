@@ -5,9 +5,10 @@ public GetAmbulanceItem(playerid, vehicleid)
 		printf("GetAmbulanceItem"); // debug juju
 	#endif
 
+	if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 	ClearAnimations(playerid);
-	PLAYER_MISC[playerid][MISC_BOTIKIN] += 1;
-	GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Botiquín"), 2000, 5);
+	AddPlayerItem(playerid, 0);
+	GameTextForPlayer(playerid, TextToSpanish("~n~~n~~n~~w~Botiquin"), 2000, 5);
 
 	if (vehicleid != INVALID_VEHICLE_ID)
 	{
