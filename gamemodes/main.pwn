@@ -29304,6 +29304,8 @@ SetMedicPlayerMarkers(playerid)
 
 SendAlertToMedics(playerid)
 {
+	if ((gettime() - PLAYER_TEMP[playerid][py_LIMIT_AMBULANCE]) < 60) return ShowPlayerMessage(playerid, "~r~Tienes que esperar 60 segundos para volver a hacer esto.", 3);
+
 	new
 		Float:x, Float:y, Float:z,
 		str_text[128],
@@ -29331,6 +29333,7 @@ SendAlertToMedics(playerid)
 	format(str_text, sizeof(str_text), "Has solicitado una ambulancia~n~Médicos activos: ~y~%d", total_medics);
 	ShowPlayerMessage(playerid, str_text, 5);
 	PLAYER_TEMP[playerid][py_WANT_MEDIC] = true;
+	PLAYER_TEMP[playerid][py_LIMIT_AMBULANCE] = gettime();
 	return 1;
 }
 
