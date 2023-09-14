@@ -33,7 +33,7 @@ CreateTextDraws()
 	TextDrawSetProportional(Textdraws[textdraw_GPS_MAP][1], 0);
 	TextDrawSetShadow(Textdraws[textdraw_GPS_MAP][1], 0);
 
-	Textdraws[textdraw_GPS_MAP][2] = TextDrawCreate(90.000000, 324.000000, "GPS_-_/mapa");
+	Textdraws[textdraw_GPS_MAP][2] = TextDrawCreate(90.000000, 324.000000, "Viendo el mapa en tiempo real");
 	TextDrawLetterSize(Textdraws[textdraw_GPS_MAP][2], 0.197330, 1.027553);
 	TextDrawAlignment(Textdraws[textdraw_GPS_MAP][2], 2);
 	TextDrawColor(Textdraws[textdraw_GPS_MAP][2], -186);

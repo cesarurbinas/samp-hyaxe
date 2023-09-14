@@ -14013,10 +14013,12 @@ ShowDialog(playerid, dialogid)
     		format(dialog, sizeof(dialog), "\
     			Motor\t%s\n\
     			Luces\t%s\n\
-    			Estación de radio\t%s",
+    			Estación de radio\t%s\n\
+    			Mapa\t%s",
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     			(GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_LIGHTS] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
-    			radio_station
+    			radio_station,
+    			(PLAYER_TEMP[playerid][py_GPS_MAP] ? ""COL_GREEN"Encendido" : ""COL_RED"Apagado"),
     		);
 
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, caption, dialog, "Cambiar", "Cerrar");
@@ -22123,6 +22125,11 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					case 2:
 					{
 						ShowDialog(playerid, DIALOG_RADIO_STATIONS);
+					}
+					case 3:
+					{
+						if (PLAYER_TEMP[playerid][py_GPS_MAP]) HidePlayerGpsMap(playerid);
+						else ShowPlayerGpsMap(playerid);
 					}
 				}
 			}
