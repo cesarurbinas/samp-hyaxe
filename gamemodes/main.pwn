@@ -3599,7 +3599,7 @@ SendPoliceMark(playerid, color)
 }
 
 forward UpdateWantedLevelMark();
-public UpdateWantedLevelMark();
+public UpdateWantedLevelMark()
 {
 	for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
     {
