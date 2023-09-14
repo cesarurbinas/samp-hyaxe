@@ -265,6 +265,10 @@
 #include "core/stall/header.pwn"
 #include "core/stall/functions.pwn"
 
+// Dealers
+#include "core/dealer/header.pwn"
+#include "core/dealer/functions.pwn"
+
 // Particles
 #include "core/particles/functions.pwn"
 
@@ -8682,6 +8686,9 @@ SanAndreas()
 
 	// Stall
 	CreateStalls();
+
+	// Dealers
+	CreateDealers();
 
 	// Soccer
 	CreateBall();
@@ -27950,6 +27957,15 @@ public CloseBarrier(i)
 	return 1;
 }
 
+public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Float:amount, weaponid, bodypart)
+{
+	new Float:health;
+	GetDynamicActorHealth(actorid, health);
+
+	SendClientMessageEx(playerid, -1, "playerid: %d, actorid: %d, amount: %f, weaponid: %d, bodypart: %d, health: %f", playerid, actorid, amount, weaponid, bodypart, health);
+	return 1;
+}
+
 CheckRobActor(playerid)
 {
 	if (GetPlayerInterior(playerid) > 0 && PLAYER_TEMP[playerid][py_INTERIOR_INDEX] > 0)
@@ -27983,6 +27999,7 @@ CheckRobActor(playerid)
 								ShowPlayerNotification(playerid, "La policía viene en camino, es mejor que corras.", 3);
 								PLAYER_TEMP[playerid][py_ROB_PROGRESS] = 0;
 								a_TMP[ActorTarget][a_LAST_ROB] = gettime() + 5; // Fix delay
+								a_TMP[ActorTarget][a_IN_ROB_PROGRESS] = gettime() + 5;
 								PLAYER_TEMP[playerid][py_INITIAL_ROB] = false;
 								return 1;
 							}
@@ -28680,7 +28697,7 @@ CreateInteriorActor(interior_type, world, interior)
 		}
 	}
 
-	CreateDynamicActor(skin, x, y, z, angle, 0, 50.0, world, interior);
+	CreateDynamicActor(skin, x, y, z, angle, false, 50.0, world, interior);
 	return 1;
 }
 
