@@ -8,13 +8,12 @@ GetFreeDropItemSlot()
     return -1;
 }
 
-CreateDropItem(modelid, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, worldid, interiorid, const owner[] = "Null", type, ammount = 1)
+CreateDropItem(type, Float:x, Float:y, Float:z, Float:rx, Float:ry, Float:rz, worldid, interiorid, const owner[] = "Null", ammount = 1)
 {
 	new index = GetFreeDropItemSlot();
 	if (index == -1) return print("[DEBUG] Error: Todos los slots de item sueltos estan ocupados.");
 
-	DROP_ITEMS[index][itm_ID] = CreateDynamicObject(modelid, x, y, z, rx, ry, rz, worldid, interiorid, .streamdistance = 80.0, .drawdistance = 80.0);
-	DROP_ITEMS[index][itm_MODELID] = modelid;
+	DROP_ITEMS[index][itm_ID] = CreateDynamicObject(ITEM_INFO[type][item_MODELID], x, y, z, rx, ry, rz, worldid, interiorid, .streamdistance = 80.0, .drawdistance = 80.0);
 	DROP_ITEMS[index][itm_VALID] = true;
 	DROP_ITEMS[index][itm_TYPE] = type;
 	DROP_ITEMS[index][itm_AMMOUNT] = ammount;

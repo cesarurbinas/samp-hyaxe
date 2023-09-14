@@ -1750,7 +1750,7 @@ CMD:dropitem(playerid, params[])
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(playerid, x, y, z);
 	ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 1, 1, 0, 1000);
-	CreateDropItem(GetItemObjectByType(type), x, y, z - 1.0, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), GetItemNameByType(type), PLAYER_TEMP[playerid][py_NAME], type, ammount);
+	CreateDropItem(type, x, y, z - 1.0, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), PLAYER_TEMP[playerid][py_NAME], ammount);
 	return 1;
 }
 

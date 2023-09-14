@@ -819,7 +819,7 @@ CMD:tirar(playerid, params[])
 		
 		if (!PLAYER_VISUAL_INV[playerid][slot_WEAPON][slot])
 		{
-			CreateDropItem(GetItemObjectByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), x, y, z - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]), PLAYER_TEMP[playerid][py_NAME], PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], ammount);
+			CreateDropItem(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], x, y, z - 1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid), PLAYER_TEMP[playerid][py_NAME], ammount);
 			
 			SubtractItem(playerid, PLAYER_VISUAL_INV[playerid][slot_TYPE][slot], slot, ammount);
 			ResetItemBody(playerid);
