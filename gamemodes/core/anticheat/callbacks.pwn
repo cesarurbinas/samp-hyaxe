@@ -1,4 +1,4 @@
-public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
+/*public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
     {
@@ -47,4 +47,4 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	#define _ALS_OnPlayerWeaponShot
 #endif
 
-#define OnPlayerWeaponShot Anticheat_OnPlayerWeaponShot
+#define OnPlayerWeaponShot Anticheat_OnPlayerWeaponShot*/

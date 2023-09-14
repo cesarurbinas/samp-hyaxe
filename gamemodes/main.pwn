@@ -32548,7 +32548,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 		}
 	}
 
-	if (weaponid != 38)
+	/*if (weaponid != 38)
 	{
 		if ((gettime() - PLAYER_TEMP[playerid][py_LAST_SHOT_TIME]) < 1)
 		{
@@ -32564,7 +32564,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 			KickEx(playerid, 100);
 		}
 		PLAYER_TEMP[playerid][py_LAST_SHOT_TIME] = gettime();
-	}
+	}*/
 
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
