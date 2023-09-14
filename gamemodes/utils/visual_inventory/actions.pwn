@@ -79,7 +79,21 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			{
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-				new grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+				new 
+					is_weapon = IsWeaponType(PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]),
+					grab_status
+				;
+
+				if (is_weapon)
+				{
+					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] = 0;
+					grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+				}
+				else
+				{
+					PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] -= 1;
+					grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]);
+				}
 
 				if (grab_status)
 				{
@@ -90,8 +104,11 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 					PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 					ResetItemBody(playerid);
 
-					new DB_Query[90];
-					format(DB_Query, sizeof DB_Query, "DELETE FROM `PROPERTY_STORAGE` WHERE `ID` = '%d';", PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]);
+					new DB_Query[132];
+
+					if (PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] =< 0) format(DB_Query, sizeof DB_Query, "DELETE FROM `PROPERTY_STORAGE` WHERE `ID` = '%d';", PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]);
+					else format(DB_Query, sizeof DB_Query, "UPDATE `PROPERTY_STORAGE` SET `EXTRA` = '%d' WHERE `ID` = '%d';", PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot] PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]);
+
 					db_free_result(db_query(Database, DB_Query));
 
 					HideInventory(playerid);
