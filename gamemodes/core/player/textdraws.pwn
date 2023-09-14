@@ -19,6 +19,7 @@ enum Player_Textdraws_Enum
 	PlayerText:ptextdraw_KEY,
 	PlayerText:ptextdraw_HUD[5],
     PlayerText:ptextdraw_PHONE_MENU,
-    PlayerText:ptextdraw_PROGRESS[5]
+    PlayerText:ptextdraw_PROGRESS[5],
+    PlayerText:ptextdraw_GAMEMODE_BG
 };
 new PlayerTextdraws[MAX_PLAYERS][Player_Textdraws_Enum];

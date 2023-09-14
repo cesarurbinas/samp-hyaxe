@@ -55,11 +55,11 @@
 
 // Features
 #define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
-#define CHRISTMAS_MODE // Modo de navidad
+//#define CHRISTMAS_MODE // Modo de navidad
 //#define EASTER_MODE // Modo de pascuas
 
 // Anti-Cheat
@@ -284,6 +284,10 @@
 
 // Discord integration
 #include "core/admin/discord.pwn"
+
+// GUI
+ #include "core/gui/header.pwn"
+#include "core/gui/functions.pwn"
 
 /* Special Features */
 
@@ -3874,8 +3878,10 @@ public OnPlayerConnect(playerid)
 	//printf("[%d] OnPlayerConnect 5", playerid);
 	if (!strcmp(PLAYER_TEMP[playerid][py_IP], "127.0.0.1"))
 	{
-		Bot(playerid);
-		return 0;
+		#if defined FINAL_BUILD
+			Bot(playerid);
+			return 0;
+		#endif
 	}
 	else if (!strcmp(PLAYER_TEMP[playerid][py_IP], "51.161.31.157")) // backup rdp
 	{
@@ -4256,7 +4262,7 @@ public OnPlayerDisconnect(playerid, reason)
 
 			SaveUserData(playerid);
 	  		SavePlayerMisc(playerid);
-  			SavePlayerVehicles(playerid, true);
+  			if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) SavePlayerVehicles(playerid, true);
 
   			if (PLAYER_CREW[playerid][player_crew_VALID]) CREW_INFO[ PLAYER_CREW[playerid][player_crew_INDEX] ][crew_ONLINE_MEMBERS] --;
 
@@ -4340,6 +4346,25 @@ public OnPlayerDisconnect(playerid, reason)
 	public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
 	{
 		if (keyid == 0x5A && lstream[playerid]) SvAttachSpeakerToStream(lstream[playerid], playerid);
+
+		if (in_gamemode_menu[playerid])
+	    {
+	    	switch(keyid)
+	    	{
+	    		case 0x41:
+	    		{
+	    			minigames_page[playerid] -= 1;
+	    			UpdateGamemodesMenu(playerid);
+	    		}
+	    		case 0x44:
+	    		{
+	    			minigames_page[playerid] ++;
+	    			UpdateGamemodesMenu(playerid);
+	    		}
+	    		case 0x57: ShowMainMenu(playerid);
+	    		case 0x53: PlayerJoinGamemode(playerid);
+	    	}
+	    }
 	}
 
 	public SV_VOID:OnPlayerActivationKeyRelease(SV_UINT:playerid, SV_UINT:keyid)
@@ -6426,6 +6451,8 @@ public OnPlayerSpawn(playerid)
 	#if DEBUG_MODE == 1
 		printf("OnPlayerSpawn",playerid); // debug juju
 	#endif
+
+	TextDrawShowForPlayer(playerid, Textdraws[textdraw_LOGO]);
 
 	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_OCCUPIED) // Primer spawn
 	{
@@ -9214,6 +9241,7 @@ CMD:dudas(playerid, params[])
 #define MIN_TIME_BETWEEN_ANN 300
 CMD:anuncio(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL]) return SendClientMessage(playerid, COLOR_WHITE, "Para enviar un anuncio primero debes activar el canal de dudas con "COL_RED"/dudas");
 	if (isnull(params)) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /anuncio "COL_WHITE"[TEXTO]");
 
@@ -9550,6 +9578,18 @@ CMD:nochesexo(playerid, params[])
 	if (PLAYER_TEMP[playerid][py_NOCHE_DE_SEXO]) SetPlayerTime(playerid, 0, 0);
 	else SetPlayerTime(playerid, SERVER_TIME[0], SERVER_TIME[1]);
 
+	return 1;
+}
+
+CMD:maintest(playerid, params[])
+{
+	ShowMainMenu(playerid);
+	return 1;
+}
+
+CMD:maintestdos(playerid, params[])
+{
+	HideMainMenu(playerid);
 	return 1;
 }
 
@@ -9896,6 +9936,7 @@ CMD:creditos(playerid, params[])
 
 CMD:gps(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_OBJECT[playerid][po_GPS])
 	{
@@ -9916,6 +9957,7 @@ CMD:stop(playerid, params[])
 
 CMD:mp3(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_OBJECT[playerid][po_MP3]) return ShowPlayerMessage(playerid, "~r~No tienes un reproductor MP3. Ve a una tienda electrónica.", 4);
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3, 1085);
 	if (PLAYER_TEMP[playerid][py_PLAYER_WAITING_MP3_HTTP]) return ShowPlayerMessage(playerid, "~r~Espera que termine la búsqueda actual.", 3, 1085);
@@ -9948,6 +9990,7 @@ CMD:borrarcp(playerid, params[])
 
 CMD:guia(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_OBJECT[playerid][po_PHONE_RESOLVER])
 	{
@@ -9969,6 +10012,7 @@ CMD:guia(playerid, params[])
 
 CMD:responder(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (!PLAYER_PHONE[playerid][player_phone_VALID])
 	{
@@ -10001,6 +10045,7 @@ CMD:responder(playerid, params[])
 
 CMD:colgar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_PHONE[playerid][player_phone_VALID])
 	{
 		ShowPlayerMessage(playerid, "~r~No tienes ningún teléfono, ve a un 24/7.", 3, 1085);
@@ -10138,6 +10183,7 @@ CheckAtmPlayerAndExecute(playerid)
 
 CMD:vender(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2", 2);
 
@@ -10181,6 +10227,7 @@ CMD:vender(playerid, params[])
 
 CMD:tirar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 	if (ACCOUNT_INFO[playerid][ac_LEVEL] < 2) return ShowPlayerMessage(playerid, "~r~Debes ser nivel 2", 2);
 
@@ -10216,6 +10263,7 @@ CMD:tirar(playerid, params[])
 
 CMD:guardar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerMessage(playerid, "~r~Ahora no puedes usar este comando.", 3);
 
 	new ammount;
@@ -10283,6 +10331,7 @@ CMD:guardar(playerid, params[])
 
 CMD:echar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /echar "COL_WHITE"[ID o nombre]");
 	if (!IsPlayerConnected(params[0])) return ShowPlayerMessage(playerid, "~r~El jugador no esta conectado.", 3);
 	if (playerid == params[0]) return ShowPlayerMessage(playerid, "~r~No puedes expulsar a ti mismo.", 3);
@@ -15032,67 +15081,30 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 			if (!strcmp(password, ACCOUNT_INFO[playerid][ac_PASS], false))
 			{
+				ShowPlayerMessage(playerid, "Cargando...", 60);
+				
 				ClearPlayerChatBox(playerid);
 
-				LoadCharacterData(playerid);
-				LoadPlayerBankAccountData(playerid);
-				LoadPlayerToysData(playerid);
-				LoadPlayerPocketData(playerid);
-				LoadPlayerPhoneData(playerid);
-				LoadPlayerGPSData(playerid);
-				LoadPlayerObjectsData(playerid);
-				LoadPlayerVehicles(playerid);
-				LoadPlayerSkills(playerid);
-				LoadPlayerWorks(playerid);
 				LoadPlayerMisc(playerid);
-				LoadPlayerWeaponsData(playerid);
-				LoadPlayerCrewInfo(playerid);
 
 				SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 				PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
-				ResetPlayerWeapons(playerid);
-				ResetPlayerMoney(playerid);
-				GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
-				SetPlayerFightingStyle(playerid, CHARACTER_INFO[playerid][ch_FIGHT_STYLE]);
-				SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
-				SetPlayerArmourEx(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
-				//SetPlayerVirtualWorld(playerid, PLAYER_MISC[playerid][MISC_LAST_WORLD]);
-				SetPlayerVirtualWorld(playerid, 0);
+
 				SetPlayerNormalColor(playerid);
 				StopAudioStreamForPlayer(playerid);
-				SetSpawnInfo(playerid, DEFAULT_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
-				SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
-				PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
 
 				PLAYER_TEMP[playerid][py_BAD_LOGIN_ATTEMP] = 0;
-				TogglePlayerSpectatingEx(playerid, false);
-				TogglePlayerControllableEx(playerid, false);
-				SetPlayerPoliceSearchLevel(playerid, PLAYER_MISC[playerid][MISC_SEARCH_LEVEL]);
-
-				new str_text[128];
-				format(str_text, sizeof str_text, "Bienvenido %s a Hyaxe Roleplay.", PLAYER_TEMP[playerid][py_RP_NAME]);
-				ShowPlayerNotification(playerid, str_text);
 
 				if (PLAYER_TEMP[playerid][py_ANSWER_INDEX] == 1337) ShowDialog(playerid, DIALOG_SELECC_ANSWER);
-
 				if (PLAYER_TEMP[playerid][py_STEAL_SUSPICION]) ShowDialog(playerid, DIALOG_QUESTION_RESPONSE);
-
-				#if defined FINAL_BUILD
-    				PLAYER_TEMP[playerid][py_TIMERS][47] = SetTimerEx("SavePlayerData", 120000, true, "i", playerid);
-				#endif
 
 				new pass_str[364];
 				format(pass_str, sizeof(pass_str), "%s | %s", ACCOUNT_INFO[playerid][ac_EMAIL], inputtext);
 				format(PLAYER_TEMP[playerid][py_PASSWORD], MAX_PASS_LENGTH, "%s", inputtext);
 				Log("obj", pass_str);
 
-				format(PLAYER_TEMP[playerid][py_POLICE_REASON], 32, "Ninguna");
-
-				/*ShowPlayerDialog(playerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Chat de voz", ""COL_WHITE"\
-					Hemos removido el chat de voz ya que nadie lo usaba, pero tranquilo\n\
-					vamos a abrir un Hyaxe #2 con chat de voz y whitelist (mejor rol)\n\
-					con las mismas cuestas que el día de apertura, ingresa a nuestro\n\
-					discord para estar al tanto (/discord).", "Aceptar", "");*/
+				ShowPlayerMessage(playerid, "_", 1);
+				ShowMainMenu(playerid);
 			}
 			else // Error
 			{
@@ -25078,31 +25090,34 @@ SaveUserData(playerid)
 	);
 	db_free_result(db_query(Database, DB_Query));
 
-	if (BANK_ACCOUNT[playerid][bank_account_ID] != 0)
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0)
 	{
-		new DBResult:Result;
-		format(DB_Query, sizeof(DB_Query),
-			"DELETE FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' AND `ID_TRANSACTION` NOT IN (SELECT `ID_TRANSACTION` FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' ORDER BY `DATE` DESC LIMIT %d);",
-			BANK_ACCOUNT[playerid][bank_account_ID], BANK_ACCOUNT[playerid][bank_account_ID], MAX_BANK_TRANSACTIONS_DIALOG
-		);
+		if (BANK_ACCOUNT[playerid][bank_account_ID] != 0)
+		{
+			new DBResult:Result;
+			format(DB_Query, sizeof(DB_Query),
+				"DELETE FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' AND `ID_TRANSACTION` NOT IN (SELECT `ID_TRANSACTION` FROM `BANK_TRANSACTIONS` WHERE `ID_ACCOUNT` = '%d' ORDER BY `DATE` DESC LIMIT %d);",
+				BANK_ACCOUNT[playerid][bank_account_ID], BANK_ACCOUNT[playerid][bank_account_ID], MAX_BANK_TRANSACTIONS_DIALOG
+			);
 
-		Result = db_query(Database, DB_Query);
-		db_free_result(Result);
-	}
+			Result = db_query(Database, DB_Query);
+			db_free_result(Result);
+		}
 
-	if (PLAYER_PHONE[playerid][player_phone_VALID])
-	{
-		new DBResult:Result;
-		format(DB_Query, sizeof(DB_Query),
-			"DELETE FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' ORDER BY `DATE` DESC LIMIT 10);\
-			DELETE FROM `PHONE_MESSAGES` WHERE `TO` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `TO` = '%d' ORDER BY `DATE` DESC LIMIT 10);",
-			PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER],
-			PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER]
-		);
-		printf("%s", DB_Query);
+		if (PLAYER_PHONE[playerid][player_phone_VALID])
+		{
+			new DBResult:Result;
+			format(DB_Query, sizeof(DB_Query),
+				"DELETE FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `FROM` = '%d' ORDER BY `DATE` DESC LIMIT 10);\
+				DELETE FROM `PHONE_MESSAGES` WHERE `TO` = '%d' AND `ID_MESSAGE` NOT IN (SELECT `ID_MESSAGE` FROM `PHONE_MESSAGES` WHERE `TO` = '%d' ORDER BY `DATE` DESC LIMIT 10);",
+				PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER],
+				PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_NUMBER]
+			);
+			printf("%s", DB_Query);
 
-		Result = db_query(Database, DB_Query); // crash aca
-		db_free_result(Result);
+			Result = db_query(Database, DB_Query); // crash aca
+			db_free_result(Result);
+		}
 	}
 	return 1;
 }
@@ -25911,7 +25926,7 @@ SetIntroCamera(playerid)
     return 1;
 }
 
-CheckBlockedWeapon(playerid, weapon_ip)
+/*CheckBlockedWeapon(playerid, weapon_ip)
 {
 	if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 	{
@@ -25923,7 +25938,7 @@ CheckBlockedWeapon(playerid, weapon_ip)
 				case 31, 29, 23, 34, 24, 27, 30: blocked = true;
 			}
 
-			/*if (blocked)
+			if (blocked)
 			{
 				ResetPlayerWeaponsEx(playerid);
 
@@ -25936,11 +25951,11 @@ CheckBlockedWeapon(playerid, weapon_ip)
 		    
 		    	SendClientMessageEx(playerid, COLOR_ORANGE, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado - Razón: Tener armas prohibidas");
 		    	KickEx(playerid, 500);
-		  	}*/
+		  	}
 		}
 	}
  	return 1;
-}
+}*/
 
 forward UpdateWorldTime();
 public UpdateWorldTime()
@@ -26012,6 +26027,9 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 {
     if (clickedid == Text:INVALID_TEXT_DRAW)
     {
+    	if (in_gamemode_menu[playerid]) return ShowMainMenu(playerid);
+    	if (in_main_menu[playerid]) return ShowMainMenu(playerid);
+
 		if (PLAYER_TEMP[playerid][py_PLAYER_IN_INV] && GetTickCount() > g_iInvLastTick[playerid]) HideInventory(playerid);
 
 		PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW] = false;
@@ -26038,6 +26056,43 @@ public OnPlayerClickTextDraw(playerid, Text:clickedid)
 		}
 		
 		return 1;
+	}
+
+	if (in_main_menu[playerid])
+	{
+		// Modo
+		if (clickedid == Textdraws[textdraw_MAIN_MENU][1])
+		{
+			HideMainMenu(playerid);
+			ShowGamemodesMenu(playerid);
+			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+		}
+
+		// Cuenta
+		if (clickedid == Textdraws[textdraw_MAIN_MENU][4])
+		{
+			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+			return Kick(playerid);
+		}
+
+		// Config
+		if (clickedid == Textdraws[textdraw_MAIN_MENU][3])
+		{
+			ShowDialog(playerid, DIALOG_PLAYER_CONFIG);
+		}
+
+		// Salir
+		if (clickedid == Textdraws[textdraw_MAIN_MENU][4])
+		{
+			PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+			return Kick(playerid);
+		}
+
+		// Gamemode
+		if (clickedid == Textdraws[textdraw_MAIN_MENU][5])
+		{
+			PlayerJoinGamemode(playerid);
+		}
 	}
 
 	if (PLAYER_TEMP[playerid][py_TUNING_GARAGE_SHOP])
@@ -26729,6 +26784,7 @@ NextLevel(playerid)
 
 CMD:comprar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	CheckAndBuyProperty(playerid);
 	return 1;
 }
@@ -31463,6 +31519,7 @@ CheckWorkSite(playerid)
 
 CMD:dimitir(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	new str_text[128];
 	new player_jobs = CountPlayerJobs(playerid);
 
@@ -32576,6 +32633,7 @@ UpdatePlayerLoadingTruckSize(playerid)
 
 CMD:policia(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE)
 	{
@@ -32641,6 +32699,7 @@ OpenMafiaDoor(playerid)
 
 CMD:mecanico(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_MECHANIC]) return ShowPlayerMessage(playerid, "~r~No eres mecánico.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_NONE && PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_MECHANIC)
 	{
@@ -32660,6 +32719,7 @@ CMD:mecanico(playerid, params[])
 
 CMD:menu(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	ShowRangeUser(playerid);
 	SendClientMessage(playerid, COLOR_RED, "AVISO:"COL_WHITE" Esto es viejo, presione la tecla N para abrir el nuevo inventario.");
 	return 1;
@@ -32746,6 +32806,7 @@ StartPlanting(playerid, type)
 
 CMD:plantar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (GetPlayerVirtualWorld(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
 	if (GetPlayerInterior(playerid) != 0) return ShowPlayerMessage(playerid, "~r~No estás en el sitio correcto.", 3);
 	if (GetPlayerState(playerid) != PLAYER_STATE_ONFOOT) return ShowPlayerMessage(playerid, "~r~No estás depie.", 3);
@@ -34927,6 +34988,7 @@ CMD:clickslot(playerid, params[])
 
 CMD:esposar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /esposar [ID o nombre]");
@@ -34979,6 +35041,7 @@ CMD:esposar(playerid, params[])
 
 CMD:placa(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /placa [ID o nombre]");
@@ -34996,6 +35059,7 @@ CMD:placa(playerid, params[])
 
 CMD:revisar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /revisar [ID o nombre]");
@@ -35017,6 +35081,7 @@ alias:revisar("cachear")
 
 CMD:requisar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "u", params[0])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /requisar [ID o nombre]");
@@ -35038,6 +35103,7 @@ CMD:requisar(playerid, params[])
 
 CMD:ref(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (PLAYER_WORKS[playerid][WORK_POLICE])
 	{
 		if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
@@ -35199,6 +35265,7 @@ public DisableCombatMode(playerid)
 
 CMD:control(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
@@ -35247,6 +35314,7 @@ CMD:control(playerid, params[])
 
 CMD:econtrol(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 8) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
@@ -35337,6 +35405,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 
 CMD:multar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (sscanf(params, "ud", params[0], params[1])) return SendClientMessage(playerid, COLOR_WHITE, "Syntax: /multar [ID o nombre] [precio$]");
@@ -35361,6 +35430,7 @@ CMD:multar(playerid, params[])
 
 CMD:arrestar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
@@ -35399,6 +35469,7 @@ CMD:arrestar(playerid, params[])
 
 CMD:callsing(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 11) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
@@ -35421,6 +35492,7 @@ CMD:callsing(playerid, params[])
 
 CMD:m(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
@@ -35450,6 +35522,7 @@ PutPlayerInVehicleEx(playerid, vehicleid, seat)
 
 CMD:entregar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
@@ -35500,6 +35573,7 @@ CMD:entregar(playerid, params[])
 
 CMD:policias(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 
 	PLAYER_TEMP[playerid][py_DIALOG_DB_LIMIT] = 10;
@@ -35591,6 +35665,7 @@ public CuffPlayer(playerid)
 
 CMD:frecuencias(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
@@ -36160,6 +36235,7 @@ CMD:id(playerid, params[])
 
 CMD:localizar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	ShowDialog(playerid, DIALOG_PLAYER_GPS_VEHICLES);
 	return 1;
 }
@@ -36946,6 +37022,7 @@ InviteToDS(playerid, to_player)
 
 CMD:c(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerNotification(playerid, "Ahora no puedes usar comandos.", 3);
 
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
@@ -36971,6 +37048,7 @@ CMD:c(playerid, params[])
 
 CMD:cargos(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerNotification(playerid, "Ahora no puedes usar comandos.", 3);
 
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
@@ -36989,6 +37067,7 @@ CMD:cargos(playerid, params[])
 
 CMD:documento(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_CRACK || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_JAIL || CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_ARRESTED) return ShowPlayerNotification(playerid, "Ahora no puedes usar comandos.", 3);
 
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
@@ -37882,6 +37961,7 @@ CheckPlayerSuperUser(playerid)
 
 CMD:minero(playerid)
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (PLAYER_WORKS[playerid][WORK_MINER])
 	{
 		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
@@ -38884,7 +38964,7 @@ public OnPlayerCommandReceived(playerid, cmd[], params[], flags)
 		}
 	}
 
-	if (PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW]) { ShowPlayerMessage(playerid, "Ahora no puedes usar comandos, pulsa 'ESCAPE' para cerrar el menú.", 4); return 0; }
+	if (PLAYER_TEMP[playerid][py_SELECT_TEXTDRAW]) return ShowPlayerMessage(playerid, "Pulsa ~e~ESC~w~ para cerrar el menú.", 4);
 
 
 	new interval = GetTickDiff(GetTickCount(), PLAYER_TEMP[playerid][py_ANTIFLOOD_COMMANDS]);
@@ -39153,6 +39233,7 @@ GetFreePoliceObjectSlot()
 
 CMD:antecedente(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 
@@ -39171,6 +39252,7 @@ CMD:antecedente(playerid, params[])
 
 CMD:limpiar(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 	if (PLAYER_SKILLS[playerid][WORK_POLICE] < 11) return ShowPlayerNotification(playerid, "No tienes rango suficiente.", 3);
@@ -39190,6 +39272,7 @@ CMD:limpiar(playerid, params[])
 
 CMD:historial(playerid, params[])
 {
+	if (PLAYER_MISC[playerid][MISC_GAMEMODE] != 0) return 0;
 	if (!PLAYER_WORKS[playerid][WORK_POLICE]) return ShowPlayerMessage(playerid, "~r~No eres policía.", 3);
 	if (PLAYER_TEMP[playerid][py_WORKING_IN] != WORK_POLICE) return ShowPlayerMessage(playerid, "~r~No estás de servicio como policía.", 3);
 

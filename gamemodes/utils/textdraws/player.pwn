@@ -1553,6 +1553,20 @@ CreatePlayerTextDraws(playerid)
 	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4], 1);
 	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4], 1);
 	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_PROGRESS][4], 0);
+
+	PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG] = CreatePlayerTextDraw(playerid, 0.000000, -1.000000, "HYAXE:minigame1");
+	PlayerTextDrawFont(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 4);
+	PlayerTextDrawLetterSize(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 641.000000, 449.500000);
+	PlayerTextDrawSetOutline(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 1);
+	PlayerTextDrawSetShadow(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 0);
+	PlayerTextDrawAlignment(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 1);
+	PlayerTextDrawColor(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], -1);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 255);
+	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 50);
+	PlayerTextDrawUseBox(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 1);
+	PlayerTextDrawSetProportional(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 1);
+	PlayerTextDrawSetSelectable(playerid, PlayerTextdraws[playerid][ptextdraw_GAMEMODE_BG], 0);
 	return 1;
 }
 

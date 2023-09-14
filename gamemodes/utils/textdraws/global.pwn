@@ -794,6 +794,105 @@ CreateTextDraws()
 	TextDrawUseBox(Textdraws[textdraw_GODMODE][1], 0);
 	TextDrawSetProportional(Textdraws[textdraw_GODMODE][1], 1);
 	TextDrawSetSelectable(Textdraws[textdraw_GODMODE][1], 0);
+
+	Textdraws[textdraw_LOGO] = TextDrawCreate(599.000000, 3.000000, "HYAXE:logo");
+	TextDrawFont(Textdraws[textdraw_LOGO], 4);
+	TextDrawLetterSize(Textdraws[textdraw_LOGO], 0.600000, 2.000000);
+	TextDrawTextSize(Textdraws[textdraw_LOGO], 38.000000, 13.000000);
+	TextDrawSetOutline(Textdraws[textdraw_LOGO], 1);
+	TextDrawSetShadow(Textdraws[textdraw_LOGO], 0);
+	TextDrawAlignment(Textdraws[textdraw_LOGO], 1);
+	TextDrawColor(Textdraws[textdraw_LOGO], -1);
+	TextDrawBackgroundColor(Textdraws[textdraw_LOGO], 255);
+	TextDrawBoxColor(Textdraws[textdraw_LOGO], 50);
+	TextDrawUseBox(Textdraws[textdraw_LOGO], 1);
+	TextDrawSetProportional(Textdraws[textdraw_LOGO], 1);
+	TextDrawSetSelectable(Textdraws[textdraw_LOGO], 0);
+
+	Textdraws[textdraw_MAIN_MENU][0] = TextDrawCreate(0.000000, -1.000000, "HYAXE:mainmenu");
+	TextDrawFont(Textdraws[textdraw_MAIN_MENU][0], 4);
+	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][0], 0.600000, 2.000000);
+	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][0], 641.000000, 449.500000);
+	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][0], 1);
+	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][0], 0);
+	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][0], 1);
+	TextDrawColor(Textdraws[textdraw_MAIN_MENU][0], -1);
+	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][0], 255);
+	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][0], 50);
+	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][0], 1);
+	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][0], 1);
+	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][0], 0);
+
+	Textdraws[textdraw_MAIN_MENU][1] = TextDrawCreate(43.000000, 198.000000, "HYAXE:modo");
+	TextDrawFont(Textdraws[textdraw_MAIN_MENU][1], 4);
+	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][1], 0.600000, 2.000000);
+	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][1], 156.000000, 43.000000);
+	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][1], 1);
+	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][1], 0);
+	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][1], 1);
+	TextDrawColor(Textdraws[textdraw_MAIN_MENU][1], -1);
+	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][1], 255);
+	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][1], 50);
+	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][1], 1);
+	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][1], 1);
+	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][1], 1);
+
+	Textdraws[textdraw_MAIN_MENU][2] = TextDrawCreate(43.000000, 248.000000, "HYAXE:cuenta");
+	TextDrawFont(Textdraws[textdraw_MAIN_MENU][2], 4);
+	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][2], 0.600000, 2.000000);
+	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][2], 156.000000, 43.000000);
+	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][2], 1);
+	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][2], 0);
+	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][2], 1);
+	TextDrawColor(Textdraws[textdraw_MAIN_MENU][2], -1);
+	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][2], 255);
+	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][2], 50);
+	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][2], 1);
+	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][2], 1);
+	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][2], 1);
+
+	Textdraws[textdraw_MAIN_MENU][3] = TextDrawCreate(43.000000, 299.000000, "HYAXE:config");
+	TextDrawFont(Textdraws[textdraw_MAIN_MENU][3], 4);
+	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][3], 0.600000, 2.000000);
+	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][3], 156.000000, 43.000000);
+	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][3], 1);
+	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][3], 0);
+	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][3], 1);
+	TextDrawColor(Textdraws[textdraw_MAIN_MENU][3], -1);
+	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][3], 255);
+	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][3], 50);
+	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][3], 1);
+	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][3], 1);
+	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][3], 1);
+
+	Textdraws[textdraw_MAIN_MENU][4] = TextDrawCreate(43.000000, 351.000000, "HYAXE:salir");
+	TextDrawFont(Textdraws[textdraw_MAIN_MENU][4], 4);
+	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][4], 0.600000, 2.000000);
+	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][4], 156.000000, 43.000000);
+	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][4], 1);
+	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][4], 0);
+	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][4], 1);
+	TextDrawColor(Textdraws[textdraw_MAIN_MENU][4], -1);
+	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][4], 255);
+	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][4], 50);
+	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][4], 1);
+	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][4], 1);
+	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][4], 1);
+
+	// Jugar
+	Textdraws[textdraw_MAIN_MENU][5] = TextDrawCreate(458.000000, 386.000000, "_");
+	TextDrawFont(Textdraws[textdraw_MAIN_MENU][5], 1);
+	TextDrawLetterSize(Textdraws[textdraw_MAIN_MENU][5], 1.158332, 4.499986);
+	TextDrawTextSize(Textdraws[textdraw_MAIN_MENU][5], 621.500000, 20.000000);
+	TextDrawSetOutline(Textdraws[textdraw_MAIN_MENU][5], 1);
+	TextDrawSetShadow(Textdraws[textdraw_MAIN_MENU][5], 0);
+	TextDrawAlignment(Textdraws[textdraw_MAIN_MENU][5], 1);
+	TextDrawColor(Textdraws[textdraw_MAIN_MENU][5], 0x00000000);
+	TextDrawBackgroundColor(Textdraws[textdraw_MAIN_MENU][5], 0x00000000);
+	TextDrawBoxColor(Textdraws[textdraw_MAIN_MENU][5], 0x00000000);
+	TextDrawUseBox(Textdraws[textdraw_MAIN_MENU][5], 1);
+	TextDrawSetProportional(Textdraws[textdraw_MAIN_MENU][5], 1);
+	TextDrawSetSelectable(Textdraws[textdraw_MAIN_MENU][5], 1);
 	
 	return 1;
 }
