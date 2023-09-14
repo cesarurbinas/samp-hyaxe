@@ -315,6 +315,8 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 
 					TogglePlayerDynamicCP(playerid, PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT], false);
 					DestroyDynamicCP(PLAYER_TEMP[playerid][py_CUTTING_CHECKPOINT]);
+
+					return 1;
 				}
 			}
 		}
