@@ -4618,6 +4618,7 @@ public OnPlayerUpdate(playerid)
     }
 
     CheckRobActor(playerid);
+	SendClientMessageEx(playerid, -1, "%d", GetPlayerAnimationIndex(playerid));
 	return 1;
 }
 
@@ -5749,6 +5750,7 @@ IPacket:AIM_SYNC(playerid, BitStream:bs)
         return 0;
     }
 
+	PLAYER_TEMP[playerid][py_LAST_AIM_SYNC] = gettime();
     return 1;
 }
 
@@ -5766,31 +5768,20 @@ IPacket:BULLET_SYNC(playerid, BitStream:bs)
 		{
 			PLAYER_TEMP[playerid][py_TOTAL_SHOT] = 0;
 
-			// Anti Aimbot
-			new
-				Float:fPX, Float:fPY, Float:fPZ,
-				Float:fVX, Float:fVY, Float:fVZ,
-				Float:object_x, Float:object_y, Float:object_z;
-		
-			// Change me to change the scale you want. A larger scale increases the distance from the camera.
-			// A negative scale will inverse the vectors and make them face in the opposite direction.
-			const
-				Float:fScale = 5.0;
-		
-			GetPlayerCameraPos(playerid, fPX, fPY, fPZ);
-			GetPlayerCameraFrontVector(playerid, fVX, fVY, fVZ);
-	
-			object_x = fPX + floatmul(fVX, fScale);
-			object_y = fPY + floatmul(fVY, fScale);
-			object_z = fPZ + floatmul(fVZ, fScale);
-	
-			CreateObject(345, object_x, object_y, object_z, 0.0, 0.0, 0.0);
-
 			// Anti damager
-			if (!IsShootingAnimation(GetPlayerAnimationIndex(playerid)))
+			if ((gettime() - PLAYER_TEMP[playerid][py_LAST_AIM_SYNC]) < 5)
+			{
+				PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] ++;
+				if (PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] > 5)
+				{
+					PLAYER_TEMP[playerid][py_DAMAGER_ALERTS] = 0;
+					Anticheat_Ban(playerid, "Damager");
+				}
+			}
+			/*if (!IsShootingAnimation(GetPlayerAnimationIndex(playerid)))
 			{
 				return Anticheat_Ban(playerid, "Damager");
-			}
+			}*/
 
 			// Wall shot
 			if (bulletData[PR_hitType] == 1)

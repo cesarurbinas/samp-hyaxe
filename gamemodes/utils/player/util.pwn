@@ -7985,7 +7985,7 @@ DestroyPlayerCheckpoints(playerid)
 	return 1;
 }
 
-IsShootingAnimation(anim)
+bool:IsShootingAnimation(anim)
 {
 	switch(anim)
 	{
