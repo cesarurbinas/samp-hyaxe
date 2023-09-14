@@ -141,4 +141,4 @@ new CHEATS_NAMES[][] = {
 	"Seat",
 	"DoS",
 	"NOPs"
-}
+};
