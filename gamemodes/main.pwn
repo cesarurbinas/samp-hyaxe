@@ -14724,7 +14724,7 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_STORE:
 		{
 			new
-				dialog[564],
+				dialog[1024],
 				caption[128]
 			;
 
@@ -23738,6 +23738,26 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		{
 			if (response)
 			{
+				if (STORE_PRODUCTS[listitem][store_TYPE] == 5)
+				{
+					new DBResult:Result, DB_Query[120], player_vehicles;
+					format(DB_Query, sizeof(DB_Query), "SELECT COUNT(`ID_USER`) AS `VEHICLES` FROM `PLAYER_VEHICLES` WHERE `ID_USER` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+					Result = db_query(Database, DB_Query);
+					if (db_num_rows(Result)) player_vehicles = db_get_field_assoc_int(Result, "VEHICLES");
+					db_free_result(Result);
+
+
+					if (player_vehicles >= MAX_SU_VEHICLES) return ShowPlayerMessage(playerid, "~r~No puedes tener mas vehículos.", 5);
+					if (!ACCOUNT_INFO[playerid][ac_SU])
+					{
+						if (player_vehicles >= MAX_NU_VEHICLES)
+						{
+							ShowPlayerMessage(playerid, "~r~No puedes tener mas vehículos.", 5);
+							return 1;
+						}
+					}
+				}
+
 				PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] = listitem;
 
 				new payload[264];
@@ -23806,7 +23826,6 @@ public StoreBuyRecv(index, response_code, const data[])
 						ACCOUNT_INFO[playerid][ac_LEVEL] += STORE_PRODUCTS[ PLAYER_TEMP[playerid][py_CREDIT_PRODUCT] ][store_EXTRA];
 						SetPlayerSkillLevels(playerid);
 
-						SendClientMessageEx(playerid, COLOR_WHITE, ""COL_RED"¡Felicidades! "COL_WHITE"Has subido al nivel %d.", ACCOUNT_INFO[playerid][ac_LEVEL]);
 						SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
 
 						ACCOUNT_INFO[playerid][ac_TIME_FOR_REP] = TIME_FOR_REP;
