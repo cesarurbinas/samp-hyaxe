@@ -1,6 +1,7 @@
 *.amx
 *.zip
 *.exe
+*.log
 
 /server_log.*
 /crashinfo.*
