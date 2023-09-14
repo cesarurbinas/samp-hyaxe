@@ -1301,7 +1301,7 @@ CMD:darstaff(playerid, params[])
 
 	new str_text[64];
 	format(str_text, sizeof(str_text), "MOD~n~~w~%d", level);
-	ShowPlayerAlert(playerid, str_text, 0x6AEA5BFF, 4);
+	ShowPlayerAlert(to_player, str_text, 0x6AEA5BFF, 4);
 
 	SendCmdLogToAdmins(playerid, "givemod", params);
 	return 1;
