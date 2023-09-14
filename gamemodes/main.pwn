@@ -55,7 +55,7 @@
 
 // Features
 //#define VOICE_CHAT
-#define FINAL_BUILD
+//#define FINAL_BUILD
 
 // Special events
 //#define HALLOWEEN_MODE // Modo de halloween
@@ -34511,7 +34511,7 @@ ShowPlayerStats(playerid, pid)
 		"COL_WHITE"  VIP: "COL_YELLOW"%s\n\
 		"COL_WHITE"  DNI: %s\n\
 		"COL_WHITE"  Licencia de conducir: %s\n\
-		"COL_WHITE"  Estado social: %s",",
+		"COL_WHITE"  Estado social: %s",
 
 			ACCOUNT_INFO[pid][ac_ID],
 			ACCOUNT_INFO[pid][reg_DATE],
