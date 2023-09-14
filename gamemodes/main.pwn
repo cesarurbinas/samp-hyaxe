@@ -3094,6 +3094,7 @@ public OnPlayerConnect(playerid)
 	PLAYER_TEMP[playerid][py_LAST_VEHICLE_ID] = INVALID_VEHICLE_ID;
 	PLAYER_TEMP[playerid][py_CHECK_OBJECT] =
 	PLAYER_TEMP[playerid][py_PIVOT_OBJECT] = INVALID_OBJECT_ID;
+	PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
 	//PLAYER_TEMP[playerid][py_CLEANER_INDEX] = 99;
 	for(new i = 0; i != MAX_OBJECTS_PER_ROUTE; i ++) TRASH_PLAYER_OBJECTS[playerid][i] = INVALID_STREAMER_ID;
 
@@ -3512,6 +3513,13 @@ public OnPlayerDisconnect(playerid, reason)
 					if(BOOMBOX[i][bb_OWNER] == ACCOUNT_INFO[playerid][ac_ID])
 						DestroyBoombox(i);
 				}
+			}
+
+			if(PLAYER_TEMP[playerid][py_DL_LABEL] != INVALID_3DTEXT_ID)
+			{
+				DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_DL_LABEL]);
+				KillTimer(PLAYER_TEMP[playerid][py_DL_TIMER]);
+				PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
 			}
   		}
   	}
@@ -21276,14 +21284,15 @@ SaveUserData(playerid)
 		UPDATE `PLAYER_OBJECT` SET\
 		`GPS` = '%d',\
 		`MP3` = '%d',\
-		`PHONE_RESOLVER` = '%d' \
+		`PHONE_RESOLVER` = '%d', \
+		`BOOMBOX` = %d, \
 		WHERE `ID_USER` = '%d';\
 		",
 		ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], ACCOUNT_INFO[playerid][ac_STATE], ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL], ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL], ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID],
 		CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_CASH], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_STATE], CHARACTER_INFO[playerid][ch_INTERIOR], CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA], CHARACTER_INFO[playerid][ch_FIGHT_STYLE], CHARACTER_INFO[playerid][ch_HEALTH], CHARACTER_INFO[playerid][ch_ARMOUR],  CHARACTER_INFO[playerid][ch_SEX], CHARACTER_INFO[playerid][ch_HUNGRY], CHARACTER_INFO[playerid][ch_THIRST], CHARACTER_INFO[playerid][ch_BLACK_MARKET_LEVEL], CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME], CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID], CHARACTER_INFO[playerid][ch_JAIL_REASON], CHARACTER_INFO[playerid][ch_JAILED_BY], ACCOUNT_INFO[playerid][ac_ID],
 		BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
 		PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_STATE], PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER], ACCOUNT_INFO[playerid][ac_ID],
-		PLAYER_OBJECT[playerid][po_GPS], PLAYER_OBJECT[playerid][po_MP3], PLAYER_OBJECT[playerid][po_PHONE_RESOLVER], ACCOUNT_INFO[playerid][ac_ID]
+		PLAYER_OBJECT[playerid][po_GPS], PLAYER_OBJECT[playerid][po_MP3], PLAYER_OBJECT[playerid][po_PHONE_RESOLVER], PLAYER_OBJECT[playerid][po_BOOMBOX], ACCOUNT_INFO[playerid][ac_ID]
 		);
 	db_free_result(db_query(Database, DB_Query));
 
@@ -31545,9 +31554,10 @@ CMD:id(playerid, params[])
 		acid
 	);
 	
-	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Versión: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f",
+	SendClientMessageEx(playerid, COLOR_RED, "• "COL_WHITE"Versión: %s "COL_RED"|"COL_WHITE" PacketLoss: %.2f "COL_RED"|"COL_WHITE" Ping: %d",
 		player_version,
-		NetStats_PacketLossPercent(playerid)
+		NetStats_PacketLossPercent(playerid),
+		GetPlayerPing(playerid)
 	);
 	return 1;
 }
@@ -34312,3 +34322,4 @@ flags:jailoff(CMD_MODERATOR)
 flags:unjailloff(CMD_MODERATOR)
 flags:comandosadmin(CMD_HELPER)
 flags:freezedetect(CMD_MODERATOR2) // Detecta freezecolls
+flags:dlply(CMD_MODERATOR2)

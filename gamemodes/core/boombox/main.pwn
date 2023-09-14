@@ -62,7 +62,8 @@ PlayAudioInBoombox(requester, id, const url[])
 	{
 		if(!IsPlayerConnected(i)) continue;
 		PlayAudioStreamForPlayer(i, url, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2], 50.0, 1);
-		ShowPlayerNotification(i, sprintf("Reproduciendo %s. Solicitaddo por %s", PLAYER_DIALOG_MP3_RESULT[requester][ PLAYER_TEMP[requester][py_RESULT_INDEX] ][result_NAME], ACCOUNT_INFO[requester][ac_NAME]), 5);
+		if(IsPlayerInRangeOfPoint(i, 50.0, BOOMBOX[id][bb_POS][0], BOOMBOX[id][bb_POS][1], BOOMBOX[id][bb_POS][2]))
+			ShowPlayerNotification(i, sprintf("Reproduciendo %s. Solicitaddo por %s", PLAYER_DIALOG_MP3_RESULT[requester][ PLAYER_TEMP[requester][py_RESULT_INDEX] ][result_NAME], ACCOUNT_INFO[requester][ac_NAME]), 5);
 	}
 
 	return 1;
@@ -138,6 +139,7 @@ bool:PlayerHasBoombox(playerid)
 {
 	for(new i = 0; i < MAX_BOOMBOXS; i++)
 	{
+		if(!BOOMBOX[i][bb_VALID]) continue;
 		if(BOOMBOX[i][bb_OWNER] == ACCOUNT_INFO[playerid][ac_ID]) return true;
 	}
 
@@ -168,14 +170,14 @@ bool:PlayerHasBoombox(playerid)
 */
 
 CMD:parlante(playerid, params[])
-{
-	if(!PLAYER_OBJECT[playerid][po_BOOMBOX]) return ShowPlayerMessage(playerid, "~r~No tienes parlantes. Ve a una tienda electrónica.", 4);
-	
+{	
 	new options[12];
 	if(sscanf(params, "s[12]", options)) return SendClientMessage(playerid, COLOR_WHITE, "USO: /parlante (colocar/reproducir/recoger/parar/opciones)");
 
 	if(isequal(options, "colocar", true))
 	{
+		if(!PLAYER_OBJECT[playerid][po_BOOMBOX]) return ShowPlayerMessage(playerid, "~r~No tienes parlantes. Ve a una tienda electrónica.", 4);
+
 		if(PlayerHasBoombox(playerid)) return ShowPlayerMessage(playerid, "~r~Ya tienes un parlante colocado.", 4);
 		if(IsPlayerNearBoombox(playerid, 50.0) != -1) return ShowPlayerMessage(playerid, "~r~Ya hay un parlante cerca.", 4);
 		if(CreateBoombox(playerid) != -1) 

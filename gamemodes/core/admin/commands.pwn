@@ -2702,3 +2702,34 @@ CMD:freezedetect(playerid, params[])
 	SendCmdLogToAdmins(playerid, "freezedetect", params);
 	return 1;
 }
+
+CMD:dlply(playerid, params[])
+{
+	new toply;
+	if(sscanf(params, "r", toply))
+	{
+		if(PLAYER_TEMP[playerid][py_DL_LABEL] != INVALID_3DTEXT_ID)
+		{
+			DestroyDynamic3DTextLabel(PLAYER_TEMP[playerid][py_DL_LABEL]);
+			KillTimer(PLAYER_TEMP[playerid][py_DL_TIMER]);
+			PLAYER_TEMP[playerid][py_DL_LABEL] = INVALID_3DTEXT_ID;
+			return 1;
+		}
+		else return SendClientMessage(playerid, COLOR_WHITE, "USO: /dlply (playerid)");
+	}
+	if(toply == playerid) return SendClientMessage(playerid, COLOR_RED, "No puedes usar este comando en ti mismo.");
+	if(!IsPlayerConnected(toply)) return SendClientMessage(playerid, COLOR_WHITE, "Jugador desconectado.");
+	if(PLAYER_TEMP[playerid][py_DL_LABEL] != INVALID_3DTEXT_ID) return SendClientMessage(playerid, COLOR_WHITE, "Solo puedes tener un label de información.");
+
+	new Float:vx, Float:vy, Float:vz, Float:x, Float:y, Float:z;
+	GetPlayerVelocity(toply, vx, vy, vz);
+	GetPlayerPos(toply, x, y, z);
+
+	new string[250];
+	format(string, sizeof(string), ""COL_RED"Velocidad: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_RED"Posición: "COL_WHITE"X %0.2f - Y %0.2f - Z %0.2f\n"COL_RED"Ping: "COL_WHITE"%d\n"COL_RED"PacketLoss: "COL_WHITE"%0.2f", vx, vy, vz, x, y, z, GetPlayerPing(toply), NetStats_PacketLossPercent(toply));
+	PLAYER_TEMP[playerid][py_DL_LABEL] = CreateDynamic3DTextLabel(string, 0xFFFFFFFF, 0.0, 0.0, -0.5, 15.0, .attachedplayer = toply, .testlos = 1, .playerid = playerid);
+	PLAYER_TEMP[playerid][py_DL_TIMER] = SetTimerEx("UpdateLabel", 1000, true, "dd", playerid, toply);
+	Streamer_Update(playerid);
+
+	return 1;
+}

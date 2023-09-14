@@ -278,7 +278,9 @@ enum Temp_Enum
 	py_CHECK_DAMAGES[4],
 	py_MUSIC_BOOMBOX,
 	bool:py_ROBBERY,
-	py_ROBBERY_LEADER
+	py_ROBBERY_LEADER,
+	Text3D:py_DL_LABEL,
+	py_DL_TIMER
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
