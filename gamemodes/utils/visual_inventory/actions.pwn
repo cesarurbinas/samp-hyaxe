@@ -79,14 +79,23 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			{
 				if (IsFullInventory(playerid)) return ShowPlayerMessage(playerid, "~r~Tienes el inventario lleno.", 4);
 
-				new item_str[64];
-				format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", GetItemNameByType(PLAYER_VISUAL_INV[playerid][slot_TYPE][slot]));
-				GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
+				new grab_status = GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
 
-				PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
-				ResetItemBody(playerid);
+				if (grab_status)
+				{
+					new item_str[64];
+					format(item_str, sizeof(item_str), "~n~~n~~n~~n~~n~~n~~w~%s", GetItemNameByType(PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot]));
+					GameTextForPlayer(playerid, TextToSpanish(item_str), 2000, 5);
 
-				GrabItem(playerid, PROPERTY_VISUAL_INV[playerid][slot_TYPE][slot], PROPERTY_VISUAL_INV[playerid][slot_AMMOUNT][slot]);
+					PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
+					ResetItemBody(playerid);
+
+					new DB_Query[90];
+					format(DB_Query, sizeof DB_Query, "DELETE FROM `PROPERTY_STORAGE` WHERE `ID` = '%d';", PROPERTY_VISUAL_INV[playerid][slot_DB_ID][slot]);
+					db_free_result(db_query(Database, DB_Query));
+
+					HideInventory(playerid);
+				}
 			}
 			else
 			{

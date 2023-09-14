@@ -6,7 +6,8 @@ enum Visual_Inventory
 	slot_AMMOUNT[12],
 	bool:slot_WEAPON[12],
 	slot_WEAPON_SLOT[12],
-	slot_COLOR
+	slot_COLOR,
+	slot_DB_ID
 }
 new 
 	PLAYER_VISUAL_INV[MAX_PLAYERS][Visual_Inventory],
