@@ -83,10 +83,14 @@ PayPlayerProcessor(playerid, processor_id)
 	SavePlayerSkills(playerid);
 
 	if (random(2) == 1) GivePlayerReputation(playerid);
+
+	new str_text[164];
+	format(str_text, sizeof(str_text), "~r~%s~w~ ha reparado la procesadora ~y~#%d~w~.", PLAYER_TEMP[playerid][py_NAME], processor_id);
+	ShowPlayerNotificationToRange(playerid, 20.0, str_text, 10);
 	return 1;
 }
 
-CheckRepairRockProcessor(playerid);
+CheckRepairRockProcessor(playerid)
 {
 	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
 	{

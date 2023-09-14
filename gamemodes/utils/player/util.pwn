@@ -5158,7 +5158,7 @@ ProxDetector(playerid, Float:radi, string[], col1, col2, col3, col4, col5, div =
 	return 1;
 }
 
-stock ShowPlayerMessageToRange(playerid, float:range, const message[], seconds)
+stock ShowPlayerMessageToRange(playerid, Float:range, const message[], seconds)
 {
 	new
 		Float:oldposx, Float:oldposy, Float:oldposz,
@@ -5175,12 +5175,12 @@ stock ShowPlayerMessageToRange(playerid, float:range, const message[], seconds)
 		if (GetPlayerInterior(i) != current_int) continue;
 
 		if (IsPlayerInRangeOfPoint(i, range, oldposx, oldposy, oldposz))
-			ShowPlayerMessage(i, message, seconds)
+			ShowPlayerMessage(i, message, seconds);
 	}
 	return 1;
 }
 
-ShowPlayerNotificationToRange(playerid, float:range, const message[], seconds)
+ShowPlayerNotificationToRange(playerid, Float:range, const message[], seconds)
 {
 	new
 		Float:oldposx, Float:oldposy, Float:oldposz,
@@ -5197,7 +5197,7 @@ ShowPlayerNotificationToRange(playerid, float:range, const message[], seconds)
 		if (GetPlayerInterior(i) != current_int) continue;
 
 		if (IsPlayerInRangeOfPoint(i, range, oldposx, oldposy, oldposz))
-			ShowPlayerNotification(i, message, seconds)
+			ShowPlayerNotification(i, message, seconds);
 	}
 	return 1;
 }

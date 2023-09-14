@@ -2529,6 +2529,7 @@ public OnGameModeExit()
 	Log("status", "Servidor detenido.");
 	return 1;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 RemoveObjectCollisions()
@@ -6082,3 +6083,43 @@ GetPlayerZones(playerid, city[], zone[])
 =======
 }
 >>>>>>> 9077738 (modulation finishied)
+=======
+}
+
+/*
+
+
+* El error en la tienda con creditos insuficientes fue arreglado
+* Nuevo chat global
+* El /localizar al cerrar ya no enviara al jugador al gps
+* Optimizaciones varias
+* Codigo restante modulado
+
+0. Optimizacion jeje [][[][][]]
+arreglar el error de los creditos []
+arreglar modulos []
+Agregar chat global []
+Actualizar route tracing / meterlo al cliente
+Elegir tipos de notificaciones
+high pos te mande a donde stabas
+agregar mapeo de gheto
+arreglar q al salir de localizar manda al gps []
+
+1. Mejorar minero
+Agregar mas minerales
+Generacion natural de minerales [][]
+Arreglar bug del color del mineral [][]
+Potenciadores al picar
+poner el piko al entregar roka [][]
+Que las procesadoras se puedan romper y haya que arreglarlas
+Que haya que ponerle gasolina a las procesadoras
+Seccion D
+Mina con railes
+Vagonetas en la seccion d
+
+2. trabajo criminal
+
+
+
+*/
+>>>>>>> 7d7eefd (reparacion de procesadoras)

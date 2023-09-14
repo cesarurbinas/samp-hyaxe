@@ -1,4 +1,5 @@
 // Utils
+#if defined FINAL_BUILD
 DCC_IsUserModerator(DCC_User:user)
 {
 	new DCC_Guild:guild = DCC_FindGuildById("586980198910656521");
@@ -37,7 +38,6 @@ DCC_IsUserAdministrator(DCC_User:user)
 	return false;
 }
 
-#if defined FINAL_BUILD
 // Users commands
 DC_CMD:id(DCC_User:userid, params[], DCC_Message:message)
 {
