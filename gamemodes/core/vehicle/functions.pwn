@@ -1082,7 +1082,7 @@ SavePlayerVehicles(playerid, destroy = false)
 			PLAYER_VEHICLES[i][player_vehicle_ID]
 		);
 
-		printf("%s", DB_Query);
+		//printf("%s", DB_Query);
 		db_free_result(db_query(Database, DB_Query));
 
 		for(new x = 0; x != MAX_VEHICLE_COMPONENTS; x ++)
@@ -1126,7 +1126,7 @@ SavePlayerVehicles(playerid, destroy = false)
 				PLAYER_VEHICLES[i][player_vehicle_ID]
 			);
 
-			printf("%s", DB_Query);
+			//printf("%s", DB_Query);
 			db_free_result(db_query(Database, DB_Query));
 		}
 

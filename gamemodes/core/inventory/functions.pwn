@@ -1200,21 +1200,28 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 		{
 			if (PLAYER_VISUAL_INV[playerid][slot_VALID][slot])
 			{
+				printf("click");
 				// Actualizar municion del arma
 				if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 				{
+					printf("1");
 					if (IsWeaponType(PLAYER_VISUAL_INV[playerid][slot_TYPE][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]))
 					{
+						printf("2");
 						new 
 							DB_Query[164],
 							weapon_db_id = PLAYER_VISUAL_INV[playerid][slot_DB_ID][ PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] ]
 						;
+						printf("id: %d", weapon_db_id);
 
 						format(DB_Query, sizeof DB_Query,
 							"UPDATE `PLAYER_INVENTORY` SET `EXTRA` = '%d' WHERE `ID` = '%d';",
 							PLAYER_WEAPONS[playerid][ WEAPON_INFO[ GetPlayerWeapon(playerid) ][weapon_info_SLOT] ][player_weapon_AMMO],
 							weapon_db_id
 						);
+						printf("wp: %d", GetPlayerWeapon(playerid));
+						printf("ammo: %d", PLAYER_WEAPONS[playerid][ WEAPON_INFO[ GetPlayerWeapon(playerid) ][weapon_info_SLOT] ][player_weapon_AMMO]);
+						printf(DB_Query);
 						db_free_result(db_query(Database, DB_Query));
 					}
 				}
