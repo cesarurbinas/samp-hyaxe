@@ -192,7 +192,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 
 public UpdateTreeCutting(playerid)
 {
-	if(PLAYER_TEMP[playerid][py_CUTTING] != -1 && !Trees[ PLAYER_TEMP[playerid][py_CUTTING] ][tree_CHOPPED])
+	if(PLAYER_TEMP[playerid][py_CUTTING] != -1)
 	{
 		PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] -= (PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] / 15);
 		if(PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] < 0) PLAYER_TEMP[playerid][py_CUTTING_PROGRESS] = 1;
