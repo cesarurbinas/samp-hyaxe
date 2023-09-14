@@ -6111,8 +6111,8 @@ Generacion natural de minerales [][]
 Arreglar bug del color del mineral [][]
 Potenciadores al picar
 poner el piko al entregar roka [][]
-Que las procesadoras se puedan romper y haya que arreglarlas
-Que haya que ponerle gasolina a las procesadoras
+Que las procesadoras se puedan romper y haya que arreglarlas [][][]
+Que haya que ponerle gasolina a las procesadoras [][]
 Seccion D
 Mina con railes
 Vagonetas en la seccion d

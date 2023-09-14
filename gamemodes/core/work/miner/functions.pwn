@@ -240,7 +240,7 @@ UpdateRockProcessorLabel(processor_id)
 	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] <= 0.0) ROCK_PROCESSOR[processor_id][rp_HEALTH] = 0.0;
 
 	new str_text[164];
-	format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquí­.\n\nGasolina: %.1f\nEstado: %.1f%", processor_id, ROCK_PROCESSOR[processor_id][rp_FUEL], ROCK_PROCESSOR[processor_id][rp_HEALTH]);
+	format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquíi.\n\nGasolina: %.1f\nEstado: %.1f%", processor_id, ROCK_PROCESSOR[processor_id][rp_FUEL], ROCK_PROCESSOR[processor_id][rp_HEALTH]);
 	printf("update 1: %s", str_text);
 	if (ROCK_PROCESSOR[processor_id][rp_FUEL] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere gasolina");
 	if (ROCK_PROCESSOR[processor_id][rp_HEALTH] <= 0.0) strcat(str_text, "\n"COL_YELLOW"Requiere reparación");
@@ -253,15 +253,17 @@ CreateMinerRocks()
 {
 	for(new i = 0; i != sizeof ROCK_PROCESSOR; i ++)
 	{
-		/*ROCK_PROCESSOR[i][rp_FUEL] = float(minrand(10, 100));
-		ROCK_PROCESSOR[i][rp_HEALTH] = float(minrand(10, 100));*/
-
 		ROCK_PROCESSOR[i][rp_FUEL] = float(minrand(2, 10));
 		ROCK_PROCESSOR[i][rp_HEALTH] = float(minrand(2, 10));
 
+		#if defined FINAL_BUILD
+			ROCK_PROCESSOR[i][rp_FUEL] = float(minrand(10, 100));
+			ROCK_PROCESSOR[i][rp_HEALTH] = float(minrand(10, 100));
+		#endif
+
 		new str_text[164];
-		format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aquí­.\n\nGasolina: %.1f\nEstado: %.1f%", i, ROCK_PROCESSOR[i][rp_FUEL], ROCK_PROCESSOR[i][rp_HEALTH]);
-		printf("create 1: %s", str_text);
+		format(str_text, sizeof(str_text), ""COL_RED"Procesadora #%d\n"COL_WHITE"Suelta los materiales aqui­.\n\nGasolina: %.1f\nEstado: %.1f%", i, ROCK_PROCESSOR[i][rp_FUEL], ROCK_PROCESSOR[i][rp_HEALTH]);
+		//printf("create 1: %s", str_text);
 		ROCK_PROCESSOR[i][rp_LABEL] = CreateDynamic3DTextLabel(str_text, 0xF7F7F7FF, ROCK_PROCESSOR[i][rp_X], ROCK_PROCESSOR[i][rp_Y], ROCK_PROCESSOR[i][rp_Z] + 4.0, 35.0, .testlos = true, .worldid = -1, .interiorid = -1);
 	}
 
