@@ -710,11 +710,15 @@ public AddPlayerReputation(playerid)
 		ACCOUNT_INFO[playerid][ac_PAYDAY_REP] ++;
 		if (ACCOUNT_INFO[playerid][ac_PAYDAY_REP] >= REP_FOR_PAYDAY)
 		{
+			#if defined VOICE_CHAT
 			if (SvGetVersion(playerid))
 			{
 				PlayerPayday(playerid);
 			}
 			else ShowPlayerNotification(playerid, "Instale el cliente de Hyaxe en www.hyaxe.com/client");
+			#endif
+
+			PlayerPayday(playerid);
 			ACCOUNT_INFO[playerid][ac_PAYDAY_REP] = 0;
 		}
 

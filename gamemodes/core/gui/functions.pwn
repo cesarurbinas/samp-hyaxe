@@ -6,12 +6,14 @@ ShowMainMenu(playerid)
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][47]);
 	ShowPlayerMessage(playerid, "_", 1);
 
+	#if defined VOICE_CHAT
 	if (!SvGetVersion(playerid))
 	{
 		PLAYER_MISC[playerid][MISC_GAMEMODE] = 5000;
 		PlayerJoinGamemode(playerid);
 		return 0;
 	}
+	#endif
 
 	HideGamemodesMenu(playerid);
 
@@ -26,10 +28,12 @@ ShowMainMenu(playerid)
 
 	SelectTextDrawEx(playerid, 0xFFFFFFAA);
 
+	#if defined VOICE_CHAT
 	SvAddKey(playerid, 0x57); // W
 	SvAddKey(playerid, 0x41); // A
 	SvAddKey(playerid, 0x53); // S
 	SvAddKey(playerid, 0x44); // D
+	#endif
 	return 1;
 }
 
@@ -58,7 +62,7 @@ HideMainMenu(playerid)
 	return 1;
 }*/
 
-UpdateGamemodesMenu(playerid)
+stock UpdateGamemodesMenu(playerid)
 {
 	if (minigames_page[playerid] < 0) minigames_page[playerid] = 3;
 	switch(minigames_page[playerid])
@@ -280,10 +284,12 @@ PlayerJoinGamemode(playerid, announce = true)
 	HideGamemodesMenu(playerid);
 	HideMainMenu(playerid);
 
+	#if defined VOICE_CHAT
 	SvRemoveKey(playerid, 0x57); // W
 	SvRemoveKey(playerid, 0x41); // A
 	SvRemoveKey(playerid, 0x53); // S
 	SvRemoveKey(playerid, 0x44); // D
+	#endif
 
 	CancelSelectTextDrawEx(playerid);
 	return 1;

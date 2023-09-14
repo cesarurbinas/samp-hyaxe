@@ -1,5 +1,5 @@
 // Server
-#define SERVER_HOSTNAME "Hyaxe RolePlay (www.hyaxe.com)"
+#define SERVER_HOSTNAME "Hyaxe (www.hyaxe.com)"
 #define SERVER_LANGUAGE "Español / Spanish"
 #define SERVER_MODE "RPG/Roleplay"
 

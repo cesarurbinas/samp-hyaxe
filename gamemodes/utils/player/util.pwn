@@ -6721,7 +6721,7 @@ new
 	DIALOG_PLAYER_GPS_SITE_7_String[90 * (sizeof(SELL_VEHICLES_SHOPS_SPAWN) + 1)],
 	DIALOG_CREATE_CREW_COLOR_String[164];
 
-RemoveObjectCollisions()
+stock RemoveObjectCollisions()
 {
 	//taller temple
     CA_RemoveBuilding(5849, 1046.6797, -935.1953, 46.9922, 0.25);
