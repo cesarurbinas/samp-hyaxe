@@ -3927,7 +3927,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 						RemovePlayerAttachedObject(playerid, 9);
 						PayPlayerMiner(playerid);
 						DropPlayerRock(playerid, i);
-						EquipItemByType(52);
+						EquipItemByType(playerid, 52);
 					}	
 				}
 			}

@@ -4699,7 +4699,7 @@ EquipItemByType(playerid, type)
 	if (target_slot)
 	{
 		PLAYER_TEMP[playerid][py_INVENTORY_TYPE] = 0;
-		ClickInventorySlot(playerid, hammer_slot, true);
+		ClickInventorySlot(playerid, target_slot, true);
 		return 1;
 	}
 	return 0;

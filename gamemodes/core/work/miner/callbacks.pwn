@@ -26,7 +26,7 @@ public PutPlayerRock(playerid, rock_type)
 	PLAYER_TEMP[playerid][py_ROCK] = true;
 	PLAYER_TEMP[playerid][py_ACTUAL_ROCK] = rock_type;
 
-	SetPlayerAttachedObject(playerid, 9, 3930, 1, 0.1760, 0.4369, 0.0000, 0.0000, 0.0000, 30.5999, 0.5240, 0.5149, 0.6189, -1, GetRockColorType(ROCKS_OBJ[rock_type][r_TYPE]));
+	SetPlayerAttachedObject(playerid, 9, 3930, 1, 0.1760, 0.4369, 0.0000, 0.0000, 0.0000, 30.5999, 0.5240, 0.5149, 0.6189, GetRockColorType(ROCKS_OBJ[rock_type][r_TYPE]), -1);
 	SetPlayerSpecialAction(playerid, SPECIAL_ACTION_CARRY);
 	return 1;
 }

@@ -167,10 +167,10 @@ SetRandomRockType(index)
 {
 	switch(GetRockMineType(ROCKS_OBJ[index][r_TYPE]))
 	{
-		case 0: ROCKS_OBJ[index][r_TYPE] = random(3);
-		case 1: ROCKS_OBJ[index][r_TYPE] = random(8);
-		case 2: ROCKS_OBJ[index][r_TYPE] = random(12);
-		default: ROCKS_OBJ[index][r_TYPE] = random(3);
+		case 0: ROCKS_OBJ[index][r_TYPE] = minrand(0, 3);
+		case 1: ROCKS_OBJ[index][r_TYPE] = minrand(4, 8);
+		case 2: ROCKS_OBJ[index][r_TYPE] = minrand(8, 12);
+		default: ROCKS_OBJ[index][r_TYPE] = minrand(0, 3);
 	}
 }
 
