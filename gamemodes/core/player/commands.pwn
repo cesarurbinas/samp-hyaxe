@@ -505,7 +505,7 @@ cmd:slide(playerid, params[])
 
 cmd:cbug(playerid, params[])
 {
-	Anticheat_Kick(playerid, "C-Bug [CSC]");
+	Anticheat_Kick(playerid, "Cbug [CSC]");
 	return 1;
 }
 
