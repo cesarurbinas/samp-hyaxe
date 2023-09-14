@@ -1,3 +1,4 @@
+// Compiler params
 #pragma option -d2 // un debuj medio como kn dise
 #pragma warning disable 239
 #pragma warning disable 214
@@ -29,7 +30,11 @@
 #define MAX_SU_VOBJECTS 		10
 //#define VOICE_CHAT
 
-// TRASH
+/*
+I am world champion pawno scripta, Y_less jealous of me
+A Y_less screenshot more rare than a hot gurl on discord
+Y_less on the ruski face book? I dont need to don the fur hat
+*/
 #define YSI_NO_HEAP_MALLOC
 #define YSI_NO_MODE_CACHE	
 #define YSI_NO_OPTIMISATION_MESSAGE	
@@ -54,6 +59,7 @@
 #include <ExtendedActorFunctions>
 #include <gmenu>
 
+// Ojito con esto q se revienta el cpeu
 #if defined VOICE_CHAT
     #include <sampvoice>
 #endif
@@ -8230,8 +8236,8 @@ public OnGameModeExit()
 	{
 		if(!IsPlayerConnected(i)) continue;
 
-		if(CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME > 0)
-			CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] -= gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME];
+		if(CHARACTER_INFO[i][ch_POLICE_JAIL_TIME > 0)
+			CHARACTER_INFO[i][ch_POLICE_JAIL_TIME] -= gettime() - PLAYER_TEMP[i][py_ENTER_JAIL_TIME];
 			
 		SaveUserData(i);
 		SavePlayerToysData(i);

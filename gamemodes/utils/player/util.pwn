@@ -1,9 +1,10 @@
-new NAME_WHITELIST[][100] =
+new NAME_WHITELIST[][24] =
 {
 	"Yahir_Kozel",
 	"Atom_Palomita",
 	"Pepe_Garcia",
-	"Eusebio_Capone"
+	"Eusebio_Capone",
+	"Yarmak_Pingote"
 };
 
 IsPlayerInWater(playerid)
