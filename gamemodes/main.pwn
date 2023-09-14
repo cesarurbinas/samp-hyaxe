@@ -30870,7 +30870,7 @@ OpenMafiaDoor(playerid)
 		{
 			case DOOR_TYPE_MAFIA:
 			{
-				if (PLAYER_SKILLS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ] > 0) open = true;
+				if (PLAYER_WORKS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ]) open = true;
 			}
 			case DOOR_TYPE_USER:
 			{
