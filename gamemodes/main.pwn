@@ -13666,7 +13666,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						{
 							PLAYER_TEMP[playerid][py_WANT_MECHANIC] = true;
 							ShowPlayerMessage(playerid, "Tu llamada se ha enviado a los mecánicos disponibles, espera a que llegue un mecánico.", 2);
-							//SendClientMessage(playerid, COLOR_WHITE, ""COL_WHITE"Vuelve a llamar a este número si ya no necesitas un mecánico.");
 							SendAlertToMechanic(playerid);
 						}
 						return 1;
