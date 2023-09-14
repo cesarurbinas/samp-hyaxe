@@ -8064,13 +8064,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 					}
 					case 1..8:
 					{
-						/*SendClientMessageEx(playerid, -1, "listitem %d", listitem);
-						SendClientMessageEx(playerid, -1, "listitem ro %d", (listitem - 1));
-						SendClientMessageEx(playerid, -1, "price ro %d", (listitem - 1) * 1500);
-						SendClientMessageEx(playerid, -1, "price %d", listitem * 1500);
-						SendClientMessageEx(playerid, -1, "roks ro %d", (listitem - 1) * 5));
-						SendClientMessageEx(playerid, -1, "roks %d", listitem * 5));*/
-
 						new price = listitem * 1500; 
 						if (CHARACTER_INFO[playerid][ch_CASH] <= price) return ShowPlayerMessage(playerid, "~r~No tienes dinero suficiente.", 3);
 

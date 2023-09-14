@@ -2219,6 +2219,28 @@ public OnPlayerDeath(playerid, killerid, reason)
 						NeuroJail(killerid, 30, "VK");
 						return 1;
 					}
+
+					if (GetPlayerDistanceFromPoint(playerid, x, y, z) > 300.0)
+					{
+						new dialog[250];
+						format(dialog, sizeof dialog, ""COL_WHITE"Fuiste baneado, razón: Silent Aimbot (0)");
+						ShowPlayerDialog(killerid, DIALOG_INFO, DIALOG_STYLE_MSGBOX, ""COL_RED"Aviso", dialog, "Cerrar", "");
+						
+						AddPlayerBan(ACCOUNT_INFO[killerid][ac_ID], ACCOUNT_INFO[killerid][ac_NAME], ACCOUNT_INFO[killerid][ac_IP], 11, TYPE_BAN, "Silent Aimbot (0)");
+
+						KickEx(killerid, 500);
+						PLAYER_MISC[killerid][MISC_BANS] ++;
+						SavePlayerMisc(killerid);
+
+						new str[144];
+						format(str, 144, "[ADMIN] NeuroAdmin baneó a %s (%d): Silent Aimbot (0).", ACCOUNT_INFO[killerid][ac_NAME], killerid);
+						SendMessageToAdmins(COLOR_ANTICHEAT, str, 2);
+
+						new webhook[144];
+						format(webhook, sizeof(webhook), ":page_with_curl: %s", str);
+						SendDiscordWebhook(webhook, 1);
+						return 0;
+					}
 				}
 			}
 
@@ -5862,6 +5884,40 @@ IPacket:AIM_SYNC(playerid, BitStream:bs)
     return 1;
 }
 
+IPacket:BULLET_SYNC(playerid, BitStream:bs)
+{
+    new bulletData[PR_BulletSync];
+
+    BS_IgnoreBits(bs, 8);
+    BS_ReadBulletSync(bs, bulletData);
+
+    PLAYER_TEMP[playerid][py_TOTAL_SHOT] ++;
+	if (PLAYER_TEMP[playerid][py_TOTAL_SHOT] >= 5)
+	{
+		PLAYER_TEMP[playerid][py_TOTAL_SHOT] = 0;
+
+		if (bulletData[PR_hitType] == 1)
+		{
+			new Float:ray_x, Float:ray_y, Float:ray_z;
+			new ray = CA_RayCastLine(
+				bulletData[PR_origin][0], bulletData[PR_origin][1], bulletData[PR_origin][2],
+				bulletData[PR_hitPos][0], bulletData[PR_hitPos][1], bulletData[PR_hitPos][2],
+				ray_x, ray_y, ray_z
+			);
+
+			if (ray && ray != WATER_OBJECT)
+			{
+				new string[144];
+				format(string, sizeof(string), "[ANTI-CHEAT] Aviso sobre %s (%d): WallShot (object: %d, weaponId: %d, hitId: %d)", PLAYER_TEMP[playerid][py_NAME], playerid, ray, bulletData[PR_weaponId], bulletData[PR_hitId]);
+				SendMessageToAdminsAC(COLOR_ANTICHEAT, string);
+				SendDiscordWebhook(string, 1);
+			}
+		}
+	}
+
+    return 1;
+}
+
 #if defined VOICE_CHAT
 	public SV_VOID:OnPlayerActivationKeyPress(SV_UINT:playerid, SV_UINT:keyid)
 	{
@@ -6005,7 +6061,7 @@ OnCheatDetected(playerid, ip_address[], type, code)
 	{
 		if (code == 47)
 		{
-			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Crasher de retrasado");
+			AddPlayerBan(ACCOUNT_INFO[playerid][ac_ID], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_IP], 11, TYPE_BAN, "Weapon Crasher");
 			Kick(playerid);
 			return 1;
 		}

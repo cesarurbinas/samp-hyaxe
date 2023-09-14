@@ -392,8 +392,13 @@ enum Temp_Enum
 >>>>>>> deef895 (Cambio de cuenta crasheaba el servidor)
 =======
 	py_TUTORIAL_STEP,
+<<<<<<< HEAD
 	py_GLOBAL_CHANNEL_TIME
 >>>>>>> 86b7f68 (global chat)
+=======
+	py_GLOBAL_CHANNEL_TIME,
+	py_TOTAL_SHOT
+>>>>>>> 8fe8170 (anti wallshot)
 };
 new PLAYER_TEMP[MAX_PLAYERS][Temp_Enum]; // PT (PlayerTemp), variables que no van a ser guardadas en base de datos.
 
