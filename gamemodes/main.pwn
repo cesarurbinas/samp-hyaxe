@@ -21658,11 +21658,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						format(str_text, 128, "Compraste %s", name);
 						ShowPlayerNotification(playerid, str_text, 3);
 
+						CLUBS_INFO[club][club_BALANCE] += price;
 						format(DB_Query, sizeof(DB_Query), "\
 							UPDATE `CLUB_INFO` SET\
-								`BALANCE` = BALANCE + '%d' \
+								`BALANCE` = '%d' \
 							WHERE `ID` = '%d';\
-						", price, club);
+						", CLUBS_INFO[club][club_BALANCE], club);
 						db_free_result(db_query(Database, DB_Query));
 
 						Add_Hungry_Thirst(playerid, floatround(extra), 0.0);
@@ -21715,11 +21716,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 						format(str_text, 128, "Compraste %s", name);
 						ShowPlayerNotification(playerid, str_text, 3);
 
+						CLUBS_INFO[club][club_BALANCE] += price;
 						format(DB_Query, sizeof(DB_Query), "\
 							UPDATE `CLUB_INFO` SET\
-								`BALANCE` = BALANCE + '%d' \
+								`BALANCE` = '%d' \
 							WHERE `ID` = '%d';\
-						", price, club);
+						", CLUBS_INFO[club][club_BALANCE], club);
 						db_free_result(db_query(Database, DB_Query));
 
 						Add_Hungry_Thirst(playerid, floatround(extra), 0.0);
