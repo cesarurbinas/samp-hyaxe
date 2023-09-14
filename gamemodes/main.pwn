@@ -2320,6 +2320,7 @@ new INVALID_WORDS[][100] =
 	"fenixzone",
 	"pene",
 	"vagina",
+	"mierda",
 	"culo",
 	"goldenstate",
 	"unplayer",
