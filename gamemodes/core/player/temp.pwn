@@ -249,6 +249,7 @@ enum Temp_Enum
 	py_VEHICLEID,
 	py_ANN_CHANNEL_TIME,
 	py_MINING_PROGRESS,
+	bool:py_MINING,
 	py_ACTUAL_ROCK,
 	bool:py_ROCK,
 	py_TOTAL_REPORTS,

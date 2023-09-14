@@ -2078,7 +2078,47 @@ new ATM_BANK[][atm_bank_info] =
 	{19324, 1704.924560, 1852.382324, 10.464756, 0.000000, 0.000000, 180.000000},
 	{19324, 456.807006, -1486.700683, 30.736743, 0.000000, 0.000000, -70.699996},
 	{19324, 2184.752197, -1139.379882, 24.193698, 0.000000, 0.000000, 270.000000},
-	{2942, 1092.4537, -1803.6158, 13.2584, 0.0000, 0.0000, -176.1998}
+	{2942, 1092.4537, -1803.6158, 13.2584, 0.0000, 0.0000, -176.1998},
+	{2942, 1516.5130, 662.8303, 10.4726, 0.0000, 0.0000, 0.0000},
+	{2942, 2340.5314, 2722.8740, 10.4767, 0.0000, 0.0000, 0.0000},
+	{2942, 1977.8226, 716.3564, 10.4669, 0.0000, 0.0000, 88.8999},
+	{2942, 2123.1389, 896.7738, 10.8202, 0.0000, 0.0000, 179.7000},
+	{2942, 1661.3525, 1722.8962, 10.4866, 0.0000, 0.0000, 0.0000},
+	{2942, 2072.2902, 2046.1706, 10.7098, 0.0000, 0.0000, 0.0000},
+	{2942, 2102.2958, 2239.5700, 10.7026, 0.0000, 0.0000, 90.3999},
+	{2942, 2187.6965, 2464.3610, 10.8439, 0.0000, 0.0000, 89.3000},
+	{2942, 1580.5782, 2217.9934, 10.7060, 0.0000, 0.0000, 0.0000},
+	{2942, 2791.2160, 2442.3928, 10.6767, 0.0000, 0.0000, -45.4999},
+	{2942, -2420.1733, 983.2249, 44.9044, 0.0000, 0.0000, 89.1000},
+	{2942, 1443.4044, 2644.8984, 11.0340, 0.0000, 0.0000, 0.0000},
+	{2942, 1135.2883, 2043.7694, 10.4476, 0.0000, 0.0000, 179.2000},
+	{2942, 2646.2478, 1129.6943, 10.7755, 0.0000, 0.0000, 0.0000},
+	{2942, 2638.5576, 1678.3454, 10.6455, 0.0000, 0.0000, -90.8999},
+	{2942, 2539.9543, 1847.2352, 10.6225, 0.0000, 0.0000, 0.0000},
+	{2942, 2539.9543, 1797.7027, 10.6225, 0.0000, 0.0000, 179.9999},
+	{2942, 2118.0822, 1382.8548, 10.4507, 0.0000, 0.0000, 0.0000},
+	{2942, 1858.6237, 969.3432, 10.4221, 0.0000, 0.0000, 90.8999},
+	{2942, 1557.5832, 987.2445, 10.4301, 0.0000, 0.0000, 89.9000},
+	{2942, -135.2062, 1157.8636, 19.3804, 0.0000, 0.0000, 0.0000},
+	{2942, -311.3013, 1299.4381, 53.2731, 0.0000, 0.0000, 89.5000},
+	{2942, -89.8232, 1383.4298, 9.9032, 0.0000, 0.0000, 99.1999},
+	{2942, -864.0909, 1536.5919, 22.2435, 0.0000, 0.0000, -179.4999},
+	{2942, -1215.7551, 1825.5415, 41.3490, 0.0000, 0.0000, 45.5000},
+	{2942, -1453.0655, 2592.3315, 55.4440, 0.0000, 0.0000, 179.5999},
+	{2942, -1939.3734, 2375.9919, 49.3162, 0.0000, 0.0000, 110.7000},
+	{2942, -2019.9095, -101.9899, 34.8026, 0.0000, 0.0000, 178.2000},
+	{2942, -1960.1308, 153.5587, 27.3050, 0.0000, 0.0000, 89.6999},
+	{2942, -1694.9470, 413.3671, 6.8242, 0.0000, 0.0000, 45.3000},
+	{2942, -2683.9221, -283.5526, 6.7930, 0.0000, 0.0000, -134.5000},
+	{2942, -2677.7692, 259.9306, 4.2935, 0.0000, 0.0000, -179.6000},
+	{2942, -1876.8988, 824.4879, 34.8016, 0.0000, 0.0000, 179.1000},
+	{2942, -2431.5390, 754.7960, 34.7489, 0.0000, 0.0000, 0.0000},
+	{2942, -2491.6191, -33.6728, 25.3861, 0.0000, 0.0000, -90.3999},
+	{2942, -2237.9602, 577.9385, 34.7804, 0.0000, 0.0000, 0.0000},
+	{2942, -1927.5317, 719.1495, 45.0831, 0.0000, 0.0000, -179.6000},
+	{2942, -1529.3118, 1015.6362, 6.7715, 0.0000, 0.0000, 0.0000},
+	{2942, -1718.2503, 1355.0715, 6.8231, 0.0000, 0.0000, -46.3000},
+	{2942, -1917.7750, 558.0651, 34.7785, 0.0000, 0.0000, 91.0000}
 };
 
 #define MAX_BANK_TRANSACTIONS_DIALOG 5
@@ -4322,7 +4362,7 @@ ResyncWeapon(playerid, weapon)
 
 CheckAndReload(playerid)
 {
-	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL && CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_NORMAL && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
+	if (PLAYER_TEMP[playerid][py_GAME_STATE] == GAME_STATE_NORMAL && GetPlayerAnimationIndex(playerid) != 1537 && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
 	{
 		if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 		{
@@ -24538,19 +24578,23 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 		if (PLAYER_WORKS[playerid][WORK_MINER])
 		{
 			// Start mining if only take a mallet
-			if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
+			if (!PLAYER_TEMP[playerid][py_MINING])
 			{
-				new slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
-				if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 52)
+				if (PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] != 9999)
 				{
-					for(new i = 0; i < sizeof ROCKS_OBJ; i ++)
+					new slot = PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT];
+					if (PLAYER_VISUAL_INV[playerid][slot_TYPE][slot] == 52)
 					{
-						if (ROCKS_OBJ[i][r_ACTIVATED] == true)
+						for(new i = 0; i < sizeof ROCKS_OBJ; i ++)
 						{
-							if (IsPlayerInRangeOfPoint(playerid, 1.8, ROCKS_OBJ[i][r_X], ROCKS_OBJ[i][r_Y], ROCKS_OBJ[i][r_Z]))
+							if (ROCKS_OBJ[i][r_ACTIVATED] == true)
 							{
-								StartMining(playerid, i);
-								return 1;
+								if (IsPlayerInRangeOfPoint(playerid, 1.8, ROCKS_OBJ[i][r_X], ROCKS_OBJ[i][r_Y], ROCKS_OBJ[i][r_Z]))
+								{
+									PLAYER_TEMP[playerid][py_MINING] = true;
+									StartMining(playerid, i);
+									return 1;
+								}
 							}
 						}
 					}
@@ -24565,6 +24609,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					if (IsPlayerInRangeOfPoint(playerid, 1.8, DROP_ROCK_POS[i][mp_X], DROP_ROCK_POS[i][mp_Y], DROP_ROCK_POS[i][mp_Z]))
 					{
 						PLAYER_TEMP[playerid][py_ROCK] = false;
+						PLAYER_TEMP[playerid][py_MINING] = false;
 						SetPlayerSpecialAction(playerid, SPECIAL_ACTION_NONE);
 						ApplyAnimation(playerid, "CARRY", "PUTDWN", 4.1, false, false, false, false, 0, false);
 						RemovePlayerAttachedObject(playerid, 9);

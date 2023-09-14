@@ -41,8 +41,7 @@ ClickInventorySlot(playerid, td_init, bool:simple = false)
 			ResetPlayerWeapons(playerid);
 			CheckBlockedWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID]);
 			
-			if (CHARACTER_INFO[playerid][ch_STATE] == ROLEPLAY_STATE_NORMAL && GetPlayerState(playerid) == PLAYER_STATE_ONFOOT)
-				GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
+			if (GetPlayerAnimationIndex(playerid) != 1537) GivePlayerWeapon(playerid, PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_ID], PLAYER_WEAPONS[playerid][ PLAYER_VISUAL_INV[playerid][slot_WEAPON_SLOT][slot] ][player_weapon_AMMO]);
 		}
 
 		PLAYER_TEMP[playerid][py_INV_SELECTED_SLOT] = slot;
