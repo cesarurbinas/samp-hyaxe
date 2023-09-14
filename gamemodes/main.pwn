@@ -2760,7 +2760,8 @@ new ATM_BANK[][atm_bank_info] =
 	{19324, 1627.274047, 1814.493408, 10.467087, 0.000000, 0.000000, 180.000000},
 	{19324, 1704.924560, 1852.382324, 10.464756, 0.000000, 0.000000, 180.000000},
 	{19324, 456.807006, -1486.700683, 30.736743, 0.000000, 0.000000, -70.699996},
-	{19324, 2184.752197, -1139.379882, 24.193698, 0.000000, 0.000000, 270.000000}
+	{19324, 2184.752197, -1139.379882, 24.193698, 0.000000, 0.000000, 270.000000},
+	{2942, 1092.4537, -1803.6158, 13.2584, 0.0000, 0.0000, -176.1998}
 };
 
 #define MAX_BANK_TRANSACTIONS_DIALOG 20
@@ -7565,7 +7566,10 @@ SanAndreas()
 	CreateDynamic3DTextLabel(""COL_RED"Tienda 24/7\n"COL_WHITE"12 productos disponibles", 0xF7F7F7FF, -27.964675, -89.948631, 1003.546875, 10.0, .testlos = true, .interiorid = 18);
 
 	// Farmacia
-	CreateDynamic3DTextLabel(""COL_RED"Farmacia\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, -198.002197, -1762.759643, 675.768737, 10.0, .testlos = true, .interiorid = 3);
+	CreateDynamic3DTextLabel(""COL_RED"Farmacia\n"COL_WHITE"3 productos disponibles", 0xF7F7F7FF, -11.283934, 88.862136, 1101.522705, 10.0, .testlos = true, .interiorid = 3);
+
+	// club de la pelea
+	CreateDynamic3DTextLabel(""COL_YELLOW"Club de la pelea\n"COL_WHITE"3 opciones disponibles", 0xF7F7F7FF, -198.002197, -1762.759643, 675.768737, 5.0, .testlos = true, .interiorid = 16);
 
 	//Vehs venta
 	for(new i = 0; i != sizeof SELL_INFO_VEHICLES; i ++)
@@ -8260,6 +8264,11 @@ UpdatePlayerZoneMessages(playerid)
 			ShowPlayerKeyMessage(playerid, "H");
 			return 1;
 		}
+	}
+
+	if (IsPlayerInRangeOfPoint(playerid, 1.0, -11.283934, 88.862136, 1101.522705))
+	{
+		ShowPlayerKeyMessage(playerid, "Y");
 	}
 
 	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], "_");
