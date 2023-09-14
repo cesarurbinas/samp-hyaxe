@@ -3200,23 +3200,26 @@ public OnIncomingPacket(playerid, packetid, BitStream:bs)
                 return 0;
             }
 
-            new modelid = GetVehicleModel(onFootData[PR_surfingVehicleId]);
+            if (ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
+			{
+	            new modelid = GetVehicleModel(onFootData[PR_surfingVehicleId]);
 
-            if (PLAYER_TEMP[playerid][py_SURFING_VEHICLE] != onFootData[PR_surfingVehicleId])
-            {
-	            if (ValidSurfingVehicle(modelid))
+	            if (PLAYER_TEMP[playerid][py_SURFING_VEHICLE] != onFootData[PR_surfingVehicleId])
 	            {
-		            new Float:speed = GetPlayerSpeed(playerid);
-					if (speed > 1.2)
-					{
-		         		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = onFootData[PR_surfingVehicleId];
-		         		
-		         		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
-						PLAYER_TEMP[playerid][py_TIMERS][31] = SetTimerEx("IsValidVehicleAbuse", 10000, false, "ii", playerid, PLAYER_TEMP[playerid][py_SURFING_VEHICLE]);
-		         	}
-		         	else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
-		        }
-		    }
+		            if (ValidSurfingVehicle(modelid))
+		            {
+			            new Float:speed = GetPlayerSpeed(playerid);
+						if (speed > 1.2)
+						{
+			         		PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = onFootData[PR_surfingVehicleId];
+			         		
+			         		KillTimer(PLAYER_TEMP[playerid][py_TIMERS][31]);
+							PLAYER_TEMP[playerid][py_TIMERS][31] = SetTimerEx("IsValidVehicleAbuse", 10000, false, "ii", playerid, PLAYER_TEMP[playerid][py_SURFING_VEHICLE]);
+			         	}
+			         	else PLAYER_TEMP[playerid][py_SURFING_VEHICLE] = 0;
+			        }
+			    }
+			}
         }
         else
         {
@@ -6847,18 +6850,21 @@ public OnPlayerDeath(playerid, killerid, reason)
 		GetPlayerPos(playerid, x, y, z);
 		SetPlayerPosEx(playerid, x, y, z + 1, 0.0, GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
 
-		new p_interior = GetPlayerInterior(killerid);
-
-		if (p_interior == 25 || p_interior == 26 || p_interior == 27)
+		if (ACCOUNT_INFO[killerid][ac_ADMIN_LEVEL] < ADMIN_LEVEL_AC_IMMUNITY)
 		{
-			NeuroJail(killerid, 30, "DM (Minero)");
-			return 1;
-		}
+			new p_interior = GetPlayerInterior(killerid);
 
-		if (reason == 49)
-		{
-			NeuroJail(killerid, 30, "VK");
-			return 1;
+			if (p_interior == 25 || p_interior == 26 || p_interior == 27)
+			{
+				NeuroJail(killerid, 30, "DM (Minero)");
+				return 1;
+			}
+
+			if (reason == 49)
+			{
+				NeuroJail(killerid, 30, "VK");
+				return 1;
+			}
 		}
 	}
 
