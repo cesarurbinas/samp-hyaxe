@@ -232,7 +232,7 @@ CheckMissionPlace(playerid)
                             START_MISSION[index][ems_SPECIAL_INDEX] = random( sizeof(INIT_DRUG_STEAL) );
 
                             new drug_pickup = CreateDynamicPickup(
-                                1212, 1,
+                                1575, 1,
                                 INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][0],
                                 INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][1],
                                 INIT_DRUG_STEAL[ START_MISSION[index][ems_SPECIAL_INDEX] ][2],
