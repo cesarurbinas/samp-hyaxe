@@ -1004,6 +1004,9 @@ public StartVehicleEngine(playerid, vehicleid)
 		PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 10000, false, "id", playerid, 3);
 	}
 
+	if (PLAYER_TEMP[playerid][py_SPEEDOMETER])
+		PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 1570070015);
+
 	ShowPlayerMessage(playerid, "~g~Encendiendo...", 2);
 	SetPlayerChatBubble(playerid, "\n\n\n\n* Ha encendido su vehículo.\n\n\n", 0xffcb90FF, 20.0, 5000);
 	return 1;
@@ -1061,6 +1064,8 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 			SetVehicleHealthEx(vehicleid, GLOBAL_VEHICLES[vehicleid][gb_vehicle_HEALTH], playerid);
 
 			GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
+			if (PLAYER_TEMP[playerid][py_SPEEDOMETER]) PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 0x3D3D3DFF);
+			
 			UpdateVehicleParams(vehicleid);
 			ShowPlayerMessage(playerid, "~r~Motor dañado.", 2);
 
@@ -1084,6 +1089,8 @@ public UpdatePlayerSpeedo(playerid, vehicleid, Float:maxvel)
 				PLAYER_AC_INFO[playerid][CHEAT_VEHICLE_NOFUEL][p_ac_info_IMMUNITY] = gettime() + 15;
 				GLOBAL_VEHICLES[vehicleid][gb_vehicle_GAS] = 0.0;
 				GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
+				if (PLAYER_TEMP[playerid][py_SPEEDOMETER]) PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 0x3D3D3DFF);
+
 				UpdateVehicleParams(vehicleid);
 
 			    ShowPlayerMessage(playerid, "~r~El vehículo se ha quedado sin gasolina", 2);
@@ -2867,6 +2874,8 @@ public OnPlayerEnterDynamicCP(playerid, checkpointid)
 			SetVehicleVelocity(vehicleid, 0.0, 0.0, 0.0);
 
 			GLOBAL_VEHICLES[vehicleid][gb_vehicle_PARAMS_ENGINE] = 0;
+			if (PLAYER_TEMP[playerid][py_SPEEDOMETER]) PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_SPEEDO_METER][1], 0x3D3D3DFF);
+			
 			UpdateVehicleParams(vehicleid);
 
 			TRUCK_VEHICLE[vehicleid][truck_vehicle_UNLOADING] = true;
