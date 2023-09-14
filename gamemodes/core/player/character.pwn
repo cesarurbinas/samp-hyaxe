@@ -16,6 +16,8 @@ enum Character_Enum
 	Float:ch_THIRST,
 	ch_BLACK_MARKET_LEVEL,
 	ch_POLICE_JAIL_TIME,
-	ch_POLICE_JAIL_ID //interior
+	ch_POLICE_JAIL_ID, //interior
+	ch_JAIL_REASON[65],
+	ch_JAILED_BY
 };
 new CHARACTER_INFO[MAX_PLAYERS][Character_Enum]; // CI (CharacterInfo)

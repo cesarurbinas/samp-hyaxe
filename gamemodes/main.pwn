@@ -78,6 +78,9 @@
 #include "core/player/crew.pwn"
 #include "core/player/visual_inventory.pwn"
 
+// Admin
+#include "core/admin/commands.pwn"
+
 // Global
 #include "core/global/textdraws.pwn"
 
@@ -6107,11 +6110,23 @@ public OnPlayerSpawn(playerid)
 				SetPlayerPosEx(playerid, JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] ][jail_X], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Y], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_Z], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_ANGLE], JAIL_POSITIONS[ CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID]  ][jail_INTERIOR], 0, true);
 
 				new time = CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] - (gettime() - PLAYER_TEMP[playerid][py_ENTER_JAIL_TIME]);
-				//SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te quedan {62d743}%s"COL_WHITE" minutos de condena.", TimeConvert(time));
-				
+				SendClientMessageEx(playerid, COLOR_WHITE, ""COL_WHITE"Te quedan {62d743}%s"COL_WHITE" minutos de condena.", TimeConvert(time));
+
 				new str_text[128];
 				format(str_text, sizeof(str_text), "~r~Encarcelado~w~~n~%s minutos.", TimeConvert(time));
 				PLAYER_TEMP[playerid][py_JAIL_NOT] = ShowPlayerNotification(playerid, str_text, 1);
+
+				new DBResult:NameR, query[65];
+				format(query, sizeof(query), "SELECT `NAME` FROM `CUENTA` WHERE `ID` = %d LIMIT 1;", CHARACTER_INFO[playerid][ch_JAILED_BY]);
+				NameR = db_query(Database, query);
+				if(db_num_rows(NameR))
+				{
+					new name[25];
+					db_get_field_assoc(NameR, "NAME", name);
+					format(str_text, sizeof(str_text), "Fuiste encarcelado por %s. Razón: %s.", name, CHARACTER_INFO[playerid][ch_JAIL_REASON]);
+					SendClientMessage(playerid, 0xF7F7F7CC, str_text);
+				}
+				db_free_result(NameR);
 
 				KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 				PLAYER_TEMP[playerid][py_TIMERS][38] = SetTimerEx("SavePrisionTime", 60000, true, "i", playerid);
@@ -21976,7 +21991,9 @@ SaveUserData(playerid)
 		`THIRST` = '%f',\
 		`BLACK_MARKET_LEVEL` = '%d',\
 		`POLICE_JAIL_TIME` = '%d',\
-		`POLICE_JAIL_ID` = '%d' \
+		`POLICE_JAIL_ID` = '%d', \
+		`JAIL_REASON` = '%q', \
+		`JAILED_BY` = %d \
 		WHERE `ID_USER` = '%d';\
 		\
 		UPDATE `BANK_ACCOUNTS` SET\
@@ -21996,7 +22013,7 @@ SaveUserData(playerid)
 		WHERE `ID_USER` = '%d';\
 		",
 		ACCOUNT_INFO[playerid][ac_IP], ACCOUNT_INFO[playerid][ac_NAME], ACCOUNT_INFO[playerid][ac_EMAIL], ACCOUNT_INFO[playerid][ac_SALT], ACCOUNT_INFO[playerid][ac_PASS], ACCOUNT_INFO[playerid][ac_TIME_PLAYING], ACCOUNT_INFO[playerid][ac_LEVEL], ACCOUNT_INFO[playerid][ac_REP], ACCOUNT_INFO[playerid][ac_STATE], ACCOUNT_INFO[playerid][ac_DOUBT_CHANNEL], ACCOUNT_INFO[playerid][ac_TIME_FOR_REP], ACCOUNT_INFO[playerid][ac_ADMIN_LEVEL], ACCOUNT_INFO[playerid][ac_PAYDAY_REP], ACCOUNT_INFO[playerid][ac_ID],
-		CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_CASH], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_STATE], CHARACTER_INFO[playerid][ch_INTERIOR], CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA], CHARACTER_INFO[playerid][ch_FIGHT_STYLE], CHARACTER_INFO[playerid][ch_HEALTH], CHARACTER_INFO[playerid][ch_ARMOUR],  CHARACTER_INFO[playerid][ch_SEX], CHARACTER_INFO[playerid][ch_HUNGRY], CHARACTER_INFO[playerid][ch_THIRST], CHARACTER_INFO[playerid][ch_BLACK_MARKET_LEVEL], CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME], CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID], ACCOUNT_INFO[playerid][ac_ID],
+		CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_CASH], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], CHARACTER_INFO[playerid][ch_STATE], CHARACTER_INFO[playerid][ch_INTERIOR], CHARACTER_INFO[playerid][ch_INTERIOR_EXTRA], CHARACTER_INFO[playerid][ch_FIGHT_STYLE], CHARACTER_INFO[playerid][ch_HEALTH], CHARACTER_INFO[playerid][ch_ARMOUR],  CHARACTER_INFO[playerid][ch_SEX], CHARACTER_INFO[playerid][ch_HUNGRY], CHARACTER_INFO[playerid][ch_THIRST], CHARACTER_INFO[playerid][ch_BLACK_MARKET_LEVEL], CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME], CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID], CHARACTER_INFO[playerid][ch_JAIL_REASON], CHARACTER_INFO[playerid][ch_JAILED_BY], ACCOUNT_INFO[playerid][ac_ID],
 		BANK_ACCOUNT[playerid][bank_account_BALANCE], BANK_ACCOUNT[playerid][bank_account_ID],
 		PLAYER_PHONE[playerid][player_phone_NUMBER], PLAYER_PHONE[playerid][player_phone_STATE], PLAYER_PHONE[playerid][player_phone_VISIBLE_NUMBER], ACCOUNT_INFO[playerid][ac_ID],
 		PLAYER_OBJECT[playerid][po_GPS], PLAYER_OBJECT[playerid][po_MP3], PLAYER_OBJECT[playerid][po_PHONE_RESOLVER], ACCOUNT_INFO[playerid][ac_ID]
@@ -22244,6 +22261,8 @@ LoadCharacterData(playerid)
 		CHARACTER_INFO[playerid][ch_BLACK_MARKET_LEVEL] = db_get_field_assoc_int(Result, "BLACK_MARKET_LEVEL");
 		CHARACTER_INFO[playerid][ch_POLICE_JAIL_TIME] = db_get_field_assoc_int(Result, "POLICE_JAIL_TIME");
 		CHARACTER_INFO[playerid][ch_POLICE_JAIL_ID] = db_get_field_assoc_int(Result, "POLICE_JAIL_ID");
+		db_get_field_assoc(Result, "JAIL_REASON", CHARACTER_INFO[playerid][ch_JAIL_REASON]);
+		CHARACTER_INFO[playerid][ch_JAILED_BY] = db_get_field_assoc_int(Result, "JAILED_BY");
 	}
 	db_free_result(Result);
 	return 1;
@@ -37233,3 +37252,4 @@ flags:rev(CMD_MODERATOR2)
 flags:a(CMD_MODERATOR)
 flags:borrarop(CMD_MODERATOR2)
 flags:admac(CMD_MODERATOR4)
+flags:jailoff(CMD_MODERATOR)
