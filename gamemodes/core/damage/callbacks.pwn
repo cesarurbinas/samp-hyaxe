@@ -176,7 +176,7 @@ public OnPlayerDamage(playerid, issuerid, amount, weaponid, bodypart)
 				GetPlayerPos(issuerid, x, y, z);
 				new Float:dist = GetPlayerDistanceFromPoint(playerid, x, y, z);
 
-				if (dist >= 3.0)
+				if (dist >= 5.0)
 				{
 					new string[128];
 					format(string, sizeof(string), "[ANTI-CHEAT] Kick sobre %s (%d): Fist slapper (wp: %d, dist: %f)", ACCOUNT_INFO[issuerid][ac_NAME], issuerid, weaponid, dist);
