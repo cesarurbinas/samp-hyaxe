@@ -742,13 +742,6 @@ public SetBotInitPosition(playerid)
     return 1;
 }
 
-RandomCordFromPoint(range, negative, &Float:x, &Float:y)
-{
-	x = ( x + ( random( range ) - negative ) );
-	y = ( y + ( random( range ) - negative ) );
-	return 1;
-}
-
 SetBotInit(playerid)
 {
 	SetPlayerScore(playerid, minrand(1, 5));

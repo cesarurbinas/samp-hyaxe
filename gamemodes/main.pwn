@@ -5816,9 +5816,20 @@ CheckRegister(playerid)
 	if (IsPlayerInRangeOfPoint(playerid, 2.0, 1879.2662, -1701.0118, 5216.7100))
 	{
 		ShowDialog(playerid, DIALOG_REGISTER_CIVIL);
-	}	
+	}
 	return 1;
 }
+
+#if defined HALLOWEEN_MODE
+	CheckPumpkinWitch(playerid)
+	{
+		if (IsPlayerInRangeOfPoint(playerid, 2.0, 817.2799, -1103.3270, 25.7921))
+		{
+			ShowDialog(playerid, DIALOG_SELL_PUMPKIN);
+		}
+		return 1;
+	}
+#endif
 
 CheckClubMenu(playerid)
 {
@@ -14174,6 +14185,25 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_REGISTER_CIVIL:
     	{
     		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST, ""COL_RED"Registro", ""COL_WHITE"Documento\t"COL_GREEN"$500\n"COL_WHITE"Licencia de conducir\t"COL_GREEN"$1000", "Comprar", "Cerrar");
+    		return 1;
+    	}
+    	case DIALOG_SELL_PUMPKIN:
+    	{
+    		new 
+    			str_text[164],
+    			payment = (PLAYER_MISC[playerid][MISC_PUMPKIN] * 1000),
+    			vip_payment = 0;
+
+    		if (ACCOUNT_INFO[playerid][ac_SU])
+			{
+				vip_payment = (PLAYER_MISC[playerid][MISC_PUMPKIN] * 1500);				
+			}
+
+    		format(str_text, sizeof(str_text), ""COL_WHITE"¿Desea vender sus %d calabazas?\n\n\
+    			Paga:"COL_GREEN" $%d"COL_WHITE"\n\
+    			Extra: "COL_GREEN" $%d", PLAYER_MISC[playerid][MISC_PUMPKIN], payment, vip_payment);
+
+    		ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_MSGBOX, ""COL_RED"Vender calabazas", str_text, "Vender", "Cerrar");
     		return 1;
     	}
 		default: return 0;
@@ -23049,6 +23079,30 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				}
 			}
 		}
+		case DIALOG_SELL_PUMPKIN:
+		{
+			if (response)
+			{
+				new 
+					str_text[32],
+					payment = (PLAYER_MISC[playerid][MISC_PUMPKIN] * 1000),
+					vip_payment = 0;
+
+	    		if (ACCOUNT_INFO[playerid][ac_SU])
+				{
+					vip_payment = (PLAYER_MISC[playerid][MISC_PUMPKIN] * 1500);				
+				}
+
+				payment = (payment + vip_payment);
+
+				PLAYER_MISC[playerid][MISC_FISH] = 0;
+            	GivePlayerCash(playerid, payment, true);
+
+            	format(str_text, 32, "~g~+%d$", payment);
+     			GameTextForPlayer(playerid, str_text, 5000, 1);
+     			GivePlayerReputation(playerid);
+			}
+		}
 	}
 	return 0;
 }
@@ -26760,6 +26814,9 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
         CheckBoxClub(playerid);
         CheckClubMenu(playerid);
         CheckRegister(playerid);
+        #if defined HALLOWEEN_MODE
+       		CheckPumpkinWitch(playerid);
+		#endif
 
         for(new i = 0; i != sizeof TELE_MIRRORS; i ++)
 		{

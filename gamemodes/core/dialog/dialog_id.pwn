@@ -311,6 +311,11 @@ enum
 >>>>>>> e31d847 (Compartir llaves de vehiculos terminado)
 =======
 	DIALOG_VEHICLE_KEYS_DEL,
+<<<<<<< HEAD
 	DIALOG_REGISTER_CIVIL
 >>>>>>> a74d6aa (registro civil)
+=======
+	DIALOG_REGISTER_CIVIL,
+	DIALOG_SELL_PUMPKIN
+>>>>>>> 2211389 (vender las calabazas)
 };
