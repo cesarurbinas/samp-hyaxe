@@ -1536,20 +1536,18 @@ enum enum_MAFIA_DOORS
 	mafia_door_WORLD,
 	bool:mafia_door_CLOSED,
 	mafia_door_OBJECT_ID,
-	mafia_door_TIMER
+	mafia_door_TIMER,
+	mafia_door_MAFIA
 };
 new MAFIA_DOORS[][enum_MAFIA_DOORS] =
 {
-	//lcn
-	{19912, 659.0961, -1311.3387, 15.4062, -179.8999, 0, 0, true, INVALID_STREAMER_ID, -1},
-	{19912, 655.2785, -1231.4831, 17.8062, -117.6996, 0, 0, true, INVALID_STREAMER_ID, -1},
-	{19912, 787.4024, -1158.2618, 25.5062, -90.1996, 0, 0, true, INVALID_STREAMER_ID, -1},
-	//tcc
-	{19912, 2801.428222, -1603.694580, 12.685187, -18.600008, 0, 0, true, INVALID_STREAMER_ID, -1},
-	//osborn
-	{19912, -2350.201416, -662.360290, 120.741500, 30.000000, 0, 0, true, INVALID_STREAMER_ID, -1},
-	{19912, -2464.229003, -488.837310, 105.451400, 30.000000, 0, 0, true, INVALID_STREAMER_ID, -1},
-	{8378, -1166.879516, -202.562149, 23.027000, -65.000000, 0, 0, true, INVALID_STREAMER_ID, -1}
+	{19912, 659.0961, -1311.3387, 15.4062, -179.8999, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_MAFIA},
+	{19912, 655.2785, -1231.4831, 17.8062, -117.6996, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_MAFIA},
+	{19912, 787.4024, -1158.2618, 25.5062, -90.1996, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_MAFIA},
+	{19912, 2801.428222, -1603.694580, 12.685187, -18.600008, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_ENEMY_MAFIA},
+	{19912, -2350.201416, -662.360290, 120.741500, 30.000000, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_OSBORN},
+	{19912, -2464.229003, -488.837310, 105.451400, 30.000000, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_OSBORN},
+	{8378, -1166.879516, -202.562149, 23.027000, -65.000000, 0, 0, true, INVALID_STREAMER_ID, -1, WORK_OSBORN}
 };
 
 // Barredor
@@ -26660,65 +26658,24 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 					}
 				}
 
-				if (PLAYER_WORKS[playerid][WORK_MAFIA])
+				for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
 				{
-					for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
+					if (PLAYER_WORKS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ]) continue;
+					if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
+					if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
+
+					if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
 					{
-						if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-						if (i > 2) continue;
+						KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
+						MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
 
-						if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
-						{
-							KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-							MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
+						new Float:distance = 15.0;
+						if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
+							distance = 50.0;
 
-							new Float:distance = 15.0;
-							if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
-								distance = 50.0;
-
-							MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-							MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-							break;
-						}
-					}
-				}
-
-				if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
-				{
-					for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
-					{
-						if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-						if (i < 3) continue;
-						
-						if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
-						{
-							KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-							MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
-							MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - 15.0, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-							MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-							break;
-						}
-					}
-				}
-
-				if (PLAYER_WORKS[playerid][WORK_OSBORN])
-				{
-					for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
-					{
-						if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-						if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-						if (i < 4) continue;
-						
-						if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
-						{
-							KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-							MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
-							MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - 15.0, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-							MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-							break;
-						}
+						MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
+						MAFIA_DOORS[i][mafia_door_CLOSED] = false;
+						break;
 					}
 				}
 			}
@@ -30616,60 +30573,24 @@ CMD:policia(playerid, params[])
 
 CMD:porton(playerid, params[])
 {
-	if (PLAYER_WORKS[playerid][WORK_MAFIA])
+	for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
 	{
-		for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
-		{
-			if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-			if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-			if (i > 2) continue;
+		if (PLAYER_WORKS[playerid][ MAFIA_DOORS[i][mafia_door_MAFIA] ]) continue;
+		if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
+		if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
 
-			if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
-			{
-				KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-				MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
-				MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - 15.0, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-				MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-				break;
-			}
-		}
-	}
-
-	if (PLAYER_WORKS[playerid][WORK_ENEMY_MAFIA])
-	{
-		for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
+		if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
 		{
-			if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-			if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-			if (i < 3) continue;
-			
-			if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
-			{
-				KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-				MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
-				MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - 15.0, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-				MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-				break;
-			}
-		}
-	}
+			KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
+			MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
 
-	if (PLAYER_WORKS[playerid][WORK_OSBORN])
-	{
-		for(new i = 0; i != sizeof MAFIA_DOORS; i ++)
-		{
-			if (GetPlayerInterior(playerid) != MAFIA_DOORS[i][mafia_door_INTERIOR] || GetPlayerVirtualWorld(playerid) != MAFIA_DOORS[i][mafia_door_WORLD]) continue;
-			if (IsDynamicObjectMoving(MAFIA_DOORS[i][mafia_door_OBJECT_ID]) || !MAFIA_DOORS[i][mafia_door_CLOSED]) continue;
-			if (i < 4) continue;
-			
-			if (IsPlayerInRangeOfPoint(playerid, 30.0, MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z]))
-			{
-				KillTimer(MAFIA_DOORS[i][mafia_door_TIMER]);
-				MAFIA_DOORS[i][mafia_door_TIMER] = SetTimerEx("CloseMafiaDoor", 10000, false, "i", i);
-				MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - 15.0, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
-				MAFIA_DOORS[i][mafia_door_CLOSED] = false;
-				break;
-			}
+			new Float:distance = 15.0;
+			if (MAFIA_DOORS[i][mafia_door_MODELID] == 8378)
+				distance = 50.0;
+
+			MoveDynamicObject(MAFIA_DOORS[i][mafia_door_OBJECT_ID], MAFIA_DOORS[i][mafia_door_X], MAFIA_DOORS[i][mafia_door_Y], MAFIA_DOORS[i][mafia_door_Z] - distance, 2.0, 0.0, 0.0, MAFIA_DOORS[i][mafia_door_RZ]);
+			MAFIA_DOORS[i][mafia_door_CLOSED] = false;
+			break;
 		}
 	}
 	return 1;
