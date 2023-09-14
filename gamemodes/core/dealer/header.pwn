@@ -1,6 +1,6 @@
 new DEALER_SKIN[] =
 {
-	28, 29, 21
+	28, 29, 21, 100
 };
 
 enum dealer_enum

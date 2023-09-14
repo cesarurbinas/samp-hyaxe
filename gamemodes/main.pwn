@@ -25920,8 +25920,8 @@ GivePlayerReputation(playerid, ammount = 1)
 		ACCOUNT_INFO[playerid][ac_REP] += ammount;
 		
 		new str_text[64];
-		format(str_text, sizeof(str_text), "REP~n~~w~+%d", ammount);
-		ShowPlayerAlert(playerid, str_text, 0xBF68EEFF, 4);
+		format(str_text, sizeof(str_text), "EXP~n~~w~+%d", ammount);
+		ShowPlayerAlert(playerid, str_text, 0xdf23f9FF, 4);
 		
 		if (ACCOUNT_INFO[playerid][ac_REP] >= neccessary_rep) NextLevel(playerid);
 		return 1;
@@ -28022,7 +28022,8 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 					}
 
 					// Money drop
-					MoneyDrop(minrand(8, 15), x, y, z);
+					MoneyDrop(minrand(8, 15), x, y, z - 0.9, 0, 0);
+					if (random(2) == 1) GivePlayerReputation(playerid);
 				}
 			}
 
@@ -28031,7 +28032,7 @@ public OnPlayerGiveDamageDynamicActor(playerid, STREAMER_TAG_ACTOR:actorid, Floa
 		}
 		
 		SetDynamicActorHealth(actorid, new_health);
-		SendClientMessageEx(playerid, -1, "amount: %f, actual: %f, new: %f", amount, actual_health, new_health);
+		//SendClientMessageEx(playerid, -1, "amount: %f, actual: %f, new: %f", amount, actual_health, new_health);
 	}
 	return 1;
 }
@@ -28045,13 +28046,15 @@ public RespawnDynamicActor(actorid, type)
 	{
 		case ACTOR_TYPE_DEALER:
 		{
-			ApplyDynamicActorAnimation(actorid, "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
 			SetDynamicActorInvulnerable(actorid, false);
+			SetDynamicActorHealth(actorid, 50.0);
+			ApplyDynamicActorAnimation(actorid, "DEALER", "DEALER_IDLE", 4.0, 1, 1, 1, 0, 0);
 			return 1;
 		}
 		case ACTOR_TYPE_SHOP:
 		{
 			SetDynamicActorInvulnerable(actorid, false);
+			SetDynamicActorHealth(actorid, 50.0);
 			return 1;
 		}
 	}
