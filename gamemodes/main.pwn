@@ -31200,6 +31200,7 @@ alias:ref("refuerzos")
 CALLBACK: DisableRefMark(playerid)
 {
 	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][43]);
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
 
     new city[45], zone[45];
     GetPlayerZones(playerid, city, zone);
@@ -31225,6 +31226,34 @@ CALLBACK: DisableRefMark(playerid)
             }
         }
     }
+    return 1;
+}
+
+CALLBACK: DisableGangRefMark(playerid)
+{
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][38]);
+
+    new city[45], zone[45];
+    GetPlayerZones(playerid, city, zone);
+    new message[144];
+    format(message, sizeof message, "~r~%s~w~ se perdió (%s).", PLAYER_TEMP[playerid][py_RP_NAME], zone);
+    SetPlayerColorEx(playerid, PLAYER_COLOR);
+
+    for(new i = 0, j = GetPlayerPoolSize(); i <= j; i++)
+	{
+		if (IsPlayerConnected(i))
+		{
+			if (PLAYER_CREW[i][player_crew_VALID])
+			{
+				if (PLAYER_CREW[i][player_crew_ID] == PLAYER_CREW[playerid][player_crew_ID])
+				{
+					SetPlayerMarkerForPlayer(i, playerid, 0x6060FF00);
+                    SetPlayerColorEx(playerid, 0x6060FF00);
+                    ShowPlayerNotification(i, message, 4);
+				}
+			}
+		}
+	}
     return 1;
 }
 
