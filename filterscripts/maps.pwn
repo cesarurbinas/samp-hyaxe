@@ -30,7 +30,6 @@ public OnFilterScriptInit()
     new fsb_map[216];
 
     fsb_map[0] = CreateDynamicObject(19913, 1392.8083, 2882.6665, 14.2461, 0.0000, 0.0000, 0.0000); //SAMPBigFence1
-    fsb_map[1] = CreateDynamicObject(19912, 1523.2187, 2767.4199, 12.3219, 0.0000, 0.0000, -90.1996); //SAMPMetalGate1
     fsb_map[2] = CreateDynamicObject(19913, 1342.8387, 2882.6665, 14.2461, 0.0000, 0.0000, 0.0000); //SAMPBigFence1
     fsb_map[3] = CreateDynamicObject(19913, 1292.8819, 2882.6665, 14.2461, 0.0000, 0.0000, 0.0000); //SAMPBigFence1
     fsb_map[4] = CreateDynamicObject(19913, 1242.8863, 2882.6665, 14.2461, 0.0000, 0.0000, 0.0000); //SAMPBigFence1
