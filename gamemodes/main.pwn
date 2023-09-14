@@ -4772,7 +4772,7 @@ Menu:PROPERTY_MENU(playerid, response, listitem)
 			}
 			case 2:
 			{
-				//ShowFurnitureMenu(playerid);
+				ShowFurnitureMenu(playerid);
 				ShowPlayerMessage(playerid, "~r~Esta opción no esta disponible por el momento", 4);
 			}
     	}
@@ -4799,12 +4799,19 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
 {
     if (response == MENU_RESPONSE_SELECT)
     {
-    	print("test etst asd");
+    	switch(listitem)
+    	{
+    		case 0: print("a");
+    		case 1:
+    		{
+    			
+    		}
+    	}
     }
     return 1; 
 }
 
-/*ShowFurnitureMenu(playerid)
+ShowFurnitureMenu(playerid)
 {
 	ShowPlayerMenu(playerid, PROPERTY_FURNITURE, "Personalizar");
 
@@ -4819,7 +4826,7 @@ Menu:PROPERTY_FURNITURE(playerid, response, listitem)
 
 	PlayerPlaySound(playerid, 17803, 0.0, 0.0, 0.0);
 	return 1;
-}*/
+}
 
 ShowPropertyOptions(playerid)
 {
@@ -12306,8 +12313,8 @@ ShowDialog(playerid, dialogid)
 		case DIALOG_BOOMBOX_OPTIONS:
 		{
 			new dialog[350];
-			if(BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), "Opción\tEstado\nParlante público\t< "COL_GREEN"Sí\n");
-			else format(dialog, sizeof(dialog), "Opción\tEstado\nParlante público\t< "COL_RED"No\n");
+			if(BOOMBOX[ PLAYER_TEMP[playerid][py_MUSIC_BOOMBOX] ][bb_PUBLIC]) format(dialog, sizeof(dialog), ""COL_WHITE"Opción\t"COL_WHITE"Estado\nParlante público\t< "COL_GREEN"Sí\n");
+			else format(dialog, sizeof(dialog), ""COL_WHITE"Opción\t"COL_WHITE"Estado\nParlante público\t< "COL_RED"No\n");
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_TABLIST_HEADERS, ""COL_RED"Opciones del parlante", dialog, "Cambiar", "Salir");
 		}
 		case DIALOG_ELECTRONIC_SHOP:
@@ -20550,7 +20557,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
 						PLAYER_OBJECT[playerid][po_MP3] = true;
-						SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"usa "COL_RED"/mp3 "COL_WHITE"para usarlo.", ELECTRONIC_PRODUCTS[listitem][ep_NAME], ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						ShowPlayerNotification(playerid, "Has comprado un MP3.", 4);
 						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
 						PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 						return 1;
@@ -20561,7 +20568,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 
 						GivePlayerCash(playerid, -ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
 						PLAYER_OBJECT[playerid][po_BOOMBOX] = true;
-						SendClientMessageEx(playerid, COLOR_WHITE, "Has comprado un "COL_RED"%s "COL_WHITE"por "COL_RED"%d$, "COL_WHITE"usa "COL_RED"/parlante "COL_WHITE"para más información.", ELECTRONIC_PRODUCTS[listitem][ep_NAME], ELECTRONIC_PRODUCTS[listitem][ep_PRICE]);
+						ShowPlayerNotification(playerid, "Has comprado un parlante.", 4);
 						ApplyAnimation(playerid, "DEALER", "SHOP_PAY", 4.1, false, false, false, false, 0, false);
 						PlayerPlaySoundEx(playerid, 1058, 0.0, 0.0, 0.0);
 						return 1;
