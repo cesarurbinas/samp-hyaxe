@@ -11,6 +11,22 @@ new NAME_WHITELIST[][24] =
 
 new g_iPlayerLastUpdate[MAX_PLAYERS];
 
+new const Float:NewUserPos[][] =
+{
+	{1090.567138, -1805.910156, 16.593750, 1.044739},
+	{1098.168090, -1805.921508, 16.593750, 358.225128},
+	{1109.456787, -1802.678344, 16.593750, 88.465942},
+	{1109.102416, -1799.647583, 16.593750, 88.465942},
+	{1108.857299, -1796.502441, 16.593750, 89.092605},
+	{1108.432617, -1793.480102, 16.593750, 89.092605},
+	{1108.954711, -1790.486816, 16.593750, 89.092605},
+	{1108.645629, -1785.879882, 16.593750, 89.092559},
+	{1109.832763, -1783.515502, 16.593750, 1.358403},
+	{1097.333251, -1800.550903, 13.604625, 33.295372},
+	{1096.499511, -1788.365478, 13.624750, 88.755897},
+	{1084.961181, -1795.690673, 13.670027, 359.768463}
+};
+
 /*IsPlayerPaused(playerid)
 {
 	return (GetTickCount() - g_iPlayerLastUpdate[playerid] > 2000);
@@ -607,4 +623,269 @@ TogglePlayerControllableEx(playerid, bool:controllable)
 {
 	PLAYER_TEMP[playerid][py_CONTROL] = controllable;
 	return TogglePlayerControllable(playerid, controllable);
+}
+
+ShowPlayerKeyMessage(playerid, const key[])
+{
+	new str_text[64];
+	format(str_text, sizeof(str_text), "Pulsa %s", key);
+
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], str_text);
+	PlayerTextDrawBoxColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
+	PlayerTextDrawBackgroundColor(playerid, PlayerTextdraws[playerid][ptextdraw_KEY], 0x000000DD);
+	PlayerTextDrawShow(playerid, PlayerTextdraws[playerid][ptextdraw_KEY]);
+	return 1;
+}
+
+ShowPlayerNotification(playerid, const message[], time = 1, bool:auto_jump = true)
+{
+	#pragma unused time
+
+	new str_text[264];
+	format(str_text, sizeof(str_text), "~w~%s", TextToSpanish(message));
+	Notification_Show(playerid, str_text, auto_jump);
+	return 1;
+}
+
+forward HidePlayerNotification(playerid);
+public HidePlayerNotification(playerid)
+{
+	#if DEBUG_MODE == 1
+		printf("HidePlayerNotification"); // debug juju
+	#endif
+
+	KillTimer(PLAYER_TEMP[playerid][py_TIMERS][45]);
+	PlayerTextDrawSetString(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE], "_");
+	PlayerTextDrawHide(playerid, PlayerTextdraws[playerid][ptextdraw_NOTIFICATION_MESSAGE]);
+	return 1;
+}
+
+forward ContinuePlayerIntro(playerid, step);
+public ContinuePlayerIntro(playerid, step)
+{
+	#if DEBUG_MODE == 1
+		printf("ContinuePlayerIntro"); // debug juju
+	#endif
+
+	switch(step)
+	{
+		case 0:
+		{
+			ClearPlayerChatBox(playerid);
+
+            CHARACTER_INFO[playerid][ch_CASH] = 10000;
+			new index_pos = minrand(0, sizeof(NewUserPos));
+			CHARACTER_INFO[playerid][ch_POS][0] = NewUserPos[index_pos][0];
+			CHARACTER_INFO[playerid][ch_POS][1] = NewUserPos[index_pos][1];
+			CHARACTER_INFO[playerid][ch_POS][2] = NewUserPos[index_pos][2];
+			CHARACTER_INFO[playerid][ch_ANGLE] = NewUserPos[index_pos][3];
+			CHARACTER_INFO[playerid][ch_FIGHT_STYLE] = 4;
+			CHARACTER_INFO[playerid][ch_HEALTH] = 100.0;
+			CHARACTER_INFO[playerid][ch_ARMOUR] = 0.0;
+			CHARACTER_INFO[playerid][ch_HUNGRY] = 90.0;
+			CHARACTER_INFO[playerid][ch_THIRST] = 95.0;
+			PLAYER_MISC[playerid][MISC_CONFIG_SOUNDS] = true;
+			PLAYER_MISC[playerid][MISC_CONFIG_AUDIO] = true;
+			PLAYER_MISC[playerid][MISC_CONFIG_HUD] = true;
+			PLAYER_MISC[playerid][MISC_CONFIG_LOWPC] = false;
+			PLAYER_MISC[playerid][MISC_CONFIG_FP] = false;
+			PLAYER_MISC[playerid][MISC_CONFIG_ADMIN] = false;
+
+			SetPlayerScore(playerid, ACCOUNT_INFO[playerid][ac_LEVEL]);
+			PLAYER_TEMP[playerid][py_DOUBT_CHANNEL_TIME] = gettime();
+			ResetPlayerWeapons(playerid);
+			ResetPlayerMoney(playerid);
+			GivePlayerMoney(playerid, CHARACTER_INFO[playerid][ch_CASH]);
+			SetPlayerFightingStyle(playerid, CHARACTER_INFO[playerid][ch_FIGHT_STYLE]);
+			SetPlayerHealthEx(playerid, CHARACTER_INFO[playerid][ch_HEALTH]);
+			SetPlayerArmourEx(playerid, CHARACTER_INFO[playerid][ch_ARMOUR]);
+			SetPlayerVirtualWorld(playerid, 0);
+			SetSpawnInfo(playerid, DEFAULT_TEAM, CHARACTER_INFO[playerid][ch_SKIN], CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0, 0, 0, 0, 0);
+			SetPlayerInterior(playerid, CHARACTER_INFO[playerid][ch_INTERIOR]);
+			PLAYER_TEMP[playerid][py_SKIN] = CHARACTER_INFO[playerid][ch_SKIN];
+
+			RegisterNewPlayer(playerid);
+			PLAYER_TEMP[playerid][py_NEW_USER] = true;
+			TogglePlayerSpectatingEx(playerid, false);
+
+			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
+			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 500, false, "id", playerid, 1);
+		}
+		case 1:
+		{
+			SavePlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay");
+
+			StopAudioStreamForPlayer(playerid);
+			PLAYER_MISC[playerid][MISC_CONFIG_HUD] = true;
+			PLAYER_MISC[playerid][MISC_CONFIG_LOWPC] = false;
+			PLAYER_MISC[playerid][MISC_CONFIG_ADMIN] = false;
+			SetPlayerHud(playerid);
+			PLAYER_TEMP[playerid][py_NEW_USER] = false;
+			PLAYER_TEMP[playerid][py_TUTORIAL] = true;
+			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 1;
+			SetPlayerVirtualWorld(playerid, 0);
+			SetCameraBehindPlayer(playerid);
+
+			TogglePlayerControllableEx(playerid, true);
+			ShowPlayerNotification(playerid, "Bienvenido a Hyaxe Roleplay, versión experimental.", 12);
+			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
+
+			SetPlayerPosEx(playerid, CHARACTER_INFO[playerid][ch_POS][0], CHARACTER_INFO[playerid][ch_POS][1], CHARACTER_INFO[playerid][ch_POS][2], CHARACTER_INFO[playerid][ch_ANGLE], 0, 0);
+			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 2000, false, "id", playerid, 2);
+		}
+		case 2:
+		{
+			StopAudioStreamForPlayer(playerid);
+
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 1) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_1.mp3");
+			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 2;
+
+			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
+		}
+		case 3:
+		{
+			StopAudioStreamForPlayer(playerid);
+			
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 6) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_6.mp3");
+			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 7;
+
+			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
+			PLAYER_TEMP[playerid][py_TIMERS][18] = SetTimerEx("ContinuePlayerIntro", 51000, false, "id", playerid, 4);
+		}
+		case 4:
+		{
+			StopAudioStreamForPlayer(playerid);
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 7) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_7.mp3");
+			PLAYER_TEMP[playerid][py_TUTORIAL] = false;
+
+			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
+		}
+		case 5:
+		{
+			KillTimer(PLAYER_TEMP[playerid][py_TIMERS][18]);
+			StopAudioStreamForPlayer(playerid);
+
+			if (PLAYER_TEMP[playerid][py_TUTORIAL_STEP] == 4) PlayAudioStreamForPlayer(playerid, "http://tmp6.hyaxe.com:20100/tutorial_4.mp3");
+			PLAYER_TEMP[playerid][py_TUTORIAL_STEP] = 5;
+		}
+
+	}
+	return 1;
+}
+
+forward CarJackingFinish(playerid);
+public CarJackingFinish(playerid)
+{
+	#if DEBUG_MODE == 1
+		printf("CarJackingFinish"); // debug juju
+	#endif
+
+	TogglePlayerControllableEx(playerid, true);
+	return 1;
+}
+
+GetPlayerCameraLookAt(playerid, &Float:X, &Float:Y, &Float:Z)
+{
+    new Float:pos[6];
+    GetPlayerCameraPos(playerid, pos[0], pos[1], pos[2]);
+    GetPlayerCameraFrontVector(playerid, pos[3], pos[4], pos[5]);
+    X = floatadd(pos[0], pos[3]);
+    Y = floatadd(pos[1], pos[4]);
+    Z = floatadd(pos[2], pos[5]);
+    return 1;
+}
+
+CheckPlayerSuperUser(playerid)
+{
+	new DBResult:Result, DB_Query[144], bool:expired;
+	format(DB_Query, sizeof DB_Query, "SELECT `ID` FROM `CUENTA` WHERE `ID` = '%d' AND DATETIME('NOW') >= `SU_EXPIRE_DATE`;", ACCOUNT_INFO[playerid][ac_ID]);
+	Result = db_query(Database, DB_Query);
+
+	if (db_num_rows(Result))
+	{
+		expired = true;
+		format(DB_Query, sizeof DB_Query, "UPDATE `CUENTA` SET `SU` = 0, `SU_EXPIRE_DATE` = '0' WHERE `ID` = '%d';", ACCOUNT_INFO[playerid][ac_ID]);
+		db_free_result(db_query(Database, DB_Query));
+	}
+	db_free_result(Result);
+
+	if (expired)
+	{
+		ACCOUNT_INFO[playerid][ac_SU] = false;
+		ACCOUNT_INFO[playerid][ac_SU_EXPIRE_DATE][0] = EOS;
+		ShowPlayerMessage(playerid, "~r~VIP EXPIRADO", 4);
+		ShowPlayerNotification(playerid, "~r~VIP EXPIRADO~w~~n~Tu VIP ha expirado, usa /vip si quieres comprar de nuevo.", 4);
+		if (GetPlayerSkin(playerid) == CHARACTER_INFO[playerid][ch_SKIN]) SetPlayerToys(playerid);
+		ReLockPlayerVehicles(playerid, true);
+	}
+
+	PLAYER_TEMP[playerid][py_LAST_SU_CHECK] = gettime();
+	return 1;
+}
+
+UnlockPlayerVehicles(playerid)
+{
+	new total;
+	for(new i = 0; i != MAX_VEHICLES; i ++)
+	{
+		if (!GLOBAL_VEHICLES[i][gb_vehicle_VALID]) continue;
+		if (!PLAYER_VEHICLES[i][player_vehicle_VALID]) continue;
+
+		if (PLAYER_VEHICLES[i][player_vehicle_ID] == ACCOUNT_INFO[playerid][ac_ID])
+		{
+			if (total >= MAX_SU_VEHICLES) break;
+
+			PLAYER_VEHICLES[i][player_vehicle_ACCESSIBLE] = true;
+		}
+	}
+	return total;
+}
+
+ReLockPlayerVehicles(playerid, bool:remove = false)
+{
+	if (ACCOUNT_INFO[playerid][ac_ID] == 0) return 0;
+	if (ACCOUNT_INFO[playerid][ac_SU]) return 0;
+
+	new DBResult:Result, DB_Query[128];
+	format(DB_Query, sizeof(DB_Query), "SELECT `ID` FROM `PLAYER_VEHICLES` WHERE `ID_USER` = '%d' ORDER BY `ID` DESC LIMIT %d;", ACCOUNT_INFO[playerid][ac_ID], MAX_SU_VEHICLES);
+	Result = db_query(Database, DB_Query);
+
+	new total_vehicles, veh_did;
+	for(new i; i < db_num_rows(Result); i++ )
+	{
+		if (total_vehicles >= MAX_SU_VEHICLES)
+		{
+			printf("[debug]  MAX_SU_VEHICLES superado al cargar de base de datos.");
+			break;
+		}
+
+		veh_did = db_get_field_int(Result, 0);
+		new vehicle_id = GetPlayerVehicleIdFromDbId(veh_did);
+		if (vehicle_id != INVALID_VEHICLE_ID)
+		{
+			PLAYER_VEHICLES[vehicle_id][player_vehicle_ACCESSIBLE] = true;
+			if (total_vehicles >= MAX_NU_VEHICLES)
+			{
+				if (remove)
+				{
+					if (GLOBAL_VEHICLES[vehicle_id][gb_vehicle_OCCUPIED])
+					{
+						SetVehicleVelocity(vehicle_id, 0.0, 0.0, 0.0);
+						if (GLOBAL_VEHICLES[vehicle_id][gb_vehicle_DRIVER] != INVALID_PLAYER_ID) RemovePlayerFromVehicle(playerid);
+					}
+				}
+				GLOBAL_VEHICLES[vehicle_id][gb_vehicle_PARAMS_ENGINE] = 0;
+				GLOBAL_VEHICLES[vehicle_id][gb_vehicle_PARAMS_LIGHTS] = 0;
+				GLOBAL_VEHICLES[vehicle_id][gb_vehicle_PARAMS_DOORS] = 1;
+				PLAYER_VEHICLES[vehicle_id][player_vehicle_ACCESSIBLE] = false;
+				UpdateVehicleParams(vehicle_id);
+			}
+		}
+
+		total_vehicles ++;
+		db_next_row(Result);
+	}
+	
+	db_free_result(Result);
+	return 1;
 }
