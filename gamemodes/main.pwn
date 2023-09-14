@@ -6146,7 +6146,7 @@ public OnPlayerDeath(playerid, killerid, reason)
 		ShowPlayerNotification(playerid, str_victim, 4);
 		SavePlayerNotification(playerid, str_victim);
 
-		format(str_victim, sizeof(str_victim), "[KILL] %s hirió a %s con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], PLAYER_TEMP[playerid][py_NAME], gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
+		format(str_victim, sizeof(str_victim), "[KILL] %s (%d) hirió a %s (%d) con %s desde %.1f metros.", ACCOUNT_INFO[killerid][ac_NAME], killerid, PLAYER_TEMP[playerid][py_NAME], playerid, gunname, GetPlayerDistanceFromPoint(playerid, x, y, z));
 		SendMessageToAdmins(COLOR_ANTICHEAT, str_victim);
 
 		GetPlayerPos(playerid, x, y, z);
