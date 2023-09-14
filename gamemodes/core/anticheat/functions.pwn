@@ -9,7 +9,12 @@ bool:IsPlayerJumping(playerid)
 
 Anticheat_Ban(playerid, reason[], days = 0)
 {
-	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
+	TogglePlayerControllableEx(playerid, false);
+	if (PLAYER_TEMP[playerid][py_KICKED])
+	{
+		Kick(playerid);
+		return 0;
+	}
 	
 	// Alert user ban
 	SendClientMessageEx(playerid, COLOR_OCTA, "[ANTI-CHEAT]"COL_WHITE" Fuiste baneado, razón: %s.", reason);
@@ -47,7 +52,12 @@ Anticheat_Ban(playerid, reason[], days = 0)
 
 Anticheat_Kick(playerid, reason[])
 {
-	if (PLAYER_TEMP[playerid][py_KICKED]) return 0;
+	TogglePlayerControllableEx(playerid, false);
+	if (PLAYER_TEMP[playerid][py_KICKED])
+	{
+		Kick(playerid);
+		return 0;
+	}
 
 	// Alert user kick
 	SendClientMessageEx(playerid, COLOR_OCTA, "[ANTI-CHEAT]"COL_WHITE" Fuiste expulsado, razón: %s.", reason);
