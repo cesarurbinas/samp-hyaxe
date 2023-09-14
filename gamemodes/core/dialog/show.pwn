@@ -24,7 +24,9 @@ ShowDialog(playerid, dialogid)
 		{
 			new dialog_login[164];
 			format(dialog_login, sizeof dialog_login, ""COL_WHITE"\
-				Hola, "COL_RED"%s"COL_WHITE". Esta cuenta ya está registrada.\n\nContraseña:", PLAYER_TEMP[playerid][py_RP_NAME]);
+				Bienvenido, "COL_DARK_BLUE"%s"COL_WHITE".\n\n\
+				Esta cuenta ya está registrada, para ingresar escriba su\n\
+				contraseña en el cuadro a continuación.\n\nContraseña:", PLAYER_TEMP[playerid][py_RP_NAME]);
 			ShowPlayerDialog(playerid, dialogid, DIALOG_STYLE_PASSWORD, ""COL_RED"Ingresa a tu cuenta", dialog_login, "Aceptar", "Cancelar");
 			return 1;
 		}

@@ -2146,7 +2146,6 @@ CMD:asay(playerid, params[])
 	SendCmdLogToAdmins(playerid, "asay", params);
 	return 1;
 }
-alias:asay("global")
 
 CMD:setworld(playerid, params[])
 {
