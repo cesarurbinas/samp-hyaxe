@@ -5579,7 +5579,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				PLAYER_TEMP[playerid][py_AIMBOT_COUNT] ++;
 
 				new str_text[144];
-				format(str_text, sizeof(str_text), "[ANTI-CHEAT] %s (%d): posible uso de Silent Aim con: %s (Distancia: %i mts)", ACCOUNT_INFO[playerid][ac_NAME], playerid, weapon_name, floatround(aim_distance));
+				format(str_text, sizeof(str_text), "[ANTI-CHEAT] %s (%d): posible uso de Silent Aim #0 con: %s (Dist: %i mts)", ACCOUNT_INFO[playerid][ac_NAME], playerid, weapon_name, floatround(aim_distance));
 				SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 				SendDiscordWebhook(str_text, 1);
 			}
@@ -5597,7 +5597,7 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 				PLAYER_TEMP[playerid][py_AIMBOT_COUNT] ++;
 
 				new str_text[144];
-				format(str_text, sizeof(str_text), "[ANTI-CHEAT] %s (%d): posible uso de Pro Aim con: %s (Distancia: %i mts)", ACCOUNT_INFO[playerid][ac_NAME], playerid, weapon_name, floatround(aim_distance));
+				format(str_text, sizeof(str_text), "[ANTI-CHEAT] %s (%d): posible uso de Pro Aim #0 con: %s (Dist: %i mts)", ACCOUNT_INFO[playerid][ac_NAME], playerid, weapon_name, floatround(aim_distance));
 				SendMessageToAdminsAC(COLOR_ANTICHEAT, str_text);
 				SendDiscordWebhook(str_text, 1);
 			}
